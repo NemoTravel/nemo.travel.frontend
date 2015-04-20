@@ -1,0 +1,5 @@
+# PHPStorm/WebStorm/IDEA project files
+/.idea/
+
+# Stylobuild
+/node_modules

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nemo Front-End</title>
+</head>
+<body>
+	<div class="js-nemoApp">
+		<!-- ko if: data() -->
+			<div style="display: none;" data-bind="with: data(), attr: {style: ''}">
+				APP LOADED
+			</div>
+		<!-- /ko -->
+		<!-- ko if: !data() -->
+		<div>
+			LOADING
+		</div>
+		<!-- /ko -->
+	</div>
+
+	<script src="/js/lib/requirejs/v.2.1.15/require.js"></script>
+	<script>
+		require.config({
+			// This should be deleted
+			urlArgs: "bust=" + (new Date()).getTime(),
+
+			//  псевдонимы и пути используемых библиотек и плагинов
+			paths: {
+				domReady: 'lib/requirejs/domReady',
+				knockout: 'lib/knockout/v.3.2.0/knockout-3.2.0',
+				AppController: 'NemoFrontEndController'/*,
+				jQuery: 'lib/jquery/v.X.X.X/jquery.min.js',
+				jQueryUI: 'lib/jqueryUI/v.11.4/jquery-ui.min.js'*/
+			},
+
+			enforceDefine: true,
+			baseUrl: "/js/"
+		});
+
+		require (
+			['AppController', 'knockout'],
+			function (AppController, ko) {
+				var controller = new AppController(
+					[
+						{
+							re: /^(\d+)?$/,
+							handler: 'vm/FlightsSearchFormController'
+						},
+						{
+							re: /^view\/(\d+)$/,
+							handler: 'test2'
+						}
+					],
+					'/test/',
+					document.getElementsByClassName('js-form')[0],
+					{
+						verbose: true
+					},
+					ko
+				);
+			}
+		);
+	</script>
+</body>
+</html>

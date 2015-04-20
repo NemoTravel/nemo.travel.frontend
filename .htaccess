@@ -1,0 +1,8 @@
+# Routing rules
+Options -Indexes +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]*/)*[^/.]*$ index.html
