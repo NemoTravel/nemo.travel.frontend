@@ -3,6 +3,9 @@ Options -Indexes +FollowSymlinks
 RewriteEngine On
 RewriteBase /
 
+#RewriteRule ^(html/.*\.html)$ delay.php?tpl=$1
+#RewriteRule ^(js/.*\.js)$ delay.php?tpl=$1
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]*/)*[^/.]*$ index.html

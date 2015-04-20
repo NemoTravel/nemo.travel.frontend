@@ -1,162 +1,489 @@
 'use strict';
-define (function () {
-	var NemoFrontEndController = function (routes, root, scope, options, ko) {
-		this.CONST_COMMON_LOAD = [
-			'vm/BaseStaticModel',      // Base model: static
-			'vm/BaseDynamicModel',     // Base model: dynamic
-			'vm/BaseControllerModel',  // Base model: controller
-			'bindings/common',         // Common bindings
-			'lib/i18n/i18n'            // Internationalization plugin
-		];
+define (
+	['knockout'],
+	function (ko) {
+		var NemoFrontEndController = function (scope, options) {
+			var self = this;
 
-		var self = this;
+			this.scope = scope;
+			this.options = {};
+			this.ko = ko;
+			this.routes = [
+				{re: /^(\d+)?$/,          handler: 'vm/FlightsSearchForm/FlightsSearchFormController'},
+				{re: /^results\/(\d+)$/,  handler: 'vm/FlightsSearchResults/FlightsSearchResultsController'},
+				{re: /^order\/(\d+)$/,     handler: 'vm/FlightsCheckoutController'}
+			];
+			this.i18n = {};
 
-		this.scope = scope;
-		this.options = {};
-		this.ko = ko;
-		this.uniqueObjectsId = 0;
-		this.routes = routes || [];
-		this.root = root || '/';
-
-		for (var i in this.defaultOptions) {
-			if (this.defaultOptions.hasOwnProperty(i)) {
-				if (typeof options == "object" && options.hasOwnProperty(i)) {
-					this.options[i] = options[i];
-				}
-				else {
-					this.options[i] = this.defaultOptions[i];
+			// Processing options
+			for (var i in this.defaultOptions) {
+				if (this.defaultOptions.hasOwnProperty(i)) {
+					if (typeof options == "object" && options.hasOwnProperty(i)) {
+						this.options[i] = options[i];
+					}
+					else {
+						this.options[i] = this.defaultOptions[i];
+					}
 				}
 			}
-		}
+
+			if (!this.options.dataURL) {
+				this.options.dataURL = this.options.sourceURL;
+			}
+
+			if (!this.options.i18nURL) {
+				this.options.i18nURL = this.options.dataURL+'/i18n';
+			}
+
+			/**
+			 * Routing object.
+			 *
+			 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
+			 *
+			 * @type {{interval: null, init: init, getFragment: getFragment, clearSlashes: clearSlashes, check: check, listen: listen, navigate: navigate}}
+			 */
+			this.router = {
+				interval: null,
+				init: function () {
+					self.options.root = '/'+this.clearSlashes(self.options.root)+'/';
+
+					if (self.options.root == '//') {
+						self.options.root = '/';
+					}
+				},
+				getFragment: function() {
+					var sourceURL = ('/'+this.clearSlashes(decodeURI(location.pathname + location.search)).replace(/\?(.*)$/, '')+'/'),
+						fragment;
+
+					if (sourceURL == '//') {
+						sourceURL = '/';
+					}
+
+					if (self.options.root == '/' || sourceURL.indexOf(self.options.root) === 0) {
+						fragment = self.options.root != '/' ? sourceURL.replace(self.options.root, '') : sourceURL;
+						return this.clearSlashes(fragment);
+					}
+
+					return '### NO ROUTE ###';
+				},
+				clearSlashes: function(path) {
+					return path.toString().replace(/\/$/, '').replace(/^\//, '');
+				},
+				check: function() {
+					var fragment = this.getFragment();
+
+					for(var i = 0; i < self.routes.length; i++) {
+						var match = fragment.match(self.routes[i].re);
+						if(match) {
+							match.shift();
+							return [self.routes[i].handler, match];
+						}
+					}
+
+					return null;
+				},
+				listen: function () {
+
+				},
+				navigate: function(path) {
+					path = path ? path : '';
+					if(!!(history.pushState)) {
+						history.pushState(null, null, self.options.root + this.clearSlashes(path));
+					} else {
+						window.location = self.options.root + this.clearSlashes(path);
+					}
+					return this;
+				}
+			};
+
+			this.viewModel = {
+				component: ko.observable(null),
+				controller: this,
+				globalError: ko.observable(null),
+				i18n: function (segment, key) {
+					if (this.controller.i18nExtensions[segment] && this.controller.i18nExtensions[segment][key]) {
+						return this.controller.i18nExtensions[segment][key];
+					}
+					else if (this.controller.i18n[segment] && this.controller.i18n[segment][key]) {
+						return this.controller.i18n[segment][key];
+					}
+					else {
+						return '{i18n:'+segment+':'+key+'}';
+					}
+				}
+			};
+
+			// Adding component loader
+			ko.components.loaders.unshift({
+				getConfig: function() {self.compLoaderGetConfig.apply(self, arguments);},
+				loadViewModel: function() {self.compLoaderLoadViewModel.apply(self, arguments);}
+			});
+
+			this.router.init();
+
+			// Requiring base things: common bindings, base models etc
+			require (
+				[
+					this.options.sourceURL + '/js/vm/BaseDynamicModel',
+					this.options.sourceURL + '/js/vm/BaseStaticModel',
+					this.options.sourceURL + '/js/vm/BaseControllerModel',
+					this.options.sourceURL + '/js/bindings/common',
+					'domReady'
+				],
+				function (BaseDynamicModel, BaseStaticModel, BaseControllerModel) {
+					require (['domReady!'], function () {
+						// Adding base models to storage
+						self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
+						self.processLoadedModel('BaseStaticModel', BaseStaticModel);
+						self.processLoadedModel('BaseControllerModel', BaseControllerModel);
+
+						// Setting KO
+						ko.applyBindings(self.viewModel, self.scope);
+
+						self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
+
+						self.processRoute();
+					});
+				}
+			);
+		};
 
 		/**
-		 * Routing object.
-		 *
-		 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
-		 *
-		 * @type {{interval: null, init: init, getFragment: getFragment, clearSlashes: clearSlashes, check: check, listen: listen, navigate: navigate}}
+		 * Loads a collection of ViewModels, processes them and then executes provided callback
+		 * @param modelsArray string[]
+		 * @param callback function
 		 */
-		this.router = {
-			interval: null,
-			init: function () {
-				self.root = '/'+this.clearSlashes(root)+'/';
-			},
-			getFragment: function() {
-				var fragment = '/'+this.clearSlashes(decodeURI(location.pathname + location.search))+'/';
-				fragment = fragment.replace(/\?(.*)$/, '');
-				fragment = self.root != '/' ? fragment.replace(self.root, '') : fragment;
+		NemoFrontEndController.prototype.loadViewModels = function (modelsArray, callback) {
+			var self = this,
+				modelsRequireArray = [];
 
-				return this.clearSlashes(fragment);
-			},
-			clearSlashes: function(path) {
-				return path.toString().replace(/\/$/, '').replace(/^\//, '');
-			},
-			check: function() {
-				var fragment = this.getFragment();
-				for(var i = 0; i < self.routes.length; i++) {
-					var match = fragment.match(self.routes[i].re);
-					if(match) {
-						match.shift();
-						return [self.routes[i].handler, match];
+			for (var i = 0; i < modelsArray.length; i++) {
+				modelsRequireArray.push(this.options.sourceURL + '/js/vm/' + modelsArray[i]);
+			}
+
+			require (
+				modelsRequireArray,
+				function () {
+					for (var i = 0; i < modelsArray.length; i++) {
+						self.processLoadedModel(modelsArray[i], arguments[i]);
+					}
+
+					callback();
+				}
+			);
+		};
+
+		NemoFrontEndController.prototype.loadKOBindings = function (bindPacksArray, callback, errorCallback) {
+			for (var i = 0; i < bindPacksArray.length; i++) {
+				bindPacksArray[i] = this.options.sourceURL + '/js/bindings/' + bindPacksArray[i];
+			}
+
+			require(
+				bindPacksArray,
+				callback,
+				errorCallback
+			);
+		};
+
+		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, callback, errorCallback) {
+			var self = this,
+				segmentsLoaded = 0,
+				requestsCompleted = 0;
+
+			function checkReadiness () {
+				if (segmentsLoaded == segmentsArray.length) {
+					callback();
+				}
+				else if (requestsCompleted == segmentsArray.length) {
+					errorCallback();
+				}
+			}
+
+			for (var i = 0; i < segmentsArray.length; i++) {
+				if (!self.i18n[segmentsArray[i]]) {
+					// Need a closure here
+					(function (index) {
+						self.makeRequest(
+							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentsArray[index] + '.json',
+							null,
+							function (text) {
+								requestsCompleted++;
+
+								try {
+									if (!self.i18n[segmentsArray[index]]) {
+										self.log('Setting i18n segmeent', segmentsArray[index]);
+										self.i18n[segmentsArray[index]] = JSON.parse(text);
+									}
+
+									segmentsLoaded++;
+								}
+								catch (e) {
+									self.error(e);
+								}
+
+								checkReadiness();
+							},
+							function () {
+								requestsCompleted++;
+								checkReadiness();
+							}
+						);
+					})(i);
+				}
+				else {
+					requestsCompleted++;
+					segmentsLoaded++;
+				}
+			}
+		};
+
+		NemoFrontEndController.prototype.loadData = function (url, additionalParams, callback, errorCallback) {
+			return this.makeRequest(this.options.dataURL + url, additionalParams, callback, errorCallback);
+		};
+
+		NemoFrontEndController.prototype.makeRequest = function (url, additionalParams, callback, errorCallback) {
+			// We use vanilla js because we don't know which of the third-party libraries are present on page
+			var request = new XMLHttpRequest(),
+				POSTParams = '';
+
+			if (!("withCredentials" in request) && typeof XDomainRequest != "undefined") {
+				request = new XDomainRequest();
+			}
+
+			// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
+			request.withCredentials = false;
+
+			if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
+				POSTParams += this.processPOSTParameters(this.options.postParameters);
+			}
+			if (typeof additionalParams == 'object' && additionalParams) {
+				POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
+			}
+
+			request.open(POSTParams ? 'POST' : 'GET', url, true);
+
+			if (POSTParams) {
+				request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+			}
+
+			request.onreadystatechange = function() {
+				if (request.readyState === 4) {
+					if (request.status >= 200 && request.status < 400) {
+						callback(request.responseText, request);
+					} else {
+						errorCallback(request);
+					}
+				}
+			};
+
+			request.send(POSTParams);
+		};
+
+		/**
+		 * Creates a viewModel/template pair
+		 * @param name
+		 * @param callback
+		 */
+		NemoFrontEndController.prototype.compLoaderGetConfig = function (name, callback) {
+			var self = this,
+				template = name.replace('Controller', '').split('/');
+
+			template = template.pop();
+
+			this.log('Detected component', name, callback);
+
+			callback({
+				viewModel: { require: self.options.sourceURL + '/js/vm/' + name },
+				template: { require: 'text!' + self.options.sourceURL + '/html/' + template + '.html' }
+			});
+		};
+
+		/**
+		 * Provides a factory of ViewModels.
+		 *
+		 * Created ViewModels self-initialization is immediately launched
+		 *
+		 * @param name
+		 * @param templateConfig
+		 * @param callback
+		 */
+		NemoFrontEndController.prototype.compLoaderLoadViewModel = function (name, templateConfig, callback) {
+			var self = this;
+			this.log('Component loaded:',name, templateConfig, callback);
+
+			this.processLoadedModel(name, templateConfig);
+
+			callback(function (params, componentInfo) {
+				self.log('Creating component instance:', params, componentInfo);
+
+				var ret = self.getModel(name, params);
+
+				ret.run();
+
+				return ret;
+			});
+		};
+
+		NemoFrontEndController.prototype.processRoute = function () {
+			var route = this.router.check(),
+				self = this;
+
+			if (route instanceof Array) {
+				this.log('Route detected: ', route);
+				self.viewModel.component(route[0].replace('vm/',''));
+			}
+			else {
+				this.warn('No route detected. App terminated.');
+				self.viewModel.globalError('No route detected. App terminated.');
+			}
+		};
+
+		NemoFrontEndController.prototype.getModel = function (name, initialData) {
+			var model;
+			if (typeof this.modelsPool[name] != 'undefined') {
+				this.log('Creating new', name, 'initializing with', initialData);
+
+				model = new this.modelsPool[name](initialData, this);
+
+				// Extending if needed
+				if (typeof this.extensions[name] != 'undefined') {
+					this.log('Extending', name, 'with', this.extensions[name]);
+
+					for (var i = 0; i < this.extensions[name].length; i++) {
+						this.extensions[name][i].call(model);
 					}
 				}
 
-				return null;
-			},
-			navigate: function(path) {
-				path = path ? path : '';
-				if(!!(history.pushState)) {
-					history.pushState(null, null, self.root + this.clearSlashes(path));
-				} else {
-					window.location = self.root + this.clearSlashes(path);
-				}
-				return this;
+				return model;
+			}
+			else {
+				throw "Unknown model name " + name;
+			}
+		}
+
+		NemoFrontEndController.prototype.processLoadedModel = function (name, model) {
+			if (typeof this.modelsPool[name] == 'undefined') {
+				this.log('Loaded new model:', name, model);
+				this.modelsPool[name] = model;
+			}
+			else {
+				this.log('Existing model:', name, model, 'skipping');
 			}
 		};
 
-
-		this.viewModel = {
-			data: ko.observable(null)
+		NemoFrontEndController.prototype.log = function () {
+			if (this.options.verbose && typeof console != "undefined" && typeof console.log == "function") {
+				console.log.apply(console, arguments);
+			}
 		};
 
-		this.router.init();
+		NemoFrontEndController.prototype.error = function () {
+			if (typeof console != "undefined" && typeof console.error == "function") {
+				console.error.apply(console, arguments);
+			}
+		};
 
-		// Setting KO
-		ko.applyBindings(this.viewModel, this.scope);
+		NemoFrontEndController.prototype.warn = function () {
+			if (typeof console != "undefined" && typeof console.warn == "function") {
+				console.warn.apply(console, arguments);
+			}
+		};
 
-		this.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', this.options);
+		NemoFrontEndController.prototype.extend = function (what, extensionFunction) {
+			if (!(NemoFrontEndController.prototype.extensions[what] instanceof Array)) {
+				NemoFrontEndController.prototype.extensions[what] = [];
+			}
 
-		this.processRoute();
-	};
+			NemoFrontEndController.prototype.extensions[what].push(extensionFunction);
+		};
 
-	NemoFrontEndController.prototype.processRoute = function () {
-		var route = this.router.check(),
-			self = this;
+		NemoFrontEndController.prototype.i18nExtend = function (extension) {
+			for (var i in extension) {
+				if (extension.hasOwnProperty(i)) {
+					if (!NemoFrontEndController.prototype.i18nExtensions[i]) {
+						NemoFrontEndController.prototype.i18nExtensions[i] = {};
+					}
 
-		if (route instanceof Array) {
-			this.log('Route detected: ', route);
-			var t = this.CONST_COMMON_LOAD.slice(0);
-			t.unshift(route[0]);
+					for (var j in extension[i]) {
+						if (extension[i].hasOwnProperty(j)) {
+							NemoFrontEndController.prototype.i18nExtensions[i][j] = extension[i][j];
+						}
+					}
+				}
+			}
+		};
 
-			require (t, function () {
-				console.log(arguments);
-				self.processLoadedModel(arguments[0], t[0]);
-				self.processLoadedModel(arguments[1], t[1]);
-				self.processLoadedModel(arguments[2], t[2]);
-				self.processLoadedModel(arguments[3], t[3]);
-			});
-		}
-		else {
-			this.warn('No route detected. Terminating.');
-		}
-	};
+		/**
+		 * Converts a voluntary object into POST-parameters string
+		 *
+		 * Ported from jQuery
+		 *
+		 * @param obj
+		 * @returns {string}
+		 */
+		NemoFrontEndController.prototype.processPOSTParameters = function(obj) {
+			var result = [],
+				addItem = function(key, value) {
+					result[result.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value == null ? "" : value);
+				};
 
-	NemoFrontEndController.prototype.processLoadedModel = function (name, model) {
-		if (typeof this.modelsPool[name] == 'undefined') {
-			this.log('Loaded new model:', name, model);
-			this.modelsPool[name] = model;
-		}
-		else {
-			this.log('Existing model:', name, model, 'skipping');
-		}
-	};
+			function recursiveBuild (prefix, node) {
+				var name;
 
-	NemoFrontEndController.prototype.log = function () {
-		if (this.options.verbose && typeof console != "undefined" && typeof console.log == "function") {
-			console.log.apply(console, arguments);
-		}
-	};
+				if (Array.isArray(node)) {
+					// Serialize array item.
+					for (var i in node) {
+						if (node.hasOwnProperty(i)) {
+							var v = node[i];
 
-	NemoFrontEndController.prototype.error = function () {
-		if (typeof console != "undefined" && typeof console.error == "function") {
-			console.error.apply(console, arguments);
-		}
-	};
+							if (/\[\]$/.test(prefix)) {
+								// Treat each array item as a scalar.
+								addItem(prefix, v);
 
-	NemoFrontEndController.prototype.warn = function () {
-		if (typeof console != "undefined" && typeof console.warn == "function") {
-			console.warn.apply(console, arguments);
-		}
-	};
+							} else {
+								// Item is non-scalar (array or object), encode its numeric index.
+								recursiveBuild(prefix + "[" + (typeof v === "object" ? i : "") + "]", v);
+							}
+						}
+					}
+				} else if (typeof node === "object") {
+					// Serialize object item.
+					for (name in node) {
+						recursiveBuild(prefix + "[" + name + "]", node[ name ]);
+					}
 
-	NemoFrontEndController.prototype.extend = function (what, extensionFunction) {
-		if (!(NemoFrontEndController.prototype.extensions[what] instanceof Array)) {
-			NemoFrontEndController.prototype.extensions[what] = [];
-		}
+				} else {
+					// Serialize scalar item.
+					addItem(prefix, node);
+				}
+			}
 
-		NemoFrontEndController.prototype.extensions[what].push(extensionFunction);
-	};
+			for ( var prefix in obj ) {
+				if (obj.hasOwnProperty(prefix)) {
+					recursiveBuild(prefix, obj[prefix]);
+				}
+			}
 
-	NemoFrontEndController.prototype.defaultOptions = {
-		verbose: false,
-		postParameters: {},
-		i18nLanguage: 'en',
-		i18nURL: ''
-	};
+			// Return the resulting serialization
+			return result.join("&").replace(/%20/g,"+");
+		};
 
-	NemoFrontEndController.prototype.modelsPool = {};
+		NemoFrontEndController.prototype.defaultOptions = {
+			root: '/',
+			sourceURL: '',
+			dataURL: '',
+			verbose: false,
+			postParameters: {},
+			i18nLanguage: 'en',
+			i18nURL: ''
+		};
 
-	NemoFrontEndController.prototype.extensions = {};
+		NemoFrontEndController.prototype.modelsPool = {};
 
-	return NemoFrontEndController;
-});
+		NemoFrontEndController.prototype.extensions = {};
+
+		NemoFrontEndController.prototype.i18nExtensions = {};
+
+		return NemoFrontEndController;
+	}
+);

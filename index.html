@@ -5,57 +5,101 @@
 </head>
 <body>
 	<div class="js-nemoApp">
-		<!-- ko if: data() -->
-			<div style="display: none;" data-bind="with: data(), attr: {style: ''}">
-				APP LOADED
+		<!-- ko if: component() -->
+			<div style="display: none;" data-bind="attr:{style: ''}">
+				APP LOADED (<span data-bind="text: component"></span>)
+				<div class="" data-bind="component: {
+	                name: component,
+					params: {}
+				}">Loading component...</div>
 			</div>
 		<!-- /ko -->
-		<!-- ko if: !data() -->
+		<!-- ko if: !component() && !globalError() -->
 		<div>
-			LOADING
+			LOADING APP
 		</div>
+		<!-- /ko -->
+		<!-- ko if: globalError() -->
+		<div data-bind="text: globalError"></div>
 		<!-- /ko -->
 	</div>
 
-	<script src="/js/lib/requirejs/v.2.1.15/require.js"></script>
+	<script src="http://nemofront.dev/js/lib/requirejs/v.2.1.15/require.js"></script>
 	<script>
+		var nemoSourceHost = 'http://nemofront.dev';
 		require.config({
 			// This should be deleted
 			urlArgs: "bust=" + (new Date()).getTime(),
 
-			//  псевдонимы и пути используемых библиотек и плагинов
 			paths: {
-				domReady: 'lib/requirejs/domReady',
-				knockout: 'lib/knockout/v.3.2.0/knockout-3.2.0',
-				AppController: 'NemoFrontEndController'/*,
-				jQuery: 'lib/jquery/v.X.X.X/jquery.min.js',
-				jQueryUI: 'lib/jqueryUI/v.11.4/jquery-ui.min.js'*/
+				domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
+				text:          nemoSourceHost+'/js/lib/requirejs/text',
+				knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
+				AppController: nemoSourceHost+'/js/NemoFrontEndController',
+				jQuery:        nemoSourceHost+'/js/lib/jquery/v.2.1.3/jquery-2.1.3.min.js'/*,
+				jQueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.11.4/jquery-ui.min.js'*/
 			},
 
+			baseUrl: nemoSourceHost,
 			enforceDefine: true,
-			baseUrl: "/js/"
+
+			// Overriding requirejs.text so templates will ALWAYS be fetched via XHR request
+			// RTFM: https://github.com/requirejs/text#xhr-restrictions
+			config: {
+				text: {
+					useXhr: function (url, protocol, hostname, port) {
+						// Override function for determining if XHR should be used.
+						// Return true means "use xhr", return false means "fetch the .js version of this resource".
+						return true;
+					}
+				}
+			}
 		});
 
 		require (
-			['AppController', 'knockout'],
-			function (AppController, ko) {
+			['AppController'],
+			function (AppController) {
 				var controller = new AppController(
-					[
-						{
-							re: /^(\d+)?$/,
-							handler: 'vm/FlightsSearchFormController'
-						},
-						{
-							re: /^view\/(\d+)$/,
-							handler: 'test2'
-						}
-					],
-					'/test/',
 					document.getElementsByClassName('js-form')[0],
 					{
-						verbose: true
-					},
-					ko
+						sourceURL: nemoSourceHost,
+						root: '/',
+						verbose: true,
+						postParameters: {}
+					}
+				);
+			}
+		);
+
+		// Extensions example
+		require (
+			['AppController', 'knockout'],
+			function (AppController, ko) {
+				// Models extension
+				AppController.prototype.extend('FlightsSearchForm/FlightsSearchFormController', function () {
+					var self = this;
+
+					// Example of adding/changing parameters
+					this.extended = 'some value';
+					this.extendedObservable = ko.observable(0);
+					setInterval(function(){self.extendedObservable(self.extendedObservable() + 1)}, 1000);
+
+					// Example of overriding of prototype function
+//					this.getUsedModels = function () {
+//						var tmp = this.$$usedModels;
+//
+//						tmp.push(this.extended);
+//
+//						return tmp;
+//					}
+				});
+
+				// i18n extension
+				AppController.prototype.i18nExtend(
+					{
+						'FlightsSearchForm':{'test_i18n_variable':'Extended i18n', 'new':'New i18n var'},
+						'newSegment':{'test_i18n_variable':'Var from new segment'}
+					}
 				);
 			}
 		);
