@@ -1,0 +1,84 @@
+$c_ui_link_text                     = #0c91d7;
+$c_ui_link_changeable_text          = inherit;
+$c_ui_link_border                   = $c_ui_link_text;
+
+$c_ui_link_hover_text               = #32B4F0;
+$c_ui_link_changeable_hover_text    = inherit;
+$c_ui_link_hover_border             = #32B4F0;
+
+$i_ui_link_bBorder                  = 1px solid $c_ui_link_border;
+$i_ui_link_bBorder_hover            = 1px solid $c_ui_link_hover_border;
+
+$c_ui_pseudoLink_text               = $c_ui_link_text;
+$c_ui_pseudoLink_border             = $c_ui_pseudoLink_text;
+
+$c_ui_pseudoLink_hover_text         = #32b4f0;
+$c_ui_pseudoLink_hover_border       = $c_ui_pseudoLink_hover_text;
+
+$i_ui_pseudoLink_bBorder            = 1px dashed $c_ui_pseudoLink_border;
+$i_ui_pseudoLink_bBorder_hover      = 1px dashed $c_ui_pseudoLink_hover_border;
+
+.new-ui {
+
+	&-link {
+		cursor: pointer;
+
+		color: $c_ui_link_text;
+		text-decoration: none;
+
+		border-bottom: $i_ui_link_bBorder;
+
+		&:hover {
+			color: $c_ui_link_hover_text;
+			border-bottom: $i_ui_link_bBorder_hover;
+		}
+
+		&_rollup {
+			position: relative;
+
+			margin-left: 20px;
+
+			&:before {
+				content: '↓';
+
+				position: absolute;
+				left: -20px;
+			}
+		}
+
+		&_changeable {
+			color: $c_ui_link_changeable_text;
+
+			&:hover {
+				color: $c_ui_link_changeable_hover_text;
+			}
+		}
+	}
+
+	&-pseudoLink {
+		@extends .new-ui-link;
+
+		border-bottom: $i_ui_pseudoLink_bBorder;
+
+		&:hover {
+			@extends .new-ui-link:hover;
+			border-bottom: $i_ui_pseudoLink_bBorder_hover;
+		}
+
+		&_rollup {
+			@extends .new-ui-link_rollup;
+
+			&:before {
+				@extends .new-ui-link_rollup:before;
+			}
+		}
+
+		&_changeable {
+			@extends .new-ui-link_changeable;
+
+			&:hover {
+				@extends .new-ui-link_changeable:hover;
+			}
+		}
+	}
+}

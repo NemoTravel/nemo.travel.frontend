@@ -3,7 +3,7 @@ define(
 	['knockout'],
 	function (ko) {
 		/**
-		 * Dictionary model - model that takes arbitrary data and converts it into observables.
+		 * Dictionary model - model that takes arbitrary data and converts it into object properties.
 		 * It also manages stuff like obligatory system fields and the like
 		 */
 		function BaseStaticModel (initialData, controllerObject) {

@@ -19,9 +19,16 @@ define(
 			this.$$loadingItems = 0;
 		}
 
+		/**
+		 * Method that loads everything that is commonly needed
+		 */
 		BaseControllerModel.prototype.run = function () {
 			var self = this;
 
+			/**
+			 * We set here how many loading steps do we take
+			 * @type {number}
+			 */
 			this.$$loadingItems = 4;
 
 			// Loading needed view models
@@ -79,6 +86,9 @@ define(
 			);
 		};
 
+		/**
+		 * Method that checks if we have loaded everything and if successful - starts a conversion of raw data into ViewModel structure
+		 */
 		BaseControllerModel.prototype.checkInitialLoadCompletion = function () {
 			if (this.$$loadingItems == 0) {
 				this.$$controller.log('Finished initial loading of', this, ' starting to build models: ', this.$$rawdata);
@@ -87,14 +97,26 @@ define(
 			}
 		};
 
+		/**
+		 * Returns an array of used ViewModels' names
+		 * @returns {Array}
+		 */
 		BaseControllerModel.prototype.getUsedModels = function () {
 			return this.$$usedModels;
 		};
 
+		/**
+		 * Returns an array of used i18n segments' names
+		 * @returns {Array}
+		 */
 		BaseControllerModel.prototype.getI18nSegments = function () {
 			return this.$$i18nSegments;
 		};
 
+		/**
+		 * Returns an array of used knockout bindings packages' names
+		 * @returns {Array}
+		 */
 		BaseControllerModel.prototype.getKOBindings = function () {
 			return this.$$KOBindings;
 		};

@@ -173,6 +173,13 @@ define (
 			);
 		};
 
+		/**
+		 * Loads knockout bindings by provided array of names
+		 *
+		 * @param bindPacksArray array of knockout bindings package names
+		 * @param callback executed when everything is loaded
+		 * @param errorCallback executed when something could not be loaded
+		 */
 		NemoFrontEndController.prototype.loadKOBindings = function (bindPacksArray, callback, errorCallback) {
 			for (var i = 0; i < bindPacksArray.length; i++) {
 				bindPacksArray[i] = this.options.sourceURL + '/js/bindings/' + bindPacksArray[i];
@@ -185,6 +192,13 @@ define (
 			);
 		};
 
+		/**
+		 * Load i18n segments data
+		 *
+		 * @param segmentsArray array of i18n segments names
+		 * @param callback executed when everything is loaded and parsed successfully
+		 * @param errorCallback executed when something could not be loaded or some segments were not parsed
+		 */
 		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, callback, errorCallback) {
 			var self = this,
 				segmentsLoaded = 0,
@@ -237,10 +251,30 @@ define (
 			}
 		};
 
+		/**
+		 * Wrapper function for makeRequest for initial data loading
+		 *
+		 * @param url
+		 * @param additionalParams
+		 * @param callback
+		 * @param errorCallback
+		 * @returns {*}
+		 */
 		NemoFrontEndController.prototype.loadData = function (url, additionalParams, callback, errorCallback) {
 			return this.makeRequest(this.options.dataURL + url, additionalParams, callback, errorCallback);
 		};
 
+		/**
+		 * Makes an AJAX call using CORS
+		 *
+		 * Vanilla requests are used because in general we don't know which libraries are present and used on page
+		 *
+		 * @param url
+		 * @param additionalParams
+		 * @param callback
+		 * @param errorCallback
+		 * @returns {XMLHttpRequest}
+		 */
 		NemoFrontEndController.prototype.makeRequest = function (url, additionalParams, callback, errorCallback) {
 			// We use vanilla js because we don't know which of the third-party libraries are present on page
 			var request = new XMLHttpRequest(),
@@ -251,7 +285,7 @@ define (
 			}
 
 			// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
-			request.withCredentials = false;
+			request.withCredentials = this.options.CORSWithCredentials;
 
 			if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
 				POSTParams += this.processPOSTParameters(this.options.postParameters);
@@ -277,10 +311,13 @@ define (
 			};
 
 			request.send(POSTParams);
+
+			return request;
 		};
 
 		/**
-		 * Creates a viewModel/template pair
+		 * Knockout component loader method: creates a viewModel/template pair
+		 *
 		 * @param name
 		 * @param callback
 		 */
@@ -299,7 +336,7 @@ define (
 		};
 
 		/**
-		 * Provides a factory of ViewModels.
+		 * Knockout component loader method: provides a factory of ViewModels.
 		 *
 		 * Created ViewModels self-initialization is immediately launched
 		 *
@@ -324,6 +361,9 @@ define (
 			});
 		};
 
+		/**
+		 * Defines route and sets initial data to root ViewModel
+		 */
 		NemoFrontEndController.prototype.processRoute = function () {
 			var route = this.router.check(),
 				self = this;
@@ -338,8 +378,19 @@ define (
 			}
 		};
 
+		/**
+		 * A factory that returns a ViewModel by provided name and initialized with provided data object.
+		 *
+		 * It is responsible for ViewModels extensions
+		 *
+		 * @param name
+		 * @param initialData
+		 * @throws {String} when model is not found in storage
+		 * @returns {}
+		 */
 		NemoFrontEndController.prototype.getModel = function (name, initialData) {
 			var model;
+
 			if (typeof this.modelsPool[name] != 'undefined') {
 				this.log('Creating new', name, 'initializing with', initialData);
 
@@ -361,6 +412,12 @@ define (
 			}
 		}
 
+		/**
+		 * Stores model into internal storage
+		 *
+		 * @param name
+		 * @param model
+		 */
 		NemoFrontEndController.prototype.processLoadedModel = function (name, model) {
 			if (typeof this.modelsPool[name] == 'undefined') {
 				this.log('Loaded new model:', name, model);
@@ -371,24 +428,39 @@ define (
 			}
 		};
 
+		/**
+		 * Logger method with safeguard against console inexistence
+		 */
 		NemoFrontEndController.prototype.log = function () {
 			if (this.options.verbose && typeof console != "undefined" && typeof console.log == "function") {
 				console.log.apply(console, arguments);
 			}
 		};
 
+		/**
+		 * Logger method with safeguard against console inexistence
+		 */
 		NemoFrontEndController.prototype.error = function () {
 			if (typeof console != "undefined" && typeof console.error == "function") {
 				console.error.apply(console, arguments);
 			}
 		};
 
+		/**
+		 * Logger method with safeguard against console inexistence
+		 */
 		NemoFrontEndController.prototype.warn = function () {
 			if (typeof console != "undefined" && typeof console.warn == "function") {
 				console.warn.apply(console, arguments);
 			}
 		};
 
+		/**
+		 * Prototype method that sets ViewModel "extender functions" into storage
+		 *
+		 * @param what
+		 * @param extensionFunction
+		 */
 		NemoFrontEndController.prototype.extend = function (what, extensionFunction) {
 			if (!(NemoFrontEndController.prototype.extensions[what] instanceof Array)) {
 				NemoFrontEndController.prototype.extensions[what] = [];
@@ -397,6 +469,11 @@ define (
 			NemoFrontEndController.prototype.extensions[what].push(extensionFunction);
 		};
 
+		/**
+		 * Prototype method that sets i18n extensions into storage
+		 *
+		 * @param extension
+		 */
 		NemoFrontEndController.prototype.i18nExtend = function (extension) {
 			for (var i in extension) {
 				if (extension.hasOwnProperty(i)) {
@@ -468,6 +545,11 @@ define (
 			return result.join("&").replace(/%20/g,"+");
 		};
 
+		/**
+		 * Default options object
+		 *
+		 * @type {{root: string, sourceURL: string, dataURL: string, verbose: boolean, postParameters: {}, i18nLanguage: string, i18nURL: string, CORSWithCredentials: boolean}}
+		 */
 		NemoFrontEndController.prototype.defaultOptions = {
 			root: '/',
 			sourceURL: '',
@@ -475,13 +557,29 @@ define (
 			verbose: false,
 			postParameters: {},
 			i18nLanguage: 'en',
-			i18nURL: ''
+			i18nURL: '',
+			CORSWithCredentials: false
 		};
 
+		/**
+		 * ViewModels storage for factory
+		 *
+		 * @type {{}}
+		 */
 		NemoFrontEndController.prototype.modelsPool = {};
 
+		/**
+		 * ViewModels extension functions storage
+		 *
+		 * @type {{}}
+		 */
 		NemoFrontEndController.prototype.extensions = {};
 
+		/**
+		 * i18n extensions storage
+		 *
+		 * @type {{}}
+		 */
 		NemoFrontEndController.prototype.i18nExtensions = {};
 
 		return NemoFrontEndController;

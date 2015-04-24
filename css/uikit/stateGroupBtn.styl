@@ -1,0 +1,93 @@
+// COLORS
+$c_ui_stateBtn_top 				= #E5E5E5;
+$c_ui_stateBtn_bottom 			= #CCCCCC;
+
+$c_ui_stateBtn_hover_top 		= lighten($c_ui_stateBtn_top , 5);
+$c_ui_stateBtn_hover_bottom 	= lighten($c_ui_stateBtn_bottom , 5);
+
+$c_ui_stateBtn_checked 			= #0C91D7;
+$c_ui_stateBtn_checked_hover	= lighten($c_ui_stateBtn_checked, 10);
+$c_ui_stateBtn_checked_active	= darken($c_ui_stateBtn_checked, 10);
+
+$d_ui_stateBtn__label_margin    = 0 1px 0 0;
+
+// FONT
+$f_ui_stateBtn_color			= #404040;
+$f_ui_stateBtn_checked_color	= #fff;
+
+// VALUES
+$i_ui_stateBtn_innershadow		= inset 0 0 5px rgba(0,0,0,.1);
+$i_ui_stateBtn_outershadow		= 0 1 2px rgba(0,0,0,.5);
+$i_ui_stateBtn_textShadow       = 0px 1px 0px rgba(0, 0, 0, 0.25);
+
+.new-ui-stateGroup {
+	font-size: 0;
+
+	&__label {
+		display: inline-block;
+		margin: $d_ui_stateBtn__label_margin;
+
+		&__button {
+			@extend .new-ui-button
+			@extend .new-ui-button_medium
+			@extend .new-ui-button_secondary;
+			background: linear-gradient(to bottom, $c_ui_stateBtn_top , $c_ui_stateBtn_bottom);
+			color: $f_ui_stateBtn_color;
+			text-shadow: $i_ui_stateBtn_textShadow;
+			transition: background .25s ease-in-out;
+
+			&:hover {
+				background: linear-gradient(to bottom, $c_ui_stateBtn_hover_top , $c_ui_stateBtn_hover_bottom);
+			}
+
+			&:active {
+				padding-top: 0;
+			}
+
+			&_border {
+				border-radius: 0;
+			}
+		}
+
+		&__input {
+			position: absolute;
+		}
+
+		&__input:checked,
+		&__input:not(:checked) {
+			left: -99999px;
+		}
+
+		&__input:checked + &__button {
+			background: $c_ui_stateBtn_checked;
+			color: $f_ui_stateBtn_checked_color;
+			box-shadow: $i_ui_stateBtn_innershadow, $i_ui_stateBtn_outershadow;
+
+			&:hover {
+				background: $c_ui_stateBtn_checked_hover;
+			}
+
+			&:active {
+				background: $c_ui_stateBtn_checked_active;
+			}
+		}
+	}
+
+	&_border &__label:first-child &__label__button {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&_border &__label:last-child &__label__button {
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+
+	&_separate &__label {
+		margin-right: 12px;
+	}
+
+	&_separate &__label:last-child {
+		margin-right: 0;
+	}
+}

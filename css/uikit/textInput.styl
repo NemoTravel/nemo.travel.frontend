@@ -1,0 +1,149 @@
+/**
+* Input
+*
+* @usage:
+* @modifiers: new-ui-textInput__input_big
+* @tags: input[type=text]
+* @example:
+    <label class="new-ui-textInput">
+        <span class="new-ui-textInput__caption">Маленький инпут</span>
+        <input class="new-ui-textInput__input" type="text" placeholder="Плейсхолдер">
+        <span class="new-ui-textInput__hint">И подсказка к нему</span>
+    </label>
+*/
+
+// COLORS
+$c_ui_caption                         = $c_ui_textMain;
+$c_ui_caption_err                     = $c_ui_textErr;
+
+$c_ui_hint                            = $c_ui_textSecondary;
+
+$c_ui_input_border                    = #D9D9D9;
+$c_ui_input_border_hover              = #AAAAAA;
+$c_ui_input_border_focus              = #0C91D7;
+$c_ui_input_border_err                = #B13D12;
+$c_ui_input_disable_border            = #F6F6F6;
+$c_ui_input_text                      = $c_ui_textMain;
+$c_ui_input_placeholder               = $c_ui_textSecondary;
+$c_ui_input_placeholder_disable       = $c_ui_textDisable;
+$c_ui_input_background                = $white;
+$c_ui_input_disable_background        = #FAFAFA;
+$c_ui_input_disable_background_hover  = #FAFAFA;
+
+
+// DIMENSIONS
+$d_ui_input_border          = 1px;
+$d_ui_input_borderRadius    = 2px;
+$d_ui_input_height          = 24px;
+$d_ui_input_width           = 100%;
+$d_ui_input_height_big      = 30px;
+$d_ui_input_vPadding        = 3px;
+$d_ui_input_hPadding        = 5px;
+
+$d_ui_input_margin          = 7px 0 0 0;
+
+$d_ui_caption_margin        = 0;
+
+$d_ui_hint_margin           = 4px 0 0 0;
+
+// FONT
+$f_ui_caption_size          = 13px;
+$f_ui_caption_lineHeight    = 15px;
+
+$f_ui_hint_size             = 11px;
+$f_ui_hint_lineHeight       = 13px;
+
+$f_ui_input_size            = 13px;
+
+// VALUES
+$i_ui_input_innershadow             = inset 0px 0px 5px rgba(0,0,0,0.1);
+//$i_ui_input_innershadow_focus       = inset 0px 0px 5px rgba(8,33,58, 0.2);
+//$i_ui_input_innershadow_hover       = inset 0px 0px 0px rgba(0,0,0,0.1);
+$i_ui_input_innershadow_disable     = $i_ui_input_innershadow;
+$i_ui_input_border                  = $d_ui_input_border solid $c_ui_input_border;
+$i_ui_input_border_focus            = $d_ui_input_border solid $c_ui_input_border_focus;
+$i_ui_input_border_err              = $d_ui_input_border solid $c_ui_input_border_err;
+$i_ui_input_border_err_hover        = $d_ui_input_border solid lighten($c_ui_input_border_err, 10);
+
+.new-ui-textInput {
+    display: block;
+    cursor: pointer;
+
+    &__caption{
+        display: block;
+        font-size: $f_ui_caption_size;
+        line-height: $f_ui_caption_lineHeight;
+        color: $c_ui_caption;
+        margin: $d_ui_caption_margin;
+
+        .pro-validation_error_block &{
+            color: $c_ui_caption_err;
+        }
+    }
+
+    &__input {
+        display: block;
+        width: $d_ui_input_width;
+        outline: none;
+        background: $c_ui_input_background;
+        font-size: $f_ui_input_size;
+        color: $c_ui_input_text;
+        border: $i_ui_input_border;
+        border-radius: $d_ui_input_borderRadius;
+        box-shadow: $i_ui_input_innershadow;
+        height: $d_ui_input_height;
+        padding: $d_ui_input_vPadding $d_ui_input_hPadding;
+        margin: $d_ui_input_margin;
+        transition: all .2s;
+
+		// Special rule for textarea
+		textarea& {
+			height: auto;
+		}
+
+        &_big {
+            height: $d_ui_input_height_big;
+        }
+
+        &:hover {
+            border-color: $c_ui_input_border_hover;
+		}
+
+        &:focus {
+            border: $i_ui_input_border_focus;
+            box-shadow: $i_ui_input_innershadow_focus;
+        }
+
+        &:disabled {
+            background: $c_ui_input_disable_background_hover;
+
+			&:hover {
+				border-color: $c_ui_input_border;
+			}
+
+            &::placeholder {
+                color: $c_ui_input_placeholder_disable;
+            }
+        }
+
+        &::placeholder {
+            color: $c_ui_input_placeholder;
+        }
+
+        .pro-validation_error_block & {
+            border: $i_ui_input_border_err;
+
+			&:hover {
+				border: $i_ui_input_border_err_hover;
+			}
+        }
+    }
+
+    &__hint {
+        display: block;
+        font-size: $f_ui_hint_size;
+        color: $c_ui_hint;
+        margin: $d_ui_hint_margin;
+    }
+
+}
