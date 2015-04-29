@@ -4,7 +4,7 @@
 	<title>Nemo Front-End</title>
 </head>
 <body>
-	<div class="js-nemoApp">
+	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp">
 		<!-- ko if: component() -->
 			<div style="display: none;" data-bind="attr:{style: ''}">
 				APP LOADED (<span data-bind="text: component"></span>)
@@ -65,8 +65,10 @@
 					document.getElementsByClassName('js-form')[0],
 					{
 						sourceURL: nemoSourceHost,
+//						dataURL: 'http://trunk.mlsd.ru',
 						root: '/',
 						verbose: true,
+						i18nLanguage: 'ru',
 						postParameters: {}
 					}
 				);
@@ -74,7 +76,7 @@
 		);
 
 		// Extensions example
-		require (
+		/*require (
 			['AppController', 'knockout'],
 			function (AppController, ko) {
 				// Models extension
@@ -104,7 +106,7 @@
 					}
 				);
 			}
-		);
+		);*/
 	</script>
 </body>
 </html>

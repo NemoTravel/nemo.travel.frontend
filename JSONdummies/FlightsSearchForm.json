@@ -1,1 +1,83 @@
-{}
+{ "geoData": {
+	"countries": {
+		"RU": {
+			"name": "Россия"
+		},
+		"DE": {
+			"name": "Германия"
+		}
+	},
+	"cities": {
+		"58165": {
+			"name": "Москва",
+			"countryCode": "RU"
+		},
+		"22046": {
+			"name": "Берлин",
+			"countryCode": "DE"
+		}
+	},
+	"airports": {
+		"MOW": {
+			"name": "Москва",
+			"cityId": 58165,
+			"countryCode": "RU"
+		},
+		"BER": {
+			"name": "Бранденбург, Берлин",
+			"cityId": 22046,
+			"countryCode": "DE"
+		}
+	}
+}, "flights": {
+	"search": {
+		"request": {
+			"segments": [
+				{
+					"departureIATA": "MOW",
+					"departureIsCity": true,
+					"arrivalIATA": "BER",
+					"arrivalIsCity": true
+				},
+				{
+					"departureIATA": "BER",
+					"departureIsCity": true,
+					"arrivalIATA": "MOW",
+					"arrivalIsCity": true,
+					"departureDate": "2015-04-11T00:00:00"
+				}
+			],
+			"passengers": [
+				{
+					"type": "ADT",
+					"count": 1
+				}
+			],
+			"parameters": {
+				"searchType": "CR",
+				"direct": false,
+				"aroundDates": 0,
+				"serviceClass": "All",
+				"airlines": []
+			}
+		},
+		"formData": {
+			"maxLimits": {
+				"passengerCount": {
+					"ADT": "5",
+					"SRC": "5",
+					"YTH": "5",
+					"CLD": "5",
+					"INF": "1",
+					"INS": "3"
+				},
+				"totalPassengers": "6",
+				"flightSegments": "6"
+			},
+			"dateOptions": {
+				"minOffset": 0,
+				"maxOffset": 365
+			}
+		}
+	}
+} }

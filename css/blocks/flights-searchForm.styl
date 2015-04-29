@@ -1,0 +1,463 @@
+$i_flights_form_segment_input_bsh = inset 0 0 5px rgba(#000, 0.2);
+$i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0.4);
+$i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
+
+.nemo-flights-form {
+	&, & input {
+		font: 14px "Open Sans", sans-serif;
+	}
+
+	// Setting initial box-sizing and fonts
+	&, & * {
+		box-sizing: border-box;
+	}
+
+	// Invisibility class
+	.i-invisible {
+		left: -9999px;
+		position: absolute;
+		visibility: hidden;
+	}
+
+	&__loader {
+		height: 200px;
+		background: url('images/ui/ui-loader-planes.svg') center center no-repeat;
+	}
+
+	&__formContainer, &__searchOptions {
+		width: 100%;
+
+		&__inner {
+			max-width: 1260px;
+			margin: 0 auto;
+			padding: 20px 30px;
+		}
+	}
+
+	&__formContainer{
+		background: #4EB1E5;
+		color: #fff;
+
+		&__inner {
+			display: table;
+		}
+	}
+
+	&__routeTypeSelector {
+		display: none;
+		padding: 15px 20px;
+
+		&__button {
+			margin-right: 20px;
+			font-size: 12px;
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+
+	&__route, &__passengers, &__button {
+		display: table-cell;
+		vertical-align: top;
+	}
+
+	&__button {
+		padding-left: 20px;
+		white-space: nowrap;
+		width: 1%;
+		text-align: right;
+	}
+
+	&__route {
+		padding: 0;
+
+		&__segment {
+			display: inline-block;
+			width: 79%;
+			padding-bottom: 20px;
+
+			&_returnSegment {
+				width: 21%;
+			}
+
+			&_CR, &_returnSegment &__item_date {
+				width: 100%;
+			}
+
+			&_CR &__item {
+				width: 39.4%;
+
+				&_date {
+					width: 21.2%;
+				}
+			}
+
+			&__input {
+				margin: 0;
+				border-radius: 2px;
+				padding: 8px 10px;
+				height: 40px;
+				box-shadow: $i_flights_form_segment_input_bsh;
+				cursor: pointer;
+				font-size: 13px;
+				color: $c_ui_textMain;
+
+				&, &:focus {
+					border: 0;
+				}
+
+				&:hover {
+					box-shadow: $i_flights_form_segment_input_bsh_hover;
+				}
+
+				&_date {
+					background-image: url('images/fsf-sprite.svg');
+					background-position: right 11px;
+					background-repeat: no-repeat;
+
+					padding-right: 36px;
+				}
+
+				&::-webkit-input-placeholder {
+					line-height: 20px;
+				}
+			}
+
+			&__item {
+				display: inline-block;
+				vertical-align: top;
+				padding-right: 20px;
+				position: relative;
+
+				&_from, &_to {
+					width: 36.6%;
+				}
+
+				&_date {
+					width: 26.8%;
+				}
+
+				&__dateDummy {
+					padding-right: 36px;
+
+					&_short {
+						display: none;
+					}
+				}
+
+				.new-ui-dummiedInput {
+					&__dummy {
+						text-indent: 9px;
+						line-height: 32px;
+					}
+
+					&__container {
+						margin: 0;
+					}
+				}
+			}
+		}
+
+		&__switchToRT {
+			line-height: 38px;
+			border: 1px dashed rgba(#fff, 0.7);
+			border-radius: 2px;
+			padding: 0 35px 0 24px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			cursor: pointer;
+			transition: all 0.2s;
+
+			&:hover {
+				box-shadow: $i_flights_form_segment_toRT_hover;
+			}
+		}
+
+		&__switchToOW {
+			position: absolute;
+			top: -10px;
+			right: 10px;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: #fff url("images/fsf-sprite.svg") 6px -54px no-repeat;
+			cursor: pointer;
+			transition: all 0.2s;
+
+			&:hover {
+				box-shadow: 0 0 5px rgba(#000, 0.2);
+			}
+		}
+
+		&__continueCR {
+			line-height: 38px;
+			border: 1px dashed rgba(#fff, 0.7);
+			border-radius: 2px;
+			cursor: pointer;
+			transition: all 0.2s;
+			text-align: center;
+			margin: 0 20px 20px 0;
+
+			&:hover {
+				box-shadow: $i_flights_form_segment_toRT_hover;
+			}
+		}
+
+		&__removeCRSegment {
+			position: absolute;
+			width: 28px;
+			height: 26px;
+			background: #B23E13 url("images/fsf-sprite.svg") 7px -83.5px no-repeat;
+			top: 50%;
+			right: 100%;
+			cursor: pointer;
+			margin-top: -13px;
+
+			&:hover {
+				background-color: lighten(#B23E13, 10%);
+			}
+		}
+	}
+
+	&__passengers {
+		width: 11.6%;
+		white-space: nowrap;
+
+		&__container {
+			min-width: 120px;
+			max-width: 140px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 13px;
+			color: $c_ui_textMain;
+			background: #fff ;
+			padding: 0 40px 0 10px;
+			box-shadow: $i_flights_form_segment_input_bsh;
+			border-radius: 2px;
+			cursor: pointer;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			transition: all 0.2s;
+			position: relative;
+
+			&:hover {
+				box-shadow: $i_flights_form_segment_input_bsh_hover;
+			}
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				right: 14px;
+				margin-top: -3px;
+				border-width: 7px 5px 0;
+				border-style: solid;
+				border-color: #2888bc transparent transparent;
+			}
+		}
+	}
+
+	&__routeOptions {
+		display: table-row;
+
+		&__inner {
+			display: table-cell;
+		}
+
+		&_CR &__item {
+			&_routeType, &_class {
+				width: 39.4%;
+			}
+		}
+
+		&__item {
+			display: inline-block;
+			vertical-align: middle;
+			padding-right: 20px;
+			text-align: right;
+
+			&_routeType, &_class {
+				width: 79% * .366;
+			}
+
+			&_direct, &_multiDate {
+				width: 79% * .266;
+				text-align: left;
+			}
+
+			&__selector {
+				display: inline-block;
+				position: relative;
+				margin-left: 10px;
+
+				&__button {
+					line-height: 30px;
+					height: 30px;
+				}
+
+				&__dropdown {
+					position: absolute;
+					z-index: 1000;
+					top: 100%;
+					left: 50%;
+					transform: translate(-50%, 0);
+					text-align: left;
+					padding: 10px;
+					background: #F6F6F6;
+					border-radius: 4px;
+					box-shadow: 0 0 10px rgba(#51A1CB, 0.5);
+					line-height: normal;
+					margin-top: 7px;
+					color: $c_ui_textMain;
+
+					&:before {
+						content: '';
+						position: absolute;
+						bottom: 100%;
+						left: 50%;
+						margin-left: -8px;
+						border: 8px solid;
+						border-color: transparent;
+						border-top: 0;
+						border-bottom-color: #F6F6F6;
+					}
+
+					&__item {
+						padding: 0 15px;
+						line-height: 30px;
+						min-width: 100px;
+						margin-top: 5px;
+						border-radius: 8px;
+						background: rgba(#969599, 0.1);
+						cursor: pointer;
+						transition: all 0.2s;
+						white-space: nowrap;
+
+						&:first-child {
+							margin: 0;
+						}
+
+						&_active {
+							color: #fff;
+							background: #52A2CC;
+						}
+
+						&:hover {
+							color: inherit;
+							background: rgba(#52A2CC, 0.25);
+						}
+					}
+				}
+			}
+
+			&__checkbox {
+				padding: 5px 0 0 0;
+
+				&__caption {
+					font-size: 14px;
+					color: #fff;
+					transition: all 0.2s;
+				}
+
+				&:hover &__caption {
+					color: darken(#fff, 5%);
+				}
+			}
+		}
+	}
+
+	&__passengersPopUpWrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+		background: rgba(#50505A, 0.5);
+		text-align: center;
+		overflow: auto;
+		z-index: 1000;
+	}
+
+	&__passengersPopUp {
+		display: inline-block;
+		max-width: 100%;
+		border-radius: 2px;
+		background: #fff;
+		overflow: hidden;
+		box-shadow: 0 1px 1px rgba(#000, 0.5);
+		text-align: left;
+
+		&__header, &__footer {
+			background: #eee;
+			font-size: 16px;
+		}
+
+		&__header {
+			padding: 15px 60px 15px 20px;
+			position: relative;
+			line-height: 20px;
+
+			&__close {
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				margin-top: -15px;
+				width: 30px;
+				height: 30px;
+				background: #fff;
+				border-radius: 50%;
+				opacity: 0.5;
+				transition: all 0.2s;
+
+				background: url("images/fsf-sprite.svg") 7.5px -112px no-repeat;
+				cursor: pointer;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+
+		&__footer {
+			padding: 10px 20px;
+			text-align: right;
+		}
+
+		&__content {
+			padding: 15px 20px 20px;
+			overflow: auto;
+			white-space: nowrap;
+
+			&__item {
+				display: inline-block;
+				vertical-align: top;
+				margin-left: 20px;
+				font-size: 13px;
+				white-space: normal;
+
+				&:first-child {
+					margin: 0;
+				}
+
+				&__header {
+					font-size: 14px;
+				}
+
+				&__subheader {
+					color: $c_ui_textSecondary;
+					min-height: 35px;
+				}
+
+				&__count {
+					@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
+
+					&_active&_0 {
+						@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item:hover;
+					}
+				}
+			}
+		}
+	}
+}

@@ -7,9 +7,11 @@ define(
 		 * It also manages stuff like obligatory system fields and the like
 		 */
 		function BaseStaticModel (initialData, controllerObject) {
-			for (var i in initialData) {
-				if (initialData.hasOwnProperty(i) && !this.hasOwnProperty(i)) {
-					this[i] = initialData[i];
+			if (typeof initialData == 'object') {
+				for (var i in initialData) {
+					if (initialData.hasOwnProperty(i) && !this.hasOwnProperty(i)) {
+						this[i] = initialData[i];
+					}
 				}
 			}
 

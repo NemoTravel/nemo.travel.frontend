@@ -11,7 +11,7 @@ define(
 		 * @constructor
 		 */
 		function BaseControllerModel (componentParameters, controller) {
-			this.$$originalData = componentParameters;
+			this.$$componentParameters = componentParameters;
 			this.$$controller = controller;
 			this.$$loading = ko.observable(true);
 			this.$$error = ko.observable(null);
@@ -32,9 +32,33 @@ define(
 			this.$$loadingItems = 4;
 
 			// Loading needed view models
-			this.$$controller.loadViewModels(this.getUsedModels(), function () {
+			this.$$controller.loadViewModels(this.getUsedModels(), function (loadedModels) {
 				self.$$loadingItems--;
 				self.checkInitialLoadCompletion();
+
+				var segments = self.getI18nSegments();
+
+				for (var i = 0; i < loadedModels.length; i++) {
+					if ('getI18nSegments' in loadedModels[i].prototype) {
+						var modelsegs = loadedModels[i].prototype.getI18nSegments();
+
+						self.$$controller.log('Additional model', loadedModels[i], 'i18n segments:', modelsegs);
+
+						segments = segments.concat(modelsegs);
+					}
+				}
+
+				// Loading i18n
+				self.$$controller.loadI18n(
+					segments,
+					function () {
+						self.$$loadingItems--;
+						self.checkInitialLoadCompletion();
+					},
+					function () {
+						self.$$error('Could not load i18n data.');
+					}
+				);
 			});
 
 			// Loading data
@@ -58,18 +82,6 @@ define(
 				},
 				function (request) {
 					self.$$error('Request timed out.');
-				}
-			);
-
-			// Loading i18n
-			this.$$controller.loadI18n(
-				this.getI18nSegments(),
-				function () {
-					self.$$loadingItems--;
-					self.checkInitialLoadCompletion();
-				},
-				function () {
-					self.$$error('Could not load i18n data.');
 				}
 			);
 
@@ -109,10 +121,10 @@ define(
 		 * Returns an array of used i18n segments' names
 		 * @returns {Array}
 		 */
+
 		BaseControllerModel.prototype.getI18nSegments = function () {
 			return this.$$i18nSegments;
 		};
-
 		/**
 		 * Returns an array of used knockout bindings packages' names
 		 * @returns {Array}
@@ -126,10 +138,6 @@ define(
 		BaseControllerModel.prototype.dataURL = function () {};
 
 		BaseControllerModel.prototype.dataPOSTParameters = function () {};
-
-		BaseControllerModel.prototype.koBindingsModule = function () {};
-
-		BaseControllerModel.prototype.i18nSegment = '';
 
 		BaseControllerModel.prototype.$$usedModels = [];
 

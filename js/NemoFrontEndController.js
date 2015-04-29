@@ -13,7 +13,7 @@ define (
 				{re: /^results\/(\d+)$/,  handler: 'vm/FlightsSearchResults/FlightsSearchResultsController'},
 				{re: /^order\/(\d+)$/,     handler: 'vm/FlightsCheckoutController'}
 			];
-			this.i18n = {};
+			this.i18nStorage = {};
 
 			// Processing options
 			for (var i in this.defaultOptions) {
@@ -32,7 +32,7 @@ define (
 			}
 
 			if (!this.options.i18nURL) {
-				this.options.i18nURL = this.options.dataURL+'/i18n';
+				this.options.i18nURL = this.options.sourceURL+'/i18n';
 			}
 
 			/**
@@ -100,17 +100,7 @@ define (
 				component: ko.observable(null),
 				controller: this,
 				globalError: ko.observable(null),
-				i18n: function (segment, key) {
-					if (this.controller.i18nExtensions[segment] && this.controller.i18nExtensions[segment][key]) {
-						return this.controller.i18nExtensions[segment][key];
-					}
-					else if (this.controller.i18n[segment] && this.controller.i18n[segment][key]) {
-						return this.controller.i18n[segment][key];
-					}
-					else {
-						return '{i18n:'+segment+':'+key+'}';
-					}
-				}
+				i18n: function () {return self.i18n.apply(self, arguments);}
 			};
 
 			// Adding component loader
@@ -126,15 +116,17 @@ define (
 				[
 					this.options.sourceURL + '/js/vm/BaseDynamicModel',
 					this.options.sourceURL + '/js/vm/BaseStaticModel',
+					this.options.sourceURL + '/js/vm/BaseI18nizedModel',
 					this.options.sourceURL + '/js/vm/BaseControllerModel',
 					this.options.sourceURL + '/js/bindings/common',
 					'domReady'
 				],
-				function (BaseDynamicModel, BaseStaticModel, BaseControllerModel) {
+				function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
 					require (['domReady!'], function () {
 						// Adding base models to storage
 						self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
 						self.processLoadedModel('BaseStaticModel', BaseStaticModel);
+						self.processLoadedModel('BaseI18nizedModel', BaseI18nizedModel);
 						self.processLoadedModel('BaseControllerModel', BaseControllerModel);
 
 						// Setting KO
@@ -146,6 +138,18 @@ define (
 					});
 				}
 			);
+		};
+
+		NemoFrontEndController.prototype.i18n = function (segment, key) {
+			if (this.i18nExtensions[segment] && this.i18nExtensions[segment][key]) {
+				return this.i18nExtensions[segment][key];
+			}
+			else if (this.i18nStorage[segment] && this.i18nStorage[segment][key]) {
+				return this.i18nStorage[segment][key];
+			}
+			else {
+				return '{i18n:'+segment+':'+key+'}';
+			}
 		};
 
 		/**
@@ -168,7 +172,7 @@ define (
 						self.processLoadedModel(modelsArray[i], arguments[i]);
 					}
 
-					callback();
+					callback(arguments);
 				}
 			);
 		};
@@ -214,19 +218,19 @@ define (
 			}
 
 			for (var i = 0; i < segmentsArray.length; i++) {
-				if (!self.i18n[segmentsArray[i]]) {
+				if (!self.i18nStorage[segmentsArray[i]]) {
 					// Need a closure here
 					(function (index) {
 						self.makeRequest(
-							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentsArray[index] + '.json',
+							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentsArray[index] + '.json?bust=' + (new Date()).getTime(),
 							null,
 							function (text) {
 								requestsCompleted++;
 
 								try {
-									if (!self.i18n[segmentsArray[index]]) {
+									if (!self.i18nStorage[segmentsArray[index]]) {
 										self.log('Setting i18n segmeent', segmentsArray[index]);
-										self.i18n[segmentsArray[index]] = JSON.parse(text);
+										self.i18nStorage[segmentsArray[index]] = JSON.parse(text);
 									}
 
 									segmentsLoaded++;

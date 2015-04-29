@@ -1,14 +1,13 @@
 'use strict';
 define(
-	['knockout','js/vm/BaseDynamicModel'],
-	function (ko, BaseModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseDynamicModel'],
+	function (ko, helpers, BaseModel) {
 		function FlightsSearchFormSegment (initialData) {
 			BaseModel.apply(this, arguments);
 		}
 
 		// Extending from dictionaryModel
-		FlightsSearchFormSegment.prototype = BaseModel.prototype;
-		FlightsSearchFormSegment.prototype.constructor = FlightsSearchFormSegment;
+		helpers.extendModel(FlightsSearchFormSegment, [BaseModel]);
 
 		return FlightsSearchFormSegment;
 	}

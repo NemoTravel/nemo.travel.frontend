@@ -1,14 +1,13 @@
 'use strict';
 define(
-	['knockout','vm/BaseControllerModel'],
-	function (ko, BaseControllerModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel'],
+	function (ko, helpers, BaseControllerModel) {
 		function FlightsSearchResultsController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 		}
 
 		// Extending from dictionaryModel
-		FlightsSearchResultsController.prototype = BaseControllerModel.prototype;
-		FlightsSearchResultsController.prototype.constructor = FlightsSearchResultsController;
+		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
 		// Own prototype stuff
 		FlightsSearchResultsController.prototype.$$usedModels = ['a','b'];
