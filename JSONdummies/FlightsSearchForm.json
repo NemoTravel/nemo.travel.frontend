@@ -37,14 +37,15 @@
 					"departureIATA": "MOW",
 					"departureIsCity": true,
 					"arrivalIATA": "BER",
-					"arrivalIsCity": true
+					"arrivalIsCity": true,
+					"departureDate": "2015-04-11T00:00:00"
 				},
 				{
 					"departureIATA": "BER",
 					"departureIsCity": true,
 					"arrivalIATA": "MOW",
 					"arrivalIsCity": true,
-					"departureDate": "2015-04-11T00:00:00"
+					"departureDate": "2015-04-21T00:00:00"
 				}
 			],
 			"passengers": [
@@ -54,7 +55,7 @@
 				}
 			],
 			"parameters": {
-				"searchType": "CR",
+				"searchType": "RT",
 				"direct": false,
 				"aroundDates": 0,
 				"serviceClass": "All",

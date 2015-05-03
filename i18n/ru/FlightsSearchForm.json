@@ -1,1 +1,68 @@
-{"test_i18n_variable":"Локализованная переменная с русским текстом"}
+{
+	"serviceClass_All": "Любой",
+	"serviceClass_Economy": "Эконом",
+	"serviceClass_Business": "Бизнес",
+	"serviceClass_First": "Первый",
+
+	"triptype_OW": "В одну сторону",
+	"triptype_RT": "Туда и обратно",
+	"triptype_CR": "Сложный маршрут",
+
+	"passengers_count_0": "Ни одного",
+	"passengers_count_1": "Один",
+	"passengers_count_2": "Два",
+	"passengers_count_3": "Три",
+	"passengers_count_4": "Четыре",
+	"passengers_count_5": "Пять",
+	"passengers_count_6": "Шесть",
+	"passengers_count_7": "Семь",
+	"passengers_count_8": "Восемь",
+	"passengers_count_9": "Девять",
+	"passengers_count_10": "Десять",
+	"passengers_count_11": "Одиннадцать",
+	"passengers_count_12": "Двенадцать",
+
+	"passengerType_ADT_passSelectorName": "Взрослые",
+	"passengerType_CLD_passSelectorName": "Дети",
+	"passengerType_INF_passSelectorName": "Младенцы",
+	"passengerType_INS_passSelectorName": "Младенцы с местом",
+	"passengerType_YTH_passSelectorName": "Студенты",
+	"passengerType_SRC_passSelectorName": "Пенсионеры",
+
+	"passengerType_ADT_ageInfo": "от 12 лет",
+	"passengerType_CLD_ageInfo": "2-12 лет",
+	"passengerType_INF_ageInfo": "до 2 лет",
+	"passengerType_INS_ageInfo": "до 2 лет",
+	"passengerType_YTH_ageInfo": "12-16 лет",
+	"passengerType_SRC_ageInfo": "от 60 лет",
+
+	"passSummary_numeral_noPassengers": "Нет пассажиров",
+
+	"passSummary_numeral_ADT_one": "Взрослый",
+	"passSummary_numeral_CLD_one": "Ребенок",
+	"passSummary_numeral_INF_one": "Младенец",
+	"passSummary_numeral_INS_one": "Младенец с местом",
+	"passSummary_numeral_YTH_one": "Студент",
+	"passSummary_numeral_SRC_one": "Пенсионер",
+	"passSummary_numeral_mixed_one": "Пассажир",
+
+	"passSummary_numeral_ADT_twoToFour": "Взрослых",
+	"passSummary_numeral_CLD_twoToFour": "Ребенка",
+	"passSummary_numeral_INF_twoToFour": "Маденца",
+	"passSummary_numeral_INS_twoToFour": "Младенца с местом",
+	"passSummary_numeral_YTH_twoToFour": "Студента",
+	"passSummary_numeral_SRC_twoToFour": "Пенсионера",
+	"passSummary_numeral_mixed_twoToFour": "Пассажира",
+
+	"passSummary_numeral_ADT_fourPlus": "Взрослых",
+	"passSummary_numeral_CLD_fourPlus": "Детей",
+	"passSummary_numeral_INF_fourPlus": "Младенцев",
+	"passSummary_numeral_INS_fourPlus": "Младенцев с местом",
+	"passSummary_numeral_YTH_fourPlus": "Студентов",
+	"passSummary_numeral_SRC_fourPlus": "Пенсионеров",
+	"passSummary_numeral_mixed_fourPlus": "Пассажиров",
+
+	"autocomplete_noResults": "Укажите город или аэропорт",
+
+	"": ""
+}

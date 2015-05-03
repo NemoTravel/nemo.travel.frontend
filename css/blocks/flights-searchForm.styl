@@ -203,6 +203,15 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 			&:hover {
 				box-shadow: $i_flights_form_segment_toRT_hover;
 			}
+
+			&_inactive {
+				opacity: 0.5;
+				cursor: default;
+
+				&:hover {
+					box-shadow: none;
+				}
+			}
 		}
 
 		&__removeCRSegment {
@@ -217,6 +226,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 			&:hover {
 				background-color: lighten(#B23E13, 10%);
+			}
+
+			&_inactive {
+				display: none;
 			}
 		}
 	}
@@ -339,14 +352,19 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 							margin: 0;
 						}
 
-						&_active {
-							color: #fff;
-							background: #52A2CC;
-						}
-
 						&:hover {
 							color: inherit;
 							background: rgba(#52A2CC, 0.25);
+						}
+
+						&_active {
+							color: #fff;
+							background: #52A2CC;
+
+							&:hover {
+								color: #fff;
+								background: rgba(#52A2CC, 0.75);
+							}
 						}
 					}
 				}
