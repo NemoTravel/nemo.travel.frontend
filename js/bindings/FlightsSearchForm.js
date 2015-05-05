@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'jquery', 'jqueryUI'],
+	['knockout', 'jquery', 'jqueryUI', 'js/lib/jquery.pickmeup/jquery.pickmeup'],
 	function (ko, $) {
 		// FlightsSearchForm Knockout bindings are defined here
 		/*
@@ -102,6 +102,12 @@ define(
 							callback(noResultsResults);
 						});
 					},
+					open: function (event, ui) {
+						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children();
+						if ($children.length == 1) {
+							$children.eq(0).mouseenter().click();
+						}
+					},
 					select: function( event, ui ) {
 						$element.blur();
 
@@ -109,7 +115,9 @@ define(
 						// So we set corresponding stuff only if it's valid
 						if (typeof ui.item.label == 'undefined') {
 							valueAccessor()(ui.item);
-							$element.trigger('nemo.fsf.segmentPropChanged', {segment: viewModel});
+
+							// Autofocus stuff
+							$element.trigger('nemo.fsf.segmentPropChanged');
 						}
 
 						return false;
@@ -139,22 +147,29 @@ define(
 				$element.on('nemo.fsf.segmentPropChanged', function (event, data) {
 					var $target = $(event.target),
 						$segment = $target.parents('.js-autofocus-segment'),
-						segment = data.segment,
+						segment = ko.dataFor(event.target),//data.segment,
 						$focusField = null;
 
 					if ($target.hasClass('js-autofocus-field_departure')) {
-						console.log('field_departure', segment.arrival(), segment.departureDate());
-						if (!segment.arrival()) {
+						if (!segment.items.arrival.value()) {
 							$focusField = $segment.find('.js-autofocus-field_arrival');
 						}
-						else if (!segment.departureDate()) {
+						else if (!segment.items.departureDate.value()) {
 							$focusField = $segment.find('.js-autofocus-field_date');
 						}
 					}
 					else if ($target.hasClass('js-autofocus-field_arrival')) {
-						if (!segment.departureDate()) {
+						if (!segment.items.departureDate.value()) {
 							$focusField = $segment.find('.js-autofocus-field_date');
 						}
+					}
+					else if (
+						$target.hasClass('') &&
+						bindingContext.$data.tripType() == 'RT' &&
+						segment.index == 0 &&
+						!bindingContext.$data.segments()[1].items.departureDate.value()
+					) {
+						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
 					}
 
 					if ($focusField) {
@@ -162,8 +177,78 @@ define(
 					}
 				});
 
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$element.off('nemo.fsf.segmentPropChanged');
+				});
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
+		};
+
+		ko.bindingHandlers.flightsFormDatepicker = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element);
+
+				$element.on('blur', function () {
+					$(this).val('');
+				});
+
+				// Do not forget to add destroy callbacks
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$element.pickmeup('destroy');
+					$element.off('blur');
+				});
+			},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					now = new Date(),
+					minDate = (new Date()),
+					maxDate = (new Date()),
+					locale = {
+						days:        [], // ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+						daysShort:   [], // ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+						daysMin:     [], // ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+						months:      [], // ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+						monthsShort: []  // ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+					};
+
+				minDate.setDate(now.getDate() + bindingContext.$parent.options.dateOptions.minOffset);
+				maxDate.setDate(now.getDate() + bindingContext.$parent.options.dateOptions.maxOffset);
+
+				for (var i = 1; i <= 12; i++) {
+					locale.months.push(bindingContext.$root.i18n('dates', 'month_' + i + '_f_n'));
+					locale.monthsShort.push(bindingContext.$root.i18n('dates', 'month_' + i + '_s_n'));
+
+					if (i == 1) {
+						locale.days.push(bindingContext.$root.i18n('dates', 'dow_7_f'));
+						locale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
+						locale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
+					}
+
+					if (i <= 7) {
+						locale.days.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_f'));
+						locale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
+						locale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
+					}
+				}
+
+				$element.pickmeup({
+					locale: locale,
+					calendars: 2,
+					min: minDate,
+					max: maxDate,
+					format: 'd.m.Y',
+					hideOnSelect: true,
+					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : false,
+					onSetDate: function () {
+						$element.blur();
+
+						// Autofocus stuff
+						$element.trigger('nemo.fsf.segmentPropChanged');
+
+						valueAccessor()(viewModel.$$controller.getModel('FlightsSearchForm/FlightsSearchFormDate', this.current));
+					}
+				});
+			}
 		};
 	}
 );

@@ -11,7 +11,7 @@ define (
 			this.routes = [
 				{re: /^(\d+)?$/,          handler: 'vm/FlightsSearchForm/FlightsSearchFormController'},
 				{re: /^results\/(\d+)$/,  handler: 'vm/FlightsSearchResults/FlightsSearchResultsController'},
-				{re: /^order\/(\d+)$/,     handler: 'vm/FlightsCheckoutController'}
+				{re: /^order\/(\d+)$/,    handler: 'vm/FlightsCheckout/FlightsCheckoutController'}
 			];
 			this.i18nStorage = {};
 
@@ -114,11 +114,11 @@ define (
 			// Requiring base things: common bindings, base models etc
 			require (
 				[
-					this.options.sourceURL + '/js/vm/BaseDynamicModel',
-					this.options.sourceURL + '/js/vm/BaseStaticModel',
-					this.options.sourceURL + '/js/vm/BaseI18nizedModel',
-					this.options.sourceURL + '/js/vm/BaseControllerModel',
-					this.options.sourceURL + '/js/bindings/common',
+					/*this.options.sourceURL + */'js/vm/BaseDynamicModel',
+					/*this.options.sourceURL + */'js/vm/BaseStaticModel',
+					/*this.options.sourceURL + */'js/vm/BaseI18nizedModel',
+					/*this.options.sourceURL + */'js/vm/BaseControllerModel',
+					/*this.options.sourceURL + */'js/bindings/common',
 					'domReady'
 				],
 				function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
@@ -162,7 +162,7 @@ define (
 				modelsRequireArray = [];
 
 			for (var i = 0; i < modelsArray.length; i++) {
-				modelsRequireArray.push(this.options.sourceURL + '/js/vm/' + modelsArray[i]);
+				modelsRequireArray.push(/*this.options.sourceURL + */'js/vm/' + modelsArray[i]);
 			}
 
 			require (
@@ -186,7 +186,7 @@ define (
 		 */
 		NemoFrontEndController.prototype.loadKOBindings = function (bindPacksArray, callback, errorCallback) {
 			for (var i = 0; i < bindPacksArray.length; i++) {
-				bindPacksArray[i] = this.options.sourceURL + '/js/bindings/' + bindPacksArray[i];
+				bindPacksArray[i] = /*this.options.sourceURL + */'js/bindings/' + bindPacksArray[i];
 			}
 
 			require(
@@ -215,6 +215,10 @@ define (
 				else if (requestsCompleted == segmentsArray.length) {
 					errorCallback();
 				}
+			}
+
+			if (segmentsArray.length == 0) {
+				checkReadiness();
 			}
 
 			for (var i = 0; i < segmentsArray.length; i++) {

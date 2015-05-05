@@ -138,6 +138,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 					width: 26.8%;
 				}
 
+				&_hasError .new-ui-textInput {
+					box-shadow: 0 0 5px red;
+				}
+
 				&__dateDummy {
 					padding-right: 36px;
 
@@ -473,6 +477,16 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 					&_active&_0 {
 						@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item:hover;
+					}
+
+					&_disabled {
+						opacity: 0.2;
+						cursor: default;
+
+						&:hover {
+							color: inherit;
+							background: rgba(#969599, 0.1);
+						}
 					}
 				}
 			}

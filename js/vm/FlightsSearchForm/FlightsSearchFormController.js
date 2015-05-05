@@ -17,6 +17,8 @@ define(
 			this.vicinityDates = ko.observable(false);
 			this.serviceClass = ko.observable(this.serviceClasses[0]);
 
+			this.validaTERROR = ko.observable(false);
+
 			this.tripType.subscribe(function (newValue) {
 				var segments = this.segments();
 
@@ -31,12 +33,12 @@ define(
 						var tmpdate = null;
 
 						if (segments.length >= 2) {
-							tmpdate = segments[1].departureDate();
+							tmpdate = segments[1].items.departureDate.value();
 						}
 
 						this.segments.splice(1);
 
-						this.addSegment(this.segments()[0].arrival(), this.segments()[0].departure(), tmpdate);
+						this.addSegment(this.segments()[0].items.arrival.value(), this.segments()[0].items.departure.value(), tmpdate);
 
 						break;
 
@@ -81,10 +83,113 @@ define(
 
 				return ret;
 			}, this);
+
+			this.passengersRestrictions = ko.computed(function () {
+				var ret = {},
+					passengers = this.passengers(),
+					adtSum = 0,
+					infSum = 0,
+					total = 0,
+					adultTypes = ['ADT', 'SRC', 'YTH'],
+					infantTypes = ['INF', 'INS'];
+
+				for (var i in passengers) {
+					if (passengers.hasOwnProperty(i)) {
+						ret[i] = {min: 0, max: 0};
+
+						total += passengers[i]();
+
+						if (adultTypes.indexOf(i) >= 0) {
+							adtSum += passengers[i]();
+						}
+
+						if (infantTypes.indexOf(i) >= 0) {
+							infSum += passengers[i]();
+						}
+					}
+				}
+
+				// Setting maximums regarding maximum passenger count
+				for (var i in ret) {
+					if (ret.hasOwnProperty(i)) {
+						ret[i].max = Math.min(passengers[i]() + this.options.totalPassengers - total, parseInt(this.options.passengerCount[i]));
+					}
+				}
+
+				// ADT+YTH+SRC >= INF+INS
+				// Infants: not more than adtSum
+				for (var i = 0; i < infantTypes.length; i++) {
+					if (ret.hasOwnProperty(infantTypes[i])) {
+						ret[infantTypes[i]].max = Math.min(adtSum, ret[infantTypes[i]].max);
+					}
+				}
+
+				// Adults: not less than infSum
+				for (var i = 0; i < adultTypes.length; i++) {
+					if (ret.hasOwnProperty(adultTypes[i])) {
+						ret[adultTypes[i]].min = Math.max(
+							0,
+							passengers[adultTypes[i]]() - adtSum + infSum,
+							ret[adultTypes[i]].min
+						);
+					}
+				}
+
+				return ret;
+			}, this);
+
+			this.isValid = ko.computed(function () {
+				var segments = this.segments(),
+					ret = true;
+
+				for (var i = 0; i < segments.length; i++) {
+					if (!segments[i].isValid()) {
+						ret = false;
+					}
+				}
+
+				return ret;
+			}, this);
 		}
 
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsSearchFormController, [BaseControllerModel]);
+
+		FlightsSearchFormController.prototype.processValidation = function () {
+			var segments;
+			if (this.validaTERROR()) {
+				segments = this.segments();
+
+				for (var i = 0; i < segments.length; i++) {
+					for (var j in segments[i].items) {
+						if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].error()) {
+							segments[i].items[j].focus(true);
+							return;
+						}
+					}
+				}
+
+				// TODO - check dates validity
+			}
+		};
+
+		FlightsSearchFormController.prototype.startSearch = function () {
+			if (!this.isValid()) {
+				this.validaTERROR(true);
+				this.processValidation();
+			}
+			else {
+				console.log('STARTING SEARCH');
+			}
+		};
+
+		FlightsSearchFormController.prototype.setPassengers = function (type, count) {
+			var restrictions = this.passengersRestrictions();
+
+			if (restrictions[type] && count >= restrictions[type].min && count <= restrictions[type].max) {
+				this.passengers()[type](count);
+			}
+		};
 
 		FlightsSearchFormController.prototype.getPassengersCounts = function (passType) {
 			var ret = [];
@@ -112,6 +217,7 @@ define(
 			// Processing options
 			// Passengers maximums
 			this.options = this.$$rawdata.flights.search.formData.maxLimits;
+			this.options.totalPassengers = parseInt(this.options.totalPassengers);
 
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
@@ -206,14 +312,25 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.addSegment = function (departure, arrival, departureDate) {
-			this.segments.push(this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormSegment', {departure: departure, arrival: arrival, departureDate: departureDate}));
+			this.segments.push(
+				this.$$controller.getModel(
+					'FlightsSearchForm/FlightsSearchFormSegment',
+					{
+						departure: departure,
+						arrival: arrival,
+						departureDate: departureDate,
+						index: this.segments().length,
+						form: this
+					}
+				)
+			);
 		};
 
 		FlightsSearchFormController.prototype.continueCR = function () {
 			var segsCount = this.segments().length;
 
 			if (this.tripType() == 'CR' && segsCount < this.options.flightSegments) {
-				this.addSegment(this.segments()[segsCount - 1].arrival(), null, null);
+				this.addSegment(this.segments()[segsCount - 1].items.arrival.value(), null, null);
 			}
 		};
 

@@ -23,13 +23,14 @@ define(
 		 * Method that loads everything that is commonly needed
 		 */
 		BaseControllerModel.prototype.run = function () {
-			var self = this;
+			var self = this,
+				dataURL = this.dataURL();
 
 			/**
 			 * We set here how many loading steps do we take
 			 * @type {number}
 			 */
-			this.$$loadingItems = 4;
+			this.$$loadingItems = 3;
 
 			// Loading needed view models
 			this.$$controller.loadViewModels(this.getUsedModels(), function (loadedModels) {
@@ -62,28 +63,32 @@ define(
 			});
 
 			// Loading data
-			this.$$controller.loadData(
-				this.dataURL(),
-				this.dataPOSTParameters(),
-				function (text, request) {
-					try {
-						self.$$rawdata = JSON.parse(text);
-					}
-					catch (e) {
-						self.$$error('Request failed: wrong response.');
-						return;
-					}
+			if (dataURL) {
+				this.$$loadingItems++;
 
-					self.$$loadingItems--;
-					self.checkInitialLoadCompletion();
-				},
-				function (request) {
-					self.$$error('Request failed: ' + request.status + ': ' + request.statusText);
-				},
-				function (request) {
-					self.$$error('Request timed out.');
-				}
-			);
+				this.$$controller.loadData(
+					dataURL,
+					this.dataPOSTParameters(),
+					function (text, request) {
+						try {
+							self.$$rawdata = JSON.parse(text);
+						}
+						catch (e) {
+							self.$$error('Request failed: wrong response.');
+							return;
+						}
+
+						self.$$loadingItems--;
+						self.checkInitialLoadCompletion();
+					},
+					function (request) {
+						self.$$error('Request failed: ' + request.status + ': ' + request.statusText);
+					},
+					function (request) {
+						self.$$error('Request timed out.');
+					}
+				);
+			}
 
 			// Loading needed ko bindings
 			this.$$controller.loadKOBindings(

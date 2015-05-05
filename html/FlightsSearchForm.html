@@ -1,4 +1,4 @@
-<div class="nemo-flights-form">
+<div class="nemo-flights-form js-autofocus-form">
 <!-- ko if: !$$loading() -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons">
 		<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
@@ -22,11 +22,17 @@
 						attr: {'class':'nemo-flights-form__route__segment'+($parent.tripType() == 'RT' && $index() == 1 ? ' nemo-flights-form__route__segment_returnSegment' : '') + ' nemo-flights-form__route__segment_'+$parent.tripType() + ' js-autofocus-segment'}
 						">
 					<!-- ko if: $parent.tripType() != 'RT' || $index() != 1 -->
-					<div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_from">
+					<div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_from"
+					     data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.departure.error()}">
 						<!-- ko if: $parent.tripType() == 'CR' && $index() == ($parent.segments().length-1) -->
 						<div class="nemo-flights-form__route__removeCRSegment" data-bind="click: $parent.removeLastCRSegment.bind($parent), css: {'nemo-flights-form__route__removeCRSegment_inactive': $parent.segments().length == 1}"></div>
 						<!-- /ko -->
 						<label class="new-ui-textInput new-ui-dummiedInput js-autocomplete">
+							<!-- ko if: $parent.validaTERROR() && items.departure.error() && items.departure.focus() -->
+							<div
+									class="new-ui-hint nemo-flights-form__route__segment__item__error"
+									data-bind="text: $root.i18n('FlightsSearchForm','error_departure_'+items.departure.error());"></div>
+							<!-- /ko -->
 							<div class="new-ui-dummiedInput__container">
 								<input
 										class="
@@ -38,21 +44,27 @@
 											js-autofocus-field_departure"
 										type="text"
 										placeholder="Откуда (город или аэропорт)"
-										data-bind="flightsFormGeoAC: departure">
+										data-bind="flightsFormGeoAC: items.departure.value, hasFocus: items.departure.focus">
 								<div class="new-ui-dummiedInput__dummy js-autocomplete-dummy">
-									<!-- ko if: !departure() -->
+									<!-- ko if: !items.departure.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder js-autocomplete-dummy__placeholder">
 										Откуда (город или аэропорт)
 									</span>
 									<!-- /ko -->
-									<!-- ko if: departure() -->
-									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: departure().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+departure().country.name"></span>
+									<!-- ko if: items.departure.value() -->
+									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: items.departure.value().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+items.departure.value().country.name"></span>
 									<!-- /ko -->
 								</div>
 							</div>
 						</label>
-					</div><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_to">
+					</div><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_to"
+							data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.arrival.error()}">
 						<label class="new-ui-textInput new-ui-dummiedInput js-autocomplete">
+							<!-- ko if: $parent.validaTERROR() && items.arrival.error() && items.arrival.focus() -->
+							<div
+									class="new-ui-hint nemo-flights-form__route__segment__item__error"
+									data-bind="text: $root.i18n('FlightsSearchForm','error_arrival_'+items.arrival.error());"></div>
+							<!-- /ko -->
 							<div class="new-ui-dummiedInput__container">
 								<input class="
 											new-ui-textInput__input
@@ -63,23 +75,29 @@
 											js-autofocus-field_arrival"
 								       type="text"
 								       placeholder="Куда (город или аэропорт)"
-								       data-bind="flightsFormGeoAC: arrival">
+								       data-bind="flightsFormGeoAC: items.arrival.value, hasFocus: items.arrival.focus">
 								<div class="new-ui-dummiedInput__dummy js-autocomplete-dummy">
-									<!-- ko if: !arrival() -->
+									<!-- ko if: !items.arrival.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder js-autocomplete-dummy__placeholder">
 										Куда (город или аэропорт)
 									</span>
 									<!-- /ko -->
-									<!-- ko if: arrival() -->
-									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: arrival().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+arrival().country.name"></span>
+									<!-- ko if: items.arrival.value() -->
+									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: items.arrival.value().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+items.arrival.value().country.name"></span>
 									<!-- /ko -->
 								</div>
 							</div>
 						</label>
 					</div><!--
 					/ko
-					--><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date">
+					--><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date"
+					        data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.departureDate.error()}">
 						<label class="new-ui-textInput new-ui-dummiedInput">
+							<!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
+							<div
+								class="new-ui-hint nemo-flights-form__route__segment__item__error"
+								data-bind="text: $root.i18n('FlightsSearchForm','error_departureDate_'+items.departureDate.error());"></div>
+							<!-- /ko -->
 							<div class="new-ui-dummiedInput__container">
 								<input
 										class="
@@ -90,21 +108,24 @@
 											js-autofocus-field
 											js-autofocus-field_date"
 										type="text"
-										data-bind="attr: {placeholder: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'}">
+										data-bind="
+											attr: {placeholder: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'},
+											flightsFormDatepicker: items.departureDate.value,
+											hasFocus: items.departureDate.focus">
 								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dateDummy nemo-flights-form__route__segment__item__dateDummy_full">
-									<!-- ko if: !departureDate() -->
+									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->
-									<!-- ko if: departureDate() -->
-									<span class="new-ui-dummiedInput__dummy__icon"></span><span class="new-ui-dummiedInput__dummy__main" data-bind="text: departureDate().getDate()+' '+departureDate().getMonthName()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+departureDate().getDOWName()"></span>
+									<!-- ko if: items.departureDate.value() -->
+									<span class="new-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthName()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWName()"></span>
 									<!-- /ko -->
 								</div>
 								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dateDummy nemo-flights-form__route__segment__item__dateDummy_short">
-									<!-- ko if: !departureDate() -->
+									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->
-									<!-- ko if: departureDate() -->
-									<span class="new-ui-dummiedInput__dummy__icon"></span><span class="new-ui-dummiedInput__dummy__main" data-bind="text: departureDate().getDate()+' '+departureDate().getMonthNameShort()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+departureDate().getDOWNameShort()"></span>
+									<!-- ko if: items.departureDate.value() -->
+									<span class="new-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthNameShort()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWNameShort()"></span>
 									<!-- /ko -->
 								</div>
 							</div>
@@ -131,7 +152,8 @@
 				</div>
 			</div>
 			<div class="nemo-flights-form__button">
-				<button class="new-ui-button new-ui-button_main">
+				<button class="new-ui-button new-ui-button_main"
+						data-bind="click: startSearch, css: {'new-ui-button_disabled': validaTERROR() && !isValid()}">
 					Найти
 				</button>
 			</div>
@@ -218,8 +240,20 @@
 							<div
 								data-bind="
 									text: $root.i18n('FlightsSearchForm','passengers_count_' + $data),
-									attr: {'class': 'nemo-flights-form__passengersPopUp__content__item__count nemo-flights-form__passengersPopUp__content__item__count_' + $data + ' ' + ($parents[1].passengers()[passType] && $parents[1].passengers()[passType]() == $data ? 'nemo-flights-form__passengersPopUp__content__item__count_active' : '')},
-									click: function () {$parents[1].passengers()[passType](parseInt($data));}"
+									attr: {'class':
+											'nemo-flights-form__passengersPopUp__content__item__count nemo-flights-form__passengersPopUp__content__item__count_' + $data +
+											(
+												$parents[1].passengers()[passType] && $parents[1].passengers()[passType]() == $data ?
+												' nemo-flights-form__passengersPopUp__content__item__count_active' :
+												''
+											) +
+											(
+												$data > $parents[1].passengersRestrictions()[passType].max || $data < $parents[1].passengersRestrictions()[passType].min ?
+												' nemo-flights-form__passengersPopUp__content__item__count_disabled':
+												''
+											)
+										},
+									click: function () {/*$parents[1].passengers()[passType](parseInt($data));*/$parents[1].setPassengers(passType, parseInt($data));}"
 								></div>
 						</div>
 					</div>
@@ -238,4 +272,8 @@
 <!-- ko if: $$loading() -->
 	<div class="nemo-flights-form__loader"></div>
 <!-- /ko -->
+
+<!-- Last searches component -->
+<div class="" data-bind="component: {name: 'FlightsLastSearches/FlightsLastSearchesController',params: {}}">Loading last searches...</div>
+
 </div>

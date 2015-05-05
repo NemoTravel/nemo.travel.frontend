@@ -1,0 +1,175 @@
+/**
+ * @package		PickMeUp - jQuery datepicker plugin
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @author		Stefan Petre <www.eyecon.ro>
+ * @author_with_rasp Boris Sobolevskiy <unclesheogorat@gmail.com>
+ * @copyright	Copyright (c) 2013-2015, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2008-2009, Stefan Petre
+ * @copyleft	Copyleft (c) 2015, Boris Sobolevskiy
+ * @license		MIT License, see license.txt if present.
+ */
+.js-picker::-ms-clear {
+  display: none;
+}
+/*input::-webkit-calendar-picker-indicator{
+  display: none;
+}
+input[type="date"]::-webkit-input-placeholder{
+  visibility: hidden !important;
+}*/
+.pickmeup {
+  background: #ffffff;
+  display: none;
+  position: absolute;
+  box-shadow: 0 0 5px #ccc;
+  div{
+    display: inline-block;
+  }
+}
+
+.js-pmu-instance {
+  display: inline-block;
+  text-align: center;
+  width: 258px;
+}
+
+.js-pmu-years-wrap,
+.js-pmu-months-wrap,
+.js-pmu-days-wrap{
+  padding: 5px;
+}
+.js-pmu-button {
+  color: #414042;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+.js-pmu-days ,
+.js-pmu-months ,
+.js-pmu-years {
+  border: 1px solid #DCDCDC;
+  border-radius: 3px;
+  width: 230px;
+  padding: 7px;
+}
+.js-pmu-days .js-pmu-button,
+.js-pmu-months .js-pmu-button,
+.js-pmu-years .js-pmu-button{
+  border-right: 1px solid #DCDCDC;
+  border-bottom: 1px solid #DCDCDC;
+
+}
+.js-pmu-days .js-pmu-button{
+  &:nth-child(7n){
+    border-right: 0px;
+  }
+  &:nth-child(35) ~ div{
+    border-bottom: 0px;
+  }
+}
+.js-pmu-months .js-pmu-button,
+.js-pmu-years .js-pmu-button{
+  &:nth-child(4n){
+    border-right: 0px;
+  }
+  &:nth-child(8) ~ div{
+    border-bottom: 0px;
+  }
+}
+.js-pmu-day{
+  width: 29px;
+  height: 29px;
+}
+.js-pmu-days .js-pmu-today {
+  border-color: #0C91D7;
+  color: #0C91D7;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  margin-top: -1px;
+  margin-left: -1px;
+}
+.js-pmu-button:hover {
+  background: rgba(122,177,53, 0.2);
+  color: #414042;
+}
+.js-pmu-not-in-month {
+  color: #BDBDBD;
+}
+.js-pmu-disabled,
+.js-pmu-disabled:hover {
+  color: #BDBDBD;
+  cursor: default;
+}
+ .js-pmu-selected {
+  background: #4EB1E5;
+  color: #eee;
+}
+.js-pmu-not-in-month.js-pmu-selected {
+  background: #17384d;
+}
+.js-pmu-month-header{
+  background: #4DB0E4;
+  border-radius: 2px;
+  position: relative;
+  .js-pmu-button{
+    color: #ffffff;
+    &:hover{
+      background: transparent;
+    }
+  }
+}
+.js-pmu-highlight{
+  background: red;
+}
+.js-pmu-instance nav {
+  line-height: 2em;
+}
+.js-pmu-instance nav *:first-child :hover {
+  color: #88c5eb;
+}
+.js-pmu-prev,
+.js-pmu-next {
+  display: none;
+  height: 2em;
+  width: 1em;
+  position: absolute;
+}
+.js-pmu-prev{
+  left: 10px;
+}
+.js-pmu-next {
+  right: 10px;
+}
+.js-pmu-month {
+  width: auto;
+}
+.js-pmu-years *,
+.js-pmu-months * {
+  display: inline-block;
+  line-height: 3.6em;
+  width: 3.5em;
+}
+.js-pmu-day-of-week {
+  color: #414042;
+  cursor: default;
+  &:nth-child(6), &:nth-child(7){
+    color:#4DB0E4;
+  }
+}
+.js-pmu-day-of-week *,
+.js-pmu-days * {
+  display: inline-block;
+  line-height: 29px;
+  width: 2em;
+}
+.js-pmu-day-of-week * {
+  line-height: 1.8em;
+}
+
+.pickmeup:not(.js-pmu-view-days) .js-pmu-days-wrap,
+.pickmeup:not(.js-pmu-view-days) .js-pmu-day-of-week,
+.pickmeup:not(.js-pmu-view-months) .js-pmu-months-wrap,
+.pickmeup:not(.js-pmu-view-years) .js-pmu-years-wrap {
+  display: none;
+}

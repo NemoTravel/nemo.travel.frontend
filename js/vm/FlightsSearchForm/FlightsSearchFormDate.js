@@ -31,6 +31,9 @@ define(
 			if (typeof initialData == 'string' && this.regexes.fulltime.test(initialData)) {
 				newDate = new Date(initialData);
 			}
+			else if (typeof initialData == 'object' && initialData instanceof Date) {
+				newDate = initialData;
+			}
 
 			// Checking validity
 			if (!newDate || isNaN(newDate.getDate())) {

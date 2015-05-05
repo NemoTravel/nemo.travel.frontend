@@ -15,6 +15,10 @@ define(
 				}
 			}
 
+			if (!controllerObject) {
+				throw 'Error! No controller passed!';
+			}
+
 			this.$$originalData = initialData;
 			this.$$controller = controllerObject;
 		}
