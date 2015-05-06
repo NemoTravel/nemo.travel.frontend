@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>PickMeUp lib test + knockout</title>
+    <script src="js/lib/jquery/v.2.1.3/jquery-2.1.3.min.js"></script>
+    <script src="js/lib/jquery.pickmeup/jquery.pickmeup.js"></script>
+    <script src="js/test/testing_pickMeUp.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body{
+        }
+        form label, form div{
+            display: block;
+            width: 600px;
+            text-align: left;
+            margin: 0 auto;
+            padding-top: 10px;
+        }
+        form label span {
+            width: 300px;
+            display: inline-block;
+        }
+        .date-chose-wrap{
+            width: 800px;
+        }
+        .date-chose-wrap > span{
+            width: 300px;
+            display: inline-block;
+        }
+        .dates-to-highlight span{
+            display: block;
+        }
+        .js-picker-input_test_highlight{
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="test_myTestPicker">
+    <form class="test-datePickerTestForm" method="post">
+        <label>
+            <span>Select Date</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test">
+        </label>
+        <label>
+            <span>Select Dates range</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_range">
+        </label>
+        <label>
+            <span>Select Date with 2 calendars</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_calendars">
+        </label>
+        <label>
+            <span>Select Date with some event on date choose</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_callbacks">
+        </label>
+        <label>
+            <span>Select Date, where minimal date is today and maximal date is today+month</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_minimal">
+        </label>
+        <label>
+            <span>Select multiple dates</span>
+            <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_multi">
+        </label>
+		<label>
+			<span>Select, starting from Sunday</span>
+			<input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_sunday">
+		</label>
+        <div class="date-chose-wrap">
+            <span>Select Date with special dates</span>
+            <input   placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_highlight">
+            <br />
+            <input   style="width:250px" placeholder="choose date to highlight(ex. 2015-04-19)" class="js-date-to-highlight">
+            <button class="js-set-highlight-date">Submit</button>
+            <div class="dates-to-highlight">
+                This dates are chosen:
+                <span>2012-12-12</span>
+            </div>
+        </div>
+    </form>
+</div>
