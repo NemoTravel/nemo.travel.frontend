@@ -194,9 +194,6 @@
 		 * If several calendars should be shown
 		 */
 		for (var i = 0; i < options.calendars; i++) {
-			if(options.calendars > 1){
-				options.hideOnSelect = false;
-			}
 			localDate = new Date(currentDate);
 			instance = pickmeup.find('.nemo-pmu-instance').eq(i);
 			if (pickmeup.hasClass('nemo-pmu-view-years')) {
@@ -820,9 +817,12 @@
 							$this.pickmeup('hide');
 						}
 						if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
-							$this.pickmeup('set_date', parseDate(
-                                $this.val(), options.format, options.separator, options.locale)
-                            )
+							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
+							if(parsedDate >=options.min && parsedDate <= options.max){
+								$this.pickmeup('set_date', parsedDate)
+							}else{
+								$this.pickmeup('set_date', options.current)
+							}
 						}
 					})
 					.on('blur', function(){$this.pickmeup('hide')});
@@ -900,6 +900,14 @@
 					.off('mousedown touchstart focus', options.binded.hide)
 					.off('resize', options.binded.forced_show);
 				options.lastSel = false;
+			}
+			if ($(this).is('input')){
+				if ($(this).val().length>0){
+					var parsedDate = parseDate($(this).val(), options.format, options.separator, options.locale);
+					if(!(parsedDate >=options.min && parsedDate <= options.max)) {
+						$(this).val(formatDate(options.current, options.format, options.locale));
+					}
+				}
 			}
 		}
 	}
@@ -1011,14 +1019,6 @@
 		}
 		options.current = new Date(options.mode != 'single' ? options.date[0] : options.date);
 		options.binded.fill();
-		if ($this.is('input')) {
-			var prepared_date = prepareDate(options);
-			$this.val(
-				options.mode == 'single'
-					? (options.defaultDate === false ? $this.val() : prepared_date[0])
-					: prepared_date[0].join(options.separator)
-			);
-		}
 	}
 	function destroy() {
 		var $this = $(this),
