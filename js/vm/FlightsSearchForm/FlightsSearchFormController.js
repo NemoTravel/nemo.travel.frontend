@@ -71,9 +71,8 @@ define(
 							// Second segment arrival and no first departure
 							(segments[1].items.arrival.value() && !segments[0].items.departure.value()) ||
 							// Departure and arrival mismatch
-							// FIXME no IATA in the future
-							(segments[0].items.departure.value() && segments[0].items.departure.value().IATA != segments[1].items.arrival.value().IATA) ||
-							(segments[1].items.departure.value() && segments[1].items.departure.value().IATA != segments[0].items.arrival.value().IATA)
+							(segments[0].items.departure.value() && segments[0].items.departure.value().identifier != segments[1].items.arrival.value().identifier) ||
+							(segments[1].items.departure.value() && segments[1].items.departure.value().identifier != segments[0].items.arrival.value().identifier)
 						) {
 							if (segments.length >= 2) {
 								tmpdate = segments[1].items.departureDate.value();
@@ -462,7 +461,6 @@ define(
 				var tmp;
 
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
-					// FIXME Currently backend can not search cities by IATA, so airports are preferrable
 					var depdata = {
 							IATA: this.preinittedData.segments[i][0],
 							isCity: this.preinittedData.segments[i][3],
@@ -479,11 +477,6 @@ define(
 						this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: arrdata, guide: this.$$rawdata.guide}),
 						this.$$controller.getModel('common/FlightsSearchFormDate', this.preinittedData.segments[i][2])
 					);
-//					console.log(
-//						'==>',
-//						this.segments()[this.segments().length-1].items.departure.value(),
-//						this.segments()[this.segments().length-1].items.arrival.value()
-//					);
 				}
 
 				// Detecting tripType

@@ -71,7 +71,7 @@ define(
 				for (var i in guide) {
 					if (guide.hasOwnProperty(i) && this.pool.hasOwnProperty(i)) {
 						for (var j in guide[i]) {
-							if (guide[i].hasOwnProperty(j)) {
+							if (guide[i].hasOwnProperty(j) && !this.pool[i][j]) {
 								this.pool[i][j] = this.$$controller.getModel('BaseStaticModel', guide[i][j]);
 							}
 						}

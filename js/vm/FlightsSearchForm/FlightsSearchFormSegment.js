@@ -63,8 +63,7 @@ define(
 			if (
 				this.items.departure.value() &&
 				this.items.arrival.value() &&
-				// FIXME this is temporary. There could be no IATA
-				this.items.departure.value().IATA == this.items.arrival.value().IATA
+				this.items.departure.value().identifier == this.items.arrival.value().identifier
 			) {
 				this.items.arrival.error('sameAsDeparture');
 			}

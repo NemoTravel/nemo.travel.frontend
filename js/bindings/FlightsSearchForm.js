@@ -61,15 +61,6 @@ define(
 									return;
 								}
 
-								for (var i in data.guide.countries) {
-									if (data.guide.countries.hasOwnProperty(i)) {
-										tmp = data.guide.countries[i];
-										tmp.IATA = i;
-
-										data.guide.countries[i] = viewModel.$$controller.getModel('BaseStaticModel', tmp);
-									}
-								}
-
 								// Converting autocomplete data into an array of possibilities
 								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
 									result.push(
