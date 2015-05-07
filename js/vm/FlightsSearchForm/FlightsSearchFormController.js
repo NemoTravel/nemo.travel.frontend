@@ -236,7 +236,9 @@ define(
 			if (this.$$componentParameters.length == 1) {
 				this.tuneSearch = parseInt(this.$$componentParameters[0]);
 
-				this.mode = 'tunesearch';
+				if (!isNaN(this.tuneSearch)) {
+					this.mode = 'tunesearch';
+				}
 			}
 			// Preinitted by URL
 			else if (this.$$componentParameters.length == 3) {
@@ -248,6 +250,10 @@ define(
 
 					// Processing date
 					t[2] = t[2].substr(0,4) + '-' + t[2].substr(4,2) + '-' + t[2].substr(6);
+
+					// If we're preinitted by URL - IATAS mean cities first
+					t.push(true);
+					t.push(true);
 
 					this.preinittedData.segments.push(t);
 				}
@@ -357,14 +363,7 @@ define(
 					for (var j in segments[i].items) {
 						if (
 							segments[i].items.hasOwnProperty(j) &&
-							segments[i].items[j].error()/* &&
-							!(
-								i == 1 &&
-								(
-									j == 'departure' ||
-									j == 'arrival'
-								)
-							)*/
+							segments[i].items[j].error()
 						) {
 							segments[i].items[j].focus(true);
 							return;
@@ -380,7 +379,7 @@ define(
 				this.processValidation();
 			}
 			else {
-				console.log('STARTING SEARCH');
+				this.$$controller.warn('STARTING SEARCH');
 			}
 		};
 
@@ -434,6 +433,12 @@ define(
 				tmpass = {},
 				today = new Date();
 
+			// Checking for errors
+			if (this.$$rawdata.system && this.$$rawdata.system.error) {
+				this.$$error(this.$$rawdata.system.error.message);
+				return;
+			}
+
 			// Processing options
 			// Passengers maximums
 			this.options = this.$$rawdata.flights.search.formData.maxLimits;
@@ -447,75 +452,38 @@ define(
 			this.options.dateOptions.maxDate = new Date(today);
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 
-			// Processing geo data
-			// Countries (not dynamic data)
-			for (var i in this.$$rawdata.guide.countries) {
-				if (this.$$rawdata.guide.countries.hasOwnProperty(i)) {
-					geo.countries[i] = this.$$controller.getModel('BaseStaticModel', {
-						name: this.$$rawdata.guide.countries[i].name,
-						IATA: i
-					});
-				}
-			}
-
-			// Cities + Countries (not dynamic data)
-			for (var i in this.$$rawdata.guide.cities) {
-				if (this.$$rawdata.guide.cities.hasOwnProperty(i)) {
-					var data = this.$$rawdata.guide.cities[i];
-
-					data.id = i;
-					data.country = geo.countries[data.countryCode];
-
-					geo.cities[i] = this.$$controller.getModel('BaseStaticModel', data);
-				}
-			}
-
-			// Airports + Cities + Countries
-			// Airports can be cities but we need a common "geo" model. So we store common data
-			for (var i in this.$$rawdata.guide.airports) {
-				if (this.$$rawdata.guide.airports.hasOwnProperty(i)) {
-					var data = this.$$rawdata.guide.airports[i];
-
-					data.IATA = i;
-					data.country = geo.countries[data.countryCode];
-					data.city = geo.cities[data.cityId];
-
-					geo.airports[i] = data;
-				}
-			}
-
 			// Processing passengers counts
 			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
 				tmpass[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
 			}
 
-			// FIXME transfer to new format and optimize
 			// Processing segments
 			if (this.mode == 'preinitted') {
+				var tmp;
+
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
-					var departure = null,
-						arrival = null,
-						tmp;
-
-					if (geo.airports[this.preinittedData.segments[i][0]]) {
-						tmp = geo.airports[this.preinittedData.segments[i][0]];
-						tmp.isCity = false;
-
-						departure = this.$$controller.getModel('BaseStaticModel', tmp);
-					}
-
-					if (geo.airports[this.preinittedData.segments[i][1]]) {
-						tmp = geo.airports[this.preinittedData.segments[i][1]];
-						tmp.isCity = false;
-
-						arrival = this.$$controller.getModel('BaseStaticModel', tmp);
-					}
+					// FIXME Currently backend can not search cities by IATA, so airports are preferrable
+					var depdata = {
+							IATA: this.preinittedData.segments[i][0],
+							isCity: this.preinittedData.segments[i][3],
+							cityID: 0
+						},
+						arrdata = {
+							IATA: this.preinittedData.segments[i][1],
+							isCity: this.preinittedData.segments[i][4],
+							cityID: 0
+						};
 
 					this.addSegment(
-						departure,
-						arrival,
+						this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: depdata, guide: this.$$rawdata.guide}),
+						this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: arrdata, guide: this.$$rawdata.guide}),
 						this.$$controller.getModel('common/FlightsSearchFormDate', this.preinittedData.segments[i][2])
 					);
+//					console.log(
+//						'==>',
+//						this.segments()[this.segments().length-1].items.departure.value(),
+//						this.segments()[this.segments().length-1].items.arrival.value()
+//					);
 				}
 
 				// Detecting tripType
@@ -566,29 +534,12 @@ define(
 			}
 			else {
 				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
-					var data = this.$$rawdata.flights.search.request.segments[i],
-						departure = null,
-						arrival = null,
-						tmp;
-
-					if (data.departure && data.departure.IATA && geo.airports[data.departure.IATA]) {
-						tmp = geo.airports[data.departure.IATA];
-						tmp.isCity = data.departure.isCity;
-
-						departure = this.$$controller.getModel('BaseStaticModel', tmp);
-					}
-
-					if (data.arrival && data.arrival.IATA && geo.airports[data.arrival.IATA]) {
-						tmp = geo.airports[data.arrival.IATA];
-						tmp.isCity = data.arrival.isCity;
-
-						arrival = this.$$controller.getModel('BaseStaticModel', tmp);
-					}
+					var data = this.$$rawdata.flights.search.request.segments[i];
 
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
-						departure,
-						arrival,
+						data.departure ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
+						data.arrival ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
 						data.departureDate ? this.$$controller.getModel('common/FlightsSearchFormDate', data.departureDate) : null
 					);
 				}
@@ -617,6 +568,10 @@ define(
 				this.$$loading(false);
 				this.startSearch();
 			}
+		};
+
+		FlightsSearchFormController.prototype.createGeoPiont = function () {
+
 		};
 
 		FlightsSearchFormController.prototype.addSegment = function (departure, arrival, departureDate) {
@@ -652,29 +607,36 @@ define(
 
 		FlightsSearchFormController.prototype.$$usedModels = [
 			'FlightsSearchForm/FlightsSearchFormSegment',
-			'common/FlightsSearchFormDate'/*,
-			'FlightsSearchForm/FlightsSearchFormGeo'*/
+			'common/FlightsSearchFormDate',
+			'FlightsSearchForm/FlightsSearchFormGeo'
 		];
 
 		FlightsSearchFormController.prototype.dataURL = function () {
-			var ret = '/flights/search/formData';
+			var ret = '/flights/search/formData/';
 
 			if (this.mode == 'tunesearch') {
-				ret += '/' + this.tuneSearch;
-			}
-			else if (this.mode == 'preinitted') {
-				var tmp = {};
-
-				for (var i = 0; i < this.preinittedData.segments.length; i++) {
-					tmp[this.preinittedData.segments[i][1]] = this.preinittedData.segments[i][1];
-				}
-
-				// FIXME
-				ret += '/45702/';// + Object.keys(tmp).join(',');
+				ret += this.tuneSearch;
 			}
 
 			return ret;
-//			return '/JSONdummies/FlightsSearchForm.json?bust=' + (new Date()).getTime();
+		};
+
+		FlightsSearchFormController.prototype.dataPOSTParameters = function () {
+			var ret = {},
+				tmp = {};
+
+			if (this.mode == 'preinitted') {
+				for (var i = 0; i < this.preinittedData.segments.length; i++) {
+					tmp[this.preinittedData.segments[i][0]] = this.preinittedData.segments[i][0];
+					tmp[this.preinittedData.segments[i][1]] = this.preinittedData.segments[i][1];
+				}
+
+				ret.cities = ret.airports = Object.keys(tmp);
+//				ret.airports = ['IEV'];
+//				ret.countries = [];
+			}
+
+			return ret;
 		};
 
 		return FlightsSearchFormController;

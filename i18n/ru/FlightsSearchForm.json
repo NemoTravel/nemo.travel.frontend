@@ -69,6 +69,6 @@
 	"error_arrival_sameAsDeparture": "Пункты вылета и прилета не могут совпадать",
 	"error_departureDate_noInput": "Укажите дату вылета",
 	"error_departureDate_notInOrder": "Даты должны идти по порядку",
-	"error_departureDate_tooEarly": "Дата слишком рано",
+	"error_departureDate_tooEraly": "Дата слишком рано",
 	"error_departureDate_tooLate": "Дата слишком поздно"
 }

@@ -75,6 +75,7 @@ define(
 						}
 						catch (e) {
 							self.$$error('Request failed: wrong response.');
+							self.$$loading(false);
 							return;
 						}
 
@@ -83,9 +84,11 @@ define(
 					},
 					function (request) {
 						self.$$error('Request failed: ' + request.status + ': ' + request.statusText);
+						self.$$loading(false);
 					},
 					function (request) {
 						self.$$error('Request timed out.');
+						self.$$loading(false);
 					}
 				);
 			}

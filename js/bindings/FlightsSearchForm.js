@@ -37,7 +37,8 @@ define(
 			_renderItem: function( ul, item ) {
 				// If item has label - it's something other than geo point that should be in AC
 				return $( "<li>" )
-							.append( typeof item.label != 'undefined' ? item.label : (item.name + ', ' + item.country.name) )
+					.append( typeof item.label != 'undefined' ? item.label : (item.name + ', ' + item.country.name) )
+					.attr('data-value', typeof item.label == 'undefined')
 					.appendTo( ul );
 			}
 		});
@@ -57,6 +58,7 @@ define(
 
 								if (data.system && data.system.error) {
 									callback(noResultsResults);
+									return;
 								}
 
 								for (var i in data.guide.countries) {
@@ -70,25 +72,9 @@ define(
 
 								// Converting autocomplete data into an array of possibilities
 								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
-									if (data.guide.autocomplete.iata[i].isCity) {
-										tmp = data.guide.cities[data.guide.autocomplete.iata[i].cityId];
-										tmp.IATA = tmp.codeIATA;
-										delete tmp.codeIATA;
-									}
-									else {
-										tmp = data.guide.airports[data.guide.autocomplete.iata[i].IATA];
-										tmp.IATA = data.guide.autocomplete.iata[i].IATA;
-									}
-
-									tmp.isCity = data.guide.autocomplete.iata[i].isCity;
-
-									// Setting country
-									tmp.country = null;
-									if (data.guide.countries[tmp.countryCode]) {
-										tmp.country = data.guide.countries[tmp.countryCode];
-									}
-
-									result.push(viewModel.$$controller.getModel('BaseStaticModel', tmp));
+									result.push(
+										viewModel.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
+									);
 								}
 
 								if (result.length == 0) {
@@ -103,7 +89,7 @@ define(
 						});
 					},
 					open: function (event, ui) {
-						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children();
+						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 						if ($children.length == 1) {
 							$children.eq(0).mouseenter().click();
 						}
@@ -235,7 +221,7 @@ define(
 					max: bindingContext.$parent.options.dateOptions.maxDate,
 					format: 'd.m.Y',
 					hideOnSelect: true,
-					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : false,
+					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
 					render: function (dateObj) {
 						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
 

@@ -1,5 +1,5 @@
 <div class="nemo-flights-form js-autofocus-form">
-<!-- ko if: !$$loading() -->
+<!-- ko if: !$$loading() && !$$error() -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons">
 		<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
 			В одну сторону
@@ -52,7 +52,10 @@
 									</span>
 									<!-- /ko -->
 									<!-- ko if: items.departure.value() -->
-									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: items.departure.value().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+items.departure.value().country.name"></span>
+										<!-- ko with: items.departure.value() -->
+											<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: name"></span><!--
+											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+										<!-- /ko -->
 									<!-- /ko -->
 								</div>
 							</div>
@@ -83,7 +86,10 @@
 									</span>
 									<!-- /ko -->
 									<!-- ko if: items.arrival.value() -->
-									<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: items.arrival.value().name"></span><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', '+items.arrival.value().country.name"></span>
+										<!-- ko with: items.arrival.value() -->
+											<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: name"></span><!--
+											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+										<!-- /ko -->
 									<!-- /ko -->
 								</div>
 							</div>
@@ -269,11 +275,15 @@
 	<!-- /ko -->
 <!-- /ko -->
 
+<!-- ko if: !$$loading() && $$error() -->
+<div data-bind="text: $$error()"></div>
+<!-- /ko -->
+
 <!-- ko if: $$loading() -->
 	<div class="nemo-flights-form__loader"></div>
 <!-- /ko -->
 
 <!-- Last searches component -->
-<div class="" data-bind="component: {name: 'FlightsLastSearches/FlightsLastSearchesController',params: {}}">Loading last searches...</div>
+<!--<div class="" data-bind="component: {name: 'FlightsLastSearches/FlightsLastSearchesController',params: {}}">Loading last searches...</div>-->
 
 </div>
