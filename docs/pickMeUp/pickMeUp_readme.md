@@ -4,7 +4,7 @@ Really simple, powerful and customizable datepicker.
 
 Author - Nazar Mokrynskyi
 
-Authot, polished it with rasp and kicked some new features - Boris Sobolevskyi
+Author that polished it with rasp and kicked in some new features - Boris Sobolevskyi
 
 Based on DatePicker by Stefan Petre
 
@@ -13,7 +13,7 @@ Browser support:
 * Opera 12.1+
 * Latest versions of Firefox and Chrome
 
-## [Demo](http://nazar-pc.github.io/PickMeUp)
+## [Demo](https://github.com/MuteLab/nemo.travel.frontend/blob/master/pickMeUp_Test.html)
 
 ## Getting started
 You need only 2 files: `js/lib.jquery.pickmeup/jquery.pickmeup.js` and `css/common/pickmeup.styl`.
@@ -71,8 +71,8 @@ All options and events are the same.
 | calendars       | int                       | 1                | Number of calendars, that will be rendered                                                                           |
 | format          | string                    | d-m-Y            | Date format (aAbBCdeHIjklmMpPsSuwyY are supported)                                                                   |
 | position        | top/right/bottom/left     | bottom           | Date picker's position relative to the triggered element                                                             |
-| trigger_event   | string                    | click touchstart | Event to trigger the date picker                                                                                     |
-| class_name      | string                    |                  | Class to be added to root datepicker element                                                                         |
+| triggerEvent   | string                    | click touchstart | Event to trigger the date picker                                                                                     |
+| className      | string                    |                  | Class to be added to root datepicker element                                                                         |
 | hideOnSelect  | boolean                   | true            | If `true` - datepicker will be hidden after selection (for range mode allows to select first and last days)          |
 | min             | null/object/string        | null             | Min date available for selection, `null` means no limitation                                                         |
 | max             | null/object/string        | null             | Max date available for selection, `null` means no limitation                                                         |

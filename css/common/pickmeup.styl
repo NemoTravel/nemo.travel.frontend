@@ -17,7 +17,7 @@
 input[type="date"]::-webkit-input-placeholder{
   visibility: hidden !important;
 }*/
-.pickmeup {
+.nemo-pickmeup-wrapper {
   background: #ffffff;
   display: none;
   position: absolute;
@@ -27,40 +27,40 @@ input[type="date"]::-webkit-input-placeholder{
   }
 }
 
-.js-pmu-instance {
+.nemo-pmu-instance {
   display: inline-block;
   text-align: center;
   width: 258px;
 }
 
-.js-pmu-years-wrap,
-.js-pmu-months-wrap,
-.js-pmu-days-wrap{
+.nemo-pmu-years-wrap,
+.nemo-pmu-months-wrap,
+.nemo-pmu-days-wrap{
   padding: 5px;
 }
-.js-pmu-button {
+.nemo-pmu-button {
   color: #414042;
   cursor: pointer;
   outline: none;
   text-decoration: none;
 }
 
-.js-pmu-days ,
-.js-pmu-months ,
-.js-pmu-years {
+.nemo-pmu-days ,
+.nemo-pmu-months ,
+.nemo-pmu-years {
   border: 1px solid #DCDCDC;
   border-radius: 3px;
   width: 230px;
   padding: 7px;
 }
-.js-pmu-days .js-pmu-button,
-.js-pmu-months .js-pmu-button,
-.js-pmu-years .js-pmu-button{
+.nemo-pmu-days .nemo-pmu-button,
+.nemo-pmu-months .nemo-pmu-button,
+.nemo-pmu-years .nemo-pmu-button{
   border-right: 1px solid #DCDCDC;
   border-bottom: 1px solid #DCDCDC;
 
 }
-.js-pmu-days .js-pmu-button{
+.nemo-pmu-days .nemo-pmu-button{
   &:nth-child(7n){
     border-right: 0px;
   }
@@ -68,8 +68,8 @@ input[type="date"]::-webkit-input-placeholder{
     border-bottom: 0px;
   }
 }
-.js-pmu-months .js-pmu-button,
-.js-pmu-years .js-pmu-button{
+.nemo-pmu-months .nemo-pmu-button,
+.nemo-pmu-years .nemo-pmu-button{
   &:nth-child(4n){
     border-right: 0px;
   }
@@ -77,11 +77,11 @@ input[type="date"]::-webkit-input-placeholder{
     border-bottom: 0px;
   }
 }
-.js-pmu-day{
+.nemo-pmu-day{
   width: 29px;
   height: 29px;
 }
-.js-pmu-days .js-pmu-today {
+.nemo-pmu-days .nemo-pmu-today {
   border-color: #0C91D7;
   color: #0C91D7;
   border-left: 1px solid;
@@ -89,87 +89,87 @@ input[type="date"]::-webkit-input-placeholder{
   margin-top: -1px;
   margin-left: -1px;
 }
-.js-pmu-button:hover {
+.nemo-pmu-button:hover {
   background: rgba(122,177,53, 0.2);
   color: #414042;
 }
-.js-pmu-not-in-month {
+.nemo-pmu-not-in-month {
   color: #BDBDBD;
 }
-.js-pmu-disabled,
-.js-pmu-disabled:hover {
+.nemo-pmu-disabled,
+.nemo-pmu-disabled:hover {
   color: #BDBDBD;
   cursor: default;
 }
- .js-pmu-selected {
+ .nemo-pmu-selected {
   background: #4EB1E5;
   color: #eee;
 }
-.js-pmu-not-in-month.js-pmu-selected {
+.nemo-pmu-not-in-month.nemo-pmu-selected {
   background: #17384d;
 }
-.js-pmu-month-header{
+.nemo-pmu-month-header{
   background: #4DB0E4;
   border-radius: 2px;
   position: relative;
-  .js-pmu-button{
+  .nemo-pmu-button{
     color: #ffffff;
     &:hover{
       background: transparent;
     }
   }
 }
-.js-pmu-highlight{
+.nemo-pmu-highlight{
   background: red;
 }
-.js-pmu-instance nav {
+.nemo-pmu-instance nav {
   line-height: 2em;
 }
-.js-pmu-instance nav *:first-child :hover {
+.nemo-pmu-instance nav *:first-child :hover {
   color: #88c5eb;
 }
-.js-pmu-prev,
-.js-pmu-next {
+.nemo-pmu-prev,
+.nemo-pmu-next {
   display: none;
   height: 2em;
   width: 1em;
   position: absolute;
 }
-.js-pmu-prev{
+.nemo-pmu-prev{
   left: 10px;
 }
-.js-pmu-next {
+.nemo-pmu-next {
   right: 10px;
 }
-.js-pmu-month {
+.nemo-pmu-month {
   width: auto;
 }
-.js-pmu-years *,
-.js-pmu-months * {
+.nemo-pmu-years *,
+.nemo-pmu-months * {
   display: inline-block;
   line-height: 3.6em;
   width: 3.5em;
 }
-.js-pmu-day-of-week {
+.nemo-pmu-day-of-week {
   color: #414042;
   cursor: default;
   &:nth-child(6), &:nth-child(7){
     color:#4DB0E4;
   }
 }
-.js-pmu-day-of-week *,
-.js-pmu-days * {
+.nemo-pmu-day-of-week *,
+.nemo-pmu-days * {
   display: inline-block;
   line-height: 29px;
   width: 2em;
 }
-.js-pmu-day-of-week * {
+.nemo-pmu-day-of-week * {
   line-height: 1.8em;
 }
 
-.pickmeup:not(.js-pmu-view-days) .js-pmu-days-wrap,
-.pickmeup:not(.js-pmu-view-days) .js-pmu-day-of-week,
-.pickmeup:not(.js-pmu-view-months) .js-pmu-months-wrap,
-.pickmeup:not(.js-pmu-view-years) .js-pmu-years-wrap {
+.nemo-pickmeup-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-days-wrap,
+.nemo-pickmeup-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-day-of-week,
+.nemo-pickmeup-wrapper:not(.nemo-pmu-view-months) .nemo-pmu-months-wrap,
+.nemo-pickmeup-wrapper:not(.nemo-pmu-view-years) .nemo-pmu-years-wrap {
   display: none;
 }

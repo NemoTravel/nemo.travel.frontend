@@ -21,25 +21,12 @@
             width: 300px;
             display: inline-block;
         }
-        .date-chose-wrap{
-            width: 800px;
-        }
-        .date-chose-wrap > span{
-            width: 300px;
-            display: inline-block;
-        }
-        .dates-to-highlight span{
-            display: block;
-        }
-        .js-picker-input_test_highlight{
-            margin-left: 100px;
-        }
     </style>
 </head>
 <body>
 <div class="test_myTestPicker">
     <form class="test-datePickerTestForm" method="post">
-        <label>
+		<label>
             <span>Select Date</span>
             <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test">
         </label>
@@ -60,23 +47,24 @@
             <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_minimal">
         </label>
         <label>
-            <span>Select multiple dates</span>
+            <span>Select multiple dates and custom separator</span>
             <input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_multi">
         </label>
 		<label>
-			<span>Select, starting from Sunday</span>
+			<span>Select Date, starting from Sunday and with custom prev-next buttons</span>
 			<input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_sunday">
 		</label>
-        <div class="date-chose-wrap">
-            <span>Select Date with special dates</span>
-            <input   placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_highlight">
-            <br />
-            <input   style="width:250px" placeholder="choose date to highlight(ex. 2015-04-19)" class="js-date-to-highlight">
-            <button class="js-set-highlight-date">Submit</button>
-            <div class="dates-to-highlight">
-                This dates are chosen:
-                <span>2012-12-12</span>
-            </div>
-        </div>
+		<label>
+			<span>Select Date, where years selection is shown first and date has different format, and picker shown on left side</span>
+			<input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_years">
+		</label>
+		<label>
+			<span>Select Date, triggered on double click</span>
+			<input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_ondblclick">
+		</label>
+		<label>
+			<span>Select Date, where current date is highlighted and disabled</span>
+			<input  placeholder="click me!" class="js-picker js-picker-input js-picker-input_test_highlight">
+		</label>
     </form>
 </div>
