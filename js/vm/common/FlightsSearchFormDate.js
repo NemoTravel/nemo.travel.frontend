@@ -31,6 +31,9 @@ define(
 			if (typeof initialData == 'string' && this.regexes.fulltime.test(initialData)) {
 				newDate = new Date(initialData);
 			}
+			else if (typeof initialData == 'string' && this.regexes.date.test(initialData)) {
+				newDate = new Date(initialData+'T00:00:00');
+			}
 			else if (typeof initialData == 'object' && initialData instanceof Date) {
 				newDate = initialData;
 			}
@@ -44,7 +47,8 @@ define(
 		};
 
 		FlightsSearchFormDate.prototype.regexes = {
-			fulltime: /^\d{4}-\d{1,2}-\d{1,2}(?:T\d{1,2}:\d{1,2}:\d{1,2})$/i
+			fulltime: /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}$/i,
+			date: /^\d{4}-\d{1,2}-\d{1,2}$/
 		};
 
 		FlightsSearchFormDate.prototype.prependZero = function (num) {

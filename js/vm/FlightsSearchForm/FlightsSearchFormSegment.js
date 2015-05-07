@@ -30,19 +30,19 @@ define(
 			// Initial validation
 			this.validate();
 
-			this.isValid = ko.computed(function () {
-				for (var i in this.items) {
-					if (this.items.hasOwnProperty(i) && this.items[i].error()) {
-						return false;
-					}
-				}
-				return true;
-			}, this);
-
 			// Watchers for props change
-			this.items.departure.value.subscribe(function (newValue) {this.validate();}, this);
-			this.items.arrival.value.subscribe(function (newValue) {this.validate();}, this);
-			this.items.departureDate.value.subscribe(function (newValue) {this.validate();}, this);
+			this.items.departure.value.subscribe(function (newValue) {
+				this.form.segmentGeoChanged(this, 'departure');
+				this.validate();
+			}, this);
+			this.items.arrival.value.subscribe(function (newValue) {
+				this.form.segmentGeoChanged(this, 'arrival');
+				this.validate();
+			}, this);
+			this.items.departureDate.value.subscribe(function (newValue) {
+				this.form.recalcDateRestrictions();
+				this.validate();
+			}, this);
 		}
 
 		// Extending from dictionaryModel
@@ -63,7 +63,7 @@ define(
 			if (
 				this.items.departure.value() &&
 				this.items.arrival.value() &&
-				// TODO this is temporary. There could be no IATA
+				// FIXME this is temporary. There could be no IATA
 				this.items.departure.value().IATA == this.items.arrival.value().IATA
 			) {
 				this.items.arrival.error('sameAsDeparture');

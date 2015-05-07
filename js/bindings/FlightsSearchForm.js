@@ -164,7 +164,6 @@ define(
 						}
 					}
 					else if (
-						$target.hasClass('') &&
 						bindingContext.$data.tripType() == 'RT' &&
 						segment.index == 0 &&
 						!bindingContext.$data.segments()[1].items.departureDate.value()
@@ -184,6 +183,7 @@ define(
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 
+		var PMULocale;
 		ko.bindingHandlers.flightsFormDatepicker = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element);
@@ -199,11 +199,10 @@ define(
 				});
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var $element = $(element),
-					now = new Date(),
-					minDate = (new Date()),
-					maxDate = (new Date()),
-					locale = {
+				var $element = $(element);
+
+				if (!PMULocale) {
+					PMULocale = {
 						days:        [], // ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 						daysShort:   [], // ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 						daysMin:     [], // ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
@@ -211,41 +210,53 @@ define(
 						monthsShort: []  // ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					};
 
-				minDate.setDate(now.getDate() + bindingContext.$parent.options.dateOptions.minOffset);
-				maxDate.setDate(now.getDate() + bindingContext.$parent.options.dateOptions.maxOffset);
+					for (var i = 1; i <= 12; i++) {
+						PMULocale.months.push(bindingContext.$root.i18n('dates', 'month_' + i + '_f_n'));
+						PMULocale.monthsShort.push(bindingContext.$root.i18n('dates', 'month_' + i + '_s_n'));
 
-				for (var i = 1; i <= 12; i++) {
-					locale.months.push(bindingContext.$root.i18n('dates', 'month_' + i + '_f_n'));
-					locale.monthsShort.push(bindingContext.$root.i18n('dates', 'month_' + i + '_s_n'));
+						if (i == 1) {
+							PMULocale.days.push(bindingContext.$root.i18n('dates', 'dow_7_f'));
+							PMULocale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
+							PMULocale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
+						}
 
-					if (i == 1) {
-						locale.days.push(bindingContext.$root.i18n('dates', 'dow_7_f'));
-						locale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
-						locale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_7_s'));
-					}
-
-					if (i <= 7) {
-						locale.days.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_f'));
-						locale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
-						locale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
+						if (i <= 7) {
+							PMULocale.days.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_f'));
+							PMULocale.daysShort.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
+							PMULocale.daysMin.push(bindingContext.$root.i18n('dates', 'dow_' + i + '_s'));
+						}
 					}
 				}
 
 				$element.pickmeup({
-					locale: locale,
+					locale: PMULocale,
 					calendars: 2,
-					min: minDate,
-					max: maxDate,
+					min: bindingContext.$parent.options.dateOptions.minDate,
+					max: bindingContext.$parent.options.dateOptions.maxDate,
 					format: 'd.m.Y',
 					hideOnSelect: true,
 					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : false,
+					render: function (dateObj) {
+						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
+
+						if (ret.segments.length > 0) {
+							ret.className = 'nemo-pmu-date_hilighted';
+							for (var i = 0; i < ret.segments.length; i++) {
+								ret.className += ' nemo-pmu-date_hilighted_' + ret.segments[i];
+							}
+						}
+
+						delete ret.segments;
+
+						return ret;
+					},
 					onSetDate: function () {
 						$element.blur();
 
+						valueAccessor()(viewModel.$$controller.getModel('common/FlightsSearchFormDate', this.current));
+
 						// Autofocus stuff
 						$element.trigger('nemo.fsf.segmentPropChanged');
-
-						valueAccessor()(viewModel.$$controller.getModel('FlightsSearchForm/FlightsSearchFormDate', this.current));
 					}
 				});
 			}

@@ -19,7 +19,11 @@ $(function () {
     });
     $('.js-picker-input_test_minimal').pickmeup({
         min:new Date,
-        max:new Date(new Date().setMonth(new Date().getMonth()+1))
+        max:new Date(new Date().setMonth(new Date().getMonth()+1)),
+	    onSetDate:function(){
+		    alert('You clicked on:'+this.current);
+		    return true
+	    }
     });
     $('.js-picker-input_test_multi').pickmeup({
         mode:'multiple',

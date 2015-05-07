@@ -9,9 +9,14 @@ define (
 			this.options = {};
 			this.ko = ko;
 			this.routes = [
-				{re: /^(\d+)?$/,          handler: 'vm/FlightsSearchForm/FlightsSearchFormController'},
-				{re: /^results\/(\d+)$/,  handler: 'vm/FlightsSearchResults/FlightsSearchResultsController'},
-				{re: /^order\/(\d+)$/,    handler: 'vm/FlightsCheckout/FlightsCheckoutController'}
+				// Form with optional data from existing search
+				{re: /^(\d+)?$/,          handler: 'FlightsSearchForm/FlightsSearchFormController'},
+
+				// Form with initialization by URL
+				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)((?:-[a-zA-Z=]+)+)?$/, handler: 'FlightsSearchForm/FlightsSearchFormController'},
+
+				{re: /^results\/(\d+)$/,  handler: 'FlightsSearchResults/FlightsSearchResultsController'},
+				{re: /^order\/(\d+)$/,    handler: 'FlightsCheckout/FlightsCheckoutController'}
 			];
 			this.i18nStorage = {};
 
@@ -98,6 +103,7 @@ define (
 
 			this.viewModel = {
 				component: ko.observable(null),
+				componentOptions: ko.observable(null),
 				controller: this,
 				globalError: ko.observable(null),
 				i18n: function () {return self.i18n.apply(self, arguments);}
@@ -378,7 +384,8 @@ define (
 
 			if (route instanceof Array) {
 				this.log('Route detected: ', route);
-				self.viewModel.component(route[0].replace('vm/',''));
+				self.viewModel.componentOptions(route[1]);
+				self.viewModel.component(route[0]);
 			}
 			else {
 				this.warn('No route detected. App terminated.');
@@ -566,7 +573,8 @@ define (
 			postParameters: {},
 			i18nLanguage: 'en',
 			i18nURL: '',
-			CORSWithCredentials: false
+			CORSWithCredentials: false,
+			cookiesPrefix: 'nemo-'
 		};
 
 		/**
