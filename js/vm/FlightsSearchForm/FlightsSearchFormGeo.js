@@ -29,6 +29,9 @@ define(
 					this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
 				}
 			}
+			else if (!this.isCity && !this.city && this.airport) {
+				this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
+			}
 
 			this.countryCode = '';
 			if (this.isCity && this.city) {

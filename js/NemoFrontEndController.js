@@ -13,7 +13,7 @@ define (
 				{re: /^(\d+)?$/,          handler: 'FlightsSearchForm/FlightsSearchFormController'},
 
 				// Form with initialization by URL
-				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)((?:-[a-zA-Z=]+)+)?$/, handler: 'FlightsSearchForm/FlightsSearchFormController'},
+				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'FlightsSearchForm/FlightsSearchFormController'},
 
 				{re: /^results\/(\d+)$/,  handler: 'FlightsSearchResults/FlightsSearchResultsController'},
 				{re: /^order\/(\d+)$/,    handler: 'FlightsCheckout/FlightsCheckoutController'}

@@ -10,12 +10,14 @@ define(
 
 			this.getDate  = ko.computed(function () { return this.prependZero(this.dateObject().getDate());      }, this);
 			this.getMonth = ko.computed(function () { return this.prependZero(this.dateObject().getMonth() + 1); }, this);
-			this.getYear  = ko.computed(function () { return this.dateObject().getMonth();                       }, this);
+			this.getYear  = ko.computed(function () { return this.dateObject().getFullYear();                    }, this);
 
 			this.getMonthName      = ko.computed(function () { return this.$$controller.i18n('dates', 'month_'+(this.dateObject().getMonth() + 1) + '_f'); }, this);
 			this.getMonthNameShort = ko.computed(function () { return this.$$controller.i18n('dates', 'month_'+(this.dateObject().getMonth() + 1) + '_s'); }, this);
 			this.getDOWName        = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_f'); }, this);
 			this.getDOWNameShort   = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_s'); }, this);
+
+			this.getFUllISODate    = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getDate() }, this);
 		}
 
 		// Extending from base and i18nized model
