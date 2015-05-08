@@ -1,5 +1,8 @@
 <div class="nemo-flights-form js-autofocus-form">
 <!-- ko if: !$$loading() && !$$error() -->
+	<!-- ko if: isSearching -->
+		<div class="nemo-flights-form__blocker"></div>
+	<!-- /ko -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons">
 		<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
 			В одну сторону
@@ -158,8 +161,8 @@
 				</div>
 			</div>
 			<div class="nemo-flights-form__button">
-				<button class="new-ui-button new-ui-button_main"
-						data-bind="click: startSearch, css: {'new-ui-button_disabled': validaTERROR() && !isValid()}">
+				<button class="new-ui-button new-ui-button_main nemo-flights-form__button__button"
+						data-bind="click: startSearch, css: {'new-ui-button_disabled': validaTERROR() && !isValid(),'nemo-flights-form__button__button_searching': isSearching()}">
 					Найти
 				</button>
 			</div>
@@ -275,7 +278,7 @@
 	<!-- /ko -->
 <!-- /ko -->
 
-<!-- ko if: !$$loading() && $$error() -->
+<!-- ko if: $$error() -->
 <div data-bind="text: $$error()"></div>
 <!-- /ko -->
 

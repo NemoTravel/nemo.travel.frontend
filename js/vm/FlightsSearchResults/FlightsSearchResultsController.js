@@ -10,7 +10,7 @@ define(
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
 		// Own prototype stuff
-		FlightsSearchResultsController.prototype.$$usedModels = ['a','b'];
+		FlightsSearchResultsController.prototype.$$usedModels = [];
 
 		return FlightsSearchResultsController;
 	}

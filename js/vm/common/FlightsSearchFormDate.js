@@ -8,16 +8,20 @@ define(
 			this.update(initialData);
 			BaseModel.apply(this, arguments);
 
-			this.getDate  = ko.computed(function () { return this.prependZero(this.dateObject().getDate());      }, this);
-			this.getMonth = ko.computed(function () { return this.prependZero(this.dateObject().getMonth() + 1); }, this);
-			this.getYear  = ko.computed(function () { return this.dateObject().getFullYear();                    }, this);
+			this.getDate    = ko.computed(function () { return this.prependZero(this.dateObject().getDate());      }, this);
+			this.getMonth   = ko.computed(function () { return this.prependZero(this.dateObject().getMonth() + 1); }, this);
+			this.getYear    = ko.computed(function () { return this.dateObject().getFullYear();                    }, this);
+			this.getHours   = ko.computed(function () { return this.prependZero(this.dateObject().getHours());     }, this);
+			this.getMinutes = ko.computed(function () { return this.prependZero(this.dateObject().getMinutes());   }, this);
+			this.getSeconds = ko.computed(function () { return this.prependZero(this.dateObject().getSeconds());   }, this);
 
 			this.getMonthName      = ko.computed(function () { return this.$$controller.i18n('dates', 'month_'+(this.dateObject().getMonth() + 1) + '_f'); }, this);
 			this.getMonthNameShort = ko.computed(function () { return this.$$controller.i18n('dates', 'month_'+(this.dateObject().getMonth() + 1) + '_s'); }, this);
 			this.getDOWName        = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_f'); }, this);
 			this.getDOWNameShort   = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_s'); }, this);
 
-			this.getFUllISODate    = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getDate() }, this);
+			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getDate() }, this);
+			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds() }, this);
 		}
 
 		// Extending from base and i18nized model
@@ -54,7 +58,7 @@ define(
 		};
 
 		FlightsSearchFormDate.prototype.prependZero = function (num) {
-			if (num > 0 && num < 10) {
+			if (num >= 0 && num < 10) {
 				num = '0' + num.toString();
 			}
 

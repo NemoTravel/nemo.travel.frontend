@@ -70,5 +70,9 @@
 	"error_departureDate_noInput": "Укажите дату вылета",
 	"error_departureDate_notInOrder": "Даты должны идти по порядку",
 	"error_departureDate_tooEraly": "Дата слишком рано",
-	"error_departureDate_tooLate": "Дата слишком поздно"
+	"error_departureDate_tooLate": "Дата слишком поздно",
+
+	"searchError_requestFailed": "Поиск не удался, обратитесь к разработчику. (Провалился запрос)",
+	"searchError_brokenJSON": "Поиск не удался, обратитесь к разработчику. (Некорректный ответ)",
+	"searchError_systemError": "Поиск не удался, обратитесь к разработчику. (Ошибка на сервере)"
 }

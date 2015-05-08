@@ -45,7 +45,7 @@ define (
 			 *
 			 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
 			 *
-			 * @type {{interval: null, init: init, getFragment: getFragment, clearSlashes: clearSlashes, check: check, listen: listen, navigate: navigate}}
+			 * @type {{interval: null, init: init, getFragment: getFragment, clearSlashes: clearSlashes, check: check, navigate: navigate}}
 			 */
 			this.router = {
 				interval: null,
@@ -87,9 +87,6 @@ define (
 
 					return null;
 				},
-				listen: function () {
-
-				},
 				navigate: function(path) {
 					path = path ? path : '';
 					if(!!(history.pushState)) {
@@ -128,6 +125,9 @@ define (
 					'domReady'
 				],
 				function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
+					// We must always require a domready event.
+					// domready is triggered after popstate event and we don't need our listener catch the first one due
+					// to different browsers triggering popstate differently
 					require (['domReady!'], function () {
 						// Adding base models to storage
 						self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
@@ -140,10 +140,26 @@ define (
 
 						self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
+						// Setting event listener thaat will fire on page URL change
+						window.addEventListener(
+							"popstate",
+							function () {
+								self.processRoute();
+							}
+							, false);
+
 						self.processRoute();
 					});
 				}
 			);
+		};
+
+		NemoFrontEndController.prototype.navigate = function (url, processRoute) {
+			this.router.navigate(url);
+
+			if (typeof processRoute == 'undefined' || processRoute) {
+				this.processRoute();
+			}
 		};
 
 		NemoFrontEndController.prototype.i18n = function (segment, key) {
@@ -191,6 +207,9 @@ define (
 		 * @param errorCallback executed when something could not be loaded
 		 */
 		NemoFrontEndController.prototype.loadKOBindings = function (bindPacksArray, callback, errorCallback) {
+			// Cloning array
+			bindPacksArray = bindPacksArray.slice(0);
+
 			for (var i = 0; i < bindPacksArray.length; i++) {
 				bindPacksArray[i] = /*this.options.sourceURL + */'js/bindings/' + bindPacksArray[i];
 			}
@@ -212,35 +231,43 @@ define (
 		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, callback, errorCallback) {
 			var self = this,
 				segmentsLoaded = 0,
-				requestsCompleted = 0;
+				requestsCompleted = 0,
+				loadArray = [];
 
 			function checkReadiness () {
-				if (segmentsLoaded == segmentsArray.length) {
+				if (segmentsLoaded == loadArray.length) {
 					callback();
 				}
-				else if (requestsCompleted == segmentsArray.length) {
+				else if (requestsCompleted == loadArray.length) {
 					errorCallback();
 				}
 			}
 
-			if (segmentsArray.length == 0) {
+			// Filtering out loaded segments
+			for (var i = 0; i < segmentsArray.length; i++) {
+				if (!self.i18nStorage[segmentsArray[i]]) {
+					loadArray.push(segmentsArray[i]);
+				}
+			}
+
+			if (loadArray.length == 0) {
 				checkReadiness();
 			}
 
-			for (var i = 0; i < segmentsArray.length; i++) {
-				if (!self.i18nStorage[segmentsArray[i]]) {
+			for (var i = 0; i < loadArray.length; i++) {
+				if (!self.i18nStorage[loadArray[i]]) {
 					// Need a closure here
 					(function (index) {
 						self.makeRequest(
-							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentsArray[index] + '.json?bust=' + (new Date()).getTime(),
+							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + loadArray[index] + '.json?bust=' + (new Date()).getTime(),
 							null,
 							function (text) {
 								requestsCompleted++;
 
 								try {
-									if (!self.i18nStorage[segmentsArray[index]]) {
-										self.log('Setting i18n segmeent', segmentsArray[index]);
-										self.i18nStorage[segmentsArray[index]] = JSON.parse(text);
+									if (!self.i18nStorage[loadArray[index]]) {
+										self.log('Setting i18n segmeent', loadArray[index]);
+										self.i18nStorage[loadArray[index]] = JSON.parse(text);
 									}
 
 									segmentsLoaded++;

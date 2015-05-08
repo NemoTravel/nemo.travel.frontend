@@ -33,6 +33,12 @@ define(
 				immediateSearch: false
 			};
 
+			// Search process type - popupped or immediate transition to results
+			// TODO unpopupped processing - when we don't need results immediately, we just need a search id for redirection
+			this.searchMode = 'popup';
+			this.isSearching = ko.observable(false);
+			this.searchError = ko.observable(false);
+
 			this.typeSelectorOpen       = ko.observable(false);
 			this.classSelectorOpen      = ko.observable(false);
 			this.passengersSelectorOpen = ko.observable(false);
@@ -230,7 +236,7 @@ define(
 						[
 							segments[i].items.departure.value() ? segments[i].items.departure.value().IATA : null,
 							segments[i].items.arrival.value() ? segments[i].items.arrival.value().IATA : null,
-							segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getFUllISODate() : null,
+							segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null,
 							segments[i].items.departure.value() ? segments[i].items.departure.value().isCity : null,
 							segments[i].items.arrival.value() ? segments[i].items.arrival.value().isCity : null
 						]
@@ -250,7 +256,7 @@ define(
 			this.cookieData.subscribe(function (newValue) {
 				if (this.setCookies) {
 					this.$$controller.log('WRITING COOKIE', this.getCookieName(), newValue);
-console.log('->cookie');
+
 					Cookie.set(this.getCookieName(), newValue, { expires: 365 });
 				}
 				else {
@@ -352,11 +358,9 @@ console.log('->cookie');
 			if (this.mode == 'normal') {
 				var cookie = Cookie.getJSON(this.getCookieName());
 
-				this.$$controller.log('Initted by cookie', cookie);
-
-			console.log(this.mode, cookie.passengers , cookie.segments, cookie.segments instanceof Array, cookie.segments.length > 0);
 				// Checking cookie validity and fixing that
-				if (cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0) {
+				if (cookie && cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0) {
+					this.$$controller.log('Initted by cookie', cookie);
 					this.preinittedData = cookie;
 					this.mode = 'preinitted';
 				}
@@ -438,12 +442,84 @@ console.log('->cookie');
 		};
 
 		FlightsSearchFormController.prototype.startSearch = function () {
+			function searchError (message, systemData) {
+				self.searchError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
+				self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				self.isSearching(false);
+			}
+
 			if (!this.isValid()) {
 				this.validaTERROR(true);
 				this.processValidation();
 			}
 			else {
-				this.$$controller.warn('STARTING SEARCH');
+				var self = this,
+					params = {
+						segments: [],
+						passengers: [],
+						parameters: {
+							"searchType": this.tripType(),
+							"direct": this.directFlights(),
+							"aroundDates": this.vicinityDates() ? 3 : 0,
+							"serviceClass": this.serviceClass(),
+							"airlines": []
+						}
+					},
+					segments = this.segments(),
+					passengers = this.passengers();
+
+				// Constructing params
+				for (var i = 0; i < segments.length; i++) {
+					params.segments.push({
+						departure: {
+							IATA: segments[i].items.departure.value().IATA,
+							isCity: segments[i].items.departure.value().isCity
+						},
+						arrival: {
+							IATA: segments[i].items.arrival.value().IATA,
+							isCity: segments[i].items.arrival.value().isCity
+						},
+						departureDate: segments[i].items.departureDate.value().getISODateTime()
+					});
+				}
+
+				for (var i in passengers) {
+					if (passengers.hasOwnProperty(i)) {
+						params.passengers.push({
+							type: i,
+							count: passengers[i]()
+						});
+					}
+				}
+
+				this.$$controller.log('STARTING SEARCH');
+				this.isSearching(true);
+
+				this.$$controller.loadData(
+					'/flights/search/request',
+					{request: JSON.stringify(params)},
+					function (text, request) {
+						var response;
+
+						try {
+							response = JSON.parse(text);
+
+							// Checking for errors
+							if (!response.system || !response.system.error) {
+								self.$$controller.navigate('results/' + response.flights.search.request.id);
+							}
+							else {
+								searchError('systemError', response.system.error);
+							}
+						}
+						catch (e) {
+							searchError('brokenJSON', text);
+						}
+					},
+					function (request) {
+						searchError('requestFailed', [request.status, request.statusText]);
+					}
+				);
 			}
 		};
 
