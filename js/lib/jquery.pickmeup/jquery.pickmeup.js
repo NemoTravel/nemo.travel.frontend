@@ -400,9 +400,7 @@
 						val: '',
 						date: []
 					};
-					if (current_month != localDate.getMonth()) {
-						day.className.push('nemo-pmu-not-in-month');
-					}
+
 					if (localDate.getDay() == 0) {
 						day.className.push('nemo-pmu-sunday');
 					} else if (localDate.getDay() == 6) {
@@ -429,6 +427,16 @@
 					) {
 						day.className.push('nemo-pmu-selected');
 					}
+					if (current_month != localDate.getMonth()) {
+						day.className.push('nemo-pmu-not-in-month');
+						if (day.className.indexOf('nemo-pmu-selected')>=0){
+							for (var k=day.className.length-1; k>=0; k--) {
+								if (day.className[k] === "nemo-pmu-selected") {
+									day.className.splice(k, 1);
+								}
+							}
+						}
+					}
 					if (val == today) {
 						day.className.push('nemo-pmu-today');
 					}
@@ -440,6 +448,7 @@
 					// Move to next day
 					localDate.addDays(1);
 				}
+
 				html += options.tpl.body(days, 'nemo-pmu-days');
 			})();
 			instance.append(html);
@@ -818,9 +827,9 @@
 						}
 						if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
 							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-							if(parsedDate >=options.min && parsedDate <= options.max){
+							if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
 								$this.pickmeup('set_date', parsedDate)
-							}else{
+							}else if(options.min == null && options.max == null){
 								$this.pickmeup('set_date', options.current)
 							}
 						}
@@ -928,7 +937,6 @@
 		if (options.mode != 'single') {
 			options.date = [];
 			options.lastSel = false;
-			options.binded.fill();
 		}
 	}
 
@@ -1286,7 +1294,6 @@
 					e.preventDefault();
 				}
 			);
-			options.binded.fill();
 			if (options.flat) {
 				pickmeup.appendTo(this).css({
 					position: 'relative',
