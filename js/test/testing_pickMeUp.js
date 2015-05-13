@@ -1,7 +1,4 @@
 $(function () {
-	$('.js-picker-flat').pickmeup({
-		flat:true
-	})
     $('.js-picker-input_test').pickmeup({
         hideOnSelect:true
     });
