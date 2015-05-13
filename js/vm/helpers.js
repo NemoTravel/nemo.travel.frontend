@@ -13,19 +13,38 @@ define(
 				what.prototype.constructor = what;
 			},
 			getNumeral: function (count, one, twoToFour, fourPlus) {
-				if (count == 0) {
-					return fourPlus;
+				// General cyrillic languages
+				if (this.language == 'ua' || this.language == 'ru') {
+					if (count == 0) {
+						return fourPlus;
+					}
+					else if (count % 10 == 1 && Math.floor(count / 10) != 1) {
+						return one;
+					}
+					else if (count % 10 > 0 && count % 10 <= 4 && Math.floor(count / 10) != 1) {
+						return twoToFour;
+					}
+					else {
+						return fourPlus;
+					}
 				}
-				else if (count % 10 == 1 && Math.floor(count / 10) != 1) {
-					return one;
-				}
-				else if (count % 10 > 0 && count % 10 <= 4 && Math.floor(count / 10) != 1) {
-					return twoToFour;
-				}
+				// Generic others
 				else {
-					return fourPlus;
+					if (count == 0) {
+						return fourPlus;
+					}
+					else if (count == 1) {
+						return one;
+					}
+					else if (count <= 4) {
+						return twoToFour;
+					}
+					else {
+						return fourPlus;
+					}
 				}
-			}
+			},
+			language: 'en'
 		};
 	}
 );

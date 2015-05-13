@@ -290,19 +290,19 @@ define(
 		FlightsSearchFormController.prototype.processInitParams = function () {
 			// Analyzing parameters
 			// Tunesearch
-			if (this.$$componentParameters.length == 1) {
-				this.tuneSearch = parseInt(this.$$componentParameters[0]);
+			if (this.$$componentParameters.route.length == 1) {
+				this.tuneSearch = parseInt(this.$$componentParameters.route[0]);
 
 				if (!isNaN(this.tuneSearch)) {
 					this.mode = 'tunesearch';
 				}
 			}
 			// Preinitted by URL
-			else if (this.$$componentParameters.length == 3) {
+			else if (this.$$componentParameters.route.length == 3) {
 				var t;
 
 				// Parsing segments
-				while (t = this.paramsParsers.segs.exec(this.$$componentParameters[0])) {
+				while (t = this.paramsParsers.segs.exec(this.$$componentParameters.route[0])) {
 					t.shift();
 
 					// Processing date
@@ -316,35 +316,35 @@ define(
 				}
 
 				// Parsing passengers
-				while (t = this.paramsParsers.passengers.exec(this.$$componentParameters[1])) {
+				while (t = this.paramsParsers.passengers.exec(this.$$componentParameters.route[1])) {
 					this.preinittedData.passengers[t[1]] = parseInt(t[2]);
 				}
 
 				this.mode = 'preinitted';
 
 				// Other params
-				if (this.$$componentParameters[2]) {
-					this.$$componentParameters[2] = this.$$componentParameters[2].split('-');
+				if (this.$$componentParameters.route[2]) {
+					this.$$componentParameters.route[2] = this.$$componentParameters.route[2].split('-');
 
-					for (var i = 0; i < this.$$componentParameters[2].length; i++) {
+					for (var i = 0; i < this.$$componentParameters.route[2].length; i++) {
 						// Direct flights flag
-						if (this.$$componentParameters[2][i] == 'direct') {
+						if (this.$$componentParameters.route[2][i] == 'direct') {
 							this.preinittedData.direct = true;
 						}
 
 						// Vicinity dates flag
-						if (this.$$componentParameters[2][i] == 'vicinityDates') {
+						if (this.$$componentParameters.route[2][i] == 'vicinityDates') {
 							this.preinittedData.vicinityDates = true;
 						}
 
 						// Immediate search start
-						if (this.$$componentParameters[2][i] == 'GO') {
+						if (this.$$componentParameters.route[2][i] == 'GO') {
 							this.preinittedData.immediateSearch = true;
 						}
 
 						// Class
-						if (this.$$componentParameters[2][i].substr(0, 6) == 'class=') {
-							t = this.$$componentParameters[2][i].substr(6);
+						if (this.$$componentParameters.route[2][i].substr(0, 6) == 'class=') {
+							t = this.$$componentParameters.route[2][i].substr(6);
 
 							if (this.serviceClasses.indexOf(t) >= 0) {
 								this.preinittedData.serviceClass = t;
@@ -625,7 +625,7 @@ define(
 					this.addSegment(
 						depdata,
 						arrdata,
-						this.$$controller.getModel('common/FlightsSearchFormDate', this.preinittedData.segments[i][2])
+						this.preinittedData.segments[i][2] ? this.$$controller.getModel('common/Date', this.preinittedData.segments[i][2]) : null
 					);
 				}
 
@@ -657,7 +657,7 @@ define(
 					this.addSegment(
 						data.departure ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
 						data.arrival ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
-						data.departureDate ? this.$$controller.getModel('common/FlightsSearchFormDate', data.departureDate) : null
+						data.departureDate ? this.$$controller.getModel('common/Date', data.departureDate) : null
 					);
 				}
 
@@ -751,7 +751,7 @@ define(
 
 		FlightsSearchFormController.prototype.$$usedModels = [
 			'FlightsSearchForm/FlightsSearchFormSegment',
-			'common/FlightsSearchFormDate',
+			'common/Date',
 			'FlightsSearchForm/FlightsSearchFormGeo'
 		];
 

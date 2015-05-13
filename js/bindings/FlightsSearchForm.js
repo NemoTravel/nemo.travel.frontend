@@ -230,7 +230,7 @@ define(
 					onSetDate: function () {
 						$element.blur();
 
-						valueAccessor()(viewModel.$$controller.getModel('common/FlightsSearchFormDate', this.current));
+						valueAccessor()(viewModel.$$controller.getModel('common/Date', this.current));
 
 						// Autofocus stuff
 						$element.trigger('nemo.fsf.segmentPropChanged');

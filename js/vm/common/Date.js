@@ -2,7 +2,7 @@
 define(
 	['knockout','js/vm/helpers','js/vm/BaseDynamicModel','js/vm/BaseI18nizedModel'],
 	function (ko, helpers, BaseModel, BaseI18nizedModel) {
-		function FlightsSearchFormDate (initialData) {
+		function CommonDate (initialData) {
 			this.dateObject = ko.observable();
 
 			this.update(initialData);
@@ -22,14 +22,16 @@ define(
 
 			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getDate() }, this);
 			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds() }, this);
+
+			this.getTimestamp = ko.computed(function () { return Math.floor(this.dateObject().getTime()/1000) }, this);
 		}
 
 		// Extending from base and i18nized model
-		helpers.extendModel(FlightsSearchFormDate, [BaseModel, BaseI18nizedModel]);
+		helpers.extendModel(CommonDate, [BaseModel, BaseI18nizedModel]);
 
-		FlightsSearchFormDate.prototype.$$i18nSegments = ['dates'];
+		CommonDate.prototype.$$i18nSegments = ['dates'];
 
-		FlightsSearchFormDate.prototype.update = function (initialData) {
+		CommonDate.prototype.update = function (initialData) {
 			var newDate = null;
 
 			// Parsing String from ISO format (YYYY-MM-DDTHH:II:SS)
@@ -52,12 +54,12 @@ define(
 			this.dateObject(newDate);
 		};
 
-		FlightsSearchFormDate.prototype.regexes = {
+		CommonDate.prototype.regexes = {
 			fulltime: /^\d{4}-\d{1,2}-\d{1,2}T\d{1,2}:\d{1,2}:\d{1,2}$/i,
 			date: /^\d{4}-\d{1,2}-\d{1,2}$/
 		};
 
-		FlightsSearchFormDate.prototype.prependZero = function (num) {
+		CommonDate.prototype.prependZero = function (num) {
 			if (num >= 0 && num < 10) {
 				num = '0' + num.toString();
 			}
@@ -65,6 +67,6 @@ define(
 			return num;
 		};
 
-		return FlightsSearchFormDate;
+		return CommonDate;
 	}
 );

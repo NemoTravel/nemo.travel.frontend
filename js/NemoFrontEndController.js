@@ -1,7 +1,7 @@
 'use strict';
 define (
-	['knockout'],
-	function (ko) {
+	['knockout', 'js/vm/helpers'],
+	function (ko, helpers) {
 		var NemoFrontEndController = function (scope, options) {
 			var self = this;
 
@@ -100,11 +100,14 @@ define (
 
 			this.viewModel = {
 				component: ko.observable(null),
-				componentOptions: ko.observable(null),
+				componentRoute: ko.observable(null),
 				controller: this,
 				globalError: ko.observable(null),
 				i18n: function () {return self.i18n.apply(self, arguments);}
 			};
+
+			// Setting needed info for helpers
+			helpers.language = self.options.i18nLanguage;
 
 			// Adding component loader
 			ko.components.loaders.unshift({
@@ -411,7 +414,7 @@ define (
 
 			if (route instanceof Array) {
 				this.log('Route detected: ', route);
-				self.viewModel.componentOptions(route[1]);
+				self.viewModel.componentRoute(route[1]);
 				self.viewModel.component(route[0]);
 			}
 			else {

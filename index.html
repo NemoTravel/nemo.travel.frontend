@@ -10,7 +10,7 @@
 				APP LOADED (<span data-bind="text: component"></span>)
 				<div class="" data-bind="component: {
 	                name: component,
-					params: componentOptions
+					params: {route: componentRoute()}
 				}">Loading component...</div>
 			</div>
 		<!-- /ko -->
@@ -70,6 +70,7 @@
 					{
 						sourceURL: nemoSourceHost,
 						dataURL: 'http://nemo.dev/api',
+//						dataURL: 'http://trunk.nemo.dev/api',
 //						dataURL: 'http://mlsd.ru:987/api',
 						root: '/',
 //						verbose: true,
