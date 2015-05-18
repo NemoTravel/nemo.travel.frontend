@@ -9,10 +9,14 @@ define(
 
 			this.filteredOut = ko.observable(false);
 			this.segmentsByLeg = [];
-			this.totalTimeEnRoute = 0;
+			this.legs = [];
+			this.totalTimeEnRoute = null;
 			this.timeEnRouteByLeg = [];
 			this.transfers = [];
+			this.transfersCount = 0;
+			this.totalTimeTransfers = 0;
 			this.recommendRating = 0;
+			this.isDirect = true;
 
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
@@ -40,11 +44,22 @@ define(
 						this.transfers[i].push({
 							duration: this.$$controller.getModel('common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp())
 						});
+
+						this.isDirect = false;
+						this.transfersCount++;
+						this.totalTimeTransfers += this.transfers[i][this.transfers[i].length - 1].duration.length();
 					}
 				}
 
 				this.totalTimeEnRoute += timeForLeg;
 				this.timeEnRouteByLeg.push(this.$$controller.getModel('common/Duration', timeForLeg));
+
+				this.legs.push({
+					depAirp: this.segmentsByLeg[i][0].depAirp,
+					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
+					depDateTime: this.segmentsByLeg[i][0].depDateTime,
+					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime
+				});
 			}
 
 			this.totalTimeEnRoute = this.$$controller.getModel('common/Duration', this.totalTimeEnRoute);
@@ -54,13 +69,25 @@ define(
 		helpers.extendModel(FlightsSearchResultsFlight, [BaseModel]);
 
 		FlightsSearchResultsFlight.prototype.calculateRecommendRating = function (mindur, maxdur, minprice, maxprice) {
-			// Calculating relative values
-			var relativeDuration = (this.totalTimeEnRoute.length() / maxdur) * 100,
-				relativePrice = (this.getTotalPrice().normalizedAmount() / maxprice) * 100,
-				carrierRating = 1; // TODO
-
-			// All this numbers are MAGIC!!!
-			this.recommendRating = -((1 * relativeDuration) + (1 * relativePrice)) + (20 * carrierRating);
+			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
+//			var relativeDuration,
+//				relativePrice,
+//				carrierRating = 1;
+//
+//			// Calculating relative values
+//			if (mindur == maxdur) {
+//				maxdur++;
+//			}
+//
+//			if (minprice == maxprice) {
+//				maxprice++;
+//			}
+//
+//			relativeDuration = ((this.totalTimeEnRoute.length() - mindur) / (maxdur - mindur)) * 100;
+//			relativePrice = ((this.getTotalPrice().normalizedAmount() - minprice) / (maxprice - minprice)) * 100;
+//
+//			// All this numbers are MAGIC!!!
+//			this.recommendRating = (20 * carrierRating) - (1 * relativeDuration) - (1 * relativePrice);
 		};
 
 		FlightsSearchResultsFlight.prototype.getTotalPrice = function () {
@@ -68,7 +95,10 @@ define(
 		};
 
 		FlightsSearchResultsFlight.prototype.getValidatingCompany = function () {
-			return this.price.validatingCompany;
+			/**
+			 * @CRUTCH in rare cases we don't have a validating company in price so we just
+			 */
+			return this.price.validatingCompany || this.segments[0].marketingCompany;
 		};
 
 		return FlightsSearchResultsFlight;

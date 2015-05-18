@@ -1,4 +1,126 @@
 Results template.
+
+<!-- ko if: !$$loading() && !$$error() -->
+<!--FILTERES-->
+
+<div style="padding: 0 420px;position: relative;">
+	<div style="border: 1px solid green; position: absolute;top: 0;left: 0;width: 360px;padding: 20px;">
+		<h3>
+			FILTERS
+			<!-- ko if: postFiltersHaveValue() -->
+			<span data-bind="click: PFClearAll" class="new-ui-pseudoLink">CLEAR ALL</span>
+			<!-- /ko -->
+		</h3>
+		<div data-bind="foreach: postfilters">
+			<!-- ko if: isActive() -->
+			<div>
+				<h4>
+					<!-- ko text: config.name --><!-- /ko -->
+					<!-- ko if: hasValue -->
+						<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
+					<!-- /ko -->
+				</h4>
+				<!-- ko if: config.type == 'Number' -->
+				<div data-bind="flightsResultsPFNumberSlider: value"></div>
+				<div>
+					MIN:
+					<!-- ko text: values().min --><!-- /ko -->
+				</div>
+				<div>
+					MAX:
+					<!-- ko text: values().max --><!-- /ko -->
+				</div>
+				<div>
+					SELECTED:
+					<!-- ko text: value().min --><!-- /ko -->
+					-
+					<!-- ko text: value().max --><!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- ko if: config.type == 'String' -->
+					<!-- ko foreach: Object.keys(values()) -->
+					<div>
+						<label>
+							<input data-bind="attr: {
+								name: '-ko-nemo-pf_'+$parent.config.name,
+								value: $data,
+								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox'
+							},
+							checked: $parent.value">
+							<span data-bind="text:
+								($parent.config.name == 'carrier' ? $parent.values()[$data].name : $parent.values()[$data])
+							"></span>
+						</label>
+					</div>
+					<!-- /ko -->
+				<!-- /ko -->
+			</div>
+			<!-- /ko-->
+		</div>
+	</div>
+
+	<div style="border: 1px solid green; position: absolute;top: 0;right: 0;width: 360px;padding: 20px;">
+		<h3>BEST FLIGHTS</h3>
+		// TODO
+	</div>
+
+	<!-- ko if: hasVisibleResult() -->
+		<h3>SHOWCASE</h3>
+		<!-- ko if: showcase.recommended() -->
+		<h4>recommended</h4>
+		<div style="margin: 10px;padding: 10px;border: 1px solid red;" data-bind="with: showcase.recommended">
+			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+			<div data-bind="foreach: segments">
+				<div data-bind="text: id+' '+depAirp.name+' - '+arrAirp.name+' '+depDateTime.getISODateTime()+' - '+arrDateTime.getISODateTime()"></div>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: showcase.cheapest() -->
+		<h4>cheapest</h4>
+		<div style="margin: 10px;padding: 10px;border: 1px solid;" data-bind="with: showcase.cheapest">
+			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
+			<div data-bind="foreach: flights">
+				<div>
+					<span data-bind="text: id"></span>
+					<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+				</div>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: showcase.fastest() -->
+		<h4>fastest</h4>
+		<div style="margin: 10px;padding: 10px;border: 1px solid red;" data-bind="with: showcase.fastest">
+			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+			<div data-bind="foreach: segments">
+				<div data-bind="text: id+' '+depAirp.name+' - '+arrAirp.name+' '+depDateTime.getISODateTime()+' - '+arrDateTime.getISODateTime()"></div>
+			</div>
+		</div>
+		<!-- /ko -->
+		<h3>RESULTS</h3>
+		<div data-bind="foreach: groups">
+			<!-- ko if: !filteredOut() -->
+			<div style="margin: 10px;padding: 10px;border: 1px solid;">
+				<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
+				<div data-bind="foreach: flights">
+					<div>
+						<span data-bind="text: id"></span>
+						<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	<!-- /ko -->
+	<!-- ko if: !hasVisibleResult() -->
+	<h2>FILTERS GIVEN EMPTY RESULT</h2>
+	<!-- /ko -->
+</div>
+<!-- /ko -->
+
+<!-- ko if: $$error() -->
+<div data-bind="text: $$error()"></div>
+<!-- /ko -->
+
 <!--<div class="" data-bind="component: {-->
 	                <!--name: 'FlightsSearchForm/FlightsSearchFormController',-->
 					<!--params: { asdasd: 'asdasdasd' }-->

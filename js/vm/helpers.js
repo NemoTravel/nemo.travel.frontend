@@ -12,6 +12,22 @@ define(
 
 				what.prototype.constructor = what;
 			},
+			cloneObject: function (obj) {
+				var clone = {};
+
+				// TODO add checks on null & undefined
+				if (typeof obj != 'object') {
+					return obj;
+				}
+
+				for (var i in obj) {
+					if (obj.hasOwnProperty(i)) {
+						clone[i] = this.cloneObject(obj[i]);
+					}
+				}
+
+				return clone;
+			},
 			getNumeral: function (count, one, twoToFour, fourPlus) {
 				// General cyrillic languages
 				if (this.language == 'ua' || this.language == 'ru') {

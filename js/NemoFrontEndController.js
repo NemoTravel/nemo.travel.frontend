@@ -305,7 +305,7 @@ define (
 		 * @returns {*}
 		 */
 		NemoFrontEndController.prototype.loadData = function (url, additionalParams, callback, errorCallback) {
-			return this.makeRequest(this.options.dataURL + url, additionalParams, callback, errorCallback);
+			return this.makeRequest(this.options.dataURL + url /*FIXME*/ + '?user_language_get_change=' + this.options.i18nLanguage /*ENDFIXME*/, additionalParams, callback, errorCallback);
 		};
 
 		/**
