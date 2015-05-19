@@ -5,6 +5,7 @@ define(
 		function FlightsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
+
 			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
 			this.tripTypes = ['OW','RT','CR'];
 
@@ -22,6 +23,7 @@ define(
 
 			// Set cookies is not an observable for when it changes it won't trigger cookie setting via this.cookieData
 			this.setCookies = false;
+			this.useCookies = true;
 			this.mode = 'normal'; // tunesearch preinitted cookied
 			this.tuneSearch = 0;
 			this.preinittedData = {
@@ -42,10 +44,6 @@ define(
 			this.typeSelectorOpen       = ko.observable(false);
 			this.classSelectorOpen      = ko.observable(false);
 			this.passengersSelectorOpen = ko.observable(false);
-
-			this.toggleTypeSelector       = function () {this.typeSelectorOpen(!this.typeSelectorOpen());};
-			this.toggleClassSelector      = function () {this.classSelectorOpen(!this.classSelectorOpen());};
-			this.togglePassengersSelector = function () {this.passengersSelectorOpen(!this.passengersSelectorOpen());};
 
 			this.processInitParams();
 
@@ -254,7 +252,7 @@ define(
 			}, this);
 
 			this.cookieData.subscribe(function (newValue) {
-				if (this.setCookies) {
+				if (this.useCookies && this.setCookies) {
 					this.$$controller.log('WRITING COOKIE', this.getCookieName(), newValue);
 
 					Cookie.set(this.getCookieName(), newValue, { expires: 365 });
@@ -276,6 +274,10 @@ define(
 		FlightsSearchFormController.prototype.$$i18nSegments       = ['FlightsSearchForm'];
 		FlightsSearchFormController.prototype.$$KOBindings         = ['FlightsSearchForm'];
 
+		FlightsSearchFormController.prototype.toggleTypeSelector       = function () {this.typeSelectorOpen(!this.typeSelectorOpen());};
+		FlightsSearchFormController.prototype.toggleClassSelector      = function () {this.classSelectorOpen(!this.classSelectorOpen());};
+		FlightsSearchFormController.prototype.togglePassengersSelector = function () {this.passengersSelectorOpen(!this.passengersSelectorOpen());};
+
 		// Additional stuff
 		// RegExps for params parsing
 		FlightsSearchFormController.prototype.paramsParsers = {
@@ -289,6 +291,12 @@ define(
 
 		FlightsSearchFormController.prototype.processInitParams = function () {
 			// Analyzing parameters
+			// Preinitted by formData
+			if (this.$$componentParameters.formData) {
+				this.useCookies = false;
+				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
+			}
+
 			// Tunesearch
 			if (this.$$componentParameters.route.length == 1) {
 				this.tuneSearch = parseInt(this.$$componentParameters.route[0]);
@@ -355,7 +363,7 @@ define(
 			}
 
 			// Preinitted by cookie
-			if (this.mode == 'normal') {
+			if (this.mode == 'normal' && this.useCookies) {
 				var cookie = Cookie.getJSON(this.getCookieName());
 
 				// Checking cookie validity and fixing that
@@ -652,7 +660,6 @@ define(
 			else {
 				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
 					var data = this.$$rawdata.flights.search.request.segments[i];
-
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
 						data.departure ? this.$$controller.getModel('Flights/common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
@@ -760,6 +767,10 @@ define(
 
 			if (this.mode == 'tunesearch') {
 				ret += this.tuneSearch;
+			}
+
+			if (this.$$rawdata) {
+				return '';
 			}
 
 			return ret;

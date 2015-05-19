@@ -15,7 +15,12 @@ define(
 						getter: function (obj) {
 							return [[obj.transfersCount, obj.transfersCount]];
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								return a.value - b.value;
+							}
+						}
 					},
 					'price': {
 						name: 'price',
@@ -41,7 +46,12 @@ define(
 
 							return ret;
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								return a.value.name.localeCompare(b.value.name);
+							}
+						}
 					},
 					'transfersLength': {
 						name: 'transfersLength',
@@ -83,7 +93,12 @@ define(
 						getter: function (obj) {
 							return [[obj.legs[this.legNumber].depAirp.IATA, obj.legs[this.legNumber].depAirp]];
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								return a.value.name.localeCompare(b.value.name);
+							}
+						}
 					},
 					'arrivalAirport': {
 						name: 'arrivalAirport',
@@ -93,7 +108,12 @@ define(
 						getter: function (obj) {
 							return [[obj.legs[this.legNumber].arrAirp.IATA, obj.legs[this.legNumber].arrAirp]];
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								return a.value.name.localeCompare(b.value.name);
+							}
+						}
 					},
 					'timeEnRoute': {
 						name: 'timeEnRoute',
@@ -113,15 +133,18 @@ define(
 			this.prices = {};
 			this.flights = {};
 			this.airlines = {};
+			this.airlinesByRating = [];
 
 			this.groups = ko.observableArray([]);
 			this.hasVisibleResult = ko.observable(true);
+
+			this.formActive = ko.observable(false);
 
 			this.showcase = {
 				recommended: ko.observable(null),
 				fastest: ko.observable(null),
 				cheapest: ko.observable(null),
-				bestCompanies: []
+				bestCompanies: ko.observable([])
 			};
 
 			this.searchInfo = {
@@ -179,8 +202,7 @@ define(
 				self = this,
 				tmpGroups = {},
 				filtersOrderObject = {},
-				tmp,
-				mindur, maxdur, minprice, maxprice;
+				tmp;
 
 			// Processing search info
 			// Segments
@@ -211,6 +233,12 @@ define(
 					this.airlines[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.guide.airlines[i]);
 				}
 			}
+
+			this.airlinesByRating = Object.keys(this.airlines)
+				.map(function (key) {return self.airlines[key]})
+				.sort(function (a, b) {
+					return a.rating - b.rating;
+				});
 
 			// Processing segments
 			for (var i in this.$$rawdata.flights.search.results.groupsData.segments) {
@@ -256,8 +284,8 @@ define(
 			// Processing price objects
 			for (var i in this.$$rawdata.flights.search.results.groupsData.prices) {
 				if (this.$$rawdata.flights.search.results.groupsData.prices.hasOwnProperty(i)) {
-					this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
 					this.prices[i] = this.$$controller.getModel('Flights/SearchResults/FlightPrice', this.$$rawdata.flights.search.results.groupsData.prices[i]);
+					this.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
 				}
 			}
 
@@ -281,22 +309,6 @@ define(
 							segments: segsarr
 						}
 					);
-
-					if (typeof minprice == 'undefined' || minprice > this.flights[source.flights[j].id].getTotalPrice().normalizedAmount()) {
-						minprice = this.flights[source.flights[j].id].getTotalPrice().normalizedAmount();
-					}
-
-					if (typeof maxprice == 'undefined' || maxprice < this.flights[source.flights[j].id].getTotalPrice().normalizedAmount()) {
-						maxprice = this.flights[source.flights[j].id].getTotalPrice().normalizedAmount();
-					}
-
-					if (typeof mindur == 'undefined' || mindur > this.flights[source.flights[j].id].totalTimeEnRoute.length()) {
-						mindur = this.flights[source.flights[j].id].totalTimeEnRoute.length();
-					}
-
-					if (typeof maxdur == 'undefined' || maxdur < this.flights[source.flights[j].id].totalTimeEnRoute.length()) {
-						maxdur = this.flights[source.flights[j].id].totalTimeEnRoute.length();
-					}
 				}
 			}
 
@@ -312,8 +324,6 @@ define(
 					}
 
 					tmpGroups[tmp].push(this.flights[i]);
-
-					this.flights[i].calculateRecommendRating(mindur, maxdur, minprice, maxprice);
 				}
 			}
 
@@ -402,6 +412,7 @@ define(
 		FlightsSearchResultsController.prototype.PFChanged = function (filter) {
 			var filterResults = {},
 				filters = this.postfilters(),
+				groups = this.groups(),
 				result,
 				visibleResult = false,
 				tmp,i,j;
@@ -450,6 +461,13 @@ define(
 				}
 			}
 
+			// Recalculating groups
+			// We can not rely on knockout's subscribe mechanism due to too many recalculations
+			// on each flights' filteredOut status change
+			for (var i = 0; i < groups.length; i++) {
+				groups[i].recalculateSelf();
+			}
+
 			this.hasVisibleResult(visibleResult);
 
 			this.setShowcase();
@@ -469,10 +487,13 @@ define(
 
 		FlightsSearchResultsController.prototype.setShowcase = function () {
 			// Defining best flight
-			var bestFlight = null,
+			var self = this,
+				bestFlight = null,
 				fastestFlight = null,
 				cheapestGroup = null,
-				groups = this.groups();
+				groups = this.groups(),
+				bestCompanies = [],
+				bestCompaniesCount = 3;
 
 			for (var i in this.flights) {
 				if (this.flights.hasOwnProperty(i) && !this.flights[i].filteredOut()) {
@@ -502,9 +523,38 @@ define(
 				}
 			}
 
-			this.showcase.cheapest(cheapestGroup);
+			this.showcase.cheapest(cheapestGroup ? cheapestGroup.clone() : cheapestGroup);
 
-			// TODO compile best flights for best companies
+			for (var i = 0; i < this.airlinesByRating.length; i++) {
+				var showcaseBC = {
+						company: this.airlinesByRating[i],
+						flight: null
+					};
+
+				for (var j in this.flights) {
+					if (this.flights.hasOwnProperty(j)) {
+						if (
+							this.flights[j].getValidatingCompany().IATA == showcaseBC.company.IATA &&
+							(
+								showcaseBC.flight == null ||
+								showcaseBC.flight.recommendRating < this.flights[j].recommendRating
+							)
+						) {
+							showcaseBC.flight = this.flights[j];
+						}
+					}
+				}
+
+				if (showcaseBC.flight) {
+					bestCompanies.push(showcaseBC);
+				}
+
+				if (bestCompanies.length >= bestCompaniesCount) {
+					break;
+				}
+			}
+
+			this.showcase.bestCompanies(bestCompanies);
 		};
 
 		FlightsSearchResultsController.prototype.$$usedModels = [
@@ -517,7 +567,6 @@ define(
 			'common/PostFilter/Abstract',
 			'common/PostFilter/String',
 			'common/PostFilter/Number',
-			// FIXME move to common location
 			'Flights/common/Geo'
 		];
 

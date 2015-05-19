@@ -15,7 +15,6 @@ define(
 			this.transfers = [];
 			this.transfersCount = 0;
 			this.totalTimeTransfers = 0;
-			this.recommendRating = 0;
 			this.isDirect = true;
 
 			// Dividing segments by leg
@@ -64,14 +63,11 @@ define(
 			}
 
 			this.totalTimeEnRoute = this.$$controller.getModel('common/Duration', this.totalTimeEnRoute);
+			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
 		}
 
 		// Extending from dictionaryModel
 		helpers.extendModel(Flight, [BaseModel]);
-
-		Flight.prototype.calculateRecommendRating = function (mindur, maxdur, minprice, maxprice) {
-			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
-		};
 
 		Flight.prototype.getTotalPrice = function () {
 			return this.price.totalPrice;
