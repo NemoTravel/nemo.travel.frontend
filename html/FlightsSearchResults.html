@@ -2,7 +2,9 @@ Results template.
 
 <!-- ko if: !$$loading() && !$$error() -->
 <!--FILTERES-->
-
+<div data-bind="foreach: searchInfo.segments" style="border: 1px solid;margin-bottom: 20px;">
+	<div data-bind="text: departure.IATA +' - '+arrival.IATA+' '+departureDate.getISODate()"></div>
+</div>
 <div style="padding: 0 420px;position: relative;">
 	<div style="border: 1px solid green; position: absolute;top: 0;left: 0;width: 360px;padding: 20px;">
 		<h3>
@@ -16,6 +18,9 @@ Results template.
 			<div>
 				<h4>
 					<!-- ko text: config.name --><!-- /ko -->
+					<!-- ko if: config.isLegged -->
+					<!-- ko text: $parent.searchInfo.segments[config.legNumber].departure.IATA + ' - ' + $parent.searchInfo.segments[config.legNumber].arrival.IATA --><!-- /ko -->
+					<!-- /ko -->
 					<!-- ko if: hasValue -->
 						<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
 					<!-- /ko -->
@@ -48,7 +53,7 @@ Results template.
 							},
 							checked: $parent.value">
 							<span data-bind="text:
-								($parent.config.name == 'carrier' ? $parent.values()[$data].name : $parent.values()[$data])
+								($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? $parent.values()[$data].name : $parent.values()[$data])
 							"></span>
 						</label>
 					</div>
@@ -105,6 +110,11 @@ Results template.
 					<div>
 						<span data-bind="text: id"></span>
 						<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+					</div>
+				</div>
+				<div data-bind="foreach: legGroupings">
+					<div style="display: inline-block;vertical-align: top;width: 25%;">
+						<select data-bind="options: options, value: selected"></select>
 					</div>
 				</div>
 			</div>

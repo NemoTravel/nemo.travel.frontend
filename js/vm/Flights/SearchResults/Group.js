@@ -7,10 +7,48 @@ define(
 
 			this.flightsById = {};
 			this.selectedFlight = ko.observable(this.flights[0]);
+			this.legGroupings = [];
 
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
 			}
+
+			for (var siter = 0; siter < this.flights[0].legs.length; siter++) {
+				var addObj = {
+						options: [],
+						selected: ko.observable()
+					},
+					tmp = {},
+					tmpIter,
+					key;
+
+				for (var fiter = 0; fiter < this.flights.length; fiter++) {
+					key = this.flights[fiter].legs[siter].depAirp.IATA +
+						this.flights[fiter].legs[siter].arrAirp.IATA +
+						this.flights[fiter].legs[siter].depDateTime.getISODateTime() +
+						this.flights[fiter].legs[siter].arrDateTime.getISODateTime() +
+						this.flights[fiter].legs[siter].timeEnRoute.length();
+
+					if (!tmp[key]) {
+						tmp[key] = [];
+					}
+
+					tmp[key].push(this.flights[fiter].id);
+				}
+
+				// Converting to array
+				tmpIter = Object.keys(tmp);
+				for (var i = 0; i < tmpIter.length; i++) {
+					addObj.options.push(tmp[tmpIter[i]]);
+				}
+
+				// Add sorting
+
+				this.legGroupings.push(addObj);
+			}
+
+			// TODO Defining set flight
+			console.log(this.legGroupings);
 
 			this.filteredOut = ko.computed(function () {
 				for (var i = 0; i < this.flights.length; i++) {
@@ -37,6 +75,8 @@ define(
 			this.recommendRating = ko.computed(function () {
 				return this.selectedFlight().recommendRating;
 			}, this);
+
+
 		}
 
 		// Extending from dictionaryModel

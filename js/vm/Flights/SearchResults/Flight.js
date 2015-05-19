@@ -2,7 +2,7 @@
 define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
 	function (ko, helpers, BaseModel) {
-		function FlightsSearchResultsFlight (initialData, controller) {
+		function Flight (initialData, controller) {
 			var tmp;
 
 			BaseModel.apply(this, arguments);
@@ -58,7 +58,8 @@ define(
 					depAirp: this.segmentsByLeg[i][0].depAirp,
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
 					depDateTime: this.segmentsByLeg[i][0].depDateTime,
-					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime
+					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime,
+					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1]
 				});
 			}
 
@@ -66,41 +67,23 @@ define(
 		}
 
 		// Extending from dictionaryModel
-		helpers.extendModel(FlightsSearchResultsFlight, [BaseModel]);
+		helpers.extendModel(Flight, [BaseModel]);
 
-		FlightsSearchResultsFlight.prototype.calculateRecommendRating = function (mindur, maxdur, minprice, maxprice) {
+		Flight.prototype.calculateRecommendRating = function (mindur, maxdur, minprice, maxprice) {
 			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
-//			var relativeDuration,
-//				relativePrice,
-//				carrierRating = 1;
-//
-//			// Calculating relative values
-//			if (mindur == maxdur) {
-//				maxdur++;
-//			}
-//
-//			if (minprice == maxprice) {
-//				maxprice++;
-//			}
-//
-//			relativeDuration = ((this.totalTimeEnRoute.length() - mindur) / (maxdur - mindur)) * 100;
-//			relativePrice = ((this.getTotalPrice().normalizedAmount() - minprice) / (maxprice - minprice)) * 100;
-//
-//			// All this numbers are MAGIC!!!
-//			this.recommendRating = (20 * carrierRating) - (1 * relativeDuration) - (1 * relativePrice);
 		};
 
-		FlightsSearchResultsFlight.prototype.getTotalPrice = function () {
+		Flight.prototype.getTotalPrice = function () {
 			return this.price.totalPrice;
 		};
 
-		FlightsSearchResultsFlight.prototype.getValidatingCompany = function () {
+		Flight.prototype.getValidatingCompany = function () {
 			/**
-			 * @CRUTCH in rare cases we don't have a validating company in price so we just
+			 * @CRUTCH in rare cases we don't have a validating company in price so we just crutch it
 			 */
 			return this.price.validatingCompany || this.segments[0].marketingCompany;
 		};
 
-		return FlightsSearchResultsFlight;
+		return Flight;
 	}
 );

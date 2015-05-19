@@ -16,7 +16,7 @@ define(
 				var clone = {};
 
 				// TODO add checks on null & undefined
-				if (typeof obj != 'object') {
+				if (typeof obj != 'object' || obj == null || typeof obj == 'undefined') {
 					return obj;
 				}
 

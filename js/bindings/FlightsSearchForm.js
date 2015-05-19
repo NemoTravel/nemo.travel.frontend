@@ -51,7 +51,7 @@ define(
 				$element.FlightsFormGeoAC({
 					source: function (request, callback) {
 						$.get(
-							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term),
+							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
 							function (data) {
 								var result = [],
 									tmp;
@@ -64,7 +64,7 @@ define(
 								// Converting autocomplete data into an array of possibilities
 								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
 									result.push(
-										viewModel.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
+										viewModel.$$controller.getModel('Flights/common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
 									);
 								}
 

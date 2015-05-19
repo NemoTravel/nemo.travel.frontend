@@ -10,13 +10,13 @@ define (
 			this.ko = ko;
 			this.routes = [
 				// Form with optional data from existing search
-				{re: /^(\d+)?$/,          handler: 'FlightsSearchForm/FlightsSearchFormController'},
+				{re: /^(\d+)?$/,          handler: 'Flights/SearchForm/Controller'},
 
 				// Form with initialization by URL
-				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'FlightsSearchForm/FlightsSearchFormController'},
+				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
 
-				{re: /^results\/(\d+)$/,  handler: 'FlightsSearchResults/FlightsSearchResultsController'},
-				{re: /^order\/(\d+)$/,    handler: 'FlightsCheckout/FlightsCheckoutController'}
+				{re: /^results\/(\d+)$/,  handler: 'Flights/SearchResults/Controller'},
+				{re: /^order\/(\d+)$/,    handler: 'Flights/Checkout/Controller'}
 			];
 			this.i18nStorage = {};
 
@@ -369,7 +369,8 @@ define (
 			var self = this,
 				template = name.replace('Controller', '').split('/');
 
-			template = template.pop();
+			template.pop();
+			template = template.join('');
 
 			this.log('Detected component', name, callback);
 

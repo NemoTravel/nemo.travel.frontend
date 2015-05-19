@@ -31,7 +31,7 @@ define(
 					}
 				}
 			}
-console.log(this.config.name, values, this.config);
+
 			if (typeof values.max == 'undefined' || typeof values.min == 'undefined' || values.max == values.min) {
 				return {};
 			}

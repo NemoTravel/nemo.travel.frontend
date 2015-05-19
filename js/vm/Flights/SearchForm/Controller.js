@@ -601,7 +601,7 @@ define(
 						arrdata = null;
 
 					if (this.preinittedData.segments[i][0]) {
-						depdata = this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {
+						depdata = this.$$controller.getModel('Flights/common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][0],
 								isCity: this.preinittedData.segments[i][3],
@@ -612,7 +612,7 @@ define(
 					}
 
 					if (this.preinittedData.segments[i][1]) {
-						arrdata = this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {
+						arrdata = this.$$controller.getModel('Flights/common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][1],
 								isCity: this.preinittedData.segments[i][4],
@@ -655,8 +655,8 @@ define(
 
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
-						data.departure ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
-						data.arrival ? this.$$controller.getModel('FlightsSearchForm/FlightsSearchFormGeo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
+						data.departure ? this.$$controller.getModel('Flights/common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
+						data.arrival ? this.$$controller.getModel('Flights/common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
 						data.departureDate ? this.$$controller.getModel('common/Date', data.departureDate) : null
 					);
 				}
@@ -721,7 +721,7 @@ define(
 		FlightsSearchFormController.prototype.addSegment = function (departure, arrival, departureDate) {
 			this.segments.push(
 				this.$$controller.getModel(
-					'FlightsSearchForm/FlightsSearchFormSegment',
+					'Flights/SearchForm/Segment',
 					{
 						departure: departure,
 						arrival: arrival,
@@ -750,9 +750,9 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.$$usedModels = [
-			'FlightsSearchForm/FlightsSearchFormSegment',
+			'Flights/SearchForm/Segment',
 			'common/Date',
-			'FlightsSearchForm/FlightsSearchFormGeo'
+			'Flights/common/Geo'
 		];
 
 		FlightsSearchFormController.prototype.dataURL = function () {
