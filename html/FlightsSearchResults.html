@@ -113,9 +113,23 @@ Results template.
 					</div>
 				</div>
 				<div data-bind="foreach: legGroupings">
-					<div style="display: inline-block;vertical-align: top;width: 25%;">
-						<select data-bind="options: options, value: selected"></select>
+					<div style="display: inline-block;vertical-align: top;width: 33%;">
+						<div data-bind="text: selected().flights.join(', ')"></div>
+						<select
+							style="width: 90%;"
+							data-bind="
+								options: options,
+								value: selected,
+								optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+								optionsAfterRender: setOptionDisable
+							"
+						></select>
+						,
+						optionsAfterRender: setOptionDisable
 					</div>
+				</div>
+				<div>
+					<strong data-bind="text: selectedFlights().join(', ') || '---'"></strong>
 				</div>
 			</div>
 			<!-- /ko -->
