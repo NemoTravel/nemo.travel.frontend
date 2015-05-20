@@ -19,6 +19,25 @@ Results template.
 	Loading component...
 </div>
 
+<!-- PF TEMPLATES -->
+<script id="nemo-koTemplate-FlightsResults-PF-String" type="text/html">
+	<!-- ko foreach: values -->
+	<div>
+		<label>
+			<input data-bind="attr: {
+								value: key,
+								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox'
+							},
+							checked: $parent.value">
+				<span data-bind="text:
+					($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
+				"></span>
+			<!-- ko text: key + '-' + $parent.value() --><!-- /ko -->
+		</label>
+	</div>
+	<!-- /ko -->
+</script>
+
 <div style="padding: 0 420px;position: relative;">
 	<!--FILTERES-->
 	<div style="border: 1px solid green; position: absolute;top: 0;left: 0;width: 360px;padding: 20px;">
@@ -28,8 +47,9 @@ Results template.
 			<span data-bind="click: PFClearAll" class="new-ui-pseudoLink">CLEAR ALL</span>
 			<!-- /ko -->
 		</h3>
-		<div data-bind="foreach: postfilters">
-			<!-- ko if: isActive() -->
+		<div data-bind="foreach: visiblePostFilters">
+			<!-- Postfilter as-is -->
+			<!-- ko if: typeof isActive == 'function' && isActive() -->
 			<div>
 				<h4>
 					<!-- ko text: config.name --><!-- /ko -->
@@ -41,40 +61,60 @@ Results template.
 					<!-- /ko -->
 				</h4>
 				<!-- ko if: config.type == 'Number' -->
-				<div data-bind="flightsResultsPFNumberSlider: value"></div>
-				<div>
-					MIN:
-					<!-- ko text: values().min --><!-- /ko -->
-				</div>
-				<div>
-					MAX:
-					<!-- ko text: values().max --><!-- /ko -->
-				</div>
-				<div>
-					SELECTED:
-					<!-- ko text: value().min --><!-- /ko -->
-					-
-					<!-- ko text: value().max --><!-- /ko -->
-				</div>
+					<div data-bind="flightsResultsPFNumberSlider: value"></div>
+					<div>
+						MIN:
+						<!-- ko text: values().min --><!-- /ko -->
+					</div>
+					<div>
+						MAX:
+						<!-- ko text: values().max --><!-- /ko -->
+					</div>
+					<div>
+						SELECTED:
+						<!-- ko text: value().min --><!-- /ko -->
+						-
+						<!-- ko text: value().max --><!-- /ko -->
+					</div>
 				<!-- /ko -->
 				<!-- ko if: config.type == 'String' -->
-					<!-- ko foreach: values -->
-					<div>
-						<label>
-							<input data-bind="attr: {
-								name: '-ko-nemo-pf_'+$parent.config.name,
-								value: key,
-								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox'
-							},
-							checked: $parent.value">
-							<span data-bind="text:
-								($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
-							"></span>
-						</label>
-					</div>
-					<!-- /ko -->
+					<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
 				<!-- /ko -->
 			</div>
+			<!-- /ko-->
+			<!-- Postfilter group -->
+			<!-- ko if: typeof isActive != 'function'  -->
+				<h4>PF GROUP <!-- ko text: filters[0].config.name --><!-- /ko --> (<!-- ko text: activeFilter --><!-- /ko -->)</h4>
+				<div>
+					<!-- ko if: filters.length > 1 -->
+					<div class="new-ui-pseudoLink" data-bind="click: function () {activeFilter(-1);}">
+						ALL
+					</div>
+					<!-- /ko -->
+					<!-- ko foreach: filters -->
+						<div class="new-ui-pseudoLink" data-bind="click: function () {$parent.activeFilter($index());}">
+							Leg: <!-- ko text: config.legNumber + ' ' + (hasValue() ? '!!!' : '') --><!-- /ko -->
+						</div>
+					<!-- /ko-->
+				</div>
+				<!-- ko if: filters.length > 1 -->
+					<div data-bind="attr: {'style': activeFilter() != -1 ? 'display: none;' : ''}">
+						Leg: ALL
+						<!-- ko if: value() != '' -->
+						<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
+						<!-- /ko -->
+						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
+					</div>
+				<!-- /ko -->
+				<!-- ko foreach: filters -->
+					<div data-bind="attr: {'style': $index() != $parent.activeFilter() ? 'display: none;' : ''}">
+						Leg: <!-- ko text: config.legNumber --><!-- /ko -->
+						<!-- ko if: hasValue -->
+							<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
+						<!-- /ko -->
+						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
+					</div>
+				<!-- /ko-->
 			<!-- /ko-->
 		</div>
 	</div>
@@ -179,6 +219,10 @@ Results template.
 	<h2>FILTERS GIVEN EMPTY RESULT</h2>
 	<!-- /ko -->
 </div>
+<!-- /ko -->
+
+<!-- ko if: $$loading() -->
+LOADING
 <!-- /ko -->
 
 <!-- ko if: $$error() -->

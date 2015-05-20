@@ -5,9 +5,11 @@ define(
 		function FlightsSearchResultsController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
+			var self = this;
+
 			this.postfiltersData = {
 				configs: {
-					'transfersCount': {
+					transfersCount: {
 						name: 'transfersCount',
 						type: 'String',
 						isLegged: false,
@@ -22,17 +24,19 @@ define(
 							}
 						}
 					},
-					'price': {
+					price: {
 						name: 'price',
 						type: 'Number',
 						isLegged: false,
 						legNumber: 0,
 						getter: function (obj) {
-							return obj.getTotalPrice().amount();
+							// We are forced to use Math.ceil here due to a bug in jQueryUI.slider
+							// which is used for Number postFilters' view
+							return Math.ceil(obj.getTotalPrice().amount());
 						},
 						options: {/* Filter-specific options here */}
 					},
-					'carrier': {
+					carrier: {
 						name: 'carrier',
 						type: 'String',
 						isLegged: false,
@@ -53,7 +57,7 @@ define(
 							}
 						}
 					},
-					'transfersLength': {
+					transfersLength: {
 						name: 'transfersLength',
 						type: 'Number',
 						isLegged: false,
@@ -65,27 +69,77 @@ define(
 						},
 						options: {/* Filter-specific options here */}
 					},
-					'departureTime': {
+//					departureTime: {
+//						name: 'departureTime',
+//						type: 'Number',
+//						isLegged: true,
+//						legNumber: 0,
+//						getter: function (obj) {
+//							return obj.legs[this.legNumber].depDateTime.getTimestamp();
+//						},
+//						options: {/* Filter-specific options here */}
+//					},
+//					arrivalTime: {
+//						name: 'arrivalTime',
+//						type: 'Number',
+//						isLegged: true,
+//						legNumber: 0,
+//						getter: function (obj) {
+//							return obj.legs[this.legNumber].arrDateTime.getTimestamp();
+//						},
+//						options: {/* Filter-specific options here */}
+//					},
+					departureTime: {
 						name: 'departureTime',
-						type: 'Number',
+						type: 'String',
 						isLegged: true,
 						legNumber: 0,
 						getter: function (obj) {
-							return obj.legs[this.legNumber].depDateTime.getTimestamp();
+							var d = obj.legs[this.legNumber].depDateTime.dateObject(),
+								timeType = self.getTimeType(d);
+
+							return [[timeType, timeType]];
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								var sort = {
+									n: 0,
+									m: 1,
+									d: 2,
+									e: 3
+								};
+
+								return sort[a.key] - sort[b.key];
+							}
+						}
 					},
-					'arrivalTime': {
+					arrivalTime: {
 						name: 'arrivalTime',
-						type: 'Number',
+						type: 'String',
 						isLegged: true,
 						legNumber: 0,
 						getter: function (obj) {
-							return obj.legs[this.legNumber].arrDateTime.getTimestamp();
+							var d = obj.legs[this.legNumber].arrDateTime.dateObject(),
+								timeType = self.getTimeType(d);
+
+							return [[timeType, timeType]];
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a,b) {
+								var sort = {
+									n: 0,
+									m: 1,
+									d: 2,
+									e: 3
+								};
+
+								return sort[a.key] - sort[b.key];
+							}
+						}
 					},
-					'departureAirport': {
+					departureAirport: {
 						name: 'departureAirport',
 						type: 'String',
 						isLegged: true,
@@ -100,7 +154,7 @@ define(
 							}
 						}
 					},
-					'arrivalAirport': {
+					arrivalAirport: {
 						name: 'arrivalAirport',
 						type: 'String',
 						isLegged: true,
@@ -115,7 +169,7 @@ define(
 							}
 						}
 					},
-					'timeEnRoute': {
+					timeEnRoute: {
 						name: 'timeEnRoute',
 						type: 'Number',
 						isLegged: false,
@@ -126,7 +180,8 @@ define(
 						options: {/* Filter-specific options here */}
 					}
 				},
-				order: ['price','transfersCount','carrier','transfersLength','departureTime','arrivalTime','departureAirport','arrivalAirport','timeEnRoute']
+				order: ['price','transfersCount','carrier','transfersLength','departureTime','arrivalTime','departureAirport','arrivalAirport','timeEnRoute'],
+				grouppable: ['departureTime','arrivalTime']
 			};
 
 			this.segments = {};
@@ -154,7 +209,8 @@ define(
 				vicinityDates: 0
 			};
 
-			this.postfilters = ko.observableArray([]);
+			this.postFilters = ko.observableArray([]);
+			this.visiblePostFilters = ko.observableArray([]);
 			this.usePostfilters = false;
 
 			this.possibleSorts = ['price', 'durationOnLeg', 'recommended'];
@@ -181,7 +237,7 @@ define(
 			}, this);
 
 			this.postFiltersHaveValue = ko.computed(function () {
-				var postfilters = this.postfilters();
+				var postfilters = this.postFilters();
 
 				for (var i = 0; i < postfilters.length; i++) {
 					if (postfilters[i].hasValue()) {
@@ -197,6 +253,53 @@ define(
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
 		// Own prototype stuff
+		FlightsSearchResultsController.prototype.PFTimeTypes = [
+			{
+				type: 'n',
+				seconds: 18000
+			},
+			{
+				type: 'm',
+				seconds: 43200
+			},
+			{
+				type: 'd',
+				seconds: 64800
+			},
+			{
+				type: 'e',
+				seconds: 79200
+			},
+			{
+				type: 'n',
+				seconds: 86400
+			}
+		];
+
+		FlightsSearchResultsController.prototype.getTimeType = function (d) {
+			var dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0),
+				timeFromDayStart = 0,
+				timeType = 'n';
+
+			// Defining time type
+			timeFromDayStart = Math.floor(
+				(
+					d.getTime() -
+						dayStart.getTime()
+					) /
+					1000
+			);
+
+			for (var i = 0; i < this.PFTimeTypes.length; i++) {
+				if (timeFromDayStart < this.PFTimeTypes[i].seconds) {
+					timeType = this.PFTimeTypes[i].type;
+					break;
+				}
+			}
+
+			return timeType;
+		}
+
 		FlightsSearchResultsController.prototype.buildModels = function () {
 			var setSegmentsGuide = true,
 				self = this,
@@ -237,7 +340,7 @@ define(
 			this.airlinesByRating = Object.keys(this.airlines)
 				.map(function (key) {return self.airlines[key]})
 				.sort(function (a, b) {
-					return a.rating - b.rating;
+					return parseFloat(b.rating) - parseFloat(a.rating);
 				});
 
 			// Processing segments
@@ -358,7 +461,8 @@ define(
 			// Creating
 			for (var i = 0; i < this.postfiltersData.order.length; i++) {
 				if (this.postfiltersData.configs[this.postfiltersData.order[i]].isLegged) {
-					var pfConfig;
+					var pfConfig,
+						pfGroup = [];
 
 					for (var j = 0; j < this.searchInfo.segments.length; j++) {
 						pfConfig = helpers.cloneObject(this.postfiltersData.configs[this.postfiltersData.order[i]]);
@@ -374,9 +478,28 @@ define(
 							}
 						);
 
+						this.postFilters.push(tmp);
+
 						if (tmp.isActive()) {
-							this.postfilters.push(tmp);
+							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0) {
+								pfGroup.push(tmp);
+							}
+							else {
+								this.visiblePostFilters.push(tmp);
+							}
 						}
+					}
+
+					if (pfGroup.length) {
+						this.visiblePostFilters.push(
+							this.$$controller.getModel(
+								'Flights/SearchResults/'+this.postfiltersData.configs[this.postfiltersData.order[i]].type+'PFGroup',
+								{
+									filters: pfGroup,
+									resultsController: this
+								}
+							)
+						);
 					}
 				}
 				else {
@@ -390,28 +513,30 @@ define(
 					);
 
 					if (tmp.isActive()) {
-						this.postfilters.push(tmp);
+						this.postFilters.push(tmp);
+						this.visiblePostFilters.push(tmp);
 					}
 				}
 			}
 
 			// Sorting
-			this.postfilters.sort(function (a, b) {
-				if (a.config.isLegged && b.config.isLegged) {
-					return a.config.legNumber - b.config.legNumber;
-				}
-				else {
-					return filtersOrderObject[a.config.name] - filtersOrderObject[b.config.name];
-				}
+			this.postFilters.sort(function (a, b) {
+//				if (a.config.isLegged && b.config.isLegged) {
+//					return a.config.legNumber - b.config.legNumber;
+//				}
+//				else {
+//					return filtersOrderObject[a.config.name] - filtersOrderObject[b.config.name];
+//				}
+				return filtersOrderObject[a.config.name] - filtersOrderObject[b.config.name] || a.config.legNumber - b.config.legNumber;
 			});
 
-			// Setting postfilters to work
+			// Setting postFilters to work
 			this.usePostfilters = true;
 		};
 
 		FlightsSearchResultsController.prototype.PFChanged = function (filter) {
 			var filterResults = {},
-				filters = this.postfilters(),
+				filters = this.postFilters(),
 				groups = this.groups(),
 				result,
 				visibleResult = false,
@@ -474,7 +599,7 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.PFClearAll = function () {
-			var filters = this.postfilters();
+			var filters = this.postFilters();
 
 			this.usePostfilters = false;
 			for (var i = 0; i < filters.length; i++) {
@@ -561,6 +686,7 @@ define(
 			'Flights/SearchResults/FlightPrice',
 			'Flights/SearchResults/Flight',
 			'Flights/SearchResults/Group',
+			'Flights/SearchResults/StringPFGroup',
 			'common/Date',
 			'common/Duration',
 			'common/Money',
