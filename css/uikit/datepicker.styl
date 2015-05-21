@@ -3,49 +3,49 @@
  */
 
 // COLORS
-$c_ui_dp_header_bg   = #4EB1E5;
+$c_ui_dp_header_bg = #4EB1E5;
 $c_ui_dp_header_text = #fff;
 
-$c_ui_dp_content_bg  = #fff;
+$c_ui_dp_content_bg = #fff;
 
-$c_ui_dp_day_bg       = #fff;
+$c_ui_dp_day_bg = #fff;
 $c_ui_dp_day_bg_hover = #fff;
-$c_ui_dp_day_text     = $c_ui_textMain;
+$c_ui_dp_day_text = $c_ui_textMain;
 
 $c_ui_dp_dayName = $c_ui_textMain;
 
-$c_ui_dp_selectDay_first_bg   = #0B90D6;
-$c_ui_dp_selectDay_second_bg  = #12B138;
-$c_ui_dp_selectDay_third_bg   = #12B138;
-$c_ui_dp_selectDay_fourth_bg  = #12B138;
-$c_ui_dp_selectDay_fifth_bg   = #12B138;
-$c_ui_dp_selectDay_sixth_bg   = #12B138;
-$c_ui_selectsDay              = $c_ui_dp_selectDay_first_bg $c_ui_dp_selectDay_second_bg $c_ui_dp_selectDay_third_bg $c_ui_dp_selectDay_fourth_bg $c_ui_dp_selectDay_fifth_bg $c_ui_dp_selectDay_sixth_bg;
+$c_ui_dp_selectDay_first_bg = #0B90D6;
+$c_ui_dp_selectDay_second_bg = #12B138;
+$c_ui_dp_selectDay_third_bg = #12B138;
+$c_ui_dp_selectDay_fourth_bg = #12B138;
+$c_ui_dp_selectDay_fifth_bg = #12B138;
+$c_ui_dp_selectDay_sixth_bg = #12B138;
+$c_ui_selectsDay = $c_ui_dp_selectDay_first_bg $c_ui_dp_selectDay_second_bg $c_ui_dp_selectDay_third_bg $c_ui_dp_selectDay_fourth_bg $c_ui_dp_selectDay_fifth_bg $c_ui_dp_selectDay_sixth_bg;
 
-$c_ui_dp_selectDay_text   = #fff;
+$c_ui_dp_selectDay_text = #fff;
 
-$c_ui_dp_cell_border      = #DCDCDC;
+$c_ui_dp_cell_border = #DCDCDC;
 
-$c_ui_dp_day_weekend      = #0B90D6;
+$c_ui_dp_day_weekend = #0B90D6;
 
 $c_ui_dp_day_border_hover = #0B90D6;
 
 // DIMENSIONS
-$d_ui_dp_bRadius               = 4px;
-$d_ui_dp_header_bRadius        = 2px;
+$d_ui_dp_bRadius = 4px;
+$d_ui_dp_header_bRadius = 2px;
 
-$d_ui_dp_day_lineHeight        = 27px;
+$d_ui_dp_day_lineHeight = 27px;
 $d_ui_dp_day_lineHeight_select = 30px;
 
-$d_ui_dp_day_border_hover      = 1px;
+$d_ui_dp_day_border_hover = 1px;
 
-$d_ui_dp_calendar_width        = 210px;
-$d_ui_dp_calendar_sideOffset   = 20px;
+$d_ui_dp_calendar_width = 210px;
+$d_ui_dp_calendar_sideOffset = 20px;
 $d_ui_dp_calendar_middleOffset = 10px;
 
-$d_ui_dp_header_arrow_offset   = 12px;
+$d_ui_dp_header_arrow_offset = 12px;
 
-$d_ui_dp_day_dim               = 29px;
+$d_ui_dp_day_dim = 29px;
 
 // FONT
 $f_ui_dp_header_text = 13px;
@@ -56,6 +56,7 @@ $i_ui_dp_arrImg = "images/ui/datepicker-arr.png";
 
 
 .ui-datepicker{
+	width: auto!important;
 	box-shadow: $i_ui_dp_shadow;
 	background: $c_ui_dp_content_bg
 	border-radius: $d_ui_dp_bRadius;
@@ -66,8 +67,7 @@ $i_ui_dp_arrImg = "images/ui/datepicker-arr.png";
 
 		&-first{
 			.ui-datepicker-header{
-				border-radius: 0;
-				border-top-left-radius: $d_ui_dp_header_bRadius;
+				border-radius: $d_ui_dp_header_bRadius 0 0 0;
 			}
 
 			.ui-datepicker-calendar{
@@ -77,8 +77,7 @@ $i_ui_dp_arrImg = "images/ui/datepicker-arr.png";
 
 		&-last{
 			.ui-datepicker-header{
-				border-radius: 0;
-				border-top-right-radius: $d_ui_dp_header_bRadius;
+				border-radius: 0 $d_ui_dp_header_bRadius 0 0;
 			}
 
 			.ui-datepicker-calendar{
@@ -97,21 +96,6 @@ $i_ui_dp_arrImg = "images/ui/datepicker-arr.png";
 			}
 		}
 
-	}
-
-	&-multi {
-		.ui-datepicker-group {
-
-			&-first .ui-datepicker-header {
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
-			}
-
-			&-last .ui-datepicker-header {
-				border-top-left-radius: 0;
-				border-bottom-left-radius: 0;
-			}
-		}
 	}
 
 	.ui-datepicker-header{

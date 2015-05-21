@@ -1,12 +1,13 @@
 $(function () {
     $('.js-picker-input_test').pickmeup({
-        hideOnSelect:true
+        hideOnSelect:true,
+		selectYear:true
     });
     $('.js-picker-input_test_range').pickmeup({
         mode:'range'
     });
     $('.js-picker-input_test_calendars').pickmeup({
-        calendars	: 2
+        calendars: 2
     });
     $('.js-picker-input_test_callbacks').pickmeup({
         onSetDate:function(){

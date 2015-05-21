@@ -9,167 +9,171 @@
  * @license		MIT License, see license.txt if present.
  */
 .js-picker::-ms-clear {
-  display: none;
+display: none;
 }
 /*input::-webkit-calendar-picker-indicator{
-  display: none;
+display: none;
 }
 input[type="date"]::-webkit-input-placeholder{
-  visibility: hidden !important;
+visibility: hidden !important;
 }*/
 .nemo-pickmeup-wrapper {
-  background: #ffffff;
-  display: none;
-  position: absolute;
-  box-shadow: 0 0 5px #ccc;
-  div{
-    display: inline-block;
-  }
+	background: #ffffff;
+	display: none;
+	position: absolute;
+	box-shadow: 0 0 5px #ccc;
+	font-size: 12px;
+	div{
+		display: inline-block;
+	}
 }
 
 .nemo-pmu-instance {
-  display: inline-block;
-  text-align: center;
-  width: 258px;
+	display: inline-block;
+	text-align: center;
+	width: 258px;
 }
 
 .nemo-pmu-years-wrap,
-.nemo-pmu-months-wrap,
+.nemo-pmu-months-wrap{
+	padding: 10px;
+}
 .nemo-pmu-days-wrap{
-  padding: 5px;
+	padding: 0 10px 10px;
 }
 .nemo-pmu-button {
-  color: #414042;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
+	color: #414042;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none; 
+	&:hover {
+		background: rgba(122,177,53, 0.2);
+		color: #414042;
+	}
+}
+.nemo-pmu-years ,
+.nemo-pmu-months ,
+.nemo-pmu-days {
+	border: 1px solid #DCDCDC;
+	border-radius: 3px;
+	padding: 7px;
 }
 
-.nemo-pmu-days ,
-.nemo-pmu-months ,
-.nemo-pmu-years {
-  border: 1px solid #DCDCDC;
-  border-radius: 3px;
-  width: 230px;
-  padding: 7px;
+.nemo-pmu-years,
+.nemo-pmu-months{
+	width: 190px;
+}
+.nemo-pmu-days{
+	width: 220px;
 }
 .nemo-pmu-days .nemo-pmu-button,
 .nemo-pmu-months .nemo-pmu-button,
 .nemo-pmu-years .nemo-pmu-button{
-  border-right: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC;
-
+	border-right: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
 }
 .nemo-pmu-days .nemo-pmu-button{
-  &:nth-child(7n){
-    border-right: 0px;
-  }
-  &:nth-child(35) ~ div{
-    border-bottom: 0px;
-  }
+&:nth-child(7n){
+	border-right: 0px;
+}
+&:nth-child(35) ~ div{
+	border-bottom: 0px;
+}
 }
 .nemo-pmu-months .nemo-pmu-button,
 .nemo-pmu-years .nemo-pmu-button{
-  &:nth-child(4n){
-    border-right: 0px;
-  }
-  &:nth-child(8) ~ div{
-    border-bottom: 0px;
-  }
+&:nth-child(4n){
+	border-right: 0px;
+}
+&:nth-child(8) ~ div{
+	border-bottom: 0px;
+}
 }
 .nemo-pmu-day{
-  width: 29px;
-  height: 29px;
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
 }
 .nemo-pmu-days .nemo-pmu-today {
-  border-color: #0C91D7;
-  color: #0C91D7;
-  border-left: 1px solid;
-  border-top: 1px solid;
-  margin-top: -1px;
-  margin-left: -1px;
-}
-.nemo-pmu-button:hover {
-  background: rgba(122,177,53, 0.2);
-  color: #414042;
+	border-color: #0C91D7;
+	color: #0C91D7;
+	border-left: 1px solid;
+	border-top: 1px solid;
+	margin-top: -1px;
+	margin-left: -1px;
 }
 .nemo-pmu-not-in-month {
-  color: #BDBDBD;
+	color: #BDBDBD;
 }
 .nemo-pmu-disabled,
 .nemo-pmu-disabled:hover {
-  color: #BDBDBD;
-  cursor: default;
+	color: #BDBDBD;
+	cursor: default;
 }
  .nemo-pmu-selected {
-  background: #4EB1E5;
-  color: #eee;
+	background: #4EB1E5;
+	color: #eee;
 }
 .nemo-pmu-not-in-month.nemo-pmu-selected {
-  background: #17384d;
+	background: #17384d;
 }
 .nemo-pmu-month-header{
-  background: #4DB0E4;
-  border-radius: 2px;
-  position: relative;
-  .nemo-pmu-button{
-    color: #ffffff;
-    &:hover{
-      background: transparent;
-    }
-  }
+	background: #4DB0E4;
+	border-radius: 2px;
+	position: relative;
+	.nemo-pmu-button{
+		color: #ffffff;
+		&:hover{
+			background: transparent;
+		}
+	}
 }
 .nemo-pmu-highlight{
-  background: red;
+	background: red;
 }
-.nemo-pmu-instance nav {
-  line-height: 2em;
+.nemo-pmu-month-header {
+	line-height: 29px;
 }
 .nemo-pmu-instance nav *:first-child :hover {
-  color: #88c5eb;
+	color: #88c5eb;
 }
 .nemo-pmu-prev,
 .nemo-pmu-next {
-  display: none;
-  height: 2em;
-  width: 1em;
-  position: absolute;
+	display: none;
+	height: 2em;
+	width: 1em;
+	position: absolute;
 }
 .nemo-pmu-prev{
-  left: 10px;
+	left: 10px;
 }
 .nemo-pmu-next {
-  right: 10px;
+	right: 10px;
 }
 .nemo-pmu-month {
-  width: auto;
+	width: auto;
 }
 .nemo-pmu-years *,
 .nemo-pmu-months * {
-  display: inline-block;
-  line-height: 3.6em;
-  width: 3.5em;
+	display: inline-block;
+	line-height: 3.8em;
+	width: 3.8em;
+}
+.nemo-pmu-days-of-week {
+	color: #414042;
+	cursor: default;
+	&:nth-child(6), &:nth-child(7){
+		color:#4DB0E4;
+	}
 }
 .nemo-pmu-day-of-week {
-  color: #414042;
-  cursor: default;
-  &:nth-child(6), &:nth-child(7){
-    color:#4DB0E4;
-  }
+	display: inline-block;
+	line-height: 1.8em;
+	width: 30px;
 }
-.nemo-pmu-day-of-week *,
-.nemo-pmu-days * {
-  display: inline-block;
-  line-height: 29px;
-  width: 2em;
-}
-.nemo-pmu-day-of-week * {
-  line-height: 1.8em;
-}
-
 .nemo-pickmeup-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-days-wrap,
-.nemo-pickmeup-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-day-of-week,
+.nemo-pickmeup-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-days-of-week,
 .nemo-pickmeup-wrapper:not(.nemo-pmu-view-months) .nemo-pmu-months-wrap,
 .nemo-pickmeup-wrapper:not(.nemo-pmu-view-years) .nemo-pmu-years-wrap {
-  display: none;
+display: none;
 }

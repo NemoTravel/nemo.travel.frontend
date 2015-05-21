@@ -1,21 +1,19 @@
 // COLORS
-$c_ui_systemSelect_tooltip_bg		 				 = #FFFFFF;
-$c_ui_systemSelect_tooltip_item_hover 				 = rgba(12,145,215,.15);
-$c_ui_systemSelect_tooltip_list_item_selected_border = $c_ui_systemSelect_tooltip_item_hover;
+$c_ui_systemSelect_tooltip_bg		 				 = $c_ui_container;
+$c_ui_systemSelect_tooltip_item_hover 				 = rgba(11,144,214,.15);
+$c_ui_systemSelect_tooltip_list_item_selected_border = rgba(12,145,215,.25);
 
 
 // DIMENSIONS
 $d_ui_systemSelect_button_icon_width  		= 32px;
-$d_ui_systemSelect_button_icon_height 		= 20px;
+$d_ui_systemSelect_button_icon_height 		= 17px;
 $d_ui_systemSelect_button_icon_rMargin      = 8px;
 $d_ui_systemSelect_button_minwidth 			= 63px;
-$d_ui_systemSelect_button_padding 			= 0 10px;
-
 $d_ui_systemSelect_head_marginbottom 	    = 7px;
 
-$d_ui_systemSelect_tooltip_padding 							= 10px 12px;
+$d_ui_systemSelect_tooltip_padding 							= 16px 24px 15px 13px;
 $d_ui_systemSelect_tooltip_borderradius 					= 4px;
-$d_ui_systemSelect_tooltip_head_marginbottom 				= 10px;
+$d_ui_systemSelect_tooltip_head_marginbottom 				= 14px;
 $d_ui_systemSelect_tooltip_list_item_padding 				= 4px 0 4px 4px;
 $d_ui_systemSelect_tooltip_list_item_borderradius 			= 4px;
 $d_ui_systemSelect_tooltip_list_item_icon_width 			= 32px;
@@ -27,12 +25,11 @@ $d_ui_systemSelect_tooltip_arrow_size   = 6px;
 $d_ui_systemSelect_tooltip_arrow_offset = -1px;
 
 // FONT
-$f_ui_systemSelect_button 				  = 13px;
-$f_ui_systemSelect_button_text 	          = 13px;
+$f_ui_systemSelect_button 				   = 13px;
+$f_ui_systemSelect_button_text 	       = 13px;
 $f_ui_systemSelect_tooltip_list_item_text = 13px;
-
 // VALUES
-$i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
+$i_ui_systemSelect_tooltip_outershadow = 0 0 10px rgba(11,144,214,.5);
 
 
 .new-ui-systemSelect {
@@ -50,10 +47,23 @@ $i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
 	&__button {
 		@extend .new-ui-button
 		@extend .new-ui-button_secondary;
-		@extend .new-ui-button_medium;
 		font-size: $f_ui_systemSelect_button;
-		padding: $d_ui_systemSelect_button_padding;
 		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			bottom: -($d_ui_systemSelect_tooltip_arrow_size + $d_ui_systemSelect_tooltip_arrow_offset);
+			margin-left: -$d_ui_systemSelect_tooltip_arrow_size;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 $d_ui_systemSelect_tooltip_arrow_size $d_ui_systemSelect_tooltip_arrow_size $d_ui_systemSelect_tooltip_arrow_size;
+			border-color: transparent transparent $c_ui_systemSelect_tooltip_bg transparent;
+			z-index: 5;
+			display: none;
+		}
 
 		&__icon {
 			display: inline-block;
@@ -62,11 +72,6 @@ $i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
 			height: $d_ui_systemSelect_button_icon_height;
 			margin-right: $d_ui_systemSelect_button_icon_rMargin;
 
-			&_minimized {
-				@extend .new-ui-systemSelect__button__icon
-				margin: 0;
-			}
-
 			* {
 				vertical-align: top;
 			}
@@ -74,7 +79,7 @@ $i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
 
 		&__text {
 			display: inline-block;
-			vertical-align: baseline;
+			vertical-align: middle;
 			font-size: $f_ui_systemSelect_button_text;
 		}
 
@@ -92,10 +97,9 @@ $i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
 		position: absolute;
 		top: 100%;
 		margin-top: $d_ui_systemSelect_tooltip_arrow_size + $d_ui_systemSelect_tooltip_arrow_offset;
-		left: -40px;
+		left: -10px;
 		display: none;
 		white-space: nowrap;
-		z-index: 1;
 
 		&__head {
 			margin-bottom: $d_ui_systemSelect_tooltip_head_marginbottom;
@@ -135,6 +139,10 @@ $i_ui_systemSelect_tooltip_outershadow = 0 1px 3px rgba(0,0,0,.25);
 
 				&_selected {
 					border: $d_ui_systemSelect_tooltip_list_item_selected_borderwidth solid $c_ui_systemSelect_tooltip_list_item_selected_border;
+				}
+
+				&_selected {
+					opacity: .5;
 				}
 			}
 		}

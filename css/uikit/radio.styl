@@ -11,25 +11,26 @@
     </label>
  */
 // COLORS
-$c_ui_caption                   = $c_ui_textMain;
-$c_ui_caption_hover             = #4F6D85;
-$c_ui_caption_disabled          = $c_ui_textDisabled;
+$c_ui_caption             = $c_ui_textMain;
+$c_ui_caption_hover       = #4E6C84;
+$c_ui_caption_disabled    = $c_ui_textDisabled;
 
 // DIMENSIONS
-$d_ui_padding                   = 3px 0;
-$d_ui_caption_lPadding          = 25px;
-$d_ui_caption_padding           = 0 0 0 $d_ui_caption_lPadding;
-$d_ui_pseudoInput_width         = 19px;
-$d_ui_pseudoInput_height        = 19px;
+$d_ui_padding  = 3px 0;
+$d_ui_caption_lPadding = 25px;
+$d_ui_caption_padding   = 0 0 0 $d_ui_caption_lPadding;
+$d_ui_pseudoInput_width   = 16px;
+$d_ui_pseudoInput_height  = 16px;
 $d_ui_pseudoInput_borderRadius  = 50%;
 
 // FONT
-$f_ui_caption_size              = 14px;
-$f_ui_caption_lineHeight        = 16px;
+$f_ui_caption_size = 12px;
+$f_ui_caption_lineHeight = 16px;
 
 // VALUES
-$i_ui_radio            = 'images/ui/radiobutton_sprite.svg';
-$i_ui_radio_unselected = 'images/ui/radio_unselected.svg';
+$i_ui_radio_shadow = 0 0 5px rgba(0, 0, 0, .2);
+$i_ui_radio_shadow_disabled = 0 0 5px rgba(0, 0, 0, .1);
+$i_ui_radio_sprite = 'images/ui/radio-sprite.png';
 
 .new-ui-radioBtn{
     display: inline-block;
@@ -54,17 +55,22 @@ $i_ui_radio_unselected = 'images/ui/radio_unselected.svg';
 
     &__input:checked + &__caption{
         &:before{
-            background-image: url($i_ui_radio);
-			background-position: top;
-		}
+            background-position:(- ($d_ui_pseudoInput_width + 3))*2 0;
+        }
+
+        &:hover{
+            &:before{
+                background-position:(- ($d_ui_pseudoInput_width + 3))*3 0;
+            }
+        }
     }
 
     &__input:disabled + &__caption{
         color: $c_ui_caption_disabled;
 
         &:before{
-			background-image: url($i_ui_radio);
-			background-position: bottom;
+            background-position:(- ($d_ui_pseudoInput_width + 3))*4 0;
+            box-shadow: $i_ui_radio_shadow_disabled;
         }
     }
 
@@ -86,12 +92,16 @@ $i_ui_radio_unselected = 'images/ui/radio_unselected.svg';
             height: $d_ui_pseudoInput_height;
             margin-top: - ($d_ui_pseudoInput_height / 2);
             border-radius: $d_ui_pseudoInput_borderRadius;
-			background-image: url($i_ui_radio);
-			background-position: bottom;
-		}
+            background: url($i_ui_radio_sprite) 0 0 no-repeat;
+            box-shadow: $i_ui_radio_shadow;
+        }
 
         &:hover{
             color: $c_ui_caption_hover;
+
+            &:before{
+                background-position: (- ($d_ui_pseudoInput_width + 3)) 0;
+            }
         }
     }
 }
