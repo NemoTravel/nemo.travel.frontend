@@ -13,16 +13,26 @@ define(
 				what.prototype.constructor = what;
 			},
 			cloneObject: function (obj) {
-				var clone = {};
+				var clone;
 
-				// TODO add checks on null & undefined
-				if (typeof obj != 'object') {
+				if (typeof obj != 'object' || obj == null || typeof obj == 'undefined') {
 					return obj;
 				}
 
-				for (var i in obj) {
-					if (obj.hasOwnProperty(i)) {
-						clone[i] = this.cloneObject(obj[i]);
+				if (obj instanceof Array) {
+					clone = [];
+
+					for (var i = 0; i < obj.length; i++) {
+						clone.push(this.cloneObject(obj[i]));
+					}
+				}
+				else {
+					clone = {};
+
+					for (var i in obj) {
+						if (obj.hasOwnProperty(i)) {
+							clone[i] = this.cloneObject(obj[i]);
+						}
 					}
 				}
 

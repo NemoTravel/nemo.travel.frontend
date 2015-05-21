@@ -6,32 +6,39 @@ define(
 			BaseModel.apply(this, arguments);
 
 			this.type = this.config.options.type == 'multiChoice' ? 'multiChoice' : 'singleChoice'; // 'singleChoice' / 'multiChoice'
-
-			// Override of value
-			this.value = ko.observableArray([]);
-
-			// newValue ia an array if checkboxed or string if radios
-			this.value.subscribe(function (newValue){
-				this.notifyController(this);
-			}, this);
 		}
 
 		helpers.extendModel(PostFilterString, [BaseModel]);
 
 		PostFilterString.prototype.buildInternalValues = function (items) {
-			var values = {},
-				tmp;
+			var valuesRegistry = {},
+				tmp,
+				ret;
 
 			for (var i in items) {
 				if (items.hasOwnProperty(i)) {
 					tmp = this.config.getter(items[i]);
 					for (var j = 0; j < tmp.length; j++) {
-						values[tmp[j][0]] = tmp[j][1];
+						valuesRegistry[tmp[j][0]] = tmp[j][1];
 					}
 				}
 			}
 
-			return values;
+			ret = Object.keys(valuesRegistry)
+				.map(
+					function(key) {
+						return {
+							key: key,
+							value: valuesRegistry[key]
+						}
+					}
+				);
+
+			if (typeof this.config.options.valuesSorter == 'function') {
+				ret.sort(this.config.options.valuesSorter);
+			}
+
+			return ret;
 		};
 
 		PostFilterString.prototype.computeStatus = function () {
