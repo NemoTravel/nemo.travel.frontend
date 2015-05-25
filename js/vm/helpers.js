@@ -38,6 +38,21 @@ define(
 
 				return clone;
 			},
+			intersectArrays: function () {
+				var ret;
+
+				for (var i = 0; i < arguments.length; i++) {
+					ret = arguments[i].filter(function (item) {
+						return typeof ret == 'undefined' || ret.indexOf(item) >= 0;
+					});
+				}
+
+				if (typeof ret == 'undefined') {
+					ret = [];
+				}
+
+				return ret;
+			},
 			getNumeral: function (count, one, twoToFour, fourPlus) {
 				// General cyrillic languages
 				if (this.language == 'ua' || this.language == 'ru') {

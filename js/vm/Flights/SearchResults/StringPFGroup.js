@@ -59,8 +59,6 @@ define(
 					this.resultsController.PFChanged();
 				}
 			}, this);
-
-			console.log(this.values, this.value());
 		}
 
 		// Extending from dictionaryModel

@@ -14,6 +14,9 @@ define(
 			this.filteredOut = ko.observable(false);
 			this.selectedFlightsIds = ko.observable([]);
 
+			this.couplingTable = null;
+			this.couplingTableOpen = ko.observable(false);
+
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
 			}
@@ -37,11 +40,13 @@ define(
 					key;
 
 				for (var fiter = 0; fiter < this.flights.length; fiter++) {
-					key = this.flights[fiter].legs[siter].depAirp.IATA +
-						this.flights[fiter].legs[siter].arrAirp.IATA +
-						this.flights[fiter].legs[siter].depDateTime.getISODateTime() +
-						this.flights[fiter].legs[siter].arrDateTime.getISODateTime() +
-						this.flights[fiter].legs[siter].timeEnRoute.length();
+					// REFER TO "COUPLINGTABLE". MUST CORRESPOND. HERE PRICE IS NOT ADDED FOR OBVIOUS REASONS
+					/*this.flights[fiter].legs[siter].depAirp.IATA + '-' +
+						this.flights[fiter].legs[siter].arrAirp.IATA + '-' +
+						this.flights[fiter].legs[siter].depDateTime.getISODateTime() + '-' +
+						this.flights[fiter].legs[siter].arrDateTime.getISODateTime() + '-' +
+						this.flights[fiter].legs[siter].timeEnRoute.length();*/
+					key = this.getGroupingKey(this.flights[fiter], siter);
 
 					if (!tmp[key]) {
 						tmp[key] = [];
@@ -118,6 +123,38 @@ define(
 
 		// Extending from dictionaryModel
 		helpers.extendModel(Group, [BaseModel]);
+
+		Group.prototype.getGroupingKey = function (flight, legNumber) {
+			return flight.legs[legNumber].depAirp.IATA + '-' +
+				flight.legs[legNumber].arrAirp.IATA + '-' +
+				flight.legs[legNumber].depDateTime.getISODateTime() + '-' +
+				flight.legs[legNumber].arrDateTime.getISODateTime() + '-' +
+				flight.legs[legNumber].timeEnRoute.length() + '-' +
+				flight.getTotalPrice().normalizedAmount();
+		};
+
+		Group.prototype.buildCouplingTable = function (flights) {
+			var usedFlights = [],
+				price = this.getTotalPrice().normalizedAmount(),
+				minprice = price / 2,
+				maxprice = price * 2;
+
+			for (var i in flights) {
+				if (flights.hasOwnProperty(i)) {
+					if (
+						flights[i].getValidatingCompany().IATA == this.getValidatingCompany().IATA &&
+						flights[i].getTotalPrice().normalizedAmount() > minprice &&
+						flights[i].getTotalPrice().normalizedAmount() < maxprice
+					) {
+						usedFlights.push(flights[i]);
+					}
+				}
+			}
+
+			if (usedFlights.length) {
+				this.couplingTable = this.$$controller.getModel('Flights/SearchResults/CouplingTable', {flights: usedFlights, group: this});
+			}
+		};
 
 		Group.prototype.recalculateSelf = function () {
 			var i, j, k,
@@ -230,7 +267,7 @@ define(
 		};
 
 		Group.prototype.getValidatingCompany = function () {
-			return this.flights[0].price.validatingCompany;
+			return this.flights[0].getValidatingCompany();
 		};
 
 		return Group;

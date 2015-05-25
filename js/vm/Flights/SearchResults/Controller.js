@@ -230,7 +230,7 @@ define(
 						break;
 					case 'recommended':
 						this.groups.sort(function (a, b) {
-							return a.recommendRating() - b.recommendRating();
+							return b.recommendRating() - a.recommendRating();
 						});
 						break;
 				}
@@ -275,6 +275,10 @@ define(
 				seconds: 86400
 			}
 		];
+
+		FlightsSearchResultsController.prototype.bookFlight = function (flids) {
+			alert('Booking flights: ' + flids);
+		};
 
 		FlightsSearchResultsController.prototype.getTimeType = function (d) {
 			var dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0),
@@ -432,9 +436,12 @@ define(
 
 			for (var i in tmpGroups) {
 				if (tmpGroups.hasOwnProperty(i)) {
-					this.groups.push(
-						this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i]})
-					);
+					var tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i]});
+
+					// Setting group "conjunction table"
+					tmp.buildCouplingTable(this.flights);
+
+					this.groups.push(tmp);
 				}
 			}
 
@@ -686,6 +693,7 @@ define(
 			'Flights/SearchResults/FlightPrice',
 			'Flights/SearchResults/Flight',
 			'Flights/SearchResults/Group',
+			'Flights/SearchResults/CouplingTable',
 			'Flights/SearchResults/StringPFGroup',
 			'common/Date',
 			'common/Duration',

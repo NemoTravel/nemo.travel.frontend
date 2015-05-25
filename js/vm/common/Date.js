@@ -21,7 +21,8 @@ define(
 			this.getDOWNameShort   = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_s'); }, this);
 
 			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getDate() }, this);
-			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds() }, this);
+			this.getISOTime     = ko.computed(function () { return this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds() }, this);
+			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getISOTime() }, this);
 
 			this.getTimestamp = ko.computed(function () { return Math.floor(this.dateObject().getTime()/1000) }, this);
 		}
