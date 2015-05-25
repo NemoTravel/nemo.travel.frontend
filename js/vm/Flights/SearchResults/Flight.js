@@ -69,6 +69,10 @@ define(
 		// Extending from dictionaryModel
 		helpers.extendModel(Flight, [BaseModel]);
 
+		Flight.prototype.clone = function () {
+			return this.$$controller.getModel('Flights/SearchResults/Flight', this.$$originalData);
+		};
+
 		Flight.prototype.getTotalPrice = function () {
 			return this.price.totalPrice;
 		};

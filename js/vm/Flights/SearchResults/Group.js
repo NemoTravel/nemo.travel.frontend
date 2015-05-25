@@ -225,7 +225,11 @@ define(
 		};
 
 		Group.prototype.clone = function () {
-			return this.$$controller.getModel('Flights/SearchResults/Group', this.$$originalData);
+			var ret = this.$$controller.getModel('Flights/SearchResults/Group', this.$$originalData);
+
+			ret.buildCouplingTable(this.couplingTable.flights);
+
+			return ret;
 		};
 
 		Group.prototype.calculateSelectedFlights = function () {

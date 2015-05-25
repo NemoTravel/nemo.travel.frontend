@@ -199,7 +199,7 @@ define(
 				recommended: ko.observable(null),
 				fastest: ko.observable(null),
 				cheapest: ko.observable(null),
-				bestCompanies: ko.observable([])
+				bestCompanies: ko.observable()
 			};
 
 			this.searchInfo = {
@@ -657,36 +657,40 @@ define(
 
 			this.showcase.cheapest(cheapestGroup ? cheapestGroup.clone() : cheapestGroup);
 
-			for (var i = 0; i < this.airlinesByRating.length; i++) {
-				var showcaseBC = {
-						company: this.airlinesByRating[i],
-						flight: null
-					};
+			if (!this.showcase.bestCompanies()) {
+				for (var i = 0; i < this.airlinesByRating.length; i++) {
+					var showcaseBC = null;
 
-				for (var j in this.flights) {
-					if (this.flights.hasOwnProperty(j)) {
-						if (
-							this.flights[j].getValidatingCompany().IATA == showcaseBC.company.IATA &&
-							(
-								showcaseBC.flight == null ||
-								showcaseBC.flight.recommendRating < this.flights[j].recommendRating
-							)
-						) {
-							showcaseBC.flight = this.flights[j];
+					for (var j in this.flights) {
+						if (this.flights.hasOwnProperty(j)) {
+							if (
+								this.flights[j].getValidatingCompany().IATA == this.airlinesByRating[i].IATA &&
+								(
+									showcaseBC == null ||
+									showcaseBC.recommendRating < this.flights[j].recommendRating
+								)
+							) {
+								showcaseBC = this.flights[j];
+							}
 						}
+					}
+
+					if (showcaseBC) {
+						var tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [showcaseBC.clone()]});
+
+						// Setting group "conjunction table"
+						tmp.buildCouplingTable(this.flights);
+
+						bestCompanies.push(tmp);
+					}
+
+					if (bestCompanies.length >= bestCompaniesCount) {
+						break;
 					}
 				}
 
-				if (showcaseBC.flight) {
-					bestCompanies.push(showcaseBC);
-				}
-
-				if (bestCompanies.length >= bestCompaniesCount) {
-					break;
-				}
+				this.showcase.bestCompanies(bestCompanies);
 			}
-
-			this.showcase.bestCompanies(bestCompanies);
 		};
 
 		FlightsSearchResultsController.prototype.$$usedModels = [

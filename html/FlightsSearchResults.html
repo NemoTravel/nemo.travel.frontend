@@ -36,6 +36,109 @@ Results template.
 	</div>
 	<!-- /ko -->
 </script>
+<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
+	<!-- ko if: !filteredOut() -->
+	<div style="margin: 10px;padding: 10px;border: 1px solid;">
+		<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
+		<div data-bind="foreach: flights">
+			<div>
+				<span data-bind="text: id"></span>
+				<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+			</div>
+		</div>
+		<div data-bind="foreach: legGroupings">
+			<div style="display: inline-block;vertical-align: top;width: 33%;">
+				<div data-bind="text: selected().flights.join(', ')"></div>
+				<select
+						style="width: 90%;"
+						data-bind="
+								options: options,
+								value: selected,
+								optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+								optionsAfterRender: setOptionDisable
+							"
+						></select>
+			</div>
+		</div>
+		<div>
+			<!-- ko if: selectedFlightsIds().length -->
+			<strong data-bind="text: selectedFlightsIds().join(', ')"></strong>
+			<button data-bind="
+						click: function () {$parent.bookFlight(selectedFlightsIds());},
+						text: 'Buy for '+getTotalPrice().normalizedAmount()+' '+getTotalPrice().currency()
+						"></button>
+			<!-- /ko -->
+			<!-- ko if: !selectedFlightsIds().length -->
+			<strong>--- NO COMBINABLE FLIGHTS ---</strong>
+			<!-- /ko -->
+		</div>
+		<div>
+			Duration on leg: <strong data-bind="text: durationOnLeg"></strong>
+		</div>
+		<div>
+			RecommendRating: <strong data-bind="text: recommendRating"></strong>
+		</div>
+		<!-- ko if: couplingTable && couplingTable.isActive-->
+		<button data-bind="click: function () {couplingTableOpen(true);}">Coupling table: <!-- ko text: couplingTable.flights.length --><!-- /ko --></button>
+		<!-- ko if: couplingTableOpen -->
+		<div data-bind="with: couplingTable">
+			<hr>
+			<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
+			<div data-bind="foreach: sortTypes">
+				<div data-bind="
+									text: $data, attr:{style: ($data == $parent.sort() ? 'border: 1px solid red;' : '') + 'display: inline-block;padding: 10px;'},
+									click: function () {$parent.sort($data);}
+								"></div>
+			</div>
+			<div data-bind="foreach: legGroupings">
+				<div data-bind="
+									attr: {style: (legActive() ? 'border: 1px solid #000;' : 'border: 1px solid #fff;') + 'display: inline-block;vertical-align: top; padding: 5px;'},
+									click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
+									foreach: flights">
+					<!-- ko if: $index() == 0 -->
+					<div data-bind="text: $parent.selected"></div>
+					<!-- /ko -->
+					<div data-bind="
+										attr: {
+											style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +
+											($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +
+											($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')
+										},
+										click: function () {$parents[1].selectVariant($data, $parentContext.$index())}
+									">
+						<div data-bind="text: $data.join(', ')"></div>
+						<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depAirp.IATA + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrAirp.IATA"></div>
+						<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depDateTime.getISOTime() + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrDateTime.getISOTime()"></div>
+					</div>
+				</div>
+				<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
+				<div data-bind="
+					attr: {style: 'border: 1px solid #fff;display: inline-block;vertical-align: top; padding: 5px;'},
+					foreach: flights">
+					<!-- ko if: $index() == 0 -->
+					<div>buy block</div>
+					<!-- /ko -->
+					<div data-bind="
+						attr: {style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' + ($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')}
+					">
+						&nbsp;
+						<br/>
+						<span class="new-ui-pseudoLink" data-bind="
+							click: function () {if ($data != $parent.selected()) {$parents[1].selectVariant($data, $parentContext.$index())}else{$parents[3].bookFlight($parents[1].selectedFlightsIds());}},
+							text: 'Buy for '+$parents[1].flightsById[$data[0]].getTotalPrice().normalizedAmount()+' '+$parents[1].flightsById[$data[0]].getTotalPrice().currency()
+						"></span>
+						<br/>
+						&nbsp;
+					</div>
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+	</div>
+	<!-- /ko -->
+</script>
 
 <div style="padding: 0 420px;position: relative;">
 	<!--FILTERES-->
@@ -119,18 +222,8 @@ Results template.
 	</div>
 
 	<div style="border: 1px solid green; position: absolute;top: 0;right: 0;width: 360px;padding: 20px;">
-		<h3>BEST FLIGHTS</h3>
-		<div data-bind="foreach: showcase.bestCompanies">
-			<div>
-				Company: <strong data-bind="text: company.name"></strong> (<strong  data-bind="text: company.rating"></strong>)
-				<div style="margin: 10px;padding: 10px;border: 1px solid red;" data-bind="with: flight">
-					<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-					<div data-bind="foreach: segments">
-						<div data-bind="text: id+' '+depAirp.name+' - '+arrAirp.name+' '+depDateTime.getISODateTime()+' - '+arrDateTime.getISODateTime()"></div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<h3>BEST COMPANIES</h3>
+		<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: showcase.bestCompanies }"></div>
 	</div>
 
 	<!-- ko if: hasVisibleResult() -->
@@ -146,32 +239,7 @@ Results template.
 		<!-- /ko -->
 		<!-- ko if: showcase.cheapest() -->
 		<h4>cheapest</h4>
-		<div style="margin: 10px;padding: 10px;border: 1px solid;" data-bind="with: showcase.cheapest">
-			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
-			<div data-bind="foreach: flights">
-				<div>
-					<span data-bind="text: id"></span>
-					<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-				</div>
-			</div>
-			<div data-bind="foreach: legGroupings">
-				<div style="display: inline-block;vertical-align: top;width: 33%;">
-					<div data-bind="text: selected().flights.join(', ')"></div>
-					<select
-							style="width: 90%;"
-							data-bind="
-									options: options,
-									value: selected,
-									optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-									optionsAfterRender: setOptionDisable
-								"
-							></select>
-				</div>
-			</div>
-			<div>
-				<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
-			</div>
-		</div>
+		<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: showcase.cheapest }"></div>
 		<!-- /ko -->
 		<!-- ko if: showcase.fastest() -->
 		<h4>fastest</h4>
@@ -187,109 +255,10 @@ Results template.
 			SORT:
 			<select data-bind="options: possibleSorts, value: sort"></select>
 		</h4>
-		<div data-bind="foreach: groups">
-			<!-- ko if: !filteredOut() -->
-			<div style="margin: 10px;padding: 10px;border: 1px solid;">
-				<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
-				<div data-bind="foreach: flights">
-					<div>
-						<span data-bind="text: id"></span>
-						<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-					</div>
-				</div>
-				<div data-bind="foreach: legGroupings">
-					<div style="display: inline-block;vertical-align: top;width: 33%;">
-						<div data-bind="text: selected().flights.join(', ')"></div>
-						<select
-							style="width: 90%;"
-							data-bind="
-								options: options,
-								value: selected,
-								optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-								optionsAfterRender: setOptionDisable
-							"
-						></select>
-					</div>
-				</div>
-				<div>
-					<!-- ko if: selectedFlightsIds().length -->
-					<strong data-bind="text: selectedFlightsIds().join(', ')"></strong>
-					<button data-bind="click: function () {$parent.bookFlight(selectedFlightsIds());}"></button>
-					<!-- /ko -->
-					<!-- ko if: !selectedFlightsIds().length -->
-					<strong>--- NO COMBINABLE FLIGHTS ---</strong>
-					<!-- /ko -->
-				</div>
-				<div>
-					Duration on leg: <strong data-bind="text: durationOnLeg"></strong>
-				</div>
-				<div>
-					RecommendRating: <strong data-bind="text: recommendRating"></strong>
-				</div>
-				<!-- ko if: couplingTable && couplingTable.isActive-->
-					<button data-bind="click: function () {couplingTableOpen(true);}">Coupling table: <!-- ko text: couplingTable.flights.length --><!-- /ko --></button>
-					<!-- ko if: couplingTableOpen -->
-						<div data-bind="with: couplingTable">
-							<hr>
-							<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
-							<div data-bind="foreach: sortTypes">
-								<div data-bind="
-									text: $data, attr:{style: ($data == $parent.sort() ? 'border: 1px solid red;' : '') + 'display: inline-block;padding: 10px;'},
-									click: function () {$parent.sort($data);}
-								"></div>
-							</div>
-							<div data-bind="foreach: legGroupings">
-								<div data-bind="
-									attr: {style: (legActive() ? 'border: 1px solid #000;' : 'border: 1px solid #fff;') + 'display: inline-block;vertical-align: top; padding: 5px;'},
-									click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
-									foreach: flights">
-									<!-- ko if: $index() == 0 -->
-										<div data-bind="text: $parent.selected"></div>
-									<!-- /ko -->
-									<div data-bind="
-										attr: {
-											style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +
-											($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +
-											($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')
-										},
-										click: function () {$parents[1].selectVariant($data, $parentContext.$index())}
-									">
-										<div data-bind="text: $data.join(', ')"></div>
-										<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depAirp.IATA + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrAirp.IATA"></div>
-										<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depDateTime.getISOTime() + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrDateTime.getISOTime()"></div>
-									</div>
-								</div>
-								<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
-								<div data-bind="
-									attr: {style: 'border: 1px solid #fff;display: inline-block;vertical-align: top; padding: 5px;'},
-									foreach: flights">
-									<!-- ko if: $index() == 0 -->
-									<div>buy block</div>
-									<!-- /ko -->
-									<div data-bind="
-										attr: {style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' + ($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')}
-									">
-										&nbsp;
-										<br/>
-										<span class="new-ui-pseudoLink" data-bind="
-											click: function () {if ($data != $parent.selected()) {$parents[1].selectVariant($data, $parentContext.$index())}else{$parent.bookFlight(selectedFlightsIds());}},
-											text: 'Buy for '+$parents[1].flightsById[$data[0]].getTotalPrice().normalizedAmount()+' '+$parents[1].flightsById[$data[0]].getTotalPrice().currency()
-										"></span>
-										<br/>
-										&nbsp;
-									</div>
-								</div>
-								<!-- /ko -->
-							</div>
-						</div>
-					<!-- /ko -->
-				<!-- /ko -->
-			</div>
-			<!-- /ko -->
-		</div>
+		<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
 	<!-- /ko -->
 	<!-- ko if: !hasVisibleResult() -->
-	<h2>FILTERS GIVEN EMPTY RESULT</h2>s
+	<h2>FILTERS GIVEN EMPTY RESULT</h2>
 	<!-- /ko -->
 </div>
 <!-- /ko -->
