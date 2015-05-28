@@ -1,0 +1,122 @@
+/**
+ * Action menu
+ *
+ * @usage:
+ * @modifiers:
+ * @example:
+ */
+
+// COLORS
+$c_ui_bg           = #F5F5F5;
+$c_ui_arr_bg       = #2887BC;
+$c_ui_arr_bg_hover = #46A8DF;
+
+// DIMENSIONS
+$d_ui_borderRadius = 4px;
+$d_ui_height       = 30px;
+$d_ui_minWidth     = 100px;
+
+// FONTS
+
+// VALUES
+$i_ui_pseudoBorder             = inset 0 0 0 1px #fff;
+$i_ui_actionSelect_outerShadow = 0 2px 6px rgba(0,0,0,.2)
+
+.new-ui-actionSelect{
+    position: relative;
+    height: $d_ui_height;
+    min-width: $d_ui_minWidth;
+    cursor: pointer;
+
+    &_onHover:hover{
+        z-index: 5;
+
+        .new-ui-actionSelect__listHold{
+            display: block;
+        }
+    }
+
+    &_rolled{
+        z-index: 5;
+        cursor: default;
+
+        .new-ui-actionSelect__listHold{
+            display: block;
+        }
+    }
+
+    &__hold{
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        padding: 7px 10px;
+        background: $c_ui_bg;
+        border-radius: $d_ui_borderRadius;
+        box-shadow: $i_ui_pseudoBorder, inset 0 0 15px rgba(0, 0, 0, 0.05), $i_ui_actionSelect_outerShadow;
+        transition: box-shadow 0.2s linear;
+
+        &:hover{
+            box-shadow: $i_ui_pseudoBorder, inset 0 0 10px rgba(0, 0, 0, 0.10), $i_ui_actionSelect_outerShadow;
+            border-color: transparent;
+
+            &:after{
+                border-top-color: $c_ui_arr_bg_hover;
+            }
+        }
+
+        &:active{
+            box-shadow: $i_ui_pseudoBorder, inset 0 0 10px rgba(11, 144, 214, 0.10), $i_ui_actionSelect_outerShadow;
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 14px;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-top: 6px solid $c_ui_arr_bg;
+        }
+    }
+
+    &__current{
+        display: block;
+        position: relative;
+        padding: 0 20px 0 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    &__listHold{
+        display: none;
+        margin: 5px 0 0 0;
+    }
+
+    &__list{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__item{
+        padding: 0;
+    }
+
+    a&__link{
+        color: #000;
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+
+        &:hover{
+            color: #fff;
+            background: #4EB1E5;
+            border-radius: 5px;
+        }
+    }
+}

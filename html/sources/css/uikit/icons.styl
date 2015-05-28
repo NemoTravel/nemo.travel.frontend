@@ -1,0 +1,104 @@
+// DIMENSIONS
+$d_ui_menuicon_width 			= 20px;
+$d_ui_menuicon_height			= 14px;
+
+$d_ui_greyCross_width			= 12px;
+$d_ui_greyCross_height			= 12px;
+
+$d_ui_leftRightArrow_width		= 16px; 		
+$d_ui_leftRightArrow_height		= 8px; 		
+
+$d_ui_overlayMenu_width			= 4px;
+$d_ui_overlayMenu_height		= 17px;
+
+// BACKGROUND-IMAGES
+$bg_menuIcon 					= url("../img/menu-icon.svg") 0 0 no-repeat;
+$bg_backIcon					= url("../img/arr-back.svg") 0 0 no-repeat;
+$bg_overlayMenu					= url("../img/popMenu.svg") 0 0 no-repeat;
+$bg_leftRightArrow				= url("../img/arr-left-right.svg") 0 0 no-repeat;
+$bg_greyCross					= url("../img/close.svg") 0 0 no-repeat;
+
+
+.new-ui-{
+	
+	// main menu icon
+	&mMenuIcon{
+		background: $bg_menuIcon;
+		width: $d_ui_menuicon_width;
+		height: $d_ui_menuicon_height;
+		display: inline-block;
+		
+		.side-menu-open &{
+			background: $bg_backIcon;
+		}
+	}
+	
+	// main menu icon back
+	&mMenuBack{
+		display: none;
+		
+		.side-menu-open &{
+			display: inline-block;
+		}
+	}
+	
+	// overlay for mobile menu
+	&overlayMenu{
+		background: $bg_overlayMenu;
+		width: $d_ui_overlayMenu_width;
+		height: $d_ui_overlayMenu_height;
+		display: inline-block;
+	}
+	
+	&arrLeftRight{
+		background: $bg_leftRightArrow;
+		width: $d_ui_leftRightArrow_width;
+		height: $d_ui_leftRightArrow_height;
+		display: inline-block;
+	}
+	
+	&greyCross{
+		background: $bg_greyCross;
+		width: $d_ui_greyCross_width;
+		height: $d_ui_greyCross_height;
+		display: inline-block;
+	}
+	
+	// soc
+	&soc-d{
+		display: inline-block;
+		width: 25px;
+		height: 22px;
+		background: url("../img/account.svg") 0 0 no-repeat;
+	}
+	&soc-fb{
+		display: inline-block;
+		width: 24px;
+		height: 22px;
+		background: url("../img/account_fb.svg") 0 0 no-repeat;
+	}
+	&soc-mail{
+		display: inline-block;
+		width: 22px;
+		height: 21px;
+		background: url("../img/account_mail.svg") 0 0 no-repeat;
+	}
+	&soc-tw{
+		display: inline-block;
+		width: 21px;
+		height: 17px;
+		background: url("../img/account_tw.svg") 0 0 no-repeat;
+	}
+	&soc-vk{
+		display: inline-block;
+		width: 22px;
+		height: 22px;
+		background: url("../img/account_vk.svg") 0 0 no-repeat;
+	}
+	&soc-ya{
+		display: inline-block;
+		width: 10px;
+		height: 22px;
+		background: url("../img/account_ya.svg") 0 0 no-repeat;
+	}
+}

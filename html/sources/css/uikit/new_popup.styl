@@ -1,0 +1,278 @@
+/**
+ * jQueryUI popup styling to match UIKit popup styles
+ */
+
+// COLORS
+$c_ui_popup_title_bg      = #eee;
+$c_ui_popup_buttonPane_bg = $c_ui_popup_title_bg;
+
+$c_ui_popup_progress_bg       = rgba(0,0,0, .5);
+$c_ui_popup_progress_value_bg = #0C91D7;
+
+$c_ui_popup_scrollbar       = rgba(150, 149, 153, .25);
+$c_ui_popup_scrollbar_track = rgba(12, 145, 215, .5);
+
+// DIMENTIONS
+$d_ui_popup_bRadius = 4px;
+
+$d_ui_popup_closetext_distance = 10px;
+$d_ui_popup_title_close_height = 20px;
+
+$d_ui_popup_title_height         = 50px;
+$d_ui_popup_title_sidePadding    = 20px;
+$d_ui_popup_title_topPadding     = 14px;
+$d_ui_popup_content_side_padding = 20px;
+$d_ui_popup_content_top_padding  = 10px;
+
+$c_ui_popup_buttonPane_height       = 55px;
+$c_ui_popup_buttonPane_side_padding = 20px;
+
+// FONT
+$f_ui_popup_title_size = 15px;
+$f_ui_popup_title      = #414042;
+
+$f_ui_popup_hintClose_size = 14px;
+$f_ui_popup_hintClose      = #2E2E33;
+
+
+.ui-dialog {
+	padding: 0;
+	border: none;
+	border-radius: $d_ui_popup_bRadius;
+
+	&_open {
+		overflow: hidden;
+	}
+
+	&_scrolling {
+		position: relative;
+		margin: 50px auto;
+	}
+
+	&_request {
+
+	}
+
+	&_small {
+		width: 410px!important;
+	}
+
+	&_medium {
+		width: 710px!important;
+	}
+
+	&_large {
+		width: 920px!important;
+	}
+
+	&__iframe {
+		border: none;
+	}
+
+	&__loader {
+		text-indent: -10000px;
+		background-image: url(images/ui/ui-loader-planes.svg), none;
+	}
+
+	&__wrapper {
+		display: none;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+
+	&__progress {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		border: none;
+		z-index: -5;
+	}
+
+	.ui-progressbar {
+		background: $c_ui_popup_progress_bg;
+
+		.ui-progressbar-value {
+			border: none;
+			margin: 0;
+			padding: 0;
+			background-color: $c_ui_popup_progress_value_bg;
+		}
+	}
+
+	&.ui-dialog_request &-title {
+		color: #fff;
+	}
+
+	&.ui-dialog_request &-titlebar-close {
+		color: #fff;
+		background: transparent url('images/ui/ui-icon-popup-close-light.png') right center no-repeat;
+	}
+
+	.ui-dialog {
+
+		&-titlebar {
+			position: relative;
+			min-height: $d_ui_popup_title_height;
+			padding: $d_ui_popup_title_topPadding $d_ui_popup_title_sidePadding;
+			background-color: $c_ui_popup_title_bg;
+			border: 0px;
+			line-height: normal;
+			font-size: $f_ui_popup_title_size;
+			color: $f_ui_popup_title;
+			font-weight: normal;
+			z-index: 1;
+		}
+
+		&-title {
+			display: block;
+			margin: 0px;
+			float: none;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		&-titlebar-close {
+			border: 0px;
+			padding: 0px $d_ui_popup_closetext_distance + 12px 0px 0px;
+
+			width: auto;
+			height: $d_ui_popup_title_close_height;
+			line-height: $d_ui_popup_title_close_height;
+			color: $f_ui_popup_hintClose;
+			text-decoration: none;
+
+			top: 50%;
+			right: $d_ui_popup_title_sidePadding;
+			margin-top: -($d_ui_popup_title_close_height/2);
+
+			background: transparent url('images/ui/ui-icon-popup-close-2.png') right center no-repeat;
+
+			opacity: 0.5;
+
+			&.ui-state-hover {
+				opacity: 1;
+				text-decoration: none;
+				padding: 0px $d_ui_popup_closetext_distance + 12px 0px 0px;
+
+				.ui-icon {
+					float: none;
+					border: 0px none;
+				}
+			}
+
+			.ui-icon {
+				background: transparent;
+				text-indent: 0px;
+				overflow: visible;
+				width: auto;
+				height: auto;
+
+				text-decoration: none;
+				font-size: $f_ui_popup_hintClose_size;
+
+				font-weight: normal;
+				border: 0px none;
+			}
+		}
+
+		&-content {
+			padding: $d_ui_popup_content_top_padding $d_ui_popup_content_side_padding;
+
+			&_iframe {
+				overflow: inherit!important;
+			}
+		}
+
+		&-buttonpane {
+			position: relative;
+			height: $c_ui_popup_buttonPane_height;
+			margin: 0;
+			padding: 9px $c_ui_popup_buttonPane_side_padding;
+			border: none;
+			background-color: $c_ui_popup_buttonPane_bg;
+			z-index: 1;
+
+			.ui-dialog-buttonset {
+				@extend .clearfix;
+				float: none;
+				text-align: right;
+			}
+
+			.ui-button {
+				@extend .new-ui-button;
+
+				display: inline-block;
+				float: left;
+
+				margin: 0 15px 0 0;
+				font-size: 18px;
+
+				&_pseudoLink {
+					min-width: 0;
+					padding: 0;
+					background: none;
+					box-shadow: none;
+					border: none;
+					text-shadow: none;
+
+					&:hover,
+					&:focus {
+						background: none;
+						box-shadow: none;
+						border: none;
+						text-shadow: none;
+					}
+
+					&:focus:hover {
+						background: none;
+					}
+
+					.ui-button-text {
+						@extend .new-ui-pseudoLink;
+
+						display: inline;
+						font-size: 14px;
+					}
+				}
+
+				&_right {
+					float: none;
+				}
+
+				&:last-child {
+					margin-right: 0;
+				}
+
+				&.ui-state-hover,
+				&.ui-state-focus {
+					font-weight: 400;
+				}
+
+				.ui-button-text {
+					padding: 0;
+				}
+			}
+		}
+	}
+
+
+	&__scrollbarMeasure {
+		position: absolute;
+		top: -99999px;
+		width: 50px;
+		height: 50px;
+		overflow: scroll;
+	}
+}
+
+.ui-widget-overlay {
+	background: rgba(0,0,0, .5);
+}

@@ -1,0 +1,97 @@
+/**
+ * Radio button
+ *
+ * @usage: class "new-ui-radioBtn" on element
+ * @modifiers:
+ * @tags: label
+ * @example:
+    <label class="new-ui-radioBtn">
+        <input class="new-ui-radioBtn__input" type="radio">
+        <span class="new-ui-radioBtn__caption">Радио кнопка</span>
+    </label>
+ */
+// COLORS
+$c_ui_caption                   = $c_ui_textMain;
+$c_ui_caption_hover             = #4F6D85;
+$c_ui_caption_disabled          = $c_ui_textDisabled;
+
+// DIMENSIONS
+$d_ui_padding                   = 3px 0;
+$d_ui_caption_lPadding          = 25px;
+$d_ui_caption_padding           = 0 0 0 $d_ui_caption_lPadding;
+$d_ui_pseudoInput_width         = 19px;
+$d_ui_pseudoInput_height        = 19px;
+$d_ui_pseudoInput_borderRadius  = 50%;
+
+// FONT
+$f_ui_caption_size              = 14px;
+$f_ui_caption_lineHeight        = 16px;
+
+// VALUES
+$i_ui_radio            = 'images/ui/radiobutton_sprite.svg';
+$i_ui_radio_unselected = 'images/ui/radio_unselected.svg';
+
+.new-ui-radioBtn{
+    display: inline-block;
+    padding: $d_ui_padding;
+    cursor: pointer;
+
+    &__input{
+        position: absolute;
+    }
+
+    &__input:checked,
+    &__input:not(:checked){
+        left: -99999px;
+    }
+
+    &__input:checked + &__caption,
+    &__input:not(:checked) + &__caption{
+        &:before{
+            display: block;
+        }
+    }
+
+    &__input:checked + &__caption{
+        &:before{
+            background-image: url($i_ui_radio);
+			background-position: top;
+		}
+    }
+
+    &__input:disabled + &__caption{
+        color: $c_ui_caption_disabled;
+
+        &:before{
+			background-image: url($i_ui_radio);
+			background-position: bottom;
+        }
+    }
+
+    &__caption{
+        position: relative;
+        display: inline-block;
+        font-size: $f_ui_caption_size;
+        color: $c_ui_caption;
+        line-height: $f_ui_caption_lineHeight;
+        padding: $d_ui_caption_padding;
+
+        &:before{
+            content: '';
+            position: absolute;
+            display: none;
+            left: 0;
+            top: 50%;
+            width: $d_ui_pseudoInput_width;
+            height: $d_ui_pseudoInput_height;
+            margin-top: - ($d_ui_pseudoInput_height / 2);
+            border-radius: $d_ui_pseudoInput_borderRadius;
+			background-image: url($i_ui_radio);
+			background-position: bottom;
+		}
+
+        &:hover{
+            color: $c_ui_caption_hover;
+        }
+    }
+}
