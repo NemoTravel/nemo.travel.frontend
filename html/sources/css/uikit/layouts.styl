@@ -1,0 +1,118 @@
+// DIMENSIONS
+$d_headerLinks_padding 				= 0 50px;
+$d_headerLinks_tablet_padding 		= 0 0 0 10px;
+
+$d_ui_topBar_inner_maxWidth 		= 1140px;
+$d_ui_topBar_inner_padding 			= 0 30px;
+
+$d_ui_main_top_inner				= 1140px;
+$d_ui_main_top_inner_padding		= 10px 30px;
+
+$d_overlayMenu_padding 				= 10px 20px;
+
+// COLOR
+$bg_topBg							= #fff;
+
+$bg_mainTop							= #63636C;
+
+* {
+	box-sizing: border-box;
+} 
+
+.new-layout-{
+	
+	&headerLinks{
+		padding: $d_headerLinks_padding;
+		line-height 30px;
+		.new-ui-link{
+			vertical-align: middle
+			display: inline-block;
+			margin 0 10px 0 20px;
+			&+.new-ui-link{
+				margin 0 10px;
+			}
+		}
+		
+		.tablet &{
+			padding: $d_headerLinks_tablet_padding;
+		}
+		
+		.mobile &{
+			display: none;
+		}
+	}
+	
+	&headerRight{
+		margin-left: auto;
+	}
+	
+	&overlayMenu{
+		display: none;
+		
+		.mobile &{
+			display: inline-block;
+		}
+		
+		&__main{
+			padding: $d_overlayMenu_padding;
+		}
+
+		&__drop{
+			.mobile &{
+				display: none;
+				position: absolute;
+				z-index: 10;
+				padding: 40px 10px 10px;
+				top: 0;
+				left: 0;
+				min-height: 100%;
+				right: 0;
+				background: rgba(0, 0, 0, 0.75);
+				/.overlay-menu-open&{
+					display: block;
+				}
+			}
+		}
+	}
+	
+	&topBar{
+		background: $bg_topBg;
+		&__i{
+			position: relative;
+			max-width: $d_ui_topBar_inner_maxWidth;
+			padding: $d_ui_topBar_inner_padding;
+			margin: 0 auto;
+			&__left{
+				display: inline-block;
+				line-height: 50px;
+			}
+			&__right{
+				position: absolute;
+				top: 0;
+				right: 30px;
+				display: inline-block;
+				line-height: 50px;
+			}
+		}
+	}
+	
+	&main{
+
+		&__top{
+			background: $bg_mainTop;
+			&__i{
+				max-width: $d_ui_main_top_inner;
+				padding: $d_ui_main_top_inner_padding;
+				margin: 0 auto;
+				&__btn{
+					float: left;
+					width: 130px;
+					padding: 0 20px 0 0;
+				}
+				&__main{
+					
+				}
+			}
+		}
+	}
+}

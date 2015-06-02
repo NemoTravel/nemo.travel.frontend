@@ -1,0 +1,70 @@
+/*
+* Stepbar
+*/
+
+//COLORS
+
+//FONTS
+$f_ui_stepbar_item      = #959498;
+$f_ui_stepbar_item_cur  = $c_ui_textMain;
+$f_ui_stepbar_item_dis  = #969599;
+
+$f_ui_stepbar_item_size = 13px;
+
+//DIMENTIONS
+$d_ui_stepbar_item_arr_width  = 7px;
+$d_ui_stepbar_item_arr_height = 8px;
+
+//VALUES
+$i_ui_stepbar_item_arr_bg = 'images/ui/stepbar.svg';
+
+.new-ui-stepbar {
+	margin: 0 0 20px;
+
+	&__list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	&__item {
+		display: inline-block;
+		font-size: $f_ui_stepbar_item_size;
+
+		&_current {
+			color: $f_ui_stepbar_item_cur;
+		}
+
+		&_disabled {
+			color: $f_ui_stepbar_item_dis;
+		}
+
+		&:after {
+			content: '';
+			display: inline-block;
+			width: $d_ui_stepbar_item_arr_width;
+			height: $d_ui_stepbar_item_arr_height;
+			margin: 0 8px;
+			background: url($i_ui_stepbar_item_arr_bg) 50% 0 no-repeat;
+		}
+
+		&:last-child:after {
+			display: none;
+		}
+	}
+
+	&__link {
+
+	}
+
+	&__num {
+		&:after {
+			content: '.\00a0';
+			display: inline-block;
+		}
+	}
+
+	&__text{
+
+	}
+}

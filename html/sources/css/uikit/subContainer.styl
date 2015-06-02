@@ -1,0 +1,192 @@
+/**
+ * Block (not page wrapper) with possible header with possible "hilight"
+ *
+ * @usage: class "new-ui-block" on element
+ * @modifiers:
+ * @tags: div
+ * @example:
+	<div class="new-ui-subContainer">
+		<div class="new-ui-subContainer__header">
+			<div class="new-ui-subContainer__header__hilight">
+				I'm an optional header hilight!
+			</div>
+			I'm an optional header!
+		</div>
+		I'm a block contents!
+	</div>
+ */
+// COLORS
+$c_ui_subContainer_bg                    = #fff;
+$c_ui_subContainer_header_bg             = #4EB1E5;
+$c_ui_subContainer_header_hilight_light  = $c_ui_subContainer_bg;
+$c_ui_subContainer_header_hilight_dark   = #E6E7E8;
+$c_ui_subContainer_header_greenLight     = rgba(19, 178, 57, .75);
+
+$c_ui_subContainer_section_border        = #d7d7d7;
+
+$c_ui_subContainer_divider           = #D6D6D6;
+$c_ui_subContainer_divider_secondary = #fafafa;
+
+
+// DIMENSIONS
+$d_ui_subContainer_padding = 20px;
+$d_ui_subContainer_borderradius = 4px;
+$d_ui_subContainer_header_height = 50px;
+$d_ui_subContainer_vPadding = 0;//$d_ui_subContainer_header_height - 22px;
+$d_ui_subContainer_header_hilight_skewedpart_width = $d_ui_subContainer_header_height/2;
+$d_ui_subContainer_header_hilight_rightmargin = 2*$d_ui_subContainer_padding; // Must be bigger than $d_ui_subContainer_padding
+
+$d_ui_subContainer_divider_height = 1px;
+$d_ui_subContainer_divider_margin_base = 0 (- $d_ui_subContainer_padding);
+$d_ui_subContainer_divider_margin_small = 10px (- $d_ui_subContainer_padding);
+$d_ui_subContainer_divider_margin_middle = 15px (- $d_ui_subContainer_padding);
+$d_ui_subContainer_divider_margin_big = 20px (- $d_ui_subContainer_padding);
+
+
+// FONT
+$f_ui_subContainer_header = #fff;
+$f_ui_subContainer_header_size = 15px;
+$f_ui_subContainer_header_lineheight = $d_ui_subContainer_header_height - 2*$d_ui_subContainer_vPadding;
+$f_ui_subContainer_header_hilight = $c_ui_textMain;
+$f_ui_subContainer_header_hilight_size = 15px;
+$f_ui_subContainer_header_hilight_lineheight = $f_ui_subContainer_header_lineheight;
+
+// VALUES
+$i_ui_subContainer_outershadow = 0px 1px 4px rgba(0,0,0,0.25);
+$i_ui_subContainer_divider_border = $d_ui_subContainer_divider_height solid $c_ui_subContainer_divider;
+$i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height solid $c_ui_subContainer_divider_secondary;
+
+
+.new-ui-subContainer {
+	// General
+
+	// Dimensions
+	padding: $d_ui_subContainer_padding;
+
+	// Borders and shadows
+	border-radius: $d_ui_subContainer_borderradius;
+	box-shadow: $i_ui_subContainer_outershadow;
+
+	// Text
+
+	// Background
+	background-color: $c_ui_subContainer_bg;
+
+	//modificators
+
+	&_contentPadding{
+	    padding: 0 $d_ui_subContainer_padding;
+	}
+
+	// Inner Elements
+	&__header {
+		// General
+		display: block;
+		overflow: hidden;
+		position: relative;
+
+		.new-ui-subContainer_contentPadding &{
+		    margin-top: 0;
+		}
+
+		// Dimensions
+		height: $d_ui_subContainer_header_height;
+		margin: -1*$d_ui_subContainer_padding -1*$d_ui_subContainer_padding $d_ui_subContainer_padding -1*$d_ui_subContainer_padding;
+		padding: $d_ui_subContainer_vPadding $d_ui_subContainer_padding;
+
+		// Borders and shadows
+		border-top-left-radius: $d_ui_subContainer_borderradius;
+		border-top-right-radius: $d_ui_subContainer_borderradius;
+
+		// Text
+		color: $f_ui_subContainer_header;
+		line-height: $f_ui_subContainer_header_lineheight;
+		font-size: $f_ui_subContainer_header_size;
+
+		// Background
+		background-color: $c_ui_subContainer_header_bg;
+
+		&__hilight {
+			// General
+			display: inline-block;
+			vertical-align: baseline;
+			position: relative;
+
+			// Dimensions
+			height: $d_ui_subContainer_header_height;
+			padding: $d_ui_subContainer_vPadding $d_ui_subContainer_padding+$d_ui_subContainer_header_hilight_skewedpart_width $d_ui_subContainer_vPadding $d_ui_subContainer_padding;
+			/*padding: $d_ui_subContainer_padding $d_ui_subContainer_padding+$d_ui_subContainer_header_hilight_skewedpart_width $d_ui_subContainer_padding $d_ui_subContainer_padding;*/
+			margin: -1*$d_ui_subContainer_vPadding $d_ui_subContainer_header_hilight_rightmargin - $d_ui_subContainer_padding -1*$d_ui_subContainer_vPadding -1*$d_ui_subContainer_padding;
+
+			// Borders and shadows
+			border-top-left-radius: $d_ui_subContainer_borderradius;
+
+			// Text
+			color: $f_ui_subContainer_header_hilight;
+			/*line-height: $f_ui_subContainer_header_hilight_lineheight;*/
+			line-height: $f_ui_subContainer_header_lineheight;
+			font-size: $f_ui_subContainer_header_hilight_size;
+
+			// Background
+			background-color: $c_ui_subContainer_header_hilight_dark;
+			background-image: linear-gradient(to bottom, $c_ui_subContainer_header_hilight_light, $c_ui_subContainer_header_hilight_dark);
+
+			// Element that makes hilight have a cross-browser "slashed" right border
+			&:before {
+				// General
+				content: '';
+				position: absolute;
+
+				// Dimensions and position
+				height: 0;
+				top: 0
+				right: 0;
+				bottom: 0;
+
+				// Borders
+				border-top: $d_ui_subContainer_header_height solid $c_ui_subContainer_header_bg;
+				border-left: $d_ui_subContainer_header_hilight_skewedpart_width solid transparent;
+			}
+		}
+
+		&_greenLight {
+			@extends .new-ui-subContainer__header;
+			background: $c_ui_subContainer_header_greenLight;
+
+			.new-ui-subContainer_contentPadding &{
+				margin-top: 0;
+			}
+
+			.new-ui-subContainer__header__hilight {
+				@extends .new-ui-subContainer__header__hilight;
+
+				&:before {
+					border-top-color: $c_ui_subContainer_header_greenLight;
+				}
+			}
+		}
+	}
+
+
+	&__divider{
+	    border: none;
+        border-top: $i_ui_subContainer_divider_border;
+        margin: $d_ui_subContainer_divider_margin_base;
+
+        &_secondary{
+            border-top: $i_ui_subContainer_divider_secondary_border;
+        }
+
+        &_smallMargin{
+            margin: $d_ui_subContainer_divider_margin_small;
+        }
+
+        &_mediumMargin{
+            margin: $d_ui_subContainer_divider_margin_middle;
+        }
+
+        &_bigMargin{
+            margin: $d_ui_subContainer_divider_margin_big;
+        }
+	}
+}

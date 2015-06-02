@@ -1,0 +1,237 @@
+flights_form_routeOptions_max_1020() {
+	.nemo-flights-form {
+		&__routeOptions {
+			&__inner {
+				display: block;
+				width: 100%;
+			}
+
+			&__item, &_CR &__item {
+				width: auto;
+			}
+
+			&__item {
+				&__caption {
+					display: none;
+				}
+
+				&__selector {
+					margin: 0;
+				}
+			}
+		}
+	}
+}
+
+flights_form_routeOptions_max_1280() {
+	.nemo-flights-form__routeOptions {
+		&_OW, &_RT {
+			.nemo-flights-form__routeOptions__item{
+				&__caption {
+					display: none;
+				}
+
+				&__selector {
+					margin: 0;
+				}
+			}
+		}
+	}
+}
+
+flights_form_layout_23() {
+	.nemo-flights-form {
+		&__formContainer__inner {
+			width: 100%;
+		}
+
+		&__routeTypeSelector_buttons {
+			display: block;
+		}
+
+		&__formContainer__inner {
+			padding-right: 20px;
+			padding-left: 20px;
+		}
+
+		&__routeOptions__item_routeType {
+			display: none;
+		}
+
+		&__route, &__passengers, &__button {
+			display: block;
+			width: auto;
+			position: relative;
+		}
+
+		&__route {
+			&__segment {
+				width: 100%;
+
+				&_CR {
+					.nemo-flights-form__route__segment__item {
+						padding: 0 20px 0 0;
+						width: 40%;
+
+						&_date {
+							width: 20%;
+							padding: 0;
+						}
+
+						&__dateDummy_short {
+							display: block;
+						}
+
+						&__dateDummy_full {
+							display: none;
+						}
+					}
+				}
+
+				&__item {
+					padding-right: 10px;
+
+					&__dateDummy_short {
+						display: none;
+					}
+
+					&__dateDummy_full {
+						display: block;
+					}
+
+					&_from, &_to, &_date {
+						width: 50%;
+						padding-bottom: 20px;
+					}
+
+					&_to {
+						padding-right: 0;
+						padding-left: 10px;
+					}
+
+					&_date {
+						padding-bottom: 0;
+					}
+				}
+
+				&_returnSegment {
+					/*position: relative;*/
+					padding: 0;
+					position: absolute;
+					left: auto;
+					top: auto;
+					right: 0;
+					bottom: 20px;
+					width: 50%;
+				}
+
+				&_returnSegment {
+					.nemo-flights-form__route__segment__item_date {
+						width: 100%;
+						padding-right: 0;
+						padding-left: 10px;
+					}
+				}
+			}
+
+			&__switchToOW {
+				right: -10px;
+			}
+
+			&__continueCR {
+				margin: 0 0 20px;
+			}
+		}
+
+		&__passengers {
+			float: left;
+
+			&__container {
+				width: 160px;
+				max-width: 160px;
+			}
+		}
+
+		&__routeOptions {
+			display: block;
+			position: relative;
+			margin-top: 20px;
+
+			&__item {
+				&_class {
+					position: absolute;
+					left: 180px;
+					top: -55px;
+				}
+
+				&__checkbox {
+					padding: 0;
+				}
+			}
+		}
+	}
+
+	flights_form_routeOptions_max_1280();
+	flights_form_routeOptions_max_1020();
+}
+
+@media (max-width: 1280px) {
+	flights_form_routeOptions_max_1280();
+}
+
+@media (max-width: 1220px) {
+	.nemo-flights-form {
+		&__formContainer__inner {
+			max-width: 990px;
+		}
+
+		&__route__segment__item__dateDummy_full {
+			display: none;
+		}
+
+		&__route__segment__item__dateDummy_short {
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 1020px) {
+	flights_form_routeOptions_max_1020();
+}
+
+.nemo-flights-form_twothirds {
+	flights_form_layout_23();
+
+	max-width: 640px;
+
+	.nemo-flights-form__formContainer {
+		border-radius: 10px;
+	}
+}
+
+@media (max-width: 920px) {
+	flights_form_layout_23();
+}
+
+@media (max-width: 640px) {
+	.nemo-flights-form__route {
+		&_CR &__segment {
+			&__item {
+				&__dateDummy {
+					padding-right: 10px;
+				}
+			}
+
+			&__input_date {
+				background-image: none;
+				padding-right: 10px;
+			}
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		// background: #ff0000;
+	}
+}
