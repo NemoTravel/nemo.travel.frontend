@@ -189,6 +189,7 @@ define(
 			this.flights = {};
 			this.airlines = {};
 			this.airlinesByRating = [];
+			this.flightsCompareTable = ko.observableArray();
 
 			this.groups = ko.observableArray([]);
 			this.hasVisibleResult = ko.observable(true);
@@ -308,7 +309,6 @@ define(
 			var setSegmentsGuide = true,
 				self = this,
 				tmpGroups = {},
-				filtersOrderObject = {},
 				tmp;
 
 			// Processing search info
@@ -444,6 +444,55 @@ define(
 					this.groups.push(tmp);
 				}
 			}
+
+			var tempFlightGroups = this.groups(),
+			tmpct = {};
+
+			for (var i = 0; i < tempFlightGroups.length; i++) {
+				if (typeof tmpct[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
+					tmpct[tempFlightGroups[i].getValidatingCompany().IATA] = {
+						company: tempFlightGroups[i].getValidatingCompany(),
+						groups: []
+					};
+				}
+				tmpct[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
+			}
+
+			var tempGroupsArr =[];
+			for(var i in tmpct ) {
+				if (tmpct.hasOwnProperty(i)){
+					if (!isNaN(parseFloat(i)) && isFinite(i)){
+						tempGroupsArr[i] = tmpct[i];
+					}else{
+						tempGroupsArr.push(tmpct[i]);
+					}
+				}
+			}
+
+			for (var i in tempGroupsArr){
+				tempGroupsArr[i].groupsFilteredOut = ko.computed(function() {
+					for (var j = 0; j < this.groups.length; j++) {
+						if (this.groups[j].filteredOut() == false) {
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+				}, tempGroupsArr[i]);
+			}
+			tempGroupsArr.allVisible = ko.observable(false);
+			tempGroupsArr.toggleVisible = function(){
+				console.log(this)
+				if(this.allVisible() == false){
+					this.allVisible(true);
+				}else{
+					this.allVisible(false);
+				}
+			};
+			this.flightsCompareTable(tempGroupsArr);
+
+			//console.log(this.flightsCompareTable().pagination());
 
 			this.buildPFs();
 
@@ -601,6 +650,8 @@ define(
 			}
 
 			this.hasVisibleResult(visibleResult);
+
+			console.log(this.flightsCompareTable().paginationUpdate());
 
 			this.setShowcase();
 		};
