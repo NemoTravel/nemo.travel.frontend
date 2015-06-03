@@ -139,51 +139,55 @@ Results template.
 	</div>
 	<!-- /ko -->
 </script>
-<h3>COMPARE TABLE</h3>
+<h3>Flights table</h3>
 <div>
-	<!--<div class="pager">-->
-		<!--<a href="#" class="previous" data-bind="click: flightsCompareTable().previous(), visible: flightsCompareTable().hasPrevious">&lt;</a>-->
-		<!--<span class="current" data-bind="text: flightsCompareTable().pageNumber"></span>-->
-		<!--<a href="#" class="next" data-bind="click: flightsCompareTable().next, visible: flightsCompareTable().hasNext">&gt;</a>-->
-	<!--</div>-->
-	<div data-bind="foreach: flightsCompareTable">
+	<div class="pager" data-bind="with: flightsCompareTableTransfer">
+		<a href="#" class="previous" data-bind="click: paginationPrev, visible: paginationHasPrev">&lt;</a>
+		<span class="all" data-bind="text:$data.groups.length"></span>
+		<a href="#" class="previous" data-bind="click: paginationNext, visible: paginationHasNext">&gt;</a>
+	</div>
+	<div>Transfer Flights</div>
+	<div data-bind="foreach: flightsCompareTableTransfer.groups">
 		<!-- ko if: !groupsFilteredOut() -->
-		<div style="display: inline-block;margin-right: 10px; vertical-align: top">
+		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableTransfer.paginationShownPages() && $index() < $parent.flightsCompareTableTransfer.paginationShownPages() + $parent.flightsCompareTableTransfer.paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
+			<div data-bind="text: company.name"></div>
+			<div data-bind="foreach: groups">
+				<!-- ko if: !filteredOut() -->
+				<div data-bind="visible: ($parents[1].flightsCompareTableTransfer.allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
+					<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', with: $data }"></div>
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+	<div data-bind="with: flightsCompareTableTransfer">
+		<a href="#" data-bind="text:$data.allGroupsVisible() ? 'Show Less' : 'Show More', click:$data.toggleVisibleGroups(), visible:$data.flagToShowMore()"></a>
+	</div>
+</div>
+<div>
+	<div class="pager" data-bind="with: flightsCompareTableDirect">
+		<a href="#" class="previous" data-bind="click: paginationPrev, visible: paginationHasPrev">&lt;</a>
+		<span class="all" data-bind="text:$data.groups.length"></span>
+		<a href="#" class="previous" data-bind="click: paginationNext, visible: paginationHasNext">&gt;</a>
+	</div>
+	<div>Direct Flights</div>
+	<div data-bind="foreach: flightsCompareTableDirect.groups">
+		<!-- ko if: !groupsFilteredOut() -->
+		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableDirect.paginationShownPages() && $index() < $parent.flightsCompareTableDirect.paginationShownPages() + $parent.flightsCompareTableDirect.paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
 		<div data-bind="text: company.name"></div>
 			<div data-bind="foreach: groups">
-			<!-- ko if: !filteredOut() -->
-				<div style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
-					<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
-					<div data-bind="foreach: flights">
-						<div>
-							<span data-bind="text: id"></span>
-							<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-						</div>
+				<!-- ko if: !filteredOut() -->
+					<div data-bind="visible: ($parents[1].flightsCompareTableDirect.allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
+						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', with: $data }"></div>
 					</div>
-					<div data-bind="foreach: legGroupings">
-						<div style="display: inline-block;vertical-align: top;width: 33%;">
-							<div data-bind="text: selected().flights.join(', ')"></div>
-							<select
-									style="width: 90%;"
-									data-bind="
-											options: options,
-											value: selected,
-											optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-											optionsAfterRender: setOptionDisable
-										"
-									>
-							</select>
-						</div>
-					</div>
-					<div>
-						<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
-					</div>
+				<!-- /ko -->
 			</div>
-			<!-- /ko -->
 		</div>
-		</div>
-
 		<!-- /ko -->
+	</div>
+	<div data-bind="with: flightsCompareTableDirect">
+		<a href="#" data-bind="text:$data.allGroupsVisible() ? 'Show Less' : 'Show More', click:$data.toggleVisibleGroups(), visible:$data.flagToShowMore()"></a>
 	</div>
 </div>
 

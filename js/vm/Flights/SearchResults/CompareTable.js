@@ -1,81 +1,145 @@
 'use strict';
 define(
-	['knockout', 'js/vm/Flights/Controller'],
-	function (ko, controller) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
+	function (ko, helpers, BaseModel) {
+		function CompareTable (initialData, controller) {
 
-		var tempFlightGroups = controller.groups(),
-			tmpct = {};
-
-		for (var i = 0; i < tempFlightGroups.length; i++) {
-			if (typeof tmpct[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
-				tmpct[tempFlightGroups[i].getValidatingCompany().IATA] = {
-					company: tempFlightGroups[i].getValidatingCompany(),
-					groups: []
-				};
-			}
-			tmpct[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
-		}
-
-		var tempGroupsArr = [];
-		for (var i in tmpct) {
-			if (tmpct.hasOwnProperty(i)) {
-				if (!isNaN(parseFloat(i)) && isFinite(i)) {
-					tempGroupsArr[i] = tmpct[i];
-				} else {
-					tempGroupsArr.push(tmpct[i]);
+			var tempFlightGroups = initialData.groups,
+				tmpct = {},
+				tmpctDirect = {},
+				tmpctTransfer = {};
+			
+			for (var i = 0; i < tempFlightGroups.length; i++) {
+				if (tempFlightGroups[i].isDirectGroup == false){
+					if (typeof tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
+						tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA] = {
+							company: tempFlightGroups[i].getValidatingCompany(),
+							groups: []
+						};
+					}
+					tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
+				}else if (tempFlightGroups[i].isDirectGroup == true) {
+					if (typeof tmpctDirect[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
+						tmpctDirect[tempFlightGroups[i].getValidatingCompany().IATA] = {
+							company: tempFlightGroups[i].getValidatingCompany(),
+							groups: []
+						};
+					}
+					tmpctDirect[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
 				}
 			}
-		}
 
-		for (var i in tempGroupsArr) {
-			tempGroupsArr[i].groupsFilteredOut = ko.computed(function () {
-				for (var j = 0; j < this.groups.length; j++) {
-					if (this.groups[j].filteredOut() == false) {
-						return false;
+
+			var tempGroupsArrDirect =[],
+			tempGroupsArrTransfer =[];
+
+			for(var i in tmpctTransfer ) {
+				if (tmpctTransfer.hasOwnProperty(i)){
+					if (!isNaN(parseFloat(i)) && isFinite(i)){
+						tempGroupsArrTransfer[i] = tmpctTransfer[i];
+					}else{
+						tempGroupsArrTransfer.push(tmpctTransfer[i]);
 					}
-					else {
+				}
+			}
+			for(var i in tmpctDirect ) {
+				if (tmpctDirect.hasOwnProperty(i)){
+					if (!isNaN(parseFloat(i)) && isFinite(i)){
+						tempGroupsArrDirect[i] = tmpctDirect[i];
+					}else{
+						tempGroupsArrDirect.push(tmpctDirect[i]);
+					}
+				}
+			}
+
+			for (var i in tempGroupsArrTransfer){
+				tempGroupsArrTransfer[i].groupsFilteredOut = ko.computed(function() {
+					for (var j = 0; j < this.groups.length; j++) {
+						if (this.groups[j].filteredOut() == false) {
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+				}, tempGroupsArrTransfer[i]);
+			}
+
+			for (var i in tmpctDirect){
+				tmpctDirect[i].groupsFilteredOut = ko.computed(function() {
+					for (var j = 0; j < this.groups.length; j++) {
+						if (this.groups[j].filteredOut() == false) {
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+				}, tmpctDirect[i]);
+			}
+			if(initialData.direct == true){
+				this.groups = tempGroupsArrDirect;
+			}else if (initialData.direct == false){
+				this.groups = tempGroupsArrTransfer;
+			}
+
+			//pagination
+			this.paginationStep = ko.observable(3);
+			this.paginationShownPages = ko.observable(0);
+			this.indexHelper = ko.computed(function(){ //TODO refactor flag counting for ShowMore
+				 return [this.paginationShownPages() + this.paginationStep()-3,this.paginationShownPages() + this.paginationStep()-2, this.paginationShownPages() + this.paginationStep()-1]
+			}, this);
+			this.paginationHasNext = ko.computed(function(){
+				if ((this.paginationShownPages() + this.paginationStep() >= this.groups.length)){
+					return false;
+				}else{
+					return true;
+				}
+			}, this);
+			this.paginationHasPrev = ko.computed(function(){
+				if ((this.paginationShownPages() <= 0)){
+					return false;
+				}else{
+					return true;
+				}
+			}, this);
+			this.paginationNext = function(){
+				console.log(this.flagToShowMore());
+				if(this.paginationHasNext()){
+					var current = this.paginationShownPages();
+					this.paginationShownPages(current + this.paginationStep());
+				}
+			};
+			this.paginationPrev = function(){
+				if(this.paginationHasPrev()){
+					var current = this.paginationShownPages();
+					this.paginationShownPages(current - this.paginationStep());
+				}
+			};
+
+
+			//show more block
+			this.flagToShowMore = ko.computed(function(){
+				for (var i in this.indexHelper()){
+					if(typeof this.groups[this.indexHelper()[i]] != 'undefined' && this.groups[this.indexHelper()[i]].groups.length >= 3){
 						return true;
 					}
 				}
-			}, tempGroupsArr[i]);
+			},this);
+			this.allGroupsVisible = ko.observable(true);
+			this.toggleVisibleGroups = function(){
+				if(this.allGroupsVisible() == false ){
+					this.allGroupsVisible(true);
+				}else{
+					this.allGroupsVisible(false);
+				}
+			};
+			BaseModel.apply(this, arguments);
+
 		}
 
+		// Extending from dictionaryModel
+		helpers.extendModel(CompareTable, [BaseModel]);
 
-		tempGroupsArr.pagination = ko.computed(function (dataToPaginate) {
-			if (typeof dataToPaginate == "undefined") {
-				var self = tempGroupsArr;
-			}
-			this.pageNumber = ko.observable(0);
-			this.nbPerPage = 3;
-			this.totalPages = ko.computed(function () {
-				var div = ~~(self.length / self.nbPerPage);
-				div += self.length % self.nbPerPage > 0 ? 1 : 0;
-				return div - 1;
-			});
-
-			this.paginated = ko.computed(function () {
-				var first = self.pageNumber() * self.nbPerPage;
-				return self.slice(first, first + self.nbPerPage);
-			});
-			this.hasPrevious = ko.computed(function () {
-				return self.pageNumber() !== 0;
-			});
-			this.hasNext = ko.computed(function () {
-				return self.pageNumber() !== self.totalPages();
-			});
-			this.next = function () {
-				if (self.pageNumber() < self.totalPages()) {
-					self.pageNumber(self.pageNumber() + 1);
-				}
-			};
-
-			this.previous = function () {
-				if (self.pageNumber() != 0) {
-					self.pageNumber(self.pageNumber() - 1);
-				}
-			};
-
-		}, tempGroupsArr);
-
-
+		return CompareTable;
 	});

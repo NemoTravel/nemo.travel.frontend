@@ -6,10 +6,11 @@ define(
 			BaseModel.apply(this, arguments);
 
 			var self = this;
-
 			this.flightsById = {};
 			this.legGroupings = [];
 			this.recalculateSelectedFlights = true;
+
+			this.isDirectGroup = false;
 
 			this.filteredOut = ko.observable(false);
 			this.selectedFlightsIds = ko.observable([]);
@@ -119,6 +120,15 @@ define(
 			this.recommendRating = ko.computed(function () {
 				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]].recommendRating : 0;
 			}, this);
+
+			for (var i = 0; i < this.flights.length; i++) {
+				if (this.flights[i].isDirect == false) {
+					this.isDirectGroup = false;
+				}
+				else {
+					this.isDirectGroup = true;
+				}
+			}
 		}
 
 		// Extending from dictionaryModel

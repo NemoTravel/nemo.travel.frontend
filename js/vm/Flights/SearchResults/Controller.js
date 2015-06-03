@@ -189,7 +189,8 @@ define(
 			this.flights = {};
 			this.airlines = {};
 			this.airlinesByRating = [];
-			this.flightsCompareTable = ko.observableArray();
+			this.flightsCompareTableDirect = null;
+			this.flightsCompareTableTransfer = null;
 
 			this.groups = ko.observableArray([]);
 			this.hasVisibleResult = ko.observable(true);
@@ -445,54 +446,8 @@ define(
 				}
 			}
 
-			var tempFlightGroups = this.groups(),
-			tmpct = {};
-
-			for (var i = 0; i < tempFlightGroups.length; i++) {
-				if (typeof tmpct[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
-					tmpct[tempFlightGroups[i].getValidatingCompany().IATA] = {
-						company: tempFlightGroups[i].getValidatingCompany(),
-						groups: []
-					};
-				}
-				tmpct[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
-			}
-
-			var tempGroupsArr =[];
-			for(var i in tmpct ) {
-				if (tmpct.hasOwnProperty(i)){
-					if (!isNaN(parseFloat(i)) && isFinite(i)){
-						tempGroupsArr[i] = tmpct[i];
-					}else{
-						tempGroupsArr.push(tmpct[i]);
-					}
-				}
-			}
-
-			for (var i in tempGroupsArr){
-				tempGroupsArr[i].groupsFilteredOut = ko.computed(function() {
-					for (var j = 0; j < this.groups.length; j++) {
-						if (this.groups[j].filteredOut() == false) {
-							return false;
-						}
-						else {
-							return true;
-						}
-					}
-				}, tempGroupsArr[i]);
-			}
-			tempGroupsArr.allVisible = ko.observable(false);
-			tempGroupsArr.toggleVisible = function(){
-				console.log(this)
-				if(this.allVisible() == false){
-					this.allVisible(true);
-				}else{
-					this.allVisible(false);
-				}
-			};
-			this.flightsCompareTable(tempGroupsArr);
-
-			//console.log(this.flightsCompareTable().pagination());
+			this.flightsCompareTableDirect = this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true});
+			this.flightsCompareTableTransfer = this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false});
 
 			this.buildPFs();
 
@@ -750,6 +705,7 @@ define(
 			'Flights/SearchResults/Group',
 			'Flights/SearchResults/CouplingTable',
 			'Flights/SearchResults/StringPFGroup',
+			'Flights/SearchResults/CompareTable',
 			'common/Date',
 			'common/Duration',
 			'common/Money',
