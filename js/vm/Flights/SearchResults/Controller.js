@@ -606,8 +606,6 @@ define(
 
 			this.hasVisibleResult(visibleResult);
 
-			console.log(this.flightsCompareTable().paginationUpdate());
-
 			this.setShowcase();
 		};
 
