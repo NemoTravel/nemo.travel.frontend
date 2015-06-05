@@ -3,8 +3,6 @@ $i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0.4);
 $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 .nemo-flights-form {
-	position: relative;
-
 	&, & input {
 		font: 14px "Open Sans", sans-serif;
 	}
@@ -69,18 +67,6 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		white-space: nowrap;
 		width: 1%;
 		text-align: right;
-
-		&__button {
-			&_searching {
-				&, &:focus, &:active {
-					background-image: url('images/ui/ui-loader-planes.svg');
-					background-position: center center;
-					background-repeat: no-repeat;
-					background-size: contain;
-					text-indent: -10000px;
-				}
-			}
-		}
 	}
 
 	&__route {
@@ -150,10 +136,6 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 				&_date {
 					width: 26.8%;
-				}
-
-				&_hasError .new-ui-textInput {
-					box-shadow: 0 0 5px red;
 				}
 
 				&__dateDummy {
@@ -492,28 +474,8 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 					&_active&_0 {
 						@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item:hover;
 					}
-
-					&_disabled {
-						opacity: 0.2;
-						cursor: default;
-
-						&:hover {
-							color: inherit;
-							background: rgba(#969599, 0.1);
-						}
-					}
 				}
 			}
 		}
-	}
-
-	&__blocker {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 1;
-		/*background: rgba(#fff, 0.1);*/
 	}
 }

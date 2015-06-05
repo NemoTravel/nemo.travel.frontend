@@ -11,86 +11,90 @@
     </label>
  */
 // COLORS
-$c_ui_caption             = $c_ui_textMain;
-$c_ui_caption_hover       = #4E6C84;
-$c_ui_caption_disabled    = $c_ui_textDisabled;
+$c_ui_caption                     = $c_ui_textMain;
+$c_ui_caption_text_hover          = #4F6D85;
+$c_ui_caption_disabled            = $c_ui_textDisabled;
 
-$c_ui_switcher 			  	  = #0B90D6;
-$c_ui_switcher_notChecked 	  = #BFBFBF;
-$c_ui_switcher_after_top      = #F2F2F2;
-$c_ui_switcher_after_bottom   = #BFBFBF;
+$c_ui_switcher 			  	      = #0C91D7;
+$c_ui_switcher_notChecked 	      = #FFFFFF;
+$c_ui_switcher_after_top          = #E5E5E5;
+$c_ui_switcher_after_bottom       = #CCCCCC;
+$c_ui_switcher_on_color           = #F6F6F6;
+$c_ui_switcher_off_color          = #969599;
 
 // DIMENSIONS
-$d_ui_padding  = 3px 0;
-$d_ui_caption_lPadding   = 25px;
-$d_ui_caption_padding   = 0 0 0 $d_ui_caption_lPadding;
-$d_ui_pseudoInput_width   = 16px;
-$d_ui_pseudoInput_height  = 16px;
-$d_ui_pseudoInput_borderRadius  = 2px;
+$d_ui_padding                     = 3px 0;
+$d_ui_caption_lPadding            = 25px;
+$d_ui_caption_padding             = 0 0 0 $d_ui_caption_lPadding;
+$d_ui_pseudoInput_width           = 19px;
+$d_ui_pseudoInput_height          = 19px;
+$d_ui_pseudoInput_borderRadius    = 2px;
 
-$d_ui_switcher_width = 66px;
-$d_ui_switcher_height = 24px;
-$d_ui_switcher_after_height = 24px;
-$d_ui_switcher_after_width = 24px;
+$d_ui_switcher_width              = 71px;
+$d_ui_switcher_height             = 30px;
+$d_ui_switcher_after_height       = 30px;
+$d_ui_switcher_after_width        = 30px;
 
 // FONT
-$f_ui_caption_size = 12px;
-$f_ui_caption_lineHeight = 16px;
+$f_ui_caption_size                = 14px;
+$f_ui_caption_lineHeight          = 16px;
+
+$f_ui_switcher_text_size          = 12px;
 
 // VALUES
-$i_ui_checkbox_shadow = 0 0 5px rgba(0, 0, 0, .2);
-$i_ui_checkbox_shadow_disabled = 0 0 5px rgba(0, 0, 0, .1);
-$i_ui_checkbox_sprite = 'images/ui/checkbox-sprite.png';
+$i_ui_checkbox                    = 'images/ui/checkbox_sprite.svg';
 
-$i_ui_switcher_borderRadius = 5px;
+$i_ui_switcher_borderRadius       = 5px;
 $i_ui_switcher_after_borderRadius = 4px;
-$i_ui_switcher_boxShadow =  inset 0 0 5px rgba(0,0,0,.25);
-$i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,0,0,.1);
+$i_ui_switcher_boxShadowInner     = inset 0 0 5px rgba(0,0,0,.1);
+$i_ui_switcher_boxShadowOuter     = 0 1px 2px rgba(0,0,0,.5);
+$i_ui_switcher_textShadow         = 0 1px 0px rgba(0, 0, 0, 0.25);
 
 
-.new-ui-checkbox{
+.new-ui-checkbox {
     display: inline-block;
     padding: $d_ui_padding;
     cursor: pointer;
 
-    &__input{
+    &__input {
         position: absolute;
     }
 
     &__input:checked,
-    &__input:not(:checked){
+    &__input:not(:checked) {
         left: -99999px;
     }
 
     &__input:checked + &__caption,
-    &__input:not(:checked) + &__caption{
-        &:before{
+    &__input:not(:checked) + &__caption {
+        &:before {
             display: block;
         }
     }
 
-    &__input:checked + &__caption{
-        &:before{
-            background-position: (- ($d_ui_pseudoInput_width + 3))*2 0;
-        }
+	&__input:not(:checked) + &__caption {
+		&:before {
+			background-image: url($i_ui_checkbox);
+			background-position: bottom;
+		}
+	}
 
-        &:hover{
-            &:before{
-                background-position: (- ($d_ui_pseudoInput_width + 3))*3 0;
-            }
-        }
+    &__input:checked + &__caption {
+        &:before {
+			background-image: url($i_ui_checkbox);
+		}
     }
 
-    &__input:disabled + &__caption{
+    &__input:disabled + &__caption {
         color: $c_ui_caption_disabled;
 
-        &:before{
-            background-position: (- ($d_ui_pseudoInput_width + 3))*4 0;
-            box-shadow: $i_ui_checkbox_shadow_disabled;
-        }
+		&:before {
+			background-image: url($i_ui_checkbox);
+			background-position: bottom;
+		}
     }
 
-    &__caption{
+    &__caption {
         position: relative;
         display: inline-block;
         font-size: $f_ui_caption_size;
@@ -99,7 +103,7 @@ $i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,
         padding: $d_ui_caption_padding;
         vertical-align: top;
 
-        &:before{
+        &:before {
             content: '';
             position: absolute;
             display: none;
@@ -109,17 +113,15 @@ $i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,
             height: $d_ui_pseudoInput_height;
             margin-top: - ($d_ui_pseudoInput_height / 2);
             border-radius: $d_ui_pseudoInput_borderRadius;
-            background: url($i_ui_checkbox_sprite) 0 0 no-repeat;
-            box-shadow: $i_ui_checkbox_shadow;
         }
 
-        &:hover{
-            color: $c_ui_caption_hover;
-
-            &:before{
-                background-position: (- ($d_ui_pseudoInput_width + 3)) 0;
-            }
+        &:hover {
+            color: $c_ui_caption_text_hover;
         }
+    }
+    
+    &_paddingTopBottom{
+    	padding: 15px 0;
     }
 }
 
@@ -149,7 +151,8 @@ $i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,
 			background: $c_ui_switcher_notChecked;
 
 			&:after {
-				left: 0;
+				right: 100%;
+				margin-right: - $d_ui_switcher_after_width;
 			}
 		}
 
@@ -166,10 +169,13 @@ $i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,
 			background: $c_ui_switcher;
 			width: $d_ui_switcher_width;
 			height: $d_ui_switcher_height;
+			font-size: $f_ui_switcher_text_size;
 			border-radius: $i_ui_switcher_borderRadius;
-			box-shadow: $i_ui_switcher_boxShadow;
+			box-shadow: $i_ui_switcher_boxShadowInner, $i_ui_switcher_boxShadowOuter;
+			text-shadow: $i_ui_switcher_textShadow;
+			transition: background .4s ease-in-out;
 
-			&:after{
+			&:after {
 				content:'';
 				display: block;
 				position: absolute;
@@ -179,25 +185,25 @@ $i_ui_switcher_after_boxShadow = 0 1px 2px rgba(0,0,0,.5), inset 0 0 5px rgba(0,
 				height: $d_ui_switcher_after_height;
 				border-radius: $i_ui_switcher_after_borderRadius;
 				cursor: pointer;
-				box-shadow: $i_ui_switcher_after_boxShadow;
 				background-image: linear-gradient(to bottom, $c_ui_switcher_after_top, $c_ui_switcher_after_bottom);
 				z-index: 5;
+				transition: all .25s ease-in-out;
 			}
 
 			&__off {
 				position: absolute;
 				right: 6px;
-				top: 3px;
+				top: 6px;
+				color: $c_ui_switcher_off_color;
 			}
 
 			&__on {
 				position: absolute;
 				left: 9px;
-				top: 3px;
-				color: #fff;
+				top: 6px;
+				color: $c_ui_switcher_on_color;
 			}
 		}
 	}
-
 }
 

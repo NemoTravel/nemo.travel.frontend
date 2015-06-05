@@ -1,5 +1,7 @@
 # PHPStorm/WebStorm/IDEA project files
 /.idea/
 
+.DS_Store
+
 # Stylobuild
 /node_modules

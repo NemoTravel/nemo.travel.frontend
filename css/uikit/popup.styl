@@ -2,22 +2,26 @@
  * jQueryUI popup styling to match UIKit popup styles
  */
 // COLORS
-$c_ui_popup_border = #4EB1E5;
+$c_ui_popup_border   = #4EB1E5;
 $c_ui_popup_title_bg = $c_ui_popup_border;
 
+$c_ui_popup_title_b = #EEEEEE;
+
 // Dimensions
-$d_ui_popup_borderWidth = 1px;
+$d_ui_popup_borderWidth        = 1px;
 $d_ui_popup_borderRadiusBottom = 2px;
-$d_ui_popup_title_height = 30px;
-$d_ui_popup_title_lPadding = 10px;
+$d_ui_popup_title_height       = 30px;
+$d_ui_popup_title_lPadding     = 10px;
 $d_ui_popup_title_close_height = 20px;
-$d_ui_popup_content_padding = 10px;
+$d_ui_popup_content_padding    = 10px;
+
+
 
 $d_ui_popup_closetext_distance = 10px;
 
 // FONT
 $f_ui_popup_title_size = 13px;
-$f_ui_popup_title = #fff;
+$f_ui_popup_title      = #fff;
 
 .ui-dialog {
 	padding: 0px;
@@ -106,27 +110,4 @@ $f_ui_popup_title = #fff;
 			border-color: $c_ui_popup_border;
 		}
 	}
-}
-
-// New style of authorization
-.pro-auth__field {
-
-	.new-ui-textInput {
-		@extend .i-clearfix;
-
-		&__caption {
-			display: inline-block;
-			vertical-align: middle;
-			margin: 0 0 0 10px;
-		}
-
-		&__input {
-			display: inline-block;
-			vertical-align: middle;
-			width: auto;
-			float: right;
-			margin: 0;
-		}
-	}
-
 }

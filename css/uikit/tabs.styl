@@ -34,27 +34,29 @@
 </div>
  */
 // COLORS
-$c_ui_tabber_tab_bg_top = #E5E5E5;
-$c_ui_tabber_tab_bg_bottom = #D5D5D5;
-$c_ui_tabber_tab_hover_bg_top = lighten($c_ui_tabber_tab_bg_top, 10);
-$c_ui_tabber_tab_hover_bg_bottom = lighten($c_ui_tabber_tab_bg_bottom, 10);
-$c_ui_tabber_tab_active_bg = #fff;
+$c_ui_tabber_tab_bg_top            = #E5E5E5;
+$c_ui_tabber_tab_bg_bottom         = #CCCCCC;
+$c_ui_tabber_tab_bg                = #D9D9D9;
+$c_ui_tabber_tab_hover_bg_top      = lighten($c_ui_tabber_tab_bg_top, 10);
+$c_ui_tabber_tab_hover_bg_bottom   = lighten($c_ui_tabber_tab_bg_bottom, 10);
+$c_ui_tabber_tab_active_bg         = #fff;
 
 // DIMENSIONS
-$d_ui_tabber_tab_vPadding = 3px;
-$d_ui_tabber_tab_hPadding = 12px;
-$d_ui_tabber_tab_bRadius = 4px;
+$d_ui_tabber_tab_vPadding          = 3px;
+$d_ui_tabber_tab_hPadding          = 12px;
+$d_ui_tabber_tab_bRadius           = 4px;
 
 // FONT
-$f_ui_tab_size = 16px;
-$f_ui_tab_title = $c_ui_textMain;
-$f_ui_tab_title_hover = $c_ui_textMain_hover;
-$f_ui_tab_title_disabled = #BCBCBC;
+$f_ui_tab_size                     = 16px;
+$f_ui_tab_title                    = $c_ui_textMain;
+$f_ui_tab_title_hover              = $c_ui_textMain_hover;
+$f_ui_tab_title_disabled           = #FFFFFF;
 
 // VALUES
-$i_ui_tab_bRadius = $d_ui_tabber_tab_bRadius $d_ui_tabber_tab_bRadius 0 0;
-$i_ui_tab_shadow = 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.05);
-$i_ui_tab_shadow_active = $i_ui_subContainer_outershadow;//0 -1px 1px rgba(0, 0, 0, 0.15);
+$i_ui_tab_bRadius                  = $d_ui_tabber_tab_bRadius $d_ui_tabber_tab_bRadius 0 0;
+$i_ui_tab_shadow                   = 0 1px 2px rgba(0, 1px, 2px, 0.5), inset 0 0 5px rgba(0, 0, 0, 0.1);
+$i_ui_tab_shadow_active            = 0 1px 2px rgba(0, 1px, 2px, 0.5), inset 0 3px 5px rgba(0, 0, 0, 0.1);
+$i_ui_tab_textShadow               = 0px 1px 0px rgba(0, 0, 0, 0.25);
 
 .new-ui-tabber {
 	&__tabs {
@@ -69,11 +71,12 @@ $i_ui_tab_shadow_active = $i_ui_subContainer_outershadow;//0 -1px 1px rgba(0, 0,
 			padding: $d_ui_tabber_tab_vPadding $d_ui_tabber_tab_hPadding;
 			border-radius: $i_ui_tab_bRadius;
             box-shadow: $i_ui_tab_shadow;
+			text-shadow: $i_ui_tab_textShadow;
 			cursor: pointer;
 			font-size: $f_ui_tab_size;
             position: relative;
 
-            &:hover{
+            &:hover {
                 linear-gradient(to bottom, $c_ui_tabber_tab_hover_bg_top, $c_ui_tabber_tab_hover_bg_bottom)
             }
 
@@ -93,20 +96,26 @@ $i_ui_tab_shadow_active = $i_ui_subContainer_outershadow;//0 -1px 1px rgba(0, 0,
 					height: 10px;
 					background: #fff;
 				}
+
+				.new-ui-tabber__tabs__tab__title {
+					opacity: 1;
+				}
             }
 
             &_disabled{
                 cursor: default;
 
-				.new-ui-tabber__tabs__tab__title{
+				.new-ui-tabber__tabs__tab__title {
 					color: $f_ui_tab_title_disabled;
+					opacity: 1;
 				}
             }
 
             &__title {
                 color: $f_ui_tab_title;
                 font-size: 14px;
-            }
+				opacity: .75;
+			}
 
 
 		}

@@ -1,39 +1,38 @@
-$d_ui_hilight_borderRadius = 4px;
-$d_ui_hilight_vPadding = 9px;
-$d_ui_hilight_hPadding = 20px;
-$d_ui_hilight_vMargin = 20px;
+$d_ui_hilight_borderRadius  = 4px;
+$d_ui_hilight_vPadding      = 9px;
+$d_ui_hilight_hPadding      = 20px;
+$d_ui_hilight_vMargin       = 20px;
 
-$f_ui_hilight_size = 15px;
+$f_ui_hilight_size          = 15px;
 
-$c_ui_hilight = #fff;
+$c_ui_hilight               = #fff;
 
-$c_ui_hilight_info_bg = rgba(#0C91D7,0.75);
-$c_ui_hilight_error_bg = rgba(#CC0000,0.75);
-$c_ui_hilight_greenLight_bg = rgba(#13B239,0.75);
+$c_ui_hilight_info_bg       = rgba(78, 177, 229, 1);
+$c_ui_hilight_error_bg      = rgba(204, 0, 0, 0.75);
+$c_ui_hilight_greenLight_bg = rgba(123, 178, 54, 1);
 
 .new-ui-hilight {
 	display: block;
 	text-align: left;
 
-	margin: $d_ui_hilight_vMargin 0px;
+	margin: $d_ui_hilight_vMargin 0;
 	padding: $d_ui_hilight_vPadding $d_ui_hilight_hPadding;
 
 	color: $c_ui_hilight;
 	font-size: $f_ui_hilight_size;
-	font-weight: 600;
 
 	border-radius: $d_ui_hilight_borderRadius;
 
 	&:first-child {
-		margin-top: 0px;
+		margin-top: 0;
 	}
 
 	&:last-child {
-		margin-bottom: 0px;
+		margin-bottom: 0;
 	}
 
 	&+& {
-		margin-top: 0px;
+		margin-top: 0;
 	}
 
 	&_info {

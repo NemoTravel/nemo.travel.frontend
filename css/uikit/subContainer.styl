@@ -20,10 +20,11 @@ $c_ui_subContainer_bg                    = #fff;
 $c_ui_subContainer_header_bg             = #4EB1E5;
 $c_ui_subContainer_header_hilight_light  = $c_ui_subContainer_bg;
 $c_ui_subContainer_header_hilight_dark   = #E6E7E8;
+$c_ui_subContainer_header_greenLight     = rgba(19, 178, 57, .75);
 
 $c_ui_subContainer_section_border        = #d7d7d7;
 
-$c_ui_subContainer_divider = #D6D6D6;
+$c_ui_subContainer_divider           = #D6D6D6;
 $c_ui_subContainer_divider_secondary = #fafafa;
 
 
@@ -138,8 +139,8 @@ $i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height 
 
 				// Dimensions and position
 				height: 0;
-				rop: 0
-				right: 0px;
+				top: 0
+				right: 0;
 				bottom: 0;
 
 				// Borders
@@ -147,7 +148,25 @@ $i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height 
 				border-left: $d_ui_subContainer_header_hilight_skewedpart_width solid transparent;
 			}
 		}
+
+		&_greenLight {
+			@extends .new-ui-subContainer__header;
+			background: $c_ui_subContainer_header_greenLight;
+
+			.new-ui-subContainer_contentPadding &{
+				margin-top: 0;
+			}
+
+			.new-ui-subContainer__header__hilight {
+				@extends .new-ui-subContainer__header__hilight;
+
+				&:before {
+					border-top-color: $c_ui_subContainer_header_greenLight;
+				}
+			}
+		}
 	}
+
 
 	&__divider{
 	    border: none;

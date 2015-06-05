@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="no-touch">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../css/style.css">
+	<script src="../../js/lib/jquery/v.2.1.3/jquery-2.1.3.js"></script>
+	<script src="../../js/select2.js"></script>
+	<script src="../../js/start.js"></script>
+</head>
+<body>
+	<header class="nemo-common-pageHeader">
+		<div class="nemo-common-pageHeader__inner">
+			<div class="new-ui-headerMenuControls">
+				<span class="new-ui-button new-ui-button_transparent js-menuButton">
+					<i class="new-ui-mMenuIcon"></i>
+				</span>
+			</div>
+			<a href="#" class="new-logo">
+				<img  class="new-logo__image" src="../img/logo.png" alt="">
+			</a>
+			<div class="new-layout-headerLinks">
+				<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">Войти</button>
+				<a href="#" class="new-ui-link new-ui-link_blue">
+					Регистрация
+				</a>
+				<a href="#" class="new-ui-link new-ui-link_blue">
+					Состояние заказа
+				</a>
+			</div>
+			<div class="new-layout-headerRight">
+				<div class="new-ui-dropMenu">
+					<div class="new-ui-dropMenu__main">
+						<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">
+							<img src="../img/flag.svg" alt="">
+						</button>
+					</div>
+					<div class="new-ui-dropMenu__drop">
+						
+					</div>
+				</div>
+				<div class="new-ui-dropMenu">
+					<div class="new-ui-dropMenu__main">
+						<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">
+							$
+						</button>
+					</div>
+					<div class="new-ui-dropMenu__drop">
+						
+					</div>
+				</div>
+				<div class="new-layout-overlayMenu">
+					<div class="new-layout-overlayMenu__main js-overlay-menu">
+						<i class="new-ui-overlayMenu"></i>
+					</div>
+					<div class="new-layout-overlayMenu__drop js-overlay-menu">
+						<div class="new-ui-mobileDropMenu">
+							<div class="new-ui-mobileDropMenu__item">
+								<div class="new-ui-dropMobile js-dropMobile" data-menu="lang">
+									<div class="new-ui-dropMobile__main">
+										<p>
+											Русский 
+											<span>изменить</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-mobileDropMenu__item">
+								<div class="new-ui-dropMobile js-dropMobile" data-menu="cur">
+									<div class="new-ui-dropMobile__main">
+										<p>
+											Российский рубль 
+											<span>изменить</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-dropMobile-drop" data-menu-drop="lang">
+							<div class="new-ui-dropMobile-drop__main">
+								<div class="new-ui-mobileDropMenu">
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Русский
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Английский
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Испанский
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Украинский
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-dropMobile-drop__btns">
+								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
+							</div>
+						</div>
+						<div class="new-ui-dropMobile-drop" data-menu-drop="cur">
+							<div class="new-ui-dropMobile-drop__main">
+								<div class="new-ui-mobileDropMenu">
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Русский рубль
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Английский фунт
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Испанский евро
+										</a>
+									</div>
+									<div class="new-ui-mobileDropMenu__item">
+										<a href="#" class="new-ui-link new-ui-link_grey">
+											Украинская гривна
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-dropMobile-drop__btns">
+								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="new-ui-sideMenu">
+		<div class="new-ui-userBox">
+			<div class="new-ui-userBox__title">
+				<p>
+					Здравствуйте, гость!
+				</p>
+			</div>
+			<div class="new-ui-userBox__btns">
+				<button class="new-ui-button new-ui-button_main new-ui-button_second">Войти</button>
+				<button class="new-ui-button new-ui-button_main new-ui-button_second">Регистрация</button>
+			</div>
+			<div class="new-ui-userBox__main">
+				<div class="new-ui-menuList">
+					<ul>
+						<li>
+							<a href="#">Авиабилеты</a>
+						</li>
+						<li>
+							<a href="#">Отели</a>
+						</li>
+						<li>
+							<a href="#">Железнодорожные билеты</a>
+						</li>
+						<li>
+							<a href="#">Помощь</a>
+						</li>
+					</ul>
+				</div>
+				<div class="new-ui-copyRight">
+					<p>
+						© nemo.travel, 2015
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<section class="new-layout-topBar">
+		<div class="new-layout-topBar__i">
+			<div class="new-layout-topBar__i__left">
+				<div class="new-ui-breadcrumbs">
+					<a href="#" class="new-ui-breadcrumb__link new-ui-breadcrumb__link_focused">Поиск авиабилетов <span>/</span></a>
+					<a href="#" class="new-ui-breadcrumb__link">Результаты поиска <span>/</span></a>
+					<a href="#" class="new-ui-breadcrumb__link">Оформление заказа <span>/</span></a>
+				</div>
+			</div>
+			<div class="new-layout-topBar__i__right">
+				<div class="new-ui-select js-custom-select">
+					Предыдущие поиски
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,251 @@
+// DIMENSIONS
+$d_headerLinks_padding 				= 0 50px;
+$d_headerLinks_tablet_padding 		= 0 0 0 10px;
+
+$d_ui_topBar_inner_maxWidth 		= 1140px;
+$d_ui_topBar_inner_padding 			= 0 30px;
+
+$d_ui_main_top_inner				= 1140px;
+$d_ui_main_top_inner_padding		= 10px 30px;
+
+$d_ui_main_top_btn_padding			= 0 20px 0 0;
+$d_ui_main_top_btn_width			= 145px;
+
+$d_ui_main_top_main_padding			= 0 0 0 $d_ui_main_top_btn_width;
+
+$d_ui_main_content_inner			= 1140px;
+$d_ui_main_content_padding			= 10px 30px;
+
+$d_overlayMenu_padding 				= 10px 20px;
+
+// COLOR
+$c_topBg_bg							= #fff;
+
+$c_mainTop_bg						= #63636C;
+
+$c_mainMiddle_bg_top				= #000;
+$c_mainMiddle_bg_middle				= #a0a0a0;
+$c_mainMiddle_bg_bottom				= #000;
+
+$keyframe-name = gradientAttention
+@keyframes {$keyframe-name}
+	for i in 0..10			
+		{10% * i}
+			if i < 6 && i > 0
+				background-position: 0 50%
+			else
+				background-position: 100% 50%
+				
+* {
+	box-sizing: border-box;
+} 
+
+.new-layout-{
+	
+	&headerLinks{
+		padding: $d_headerLinks_padding;
+		line-height 30px;
+		.new-ui-link{
+			vertical-align: middle
+			display: inline-block;
+			margin 0 10px 0 20px;
+			&+.new-ui-link{
+				margin 0 10px;
+			}
+		}
+		
+		.tablet &{
+			padding: $d_headerLinks_tablet_padding;
+		}
+		
+		.mobile &{
+			display: none;
+		}
+	}
+	
+	&headerRight{
+		margin-left: auto;
+	}
+	
+	&aside{
+		width: 300px;
+		padding: 0 20px 0 0;
+	}
+	
+	&right{
+		width 300px;
+		padding: 0 0 0 20px;
+		display: none;
+		
+		@media only screen and (min-width: 1340px) { 
+			display: block;
+		}
+	}
+	
+	&overlayMenu{
+		display: none;
+		
+		.mobile &{
+			display: inline-block;
+		}
+		
+		&__main{
+			padding: $d_overlayMenu_padding;
+		}
+
+		&__drop{
+			.mobile &{
+				display: none;
+				position: absolute;
+				z-index: 10;
+				padding: 40px 10px 10px;
+				top: 0;
+				left: 0;
+				min-height: 100%;
+				right: 0;
+				background: rgba(0, 0, 0, 0.75);
+				/.overlay-menu-open&{
+					display: block;
+				}
+			}
+		}
+	}
+	
+	&topBar{
+		background: $c_topBg_bg;
+		position: relative;
+		z-index: 100;
+		&__i{
+			position: relative;
+			max-width: $d_ui_topBar_inner_maxWidth;
+			padding: $d_ui_topBar_inner_padding;
+			margin: 0 auto;
+			&__left{
+				display: inline-block;
+				line-height: 50px;
+			}
+			&__right{
+				position: absolute;
+				top: 0;
+				right: 30px;
+				display: inline-block;
+				line-height: 50px;
+			}
+			@media only screen and (min-width: 1340px) { 
+				max-width: 1600px;
+			}
+		}
+	}
+	
+	&main{
+
+		&__top{
+			background: $c_mainTop_bg;
+			&__i{
+				max-width: $d_ui_main_top_inner;
+				padding: $d_ui_main_top_inner_padding;
+				margin: 0 auto;
+				@media only screen and (min-width: 1340px) { 
+					max-width: 1600px;
+				}
+				&__btn{
+					display: none;
+					.tablet &{
+						display: block;
+						float: left;
+						width: $d_ui_main_top_btn_width;
+						padding: $d_ui_main_top_btn_padding;
+					}
+				}
+				&__main{
+					padding: 0;
+					.tablet &{
+						padding: $d_ui_main_top_main_padding;
+					}
+				}
+			}
+		}
+		
+		&__middle{
+			&__i{
+				background-image: linear-gradient(90deg, $c_mainMiddle_bg_top, $c_mainMiddle_bg_middle, $c_mainMiddle_bg_bottom);
+				background-size: 300% 10%;
+				animation: gradientAttention 15s ease infinite;
+			}
+		}
+		
+		&__content{
+			background: $c_mainTop_bg;
+			
+			&__i{
+				display:flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				justify-content: space-between;
+				align-content: center;
+				align-items: flex-start;
+				max-width: $d_ui_main_content_inner;
+				padding: $d_ui_main_content_padding;
+				margin: 0 auto;
+				@media only screen and (min-width: 1340px) { 
+					max-width: 1600px;
+				}
+			}
+		}
+	}
+	
+	&content{
+		background: #fff;
+		border-radius: 6px;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-basis: 200px;
+		
+		&__item{
+			padding: 20px;
+			border-top: 1px solid  #DBDBDB;
+			&:first-child{
+				border-top: 0;
+			}
+			
+			&__top{
+				display:flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				justify-content: space-between;
+				align-content: center;
+				align-items: center;
+				padding: 0 0 15px;
+
+				&__text{
+					color: #636467;
+					font-size: 15px;
+					line-height: 18px;
+				}
+				
+				&__right{
+					color: #636467;
+					font-size: 15px;
+					line-height: 18px;
+				}
+			}
+			
+			&__bottom{
+				text-align: center;
+			}
+		}
+	}
+	
+	&cols{
+		@extend .clearfix;
+		
+		&__two{
+			float: left;
+			width: 50%;
+			padding: 0 0 0 20px;
+			&:first-child{
+				padding: 0;
+			}
+		}
+	}
+}

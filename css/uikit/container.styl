@@ -7,57 +7,66 @@
  * @example:
  */
 // COLORS
-$c_ui_container = #F5F5F5;
-$c_ui_container_border = #FFF;
+$c_ui_container         = #FFF;
+$c_ui_container_border  = #D7D7D7;
 $c_ui_container_divider = #AFAFAF;
+$c_ui_container_darker  = #FAFAFA;
 
 //FIXME change name
 $c_ui_container_divider_second = #D6D6D6;
 
 // DIMENSIONS
-$d_ui_container_borderRadius = 15px;
-$d_ui_container_borderWidth = 1px;
+$d_ui_container_borderRadius          = 8px;
+$d_ui_container_borderWidth           = 1px;
+$d_ui_container_bordered_borderRadius = 4px;
 
-$d_ui_container_padding = 20px;
-$d_ui_container_divider_height = 1px;
-$d_ui_container_divider_margin_base = 0 (- $d_ui_container_padding);
-$d_ui_container_divider_margin_small = 10px (- $d_ui_container_padding);
+$d_ui_container_padding               = 20px;
+$d_ui_container_divider_height        = 1px;
+$d_ui_container_divider_margin_base   = 0 (- $d_ui_container_padding);
+$d_ui_container_divider_margin_small  = 10px (- $d_ui_container_padding);
 $d_ui_container_divider_margin_middle = 15px (- $d_ui_container_padding);
-$d_ui_container_divider_margin_big = 20px (- $d_ui_container_padding);
+$d_ui_container_divider_margin_big    = 20px (- $d_ui_container_padding);
 
 // FONT
 
 // VALUES
 $i_ui_container_border = $d_ui_container_borderWidth solid $c_ui_container_border;
-$i_ui_container_outerShadow = 0 1px 2px rgba(0, 0, 0, 0.5);
-$i_ui_container_innerShadow = inset 0 0 5px rgba(0, 0, 0, 0.1);
+$i_ui_container_outerShadow = 0 1px 4px rgba(0, 0, 0, 0.1);
 
 //TODO в разработке
 // доватиь второй разделитель
 
-.new-ui-container{
+.new-ui-container {
     padding: $d_ui_container_padding;
     background: $c_ui_container;
-    border: $i_ui_container_border;
     border-radius: $d_ui_container_borderRadius;
-    box-shadow: $i_ui_container_outerShadow,
-                $i_ui_container_innerShadow;
+    box-shadow: $i_ui_container_outerShadow;
 
-    &__divider{
+	&_bordered {
+		border: $i_ui_container_border;
+		border-radius: $d_ui_container_bordered_borderRadius;
+		box-shadow: none;
+	}
+
+    &__divider {
         border: none;
         border-top: $d_ui_container_divider_height solid $c_ui_container_divider;
         margin: $d_ui_container_divider_margin_base;
 
-        &_smallMargin{
+        &_smallMargin {
             margin: $d_ui_container_divider_margin_small;
         }
 
-        &_mediumMargin{
+        &_mediumMargin {
             margin: $d_ui_container_divider_margin_middle;
         }
 
-        &_bigMargin{
+        &_bigMargin {
             margin: $d_ui_container_divider_margin_big;
         }
     }
+		
+	&_darker {
+		background: $c_ui_container_darker;
+	}
 }

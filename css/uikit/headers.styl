@@ -2,12 +2,23 @@
 $c_ui_headers = $c_ui_textMain;
 
 // DIMENSIONS
-$d_ui_sectionHeader_margin = 15px;
+$d_ui_sectionHeader_margin    = 15px;
 $d_ui_subSectionHeader_margin = 15px;
 
+
 // FONT
-$f_ui_sectionHeader_size = 18px;
+$f_ui_sectionHeader_size    = 18px;
 $f_ui_subSectionHeader_size = 15px;
+
+.new-{
+	&logo{
+		display: inline-block;
+		width 206px;
+		&__image{
+			display: block;
+		}
+	}
+}
 
 .new-ui- {
 	/**
@@ -15,13 +26,6 @@ $f_ui_subSectionHeader_size = 15px;
 	 *
 	 *
 	 */
-	&pageHeader {
-
-	}
-
-	&mainHeader {
-
-	}
 
 	&sectionHeader {
 		// General
@@ -46,5 +50,13 @@ $f_ui_subSectionHeader_size = 15px;
 		color: $c_ui_headers;
 		font-size: $f_ui_subSectionHeader_size;
 
+	}
+
+	&headerMenuControls{
+		display: inline-block;
+
+		.no-touch &{
+			display: none;
+		}
 	}
 }

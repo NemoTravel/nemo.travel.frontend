@@ -1,0 +1,37 @@
+// DIMENSIONS
+$d_tablet_width 	= 270px;
+$d_mobile_width 	= 270px;
+
+// POSITION
+$p_top 				= 60px;
+$p_top_mobile 		= 50px;
+
+// COLORS
+$bg_color 			= #fff;
+$bg_outer_shadow	= 7px -1px 5px -4px rgba(0,0,0,.5);
+
+
+.new-ui-{
+
+	&sideMenu{
+		z-index: 999;
+		position: absolute;
+		left: - $d_tablet_width - 10px; //10px for hiding shadow
+		top: $p_top;
+		bottom: 0;
+		background: $bg_color;
+		width: $d_tablet_width;
+		box-shadow: $bg_outer_shadow;
+		.mobile &{
+			width: $d_mobile_width;
+			left: - $d_mobile_width - 10px; //10px for hiding shadow
+			top: $p_top_mobile;
+		}
+		.side-menu-open &{
+			left: 0;
+			/.mobile&{
+				left: 0;
+			}
+		}
+	}
+}
