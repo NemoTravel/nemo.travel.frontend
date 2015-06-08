@@ -26,12 +26,15 @@ Results template.
 		<label>
 			<input data-bind="attr: {
 								value: key,
-								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox'
+								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox',
+								disabled: count() == 0
 							},
 							checked: $parent.value">
 				<span data-bind="text:
 					($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
 				"></span>
+			<span data-bind="text:'(' + count() + ')'"></span>
+			<span data-bind="text: addValue() ? '(' + addValue().normalizedAmount() + ' ' + addValue().currency() + ')' : ''"></span>
 		</label>
 	</div>
 	<!-- /ko -->
@@ -40,6 +43,7 @@ Results template.
 	<!-- ko if: !filteredOut() -->
 	<div style="margin: 10px;padding: 10px;border: 1px solid;">
 		<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
+		<strong data-bind="text: getValidatingCompany().name + ' ' + getValidatingCompany().rating"></strong>
 		<div data-bind="foreach: flights">
 			<div>
 				<span data-bind="text: id"></span>

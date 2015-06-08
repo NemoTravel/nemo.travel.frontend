@@ -36,6 +36,10 @@ define(
 			this.isActive = ko.computed(function () {
 				return Object.keys(this.values()).length > 1;
 			}, this);
+
+			this.recalculateOptions(
+				Object.keys(initialData.items).map(function (key) {return initialData.items[key];})
+			);
 		}
 
 		// Extending from dictionaryModel
@@ -105,6 +109,12 @@ define(
 		 * @pseudo-abstract
 		 */
 		PostFilterAbstract.prototype.checkValue = function (obj) {throw 'Method checkValue is not overridden!';};
+
+		/**
+		 * Recalculates internal data by other filters' combined results
+		 * @param items
+		 */
+		PostFilterAbstract.prototype.recalculateOptions = function (items) {};
 
 		return PostFilterAbstract;
 	}

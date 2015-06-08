@@ -20,6 +20,8 @@ define (
 			];
 			this.i18nStorage = {};
 
+			this.componentsAdditionalParameters = {};
+
 			// Processing options
 			for (var i in this.defaultOptions) {
 				if (this.defaultOptions.hasOwnProperty(i)) {
@@ -38,6 +40,11 @@ define (
 
 			if (!this.options.i18nURL) {
 				this.options.i18nURL = this.options.sourceURL+'/i18n';
+			}
+
+			// Setting components' additional parameters
+			if (typeof options == "object" && typeof options.componentsAdditionalInfo == 'object') {
+				this.componentsAdditionalParameters = options.componentsAdditionalInfo;
 			}
 
 			/**
@@ -101,6 +108,7 @@ define (
 			this.viewModel = {
 				component: ko.observable(null),
 				componentRoute: ko.observable(null),
+				componentAdditionalParams: ko.observable(null),
 				controller: this,
 				globalError: ko.observable(null),
 				i18n: function () {return self.i18n.apply(self, arguments);}
@@ -416,6 +424,7 @@ define (
 			if (route instanceof Array) {
 				this.log('Route detected: ', route);
 				self.viewModel.componentRoute(route[1]);
+				self.viewModel.componentAdditionalParams(this.componentsAdditionalParameters[route[0]] || {}),
 				self.viewModel.component(route[0]);
 			}
 			else {

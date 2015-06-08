@@ -6,6 +6,9 @@ define(
 			BaseModel.apply(this, arguments);
 
 			this.type = this.config.options.type == 'multiChoice' ? 'multiChoice' : 'singleChoice'; // 'singleChoice' / 'multiChoice'
+
+			this.disabledOptions = ko.observable();
+			this.additionalInfo = ko.observable();
 		}
 
 		helpers.extendModel(PostFilterString, [BaseModel]);
@@ -29,7 +32,9 @@ define(
 					function(key) {
 						return {
 							key: key,
-							value: valuesRegistry[key]
+							value: valuesRegistry[key],
+							count: ko.observable(0),
+							addValue: ko.observable(null)
 						}
 					}
 				);
@@ -59,8 +64,11 @@ define(
 		};
 
 		PostFilterString.prototype.checkValue = function (obj) {
-			var data = this.config.getter(obj),
-				value = this.value();
+			return this.checkValueWorker(obj, this.value());
+		};
+
+		PostFilterString.prototype.checkValueWorker = function (obj, value) {
+			var data = this.config.getter(obj);
 
 			if (!(value instanceof Array)) {
 				value = [value];
@@ -73,6 +81,29 @@ define(
 			}
 
 			return false;
+		};
+
+		PostFilterString.prototype.recalculateOptions = function (items) {
+			var values = this.values(),
+				additionalData = [];
+
+			for (var j = 0; j < values.length; j++) {
+				var count = 0,
+					addValue = null;
+
+				for (var i = 0; i < items.length; i++) {
+					if (this.checkValueWorker(items[i], values[j].key)) {
+						count++;
+
+						if (typeof this.config.options.additionalValueChooser == 'function') {
+							addValue = this.config.options.additionalValueChooser(addValue, items[i]);
+						}
+					}
+				}
+
+				this.values()[j].count(count);
+				this.values()[j].addValue(addValue);
+			}
 		};
 
 		return PostFilterString;

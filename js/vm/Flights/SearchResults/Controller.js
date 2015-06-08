@@ -5,7 +5,20 @@ define(
 		function FlightsSearchResultsController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			var self = this;
+			var self = this,
+				/**
+				 * Checks minimal value
+				 * @param current value
+				 * @param candidate object from whick a new or old value should be returned
+				 * @returns {*}
+				 */
+				stringPFMinPrice = function (current, candidate) {
+					if (!current || candidate.getTotalPrice().amount() < current.amount()) {
+						return candidate.getTotalPrice();
+					}
+
+					return current;
+				};
 
 			this.postfiltersData = {
 				configs: {
@@ -21,7 +34,8 @@ define(
 							// Filter-specific options here
 							valuesSorter: function (a,b) {
 								return a.value - b.value;
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					price: {
@@ -54,7 +68,8 @@ define(
 							// Filter-specific options here
 							valuesSorter: function (a,b) {
 								return a.value.name.localeCompare(b.value.name);
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					transfersLength: {
@@ -111,7 +126,8 @@ define(
 								};
 
 								return sort[a.key] - sort[b.key];
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					arrivalTime: {
@@ -136,7 +152,8 @@ define(
 								};
 
 								return sort[a.key] - sort[b.key];
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					departureAirport: {
@@ -151,7 +168,8 @@ define(
 							// Filter-specific options here
 							valuesSorter: function (a,b) {
 								return a.value.name.localeCompare(b.value.name);
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					arrivalAirport: {
@@ -166,7 +184,8 @@ define(
 							// Filter-specific options here
 							valuesSorter: function (a,b) {
 								return a.value.name.localeCompare(b.value.name);
-							}
+							},
+							additionalValueChooser: stringPFMinPrice
 						}
 					},
 					timeEnRoute: {
@@ -215,7 +234,7 @@ define(
 			this.visiblePostFilters = ko.observableArray([]);
 			this.usePostfilters = false;
 
-			this.possibleSorts = ['price', 'durationOnLeg', 'recommended'];
+			this.possibleSorts = ['price', 'durationOnLeg', 'recommended', 'carrierRating'];
 			this.sort = ko.observable(null);
 
 			this.sort.subscribe(function (newValue) {
@@ -233,6 +252,11 @@ define(
 					case 'recommended':
 						this.groups.sort(function (a, b) {
 							return b.recommendRating() - a.recommendRating();
+						});
+						break;
+					case 'carrierRating':
+						this.groups.sort(function (a, b) {
+							return b.getValidatingCompany().rating - a.getValidatingCompany().rating;
 						});
 						break;
 				}
@@ -546,12 +570,32 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.PFChanged = function (filter) {
-			var filterResults = {},
+			var self = this,
+				filterResults = {},
 				filters = this.postFilters(),
 				groups = this.groups(),
 				result,
 				visibleResult = false,
 				tmp,i,j;
+
+			function intersectFilterResults (filterResults, skipIndex) {
+				var result;
+
+				for (var i in filterResults) {
+					if (filterResults.hasOwnProperty(i) && (typeof skipIndex == 'undefined' || i != skipIndex)) {
+						if (typeof result == 'undefined') {
+							result = filterResults[i].slice(0);
+						}
+						else {
+							result = result.filter(function (elt) {
+								return filterResults[i].indexOf(elt) != -1
+							});
+						}
+					}
+				}
+
+				return result;
+			}
 
 			if (!this.usePostfilters) {
 				return;
@@ -572,16 +616,17 @@ define(
 			}
 
 			// Intersecting filter results
-			for (var i in filterResults) {
-				if (filterResults.hasOwnProperty(i)) {
-					if (typeof result == 'undefined') {
-						result = filterResults[i].slice(0);
-					}
-					else {
-						result = result.filter(function (elt) {
-							return filterResults[i].indexOf(elt) != -1
-						});
-					}
+			result = intersectFilterResults(filterResults);
+
+			// Recalculating PFs
+			for (var i = 0; i < filters.length; i++) {
+				if (typeof filters[i].recalculateOptions == 'function') {
+					// Creating needed flights list
+					var tmp = intersectFilterResults(filterResults, i) || Object.keys(this.flights);
+
+					filters[i].recalculateOptions(
+						tmp.map(function (key) {return self.flights[key];})
+					);
 				}
 			}
 

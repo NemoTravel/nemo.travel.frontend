@@ -21,13 +21,6 @@ define(
 						offset = (parent.clientHeight - Math.min(element.clientHeight, parent.clientHeight)) / 2;
 
 					element.style.marginTop = offset+'px';
-
-//					if (element.clientHeight > parent.clientHeight) {
-//						var header = element.children[0],
-//							content = element.children[1],
-//							footer = element.children[2];
-//						content.style.height = (parent.clientHeight - header.clientHeight - footer.clientHeight)+'px';
-//					}
 				}, 1);
 			}
 		};
@@ -49,6 +42,7 @@ define(
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('FlightsSearchForm', 'autocomplete_noResults')}];
 
 				$element.FlightsFormGeoAC({
+					minLength: 2,
 					source: function (request, callback) {
 						$.get(
 							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,

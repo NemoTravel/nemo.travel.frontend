@@ -205,6 +205,10 @@ define(
 
 							prevDate = segments[i].items.departureDate.value().dateObject();
 						}
+						// @CRUTCH - ignore missing date of second leg on RT
+						else if (i == 1 && this.tripType() == 'RT') {
+							segments[i].items.departureDate.error(null);
+						}
 
 						for (var j in segments[i].items) {
 							if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].error()) {
@@ -297,8 +301,16 @@ define(
 				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
 			}
 
+			// Preinitted by controller params
+			else if (this.$$componentParameters.additional && this.$$componentParameters.additional.init) {
+				this.$$controller.log('Initted by component additional parameters', this.$$componentParameters.additional.init);
+				this.$$controller.log('Cookies disabled');
+				this.preinittedData = this.$$componentParameters.additional.init;
+				this.mode = 'preinitted';
+				this.useCookies = false;
+			}
 			// Tunesearch
-			if (this.$$componentParameters.route.length == 1) {
+			else if (this.$$componentParameters.route.length == 1 && parseInt(this.$$componentParameters.route[0]) > 0) {
 				this.tuneSearch = parseInt(this.$$componentParameters.route[0]);
 
 				if (!isNaN(this.tuneSearch)) {
@@ -361,9 +373,8 @@ define(
 					}
 				}
 			}
-
 			// Preinitted by cookie
-			if (this.mode == 'normal' && this.useCookies) {
+			else if (this.useCookies) {
 				var cookie = Cookie.getJSON(this.getCookieName());
 
 				// Checking cookie validity and fixing that
@@ -466,11 +477,10 @@ define(
 						segments: [],
 						passengers: [],
 						parameters: {
-							"searchType": this.tripType(),
-							"direct": this.directFlights(),
-							"aroundDates": this.vicinityDates() ? 3 : 0,
-							"serviceClass": this.serviceClass(),
-							"airlines": []
+							direct: this.directFlights(),
+							aroundDates: this.vicinityDates() ? 3 : 0,
+							serviceClass: this.serviceClass(),
+							airlines: []
 						}
 					},
 					segments = this.segments(),
@@ -487,8 +497,14 @@ define(
 							IATA: segments[i].items.arrival.value().IATA,
 							isCity: segments[i].items.arrival.value().isCity
 						},
-						departureDate: segments[i].items.departureDate.value().getISODateTime()
+						// @CRUTCH - ignore missing date of second leg on RT
+						departureDate: segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODateTime() : null
 					});
+				}
+
+				// @CRUTCH - ignore missing date of second leg on RT - send as CR
+				if (this.tripType() == 'RT' && !params.segments[1].departureDate) {
+					params.segments.pop();
 				}
 
 				for (var i in passengers) {

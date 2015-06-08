@@ -1,5 +1,5 @@
 # Routing rules
-Options -Indexes +FollowSymlinks
+Options +FollowSymlinks
 RewriteEngine On
 RewriteBase /
 

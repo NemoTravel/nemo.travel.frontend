@@ -11,7 +11,10 @@
 				APP LOADED (<span data-bind="text: component"></span>)
 				<div class="" data-bind="component: {
 	                name: component,
-					params: {route: componentRoute()}
+					params: {
+						route: componentRoute(),
+						additional: componentAdditionalParams()
+					}
 				}">Loading component...</div>
 			</div>
 		<!-- /ko -->
@@ -71,13 +74,43 @@
 					{
 						sourceURL: nemoSourceHost,
 						dataURL: 'http://demo.mlsd.ru/api',
-//						dataURL: 'http://nemo.dev/api',
-//						dataURL: 'http://trunk.nemo.dev/api',
-//						dataURL: 'http://mlsd.ru:987/api',
 						root: '/',
 //						verbose: true,
 						i18nLanguage: 'ru',
 						postParameters: {}
+
+						// Passing additional parametes to components
+						/*,
+						componentsAdditionalInfo: {
+							'Flights/SearchForm/Controller': {
+								init: {
+									direct: true,
+									serviceClass: 'Business',
+									vicinityDates: true,
+									passengers: {
+										ADT: 2,
+										INF: 1,
+										CLD: 2
+									},
+									segments: [
+										[
+											'KBP',
+											'LON',
+											'2015-05-31',
+											false,
+											true
+										],
+										[
+											'LON',
+											'IEV',
+											'2015-06-01',
+											true,
+											true
+										],
+									]
+								}
+							}
+						}*/
 					}
 				);
 			}
