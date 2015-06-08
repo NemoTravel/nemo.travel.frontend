@@ -38,7 +38,7 @@ $c_selectList_item_sep_bg			= #DBDBDB;
 			color: $c_selectList_title_default;
 			padding: $d_filters__title__padding;
 			font-family: $f_ui_font_family;
-			.tablet &, .mobile &{
+			.nemo-root_tablet &, .nemo-root_mobile &{
 				color: $c_selectList_title;
 			}
 		}
@@ -46,7 +46,7 @@ $c_selectList_item_sep_bg			= #DBDBDB;
 			border-radius: $br_selectedList;
 			overflow: hidden;
 			margin: 0 0 15px;
-			.tablet &, .mobile &{
+			.nemo-root_tablet &, .nemo-root_mobile &{
 				border: $bd_selectList_border;
 			}
 			&__item{
@@ -62,7 +62,7 @@ $c_selectList_item_sep_bg			= #DBDBDB;
 					margin: 0;
 					font-family: $f_ui_font_family;
 					font-size: $fz_selectList_item;
-					.tablet &, .mobile &{
+					.nemo-root_tablet &, .nemo-root_mobile &{
 						
 					}
 					
@@ -79,6 +79,20 @@ $c_selectList_item_sep_bg			= #DBDBDB;
 					background: $bg_selectList_item_selected;
 					p{
 						color: $c_selectList_item_selected;
+					}
+				}
+				&_refreshed{
+					position: relative;
+					&:before{
+						position: absolute;
+						top: 5px;
+						right: 5px;
+						width: 6px;
+						height: 6px;
+						content:"";
+						display: block;
+						background: #63B4F5;
+						border-radius: 50%;
 					}
 				}
 			}

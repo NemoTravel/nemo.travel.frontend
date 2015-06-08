@@ -43,14 +43,14 @@ body{
 		background $c_pageHeader;
 		height $d_pageHeader_height;
 		
-		.mobile &{
+		.nemo-root_mobile &{
 			height $d_pageHeader_height_mobile;
 			.logo{
 				display: none;
 			}
 		}
 		
-		.tablet &{
+		.nemo-root_tablet &{
 
 			&__inner{
 				padding: $d_ui_pageHeader_tablet_inner_padding;
@@ -72,6 +72,10 @@ body{
 			padding: $d_ui_pageHeader_inner_padding;
 			@media only screen and (min-width: 1340px) { 
 				max-width: 1600px;
+			}
+			
+			.nemo-root_mobile &{
+				padding: 0 0 0 10px;
 			}
 		}
 	}

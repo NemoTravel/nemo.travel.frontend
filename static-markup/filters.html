@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../css/style.css">
-	<script src="../../js/lib/jquery/v.2.1.3/jquery-2.1.3.js"></script>
-	<script src="../../js/select2.js"></script>
-	<script src="../../js/start.js"></script>
+	<link rel="stylesheet" href="../css/style.css">
+	<script src="../js/lib/jquery/v.2.1.3/jquery-2.1.3.js"></script>
+	<script src="../js/select2.js"></script>
+	<script src="../js/start.js"></script>
 </head>
 <body>
 	<header class="nemo-common-pageHeader">
@@ -141,17 +141,17 @@
 		</div>
 	</header>
 	<div class="new-ui-sideMenu">
-		<div class="new-ui-userBox">
-			<div class="new-ui-userBox__title">
+		<div class="new-ui-mobileSideMenu">
+			<div class="new-ui-mobileSideMenu__title">
 				<p>
 					Здравствуйте, гость!
 				</p>
 			</div>
-			<div class="new-ui-userBox__btns">
+			<div class="new-ui-mobileSideMenu__btns">
 				<button class="new-ui-button new-ui-button_main new-ui-button_second">Войти</button>
 				<button class="new-ui-button new-ui-button_main new-ui-button_second">Регистрация</button>
 			</div>
-			<div class="new-ui-userBox__main">
+			<div class="new-ui-mobileSideMenu__main">
 				<div class="new-ui-menuList">
 					<ul>
 						<li>
@@ -176,7 +176,7 @@
 			</div>
 		</div>
 	</div>
-	<section class="new-layout-topBar">
+	<section class="new-layout-topBar nemo-mobile_hide">
 		<div class="new-layout-topBar__i">
 			<div class="new-layout-topBar__i__left">
 				<div class="new-ui-breadcrumbs">
@@ -235,12 +235,12 @@
 				<div class="new-layout-main__top__i__btn">
 					<div class="new-ui-filter">
 						<div class="new-ui-filter__controls">
-							<button class="new-ui-button new-ui-button_common">Фильтрация</button>
+							<button class="new-ui-button new-ui-button_common js-tablet-filters">Фильтрация</button>
 						</div>
 					</div>
 				</div>
 				<div class="new-layout-main__top__i__main">
-					<div class="new-ui-route">
+					<div class="new-ui-route new-ui-route_mobile">
 						<div class="new-ui-route__search">
 							<div class="new-ui-route__search__path">
 								<span>Москва, <a href="#">Россия</a><i class="new-ui-arrLeftRight"></i>
@@ -252,7 +252,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="new-layout-main__middle">
+		<div class="new-layout-main__middle nemo-mobile_hide">
 			<div class="new-layout-main__middle__i">
 				<a href="#" class="new-ui-link new-ui-link_full-width">
 					<i class="new-ui-arrTopBottom"></i>
@@ -262,21 +262,22 @@
 		</div>
 		<div class="new-layout-main__content">
 			<div class="new-layout-main__content__i">
-				<aside class="new-layout-aside">
-					<div class="new-ui-filter new-ui-filter_overlay">
-						<div class="new-ui-filter__hint">
-							<div class="new-ui-hint new-ui-hint_static">
-								<div class="new-ui-hint__text">
-									<p>
-										Найти нужный билет — быстро
-										и просто. Пользуйтесь фильтрами!
-									</p>
-								</div>
-								<div class="new-ui-hint__icon">
-									<i class="new-ui-iconClose"></i>
-								</div>
-							</div>
+				<aside class="new-layout-aside nemo-overlay-sho">
+					
+					<div class="new-ui-hint new-ui-hint_static nemo-notCovered nemo-tablet_hide">
+						<div class="new-ui-hint__text">
+							<p>
+								Найти нужный билет — быстро
+								и просто. Пользуйтесь фильтрами!
+							</p>
 						</div>
+						<div class="new-ui-hint__icon">
+							<i class="new-ui-iconClose"></i>
+						</div>
+					</div>
+					
+					<div class="new-ui-filter">
+						
 						<div class="new-ui-filter__main">
 							<button class="new-ui-button new-ui-button_second">
 								Сбросить все фильтры
@@ -311,7 +312,7 @@
 									<div class="new-ui-selectList__main__item new-ui-selectList__main__item_selected js-selectList_item">
 										<p>Все</p>
 									</div>
-									<div class="new-ui-selectList__main__item js-selectList_item">
+									<div class="new-ui-selectList__main__item js-selectList_item new-ui-selectList__main__item_refreshed">
 										<p>Туда</p>
 									</div>
 									<div class="new-ui-selectList__main__item js-selectList_item">
@@ -370,7 +371,7 @@
 				</aside>
 				<section class="new-layout-content">
 					<div class="new-layout-content__item">
-						<div class="new-ui-flight">
+						<div class="new-ui-flight nemo-mobile_hide">
 							<div class="new-ui-flight__title">
 								<div class="new-ui-flight__title__item">
 									<div class="new-ui-flight__title__item__text">
@@ -1601,7 +1602,7 @@
 					</div>
 					
 				</section>
-				<aside class="new-layout-right">
+				<aside class="new-layout-right nemo-overlay-show">
 					<div class="new-textBox">
 						<h3>
 							Топ-3 авиакомпаний
@@ -1613,11 +1614,564 @@
 							путешествия и качественного
 							обслуживания.
 						</p>
-						<!-- here -->
 					</div>
+					<div class="new-ui-flight new-ui-flight_hot">
+						<div class="new-ui-flight__title">
+							<div class="new-ui-flight__title__item">
+								<div class="new-ui-flight__title__item__text">
+									Самый дешевый
+								</div>
+							</div>
+							<div class="new-ui-flight__title__item">
+								<div class="new-ui-flight__title__item__right">
+									<a href="#" class="new-cLogo">
+										<img src="../img/luft.svg" alt="" width="140px">
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__main new-ui-flight__main_fullWidth">
+							<div class="new-ui-flight__main__col">
+								
+								<div class="new-ui-flight__main__col__info">
+									<div class="new-flightInfo">
+										<div class="new-flightInfo__title">
+											<span class="new-flightInfo__title__text">
+												Туда, 30 сентября, <a href="#">чт</a>
+											</span>
+											<span class="new-flightInfo__title__message new-flightInfo__title__message_hightLight">
+												5+ мест
+											</span>
+										</div>
+										<div class="new-flightInfo__main">
+											<div class="new-ui-flight-select">
+												<div class="new-ui-flight-select__main">
+													<div class="new-flightSelect js-flightSelect new-flightSelect_smaller">
+														<div class="new-flightSelect__selected">
+															<div class="new-flightTime">
+																<div class="new-flightTime__text">
+																	<div class="new-flightTime__text__time">
+																		<b>15:30</b> — 16:30 (31 сен)
+																	</div>
+																	<div class="new-flightTime__text__duration">
+																		14 ч 55 мин в <a href="#">пути</a>
+																	</div>
+																	
+																</div>
+																<div class="new-flightTime__icon">
+																	<i class="new-ui-arrBottom"></i>
+																</div>
+															</div>
+														</div>
+														<div class="new-flightSelect__drop">
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>05:30</b> <i class="new-ui-ArrowOneCircle">&nbsp;</i> 16:30
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="new-flightInfo__bott">
+											<div class="new-flightDetails">
+												<div class="new-flightDetails__text">
+													<p>
+														Пересадки 2 часа 15 минут <a href="#">Детали</a>
+													</p>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__main new-ui-flight__main_fullWidth">
+							<div class="new-ui-flight__main__col">
+								
+								<div class="new-ui-flight__main__col__info">
+									<div class="new-flightInfo">
+										<div class="new-flightInfo__title">
+											<span class="new-flightInfo__title__text">
+												Туда, 30 сентября, <a href="#">чт</a>
+											</span>
+											<span class="new-flightInfo__title__message new-flightInfo__title__message_hightLight">
+												5+ мест
+											</span>
+										</div>
+										<div class="new-flightInfo__main">
+											<div class="new-ui-flight-select">
+												<div class="new-ui-flight-select__main">
+													<div class="new-flightSelect js-flightSelect new-flightSelect_smaller">
+														<div class="new-flightSelect__selected">
+															<div class="new-flightTime">
+																<div class="new-flightTime__text">
+																	<div class="new-flightTime__text__time">
+																		<b>15:30</b> — 16:30 (31 сен)
+																	</div>
+																	<div class="new-flightTime__text__duration">
+																		14 ч 55 мин в <a href="#">пути</a>
+																	</div>
+																	
+																</div>
+																<div class="new-flightTime__icon">
+																	<i class="new-ui-arrBottom"></i>
+																</div>
+															</div>
+														</div>
+														<div class="new-flightSelect__drop">
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>05:30</b> <i class="new-ui-ArrowOneCircle">&nbsp;</i> 16:30
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="new-flightInfo__bott">
+											<div class="new-flightDetails">
+												<div class="new-flightDetails__text">
+													<p>
+														<span>Пересадки 2 часа 15 минут</span> <a href="#">Детали</a>
+													</p>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__bott">
+							<div class="new-ui-flight__bott__more">
+								<button class="new-ui-button new-ui-button_border">
+									<span>Еще 25</span>
+								</button>
+							</div>
+							<div class="new-ui-flight__bott__price">
+								
+								<button class="new-ui-button new-ui-button_mediumHeight">
+									<i class="new-ui-iconCart"></i>13 000 р
+								</button>
+							</div>
+							
+						</div>
+						<div class="new-ui-flight__bottText">
+							Цена указана за всех пассажиров
+						</div>
+					</div>
+					<div class="new-ui-flight new-ui-flight_hot">
+						<div class="new-ui-flight__title">
+							<div class="new-ui-flight__title__item">
+								<div class="new-ui-flight__title__item__text">
+									Аэрофлот
+								</div>
+							</div>
+							<div class="new-ui-flight__title__item">
+								<div class="new-ui-flight__title__item__right">
+									<a href="#" class="new-cLogo">
+										<img src="../img/luft.svg" alt="" width="140px">
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__main new-ui-flight__main_fullWidth">
+							<div class="new-ui-flight__main__col">
+								
+								<div class="new-ui-flight__main__col__info">
+									<div class="new-flightInfo">
+										<div class="new-flightInfo__title">
+											<span class="new-flightInfo__title__text">
+												Туда, 30 сентября, <a href="#">чт</a>
+											</span>
+											<span class="new-flightInfo__title__message new-flightInfo__title__message_hightLight">
+												5+ мест
+											</span>
+										</div>
+										<div class="new-flightInfo__main">
+											<div class="new-ui-flight-select">
+												<div class="new-ui-flight-select__main">
+													<div class="new-flightSelect js-flightSelect new-flightSelect_smaller">
+														<div class="new-flightSelect__selected">
+															<div class="new-flightTime">
+																<div class="new-flightTime__text">
+																	<div class="new-flightTime__text__time">
+																		<b>15:30</b> — 16:30 (31 сен)
+																	</div>
+																	<div class="new-flightTime__text__duration">
+																		14 ч 55 мин в <a href="#">пути</a>
+																	</div>
+																	
+																</div>
+																<div class="new-flightTime__icon">
+																	<i class="new-ui-arrBottom"></i>
+																</div>
+															</div>
+														</div>
+														<div class="new-flightSelect__drop">
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>05:30</b> <i class="new-ui-ArrowOneCircle">&nbsp;</i> 16:30
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="new-flightInfo__bott">
+											<div class="new-flightDetails">
+												<div class="new-flightDetails__text">
+													<p>
+														Пересадки 2 часа 15 минут <a href="#">Детали</a>
+													</p>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__main new-ui-flight__main_fullWidth">
+							<div class="new-ui-flight__main__col">
+								
+								<div class="new-ui-flight__main__col__info">
+									<div class="new-flightInfo">
+										<div class="new-flightInfo__title">
+											<span class="new-flightInfo__title__text">
+												Туда, 30 сентября, <a href="#">чт</a>
+											</span>
+											<span class="new-flightInfo__title__message new-flightInfo__title__message_hightLight">
+												5+ мест
+											</span>
+										</div>
+										<div class="new-flightInfo__main">
+											<div class="new-ui-flight-select">
+												<div class="new-ui-flight-select__main">
+													<div class="new-flightSelect js-flightSelect new-flightSelect_smaller">
+														<div class="new-flightSelect__selected">
+															<div class="new-flightTime">
+																<div class="new-flightTime__text">
+																	<div class="new-flightTime__text__time">
+																		<b>15:30</b> — 16:30 (31 сен)
+																	</div>
+																	<div class="new-flightTime__text__duration">
+																		14 ч 55 мин в <a href="#">пути</a>
+																	</div>
+																	
+																</div>
+																<div class="new-flightTime__icon">
+																	<i class="new-ui-arrBottom"></i>
+																</div>
+															</div>
+														</div>
+														<div class="new-flightSelect__drop">
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>05:30</b> <i class="new-ui-ArrowOneCircle">&nbsp;</i> 16:30
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="new-flightSelect__drop__item">
+																<div class="new-flightTime">
+																	<div class="new-flightTime__text">
+																		<div class="new-flightTime__text__time">
+																			<b>06:30</b> <i class="new-ui-ArrowTwoCircle">&nbsp;</i> <span>16:30</span>
+																		</div>
+																		<div class="new-flightTime__text__duration">
+																			14 ч 55 мин в <a href="#">пути</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="new-flightInfo__bott">
+											<div class="new-flightDetails">
+												<div class="new-flightDetails__text">
+													<p>
+														<span>Пересадки 2 часа 15 минут</span> <a href="#">Детали</a>
+													</p>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-flight__bott">
+							<div class="new-ui-flight__bott__more">
+								<button class="new-ui-button new-ui-button_border">
+									<span>Еще 25</span>
+								</button>
+							</div>
+							<div class="new-ui-flight__bott__price">
+								
+								<button class="new-ui-button new-ui-button_mediumHeight">
+									<i class="new-ui-iconCart"></i>13 000 р
+								</button>
+							</div>
+							
+						</div>
+						<div class="new-ui-flight__bottText">
+							Цена указана за всех пассажиров
+						</div>
+					</div>
+					<div class="new-textBox">
+						<h3>
+							Отели
+						</h3>
+						<p>
+							Нужно качественное проживание
+							на время путешествия?
+							Закажите отель здесь же.
+						</p>
+					</div>
+					<div class="new-ui-flightList">
+						<div class="new-ui-flightList__title">
+							19.11 – 25.11, 2 гостя, 6 ночей
+						</div>
+						<div class="new-ui-flightList__main">
+							<div class="new-ui-flightList__main__top">
+								2 гостя, 6 ночей
+							</div>
+							<div class="new-ui-flightList__main__item">
+								<div class="new-hotel">
+									<div class="new-hotel__top">
+										<div class="new-hotel__top__title">
+											Best Western Braid Hills Hotel
+										</div>
+										<div class="new-hotel__top__rating">
+											<div class="new-ui-rating new-ui-rating_small">
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item">
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="new-hotel__btn">
+										<button class="new-ui-button new-ui-button_mediumHeight">от 12 000 р</button>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-flightList__main__item">
+								<div class="new-hotel">
+									<div class="new-hotel__top">
+										<div class="new-hotel__top__title">
+											Best Western Braid Hills Hotel
+										</div>
+										<div class="new-hotel__top__rating">
+											<div class="new-ui-rating new-ui-rating_small">
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item">
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="new-hotel__btn">
+										<button class="new-ui-button new-ui-button_mediumHeight">от 12 000 р</button>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-flightList__main__item">
+								<div class="new-hotel">
+									<div class="new-hotel__top">
+										<div class="new-hotel__top__title">
+											Best Western Braid Hills Hotel
+										</div>
+										<div class="new-hotel__top__rating">
+											<div class="new-ui-rating new-ui-rating_small">
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+												<div class="new-ui-rating__item new-ui-rating__item_selected">
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="new-hotel__btn">
+										<button class="new-ui-button new-ui-button_mediumHeight">от 12 000 р</button>
+									</div>
+								</div>
+							</div>
+							<div class="new-ui-flightList__main__bott">
+								Заказ отеля откроется в новом окне
+							</div>
+						</div>
+					</div>
+					<button class="new-ui-button new-ui-button_blue new-ui-button_wide">
+						Еще 45 отелей
+					</button>
 				</aside>
 			</div>
 		</div>
 	</section>
+	<footer>
+		<div class="new-layout-footer__inner">
+			<div class="new-layout-footer__inner__left">
+				<div class="new-fMenu">
+					<a href="#" class="new-fMenu__item">
+						Помощь
+					</a>
+					<a href="#" class="new-fMenu__item">
+						Обратная связь
+					</a>
+				</div>
+				<div class="nemo-copyRight">
+					© nemo.travel
+				</div>
+			</div>
+			<div class="new-layout-footer__inner__right">
+				<div class="nemo-company">
+					<img src="../img/nemo-logo.svg" alt="">
+				</div>
+				<div class="nemo-company">
+					<img src="../img/mute-lab-logo.svg" alt="">
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

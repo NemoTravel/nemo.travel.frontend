@@ -22,14 +22,14 @@ $bg_outer_shadow	= 7px -1px 5px -4px rgba(0,0,0,.5);
 		background: $bg_color;
 		width: $d_tablet_width;
 		box-shadow: $bg_outer_shadow;
-		.mobile &{
+		.nemo-root_mobile &{
 			width: $d_mobile_width;
 			left: - $d_mobile_width - 10px; //10px for hiding shadow
 			top: $p_top_mobile;
 		}
 		.side-menu-open &{
 			left: 0;
-			/.mobile&{
+			/.nemo-root_mobile&{
 				left: 0;
 			}
 		}

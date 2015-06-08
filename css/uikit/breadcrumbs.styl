@@ -105,7 +105,37 @@ $d_route_search_padding			= 0 115px 0 10px;
 				}
 			}
 		}
-	}
-	
 		
+		&_mobile{
+			.nemo-root_mobile &{
+				.new-layout-main__top__i{
+					display: flex;
+				}
+				.new-ui-{
+					&route{
+						&__search{
+							.new-ui-button_blue{
+								display: none;
+							}
+							&__path{
+								background: #64B5F6;
+								display block;
+								color: #fff;
+								box-shadow: none;
+								padding: 10px 20px;
+								height: auto;
+								border-radius: 0;
+								span{
+									color: #fff;
+									a{
+										color: #fff;
+									}
+								}
+							}
+						}
+					}
+				}
+			}	
+		}
+	}		
 }

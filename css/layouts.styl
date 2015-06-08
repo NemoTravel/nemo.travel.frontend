@@ -54,11 +54,11 @@ $keyframe-name = gradientAttention
 			}
 		}
 		
-		.tablet &{
+		.nemo-root_tablet &{
 			padding: $d_headerLinks_tablet_padding;
 		}
 		
-		.mobile &{
+		.nemo-root_mobile &{
 			display: none;
 		}
 	}
@@ -70,6 +70,25 @@ $keyframe-name = gradientAttention
 	&aside{
 		width: 300px;
 		padding: 0 20px 0 0;
+		
+		.nemo-root_tablet &{
+			position: absolute;
+			display: none;
+			left: 30px;
+			top: -40px;
+			border-radius: 5px;
+			background: #fff;
+			padding: 0;
+			box-shadow: 0 0 10px 1px rgba(0,0,0,.4);
+			z-index: 10;
+		}
+		.nemo-root_asideShow &{
+			display: block;
+		}
+		
+		.nemo-root_mobile &{
+			display: none;
+		}
 	}
 	
 	&right{
@@ -80,12 +99,16 @@ $keyframe-name = gradientAttention
 		@media only screen and (min-width: 1340px) { 
 			display: block;
 		}
+		
+		.nemo-root_mobile &{
+			display: none;
+		}
 	}
 	
 	&overlayMenu{
 		display: none;
 		
-		.mobile &{
+		.nemo-root_mobile &{
 			display: inline-block;
 		}
 		
@@ -94,7 +117,7 @@ $keyframe-name = gradientAttention
 		}
 
 		&__drop{
-			.mobile &{
+			.nemo-root_mobile &{
 				display: none;
 				position: absolute;
 				z-index: 10;
@@ -114,7 +137,7 @@ $keyframe-name = gradientAttention
 	&topBar{
 		background: $c_topBg_bg;
 		position: relative;
-		z-index: 100;
+		z-index: 9;
 		&__i{
 			position: relative;
 			max-width: $d_ui_topBar_inner_maxWidth;
@@ -150,7 +173,7 @@ $keyframe-name = gradientAttention
 				}
 				&__btn{
 					display: none;
-					.tablet &{
+					.nemo-root_tablet &{
 						display: block;
 						float: left;
 						width: $d_ui_main_top_btn_width;
@@ -159,10 +182,38 @@ $keyframe-name = gradientAttention
 				}
 				&__main{
 					padding: 0;
-					.tablet &{
+					.nemo-root_tablet &{
 						padding: $d_ui_main_top_main_padding;
 					}
 				}
+				.nemo-root_mobile &{
+					padding: 0;
+					max-width: 100%;
+					width: 100%;
+					display:flex;
+					flex-direction: column;
+					flex-wrap: nowrap;
+					justify-content: flex-start;
+					align-content: stretch;
+					align-items: stretch;
+					.new-layout-main__top__i__btn{
+						order: 1;
+						display: block;
+						.new-ui-button_common{
+							width: 100%;
+						}
+						.new-ui-filter__controls{
+							padding: 10px 10px 5px;
+						}
+					}
+					.new-layout-main__top__i__main{
+						order: 0;
+					}
+				}
+			}
+			
+			.nemo-root_mobile &{
+				background: #F6F6F6;
 			}
 		}
 		
@@ -175,6 +226,7 @@ $keyframe-name = gradientAttention
 		}
 		
 		&__content{
+			position: relative;
 			background: $c_mainTop_bg;
 			
 			&__i{
@@ -190,6 +242,19 @@ $keyframe-name = gradientAttention
 				@media only screen and (min-width: 1340px) { 
 					max-width: 1600px;
 				}
+				.nemo-root_tablet &{
+					position: relative;
+					max-width: 100%;
+				}
+				
+				.nemo-root_mobile &{
+					max-width: 100%;
+					padding: 0;
+				}
+			}
+			
+			.nemo-root_mobile &{
+				background: #F6F6F6;
 			}
 		}
 	}
@@ -246,6 +311,45 @@ $keyframe-name = gradientAttention
 			&:first-child{
 				padding: 0;
 			}
+			.nemo-root_mobile &{
+				width: 100%;
+				float: none;
+				padding: 0;
+			}
+		}
+	}
+}
+
+.nemo-{
+	&notCovered{
+		position: relative;
+		z-index: 90;
+	}
+	&overlay-show{
+		position: relative
+		&:after{
+			position: absolute;
+			display: block;
+			opacity: 0;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			content: "";
+		}
+		>*:not(.nemo-notCovered){
+			opacity: 0.4;
+		}
+	}
+	&tablet_hide{
+		.nemo-root_tablet &{
+			display: none;
+		}
+	}
+	&mobile_hide{
+		.nemo-root_mobile &{
+			display: none;
 		}
 	}
 }
