@@ -7,6 +7,17 @@
  * @copyright    Copyright (c) 2008-2009, Stefan Petre
  * @copyleft    Copyleft (c) 2015, Boris Sobolevskiy
  * @license        MIT License, see license.txt if present.
+ * ДП:
+ 1. Позиционирование неправильное (не центруется по гризонтали)
+ 2. Если ДП упирается в правую часть вьюпорта - ЖОПА
+ 3. nemo-pmu-button - есть свои классы на днях, но нет на месяцах и годах
+ 4. nemo-pmu-days-wrap -> nemo-pmu-daysWrap, с месяцами/годами - аналогично
+ 5. nemo-pmu-day -> nemo-pmu-days__day (консистентность, ёба)
+ 6. days-of-week - привести к нормальному виду. (daysOfWeek) та-же хуйня везде. "-" у нас "зарезервирован" как разделитель префиксов разделов
+ 7. nemo-pickmeup-wrapper - а тут внезапно "pickmeup"
+ 8. js-nemo-pmu-prev и прочие js-классы. Правила именования такие-же, как и для обычных
+ 9. js-классы не везде, есть выборки по не-js-классам
+ 10. Допилить занесение даты в ДП при вводе руками
  */
 'use strict';
 (function (d) {
@@ -118,38 +129,38 @@
 			days: 'js-nemo-pmu-view-days nemo-pmu-view-days'
 		},
 		tpl: {
-				wrapper: '<div class="nemo-pickmeup-wrapper" />',
-				head: function (d) {
-					var result = '';
-					for (var i = 0; i < 7; ++i) {
-						result += '<div class="nemo-pmu-day-of-week nemo-pmu-day-of-week-'+ i +'">' + d.day[i] + '</div>'
-					}
-					return '<div class="js-nemo-pmu-instance nemo-pmu-instance">' +
-						'<nav class="nemo-pmu-month-header">' +
-						'<div class="js-nemo-pmu-prev nemo-pmu-prev nemo-pmu-button">' + d.prev + '</div>' +
-						'<div class="js-nemo-pmu-month nemo-pmu-month nemo-pmu-button" />' +
-						'<div class="js-nemo-pmu-next nemo-pmu-next nemo-pmu-button">' + d.next + '</div>' +
-						'</nav>' +
-						'<nav class="nemo-pmu-days-of-week">' + result + '</nav>' +
-						'</div>';
-				},
-				body: function (elements, container_className) {
-					var result = '';
-					for (var i = 0; i < elements.length; ++i) {
-						result += '<div ';
-						if (typeof elements[i].val != 'undefined') {
-							result += 'data-day="' + elements[i].date[0] + '"' +
-							'data-month="' + elements[i].date[1] + '"' +
-							'data-year="' + elements[i].date[2] + '"' +
-							'data-date="' + elements[i].val + '" '
-						}
-						result += 'class="' + elements[i].className + ' nemo-pmu-button">' + elements[i].text + '</div>'
-
-					}
-					return '<div class="' + container_className + '-wrap"><div class="' + container_className + '">' + result + '</div></div>';
+			wrapper: '<div class="nemo-pmu-wrapper" />',
+			head: function (d) {
+				var result = '';
+				for (var i = 0; i < 7; ++i) {
+					result += '<div class="nemo-pmu-dayOfWeek nemo-pmu-dayOfWeek_'+ i +'">' + d.day[i] + '</div>'
 				}
+				return '<div class="js-nemo-pmu-instance nemo-pmu-instance">' +
+					'<nav class="nemo-pmu-monthHeader">' +
+					'<div class="js-nemo-pmu-prev nemo-pmu-prev js-nemo-pmu-button nemo-pmu-button">' + d.prev + '</div>' +
+					'<div class="js-nemo-pmu-month nemo-pmu-month js-nemo-pmu-button nemo-pmu-button" />' +
+					'<div class="js-nemo-pmu-next nemo-pmu-next js-nemo-pmu-button nemo-pmu-button">' + d.next + '</div>' +
+					'</nav>' +
+					'<nav class="nemo-pmu-daysOfWeek">' + result + '</nav>' +
+					'</div>';
+			},
+			body: function (elements, container_className) {
+				var result = '';
+				for (var i = 0; i < elements.length; ++i) {
+					result += '<div ';
+					if (typeof elements[i].val != 'undefined') {
+						result += 'data-day="' + elements[i].date[0] + '"' +
+						'data-month="' + elements[i].date[1] + '"' +
+						'data-year="' + elements[i].date[2] + '"' +
+						'data-date="' + elements[i].val + '" '
+					}
+					result += 'class="' + elements[i].className + ' js-nemo-pmu-button nemo-pmu-button">' + elements[i].text + '</div>'
+
+				}
+				return '<div class="' + container_className + 'Wrap"><div class="' + container_className + '">' + result + '</div></div>';
 			}
-		});
+		}
+	});
 	function currentCalendar(){
 		//@DIRTY HACK: in case of 2 calendars left one will be active, not right one
 		var options = $(this).data('pickmeup-options');
@@ -321,7 +332,7 @@
 						options.max && year.text > max_year
 						)
 					) {
-						year.className.push('nemo-pmu-disabled');
+						year.className.push('nemo-pmu-disabled', 'js-nemo-pmu-disabled');
 						disabledYearsCounter++
 					} else if (is_year_selected(year.text)) {
 						year.className.push('nemo-pmu-selected');
@@ -351,25 +362,25 @@
 					};
 					if (
 						(
-							options.min &&
-							(
-								current_year < min_year ||
-								(
-									j < min_month && current_year == min_year
-								)
-							)
+						options.min &&
+						(
+						current_year < min_year ||
+						(
+						j < min_month && current_year == min_year
+						)
+						)
 						) ||
 						(
-							options.max &&
-							(
-								current_year > max_year ||
-								(
-									j > max_month && current_year >= max_year
-								)
-							)
+						options.max &&
+						(
+						current_year > max_year ||
+						(
+						j > max_month && current_year >= max_year
+						)
+						)
 						)
 					) {
-						month.className.push('nemo-pmu-disabled');
+						month.className.push('nemo-pmu-disabled', 'js-nemo-pmu-disabled');
 						disabledMonthsCounter++
 					} else if (is_months_selected(current_year, j)) {
 						month.className.push('nemo-pmu-selected');
@@ -416,7 +427,7 @@
 					day.date.push(new Date(val).getMonth());
 					day.date.push(new Date(val).getFullYear());
 					if (from_user.disabled || disabled) {
-						day.className.push('nemo-pmu-disabled');
+						day.className.push('nemo-pmu-disabled', 'js-nemo-pmu-disabled');
 					} else if (
 						from_user.selected ||
 						options.date == val ||
@@ -694,11 +705,11 @@
 
 	function click(e) {
 		var el = $(e.target);
-		if (!el.hasClass('nemo-pmu-button')) {
-			el = el.closest('.nemo-pmu-button');
+		if (!el.hasClass('js-nemo-pmu-button')) {
+			el = el.closest('.js-nemo-pmu-button');
 		}
 		if (el.length) {
-			if (el.hasClass('nemo-pmu-disabled')) {
+			if (el.hasClass('js-snemo-pmu-disabled')) {
 				return false;
 			}
 			var $this = $(this),
@@ -765,7 +776,7 @@
 					}
 					options.onSetYear();
 				} else if (root.hasClass('js-nemo-pmu-view-months')) {
-					options.current.setMonth(instance.find('.js-nemo-pmu-months .nemo-pmu-button').index(el));
+					options.current.setMonth(instance.find('.js-nemo-pmu-months .js-nemo-pmu-button').index(el));
 					options.current.setFullYear(parseInt(instance.find('.js-nemo-pmu-month').text(), 10));
 					if (options.selectDay) {
 						root.removeClass('js-nemo-pmu-view-months').addClass('js-nemo-pmu-view-days');
@@ -824,9 +835,11 @@
 				top = pos.top,
 				left = pos.left;
 			options.binded.fill();
+
+			var format = $this.pickmeup().format;
+			format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
 			if ($this.is('input')) {
-				var noSpacesSeparator = options.separator.trim();
-				var testDate = new RegExp('[0-9]{2}'+noSpacesSeparator+'[0-9]{2}'+noSpacesSeparator+'[0-9]{4}');
+				var testDate = new RegExp(format , 'i');
 				$this
 					.pickmeup('set_date', parseDate($this.val() ? $this.val() : options.defaultDate, options.format, options.separator, options.locale))
 					.on('keyup', function (e) {
@@ -845,6 +858,24 @@
 					})
 					.on('blur', function(){$this.pickmeup('hide')});
 				options.lastSel = false;
+				$(window).on('resize',function(){
+					if (top + pickmeup.offsetHeight > viewport.t + viewport.h) {
+						top = pos.top - pickmeup.offsetHeight;
+					}
+					if (top < viewport.t) {
+						top = pos.top + this.offsetHeight + pickmeup.offsetHeight;
+					}
+					if (left + pickmeup.offsetWidth > viewport.l + viewport.w) {
+						left = pos.left - pickmeup.offsetWidth;
+					}
+					if (left < viewport.l) {
+						left = pos.left + this.offsetWidth
+					}
+					pickmeup.css({
+						top: top + 'px',
+						left: left + 'px'
+					});
+				})
 			}
 			options.beforeShow();
 			if (options.show() == false) {
@@ -1045,12 +1076,12 @@
 		$(document).off(options.events_namespace);
 		$(this.pickmeup).remove();
 	}
-	
+
 	function getDateElementSelected() {
 		//returns collection of selected dates, if visible
 		return $(this.pickmeup).find('.nemo-pmu-day.nemo-pmu-selected');
 	}
-	
+
 	function getDateElementCustom(dates) {
 		//returns elementts by custom dates, accept epoch, formatted date (!format must same as in picker!) and array
 		var options = $(this).data('pickmeup-options');
@@ -1238,6 +1269,7 @@
 			options.current.setHours(0, 0, 0, 0);
 			var cnt,
 				pickmeup = $(options.tpl.wrapper);
+			pickmeup.addClass('nemo-pmu-wrapper_calendars_'+options.calendars);
 			this.pickmeup = pickmeup;
 			if (options.className) {
 				pickmeup.addClass(options.className);

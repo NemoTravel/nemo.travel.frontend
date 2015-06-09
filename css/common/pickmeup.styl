@@ -23,9 +23,7 @@ visibility: hidden !important;
   position: absolute;
   box-shadow: 0 0 5px #ccc;
   font-size: 12px;
-  div{
-	display: inline-block;
-  }
+  div{display: inline-block;}
 }
 
 .nemo-pmu-instance {
@@ -34,11 +32,11 @@ visibility: hidden !important;
   width: 258px;
 }
 
-.nemo-pmu-years-wrap,
-.nemo-pmu-months-wrap{
+.nemo-pmu-yearWrap,
+.nemo-pmu-monthWrap{
   padding: 10px;
 }
-.nemo-pmu-days-wrap{
+.nemo-pmu-dayWrap{
   padding: 0 10px 10px;
 }
 .nemo-pmu-button {
@@ -57,6 +55,7 @@ visibility: hidden !important;
   border: 1px solid #DCDCDC;
   border-radius: 3px;
   padding: 7px;
+  margin-bottom: 14px;
 }
 
 .nemo-pmu-years,
@@ -128,14 +127,11 @@ visibility: hidden !important;
 	}
   }
 }
-.nemo-pmu-highlight{
+.nemo-pmu-date_hilighted{
   background: red;
 }
-.nemo-pmu-month-header {
+.nemo-pmu-monthHeader {
   line-height: 29px;
-}
-.nemo-pmu-instance nav *:first-child :hover {
-  color: #88c5eb;
 }
 .nemo-pmu-prev,
 .nemo-pmu-next {
@@ -159,21 +155,21 @@ visibility: hidden !important;
   line-height: 3.8em;
   width: 3.8em;
 }
-.nemo-pmu-days-of-week {
+.nemo-pmu-dayOfWeek {
   color: #414042;
   cursor: default;
   &:nth-child(6), &:nth-child(7){
 	color:#4DB0E4;
   }
 }
-.nemo-pmu-day-of-week {
+.nemo-pmu-dayOfWeek{
   display: inline-block;
   line-height: 1.8em;
   width: 30px;
 }
-.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-days-wrap,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-days-of-week,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-months) .nemo-pmu-months-wrap,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-years) .nemo-pmu-years-wrap {
+.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-dayWrap,
+.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-dayOfWeek,
+.nemo-pmu-wrapper:not(.nemo-pmu-view-months) .nemo-pmu-monthsWrap,
+.nemo-pmu-wrapper:not(.nemo-pmu-view-years) .nemo-pmu-yearsWrap {
   display: none;
 }

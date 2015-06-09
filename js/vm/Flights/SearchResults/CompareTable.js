@@ -104,7 +104,6 @@ define(
 				}
 			}, this);
 			this.paginationNext = function(){
-				console.log(this.flagToShowMore());
 				if(this.paginationHasNext()){
 					var current = this.paginationShownPages();
 					this.paginationShownPages(current + this.paginationStep());
