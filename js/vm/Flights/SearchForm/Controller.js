@@ -802,9 +802,14 @@ define(
 					tmp[this.preinittedData.segments[i][1]] = this.preinittedData.segments[i][1];
 				}
 
-				ret.cities = ret.airports = Object.keys(tmp);
-//				ret.airports = ['IEV'];
-//				ret.countries = [];
+				ret.resources = {};
+
+				Object.keys(tmp).map(function (n) {
+					ret.resources["guide/airports/" + n] = {};
+					ret.resources["guide/cities/"+n] = {};
+				});
+
+				ret.resources = JSON.stringify(ret.resources);
 			}
 
 			return ret;
