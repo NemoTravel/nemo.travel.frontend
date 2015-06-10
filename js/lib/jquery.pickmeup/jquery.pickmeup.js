@@ -778,7 +778,6 @@
 					options.onSetYear();
 				} else if (root.hasClass('js-nemo-pmu-viewMonths')) {
 					options.current.setMonth(instance.find('.js-nemo-pmu-months .js-nemo-pmu-button').index(el));
-					console.log(instance.find('.js-nemo-pmu-months .js-nemo-pmu-button').index(el));
 					options.current.setFullYear(parseInt(instance.find('.js-nemo-pmu-month').text(), 10));
 					if (options.selectDay) {
 						root.removeClass('js-nemo-pmu-viewMonths').addClass('js-nemo-pmu-viewDays');
@@ -841,25 +840,44 @@
 			var format = $this.pickmeup().format;
 			format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
 			if ($this.is('input')) {
+
+				//crutch! saving input value for blur event trigger.
+				var inputDate, inputValue;
 				inputWidth = $this.outerWidth();
 				var testDate = new RegExp(format , 'i');
 				$this
 					.pickmeup('set_date', parseDate($this.val() ? $this.val() : options.defaultDate, options.format, options.separator, options.locale))
+					.on('click', function(){
+						inputDate = options.current;
+					})
 					.on('keyup', function (e) {
+						inputValue = $this.val();
 						e.stopPropagation();
 						if (e.keyCode == 27) {
 							$this.pickmeup('hide');
+							$this.pickmeup('set_date', options.current)
 						}
 						if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
 							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
 							if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
-								$this.pickmeup('set_date', parsedDate)
+								$this.pickmeup('set_date', parsedDate);
+							}else if(options.min == null && options.max == null){
+								$this.pickmeup('set_date', options.current)
+							}
+						}
+						if(e.keyCode == 13){
+							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
+							if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
+								$this.pickmeup('set_date', parsedDate);
+								options.onSetDate()
 							}else if(options.min == null && options.max == null){
 								$this.pickmeup('set_date', options.current)
 							}
 						}
 					})
-					.on('blur', function(){$this.pickmeup('hide')});
+					.on('blur', function(){
+						$this.pickmeup('hide')
+					});
 				options.lastSel = false;
 			}
 			options.beforeShow();
@@ -899,7 +917,6 @@
 				if(instancesWidth + left + instanceCenter >= viewport.w || instanceCenter > left){
 					instanceCenter = 0;
 				}
-				console.log(instancesWidth , left , instanceCenter, viewport.w)
 				if (instancesWidth < viewport.w && instancesWidth+left-instanceCenter >= viewport.w) {
 					pickmeup.removeClass('nemo-pmu-thinView');
 					pickmeup.css({
@@ -960,7 +977,8 @@
 			)
 		) {
 			var pickmeup = this.pickmeup,
-				options = $(this).data('pickmeup-options');
+				options = $(this).data('pickmeup-options'),
+				$this = $(this);
 			if (options.hide() != false) {
 				pickmeup.hide();
 				$(document)
@@ -969,7 +987,19 @@
 				options.lastSel = false;
 			}
 			if ($(this).is('input')){
-				if ($(this).val().length>0){
+				var format = options.format;
+				format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
+				var testDate = new RegExp(format , 'i');
+				if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
+					var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
+					if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
+						$this.pickmeup('set_date', parsedDate);
+						options.onSetDate()
+					}else if(options.min == null && options.max == null){
+						$this.pickmeup('set_date', inputDate)
+					}
+				}
+			if ($(this).val().length>0){
 					var parsedDate = parseDate($(this).val(), options.format, options.separator, options.locale);
 					if(!(parsedDate >=options.min && parsedDate <= options.max)) {
 						$(this).val(formatDate(options.current, options.format, options.locale));
@@ -1129,7 +1159,7 @@
 				parameters = Array.prototype.slice.call(arguments, 1);
 			switch (initial_options) {
 				case 'getDateElementSelected':
-					data = $(th - is).data('pickmeup-options');
+					data = $(this).data('pickmeup-options');
 					if (data) {
 						var ret = data.binded[initial_options]();
 					}
