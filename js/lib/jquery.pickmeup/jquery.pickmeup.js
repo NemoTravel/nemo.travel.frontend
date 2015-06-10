@@ -10,8 +10,8 @@
  * ДП:
  1. Позиционирование неправильное (не центруется по гризонтали)
  2. Если ДП упирается в правую часть вьюпорта - ЖОПА
- 3. nemo-pmu-button - есть свои классы на днях, но нет на месяцах и годах
- 4. nemo-pmu-days-wrap -> nemo-pmu-daysWrap, с месяцами/годами - аналогично
+ 3. nemo-pmu-button - есть свои классы на днях, но нет на месяцах и годах +
+ 4. nemo-pmu-days-wrap -> nemo-pmu-daysWrap, с месяцами/годами - аналогично +
  5. nemo-pmu-day -> nemo-pmu-days__day (консистентность, ёба)
  6. days-of-week - привести к нормальному виду. (daysOfWeek) та-же хуйня везде. "-" у нас "зарезервирован" как разделитель префиксов разделов
  7. nemo-pickmeup-wrapper - а тут внезапно "pickmeup"
@@ -124,9 +124,9 @@
 			monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		},
 		views: {
-			years: 'js-nemo-pmu-view-years nemo-pmu-view-years',
-			months: 'js-nemo-pmu-view-months nemo-pmu-view-months',
-			days: 'js-nemo-pmu-view-days nemo-pmu-view-days'
+			years: 'js-nemo-pmu-viewYears nemo-pmu-viewYears',
+			months: 'js-nemo-pmu-viewMonths nemo-pmu-viewMonths',
+			days: 'js-nemo-pmu-viewDays nemo-pmu-viewDays'
 		},
 		tpl: {
 			wrapper: '<div class="nemo-pmu-wrapper" />',
@@ -157,7 +157,7 @@
 					result += 'class="' + elements[i].className + ' js-nemo-pmu-button nemo-pmu-button">' + elements[i].text + '</div>'
 
 				}
-				return '<div class="' + container_className + 'Wrap"><div class="' + container_className + '">' + result + '</div></div>';
+				return '<div class="' + container_className + 'Wrap"><div class="' + container_className + ' js-'+container_className+'">' + result + '</div></div>';
 			}
 		}
 	});
@@ -207,13 +207,13 @@
 		for (var i = 0; i < options.calendars; i++) {
 			localDate = new Date(currentDate);
 			instance = pickmeup.find('.js-nemo-pmu-instance').eq(i);
-			if (pickmeup.hasClass('js-nemo-pmu-view-years')) {
+			if (pickmeup.hasClass('js-nemo-pmu-viewYears')) {
 				localDate.addYears((i - currentCal) * 12);
 				header = (localDate.getFullYear() - 6) + ' - ' + (localDate.getFullYear() + 5);
-			} else if (pickmeup.hasClass('js-nemo-pmu-view-months')) {
+			} else if (pickmeup.hasClass('js-nemo-pmu-viewMonths')) {
 				localDate.addYears(i - currentCal);
 				header = localDate.getFullYear();
-			} else if (pickmeup.hasClass('js-nemo-pmu-view-days')) {
+			} else if (pickmeup.hasClass('js-nemo-pmu-viewDays')) {
 				localDate.addMonths(i - currentCal);
 				header = formatDate(localDate, 'B, Y', options.locale);
 			}
@@ -322,7 +322,7 @@
 				for (var j = 0; j < 12; ++j) {
 					year = {
 						text: start_from_year + j,
-						className: []
+						className: ['nemo-pmu-years_year']
 					};
 					if (
 						(
@@ -341,7 +341,7 @@
 					years.push(year);
 				}
 				//we have 12 years in grid, if 11 of 'em are disabled - disable year selection
-				if(disabledYearsCounter >= 11){
+				if(instance.index() == pickmeup.find('.js-nemo-pmu-instance:eq('+currentCal+')').index() && disabledYearsCounter >= 11){
 					options.selectYear = false;
 				}
 				html += options.tpl.body(years, 'nemo-pmu-years');
@@ -358,7 +358,7 @@
 				for (var j = 0; j < 12; ++j) {
 					month = {
 						text: options.locale.monthsShort[j],
-						className: []
+						className: ['nemo-pmu-months_month']
 					};
 					if (
 						(
@@ -389,7 +389,8 @@
 					months.push(month);
 				}
 				//we have 12 month in grid, if 11 of 'em are disabled - disable month selection
-				if(disabledMonthsCounter >= 11){
+
+				if(instance.index() == pickmeup.find('.js-nemo-pmu-instance:eq('+currentCal+')').index() && disabledMonthsCounter >= 11){
 					options.selectMonth = false;
 				}
 				html += options.tpl.body(months, 'nemo-pmu-months');
@@ -407,7 +408,7 @@
 				for (var j = 0; j < 42; ++j) {
 					day = {
 						text: localDate.getDate(),
-						className: ['nemo-pmu-day'],
+						className: ['nemo-pmu-days_day'],
 						val: '',
 						date: []
 					};
@@ -439,7 +440,7 @@
 						day.className.push('nemo-pmu-selected');
 					}
 					if (current_month != localDate.getMonth()) {
-						day.className.push('nemo-pmu-not-in-month');
+						day.className.push('nemo-pmu-notInMonth');
 						if (day.className.indexOf('nemo-pmu-selected')>=0){
 							for (var k=day.className.length-1; k>=0; k--) {
 								if (day.className[k] === "nemo-pmu-selected") {
@@ -709,7 +710,7 @@
 			el = el.closest('.js-nemo-pmu-button');
 		}
 		if (el.length) {
-			if (el.hasClass('js-snemo-pmu-disabled')) {
+			if (el.hasClass('js-nemo-pmu-disabled')) {
 				return false;
 			}
 			var $this = $(this),
@@ -720,7 +721,7 @@
 			if (el.parent().is('nav')) {
 				if (el.hasClass('js-nemo-pmu-month')) {
 					options.current.addMonths(instance_index - options.binded.currentCalendar());
-					if (root.hasClass('js-nemo-pmu-view-years')) {
+					if (root.hasClass('js-nemo-pmu-viewYears')) {
 						// Shift back to current date, otherwise with min value specified may jump on few (tens) years forward
 						if (options.mode != 'single') {
 							options.current = new Date(options.date[options.date.length - 1]);
@@ -728,29 +729,29 @@
 							options.current = new Date(options.date);
 						}
 						if (options.selectDay) {
-							root.removeClass('js-nemo-pmu-view-years').addClass('js-nemo-pmu-view-days');
-							root.removeClass('nemo-pmu-view-years').addClass('nemo-pmu-view-days');
+							root.removeClass('js-nemo-pmu-viewYears').addClass('js-nemo-pmu-viewDays');
+							root.removeClass('nemo-pmu-viewYears').addClass('nemo-pmu-viewDays');
 						} else if (options.selectMonth) {
-							root.removeClass('js-nemo-pmu-view-years').addClass('js-nemo-pmu-view-months');
-							root.removeClass('nemo-pmu-view-years').addClass('nemo-pmu-view-months');
+							root.removeClass('js-nemo-pmu-viewYears').addClass('js-nemo-pmu-viewMonths');
+							root.removeClass('nemo-pmu-viewYears').addClass('nemo-pmu-viewMonths');
 						}
 					}
-					else if (root.hasClass('js-nemo-pmu-view-months')) {
+					else if (root.hasClass('js-nemo-pmu-viewMonths')) {
 						if (options.selectYear) {
-							root.removeClass('js-nemo-pmu-view-months').addClass('js-nemo-pmu-view-years');
-							root.removeClass('nemo-pmu-view-months').addClass('nemo-pmu-view-years');
+							root.removeClass('js-nemo-pmu-viewMonths').addClass('js-nemo-pmu-viewYears');
+							root.removeClass('nemo-pmu-viewMonths').addClass('nemo-pmu-viewYears');
 						} else if (options.selectDay) {
-							root.removeClass('js-nemo-pmu-view-months').addClass('js-nemo-pmu-view-days');
-							root.removeClass('nemo-pmu-view-months').addClass('nemo-pmu-view-days');
+							root.removeClass('js-nemo-pmu-viewMonths').addClass('js-nemo-pmu-viewDays');
+							root.removeClass('nemo-pmu-viewMonths').addClass('nemo-pmu-viewDays');
 						}
 					}
-					else if (root.hasClass('js-nemo-pmu-view-days')) {
+					else if (root.hasClass('js-nemo-pmu-viewDays')) {
 						if (options.selectMonth) {
-							root.removeClass('js-nemo-pmu-view-days').addClass('js-nemo-pmu-view-months');
-							root.removeClass('nemo-pmu-view-days').addClass('nemo-pmu-view-months');
+							root.removeClass('js-nemo-pmu-viewDays').addClass('js-nemo-pmu-viewMonths');
+							root.removeClass('nemo-pmu-viewDays').addClass('nemo-pmu-viewMonths');
 						} else if (options.selectYear) {
-							root.removeClass('js-nemo-pmu-view-days').addClass('js-nemo-pmu-view-years');
-							root.removeClass('nemo-pmu-view-days').addClass('nemo-pmu-view-years');
+							root.removeClass('js-nemo-pmu-viewDays').addClass('js-nemo-pmu-viewYears');
+							root.removeClass('nemo-pmu-viewDays').addClass('nemo-pmu-viewYears');
 						}
 					}
 				}
@@ -763,35 +764,35 @@
 				}
 			}
 			else if (!el.hasClass('nemo-pmu-disabled')) {
-				if (root.hasClass('js-nemo-pmu-view-years')) {
+				if (root.hasClass('js-nemo-pmu-viewYears')) {
 					options.current.setFullYear(parseInt(el.text(), 10));
 					if (options.selectMonth) {
-						root.removeClass('js-nemo-pmu-view-years').addClass('js-nemo-pmu-view-months');
-						root.removeClass('nemo-pmu-view-years').addClass('nemo-pmu-view-months');
+						root.removeClass('js-nemo-pmu-viewYears').addClass('js-nemo-pmu-viewMonths');
+						root.removeClass('nemo-pmu-viewYears').addClass('nemo-pmu-viewMonths');
 					} else if (options.selectDay) {
-						root.removeClass('js-nemo-pmu-view-years').addClass('js-nemo-pmu-view-days');
-						root.removeClass('nemo-pmu-view-years').addClass('nemo-pmu-view-days');
+						root.removeClass('js-nemo-pmu-viewYears').addClass('js-nemo-pmu-viewDays');
+						root.removeClass('nemo-pmu-viewYears').addClass('nemo-pmu-viewDays');
 					} else {
 						options.binded.update_date();
 					}
 					options.onSetYear();
-				} else if (root.hasClass('js-nemo-pmu-view-months')) {
+				} else if (root.hasClass('js-nemo-pmu-viewMonths')) {
 					options.current.setMonth(instance.find('.js-nemo-pmu-months .js-nemo-pmu-button').index(el));
+					console.log(instance.find('.js-nemo-pmu-months .js-nemo-pmu-button').index(el));
 					options.current.setFullYear(parseInt(instance.find('.js-nemo-pmu-month').text(), 10));
 					if (options.selectDay) {
-						root.removeClass('js-nemo-pmu-view-months').addClass('js-nemo-pmu-view-days');
-						root.removeClass('nemo-pmu-view-months').addClass('nemo-pmu-view-days');
+						root.removeClass('js-nemo-pmu-viewMonths').addClass('js-nemo-pmu-viewDays');
+						root.removeClass('nemo-pmu-viewMonths').addClass('nemo-pmu-viewDays');
 					} else {
 						options.binded.update_date();
 					}
 					// Move current month to the first place
 					options.current.addMonths(options.binded.currentCalendar() - instance_index);
 					options.onSetMonth();
-
 				} else {
 					var val = parseInt(el.text(), 10);
 					options.current.addMonths(instance_index - options.binded.currentCalendar());
-					if (el.hasClass('nemo-pmu-not-in-month')) {
+					if (el.hasClass('nemo-pmu-notInMonth')) {
 						options.current.addMonths(val > 15 ? -1 : 1);
 					}
 					options.current.setDate(val);
@@ -834,11 +835,13 @@
 				},
 				top = pos.top,
 				left = pos.left;
+			var inputWidth;
 			options.binded.fill();
 
 			var format = $this.pickmeup().format;
 			format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
 			if ($this.is('input')) {
+				inputWidth = $this.outerWidth();
 				var testDate = new RegExp(format , 'i');
 				$this
 					.pickmeup('set_date', parseDate($this.val() ? $this.val() : options.defaultDate, options.format, options.separator, options.locale))
@@ -858,29 +861,14 @@
 					})
 					.on('blur', function(){$this.pickmeup('hide')});
 				options.lastSel = false;
-				$(window).on('resize',function(){
-					if (top + pickmeup.offsetHeight > viewport.t + viewport.h) {
-						top = pos.top - pickmeup.offsetHeight;
-					}
-					if (top < viewport.t) {
-						top = pos.top + this.offsetHeight + pickmeup.offsetHeight;
-					}
-					if (left + pickmeup.offsetWidth > viewport.l + viewport.w) {
-						left = pos.left - pickmeup.offsetWidth;
-					}
-					if (left < viewport.l) {
-						left = pos.left + this.offsetWidth
-					}
-					pickmeup.css({
-						top: top + 'px',
-						left: left + 'px'
-					});
-				})
 			}
 			options.beforeShow();
 			if (options.show() == false) {
 				return;
 			}
+			var instanceWidth = pickmeup.find('.js-nemo-pmu-instance:eq(0)').width();
+			var instancesWidth = instanceWidth*options.calendars;
+			var instanceCenter = instancesWidth/2 - inputWidth/2;
 			if (!options.flat) {
 				switch (options.position) {
 					case 'top':
@@ -908,11 +896,41 @@
 				if (left < viewport.l) {
 					left = pos.left + this.offsetWidth
 				}
-				pickmeup.css({
-					display: 'inline-block',
-					top: top + 'px',
-					left: left + 'px'
-				});
+				if(instancesWidth + left + instanceCenter >= viewport.w || instanceCenter > left){
+					instanceCenter = 0;
+				}
+				console.log(instancesWidth , left , instanceCenter, viewport.w)
+				if (instancesWidth < viewport.w && instancesWidth+left-instanceCenter >= viewport.w) {
+					pickmeup.removeClass('nemo-pmu-thinView');
+					pickmeup.css({
+						display: 'inline-block',
+						top: top + 'px',
+						right:0
+					});
+				}else if(instancesWidth >= viewport.w && instanceWidth+left-instanceCenter <= viewport.w){
+					pickmeup.addClass('nemo-pmu-thinView');
+					pickmeup.css({
+						display: 'inline-block',
+						top: top + 'px',
+						right:'auto',
+						left:left
+					});
+				}else if(instancesWidth >= viewport.w && instanceWidth+left-instanceCenter >= viewport.w){
+					pickmeup.addClass('nemo-pmu-thinView');
+					pickmeup.css({
+						display: 'inline-block',
+						top: top + 'px',
+						right:0
+					});
+				}else{
+					pickmeup.removeClass('nemo-pmu-thinView');
+					pickmeup.css({
+						display: 'inline-block',
+						top: top + 'px',
+						left: left-instanceCenter  + 'px',
+						right:'auto'
+					});
+				}
 				$(document)
 					.on(
 					'mousedown' + options.events_namespace + ' touchstart' + options.events_namespace + 'blur' + options.events_namespace,
@@ -986,11 +1004,11 @@
 		}
 		var root = this.pickmeup;
 		var options = $(this).data('pickmeup-options');
-		if (root.hasClass('nemo-pmu-view-years')) {
+		if (root.hasClass('nemo-pmu-viewYears')) {
 			options.current.addYears(-12);
-		} else if (root.hasClass('nemo-pmu-view-months')) {
+		} else if (root.hasClass('nemo-pmu-viewMonths')) {
 			options.current.addYears(-1);
-		} else if (root.hasClass('nemo-pmu-view-days')) {
+		} else if (root.hasClass('nemo-pmu-viewDays')) {
 			options.current.addMonths(-1);
 		}
 		if (fill) {
@@ -1004,11 +1022,11 @@
 		}
 		var root = this.pickmeup;
 		var options = $(this).data('pickmeup-options');
-		if (root.hasClass('nemo-pmu-view-years')) {
+		if (root.hasClass('nemo-pmu-viewYears')) {
 			options.current.addYears(12);
-		} else if (root.hasClass('nemo-pmu-view-months')) {
+		} else if (root.hasClass('nemo-pmu-viewMonths')) {
 			options.current.addYears(1);
-		} else if (root.hasClass('nemo-pmu-view-days')) {
+		} else if (root.hasClass('nemo-pmu-viewDays')) {
 			options.current.addMonths(1);
 		}
 		if (fill) {
@@ -1079,23 +1097,23 @@
 
 	function getDateElementSelected() {
 		//returns collection of selected dates, if visible
-		return $(this.pickmeup).find('.nemo-pmu-day.nemo-pmu-selected');
+		return $(this.pickmeup).find('.nemo-pmu-days_day.nemo-pmu-selected');
 	}
 
 	function getDateElementCustom(dates) {
 		//returns elementts by custom dates, accept epoch, formatted date (!format must same as in picker!) and array
 		var options = $(this).data('pickmeup-options');
 		if ('number' === typeof dates) {
-			return $(this.pickmeup).find('.nemo-pmu-day[data-date="' + dates + '"]');
+			return $(this.pickmeup).find('.nemo-pmu-days_day[data-date="' + dates + '"]');
 		}
 		else if ('string' === typeof dates) {
 			var parsedDate = parseDate(dates, options.format, options.separator, options.locale).setHours(0, 0, 0, 0);
-			return $(this.pickmeup).find('.nemo-pmu-day[data-date="' + parsedDate + '"]')
+			return $(this.pickmeup).find('.nemo-pmu-days_day[data-date="' + parsedDate + '"]')
 		}
 		else if (dates.constructor != Array()) {
 			var result = [];
 			for (var date in dates) {
-				result.push($(this.pickmeup).find('.nemo-pmu-day[data-date="' + dates[date] + '"]'));
+				result.push($(this.pickmeup).find('.nemo-pmu-days_day[data-date="' + dates[date] + '"]'));
 			}
 			return result
 		}

@@ -8,6 +8,7 @@
  * @copyleft	Copyleft (c) 2015, Boris Sobolevskiy
  * @license		MIT License, see license.txt if present.
  */
+$instance_width = 258px;
 .js-picker::-ms-clear {
   display: none;
 }
@@ -29,7 +30,7 @@ visibility: hidden !important;
 .nemo-pmu-instance {
   display: inline-block;
   text-align: center;
-  width: 258px;
+  width: $instance_width;
 }
 
 .nemo-pmu-yearWrap,
@@ -49,21 +50,18 @@ visibility: hidden !important;
 	color: #414042;
   }
 }
-.nemo-pmu-years ,
-.nemo-pmu-months ,
+.nemo-pmu-years,
+.nemo-pmu-months,
 .nemo-pmu-days {
   border: 1px solid #DCDCDC;
   border-radius: 3px;
   padding: 7px;
   margin-bottom: 14px;
+  width: 220px;
 }
-
 .nemo-pmu-years,
 .nemo-pmu-months{
-  width: 190px;
-}
-.nemo-pmu-days{
-  width: 220px;
+  margin-top: 14px;
 }
 .nemo-pmu-days .nemo-pmu-button,
 .nemo-pmu-months .nemo-pmu-button,
@@ -88,7 +86,7 @@ visibility: hidden !important;
 	border-bottom: 0px;
   }
 }
-.nemo-pmu-day{
+.nemo-pmu-days_day{
   width: 29px;
   height: 29px;
   line-height: 29px;
@@ -101,7 +99,7 @@ visibility: hidden !important;
   margin-top: -1px;
   margin-left: -1px;
 }
-.nemo-pmu-not-in-month {
+.nemo-pmu-notInMonth {
   color: #BDBDBD;
 }
 .nemo-pmu-disabled,
@@ -116,7 +114,7 @@ visibility: hidden !important;
 .nemo-pmu-not-in-month.nemo-pmu-selected {
   background: #17384d;
 }
-.nemo-pmu-month-header{
+.nemo-pmu-monthHeader{
   background: #4DB0E4;
   border-radius: 2px;
   position: relative;
@@ -167,9 +165,12 @@ visibility: hidden !important;
   line-height: 1.8em;
   width: 30px;
 }
-.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-dayWrap,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-days) .nemo-pmu-dayOfWeek,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-months) .nemo-pmu-monthsWrap,
-.nemo-pmu-wrapper:not(.nemo-pmu-view-years) .nemo-pmu-yearsWrap {
+.nemo-pmu-wrapper:not(.nemo-pmu-viewDays) .nemo-pmu-daysWrap,
+.nemo-pmu-wrapper:not(.nemo-pmu-viewDays) .nemo-pmu-dayOfWeek,
+.nemo-pmu-wrapper:not(.nemo-pmu-viewMonths) .nemo-pmu-monthsWrap,
+.nemo-pmu-wrapper:not(.nemo-pmu-viewYears) .nemo-pmu-yearsWrap {
   display: none;
+}
+.nemo-pmu-thinView{
+  max-width:$instance_width;
 }
