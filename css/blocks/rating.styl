@@ -15,6 +15,10 @@
 			&_selected{
 				background: url("images/star-gold.svg") 0 0 no-repeat;
 			}
+			
+			&_half{
+				background: url("images/star-half.svg") 0 0 no-repeat;
+			}
 		}
 		
 		&_small{
@@ -34,6 +38,45 @@
 		margin: 0 0 0 20px;
 		img{
 			vertical-align: middle;
+		}
+	}
+	
+	&ratingDetails{
+		padding: 15px 15px 5px;
+		background: #fff;
+		border-radius: 5px;
+
+		&__title{
+			font-size: 14px;
+			line-height: 16px;
+			color: #626366;
+			padding: 0 0 10px;
+		}
+		
+		&__item{
+			white-space: nowrap;
+			padding: 0 0 10px;
+
+			&__rating{
+				display: inline-block;
+				width: 105px;
+				vertical-align: middle;
+				
+				.new-ui-rating__item{
+					width: 18px;
+					height: 18px;
+				}
+			}
+			
+			&__text{
+				vertical-align: middle;
+				display: inline-block;
+				width: 130px;
+				padding: 0 0 0 5px;
+				font-size: 12px;
+				line-height: 15px;
+				color: #626366;
+			}
 		}
 	}
 }

@@ -1,0 +1,97 @@
+
+.new-{
+	&compareTableWrap{
+		background: #63636c;
+	}
+	&compareTable{
+		max-width: 1140px;
+		margin: 0 auto;
+		padding: 0 30px 10px;
+		@media only screen and (min-width: 1340px) { 
+			max-width: 1600px;
+		}
+		&__title{
+			padding: 10px 20px 20px;
+			color: #fff;
+			font-size: 13px;
+			line-height: 20px;
+		}
+		&__main{
+			padding: 20px;
+			background: #fff;			
+			&__inner{
+				border: 1px solid rgba(215, 233, 242, 0.5);
+				border-radius: 5px;
+				overflow: hidden;
+				&__table{
+					width: 100%;
+					tr{
+						&:first-child{
+							td{
+								border-top: 0;
+							}
+						}
+						td{
+							&:first-child{
+								border-left: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+		&-cell{
+			background: #fff;
+			width: 120px;
+			height: 60px;
+			padding: 5px 10px;
+			text-align: center;
+			vertical-align: middle;
+			border-top: 1px solid rgba(215, 233, 242, 0.5);
+			border-left: 1px solid rgba(215, 233, 242, 0.5);
+			font-size: 12px;
+			line-height: 15px;
+			color: #626366;
+			cursor: pointer;
+			.table-top{
+				display: inline-block;
+				vertical-align:top;
+				width: 100%;
+				text-align: right;
+			}
+			.table-bottom{
+				display: inline-block;
+				vertical-align:bottom;
+				width: 100%;
+				text-align: left;
+				&:before{
+					content: '';
+					display: inline-block;
+					height: 15px;
+				}
+			}
+			&.cellHover{
+				background: #64B5F6;
+				color: #fff;
+			}
+			&.cells-hover{
+				background: rgba(100, 181, 246, 0.05);
+			}
+			&_border&{
+				background: rgba(100, 181, 246, 0.1);
+			}
+			&_selected&{
+				background: rgba(100, 181, 246, 0.25);
+			}
+			&_price&{
+				background: rgba(100, 181, 246, 0.05);
+			}
+			&_best&{
+				background: rgba(122, 177, 53, 0.15);
+			}
+			&__company{
+				color: #9F9F9F;
+			}			
+		}
+	}
+}

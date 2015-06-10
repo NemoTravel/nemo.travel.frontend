@@ -48,4 +48,47 @@ $(function () {
 		$("html").toggleClass("nemo-root_asideShow");
 	});
 
+	$(".js-qtip").each(function() {
+		$(this).qtip({
+			content: {
+				text: $(this).find('.tooltiptext')
+			},
+			position: {
+				my: 'bottom right',  // Position my top left...
+				at: 'top right', // at the bottom right of...	
+				target: $(this).closest(".js-qtip")
+			}
+		});
+	});
+
+	$(".js-compareTable tr td").on("mouseenter", function(){
+		var $this = $(this),
+			$thisIndex = $this.index(),
+			$closest = $this.closest("tr"),
+			$closestIndex = $closest.index();
+
+		$this.addClass("cellHover");
+		for(i = 0; i < $thisIndex; i++){
+			$closest.children(".new-compareTable-cell").eq(i).addClass("cells-hover");
+		}
+		for(j = 0; j < $closestIndex; j++){
+			$closest.closest("table").find("tr").eq(j).children("td").eq($thisIndex).addClass("cells-hover");
+		}
+	});
+
+	$(".js-compareTable tr td").on("mouseleave", function(){
+		var $this = $(this),
+			$thisIndex = $this.index(),
+			$closest = $this.closest("tr"),
+			$closestIndex = $closest.index();
+
+		$this.removeClass("cellHover");
+		for(i = 0; i < $thisIndex; i++){
+			$closest.children(".new-compareTable-cell").eq(i).removeClass("cells-hover");
+		}
+		for(j = 0; j < $closestIndex; j++){
+			$closest.closest("table").find("tr").eq(j).children("td").eq($thisIndex).removeClass("cells-hover");
+		}
+	});
+
 });
