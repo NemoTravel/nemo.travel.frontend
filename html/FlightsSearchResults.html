@@ -151,13 +151,13 @@ Results template.
 		<a href="#" class="previous" data-bind="click: paginationNext, visible: paginationHasNext">&gt;</a>
 	</div>
 	<div>Transfer Flights</div>
-	<div data-bind="foreach: flightsCompareTableTransfer.groups">
+	<div data-bind="foreach: flightsCompareTableTransfer().groups">
 		<!-- ko if: !groupsFilteredOut() -->
-		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableTransfer.paginationShownPages() && $index() < $parent.flightsCompareTableTransfer.paginationShownPages() + $parent.flightsCompareTableTransfer.paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
+		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableTransfer().paginationShownPages() && $index() < $parent.flightsCompareTableTransfer().paginationShownPages() + $parent.flightsCompareTableTransfer().paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
 			<div data-bind="text: company.name"></div>
 			<div data-bind="foreach: groups">
 				<!-- ko if: !filteredOut() -->
-				<div data-bind="visible: ($parents[1].flightsCompareTableTransfer.allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
+				<div data-bind="visible: ($parents[1].flightsCompareTableTransfer().allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
 					<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', with: $data }"></div>
 				</div>
 				<!-- /ko -->
@@ -176,13 +176,13 @@ Results template.
 		<a href="#" class="previous" data-bind="click: paginationNext, visible: paginationHasNext">&gt;</a>
 	</div>
 	<div>Direct Flights</div>
-	<div data-bind="foreach: flightsCompareTableDirect.groups">
+	<div data-bind="foreach: flightsCompareTableDirect().groups">
 		<!-- ko if: !groupsFilteredOut() -->
-		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableDirect.paginationShownPages() && $index() < $parent.flightsCompareTableDirect.paginationShownPages() + $parent.flightsCompareTableDirect.paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
+		<div data-bind="style:{display:$index() >= $parent.flightsCompareTableDirect().paginationShownPages() && $index() < $parent.flightsCompareTableDirect().paginationShownPages() + $parent.flightsCompareTableDirect().paginationStep() ? 'inline-block': 'none'}" style="margin-right: 10px; vertical-align: top">
 		<div data-bind="text: company.name"></div>
 			<div data-bind="foreach: groups">
 				<!-- ko if: !filteredOut() -->
-					<div data-bind="visible: ($parents[1].flightsCompareTableDirect.allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
+					<div data-bind="visible: ($parents[1].flightsCompareTableDirect().allGroupsVisible() ? true : $index() < 3)" style="margin: 10px;padding: 10px;border: 1px solid; width: 150px; height: 70px; display: block; overflow: hidden;">
 						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', with: $data }"></div>
 					</div>
 				<!-- /ko -->

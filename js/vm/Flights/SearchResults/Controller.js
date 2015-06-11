@@ -208,8 +208,8 @@ define(
 			this.flights = {};
 			this.airlines = {};
 			this.airlinesByRating = [];
-			this.flightsCompareTableDirect = null;
-			this.flightsCompareTableTransfer = null;
+			this.flightsCompareTableDirect = ko.observable();
+			this.flightsCompareTableTransfer = ko.observable();
 
 			this.groups = ko.observableArray([]);
 			this.hasVisibleResult = ko.observable(true);
@@ -470,8 +470,8 @@ define(
 				}
 			}
 
-			this.flightsCompareTableDirect = this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true});
-			this.flightsCompareTableTransfer = this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false});
+			this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
+			this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
 
 			this.buildPFs();
 
@@ -648,7 +648,9 @@ define(
 			for (var i = 0; i < groups.length; i++) {
 				groups[i].recalculateSelf();
 			}
-
+			this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
+			this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
+			console.log(this.flightsCompareTableDirect(), this.flightsCompareTableTransfer())
 			this.hasVisibleResult(visibleResult);
 
 			this.setShowcase();

@@ -8,9 +8,10 @@ define(
 				tmpct = {},
 				tmpctDirect = {},
 				tmpctTransfer = {};
-			
+
+
 			for (var i = 0; i < tempFlightGroups.length; i++) {
-				if (tempFlightGroups[i].isDirectGroup == false){
+				if (tempFlightGroups[i].isDirectGroup == false && tempFlightGroups[i].filteredOut() == false){
 					if (typeof tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
 						tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA] = {
 							company: tempFlightGroups[i].getValidatingCompany(),
@@ -18,7 +19,7 @@ define(
 						};
 					}
 					tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA].groups.push(tempFlightGroups[i]);
-				}else if (tempFlightGroups[i].isDirectGroup == true) {
+				}else if (tempFlightGroups[i].isDirectGroup == true && tempFlightGroups[i].filteredOut() == false) {
 					if (typeof tmpctDirect[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
 						tmpctDirect[tempFlightGroups[i].getValidatingCompany().IATA] = {
 							company: tempFlightGroups[i].getValidatingCompany(),
