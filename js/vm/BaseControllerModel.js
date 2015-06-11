@@ -98,6 +98,7 @@ define(
 				},
 				function () {
 					self.$$error('Could not load KO bindings.');
+					self.$$controller.error(arguments);
 				}
 			);
 		};
