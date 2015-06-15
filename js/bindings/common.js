@@ -47,6 +47,12 @@ define(
 					return state.text;
 				};
 
+				simpleSelect.containerCssClass = simpleSelect.containerCssClass || 'new-ui-select2__container';
+				simpleSelect.dropdownCssClass = simpleSelect.dropdownCssClass || 'new-ui-select2__dropdown';
+
+				// Overriding width
+				simpleSelect.width = simpleSelect.width || 'auto';
+
 				$(el).select2(simpleSelect);
 			},
 			update: function (el, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

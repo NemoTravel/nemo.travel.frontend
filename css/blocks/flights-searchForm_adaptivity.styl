@@ -42,7 +42,7 @@ adapt_flights_form_twoThirds() {
 			display: none;
 		}
 
-		&__route, &__passengers, &__button {
+		&__route, &__passengers, &__buttonContainer {
 			display: block;
 			width: auto;
 			position: relative;
@@ -179,6 +179,12 @@ adapt_flights_form_compact() {
 				text-align: left;
 			}
 
+			&__selectWrap {
+				.select2, .selection {
+					display: block;
+				}
+			}
+
 			&_buttons {
 				display: none;
 			}
@@ -188,7 +194,7 @@ adapt_flights_form_compact() {
 			}
 		}
 
-		&__route, &__passengers, &__button {
+		&__route, &__passengers, &__buttonContainer {
 			display: block;
 			position: relative;
 		}
@@ -295,15 +301,20 @@ adapt_flights_form_compact() {
 			&__containerColumn {
 				display: block;
 			}
+
+			&__fastSelect {
+				min-width: 100%;
+			}
 		}
 
-		&__button {
+		&__buttonContainer {
 			padding: 40px 0 0;
 			width: 100%;
+			display: block;
+		}
 
-			&__button {
-				width: 100%;
-			}
+		&__buyButton {
+			width: 100%;
 		}
 
 		&__routeOptions {
@@ -311,6 +322,11 @@ adapt_flights_form_compact() {
 			position: relative;
 			margin-top: 20px;
 			text-align: left;
+			z-index: 1;
+
+			.select2, .selection {
+				display: block;
+			}
 
 			&__inner {
 				padding: 0 0 20px;
@@ -335,7 +351,8 @@ adapt_flights_form_compact() {
 					top: -100px;
 					z-index: 2;
 
-					.nemo-flights-form__routeOptions__item__selector, .nemo-flights-form__routeOptions__item__selector__button {
+					.nemo-flights-form__routeOptions__item__selector,
+					.nemo-flights-form__routeOptions__item__selector__button {
 						width: 100%;
 						text-align: left;
 					}
@@ -343,12 +360,6 @@ adapt_flights_form_compact() {
 
 				&__checkbox {
 					padding-top: 0;
-				}
-
-				&__selector {
-					&__dropdown {
-
-					}
 				}
 			}
 		}
@@ -385,7 +396,7 @@ adapt_flights_form_compact() {
 	max-width: 640px;
 
 	.nemo-flights-form__formContainer {
-		border-radius: 10px;
+		border-radius: 4px;
 	}
 }
 

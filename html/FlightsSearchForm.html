@@ -16,22 +16,32 @@
 	<!-- TODO dropdown -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_select">
 		<div class="nemo-flights-form__routeTypeSelector__selectWrap">
-			<div
-				class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeTypeSelector__select"
-				data-bind="
-					click: toggleTypeSelector,
-					css: {'new-ui-button_direction_active': typeSelectorOpen()},
-					text: $root.i18n('FlightsSearchForm','triptype_'+tripType())"></div>
-			<!-- ko if: typeSelectorOpen() -->
-			<div class="nemo-flights-form__routeTypeSelector__dropdown" data-bind="foreach: tripTypes">
-				<div
-					class="nemo-flights-form__routeTypeSelector__dropdown__item"
-					data-bind="
-						text: $root.i18n('FlightsSearchForm','triptype_'+$data),
-						css: {'nemo-flights-form__routeTypeSelector__dropdown__item_active': $parent.tripType() == $data},
-						click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div>
-			</div>
-			<!-- /ko -->
+			<!--<div-->
+				<!--class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeTypeSelector__select"-->
+				<!--data-bind="-->
+					<!--click: toggleTypeSelector,-->
+					<!--css: {'new-ui-button_direction_active': typeSelectorOpen()},-->
+					<!--text: $root.i18n('FlightsSearchForm','triptype_'+tripType())"></div>-->
+			<!--&lt;!&ndash; ko if: typeSelectorOpen() &ndash;&gt;-->
+			<!--<div class="nemo-flights-form__routeTypeSelector__dropdown" data-bind="foreach: tripTypes">-->
+				<!--<div-->
+					<!--class="nemo-flights-form__routeTypeSelector__dropdown__item"-->
+					<!--data-bind="-->
+						<!--text: $root.i18n('FlightsSearchForm','triptype_'+$data),-->
+						<!--css: {'nemo-flights-form__routeTypeSelector__dropdown__item_active': $parent.tripType() == $data},-->
+						<!--click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div>-->
+			<!--</div>-->
+			<!--&lt;!&ndash; /ko &ndash;&gt;-->
+			<select data-bind="
+					simpleSelect: {
+						data: tripTypes,
+						minimumResultsForSearch: Infinity,
+						containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeTypeSelector__select',
+						i18nSegment: 'FlightsSearchForm',
+						i18nPrefix: 'triptype_'
+					},
+					value: tripType
+				"></select>
 		</div>
 	</div>
 
@@ -192,7 +202,7 @@
 					<!-- /ko -->
 					<!-- ko if: passengersUseExtendedSelect -->
 					<div class="nemo-flights-form__passengers__fastSelect__item" data-bind="click: function () {passengersSelectorOpen(true);passengersFastSelectorOpen(false);}">
-						FULL SELECT
+						Больше пассажиров
 					</div>
 					<!-- /ko -->
 				</div>
@@ -216,23 +226,16 @@
 							Маршрут
 						</span>
 						<div class="nemo-flights-form__routeOptions__item__selector">
-							<div
-								class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
-								data-bind="
-									click: toggleTypeSelector,
-									css: {'new-ui-button_direction_active': typeSelectorOpen()},
-									text: $root.i18n('FlightsSearchForm','triptype_'+tripType())"
-								></div>
-							<!-- ko if: typeSelectorOpen() -->
-							<div class="nemo-flights-form__routeOptions__item__selector__dropdown" data-bind="foreach: tripTypes">
-								<div
-									class="nemo-flights-form__routeOptions__item__selector__dropdown__item"
-									data-bind="
-										text: $root.i18n('FlightsSearchForm','triptype_'+$data),
-										css: {'nemo-flights-form__routeOptions__item__selector__dropdown__item_active': $parent.tripType() == $data},
-										click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div>
-							</div>
-							<!-- /ko -->
+							<select data-bind="
+								simpleSelect: {
+									data: tripTypes,
+									minimumResultsForSearch: Infinity,
+									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
+									i18nSegment: 'FlightsSearchForm',
+									i18nPrefix: 'triptype_'
+								},
+								value: tripType
+							"></select>
 						</div>
 					</div><!--
 					--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_class">
@@ -240,21 +243,16 @@
 							Класс
 						</span>
 						<div class="nemo-flights-form__routeOptions__item__selector">
-							<div
-								class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
-								data-bind="click: toggleClassSelector,
-									css: {'new-ui-button_direction_active': classSelectorOpen()},
-									text: $root.i18n('FlightsSearchForm','serviceClass_'+serviceClass())"></div>
-							<!-- ko if: classSelectorOpen() -->
-							<div class="nemo-flights-form__routeOptions__item__selector__dropdown" data-bind="foreach: serviceClasses">
-								<div
-										class="nemo-flights-form__routeOptions__item__selector__dropdown__item"
-										data-bind="
-										text: $root.i18n('FlightsSearchForm','serviceClass_'+$data),
-										css: {'nemo-flights-form__routeOptions__item__selector__dropdown__item_active': $parent.serviceClass() == $data},
-										click: function () {$parent.serviceClass($data);$parent.classSelectorOpen(false);}"></div>
-							</div>
-							<!-- /ko -->
+							<select data-bind="
+								simpleSelect: {
+									data: serviceClasses,
+									minimumResultsForSearch: Infinity,
+									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
+									i18nSegment: 'FlightsSearchForm',
+									i18nPrefix: 'serviceClass_'
+								},
+								value: serviceClass
+							"></select>
 						</div>
 					</div><!--
 						ko if: tripType() != 'CR'
@@ -318,6 +316,7 @@
 			</div>
 		</div>
 	<!-- /ko -->
+
 <!-- /ko -->
 <!--<div class="nemo-flights-form__routeOptions__item__selector__dropdown" data-bind="foreach: serviceClasses">
 	<div

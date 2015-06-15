@@ -320,6 +320,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 					line-height: 30px;
 					height: 30px;
 					box-shadow: none;
+					padding-right: 33px;
+
+					.select2-selection__arrow {
+						width: 33px;
+					}
 				}
 
 				&__dropdown {
@@ -378,11 +383,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 		&__containerColumn {
 			display: none;
-			@extend .nemo-flights-form__routeOptions__item__selector;
+			@extend .nemo-flights-form__routeOptions__item__selector__button;
 			text-align: left;
-			margin: 0;
-			line-height: 30px;
-			height: 30px;
+			/*margin: 0;*/
+			/*line-height: 30px;*/
+			/*height: 30px;*/
 		}
 
 		&__container {
@@ -627,19 +632,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		}
 
 		&__select {
-			@extend .nemo-flights-form__routeOptions__item__selector;
+			@extend .nemo-flights-form__routeOptions__item__selector__button;
 			margin: 0;
 			line-height: 30px;
 			height: 30px;
-		}
-
-		&__dropdown {
-			@extend .nemo-flights-form__routeOptions__item__selector__dropdown;
-			margin-top: 10px;
-
-			&__item {
-				@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
-			}
 		}
 	}
 }
