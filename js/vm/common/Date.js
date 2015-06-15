@@ -68,6 +68,16 @@ define(
 			return num;
 		};
 
+		CommonDate.prototype.dropTime = function (num) {
+			var dobj = this.dateObject();
+
+			dobj.setHours(0,0,0,0);
+
+			this.dateObject(dobj);
+
+			return this;
+		};
+
 		return CommonDate;
 	}
 );

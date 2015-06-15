@@ -62,6 +62,8 @@
 	"passSummary_numeral_SRC_fourPlus": "Пенсионеров",
 	"passSummary_numeral_mixed_fourPlus": "Пассажиров",
 
+	"passSummary_fastSelect_lastConjunction": "и",
+
 	"autocomplete_noResults": "Укажите город или аэропорт",
 
 	"error_departure_noInput": "Укажите пункт вылета",
@@ -71,6 +73,9 @@
 	"error_departureDate_notInOrder": "Даты должны идти по порядку",
 	"error_departureDate_tooEraly": "Дата слишком рано",
 	"error_departureDate_tooLate": "Дата слишком поздно",
+
+	"error_passengers_noPassengers": "Нет пассажиров",
+	"error_passengers_noAdults": "Укажите хотя бы одного взрослого",
 
 	"searchError_requestFailed": "Поиск не удался, обратитесь к разработчику. (Провалился запрос)",
 	"searchError_brokenJSON": "Поиск не удался, обратитесь к разработчику. (Некорректный ответ)",

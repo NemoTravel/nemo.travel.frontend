@@ -11,7 +11,12 @@ define(
 
 			this.segments = ko.observableArray([]);
 			this.dateRestrictions = [];
+
 			this.passengers = ko.observable({});
+			this.passengersError = ko.observable(false);
+			this.passengersUseExtendedSelect = true;
+			this.passengersFastSelectOptions = [];
+
 			this.options = {};
 
 			this.tripType = ko.observable('OW');
@@ -41,9 +46,10 @@ define(
 			this.isSearching = ko.observable(false);
 			this.searchError = ko.observable(false);
 
-			this.typeSelectorOpen       = ko.observable(false);
-			this.classSelectorOpen      = ko.observable(false);
-			this.passengersSelectorOpen = ko.observable(false);
+			this.typeSelectorOpen           = ko.observable(false);
+			this.classSelectorOpen          = ko.observable(false);
+			this.passengersSelectorOpen     = ko.observable(false);
+			this.passengersFastSelectorOpen = ko.observable(false);
 
 			this.processInitParams();
 
@@ -182,7 +188,33 @@ define(
 			this.isValid = ko.computed(function () {
 				var segments = this.segments(),
 					ret = true,
-					prevDate;
+					prevDate,
+					passengers = this.passengers(),
+					totalPassengers = 0,
+					adtPassengers = 0;
+
+				// Checking passengers
+				for (var i in passengers) {
+					if (passengers.hasOwnProperty(i)) {
+						totalPassengers += passengers[i]();
+
+						if (this.passengerAdultTypes.indexOf(i) >= 0) {
+							adtPassengers += passengers[i]();
+						}
+					}
+				}
+
+				if (totalPassengers == 0) {
+					ret = false;
+					this.passengersError('noPassengers');
+				}
+				else if (adtPassengers == 0) {
+					ret = false;
+					this.passengersError('noAdults');
+				}
+				else {
+					this.passengersError(false);
+				}
 
 				if (segments.length) {
 					for (var i = 0; i < segments.length; i++) {
@@ -216,6 +248,9 @@ define(
 							}
 						}
 					}
+				}
+				else {
+					ret = false;
 				}
 
 				return ret;
@@ -280,7 +315,67 @@ define(
 
 		FlightsSearchFormController.prototype.toggleTypeSelector       = function () {this.typeSelectorOpen(!this.typeSelectorOpen());};
 		FlightsSearchFormController.prototype.toggleClassSelector      = function () {this.classSelectorOpen(!this.classSelectorOpen());};
-		FlightsSearchFormController.prototype.togglePassengersSelector = function () {this.passengersSelectorOpen(!this.passengersSelectorOpen());};
+
+		FlightsSearchFormController.prototype.openPassengersSelector = function () {
+			if (this.passengersFastSelectOptions.length == 0 && this.passengersUseExtendedSelect) {
+				this.passengersSelectorOpen(true);
+			}
+			else if (this.passengersFastSelectOptions.length != 0) {
+				this.passengersFastSelectorOpen(!this.passengersFastSelectorOpen());
+			}
+		};
+
+		FlightsSearchFormController.prototype.passengersTextForFastSelect = function (index) {
+			var source = this.passengersFastSelectOptions[index].set,
+				ret = [],
+				tmp = '';
+
+			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
+				if (source.hasOwnProperty(this.passengerTypesOrder[i]) && source[this.passengerTypesOrder[i]] > 0) {
+					ret.push(source[this.passengerTypesOrder[i]] + ' ' + this.$$controller.i18n('FlightsSearchForm','passSummary_numeral_' + this.passengerTypesOrder[i] + '_' + helpers.getNumeral(source[this.passengerTypesOrder[i]], 'one', 'twoToFour', 'fourPlus')));
+				}
+			}
+
+			if (ret.length > 1) {
+				tmp = (this.$$controller.i18n('FlightsSearchForm','passSummary_fastSelect_lastConjunction')[0] == ',' ? '' : ' ') +
+					this.$$controller.i18n('FlightsSearchForm','passSummary_fastSelect_lastConjunction') +
+					' ' +
+					ret.pop();
+			}
+
+			ret = ret.join(', ') + tmp;
+
+			return ret;
+		};
+
+		FlightsSearchFormController.prototype.passengersSelectFast = function (index) {
+			var passengers = this.passengers(),
+				tmp = [];
+
+			// Clearing passengers count
+			for (var i in passengers) {
+				if (passengers.hasOwnProperty(i)) {
+					passengers[i](0);
+				}
+			}
+
+			this.passengers(passengers);
+
+			this.fillPreInittedPassengers(this.passengerAdultTypes, this.passengersFastSelectOptions[index].set);
+			this.fillPreInittedPassengers(this.passengerInfantTypes, this.passengersFastSelectOptions[index].set);
+
+			// Types that are not ADT/INF
+			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
+				if (
+					this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
+					this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
+				) {
+					tmp.push(this.passengerTypesOrder[i]);
+				}
+			}
+
+			this.fillPreInittedPassengers(tmp, this.passengersFastSelectOptions[index].set);
+		};
 
 		// Additional stuff
 		// RegExps for params parsing
@@ -419,13 +514,24 @@ define(
 		FlightsSearchFormController.prototype.getSegmentDateParameters = function (dateObj, index) {
 			var ret = {
 					disabled: this.dateRestrictions[index][0] > dateObj || this.dateRestrictions[index][1] < dateObj,
-					segments: []
+					segments: [],
+					period: false
 				},
 				segments = this.segments();
 
 			for (var i = 0; i < segments.length; i++) {
 				if (segments[i].items.departureDate.value() && dateObj.getTime() == segments[i].items.departureDate.value().dateObject().getTime()) {
 					ret.segments.push(i);
+				}
+
+				if (
+					i > 0 &&
+					segments[i-1].items.departureDate.value() &&
+					segments[i].items.departureDate.value() &&
+					dateObj.getTime() > segments[i-1].items.departureDate.value().dateObject().getTime() &&
+					dateObj.getTime() < segments[i].items.departureDate.value().dateObject().getTime()
+				) {
+					ret.period = true;
 				}
 			}
 
@@ -467,6 +573,40 @@ define(
 				self.isSearching(false);
 			}
 
+			// @CRUTCH ignoring empty segments in CR
+			var segments = this.segments(),
+				emptySegments = [];
+
+			if (this.tripType() == 'CR') {
+				for (var i = 0; i < segments.length; i++) {
+					var isEmpty = true;
+
+					for (var j in segments[i].items) {
+						if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].value()) {
+							isEmpty = false;
+							break;
+						}
+					}
+
+					if (isEmpty) {
+						emptySegments.push(i);
+					}
+				}
+
+				if (emptySegments.length < segments.length) {
+					var tmp = [];
+
+					for (var i = 0; i < segments.length; i++) {
+						if (emptySegments.indexOf(i) < 0) {
+							segments[i].index = tmp.length;
+							tmp.push(segments[i]);
+						}
+					}
+
+					this.segments(tmp);
+				}
+			}
+
 			if (!this.isValid()) {
 				this.validaTERROR(true);
 				this.processValidation();
@@ -498,7 +638,7 @@ define(
 							isCity: segments[i].items.arrival.value().isCity
 						},
 						// @CRUTCH - ignore missing date of second leg on RT
-						departureDate: segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODateTime() : null
+						departureDate: segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().dropTime().getISODateTime() : null
 					});
 				}
 
@@ -563,27 +703,23 @@ define(
 				ret.push(i);
 			}
 
-			if (passType == 'ADT') {
-				ret.shift();
-			}
-
 			return ret;
 		};
 
-		FlightsSearchFormController.prototype.fillPreInittedPassengers = function (typesList) {
+		FlightsSearchFormController.prototype.fillPreInittedPassengers = function (typesList, source) {
 			var tmp;
 
 			for (var i = 0; i < typesList.length; i++) {
 				tmp = this.passengersRestrictions()[typesList[i]];
-				if (tmp && this.preinittedData.passengers[typesList[i]]) {
-					if (this.preinittedData.passengers[typesList[i]] > tmp.max) {
-						this.preinittedData.passengers[typesList[i]] = tmp.max;
+				if (tmp && source[typesList[i]]) {
+					if (source[typesList[i]] > tmp.max) {
+						source[typesList[i]] = tmp.max;
 					}
-					else if (this.preinittedData.passengers[typesList[i]] < tmp.min) {
-						this.preinittedData.passengers[typesList[i]] = tmp.min;
+					else if (source[typesList[i]] < tmp.min) {
+						source[typesList[i]] = tmp.min;
 					}
 
-					this.setPassengers(typesList[i], this.preinittedData.passengers[typesList[i]]);
+					this.setPassengers(typesList[i], source[typesList[i]]);
 				}
 			}
 		};
@@ -607,6 +743,10 @@ define(
 			// Passengers maximums
 			this.options = this.$$rawdata.flights.search.formData.maxLimits;
 			this.options.totalPassengers = parseInt(this.options.totalPassengers);
+
+			// Processing fast and full passengers selection
+			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
+			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
@@ -713,8 +853,8 @@ define(
 			// We take preInitted if we have to and there is data regarding that.
 			// If not - standart processing by formData from server
 			if (usePreInittedPassengers) {
-				this.fillPreInittedPassengers(this.passengerAdultTypes);
-				this.fillPreInittedPassengers(this.passengerInfantTypes);
+				this.fillPreInittedPassengers(this.passengerAdultTypes, this.preinittedData.passengers);
+				this.fillPreInittedPassengers(this.passengerInfantTypes, this.preinittedData.passengers);
 
 				// Types that are not ADT/INF
 				tmp = [];
@@ -722,13 +862,13 @@ define(
 				for (var i = 0; i < this.passengerTypesOrder.length; i++) {
 					if (
 						this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-							this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-						) {
+						this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
+					) {
 						tmp.push(this.passengerTypesOrder[i]);
 					}
 				}
 
-				this.fillPreInittedPassengers(tmp);
+				this.fillPreInittedPassengers(tmp, this.preinittedData.passengers);
 			}
 
 			// All changes from now on will go to cookie

@@ -72,8 +72,8 @@ define(
 							additionalValueChooser: stringPFMinPrice
 						}
 					},
-					transfersLength: {
-						name: 'transfersLength',
+					transfersDuration: {
+						name: 'transfersDuration',
 						type: 'Number',
 						isLegged: false,
 						legNumber: 0,
@@ -199,9 +199,11 @@ define(
 						options: {/* Filter-specific options here */}
 					}
 				},
-				order: ['price','transfersCount','carrier','transfersLength','departureTime','arrivalTime','departureAirport','arrivalAirport','timeEnRoute'],
+				order: ['price','transfersCount','carrier','transfersDuration','departureTime','arrivalTime','departureAirport','arrivalAirport','timeEnRoute'],
 				grouppable: ['departureTime','arrivalTime']
 			};
+
+			this.options = {};
 
 			this.segments = {};
 			this.prices = {};
@@ -234,7 +236,7 @@ define(
 			this.visiblePostFilters = ko.observableArray([]);
 			this.usePostfilters = false;
 
-			this.possibleSorts = ['price', 'durationOnLeg', 'recommended', 'carrierRating'];
+			this.possibleSorts = ['price', 'durationOnLeg', 'rating', 'carrierRating'];
 			this.sort = ko.observable(null);
 
 			this.sort.subscribe(function (newValue) {
@@ -249,7 +251,7 @@ define(
 							return a.durationOnLeg() - b.durationOnLeg();
 						});
 						break;
-					case 'recommended':
+					case 'rating':
 						this.groups.sort(function (a, b) {
 							return b.recommendRating() - a.recommendRating();
 						});
@@ -312,13 +314,7 @@ define(
 				timeType = 'n';
 
 			// Defining time type
-			timeFromDayStart = Math.floor(
-				(
-					d.getTime() -
-						dayStart.getTime()
-					) /
-					1000
-			);
+			timeFromDayStart = Math.floor((d.getTime() - dayStart.getTime()) / 1000);
 
 			for (var i = 0; i < this.PFTimeTypes.length; i++) {
 				if (timeFromDayStart < this.PFTimeTypes[i].seconds) {
@@ -328,7 +324,7 @@ define(
 			}
 
 			return timeType;
-		}
+		};
 
 		FlightsSearchResultsController.prototype.buildModels = function () {
 			var setSegmentsGuide = true,
@@ -336,6 +332,9 @@ define(
 				tmpGroups = {},
 				tmp;
 
+			// Processing options
+			this.options = this.$$rawdata.flights.search.resultData;
+			
 			// Processing search info
 			// Segments
 			for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
@@ -470,12 +469,14 @@ define(
 				}
 			}
 
-			this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
-			this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
+			if (this.options.showBlocks.useFlightCompareTable) {
+				this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
+				this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
+			}
 
 			this.buildPFs();
 
-			this.sort(this.possibleSorts[0]);
+			this.sort(this.options.defaultSort);
 
 			this.setShowcase();
 		};
@@ -678,37 +679,39 @@ define(
 				bestCompanies = [],
 				bestCompaniesCount = 3;
 
-			for (var i in this.flights) {
-				if (this.flights.hasOwnProperty(i) && !this.flights[i].filteredOut()) {
-					if(!bestFlight || bestFlight.recommendRating < this.flights[i].recommendRating) {
-						bestFlight = this.flights[i];
-					}
+			if (this.options.showBlocks.isShowCase) {
+				for (var i in this.flights) {
+					if (this.flights.hasOwnProperty(i) && !this.flights[i].filteredOut()) {
+						if(!bestFlight || bestFlight.recommendRating < this.flights[i].recommendRating) {
+							bestFlight = this.flights[i];
+						}
 
-					if(!fastestFlight || fastestFlight.totalTimeEnRoute.length() > this.flights[i].totalTimeEnRoute.length()) {
-						fastestFlight = this.flights[i];
+						if(!fastestFlight || fastestFlight.totalTimeEnRoute.length() > this.flights[i].totalTimeEnRoute.length()) {
+							fastestFlight = this.flights[i];
+						}
 					}
 				}
-			}
 
-			this.showcase.recommended(bestFlight);
-			this.showcase.fastest(fastestFlight);
+				this.showcase.recommended(bestFlight);
+				this.showcase.fastest(fastestFlight);
 
-			// Cheapest
-			for (var i = 0; i < groups.length; i++) {
-				if (
-					!groups[i].filteredOut() &&
-					(
-						!cheapestGroup ||
-						cheapestGroup.getTotalPrice().amount() > groups[i].getTotalPrice().amount()
-					)
-				) {
-					cheapestGroup = groups[i];
+				// Cheapest
+				for (var i = 0; i < groups.length; i++) {
+					if (
+						!groups[i].filteredOut() &&
+						(
+							!cheapestGroup ||
+							cheapestGroup.getTotalPrice().amount() > groups[i].getTotalPrice().amount()
+						)
+					) {
+						cheapestGroup = groups[i];
+					}
 				}
+
+				this.showcase.cheapest(cheapestGroup ? cheapestGroup.clone() : cheapestGroup);
 			}
 
-			this.showcase.cheapest(cheapestGroup ? cheapestGroup.clone() : cheapestGroup);
-
-			if (!this.showcase.bestCompanies()) {
+			if (this.options.showBlocks.showBestOffers && !this.showcase.bestCompanies()) {
 				for (var i = 0; i < this.airlinesByRating.length; i++) {
 					var showcaseBC = null;
 

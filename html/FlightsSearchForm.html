@@ -1,21 +1,38 @@
+<!-- nemo-flights-form_compact || nemo-flights-form_twoThirds -->
 <div class="nemo-flights-form js-autofocus-form">
 <!-- ko if: !$$loading() && !$$error() -->
 	<!-- ko if: isSearching -->
 		<div class="nemo-flights-form__blocker"></div>
 	<!-- /ko -->
-	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons">
-		<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
-			В одну сторону
-		</div><div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
-			Туда и обратно
-		</div><div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
-			Сложный маршрут
-		</div>
-	</div>
+	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons" data-bind="foreach: tripTypes"><!--
+		--><div
+			class="new-ui-button new-ui-button_secondary nemo-flights-form__routeTypeSelector__button"
+			data-bind="
+				text: $root.i18n('FlightsSearchForm','triptype_'+$data),
+				css: {'nemo-flights-form__routeTypeSelector__button_active': $parent.tripType() == $data},
+				click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div><!--
+	--></div>
 
 	<!-- TODO dropdown -->
-	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_dropdown">
-
+	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_select">
+		<div class="nemo-flights-form__routeTypeSelector__selectWrap">
+			<div
+				class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeTypeSelector__select"
+				data-bind="
+					click: toggleTypeSelector,
+					css: {'new-ui-button_direction_active': typeSelectorOpen()},
+					text: $root.i18n('FlightsSearchForm','triptype_'+tripType())"></div>
+			<!-- ko if: typeSelectorOpen() -->
+			<div class="nemo-flights-form__routeTypeSelector__dropdown" data-bind="foreach: tripTypes">
+				<div
+					class="nemo-flights-form__routeTypeSelector__dropdown__item"
+					data-bind="
+						text: $root.i18n('FlightsSearchForm','triptype_'+$data),
+						css: {'nemo-flights-form__routeTypeSelector__dropdown__item_active': $parent.tripType() == $data},
+						click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div>
+			</div>
+			<!-- /ko -->
+		</div>
 	</div>
 
 	<div class="nemo-flights-form__formContainer">
@@ -101,7 +118,8 @@
 					/ko
 					--><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date"
 					        data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.departureDate.error()}">
-						<label class="new-ui-textInput new-ui-dummiedInput">
+						<label class="new-ui-textInput new-ui-dummiedInput nemo-flights-form__route__segment__item__date">
+							<div class="nemo-flights-form__route__segment__item__date__indicator" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31"></div>
 							<!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
 							<div
 								class="new-ui-hint nemo-flights-form__route__segment__item__error"
@@ -121,7 +139,7 @@
 											attr: {placeholder: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'},
 											flightsFormDatepicker: items.departureDate.value,
 											hasFocus: items.departureDate.focus">
-								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dateDummy nemo-flights-form__route__segment__item__dateDummy_full">
+								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_full">
 									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->
@@ -129,7 +147,7 @@
 									<span class="new-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthName()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWName()"></span>
 									<!-- /ko -->
 								</div>
-								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dateDummy nemo-flights-form__route__segment__item__dateDummy_short">
+								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_short">
 									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->
@@ -156,22 +174,47 @@
 				<!-- /ko --><!--
 			--></div>
 			<div class="nemo-flights-form__passengers">
-				<div class="nemo-flights-form__passengers__container" data-bind="click: togglePassengersSelector, text: passengersSummary">
-					1 пассажир
+				<!-- ko if: validaTERROR() && passengersError() -->
+				<div data-bind="text: $root.i18n('FlightsSearchForm','error_passengers_'+passengersError());" class="new-ui-hint nemo-flights-form__passengers__error"></div>
+				<!-- /ko -->
+				<div class="nemo-flights-form__passengers__container" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
+
+				<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
+
+				<!-- ko if: passengersFastSelectorOpen -->
+				<div class="nemo-flights-form__passengers__fastSelect">
+					<!-- ko foreach: passengersFastSelectOptions -->
+					<div class="nemo-flights-form__passengers__fastSelect__item"
+					     data-bind="
+							        text: $parent.passengersTextForFastSelect($index()),
+							        click: function () {$parent.passengersFastSelectorOpen(false); $parent.passengersSelectFast($index());}
+						         "></div>
+					<!-- /ko -->
+					<!-- ko if: passengersUseExtendedSelect -->
+					<div class="nemo-flights-form__passengers__fastSelect__item" data-bind="click: function () {passengersSelectorOpen(true);passengersFastSelectorOpen(false);}">
+						FULL SELECT
+					</div>
+					<!-- /ko -->
 				</div>
+				<!-- /ko -->
 			</div>
-			<div class="nemo-flights-form__button">
-				<button class="new-ui-button new-ui-button_main nemo-flights-form__button__button"
-						data-bind="click: startSearch, css: {'new-ui-button_disabled': validaTERROR() && !isValid(),'nemo-flights-form__button__button_searching': isSearching()}">
+			<div class="nemo-flights-form__buttonContainer">
+				<button class="new-ui-button new-ui-button_main nemo-flights-form__buyButton"
+						data-bind="
+							click: startSearch,
+							css: {
+								'new-ui-button_disabled': validaTERROR() && !isValid(),
+								'nemo-flights-form__buyButton_searching': isSearching()
+							}">
 					Найти
 				</button>
 			</div>
 			<div  data-bind="attr: {'class':'nemo-flights-form__routeOptions nemo-flights-form__routeOptions_'+tripType()}">
 				<div class="nemo-flights-form__routeOptions__inner">
 					<div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_routeType">
-								<span class="nemo-flights-form__routeOptions__item__caption">
-									Маршрут
-								</span>
+						<span class="nemo-flights-form__routeOptions__item__caption">
+							Маршрут
+						</span>
 						<div class="nemo-flights-form__routeOptions__item__selector">
 							<div
 								class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
@@ -214,12 +257,6 @@
 							<!-- /ko -->
 						</div>
 					</div><!--
-					--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_direct">
-						<label class="new-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
-							<input class="new-ui-checkbox__input" type="checkbox" data-bind="checked: directFlights">
-							<span class="new-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption">Только прямые</span>
-						</label>
-					</div><!--
 						ko if: tripType() != 'CR'
 					--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_multiDate">
 						<label class="new-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
@@ -227,7 +264,12 @@
 							<span class="new-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption">Искать &plusmn;3 дня</span>
 						</label>
 					</div>
-					<!-- /ko -->
+					<!-- /ko --><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_direct">
+						<label class="new-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
+							<input class="new-ui-checkbox__input" type="checkbox" data-bind="checked: directFlights">
+							<span class="new-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption">Только прямые</span>
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -262,7 +304,7 @@
 												''
 											)
 										},
-									click: function () {/*$parents[1].passengers()[passType](parseInt($data));*/$parents[1].setPassengers(passType, parseInt($data));}"
+									click: function () {$parents[1].setPassengers(passType, parseInt($data));}"
 								></div>
 						</div>
 					</div>
@@ -277,7 +319,14 @@
 		</div>
 	<!-- /ko -->
 <!-- /ko -->
-
+<!--<div class="nemo-flights-form__routeOptions__item__selector__dropdown" data-bind="foreach: serviceClasses">
+	<div
+			class="nemo-flights-form__routeOptions__item__selector__dropdown__item"
+			data-bind="
+										text: $root.i18n('FlightsSearchForm','serviceClass_'+$data),
+										css: {'nemo-flights-form__routeOptions__item__selector__dropdown__item_active': $parent.serviceClass() == $data},
+										click: function () {$parent.serviceClass($data);$parent.classSelectorOpen(false);}"></div>
+</div>-->
 <!-- ko if: $$error() -->
 <div data-bind="text: $$error()"></div>
 <!-- /ko -->

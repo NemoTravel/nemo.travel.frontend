@@ -1,4 +1,4 @@
-flights_form_routeOptions_max_1020() {
+adapt_flights_form_noOptsCaptions() {
 	.nemo-flights-form {
 		&__routeOptions {
 			&__inner {
@@ -23,23 +23,7 @@ flights_form_routeOptions_max_1020() {
 	}
 }
 
-flights_form_routeOptions_max_1280() {
-	.nemo-flights-form__routeOptions {
-		&_OW, &_RT {
-			.nemo-flights-form__routeOptions__item{
-				&__caption {
-					display: none;
-				}
-
-				&__selector {
-					margin: 0;
-				}
-			}
-		}
-	}
-}
-
-flights_form_layout_23() {
+adapt_flights_form_twoThirds() {
 	.nemo-flights-form {
 		&__formContainer__inner {
 			width: 100%;
@@ -78,11 +62,11 @@ flights_form_layout_23() {
 							padding: 0;
 						}
 
-						&__dateDummy_short {
+						&__date__dummy_short {
 							display: block;
 						}
 
-						&__dateDummy_full {
+						&__date__dummy_full {
 							display: none;
 						}
 					}
@@ -91,11 +75,11 @@ flights_form_layout_23() {
 				&__item {
 					padding-right: 10px;
 
-					&__dateDummy_short {
+					&__date__dummy_short {
 						display: none;
 					}
 
-					&__dateDummy_full {
+					&__date__dummy_full {
 						display: block;
 					}
 
@@ -134,10 +118,6 @@ flights_form_layout_23() {
 				}
 			}
 
-			&__switchToOW {
-				right: -10px;
-			}
-
 			&__continueCR {
 				margin: 0 0 20px;
 			}
@@ -145,6 +125,8 @@ flights_form_layout_23() {
 
 		&__passengers {
 			float: left;
+			padding: 0 20px 0 0;
+			z-index: 10;
 
 			&__container {
 				width: 160px;
@@ -157,11 +139,20 @@ flights_form_layout_23() {
 			position: relative;
 			margin-top: 20px;
 
+			&__inner {
+				padding: 0 0 20px;
+
+				&:before {
+					display: none;
+				}
+			}
+
 			&__item {
 				&_class {
 					position: absolute;
 					left: 180px;
 					top: -55px;
+					z-index: 2;
 				}
 
 				&__checkbox {
@@ -171,12 +162,199 @@ flights_form_layout_23() {
 		}
 	}
 
-	flights_form_routeOptions_max_1280();
-	flights_form_routeOptions_max_1020();
+	adapt_flights_form_noOptsCaptions();
 }
 
-@media (max-width: 1280px) {
-	flights_form_routeOptions_max_1280();
+adapt_flights_form_compact() {
+	.nemo-flights-form {
+		&__formContainer__inner {
+			padding-right: 20px;
+			padding-left: 20px;
+			display: block;
+		}
+
+		&__routeTypeSelector {
+			&__selectWrap, &__select {
+				width: 100%;
+				text-align: left;
+			}
+
+			&_buttons {
+				display: none;
+			}
+
+			&_select {
+				display: block;
+			}
+		}
+
+		&__route, &__passengers, &__button {
+			display: block;
+			position: relative;
+		}
+
+		&__route {
+			&__switchToRT {
+				line-height: 30px;
+			}
+
+			&__segment {
+				padding: 0;
+				display: block;
+				width: 100%;
+
+				&_returnSegment {
+					display: block;
+					padding: 0;
+					position: relative;
+					width: 100%;
+					top: auto;
+					bottom: auto;
+					padding-bottom: 10px;
+				}
+
+				&__item {
+					padding: 0 0 10px;
+					display: block;
+					width: 100%;
+
+					.new-ui-dummiedInput__dummy {
+						line-height: 22px;
+					}
+
+					&__date {
+						&__indicator {
+							display: block;
+							right: 5px;
+						}
+
+						&__dummy {
+							&_short {
+								display: none;
+							}
+
+							&_full {
+								display: block;
+
+								.new-ui-dummiedInput__dummy__aux {
+									display: inline;
+								}
+							}
+						}
+					}
+				}
+
+				&_returnSegment &__item {
+					padding: 0;
+				}
+
+				&__input {
+					height: 30px;
+				}
+			}
+
+			&__removeCRSegment {
+				margin-top: -18px;
+				width: 20px;
+				background-position: 3px -83.5px;
+			}
+
+			&__switchToOW {
+				right: -15px;
+				top: 50%;
+				margin-top: -10px;
+			}
+
+			&__continueCR {
+				line-height: 30px;
+				margin: -10px 0 20px;
+			}
+
+			&_OW, &_RT {
+				.nemo-flights-form__route__segment__item_to {
+					padding-bottom: 20px;
+				}
+			}
+
+			&_CR .nemo-flights-form__route__segment {
+				padding-bottom: 10px;
+			}
+		}
+
+		&__passengers {
+			display: block;
+			width: 100%;
+			padding: 0;
+			margin-bottom: 10px;
+			float: none;
+
+			&__container {
+				display: none;
+			}
+
+			&__containerColumn {
+				display: block;
+			}
+		}
+
+		&__button {
+			padding: 40px 0 0;
+			width: 100%;
+
+			&__button {
+				width: 100%;
+			}
+		}
+
+		&__routeOptions {
+			display: block;
+			position: relative;
+			margin-top: 20px;
+			text-align: left;
+
+			&__inner {
+				padding: 0 0 20px;
+
+				&:before {
+					display: none;
+				}
+			}
+
+			&__item {
+				vertical-align: top;
+
+				&_routeType {
+					display: none
+				}
+
+				&_class {
+					position: absolute;
+					left: 0;
+					right: 0;
+					padding: 0;
+					top: -100px;
+					z-index: 2;
+
+					.nemo-flights-form__routeOptions__item__selector, .nemo-flights-form__routeOptions__item__selector__button {
+						width: 100%;
+						text-align: left;
+					}
+				}
+
+				&__checkbox {
+					padding-top: 0;
+				}
+
+				&__selector {
+					&__dropdown {
+
+					}
+				}
+			}
+		}
+	}
+
+	adapt_flights_form_noOptsCaptions();
 }
 
 @media (max-width: 1220px) {
@@ -185,22 +363,24 @@ flights_form_layout_23() {
 			max-width: 990px;
 		}
 
-		&__route__segment__item__dateDummy_full {
+		&__route__segment__item__date__dummy_full {
 			display: none;
 		}
 
-		&__route__segment__item__dateDummy_short {
+		&__route__segment__item__date__dummy_short {
 			display: block;
 		}
 	}
+
+	adapt_flights_form_noOptsCaptions();
 }
 
 @media (max-width: 1020px) {
-	flights_form_routeOptions_max_1020();
+	adapt_flights_form_noOptsCaptions();
 }
 
-.nemo-flights-form_twothirds {
-	flights_form_layout_23();
+.nemo-flights-form_twoThirds {
+	adapt_flights_form_twoThirds();
 
 	max-width: 640px;
 
@@ -210,28 +390,71 @@ flights_form_layout_23() {
 }
 
 @media (max-width: 920px) {
-	flights_form_layout_23();
+	adapt_flights_form_twoThirds();
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
+	.nemo-flights-form {
+		&__routeTypeSelector {
+			&__button {
+				padding-right: 10px;
+				padding-left: 10px;
+				min-width: 145px;
+			}
+		}
+	}
+}
+
+@media (max-width: 625px) {
 	.nemo-flights-form__route {
 		&_CR &__segment {
 			&__item {
-				&__dateDummy {
-					padding-right: 10px;
+				&__date {
+					&__dummy {
+						padding-right: 10px;
+					}
+
+					&__indicator {
+						display: none;
+					}
 				}
 			}
 
 			&__input_date {
-				background-image: none;
 				padding-right: 10px;
 			}
 		}
 	}
 }
 
-@media (max-width: 480px) {
-	body {
-		// background: #ff0000;
+@media (max-width: 500px) {
+	.nemo-flights-form {
+		&__routeTypeSelector {
+			&_buttons {
+				display: none;
+			}
+
+			&_select {
+				display: block
+			}
+		}
+
+		&__route__segment__item__date__dummy .new-ui-dummiedInput__dummy__aux {
+			display: none;
+		}
+	}
+}
+
+@media (max-width: 450px) {
+	adapt_flights_form_compact();
+}
+
+.nemo-flights-form_compact {
+	adapt_flights_form_compact();
+
+	max-width: 480px;
+
+	.nemo-flights-form__formContainer {
+		border-radius: 4px;
 	}
 }

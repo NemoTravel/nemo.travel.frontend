@@ -35,38 +35,33 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 	}
 
 	&__formContainer{
-		background: #4EB1E5;
+		background: $c_corporate_blue;
 		color: #fff;
+		position: relative;
 
 		&__inner {
 			display: table;
+			padding-bottom: 0;
+			max-width: 1260px;
 		}
 	}
 
-	&__routeTypeSelector {
-		display: none;
-		padding: 15px 20px;
-
-		&__button {
-			margin-right: 20px;
-			font-size: 12px;
-
-			&:last-child {
-				margin: 0;
-			}
-		}
-	}
-
-	&__route, &__passengers, &__button {
+	&__route, &__passengers, &__buttonContainer {
 		display: table-cell;
 		vertical-align: top;
 	}
 
-	&__button {
+	&__buttonContainer {
 		padding-left: 20px;
 		white-space: nowrap;
 		width: 1%;
 		text-align: right;
+	}
+
+	&__buyButton {
+		&_searching {
+			background: red;
+		}
 	}
 
 	&__route {
@@ -74,11 +69,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 		&__segment {
 			display: inline-block;
-			width: 79%;
+			width: 80%;
 			padding-bottom: 20px;
 
 			&_returnSegment {
-				width: 21%;
+				width: 20%;
+				padding-left: 1px;
 			}
 
 			&_CR, &_returnSegment &__item_date {
@@ -112,7 +108,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				}
 
 				&_date {
-					background-image: url('images/fsf-sprite.svg');
+					/*background-image: url('images/fsf-sprite.svg');*/
 					background-position: right 11px;
 					background-repeat: no-repeat;
 
@@ -131,18 +127,50 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				position: relative;
 
 				&_from, &_to {
-					width: 36.6%;
+					width: 37.9%;
 				}
 
 				&_date {
-					width: 26.8%;
+					width: 24.2%;
+					padding-right: 0;
 				}
 
-				&__dateDummy {
-					padding-right: 36px;
+				&__date {
+					&__dummy {
+						padding-right: 36px;
 
-					&_short {
-						display: none;
+						&_short {
+							display: none;
+						}
+					}
+
+					&__indicator {
+						position: absolute;
+						line-height: 20px;
+						width: 24px;
+						text-align: center;
+						top: 50%;
+						margin-top: -12px;
+						right: 10px;
+						color: #636467;
+						z-index: 1;
+						opacity: 0.75;
+						border-radius: 2px;
+						border: 2px solid $c_corporate_blue;
+						font-size: 14px;
+						background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjc1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjkyIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iI2UzZTVlNyIgc3RvcC1vcGFjaXR5PSIwLjkyIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iI2UzZTVlNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=');
+						background: linear-gradient(to bottom, rgba(255,255,255,0.75) 0%,rgba(255,255,255,0.92) 50%,rgba(227,229,231,0.92) 51%,rgba(227,229,231,1) 75%);
+
+						&:after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							left: 0;
+							right: 0;
+							height: 2px;
+							margin-top: -1px;
+							background: $c_corporate_blue;
+						}
 					}
 				}
 
@@ -160,10 +188,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		}
 
 		&__switchToRT {
-			line-height: 38px;
-			border: 1px dashed rgba(#fff, 0.7);
+			line-height: 40px;
+			background: rgba(#fff, .25);
 			border-radius: 2px;
-			padding: 0 35px 0 24px;
+			padding: 0 35px;
+			text-align: center;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
@@ -178,27 +207,29 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		&__switchToOW {
 			position: absolute;
 			top: -10px;
-			right: 10px;
+			right: -10px;
 			width: 20px;
 			height: 20px;
 			border-radius: 50%;
 			background: #fff url("images/fsf-sprite.svg") 6px -54px no-repeat;
 			cursor: pointer;
 			transition: all 0.2s;
+			opacity: 0.5;
 
 			&:hover {
 				box-shadow: 0 0 5px rgba(#000, 0.2);
+				opacity: 1;
 			}
 		}
 
 		&__continueCR {
-			line-height: 38px;
-			border: 1px dashed rgba(#fff, 0.7);
+			line-height: 40px;
+			background: rgba(#fff, .25);
 			border-radius: 2px;
 			cursor: pointer;
 			transition: all 0.2s;
 			text-align: center;
-			margin: 0 20px 20px 0;
+			margin: 0 0 20px 0;
 
 			&:hover {
 				box-shadow: $i_flights_form_segment_toRT_hover;
@@ -234,13 +265,131 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		}
 	}
 
+	&__routeOptions {
+		display: table-row;
+
+		&__inner {
+			display: table-cell;
+			padding: 10px 0;
+			/*position: relative;*/
+
+			&:before {
+				content: '';
+				position: absolute;
+				z-index: 0;
+				background: rgba(#fff, .25);
+
+				left: 0;
+				right: 0;
+				bottom 0;
+
+				height: 50px;
+			}
+		}
+
+		&_CR &__item {
+			&_routeType, &_class {
+				width: 39.4%;
+			}
+		}
+
+		&__item {
+			display: inline-block;
+			vertical-align: middle;
+			padding-right: 20px;
+			text-align: right;
+			position: relative;
+			z-index: 1;
+
+			&_routeType, &_class {
+				width: 80% * .379;
+			}
+
+			&_direct, &_multiDate {
+				text-align: left;
+			}
+
+			&__selector {
+				display: inline-block;
+				position: relative;
+				margin-left: 10px;
+				vertical-align: middle;
+				box-shadow: none;
+
+				&__button {
+					line-height: 30px;
+					height: 30px;
+					box-shadow: none;
+				}
+
+				&__dropdown {
+					background: #fff;
+					border-radius: 4px;
+					box-shadow: 0px 1px 4px rgba(#000,.25);
+					overflow: hidden;
+
+					position: absolute;
+					margin-top: 5px;
+					z-index: 50;
+
+					&__item {
+						font-size: 13px;
+						color: #636467;
+						line-height: 20px;
+						padding: 10px;
+						cursor: pointer;
+						border-bottom: 1px solid #D7D7D7;
+						transition: all .2s;
+						min-width: 100px;
+						text-align: left;
+
+						&:last-child {
+							border: none;
+						}
+
+						&:hover {
+							background: rgba($c_corporate_blue, 0.25);
+						}
+					}
+				}
+			}
+
+			&__checkbox {
+				padding: 5px 0 0 0;
+
+				&__caption {
+					font-size: 14px;
+					color: #fff;
+					transition: all 0.2s;
+				}
+
+				&:hover &__caption {
+					color: darken(#fff, 5%);
+				}
+			}
+		}
+	}
+
 	&__passengers {
 		width: 11.6%;
 		white-space: nowrap;
+		position: relative;
+		padding-left: 20px;
+
+		&__containerColumn {
+			display: none;
+			@extend .nemo-flights-form__routeOptions__item__selector;
+			text-align: left;
+			margin: 0;
+			line-height: 30px;
+			height: 30px;
+		}
 
 		&__container {
-			min-width: 120px;
-			max-width: 140px;
+			/*min-width: 120px;*/
+			/*max-width: 140px;*/
+			width: 14
+			0px;
 			height: 40px;
 			line-height: 40px;
 			font-size: 13px;
@@ -270,118 +419,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				border-color: #2888bc transparent transparent;
 			}
 		}
-	}
 
-	&__routeOptions {
-		display: table-row;
+		&__fastSelect {
+			@extend .nemo-flights-form__routeOptions__item__selector__dropdown;
 
-		&__inner {
-			display: table-cell;
-		}
-
-		&_CR &__item {
-			&_routeType, &_class {
-				width: 39.4%;
-			}
-		}
-
-		&__item {
-			display: inline-block;
-			vertical-align: middle;
-			padding-right: 20px;
-			text-align: right;
-
-			&_routeType, &_class {
-				width: 79% * .366;
-			}
-
-			&_direct, &_multiDate {
-				width: 79% * .266;
-				text-align: left;
-			}
-
-			&__selector {
-				display: inline-block;
-				position: relative;
-				margin-left: 10px;
-
-				&__button {
-					line-height: 30px;
-					height: 30px;
-				}
-
-				&__dropdown {
-					position: absolute;
-					z-index: 1000;
-					top: 100%;
-					left: 50%;
-					transform: translate(-50%, 0);
-					text-align: left;
-					padding: 10px;
-					background: #F6F6F6;
-					border-radius: 4px;
-					box-shadow: 0 0 10px rgba(#51A1CB, 0.5);
-					line-height: normal;
-					margin-top: 7px;
-					color: $c_ui_textMain;
-
-					&:before {
-						content: '';
-						position: absolute;
-						bottom: 100%;
-						left: 50%;
-						margin-left: -8px;
-						border: 8px solid;
-						border-color: transparent;
-						border-top: 0;
-						border-bottom-color: #F6F6F6;
-					}
-
-					&__item {
-						padding: 0 15px;
-						line-height: 30px;
-						min-width: 100px;
-						margin-top: 5px;
-						border-radius: 8px;
-						background: rgba(#969599, 0.1);
-						cursor: pointer;
-						transition: all 0.2s;
-						white-space: nowrap;
-
-						&:first-child {
-							margin: 0;
-						}
-
-						&:hover {
-							color: inherit;
-							background: rgba(#52A2CC, 0.25);
-						}
-
-						&_active {
-							color: #fff;
-							background: #52A2CC;
-
-							&:hover {
-								color: #fff;
-								background: rgba(#52A2CC, 0.75);
-							}
-						}
-					}
-				}
-			}
-
-			&__checkbox {
-				padding: 5px 0 0 0;
-
-				&__caption {
-					font-size: 14px;
-					color: #fff;
-					transition: all 0.2s;
-				}
-
-				&:hover &__caption {
-					color: darken(#fff, 5%);
-				}
+			&__item {
+				@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
 			}
 		}
 	}
@@ -469,12 +512,133 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				}
 
 				&__count {
-					@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
+					padding: 0 15px;
+					line-height: 30px;
+					min-width: 100px;
+					margin-top: 5px;
+					border-radius: 8px;
+					background: rgba(#969599, 0.1);
+					cursor: pointer;
+					transition: all 0.2s;
+					white-space: nowrap;
 
-					&_active&_0 {
-						@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item:hover;
+					&:first-child {
+						margin: 0;
+					}
+
+					&:hover {
+						color: inherit;
+						background: rgba(#52A2CC, 0.25);
+					}
+
+					&_active {
+						color: #fff;
+						background: #52A2CC;
+
+						&:hover {
+							color: #fff;
+							background: rgba(#52A2CC, 0.75);
+						}
+					}
+
+					&_disabled {
+						opacity: 0.2;
+						cursor: default;
+
+						&:hover {
+							color: inherit;
+							background: rgba(#969599, 0.1);
+						}
 					}
 				}
+			}
+		}
+	}
+
+	&__routeTypeSelector {
+		padding: 20px;
+		position: relative;
+		display: none;
+
+		&__button {
+			line-height: 40px;
+			height: 40px;
+			min-width: 200px;
+			text-align: center;
+			font-size: 13px;
+			display: inline-block;
+			/*vertical-align: middle;*/
+			/*background: #e5e5e5 linear-gradient(to top, #e5e5e5, #f2f2f2);*/
+			color: #636467;
+			cursor: pointer;
+			transition: all 0.2s;
+			position: relative;
+			box-shadow: none;
+			border-radius: 0;
+
+			&:after {
+				content: '';
+				position: absolute;
+				height: 25px;
+				width: 1px;
+				background: #BDBDBD;
+				top: 8px;
+				right: 0px;
+			}
+
+			&:last-child {
+				border-top-right-radius: $d_ui_button_borderradius;
+				border-bottom-right-radius: $d_ui_button_borderradius;
+
+				&:after {
+					display: none;
+				}
+			}
+
+			&:first-child {
+				border-top-left-radius: $d_ui_button_borderradius;
+				border-bottom-left-radius: $d_ui_button_borderradius;
+			}
+
+			/*&:hover {*/
+				/*background-image: linear-gradient(to top, #f2f2f2, #fafafa);*/
+			/*}*/
+
+			&_active {
+				background: $c_corporate_blue;
+				color: #fff;
+				margin-left: -1px;
+				box-shadow: inset 0 0 5px rgba(#000, 0.2);
+
+				&:after {
+					display: none;
+				}
+
+				&:hover {
+					background: lighten($c_corporate_blue, 10%);
+				}
+			}
+		}
+
+		&__selectWrap {
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		&__select {
+			@extend .nemo-flights-form__routeOptions__item__selector;
+			margin: 0;
+			line-height: 30px;
+			height: 30px;
+		}
+
+		&__dropdown {
+			@extend .nemo-flights-form__routeOptions__item__selector__dropdown;
+			margin-top: 10px;
+
+			&__item {
+				@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
 			}
 		}
 	}

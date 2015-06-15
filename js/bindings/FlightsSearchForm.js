@@ -217,7 +217,10 @@ define(
 							}
 						}
 
+						ret.className += ret.period ? ' nemo-pmu-date_period' : '';
+
 						delete ret.segments;
+						delete ret.period;
 
 						return ret;
 					},
