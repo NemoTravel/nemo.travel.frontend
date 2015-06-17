@@ -2,6 +2,25 @@
 	background: $c_content_bg;
 	padding: 10px 0 20px;
 
+	&__loader {
+		max-width: 1540px;
+		margin: 10px auto;
+		height: 200px;
+		background-image: url('images/ui/ui-loader-planes.svg');
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+
+	&__error {
+		padding-top: 30px;
+		padding-bottom: 30px;
+		text-align: center;
+		max-width: 1540px;
+		color: #cc0000;
+		font-size: 20px;
+		margin: 0 auto;
+	}
+
 	&__form {
 		margin: 0 0 10px;
 	}
@@ -52,8 +71,8 @@
 						display: inline-block;
 						width: 18px;
 						height: 15px;
+						margin: 0 5px;
 						vertical-align: middle;
-						/*background: url('images/flights_results_sprite.svg') 0px 1px no-repeat;*/
 						background: url('images/flights_results_sprite.svg') 0px -10px no-repeat;
 					}
 
