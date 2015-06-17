@@ -1,4 +1,4 @@
-.new-layout-{
+.nemo-common-{
 	&footer{
 		background: linear-gradient(to bottom, rgba(99,101,104,0.5) 0%,rgba(99,101,104,0) 20%); /* W3C */
 		&__inner{
@@ -32,41 +32,34 @@
 			.nemo-root_mobile &{
 				padding: 25px 20px 15px;
 			}
-		}
-	}	
-}
-
-.new-{
-	&fMenu{
-		display: inline-block;
-		padding: 0 0 15px;
-		&__item{
-			color: #63B4F5;
-			font-size: 13px;
-			line-height: 15px;
-			text-decoration: underline;
-			margin: 0 0 0 20px;
-			&:first-child{
+		  &__footerMenu{
+			display: inline-block;
+			padding: 0 0 15px;
+			&__item{
+			  color: #63B4F5;
+			  font-size: 13px;
+			  line-height: 15px;
+			  text-decoration: underline;
+			  margin: 0 0 0 20px;
+			  &:first-child{
 				margin: 0;
+			  }
+			}
+		  }
+		}
+		&__copyRight{
+			color: #9F9F9F;
+			font-size: 13px;
+			line-height: 20px;
+		}
+		&__companyLogo{
+			display: inline-block;
+			width: 130px;
+			margin: 0 20px;
+			img{
+				width: 100%;
 			}
 		}
 	}
 }
 
-.nemo-{
-	
-	&copyRight{
-		color: #9F9F9F;
-		font-size: 13px;
-		line-height: 20px;
-	}
-
-	&company{
-		display: inline-block;
-		width: 130px;
-		margin: 0 20px;
-		img{
-			width: 100%;
-		}
-	}
-}

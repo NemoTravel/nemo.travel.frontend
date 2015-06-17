@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html class="no-touch">
 <head>
 	<meta charset="utf-8"/>
 	<title>Nemo Front-End</title>
 </head>
 <body>
+<header class="nemo-common-pageHeader">
+	<div class="nemo-common-pageHeader__inner">
+		<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControlls">
+				<span class="new-ui-button new-ui-button_transparent nemo-common-pageHeader__headerMenuControlls__menuButton js-menuButton">
+					<i class="new-ui-mMenuIcon"></i>
+				</span>
+		</div>
+		<a href="#" class="nemo-common-pageHeader__logo">
+			<img class="nemo-common-pageHeader__logo__image" src="../img/logo.png" alt="">
+		</a>
+		<div class="nemo-common-pageHeader__inner__headerLinks">
+			<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">Войти</button>
+			<a href="#" class="new-ui-pseudoLink new-ui-pseudoLink_blue">
+				Регистрация
+			</a>
+			<a href="#" class="new-ui-pseudoLink new-ui-link_blue">
+				Состояние заказа
+			</a>
+		</div>
+		<div class="nemo-common-pageHeader__inner__headerRight">
+			<div class="new-ui-dropMenu">
+				<div class="new-ui-dropMenu__main">
+					<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">
+						<img src="../img/flag.svg" alt="">
+					</button>
+				</div>
+				<div class="new-ui-dropMenu__drop">
+
+				</div>
+			</div>
+			<div class="new-ui-dropMenu">
+				<div class="new-ui-dropMenu__main">
+					<button class="new-ui-button new-ui-button_secondary new-ui-button_medium">
+						$
+					</button>
+				</div>
+				<div class="new-ui-dropMenu__drop">
+
+				</div>
+			</div>
+			<div class="new-layout-overlayMenu">
+				<div class="new-layout-overlayMenu__main js-overlay-menu">
+					<i class="new-ui-overlayMenu"></i>
+				</div>
+				<div class="new-layout-overlayMenu__drop js-overlay-menu">
+					<div class="new-ui-mobileDropMenu">
+						<div class="new-ui-mobileDropMenu__item">
+							<div class="new-ui-dropMobile js-dropMobile" data-menu="lang">
+								<div class="new-ui-dropMobile__main">
+									<p>
+										Русский
+										<span>изменить</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-mobileDropMenu__item">
+							<div class="new-ui-dropMobile js-dropMobile" data-menu="cur">
+								<div class="new-ui-dropMobile__main">
+									<p>
+										Российский рубль
+										<span>изменить</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="new-ui-dropMobile-drop" data-menu-drop="lang">
+						<div class="new-ui-dropMobile-drop__main">
+							<div class="new-ui-mobileDropMenu">
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Русский
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Английский
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Испанский
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Украинский
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-dropMobile-drop__btns">
+							<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
+						</div>
+					</div>
+					<div class="new-ui-dropMobile-drop" data-menu-drop="cur">
+						<div class="new-ui-dropMobile-drop__main">
+							<div class="new-ui-mobileDropMenu">
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Русский рубль
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Английский фунт
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Испанский евро
+									</a>
+								</div>
+								<div class="new-ui-mobileDropMenu__item">
+									<a href="#" class="new-ui-link new-ui-link_grey">
+										Украинская гривна
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="new-ui-dropMobile-drop__btns">
+							<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
 	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp">
 		<!-- ko if: component() -->
 			<div style="display: none;" data-bind="attr:{style: ''}">
@@ -151,5 +282,28 @@
 			}
 		);*/
 	</script>
+<footer class="nemo-common-footer__inner">
+	<div class="nemo-common-footer__inner__left">
+		<div class="nemo-common-footer__inner__footerMenu">
+			<a href="#" class="nemo-common-footer__inner__footerMenu__item">
+				Помощь
+			</a>
+			<a href="#" class="nemo-common-footer__inner__footerMenu__item">
+				Обратная связь
+			</a>
+		</div>
+		<div class="nemo-common-footer__copyRight">
+			© nemo.travel
+		</div>
+	</div>
+	<div class="nemo-common-footer__inner__right">
+		<div class="nemo-common-footer__companyLogo">
+			<img src="../img/nemo-logo.svg" alt="">
+		</div>
+		<div class="nemo-common-footer__companyLogo">
+			<img src="../img/mute-lab-logo.svg" alt="">
+		</div>
+	</div>
+</footer>
 </body>
 </html>

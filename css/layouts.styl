@@ -1,7 +1,4 @@
 // DIMENSIONS
-$d_headerLinks_padding 				= 0 50px;
-$d_headerLinks_tablet_padding 		= 0 0 0 10px;
-
 $d_ui_topBar_inner_maxWidth 		= 1140px;
 $d_ui_topBar_inner_padding 			= 0 30px;
 
@@ -41,32 +38,6 @@ $keyframe-name = gradientAttention
 } 
 
 .new-layout-{
-	
-	&headerLinks{
-		padding: $d_headerLinks_padding;
-		line-height 30px;
-		.new-ui-link{
-			vertical-align: middle
-			display: inline-block;
-			margin 0 10px 0 20px;
-			&+.new-ui-link{
-				margin 0 10px;
-			}
-		}
-		
-		.nemo-root_tablet &{
-			padding: $d_headerLinks_tablet_padding;
-		}
-		
-		.nemo-root_mobile &{
-			display: none;
-		}
-	}
-	
-	&headerRight{
-		margin-left: auto;
-	}
-	
 	&aside{
 		width: 300px;
 		padding: 0 20px 0 0;
