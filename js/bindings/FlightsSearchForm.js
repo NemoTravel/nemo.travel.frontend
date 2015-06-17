@@ -29,10 +29,28 @@ define(
 		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
 			_renderItem: function( ul, item ) {
 				// If item has label - it's something other than geo point that should be in AC
-				return $( "<li>" )
-					.append( typeof item.label != 'undefined' ? item.label : (item.name + ', ' + item.country.name) )
+				var text;
+
+				if (typeof item.label == 'undefined') {
+					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="new-ui-autocomplete__match">$1</span>') + ', ' + item.country.name;
+				}
+				else {
+					text = item.label;
+				}
+
+				return $("<li>")
+					.append(text)
 					.attr('data-value', typeof item.label == 'undefined')
-					.appendTo( ul );
+					.appendTo(ul);
+			},
+			_renderMenu: function( ul, items ) {
+				var that = this;
+
+				$.each(items, function(index, item) {
+					that._renderItemData(ul, item);
+				});
+
+				$(ul).addClass('new-ui-autocomplete');
 			}
 		});
 
@@ -73,11 +91,21 @@ define(
 							callback(noResultsResults);
 						});
 					},
+					// We juggle "new-ui-autocomplete_open" class due to jQueryUI autocomplete kind ignoring of
+					// all attempts to shift its menu down with CSS only
+					// (position can not be used due to a need to change visuals using CSS only)
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
+
 						if ($children.length == 1) {
 							$children.eq(0).mouseenter().click();
 						}
+						else {
+							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('new-ui-autocomplete_open');
+						}
+					},
+					response: function (event, ui) {
+						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('new-ui-autocomplete_open');
 					},
 					select: function( event, ui ) {
 						$element.blur();
