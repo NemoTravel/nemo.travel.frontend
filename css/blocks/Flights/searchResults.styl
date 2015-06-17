@@ -1,0 +1,153 @@
+.nemo-flights-results {
+	background: $c_content_bg;
+	padding: 10px 0 20px;
+
+	&__form {
+		margin: 0 0 10px;
+	}
+
+	&__formDummy {
+		max-width: 1540px;
+		margin: 0 auto 10px;
+		color: $c_ui_textMain;
+
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0 0 7px rgba(0, 0, 0, 0.6) inset;
+
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start/*space-between*/;
+		align-items: stretch;
+
+		&__route, &__passengers {
+			font-size: 13px;
+			line-height: 20px;
+			padding: 10px;
+			min-width: 1px;
+		}
+
+		&__route {
+			flex-grow: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			&__segment {
+				margin-right: 10px;
+				display: inline;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__geo, &__date {
+					display: inline;
+					vertical-align: top;
+				}
+
+				&__geo {
+					&_departure:after {
+						content: '';
+						display: inline-block;
+						width: 18px;
+						height: 15px;
+						vertical-align: middle;
+						/*background: url('images/flights_results_sprite.svg') 0px 1px no-repeat;*/
+						background: url('images/flights_results_sprite.svg') 0px -10px no-repeat;
+					}
+
+					&__aux {
+						color: $c_ui_textSecondary;
+					}
+
+					&_arrival {
+						padding-right: 10px;
+					}
+				}
+
+				&__date {
+					color: $c_ui_textSecondary;
+					margin: 0;
+				}
+			}
+
+			&_RT &__segment__geo_departure:after {
+				background-position: 0 1px;
+			}
+		}
+
+		&__passengers {
+			flex-shrink: 0;
+			white-space: nowrap;
+		}
+
+		&__switch {
+			/*align-self: flex-end;*/
+			margin-left: auto;
+			flex-shrink: 0;
+			height: 40px;
+			line-height: 40px;
+			background: $c_corporate_blue;
+			font-size: 15px;
+
+			&:hover, &:active {
+				background: lighten($c_corporate_blue, 10%);
+			}
+		}
+	}
+
+	&__content {
+		max-width: 1640px;
+		margin: 0 auto;
+
+	}
+
+	/*&__i{
+		max-width: $d_ui_main_top_inner;
+		padding: $d_ui_main_top_inner_padding;
+		margin: 0 auto;
+		@media only screen and (min-width: 1340px) {
+			max-width: 1600px;
+		}
+		&__btn{
+			display: none;
+			.nemo-root_tablet &{
+				display: block;
+				float: left;
+				width: $d_ui_main_top_btn_width;
+				padding: $d_ui_main_top_btn_padding;
+			}
+		}
+		&__main{
+			padding: 0;
+			.nemo-root_tablet &{
+				padding: $d_ui_main_top_main_padding;
+			}
+		}
+		.nemo-root_mobile &{
+			padding: 0;
+			max-width: 100%;
+			width: 100%;
+			display:flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			align-content: stretch;
+			align-items: stretch;
+			.new-layout-main__top__i__btn{
+				order: 1;
+				display: block;
+				.new-ui-button_common{
+					width: 100%;
+				}
+				.new-ui-filter__controls{
+					padding: 10px 10px 5px;
+				}
+			}
+			.new-layout-main__top__i__main{
+				order: 0;
+			}
+		}
+	}*/
+}

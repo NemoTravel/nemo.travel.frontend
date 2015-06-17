@@ -1,19 +1,19 @@
-<!-- ko if: !$$loading() -->
-<section class="new-common-breadCrumbs">
-	<div class="new-common-breadCrumbs__i">
-		<div class="new-common-breadCrumbs__crumbs" data-bind="foreach: elements"><span class="new-common-breadCrumbs__crumbs__crumb">
+<section class="nemo-common-breadCrumbs">
+	<div class="nemo-common-breadCrumbs__inner">
+		<!-- ko if: !$$loading() -->
+		<div class="nemo-common-breadCrumbs__crumbs" data-bind="foreach: elements"><span class="nemo-common-breadCrumbs__crumbs__crumb">
 				<!-- ko if: active -->
-				<a href="#" class="new-ui-pseudoLink new-common-breadCrumbs__crumbs__crumb__title"
+				<a href="#" class="new-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title"
 				   data-bind="text: $root.i18n('CommonBreadCrumbs', title), attr: {href: link}"></a>
 				<!-- /ko -->
 				<!-- ko if: !active -->
-				<span class="new-common-breadCrumbs__crumbs__crumb__title"
+				<span class="nemo-common-breadCrumbs__crumbs__crumb__title"
 				      data-bind="text: $root.i18n('CommonBreadCrumbs', title)"></span>
 				<!-- /ko -->
-			</span></div>
-		<div class="new-common-breadCrumbs__additional" data-bind="text: tmp">
-			SOME TEST COMPONENT HERE
-		</div>
+			</span></div><!--
+		ko if: additionalComponent
+		--><div class="nemo-common-breadCrumbs__additional" data-bind="component: {name: additionalComponent.name, params: additionalComponent.params}"></div>
+		<!-- /ko -->
+		<!-- /ko -->
 	</div>
 </section>
-<!-- /ko -->

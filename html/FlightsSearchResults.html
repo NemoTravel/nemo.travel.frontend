@@ -1,16 +1,63 @@
-<!-- ko if: !$$loading() -->
 <div data-bind="component: {name: 'Common/BreadCrumbs/Controller', params: {
-		component: $data
+		component: $data,
+		includeComponent: {
+			name: 'Flights/LastSearches/Controller',
+			params: {}
+		}
 	}}"></div>
+<!-- ko if: !$$loading() -->
 
 <!-- if: !$$error() -->
-<div data-bind="foreach: searchInfo.segments" style="border: 1px solid;margin-bottom: 20px;">
-	<div data-bind="text: departure.IATA +' - '+arrival.IATA+' '+departureDate.getISODate()"></div>
-</div>
+<div class="nemo-flights-results">
+	<div class="nemo-flights-results__formDummy"  data-bind="attr: {style: formActive() ? 'display: none;' : ''}">
+		<div
+			data-bind="
+				foreach: searchInfo.segments,
+				attr: {'class':'nemo-flights-results__formDummy__route nemo-flights-results__formDummy__route_' + searchInfo.tripType}
+			"><!--
+			--><div class="nemo-flights-results__formDummy__route__segment">
 
-<button class="new-ui-button" data-bind="click: function () {formActive(!formActive())}">FORM</button>
+				<!-- ko if: $parent.searchInfo.tripType != 'RT' || $index() != 1 -->
+				<div class="nemo-flights-results__formDummy__route__segment__geo nemo-flights-results__formDummy__route__segment__geo_departure" data-bind="with: departure">
+						<span
+							class="nemo-flights-results__formDummy__route__segment__geo__main"
+							data-bind="text: name"></span><!--
+					--><span
+						class="nemo-flights-results__formDummy__route__segment__geo__aux"
+						data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+				</div>
+				<div class="nemo-flights-results__formDummy__route__segment__geo nemo-flights-results__formDummy__route__segment__geo_arrival" data-bind="with: arrival">
+					<span
+						class="nemo-flights-results__formDummy__route__segment__geo__main"
+						data-bind="text: name"></span><!--
+					--><span
+						class="nemo-flights-results__formDummy__route__segment__geo__aux"
+						data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+				</div>
+				<!-- /ko -->
 
-<div class="" data-bind="
+				<div class="nemo-flights-results__formDummy__route__segment__date">
+					<!-- ko text:
+						(
+							$parent.searchInfo.tripType == 'RT' ?
+							$root.i18n('FlightsSearchResults', 'formDummy__route__rt__' + ($index() == 0 ? 'flight' : 'return')) + ' ' :
+							''
+						) +
+						departureDate.getDate() +
+						' ' +
+						departureDate.getMonthName() +
+						', ' +
+						departureDate.getDOWName() --><!-- /ko -->
+				</div>
+			</div><!--
+		--></div>
+		<div class="nemo-flights-results__formDummy__passengers" data-bind="text: passengersSummary()"></div>
+		<div
+			class="new-ui-button nemo-flights-results__formDummy__switch"
+			data-bind="text: $root.i18n('FlightsSearchResults', 'formDummy__switch'), click: function () {formActive(!formActive())}"></div>
+	</div>
+
+	<div class="nemo-flights-results__form" data-bind="
 		component: {
             name: 'Flights/SearchForm/Controller',
 			params: {route: [], formData: $$rawdata}
@@ -18,8 +65,11 @@
 		attr: {
 			style: !formActive() ? 'display: none;' : ''
 		}
-		">
-	Loading component...
+		"></div>
+
+	<div class="nemo-flights-results__content">
+
+	</div>
 </div>
 
 <!-- PF TEMPLATES -->

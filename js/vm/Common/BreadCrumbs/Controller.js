@@ -6,6 +6,7 @@ define(
 			BaseControllerModel.apply(this, arguments);
 
 			this.elements = [];
+			this.additionalComponent = componentParameters.includeComponent;
 
 			var componentName = componentParameters.component.constructor.name;
 
@@ -33,8 +34,7 @@ define(
 
 				switch (componentName) {
 					case 'FlightsSearchResultsController':
-						this.elements[0].link += componentParameters.component.searchId;
-						console.log('!', this.elements[0].link);
+						this.elements[0].link += componentParameters.component.id;
 						break;
 				}
 			}
@@ -43,9 +43,7 @@ define(
 		// Extending from dictionaryModel
 		helpers.extendModel(CommonBreadCrumbsController, [BaseControllerModel]);
 
-		CommonBreadCrumbsController.prototype.buildModels = function () {
-			console.log(this.$$controller.i18n('CommonBreadCrumbs','flights-step_results'));
-		};
+		CommonBreadCrumbsController.prototype.buildModels = function () {};
 
 		CommonBreadCrumbsController.prototype.dataURL = function () {
 			return null;

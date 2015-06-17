@@ -1,5 +1,5 @@
 <!-- nemo-flights-form_compact || nemo-flights-form_twoThirds -->
-<div class="nemo-flights-form js-autofocus-form">
+<div class="nemo-flights-form js-autofocus-form"> <!-- MODIFIERS: nemo-flights-form_compact || nemo-flights-form_twoThirds -->
 <!-- ko if: !$$loading() && !$$error() -->
 	<!-- ko if: isSearching -->
 
@@ -302,14 +302,7 @@
 	<!-- /ko -->
 
 <!-- /ko -->
-<!--<div class="nemo-flights-form__routeOptions__item__selector__dropdown" data-bind="foreach: serviceClasses">
-	<div
-			class="nemo-flights-form__routeOptions__item__selector__dropdown__item"
-			data-bind="
-										text: $root.i18n('FlightsSearchForm','serviceClass_'+$data),
-										css: {'nemo-flights-form__routeOptions__item__selector__dropdown__item_active': $parent.serviceClass() == $data},
-										click: function () {$parent.serviceClass($data);$parent.classSelectorOpen(false);}"></div>
-</div>-->
+
 <!-- ko if: $$error() -->
 <div data-bind="text: $$error()"></div>
 <!-- /ko -->
@@ -321,64 +314,3 @@
 <!-- Last searches component -->
 <!--<div class="" data-bind="component: {name: 'FlightsLastSearches/FlightsLastSearchesController',params: {}}">Loading last searches...</div>-->
 </div>
-
-<div style="background: rgba(0,0,0,0.25);margin-top: 100px;height: 1800px;">
-	CONTENT
-</div>
-
-<!--<div class="new-ui-popup">-->
-	<!--<div class="new-ui-popup__popup" data-bind="positionPassengersPopup: null">-->
-		<!--<div class="new-ui-popup__popup__header">-->
-			<!--<div class="new-ui-popup__popup__header__title">-->
-				<!--Идет поискИдет поискИдет поиск-->
-			<!--</div>-->
-			<!--<div class="new-ui-popup__popup__header__close" data-bind="click: abortSearch">Отмена</div>-->
-		<!--</div>-->
-		<!--<div class="new-ui-popup__popup__content">-->
-			<!--<div style="width: 100vw; max-width: 400px;">-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-				<!--CONTENT!!!<br/>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="new-ui-popup__popup__footer">-->
-			<!--PEW!-->
-		<!--</div>-->
-	<!--</div>-->
-<!--</div>-->
