@@ -5,11 +5,11 @@ define(
 		function FlightsSearchResultsFlightPrice (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
-			this.totalPrice = this.$$controller.getModel('common/Money', this.totalPrice);
-			this.flightPrice = this.$$controller.getModel('common/Money', this.flightPrice);
-			this.agencyCharge = this.$$controller.getModel('common/Money', this.agencyCharge);
+			this.totalPrice = this.$$controller.getModel('Common/Money', this.totalPrice);
+			this.flightPrice = this.$$controller.getModel('Common/Money', this.flightPrice);
+			this.agencyCharge = this.$$controller.getModel('Common/Money', this.agencyCharge);
 
-			this.ticketTimeLimit = this.$$controller.getModel('common/Date', this.ticketTimeLimit);
+			this.ticketTimeLimit = this.$$controller.getModel('Common/Date', this.ticketTimeLimit);
 		}
 
 		// Extending from dictionaryModel

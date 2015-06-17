@@ -45,12 +45,8 @@ define(
 				}
 			}, this);
 
-			this.typeSelectorOpen       = ko.observable(false);
-			this.classSelectorOpen      = ko.observable(false);
 			this.passengersSelectorOpen = ko.observable(false);
 
-			this.toggleTypeSelector       = function () {this.typeSelectorOpen(!this.typeSelectorOpen());};
-			this.toggleClassSelector      = function () {this.classSelectorOpen(!this.classSelectorOpen());};
 			this.togglePassengersSelector = function () {this.passengersSelectorOpen(!this.passengersSelectorOpen());};
 
 			this.passengersSummary = ko.computed(function () {

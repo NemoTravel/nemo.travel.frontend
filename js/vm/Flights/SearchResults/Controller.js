@@ -332,153 +332,159 @@ define(
 				tmpGroups = {},
 				tmp;
 
-			// Processing options
-			this.options = this.$$rawdata.flights.search.resultData;
-			
-			// Processing search info
-			// Segments
-			for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
-				var data = this.$$rawdata.flights.search.request.segments[i];
-
-				// departureDate = 2015-04-11T00:00:00
-				this.searchInfo.segments.push({
-					departure: this.$$controller.getModel('Flights/common/Geo', {data: data.departure, guide: this.$$rawdata.guide}),
-					arrival: this.$$controller.getModel('Flights/common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}),
-					departureDate: this.$$controller.getModel('common/Date', data.departureDate)
-				});
+			if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
+				this.$$error(this.$$rawdata.system.error.message);
 			}
+			else {
+				// Processing options
+				this.options = this.$$rawdata.flights.search.resultData;
 
-			// Processing passengers
-			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
-				this.searchInfo.passengers[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
-			}
+				// Processing search info
+				// Segments
+				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
+					var data = this.$$rawdata.flights.search.request.segments[i];
 
-			// Processing other options
-			this.searchInfo.tripType = this.$$rawdata.flights.search.request.parameters.searchType;
-			this.searchInfo.vicinityDates = this.$$rawdata.flights.search.request.parameters.aroundDates != 0;
-
-			// Processing guide
-			// Processing airlines
-			for (var i in this.$$rawdata.guide.airlines) {
-				if (this.$$rawdata.guide.airlines.hasOwnProperty(i)) {
-					this.airlines[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.guide.airlines[i]);
-				}
-			}
-
-			this.airlinesByRating = Object.keys(this.airlines)
-				.map(function (key) {return self.airlines[key]})
-				.sort(function (a, b) {
-					return parseFloat(b.rating) - parseFloat(a.rating);
-				});
-
-			// Processing segments
-			for (var i in this.$$rawdata.flights.search.results.groupsData.segments) {
-				if (this.$$rawdata.flights.search.results.groupsData.segments.hasOwnProperty(i)) {
-					this.segments[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.flights.search.results.groupsData.segments[i]);
-
-					// Times
-					this.segments[i].depDateTime = this.$$controller.getModel('common/Date', this.segments[i].depDateTime);
-					this.segments[i].arrDateTime = this.$$controller.getModel('common/Date', this.segments[i].arrDateTime);
-
-					// Time in air - from minutes to seconds
-					this.segments[i].flightTime *= 60;
-
-					// Companies
-					this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
-					this.segments[i].operatingCompany = this.airlines[this.segments[i].operatingCompany];
-
-					this.segments[i].depAirp = this.$$controller.getModel(
-						'Flights/common/Geo',
-						{
-							data: {
-								IATA: this.segments[i].depAirp
-							},
-							guide: setSegmentsGuide ? this.$$rawdata.guide : null
-						}
-					);
-
-					// Guide for Flights/common/Geo is already set
-					this.segments[i].arrAirp = this.$$controller.getModel(
-						'Flights/common/Geo',
-						{
-							data: {
-								IATA: this.segments[i].arrAirp
-							},
-							guide: null
-						}
-					);
-
-					setSegmentsGuide = false;
-				}
-			}
-
-			// Processing price objects
-			for (var i in this.$$rawdata.flights.search.results.groupsData.prices) {
-				if (this.$$rawdata.flights.search.results.groupsData.prices.hasOwnProperty(i)) {
-					this.prices[i] = this.$$controller.getModel('Flights/SearchResults/FlightPrice', this.$$rawdata.flights.search.results.groupsData.prices[i]);
-					this.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
-				}
-			}
-
-			// Processing flights (iterating over groups because flights are grouped by routes)
-			for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
-				var segsarr = [],
-					source = this.$$rawdata.flights.search.results.flightGroups[i];
-
-				// Preparing segments array
-				for (var j = 0; j < source.segments.length; j++) {
-					segsarr.push(this.segments[source.segments[j]]);
+					// departureDate = 2015-04-11T00:00:00
+					this.searchInfo.segments.push({
+						departure: this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}),
+						arrival: this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}),
+						departureDate: this.$$controller.getModel('Common/Date', data.departureDate)
+					});
 				}
 
-				// Creating flights and defining minimum and maximum flight durations and prices
-				for (var j = 0; j < source.flights.length; j++) {
-					this.flights[source.flights[j].id] = this.$$controller.getModel(
-						'Flights/SearchResults/Flight',
-						{
-							id: source.flights[j].id,
-							price: this.prices[source.flights[j].price],
-							segments: segsarr
-						}
-					);
+				// Processing passengers
+				for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
+					this.searchInfo.passengers[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
 				}
-			}
 
-			// Creating flight groups (we group by same price and validating company)
-			// Also - post-processing flights for them to calculate their "recommended" rating
-			// that relies on maximum/minimum values for all flights
-			for (var i in this.flights) {
-				if (this.flights.hasOwnProperty(i)) {
-					tmp = this.flights[i].getTotalPrice().normalizedAmount() + '-' + this.flights[i].getTotalPrice().currency() + '-' + this.flights[i].getValidatingCompany();
+				// Processing other options
+				this.searchInfo.tripType = this.$$rawdata.flights.search.request.parameters.searchType;
+				this.searchInfo.vicinityDates = this.$$rawdata.flights.search.request.parameters.aroundDates != 0;
 
-					if (!tmpGroups[tmp]) {
-						tmpGroups[tmp] = [];
+				// Processing guide
+				// Processing airlines
+				for (var i in this.$$rawdata.guide.airlines) {
+					if (this.$$rawdata.guide.airlines.hasOwnProperty(i)) {
+						this.airlines[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.guide.airlines[i]);
+					}
+				}
+
+				this.airlinesByRating = Object.keys(this.airlines)
+					.map(function (key) {return self.airlines[key]})
+					.sort(function (a, b) {
+						return parseFloat(b.rating) - parseFloat(a.rating);
+					});
+
+				// Processing segments
+				for (var i in this.$$rawdata.flights.search.results.groupsData.segments) {
+					if (this.$$rawdata.flights.search.results.groupsData.segments.hasOwnProperty(i)) {
+						this.segments[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.flights.search.results.groupsData.segments[i]);
+
+						// Times
+						this.segments[i].depDateTime = this.$$controller.getModel('Common/Date', this.segments[i].depDateTime);
+						this.segments[i].arrDateTime = this.$$controller.getModel('Common/Date', this.segments[i].arrDateTime);
+
+						// Time in air - from minutes to seconds
+						this.segments[i].flightTime *= 60;
+
+						// Companies
+						this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
+						this.segments[i].operatingCompany = this.airlines[this.segments[i].operatingCompany];
+
+						this.segments[i].depAirp = this.$$controller.getModel(
+							'Flights/Common/Geo',
+							{
+								data: {
+									IATA: this.segments[i].depAirp
+								},
+								guide: setSegmentsGuide ? this.$$rawdata.guide : null
+							}
+						);
+
+						// Guide for Flights/Common/Geo is already set
+						this.segments[i].arrAirp = this.$$controller.getModel(
+							'Flights/Common/Geo',
+							{
+								data: {
+									IATA: this.segments[i].arrAirp
+								},
+								guide: null
+							}
+						);
+
+						setSegmentsGuide = false;
+					}
+				}
+
+				// Processing price objects
+				for (var i in this.$$rawdata.flights.search.results.groupsData.prices) {
+					if (this.$$rawdata.flights.search.results.groupsData.prices.hasOwnProperty(i)) {
+						this.prices[i] = this.$$controller.getModel('Flights/SearchResults/FlightPrice', this.$$rawdata.flights.search.results.groupsData.prices[i]);
+						this.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
+					}
+				}
+
+				// Processing flights (iterating over groups because flights are grouped by routes)
+				for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
+					var segsarr = [],
+						source = this.$$rawdata.flights.search.results.flightGroups[i];
+
+					// Preparing segments array
+					for (var j = 0; j < source.segments.length; j++) {
+						segsarr.push(this.segments[source.segments[j]]);
 					}
 
-					tmpGroups[tmp].push(this.flights[i]);
+					// Creating flights and defining minimum and maximum flight durations and prices
+					for (var j = 0; j < source.flights.length; j++) {
+						this.flights[source.flights[j].id] = this.$$controller.getModel(
+							'Flights/SearchResults/Flight',
+							{
+								id: source.flights[j].id,
+								price: this.prices[source.flights[j].price],
+								segments: segsarr
+							}
+						);
+					}
 				}
-			}
 
-			for (var i in tmpGroups) {
-				if (tmpGroups.hasOwnProperty(i)) {
-					var tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i]});
+				// Creating flight groups (we group by same price and validating company)
+				// Also - post-processing flights for them to calculate their "recommended" rating
+				// that relies on maximum/minimum values for all flights
+				for (var i in this.flights) {
+					if (this.flights.hasOwnProperty(i)) {
+						tmp = this.flights[i].getTotalPrice().normalizedAmount() + '-' + this.flights[i].getTotalPrice().currency() + '-' + this.flights[i].getValidatingCompany();
 
-					// Setting group "conjunction table"
-					tmp.buildCouplingTable(this.flights);
+						if (!tmpGroups[tmp]) {
+							tmpGroups[tmp] = [];
+						}
 
-					this.groups.push(tmp);
+						tmpGroups[tmp].push(this.flights[i]);
+					}
 				}
+
+				for (var i in tmpGroups) {
+					if (tmpGroups.hasOwnProperty(i)) {
+						tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i]});
+
+						// Setting group "conjunction table"
+						tmp.buildCouplingTable(this.flights);
+
+						this.groups.push(tmp);
+					}
+				}
+
+				if (this.options.showBlocks.useFlightCompareTable) {
+					this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
+					this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
+				}
+
+				this.buildPFs();
+
+				this.sort(this.options.defaultSort);
+
+				this.setShowcase();
 			}
 
-			if (this.options.showBlocks.useFlightCompareTable) {
-				this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
-				this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
-			}
-
-			this.buildPFs();
-
-			this.sort(this.options.defaultSort);
-
-			this.setShowcase();
 		};
 
 		FlightsSearchResultsController.prototype.buildPFs = function () {
@@ -506,7 +512,7 @@ define(
 						pfConfig.legNumber = j;
 
 						tmp = this.$$controller.getModel(
-							'common/PostFilter/' + pfConfig.type,
+							'Common/PostFilter/' + pfConfig.type,
 							{
 								config: pfConfig,
 								items: this.flights,
@@ -540,7 +546,7 @@ define(
 				}
 				else {
 					tmp = this.$$controller.getModel(
-						'common/PostFilter/' + this.postfiltersData.configs[this.postfiltersData.order[i]].type,
+						'Common/PostFilter/' + this.postfiltersData.configs[this.postfiltersData.order[i]].type,
 						{
 							config: this.postfiltersData.configs[this.postfiltersData.order[i]],
 							items: this.flights,
@@ -754,13 +760,13 @@ define(
 			'Flights/SearchResults/CouplingTable',
 			'Flights/SearchResults/StringPFGroup',
 			'Flights/SearchResults/CompareTable',
-			'common/Date',
-			'common/Duration',
-			'common/Money',
-			'common/PostFilter/Abstract',
-			'common/PostFilter/String',
-			'common/PostFilter/Number',
-			'Flights/common/Geo'
+			'Common/Date',
+			'Common/Duration',
+			'Common/Money',
+			'Common/PostFilter/Abstract',
+			'Common/PostFilter/String',
+			'Common/PostFilter/Number',
+			'Flights/Common/Geo'
 		];
 
 		FlightsSearchResultsController.prototype.$$KOBindings = ['PostFilters'];

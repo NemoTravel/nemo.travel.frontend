@@ -76,7 +76,7 @@ define(
 								// Converting autocomplete data into an array of possibilities
 								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
 									result.push(
-										viewModel.$$controller.getModel('Flights/common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
+										viewModel.$$controller.getModel('Flights/Common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
 									);
 								}
 
@@ -255,7 +255,7 @@ define(
 					onSetDate: function () {
 						$element.blur();
 
-						valueAccessor()(viewModel.$$controller.getModel('common/Date', this.current));
+						valueAccessor()(viewModel.$$controller.getModel('CSommon/Date', this.current));
 
 						// Autofocus stuff
 						$element.trigger('nemo.fsf.segmentPropChanged');

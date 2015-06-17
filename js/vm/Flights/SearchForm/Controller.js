@@ -44,6 +44,7 @@ define(
 			// TODO unpopupped processing - when we don't need results immediately, we just need a search id for redirection
 			this.searchMode = 'popup';
 			this.isSearching = ko.observable(false);
+			this.searchRequest = ko.observable(false);
 			this.searchError = ko.observable(false);
 
 			this.typeSelectorOpen           = ko.observable(false);
@@ -313,9 +314,6 @@ define(
 		FlightsSearchFormController.prototype.$$i18nSegments       = ['FlightsSearchForm'];
 		FlightsSearchFormController.prototype.$$KOBindings         = ['FlightsSearchForm'];
 
-		FlightsSearchFormController.prototype.toggleTypeSelector       = function () {this.typeSelectorOpen(!this.typeSelectorOpen());};
-		FlightsSearchFormController.prototype.toggleClassSelector      = function () {this.classSelectorOpen(!this.classSelectorOpen());};
-
 		FlightsSearchFormController.prototype.openPassengersSelector = function () {
 			if (this.passengersFastSelectOptions.length == 0 && this.passengersUseExtendedSelect) {
 				this.passengersSelectorOpen(true);
@@ -568,8 +566,11 @@ define(
 
 		FlightsSearchFormController.prototype.startSearch = function () {
 			function searchError (message, systemData) {
-				self.searchError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
-				self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				if (systemData[0] !== 0) {
+					self.searchError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
+					self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				}
+
 				self.isSearching(false);
 			}
 
@@ -659,31 +660,40 @@ define(
 				this.$$controller.log('STARTING SEARCH');
 				this.isSearching(true);
 
-				this.$$controller.loadData(
-					'/flights/search/request',
-					{request: JSON.stringify(params)},
-					function (text, request) {
-						var response;
+				this.searchRequest(
+					this.$$controller.loadData(
+						'/flights/search/request',
+						{request: JSON.stringify(params)},
+						function (text, request) {
+							var response;
 
-						try {
-							response = JSON.parse(text);
+							try {
+								response = JSON.parse(text);
 
-							// Checking for errors
-							if (!response.system || !response.system.error) {
-								self.$$controller.navigate('results/' + response.flights.search.request.id);
+								// Checking for errors
+								if (!response.system || !response.system.error) {
+									self.$$controller.navigate('results/' + response.flights.search.request.id);
+								}
+								else {
+									searchError('systemError', response.system.error);
+								}
 							}
-							else {
-								searchError('systemError', response.system.error);
+							catch (e) {
+								searchError('brokenJSON', text);
 							}
+						},
+						function (request) {
+							searchError('requestFailed', [request.status, request.statusText]);
 						}
-						catch (e) {
-							searchError('brokenJSON', text);
-						}
-					},
-					function (request) {
-						searchError('requestFailed', [request.status, request.statusText]);
-					}
+					)
 				);
+			}
+		};
+
+		FlightsSearchFormController.prototype.abortSearch = function () {
+			if (this.isSearching()) {
+				this.isSearching(false);
+				this.searchRequest().abort();
 			}
 		};
 
@@ -765,7 +775,7 @@ define(
 						arrdata = null;
 
 					if (this.preinittedData.segments[i][0]) {
-						depdata = this.$$controller.getModel('Flights/common/Geo', {
+						depdata = this.$$controller.getModel('Flights/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][0],
 								isCity: this.preinittedData.segments[i][3],
@@ -776,7 +786,7 @@ define(
 					}
 
 					if (this.preinittedData.segments[i][1]) {
-						arrdata = this.$$controller.getModel('Flights/common/Geo', {
+						arrdata = this.$$controller.getModel('Flights/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][1],
 								isCity: this.preinittedData.segments[i][4],
@@ -789,7 +799,7 @@ define(
 					this.addSegment(
 						depdata,
 						arrdata,
-						this.preinittedData.segments[i][2] ? this.$$controller.getModel('common/Date', this.preinittedData.segments[i][2]) : null
+						this.preinittedData.segments[i][2] ? this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][2]) : null
 					);
 				}
 
@@ -818,9 +828,9 @@ define(
 					var data = this.$$rawdata.flights.search.request.segments[i];
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
-						data.departure ? this.$$controller.getModel('Flights/common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
-						data.arrival ? this.$$controller.getModel('Flights/common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
-						data.departureDate ? this.$$controller.getModel('common/Date', data.departureDate) : null
+						data.departure ? this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
+						data.arrival ? this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
+						data.departureDate ? this.$$controller.getModel('Common/Date', data.departureDate) : null
 					);
 				}
 
@@ -914,8 +924,8 @@ define(
 
 		FlightsSearchFormController.prototype.$$usedModels = [
 			'Flights/SearchForm/Segment',
-			'common/Date',
-			'Flights/common/Geo'
+			'Common/Date',
+			'Flights/Common/Geo'
 		];
 
 		FlightsSearchFormController.prototype.dataURL = function () {

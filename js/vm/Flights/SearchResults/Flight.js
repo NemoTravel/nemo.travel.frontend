@@ -41,7 +41,7 @@ define(
 						timeForLeg += this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp();
 
 						this.transfers[i].push({
-							duration: this.$$controller.getModel('common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp())
+							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp())
 						});
 
 						this.isDirect = false;
@@ -51,7 +51,7 @@ define(
 				}
 
 				this.totalTimeEnRoute += timeForLeg;
-				this.timeEnRouteByLeg.push(this.$$controller.getModel('common/Duration', timeForLeg));
+				this.timeEnRouteByLeg.push(this.$$controller.getModel('Common/Duration', timeForLeg));
 
 				this.legs.push({
 					depAirp: this.segmentsByLeg[i][0].depAirp,
@@ -62,7 +62,7 @@ define(
 				});
 			}
 
-			this.totalTimeEnRoute = this.$$controller.getModel('common/Duration', this.totalTimeEnRoute);
+			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
 			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
 		}
 
