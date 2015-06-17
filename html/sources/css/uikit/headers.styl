@@ -19,53 +19,6 @@ $f_ui_subSectionHeader_size = 15px;
 
 
 .new-ui- {
-	/**
-	 * Page section header
-	 *
-	 *
-	 */
-	&pageHeader {
-		background $c_pageHeader;
-		height $d_pageHeader_height;
-		
-		.mobile &{
-			height $d_pageHeader_height_mobile;
-			.logo{
-				display: none;
-			}
-		}
-		
-		.tablet &{
-
-			&__inner{
-				padding: $d_ui_pageHeader_tablet_inner_padding;
-			}
-		}
-		
-		&__inner{
-			display:flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			justify-content: flex-start;
-			align-content: flex-start;
-			align-items: center;
-			margin 0 auto;
-			height 100%;
-			vertical-align: middle;
-			width 100%;
-			max-width: $d_ui_pageHeader_inner_maxWidth;
-			padding: $d_ui_pageHeader_inner_padding;
-		}
-		
-		.logo{
-			display: inline-block;
-			width 206px;
-		}
-	}
-
-	&mainHeader {
-
-	}
 
 	&sectionHeader {
 		// General

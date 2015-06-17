@@ -9,15 +9,6 @@ $c_ui_textErr        				= #B13D12;
 $f_ui_font_family 					= "Open Sans", sans-serif;
 $f_ui_font_family_myriad			= "Myriad Pro", sans-serif;
 
-$c_pageHeader = #F6F6F6;
-
-$d_pageHeader_height = 60px;
-$d_pageHeader_height_mobile = 50px;
-
-$d_ui_pageHeader_inner_maxWidth = 1140px;
-$d_ui_pageHeader_inner_padding = 0 30px;
-
-$d_ui_pageHeader_tablet_inner_padding = 0 20px 0 10px;
 
 body{
 	font-family: $f_ui_font_family;
@@ -38,46 +29,4 @@ body{
 	zoom: 1;
 }
 
-.nemo-common-{
-	&pageHeader{
-		background $c_pageHeader;
-		height $d_pageHeader_height;
-		
-		.nemo-root_mobile &{
-			height $d_pageHeader_height_mobile;
-			.logo{
-				display: none;
-			}
-		}
-		
-		.nemo-root_tablet &{
-
-			&__inner{
-				padding: $d_ui_pageHeader_tablet_inner_padding;
-			}
-		}
-		
-		&__inner{
-			display:flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			justify-content: flex-start;
-			align-content: flex-start;
-			align-items: center;
-			margin 0 auto;
-			height 100%;
-			vertical-align: middle;
-			width 100%;
-			max-width: $d_ui_pageHeader_inner_maxWidth;
-			padding: $d_ui_pageHeader_inner_padding;
-			@media only screen and (min-width: 1340px) { 
-				max-width: 1600px;
-			}
-			
-			.nemo-root_mobile &{
-				padding: 0 0 0 10px;
-			}
-		}
-	}
-}
 
