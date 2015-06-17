@@ -203,6 +203,9 @@ define(
 				grouppable: ['departureTime','arrivalTime']
 			};
 
+			this.id = 0;
+			this.searchId = 0;
+
 			this.options = {};
 
 			this.segments = {};
@@ -336,6 +339,10 @@ define(
 				this.$$error(this.$$rawdata.system.error.message);
 			}
 			else {
+				// Ids
+				this.id = this.$$rawdata.flights.search.results.id;
+				this.searchId = this.$$rawdata.flights.search.request.id;
+
 				// Processing options
 				this.options = this.$$rawdata.flights.search.resultData;
 

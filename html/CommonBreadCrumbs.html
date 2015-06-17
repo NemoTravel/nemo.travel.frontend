@@ -1,14 +1,19 @@
+<!-- ko if: !$$loading() -->
 <section class="new-common-breadCrumbs">
 	<div class="new-common-breadCrumbs__i">
-		<div class="new-common-breadCrumbs__crumbs">
-			<div class="new-ui-breadcrumbs">
-				<a href="#" class="new-ui-breadcrumb__link new-ui-breadcrumb__link_focused">Поиск авиабилетов </a><span class="new-ui-breadcrumb__sep">/</span>
-				<a href="#" class="new-ui-breadcrumb__link">Результаты поиска</a><span class="new-ui-breadcrumb__sep">/</span>
-				<a href="#" class="new-ui-breadcrumb__link">Оформление заказа</a>
-			</div>
-		</div>
-		<div class="new-common-breadCrumbs__additional">
-			SOME TEST SHIT HERE
+		<div class="new-common-breadCrumbs__crumbs" data-bind="foreach: elements"><span class="new-common-breadCrumbs__crumbs__crumb">
+				<!-- ko if: active -->
+				<a href="#" class="new-ui-pseudoLink new-common-breadCrumbs__crumbs__crumb__title"
+				   data-bind="text: $root.i18n('CommonBreadCrumbs', title), attr: {href: link}"></a>
+				<!-- /ko -->
+				<!-- ko if: !active -->
+				<span class="new-common-breadCrumbs__crumbs__crumb__title"
+				      data-bind="text: $root.i18n('CommonBreadCrumbs', title)"></span>
+				<!-- /ko -->
+			</span></div>
+		<div class="new-common-breadCrumbs__additional" data-bind="text: tmp">
+			SOME TEST COMPONENT HERE
 		</div>
 	</div>
 </section>
+<!-- /ko -->

@@ -1,8 +1,9 @@
-<!--<div data-bind="component: {name: 'Common/BreadCrumbs/Controller',params: {-->
-		<!--component: $data-->
-	<!--}}"></div>-->
+<!-- ko if: !$$loading() -->
+<div data-bind="component: {name: 'Common/BreadCrumbs/Controller', params: {
+		component: $data
+	}}"></div>
 
-<!-- ko if: !$$loading() && !$$error() -->
+<!-- if: !$$error() -->
 <div data-bind="foreach: searchInfo.segments" style="border: 1px solid;margin-bottom: 20px;">
 	<div data-bind="text: departure.IATA +' - '+arrival.IATA+' '+departureDate.getISODate()"></div>
 </div>
@@ -318,6 +319,7 @@
 	<h2>FILTERS GIVEN EMPTY RESULT</h2>
 	<!-- /ko -->
 </div>
+<!-- /ko -->
 <!-- /ko -->
 
 <!-- ko if: $$loading() -->
