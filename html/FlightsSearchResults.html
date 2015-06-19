@@ -71,8 +71,12 @@
 			}
 			"></section>
 
+		<section class="nemo-flights-results__comapreTableOpener">
+			<div class="nemo-flights-results__comapreTableOpener__text" data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
+		</section>
+
 		<section class="nemo-flights-results__content">
-			<aside class="nemo-flights-results__postfilters">
+			<aside class="nemo-flights-results__content__postfilters">
 				<h3>
 					FILTERS
 					<!-- ko if: postFiltersHaveValue() -->
@@ -151,49 +155,46 @@
 				</div>
 			</aside>
 
-			<section class="nemo-flights-results__resultsList">
+			<section class="new-ui-subContainer nemo-flights-results__content__results">
+				<!-- ko if: hasVisibleResult() -->
+					<div class="nemo-flights-results__showcase">
+						<!-- ko if: showcase.recommended() -->
+							<!-- ko with: {group: showcase.fastest(), modifier: 'recommended'} -->
+							<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
+							     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+							<!-- /ko -->
+						<!-- /ko -->
 
+						<!-- ko if: showcase.fastest() -->
+							<!-- ko with: {group: showcase.fastest(), modifier: 'fastest'} -->
+							<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_fastest"
+							     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+							<!-- /ko -->
+						<!-- /ko -->
+
+						<!-- ko if: showcase.cheapest() -->
+						<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
+						<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_cheapest"
+						     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				<!-- /ko -->
+				<select data-bind="options: possibleSorts, value: sort"></select>
+
+				<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
+
+				<!-- ko if: !hasVisibleResult() -->
+				<h2>FILTERS GIVEN EMPTY RESULT</h2>
+				<!-- /ko -->
 			</section>
 
-			<aside class="nemo-flights-results__offers">
+			<aside class="nemo-flights-results__content__offers">
 				<h3>BEST COMPANIES</h3>
-				<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: showcase.bestCompanies }"></div>
+				<!-- ko with: {groups: showcase.bestCompanies, modifier: 'bestCompanies'} -->
+					<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
+				<!-- /ko -->
 			</aside>
-
-			<!-- ko if: hasVisibleResult() -->
-			<h3>SHOWCASE</h3>
-			<!-- ko if: showcase.recommended() -->
-			<h4>recommended</h4>
-			<div style="margin: 10px;padding: 10px;border: 1px solid red;" data-bind="with: showcase.recommended">
-				<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-				<div data-bind="foreach: segments">
-					<div data-bind="text: id+' '+depAirp.name+' - '+arrAirp.name+' '+depDateTime.getISODateTime()+' - '+arrDateTime.getISODateTime()"></div>
-				</div>
-			</div>
-			<!-- /ko -->
-			<!-- ko if: showcase.cheapest() -->
-			<h4>cheapest</h4>
-			<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: showcase.cheapest }"></div>
-			<!-- /ko -->
-			<!-- ko if: showcase.fastest() -->
-			<h4>fastest</h4>
-			<div style="margin: 10px;padding: 10px;border: 1px solid red;" data-bind="with: showcase.fastest">
-				<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
-				<div data-bind="foreach: segments">
-					<div data-bind="text: id+' '+depAirp.name+' - '+arrAirp.name+' '+depDateTime.getISODateTime()+' - '+arrDateTime.getISODateTime()"></div>
-				</div>
-			</div>
-			<!-- /ko -->
-			<h3>RESULTS</h3>
-			<h4>
-				SORT:
-				<select data-bind="options: possibleSorts, value: sort"></select>
-			</h4>
-			<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
-			<!-- /ko -->
-			<!-- ko if: !hasVisibleResult() -->
-			<h2>FILTERS GIVEN EMPTY RESULT</h2>
-			<!-- /ko -->
 		</section>
 	<!-- /ko -->
 
@@ -229,15 +230,47 @@
 	<!-- Flights group -->
 	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
 		<!-- ko if: !filteredOut() -->
-		<div style="margin: 10px;padding: 10px;border: 1px solid;">
-			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
-			<strong data-bind="text: getValidatingCompany().name + ' ' + getValidatingCompany().rating"></strong>
-			<div data-bind="foreach: flights">
-				<div>
-					<span data-bind="text: id"></span>
-					<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>
+		<!-- TODO add carrier coloring here -->
+		<div data-bind="attr: {'class': 'new-ui-subContainer nemo-flights-results__flightsGroup ' + ($parent.modifier ? 'nemo-flights-results__flightsGroup_' + $parent.modifier : '')}">
+			<div class="new-ui-subContainer__header nemo-flights-results__flightsGroup__header">
+				<div class="nemo-flights-results__flightsGroup__header__title">
+					<div class="nemo-flights-results__flightsGroup__header__title__ffEllipsisHack__outer">
+						<div class="nemo-flights-results__flightsGroup__header__title__ffEllipsisHack__inner" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
+					</div>
+				</div>
+				<div class="nemo-flights-results__flightsGroup__header__additional">
+					<div class="nemo-flights-results__flightsGroup__rating nemo-flights-results__flightsGroup__rating_inHeader" data-bind="foreach: getValidatingCompany().ratingItems"><!--
+						--><div class="nemo-flights-results__flightsGroup__rating__item" data-bind="css:{'nemo-flights-results__flightsGroup__rating__item_active': $data}"></div><!--
+					--></div><!--
+					--><img class="nemo-flights-results__flightsGroup__header__logo"
+					     data-bind="attr: {src: $root.controller.options.staticInfoURL + getValidatingCompany().logo.image}"><!--
+					     ko if: carriersMismatch
+				    --><div class="nemo-flights-results__flightsGroup__header__info" data-bind=""></div>
+					<!-- /ko -->
 				</div>
 			</div>
+
+			<div class="nemo-flights-results__flightsGroup__subHeader">
+				<div class="nemo-flights-results__flightsGroup__subHeader__title">
+					Рейтинг авиакомпании
+				</div>
+
+				<div class="nemo-flights-results__flightsGroup__subHeader__additional">
+					<div class="nemo-flights-results__flightsGroup__rating nemo-flights-results__flightsGroup__rating_inSubHeader" data-bind="foreach: getValidatingCompany().ratingItems"><!--
+						--><div class="nemo-flights-results__flightsGroup__rating__item" data-bind="css:{'nemo-flights-results__flightsGroup__rating__item_active': $data}"></div><!--
+					--></div>
+				</div>
+			</div>
+
+			<div data-bind="text: $parent.modifier"></div>
+			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
+			<strong data-bind="text: getValidatingCompany().name + ' ' + getValidatingCompany().rating"></strong>
+			<!--<div data-bind="foreach: flights">-->
+				<!--<div>-->
+					<!--<span data-bind="text: id"></span>-->
+					<!--<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>-->
+				<!--</div>-->
+			<!--</div>-->
 			<div data-bind="foreach: legGroupings">
 				<div style="display: inline-block;vertical-align: top;width: 33%;">
 					<div data-bind="text: selected().flights.join(', ')"></div>

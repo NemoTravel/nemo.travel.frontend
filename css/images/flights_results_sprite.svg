@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="21.085px" height="194.239px" viewBox="0 0 21.085 194.239" enable-background="new 0 0 21.085 194.239"
+	 xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<line fill="none" stroke="#636568" stroke-miterlimit="10" x1="1" y1="3.5" x2="14" y2="3.5"/>
+			<g>
+				<polygon fill="#636568" points="12.611,4.852 13.397,3 12.611,1.148 17,3 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#636568" stroke-miterlimit="10" x1="17" y1="8.5" x2="4" y2="8.5"/>
+			<g>
+				<polygon fill="#636568" points="5.389,6.148 4.603,8 5.389,9.852 1,8 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#636568" stroke-miterlimit="10" x1="1" y1="16.5" x2="14" y2="16.5"/>
+		<g>
+			<polygon fill="#636568" points="12.611,17.852 13.397,16 12.611,14.148 17,16 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<polyline fill="none" stroke="#FBFEFF" stroke-miterlimit="10" points="10,33 5,39 0,33 	"/>
+	<polyline fill="none" stroke="#FBFEFF" stroke-miterlimit="10" points="0,27 5,21 10,27 	"/>
+</g>
+<g>
+	<g>
+		<rect x="8" y="52" fill="#FFFFFF" width="4" height="20"/>
+	</g>
+	<g>
+		<rect x="0" y="60" fill="#FFFFFF" width="20" height="4"/>
+	</g>
+</g>
+<g>
+	
+		<image overflow="visible" opacity="0.25" width="24" height="23" xlink:href="D276240E.png"  transform="matrix(1 0 0 1 -1.97 77.6195)">
+	</image>
+	<g>
+		<polygon fill="#D9D9D9" points="10.412,80 12.834,85.511 18.823,86.111 14.331,90.118 15.61,96 10.412,92.965 5.213,96 
+			6.493,90.118 2,86.111 7.99,85.511 		"/>
+	</g>
+</g>
+<g>
+	
+		<image overflow="visible" opacity="0.25" width="24" height="23" xlink:href="D2762412.png"  transform="matrix(1 0 0 1 -1.97 107.6195)">
+	</image>
+	<g>
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.4117" y1="126" x2="10.4117" y2="110">
+			<stop  offset="0" style="stop-color:#F9BA00"/>
+			<stop  offset="1" style="stop-color:#ECD590"/>
+		</linearGradient>
+		<polygon fill="url(#SVGID_1_)" points="10.412,110 12.834,115.511 18.823,116.111 14.331,120.118 15.61,126 10.412,122.965 
+			5.213,126 6.493,120.118 2,116.111 7.99,115.511 		"/>
+	</g>
+</g>
+</svg>

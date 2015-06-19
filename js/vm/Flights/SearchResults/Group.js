@@ -12,6 +12,8 @@ define(
 
 			this.isDirectGroup = false;
 
+			this.carriersMismatch = false;
+
 			this.filteredOut = ko.observable(false);
 			this.selectedFlightsIds = ko.observable([]);
 
@@ -122,6 +124,7 @@ define(
 			}, this);
 
 			for (var i = 0; i < this.flights.length; i++) {
+				this.carriersMismatch = this.carriersMismatch || this.flights[i].carriersMismatch;
 				if (this.flights[i].isDirect == false) {
 					this.isDirectGroup = false;
 				}

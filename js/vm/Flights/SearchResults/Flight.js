@@ -16,6 +16,7 @@ define(
 			this.transfersCount = 0;
 			this.totalTimeTransfers = 0;
 			this.isDirect = true;
+			this.carriersMismatch = false;
 
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
@@ -25,6 +26,8 @@ define(
 				}
 
 				this.segmentsByLeg[this.segmentsByLeg.length - 1].push(this.segments[i]);
+
+				this.carriersMismatch = this.carriersMismatch || this.getValidatingCompany().IATA != this.segments[i].operatingCompany.IATA;
 			}
 
 			// Calculating total time in flight

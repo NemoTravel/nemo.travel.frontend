@@ -609,6 +609,7 @@ define (
 			root: '/',
 			sourceURL: '',
 			dataURL: '',
+			staticInfoURL: '',
 			verbose: false,
 			postParameters: {},
 			i18nLanguage: 'en',
