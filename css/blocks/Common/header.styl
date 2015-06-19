@@ -1,7 +1,7 @@
 $c_pageHeader = #F6F6F6;
 
-$d_pageHeader_height = 60px;
-$d_pageHeader_height_mobile = 50px;
+$d_pageHeader_padding = 14px 0;
+$d_pageHeader_padding_mobile = 8px 0;
 
 $d_ui_pageHeader_inner_maxWidth = 1140px;
 $d_ui_pageHeader_inner_padding = 0 30px;
@@ -15,20 +15,18 @@ $d_headerLinks_tablet_padding 		= 0 0 0 10px;
 .nemo-common-{
 	&pageHeader{
 	background: $c_pageHeader;
-	height: $d_pageHeader_height;
+	padding: $d_pageHeader_padding;
 		&__logo {
 			display: inline-block;
-			width: 206px;
 			&__image {
 				display: block;
 			}
 		}
 	.nemo-root_mobile &{
-		height: $d_pageHeader_height_mobile;
+		padding: $d_pageHeader_padding_mobile;
 		.logo{
 			display: none;
 		}
-
 	}
 
 	.nemo-root_tablet &{

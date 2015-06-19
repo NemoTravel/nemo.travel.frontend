@@ -45,10 +45,10 @@ define(
 				for (var fiter = 0; fiter < this.flights.length; fiter++) {
 					// REFER TO "COUPLINGTABLE". MUST CORRESPOND. HERE PRICE IS NOT ADDED FOR OBVIOUS REASONS
 					/*this.flights[fiter].legs[siter].depAirp.IATA + '-' +
-						this.flights[fiter].legs[siter].arrAirp.IATA + '-' +
-						this.flights[fiter].legs[siter].depDateTime.getISODateTime() + '-' +
-						this.flights[fiter].legs[siter].arrDateTime.getISODateTime() + '-' +
-						this.flights[fiter].legs[siter].timeEnRoute.length();*/
+					 this.flights[fiter].legs[siter].arrAirp.IATA + '-' +
+					 this.flights[fiter].legs[siter].depDateTime.getISODateTime() + '-' +
+					 this.flights[fiter].legs[siter].arrDateTime.getISODateTime() + '-' +
+					 this.flights[fiter].legs[siter].timeEnRoute.length();*/
 					key = this.getGroupingKey(this.flights[fiter], siter);
 
 					if (!tmp[key]) {
@@ -118,22 +118,32 @@ define(
 
 				return duration;
 			}, this);
+			this.durationOnLegString = ko.computed(function () {
+				var duration = 0,
+					selectedFlight;
 
+				if (this.selectedFlightsIds().length) {
+					selectedFlight = this.flightsById[this.selectedFlightsIds()[0]];
+				}
+
+				if (selectedFlight) {
+					for (var i = 0; i < selectedFlight.timeEnRouteByLeg.length; i++) {
+						if (selectedFlight.timeEnRouteByLeg[i].length() > duration) {
+							duration = selectedFlight.timeEnRouteByLeg[i].length();
+						}
+					}
+				}
+
+				return this.$$controller.getModel('Common/Duration', duration);
+			}, this);
 			this.recommendRating = ko.computed(function () {
 				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]].recommendRating : 0;
 			}, this);
 
 			for (var i = 0; i < this.flights.length; i++) {
-				this.carriersMismatch = this.carriersMismatch || this.flights[i].carriersMismatch;
-				if (this.flights[i].isDirect == false) {
-					this.isDirectGroup = false;
-				}
-				else {
-					this.isDirectGroup = true;
-				}
+				this.isDirectGroup = this.isDirectGroup || this.flights[i].isDirect;
 			}
 		}
-
 		// Extending from dictionaryModel
 		helpers.extendModel(Group, [BaseModel]);
 
