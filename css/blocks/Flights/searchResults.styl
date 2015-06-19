@@ -102,9 +102,8 @@
 		}
 
 		&__switch {
-			/*align-self: flex-end;*/
-			margin-left: auto;
 			flex-shrink: 0;
+			margin-left: auto;
 			height: 40px;
 			line-height: 40px;
 			background: $c_corporate_blue;
@@ -116,57 +115,259 @@
 		}
 	}
 
-	&__content {
-		max-width: 1640px;
-		margin: 0 auto;
+	&__comapreTableOpener {
+		cursor: pointer;
+		text-align: center;
+		padding: 10px 0;
+		line-height: 19px;
+		transition: all 0.2s;
+		position: relative;
 
+		&:before {
+			content: '';
+			display: inline-block;
+			width: 10px;
+			height: 20px;
+			vertical-align: top;
+			margin-right: 10px;
+			background: url('images/flights_results_sprite.svg') 0 -20px no-repeat;
+			opacity: 0.5;
+			transition: all 0.2s;
+			position: relative;
+			z-index: 1;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjYTBhMGEwIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+');
+			background: linear-gradient(to left, rgba(0,0,0,0.1) 0%,rgba(160,160,160,0.1) 50%,rgba(0,0,0,0.1) 100%);
+			opacity: 0;
+			transition: all 0.2s;
+		}
+
+		&__text {
+			display: inline-block;
+			vertical-align: top;
+			font-size: 13px;
+			color: #fff;
+			border-bottom: 1px dashed;
+			position: relative;
+			z-index: 1;
+		}
+
+		&:hover {
+			&:before, &:after {
+				opacity: 1;
+			}
+		}
 	}
 
-	/*&__i{
-		max-width: $d_ui_main_top_inner;
-		padding: $d_ui_main_top_inner_padding;
+	&__content {
+		max-width: 1700px;
 		margin: 0 auto;
-		@media only screen and (min-width: 1340px) {
-			max-width: 1600px;
+
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		&__postfilters, &__offers, &__results {
+			margin: 10px;
+			flex-grow: 0;
 		}
-		&__btn{
-			display: none;
-			.nemo-root_tablet &{
-				display: block;
-				float: left;
-				width: $d_ui_main_top_btn_width;
-				padding: $d_ui_main_top_btn_padding;
+
+		&__postfilters, &__offers {
+			flex-basis: 18%;
+			min-width: 280px;
+			transition: all 0.2s;
+			opacity: 0.4;
+			flex-shrink: 0;
+
+			&:hover {
+				opacity: 1;
 			}
 		}
-		&__main{
-			padding: 0;
-			.nemo-root_tablet &{
-				padding: $d_ui_main_top_main_padding;
+
+		&__results {
+			padding: 20px;
+			flex-basis: 64%;
+		}
+	}
+
+	&__showcase {
+		display: flex;
+		flex-flow: row wrap;
+		margin: -10px -10px 0;
+		padding: 10px;
+
+		&__item {
+			border: 10px solid transparent;
+			width: 50%;
+			flex-grow: 0;
+
+			&_recommended {
+				width: 100%;
 			}
 		}
-		.nemo-root_mobile &{
-			padding: 0;
-			max-width: 100%;
-			width: 100%;
-			display:flex;
-			flex-direction: column;
-			flex-wrap: nowrap;
+	}
+
+	&__flightsGroup {
+		padding: 0;
+
+		&__header {
+			display: flex;
+			flex-flow: row nowrap;
 			justify-content: flex-start;
-			align-content: stretch;
-			align-items: stretch;
-			.new-layout-main__top__i__btn{
-				order: 1;
-				display: block;
-				.new-ui-button_common{
-					width: 100%;
-				}
-				.new-ui-filter__controls{
-					padding: 10px 10px 5px;
+			padding: 0;
+			margin: 0;
+
+			&__title {
+				flex 1 1 auto;
+				padding-left: $d_ui_subContainer_padding;
+
+				/* Dirty hacck for firefox :( */
+				&__ffEllipsisHack {
+					&__outer {
+						display: table;
+						table-layout: fixed;
+						width: 100%;
+					}
+
+					&__inner {
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						overflow: hidden;
+					}
 				}
 			}
-			.new-layout-main__top__i__main{
-				order: 0;
+
+			&__additional {
+				flex 0 0 auto;
+				margin-right: auto;
+				padding: 0 $d_ui_subContainer_padding;
+			}
+
+			&__logo, &__info {
+				display: inline-block;
+				vertical-align: top;
+				line-height: 30px;
+				margin-left: 20px;
+				padding: 10px 0;
+
+				&:first-child {
+					margin: 0;
+				}
+			}
+
+			&__logo {
+				height: auto;
+				vertical-align: middle;
+				max-height: 40px;
+				max-width: 140px;
+				padding: 0;
+				margin-top: -2px;
+			}
+
+			&__info {
+				height: 30px;
+				width: 30px;
+				margin-top: 10px;
+				background: url("images/flights_results_sprite.svg") 5px -47px no-repeat;
+				cursor: pointer;
+				border-radius: 4px;
+				transition: all .2s;
+
+				&:hover {
+					background-color: rgba(#fff, 0.1);
+				}
 			}
 		}
-	}*/
+
+		&__rating {
+			display: inline-block;
+			vertical-align: top;
+			line-height: 30px;
+			margin-left: 20px;
+
+			&:first-child {
+				margin: 0;
+			}
+
+			&__item {
+				display: inline-block;
+				vertical-align: top;
+				width: 19px;
+				height: 19px;
+				background: url("images/flights_results_sprite.svg") 0 -80px no-repeat;
+
+				&_active {
+					background: url("images/flights_results_sprite.svg") 0 -110px no-repeat;
+				}
+			}
+
+			&_inHeader {
+				padding: 10px 0;
+				line-height: 30px;
+			}
+
+			&_inHeader &__item {
+				margin-top: 7px;
+			}
+
+			&_inSubHeader {
+				line-height: 30px;
+				padding: 2px 0;
+			}
+
+			&_inSubHeader &__item {
+				margin-top: 7px;
+			}
+		}
+
+		&__subHeader {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			align-content: center;
+			display: none;
+
+			border-bottom: $i_ui_subContainer_divider_border
+
+			&__title {
+				flex 1 1 auto;
+				padding-left: $d_ui_subContainer_padding;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				line-height: 34px;
+			}
+
+			&__additional {
+				flex 0 0 auto;
+				margin-right: auto;
+				padding: 0 $d_ui_subContainer_padding;
+			}
+		}
+
+		&_cheapest &__header__title, &_cheapest &__header__additional {
+			background: #B23E13;
+		}
+
+		&_fastest &__rating_inHeader,
+		&_cheapest &__rating_inHeader,
+		&_bestCompanies &__rating_inHeader {
+			display: none;
+		}
+
+		&_fastest &__subHeader,
+		&_cheapest &__subHeader,
+		&_bestCompanies &__subHeader {
+			display: flex;
+		}
+	}
 }

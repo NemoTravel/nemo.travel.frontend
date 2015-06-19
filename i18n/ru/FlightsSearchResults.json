@@ -3,5 +3,10 @@
 	"formDummy__route__rt__return" : "Обратно",
 	"formDummy__switch" : "Изменить",
 
-	"" : ""
+	"compareTableSwitcher_open" : "Сравнительная таблица перелетов",
+	"compareTableSwitcher_close" : "Скрыть",
+
+	"flightsGroup__header_cheapest" : "Самый дешевый",
+	"flightsGroup__header_fastest" : "Самый быстрый",
+	"flightsGroup__header_recommended" : "Лучший вариант"
 }

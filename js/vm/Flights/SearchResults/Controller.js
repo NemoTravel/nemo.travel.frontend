@@ -370,7 +370,7 @@ define(
 				// Processing airlines
 				for (var i in this.$$rawdata.guide.airlines) {
 					if (this.$$rawdata.guide.airlines.hasOwnProperty(i)) {
-						this.airlines[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.guide.airlines[i]);
+						this.airlines[i] = this.$$controller.getModel('Flights/SearchResults/Airline', this.$$rawdata.guide.airlines[i]);
 					}
 				}
 
@@ -683,7 +683,7 @@ define(
 				bestCompanies = [],
 				bestCompaniesCount = 3;
 
-			if (this.options.showBlocks.isShowCase) {
+			if (this.options.showBlocks.useShowCase) {
 				for (var i in this.flights) {
 					if (this.flights.hasOwnProperty(i) && !this.flights[i].filteredOut()) {
 						if(!bestFlight || bestFlight.recommendRating < this.flights[i].recommendRating) {
@@ -694,6 +694,20 @@ define(
 							fastestFlight = this.flights[i];
 						}
 					}
+				}
+
+				if (bestFlight) {
+					bestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [bestFlight]});
+
+					// Setting group "conjunction table"
+					bestFlight.buildCouplingTable(this.flights);
+				}
+
+				if (fastestFlight) {
+					fastestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [fastestFlight]});
+
+					// Setting group "conjunction table"
+					fastestFlight.buildCouplingTable(this.flights);
 				}
 
 				this.showcase.recommended(bestFlight);
@@ -787,6 +801,7 @@ define(
 			'Flights/SearchResults/CouplingTable',
 			'Flights/SearchResults/StringPFGroup',
 			'Flights/SearchResults/CompareTable',
+			'Flights/SearchResults/Airline',
 			'Common/Date',
 			'Common/Duration',
 			'Common/Money',
