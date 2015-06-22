@@ -216,7 +216,7 @@ define(
 			this.flightsCompareTableTransfer = ko.observable();
 
 			this.groups = ko.observableArray([]);
-			this.hasVisibleResult = ko.observable(true);
+			this.visibleResultsCount = ko.observable(0);
 
 			this.formActive = ko.observable(false);
 
@@ -430,6 +430,8 @@ define(
 				}
 
 				// Processing flights (iterating over groups because flights are grouped by routes)
+				tmp = 0;
+
 				for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
 					var segsarr = [],
 						source = this.$$rawdata.flights.search.results.flightGroups[i];
@@ -449,8 +451,12 @@ define(
 								segments: segsarr
 							}
 						);
+
+						tmp++;
 					}
 				}
+
+				this.visibleResultsCount(tmp);
 
 				// Creating flight groups (we group by same price and validating company)
 				// Also - post-processing flights for them to calculate their "recommended" rating
@@ -580,7 +586,7 @@ define(
 				filters = this.postFilters(),
 				groups = this.groups(),
 				result,
-				visibleResult = false,
+				visibleCount = 0,
 				tmp,i,j;
 
 			function intersectFilterResults (filterResults, skipIndex) {
@@ -642,7 +648,7 @@ define(
 					this.flights[i].filteredOut(!tmp);
 
 					if (tmp) {
-						visibleResult = true;
+						visibleCount++;
 					}
 				}
 			}
@@ -656,7 +662,7 @@ define(
 
 			this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
 			this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
-			this.hasVisibleResult(visibleResult);
+			this.visibleResultsCount(visibleCount);
 
 			this.setShowcase();
 		};

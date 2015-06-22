@@ -1,4 +1,11 @@
 {
+	"controls__count" : "Все билеты ([%-count-%])",
+
+	"sortType_price" : "Цене",
+	"sortType_durationOnLeg" : "Длительности",
+	"sortType_rating" : "Рейтингу",
+	"sortType_carrierRating" : "Рейтингу перевозчика",
+
 	"formDummy__route__rt__flight" : "Туда",
 	"formDummy__route__rt__return" : "Обратно",
 	"formDummy__switch" : "Изменить",
@@ -8,5 +15,15 @@
 
 	"flightsGroup__header_cheapest" : "Самый дешевый",
 	"flightsGroup__header_fastest" : "Самый быстрый",
-	"flightsGroup__header_recommended" : "Лучший вариант"
+	"flightsGroup__header_recommended" : "Лучший вариант",
+	"flightsGroup__header__carrierMismatch__header" : "Несколько перевозчиков",
+	"flightsGroup__header__carrierMismatch__content" : "Перелет предоставлен компанией &laquo;[%-validatingCarrier-%]&raquo;, но выполняет его другая компания.<br/>Вы можете ожидать сервиса и правил авиакомпании предоставляющей перелет.",
+
+	"flightsGroup__selector__title" : "Вылет и прилет",
+
+	"flightsGroup__availSeats_one" : "место",
+	"flightsGroup__availSeats_twoToFour" : "места",
+	"flightsGroup__availSeats_fourPlus" : "мест",
+
+	"" : ""
 }

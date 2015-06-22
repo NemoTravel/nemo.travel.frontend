@@ -8,6 +8,10 @@
 	cursor: pointer;
 }
 
+.select2-selection {
+	width: 100%;
+}
+
 .select2-selection--single {
 	box-sizing: border-box;
 	display: block;
@@ -209,17 +213,27 @@
 /* New styles */
 .new-ui-select2 {
 	&__container {
-		padding: 0 20px 0 10px;
+		padding: 10px 20px 10px 10px;
 		border: 1px solid #D9D9D9;
-		line-height: 30px;
+		line-height: 20px;
+		font-size: 13px;
 	}
 
 	&__dropdown {
 		box-shadow: 0 1px 4px rgba(#000, .25);
 		background: #fff;
 		border-radius: 4px;
-		margin-top: 5px;
+		/*margin-top: 5px;*/
 		white-space: nowrap;
+
+		&.select2-dropdown-- {
+			&below {
+				margin-top: 5px;
+			}
+			&above {
+				margin-top: -5px;
+			}
+		}
 
 		.select2-results__option {
 			font-size: 13px;

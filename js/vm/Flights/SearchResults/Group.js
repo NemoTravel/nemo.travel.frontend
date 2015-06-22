@@ -132,6 +132,10 @@ define(
 					this.isDirectGroup = true;
 				}
 			}
+
+			this.selectedFlight = ko.computed(function () {
+				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : null;
+			}, this);
 		}
 
 		// Extending from dictionaryModel
