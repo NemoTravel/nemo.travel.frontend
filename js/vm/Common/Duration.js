@@ -17,7 +17,29 @@ define(
 			this.years   = ko.observable(0);
 
 			this.length.subscribe(this.setBaseParts, this);
-
+			
+			this.readableString = ko.computed(function(){
+				var res = '';
+				if(this.years() > 0 ){
+					res += this.years()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.years(),"year_one","year_twoToFour","year_fourPlus")) +' ';
+				}
+				if(this.months() > 0 ){
+					res += this.months()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.months(),"month_one","month_twoToFour","month_fourPlus"))+' ';
+				}
+				if(this.days() > 0 ){
+					res += this.days()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.days(),"day_one","day_twoToFour","day_fourPlus"))+' ';
+				}
+				if(this.hours() > 0 ){
+					res += this.hours()+' '+this.$$controller.i18n('duration',  helpers.getNumeral(this.hours(),"hour_one","hour_twoToFour","hour_fourPlus"))+' ';
+				}
+				if(this.minutes() > 0 ){
+					res += this.minutes()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.minutes(),"minute_one","minute_twoToFour","minute_fourPlus"))+' ';
+				}
+				if(this.seconds() > 0 ){
+					res +=  this.seconds()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.seconds(),"second_one","second_twoToFour","second_fourPlus"))+' ';
+				}
+				return res;
+			}, this);
 			this.setBaseParts();
 		}
 

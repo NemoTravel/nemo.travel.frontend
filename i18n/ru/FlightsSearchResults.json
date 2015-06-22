@@ -8,5 +8,8 @@
 
 	"flightsGroup__header_cheapest" : "Самый дешевый",
 	"flightsGroup__header_fastest" : "Самый быстрый",
-	"flightsGroup__header_recommended" : "Лучший вариант"
+	"flightsGroup__header_recommended" : "Лучший вариант",
+	"flightsCompareTable__unknownFlightTime":"Неизвестно",
+	"flightsCompareTable__time":"Время:",
+	"flightsCompareTable__buy":"Купить"
 }

@@ -9,7 +9,6 @@ define(
 				tmpctDirect = {},
 				tmpctTransfer = {};
 
-
 			for (var i = 0; i < tempFlightGroups.length; i++) {
 				if (tempFlightGroups[i].isDirectGroup == false && tempFlightGroups[i].filteredOut() == false){
 					if (typeof tmpctTransfer[tempFlightGroups[i].getValidatingCompany().IATA] == 'undefined') {
@@ -30,7 +29,6 @@ define(
 				}
 			}
 
-
 			var tempGroupsArrDirect =[],
 			tempGroupsArrTransfer =[];
 
@@ -43,6 +41,7 @@ define(
 					}
 				}
 			}
+
 			for(var i in tmpctDirect ) {
 				if (tmpctDirect.hasOwnProperty(i)){
 					if (!isNaN(parseFloat(i)) && isFinite(i)){
@@ -78,6 +77,7 @@ define(
 					}
 				}, tmpctDirect[i]);
 			}
+
 			if(initialData.direct == true){
 				this.groups = tempGroupsArrDirect;
 			}else if (initialData.direct == false){
@@ -108,12 +108,18 @@ define(
 				if(this.paginationHasNext()){
 					var current = this.paginationShownPages();
 					this.paginationShownPages(current + this.paginationStep());
+					if(this.allGroupsVisible() == true){
+						this.toggleVisibleGroups()
+					}
 				}
 			};
 			this.paginationPrev = function(){
 				if(this.paginationHasPrev()){
 					var current = this.paginationShownPages();
 					this.paginationShownPages(current - this.paginationStep());
+					if(this.allGroupsVisible() == true){
+						this.toggleVisibleGroups()
+					}
 				}
 			};
 
@@ -135,7 +141,6 @@ define(
 				}
 			};
 			BaseModel.apply(this, arguments);
-
 		}
 
 		// Extending from dictionaryModel

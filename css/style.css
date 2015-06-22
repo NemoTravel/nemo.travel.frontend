@@ -3334,17 +3334,16 @@ a.new-ui-actionSelect__link:hover {
 }
 .nemo-common-pageHeader {
   background: #f6f6f6;
-  height: 60px;
+  padding: 14px 0;
 }
 .nemo-common-pageHeader__logo {
   display: inline-block;
-  width: 206px;
 }
 .nemo-common-pageHeader__logo__image {
   display: block;
 }
 .nemo-root_mobile .nemo-common-pageHeader {
-  height: 50px;
+  padding: 8px 0;
 }
 .nemo-root_mobile .nemo-common-pageHeader .logo {
   display: none;

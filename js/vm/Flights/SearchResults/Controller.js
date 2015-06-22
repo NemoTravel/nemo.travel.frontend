@@ -811,7 +811,7 @@ define(
 			'Flights/Common/Geo'
 		];
 
-		FlightsSearchResultsController.prototype.$$KOBindings = ['PostFilters'];
+		FlightsSearchResultsController.prototype.$$KOBindings = ['PostFilters', 'FlightsResults'];
 
 		FlightsSearchResultsController.prototype.$$i18nSegments = ['FlightsSearchResults', 'FlightsSearchForm'];
 
