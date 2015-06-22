@@ -578,10 +578,6 @@
 									css: {'nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable_warning' : $parent.selectedFlight().availSeats > 0 && $parent.selectedFlight().seatsAvailThreshold >= $parent.selectedFlight().availSeats}"></div>
 						</div>
 
-
-						<div class="nemo-flights-results__flightsGroup__leg__selector__header">
-
-						</div>
 						<!--<select-->
 								<!--data-bind="-->
 											<!--options: options,-->
@@ -589,6 +585,27 @@
 											<!--optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},-->
 											<!--optionsAfterRender: setOptionDisable-->
 										<!--"></select>-->
+
+						<div class="nemo-flights-results__flightsGroup__leg__selector__footer">
+							<div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers">
+								<!-- ko if: $parent.selectedFlight().transfers[$index()].length -->
+									<div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers__short">
+									    Пересадки <!-- ko text: $parent.selectedFlight().legs[$index()].timeTransfers.readableString() --><!-- /ko -->
+									</div>
+									<div
+										class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers__short__full"
+										data-bind="foreach: $parent.selectedFlight().transfers[$index()]">
+										<!-- ko text: ($index() != 0 ? ', ' : '') + (place.city ? place.city.name : place.name) + ' (' + place.country.name + ')' --><!-- /ko -->
+									</div>
+								<!-- /ko -->
+								<!-- ko if: !$parent.selectedFlight().transfers[$index()].length -->
+									<div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers__short">
+										Без пересадок
+									</div>
+								<!-- /ko -->
+							</div>
+							<div class="new-ui-pseudoLink nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink">Детали</div>
+						</div>
 					</div>
 					<!--<div data-bind="text: selected().flights.join(', ')"></div> data-bind="text: $parent.selectedFlight().id"-->
 				</div><!--

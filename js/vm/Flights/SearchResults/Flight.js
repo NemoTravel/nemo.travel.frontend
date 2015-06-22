@@ -34,7 +34,8 @@ define(
 
 			// Calculating total time in flight
 			for (var i = 0; i < this.segmentsByLeg.length; i++) {
-				var timeForLeg = 0;
+				var timeForLeg = 0,
+					transferTimeForLeg = 0;
 
 				this.transfers.push([]);
 
@@ -46,12 +47,15 @@ define(
 						timeForLeg += this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp();
 
 						this.transfers[i].push({
-							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp())
+							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp()),
+							place: this.segmentsByLeg[i][j].depAirp
 						});
 
 						this.isDirect = false;
 						this.transfersCount++;
 						this.totalTimeTransfers += this.transfers[i][this.transfers[i].length - 1].duration.length();
+
+						transferTimeForLeg += this.transfers[i][this.transfers[i].length - 1].duration.length();
 					}
 				}
 
@@ -63,7 +67,8 @@ define(
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
 					depDateTime: this.segmentsByLeg[i][0].depDateTime,
 					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime,
-					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1]
+					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
+					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg)
 				});
 			}
 

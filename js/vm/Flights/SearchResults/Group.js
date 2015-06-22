@@ -145,7 +145,7 @@ define(
 			}
 
 			this.selectedFlight = ko.computed(function () {
-				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : null;
+				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : this.flights[0];
 			}, this);
 		}
 		// Extending from dictionaryModel
