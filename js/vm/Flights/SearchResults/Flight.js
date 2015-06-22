@@ -18,6 +18,8 @@ define(
 			this.isDirect = true;
 			this.carriersMismatch = false;
 
+			this.availSeats = 0;
+
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
 				if (this.segments[i].routeNumber != tmp) {
@@ -32,7 +34,8 @@ define(
 
 			// Calculating total time in flight
 			for (var i = 0; i < this.segmentsByLeg.length; i++) {
-				var timeForLeg = 0;
+				var timeForLeg = 0,
+					transferTimeForLeg = 0;
 
 				this.transfers.push([]);
 
@@ -44,12 +47,15 @@ define(
 						timeForLeg += this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp();
 
 						this.transfers[i].push({
-							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp())
+							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp()),
+							place: this.segmentsByLeg[i][j].depAirp
 						});
 
 						this.isDirect = false;
 						this.transfersCount++;
 						this.totalTimeTransfers += this.transfers[i][this.transfers[i].length - 1].duration.length();
+
+						transferTimeForLeg += this.transfers[i][this.transfers[i].length - 1].duration.length();
 					}
 				}
 
@@ -61,8 +67,24 @@ define(
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
 					depDateTime: this.segmentsByLeg[i][0].depDateTime,
 					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime,
-					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1]
+					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
+					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg)
 				});
+			}
+
+			// Getting available seats count
+			for (var i = 0; i < this.price.passengerFares.length; i++) {
+				for (var j = 0; j < this.price.passengerFares[i].tariffs.length; j++) {
+					if (
+						this.price.passengerFares[i].tariffs[j].avlSeats &&
+						(
+							this.availSeats == 0 ||
+							this.availSeats < this.price.passengerFares[i].tariffs[j].avlSeats
+						)
+					) {
+						this.availSeats = this.price.passengerFares[i].tariffs[j].avlSeats;
+					}
+				}
 			}
 
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
@@ -71,6 +93,8 @@ define(
 
 		// Extending from dictionaryModel
 		helpers.extendModel(Flight, [BaseModel]);
+
+		Flight.prototype.seatsAvailThreshold = 5;
 
 		Flight.prototype.clone = function () {
 			return this.$$controller.getModel('Flights/SearchResults/Flight', this.$$originalData);

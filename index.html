@@ -163,24 +163,26 @@
 		<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.min.css">-->
 		<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.css">-->
 
-		<link rel="stylesheet" href="http://nemofront.dev/css/style.css">
-		<script src="http://nemofront.dev/js/lib/requirejs/v.2.1.15/require.js"></script>
-		<script>
-			var nemoSourceHost = 'http://nemofront.dev';
-			require.config({
-				// This should be deleted
-				urlArgs: "bust=" + (new Date()).getTime(),
+	<link rel="stylesheet" href="http://nemofront.dev/css/style.css">
 
-				// Common libraries
-				paths: {
-					domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
-					text:          nemoSourceHost+'/js/lib/requirejs/text',
-					knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
-					AppController: nemoSourceHost+'/js/NemoFrontEndController',
-					jquery:        nemoSourceHost+'/js/lib/jquery/v.2.1.3/jquery-2.1.3.min',
-					jqueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.1.11.4/jquery-ui.min',
-					jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie'
-				},
+	<script src="http://nemofront.dev/js/lib/requirejs/v.2.1.15/require.js"></script>
+	<script>
+		var nemoSourceHost = 'http://nemofront.dev';
+		require.config({
+			// This should be deleted
+			urlArgs: "bust=" + (new Date()).getTime(),
+
+			// Common libraries
+			paths: {
+				domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
+				text:          nemoSourceHost+'/js/lib/requirejs/text',
+				knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
+				AppController: nemoSourceHost+'/js/NemoFrontEndController',
+				jquery:        nemoSourceHost+'/js/lib/jquery/v.2.1.3/jquery-2.1.3.min',
+				jqueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.1.11.4/jquery-ui.min',
+				jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie',
+                tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min'
+			},
 
 				baseUrl: nemoSourceHost,
 				enforceDefine: true,

@@ -39,12 +39,12 @@
 		<rect x="8" y="52" fill="#FFFFFF" width="4" height="20"/>
 	</g>
 	<g>
-		<rect x="0" y="60" fill="#FFFFFF" width="20" height="4"/>
+		<rect y="60" fill="#FFFFFF" width="20" height="4"/>
 	</g>
 </g>
 <g>
 	
-		<image overflow="visible" opacity="0.25" width="24" height="23" xlink:href="D276240E.png"  transform="matrix(1 0 0 1 -1.97 77.6195)">
+		<image overflow="visible" opacity="0.25" enable-background="new    " width="24" height="23" xlink:href="D276240E.png"  transform="matrix(1 0 0 1 -1.97 77.6195)">
 	</image>
 	<g>
 		<polygon fill="#D9D9D9" points="10.412,80 12.834,85.511 18.823,86.111 14.331,90.118 15.61,96 10.412,92.965 5.213,96 
@@ -53,10 +53,11 @@
 </g>
 <g>
 	
-		<image overflow="visible" opacity="0.25" width="24" height="23" xlink:href="D2762412.png"  transform="matrix(1 0 0 1 -1.97 107.6195)">
+		<image overflow="visible" opacity="0.25" enable-background="new    " width="24" height="23" xlink:href="D2762412.png"  transform="matrix(1 0 0 1 -1.97 107.6195)">
 	</image>
 	<g>
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.4117" y1="126" x2="10.4117" y2="110">
+		
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.4115" y1="69.239" x2="10.4115" y2="85.239" gradientTransform="matrix(1 0 0 -1 0 195.239)">
 			<stop  offset="0" style="stop-color:#F9BA00"/>
 			<stop  offset="1" style="stop-color:#ECD590"/>
 		</linearGradient>
@@ -64,4 +65,9 @@
 			5.213,126 6.493,120.118 2,116.111 7.99,115.511 		"/>
 	</g>
 </g>
+<polygon opacity="0.75" fill="#52A2CC" points="15.556,160 17.538,158.012 13.875,148.192 20,142.047 19.522,140.479 17.958,140 
+	11.832,146.143 1.982,142.409 0,144.397 8.409,149.699 4.144,153.977 1.142,153.977 3.603,156.444 6.062,158.912 6.065,155.902 
+	10.329,151.626 "/>
+<polygon fill="#7BB236" points="15.556,190 17.538,188.012 13.875,178.192 20,172.047 19.522,170.479 17.958,170 11.832,176.143 
+	1.982,172.409 0,174.397 8.409,179.699 4.145,183.977 1.142,183.977 3.603,186.444 6.063,188.912 6.065,185.902 10.33,181.626 "/>
 </svg>

@@ -5,10 +5,14 @@ define(
 		function Airline (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
+			// Normalizing rating
+			this.rating = parseFloat(this.rating);
+			this.rating = !isNaN(this.rating) ? this.rating : 0;
+
 			if (!this.logo) {
 				this.logo = {
-					image: '',
-					icon: ''
+					image: this.defaultLogo,
+					icon: this.defaultLogo
 				};
 			}
 
@@ -22,6 +26,8 @@ define(
 		helpers.extendModel(Airline, [BaseModel]);
 
 		Airline.prototype.ratingItemsCount = 5;
+
+		Airline.prototype.defaultLogo = '/static/images/logos/nologo.gif';
 
 		Airline.prototype.buildRatingItems = function () {
 			var rating = Math.round((this.rating / 10) * 5);

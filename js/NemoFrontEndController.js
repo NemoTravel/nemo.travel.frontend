@@ -111,7 +111,8 @@ define (
 				componentAdditionalParams: ko.observable(null),
 				controller: this,
 				globalError: ko.observable(null),
-				i18n: function () {return self.i18n.apply(self, arguments);}
+				i18n: function () {return self.i18n.apply(self, arguments);},
+				helpers: helpers
 			};
 
 			// Setting needed info for helpers
