@@ -227,82 +227,145 @@
 		</div>
 		<section class="nemo-flights-results__content">
 			<aside class="nemo-flights-results__content__postfilters">
-				<h3>
-					FILTERS
-					<!-- ko if: postFiltersHaveValue() -->
-					<span data-bind="click: PFClearAll" class="new-ui-pseudoLink">CLEAR ALL</span>
-					<!-- /ko -->
-				</h3>
-				<div data-bind="foreach: visiblePostFilters">
-					<!-- Postfilter as-is -->
-					<!-- ko if: typeof isActive == 'function' && isActive() -->
-					<div>
-						<h4>
-							<!-- ko text: config.name --><!-- /ko -->
-							<!-- ko if: config.isLegged -->
-							<!-- ko text: $parent.searchInfo.segments[config.legNumber].departure.IATA + ' - ' + $parent.searchInfo.segments[config.legNumber].arrival.IATA --><!-- /ko -->
-							<!-- /ko -->
-							<!-- ko if: hasValue -->
-							<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
-							<!-- /ko -->
-						</h4>
-						<!-- ko if: config.type == 'Number' -->
-						<div data-bind="flightsResultsPFNumberSlider: value"></div>
-						<div>
-							MIN:
-							<!-- ko text: values().min --><!-- /ko -->
-						</div>
-						<div>
-							MAX:
-							<!-- ko text: values().max --><!-- /ko -->
-						</div>
-						<div>
-							SELECTED:
-							<!-- ko text: value().min --><!-- /ko -->
-							-
-							<!-- ko text: value().max --><!-- /ko -->
-						</div>
-						<!-- /ko -->
-						<!-- ko if: config.type == 'String' -->
-						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
-						<!-- /ko -->
-					</div>
-					<!-- /ko-->
-					<!-- Postfilter group -->
-					<!-- ko if: typeof isActive != 'function'  -->
-					<h4>PF GROUP <!-- ko text: filters[0].config.name --><!-- /ko --> (<!-- ko text: activeFilter --><!-- /ko -->)</h4>
-					<div>
-						<!-- ko if: filters.length > 1 -->
-						<div class="new-ui-pseudoLink" data-bind="click: function () {activeFilter(-1);}">
-							ALL
-						</div>
-						<!-- /ko -->
-						<!-- ko foreach: filters -->
-						<div class="new-ui-pseudoLink" data-bind="click: function () {$parent.activeFilter($index());}">
-							Leg: <!-- ko text: config.legNumber + ' ' + (hasValue() ? '!!!' : '') --><!-- /ko -->
-						</div>
-						<!-- /ko-->
-					</div>
-					<!-- ko if: filters.length > 1 -->
-					<div data-bind="attr: {'style': activeFilter() != -1 ? 'display: none;' : ''}">
-						Leg: ALL
-						<!-- ko if: value() != '' -->
-						<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
-						<!-- /ko -->
-						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
-					</div>
-					<!-- /ko -->
-					<!-- ko foreach: filters -->
-					<div data-bind="attr: {'style': $index() != $parent.activeFilter() ? 'display: none;' : ''}">
-						Leg: <!-- ko text: config.legNumber --><!-- /ko -->
-						<!-- ko if: hasValue -->
-						<span data-bind="click: clear" class="new-ui-pseudoLink">CLEAR</span>
-						<!-- /ko -->
-						<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
-					</div>
-					<!-- /ko-->
-					<!-- /ko-->
-				</div>
+                <!--FILTERES-->
+                <div class="nemo-common-postFilters" >
+
+                    <div class="nemo-common-postFilters__notification">
+                        Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
+                        <div class="nemo-common-postFilters__notification__close"></div>
+                    </div>
+
+                    <div class="nemo-common-postFilters__clearAll">
+                        <!-- ko if: postFiltersHaveValue() -->
+                        <div data-bind="click: PFClearAll" class="new-ui-button new-ui-button_secondary nemo-common-postFilters__clearAll__button">Сбросить все фильтры</div>
+                        <!-- /ko -->
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList" data-bind="foreach: visiblePostFilters">
+                        <!-- Postfilter as-is -->
+
+                        <!-- ko if: typeof isActive == 'function' && isActive() -->
+                        <div class="nemo-common-postFilters__filterList__filter">
+
+                            <div class="nemo-common-postFilters__filterList__filter__caption">
+                                <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
+                                    <!-- ko text: config.name --><!-- /ko -->
+                                </h4>
+
+                                <!-- ko if: hasValue -->
+                                <span data-bind="click: clear" class="new-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear">сбросить</span>
+                                <!-- /ko -->
+                            </div>
+
+
+                            <!-- ko if: config.isLegged -->
+                    <span class="nemo-common-postFilters__filterList__filter__caption nemo-common-postFilters__filterList__filter__caption_inner">
+                        <h5 class="nemo-common-postFilters__filterList__filter__caption__name">
+                            <!-- ko text: $parent.searchInfo.segments[config.legNumber].departure.IATA + ' - ' + $parent.searchInfo.segments[config.legNumber].arrival.IATA --><!-- /ko -->
+                        </h5>
+                    </span>
+                            <!-- /ko -->
+
+                            <!-- ko if: config.type == 'Number' -->
+                            <div data-bind="flightsResultsPFNumberSlider: value"></div>
+                            <div>
+                                MIN:
+                                <!-- ko text: values().min --><!-- /ko -->
+                            </div>
+                            <div>
+                                MAX:
+                                <!-- ko text: values().max --><!-- /ko -->
+                            </div>
+                            <div>
+                                SELECTED:
+                                <!-- ko text: value().min --><!-- /ko -->
+                                -
+                                <!-- ko text: value().max --><!-- /ko -->
+                            </div>
+                            <!-- /ko -->
+
+
+                            <!-- ko if: config.type == 'String' -->
+                            <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                                <div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
+                            </div>
+                            <!-- /ko -->
+
+                        </div>
+                        <!-- /ko-->
+
+                        <!-- Postfilter group -->
+                        <!-- ko if: typeof isActive != 'function'  -->
+                        <div class="nemo-common-postFilters__filterList__filter">
+
+                            <div class="nemo-common-postFilters__filterList__filter__caption">
+                                <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
+                                    <!-- ko text: filters[0].config.name --><!-- /ko -->
+                                </h4>
+
+                                <!-- ko if: filters.length > 1 -->
+
+                                <span data-bind="click: clear, visible: value()" class="new-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear">сбросить</span>
+
+                                <!-- /ko -->
+
+                            </div>
+
+                            <div class="nemo-common-postFilters__filterList__filter__partSelector">
+
+                                <!-- ko if: filters.length > 1 -->
+                                <div class="nemo-common-postFilters__filterList__filter__partSelector__part"
+                                     data-bind="click: function () {activeFilter(-1);},
+                             css: {
+                                'nemo-common-postFilters__filterList__filter__partSelector__part_selected': activeFilter() == -1
+                             }">
+                                    ALL
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko foreach: filters -->
+                                <div class="nemo-common-postFilters__filterList__filter__partSelector__part"
+                                     data-bind="click: function () {$parent.activeFilter($index());},
+                             css: {
+                                'nemo-common-postFilters__filterList__filter__partSelector__part_hasChanges': hasValue(),
+                                'nemo-common-postFilters__filterList__filter__partSelector__part_selected': $index() == $parent.activeFilter()
+                            }">
+                                    Leg: <!-- ko text: config.legNumber --><!-- /ko -->
+                                </div>
+                                <!-- /ko-->
+
+                            </div>
+
+                            <div class="nemo-common-postFilters__filterList__filter__valuesBlock">
+
+
+                                <!-- ko if: filters.length > 1 -->
+                                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"
+                                     data-bind="click: clear">
+                                    Все равно
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko if: filters.length > 1 -->
+                                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"
+                                     data-bind="visible: activeFilter() == -1">
+                                    <div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko foreach: filters -->
+                                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"
+                                     data-bind="visible: $index() == $parent.activeFilter()">
+                                    <div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PF-String', data: $data }"></div>
+                                </div>
+                                <!-- /ko-->
+
+                            </div>
+
+                        </div>
+                        <!-- /ko-->
+                    </div>
+                </div>
 			</aside>
 
 			<section class="new-ui-subContainer nemo-flights-results__content__results">
@@ -357,25 +420,36 @@
 	<!-- /ko -->
 
 	<!-- PF TEMPLATES -->
-	<script id="nemo-koTemplate-FlightsResults-PF-String" type="text/html">
-		<!-- ko foreach: values -->
-		<div>
-			<label>
-				<input data-bind="attr: {
-										value: key,
-										type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox',
-										disabled: count() == 0
-									},
-									checked: $parent.value">
-						<span data-bind="text:
-							($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
-						"></span>
-				<span data-bind="text:'(' + count() + ')'"></span>
-				<span data-bind="text: addValue() ? '(' + addValue().normalizedAmount() + ' ' + addValue().currency() + ')' : ''"></span>
-			</label>
-		</div>
-		<!-- /ko -->
-	</script>
+    <script id="nemo-koTemplate-FlightsResults-PF-String" type="text/html">
+
+        <!-- ko foreach: values -->
+        <label class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value"
+               data-bind="css: {
+                    'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_disabled' : count() == 0,
+                    'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_checked' : $parent.value() instanceof Array ? $parent.value().indexOf(key) >= 0 : $parent.value() == key
+                }">
+
+            <input class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__input"
+                   data-bind="attr: {
+								value: key,
+								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox',
+								disabled: count() == 0
+							},
+							checked: $parent.value">
+
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name"
+                  data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
+            "></span>
+
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="text: addValue() ? 'от ' + addValue().normalizedAmount() + ' ' + addValue().currency() : ''">
+                <!-- ko if: addValue() --><!-- /ko -->
+            </span>
+
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__quantity" data-bind="text: count() "></span>
+        </label>
+        <!-- /ko -->
+
+    </script>
 
 	<!-- Flights group -->
 	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
