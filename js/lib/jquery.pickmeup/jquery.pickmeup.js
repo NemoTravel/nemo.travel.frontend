@@ -74,8 +74,8 @@
 		defaultDate: new Date,
 		flat: false,
 		firstDay: 1,
-		prev: '&#9664;',
-		next: '&#9654;',
+		prev: '&#10094;',
+		next: '&#10095;',
 		mode: 'single',
 		selectYear: true,
 		selectMonth: true,
@@ -469,14 +469,16 @@
 		shownDateTo.setDate(1);
 		shownDateTo.addMonths(1);
 		shownDateTo.addDays(-1);
-		pickmeup.find('.js-nemo-pmu-prev').css(
-			'visibility',
-			options.min && options.min >= shownDateFrom ? 'hidden' : 'visible'
-		);
-		pickmeup.find('.js-nemo-pmu-next').css(
-			'visibility',
-			options.max && options.max <= shownDateTo ? 'hidden' : 'visible'
-		);
+		if(options.min && options.min >= shownDateFrom){
+			pickmeup.find('.js-nemo-pmu-prev').addClass('nemo-pmu-prev_hidden');
+		}else{
+			pickmeup.find('.js-nemo-pmu-prev').removeClass('nemo-pmu-prev_hidden');
+		}
+		if(options.max && options.max <= shownDateTo){
+			pickmeup.find('.js-nemo-pmu-next').addClass('nemo-pmu-next_hidden');
+		}else{
+			pickmeup.find('.js-nemo-pmu-next').removeClass('nemo-pmu-next_hidden');
+		}
 		options.fill.apply(this);
 	}
 

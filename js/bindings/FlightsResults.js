@@ -12,17 +12,39 @@ define(
 		 // Do not forget to add destroy callbacks
 		 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {});
 		 */
+		ko.bindingHandlers.compareTableToggle = {
+			update:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+				setTimeout(
+					function(){
+						$(element).on('click',function(){
+							if($('.nemo-flights-results__compareTable__root').hasClass('nemo-flights-results__compareTable__root_closed')){
+								$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_closed')
+									.addClass('nemo-flights-results__compareTable__root_opened');
+							}else{
+								$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_opened')
+									.addClass('nemo-flights-results__compareTable__root_closed');
+							}
+						});
+					}
+				,1);
+			}
+		};
 		ko.bindingHandlers.compareTableWidth = {
 			update:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
 				//unnecessary call just for bind watching
 				valueAccessor();
 				setTimeout(
 					function(){
-						$(element).width($('.js-flights-results__compareTable__companyColumn:eq(0)').width()*$('.js-flights-results__compareTable__companyColumn_visible').length+'px');
+						if($(element).find('.js-flights-results__compareTable__companyColumn_visible').length > 1){
+							$(element).show();
+							$(element).width($('.js-flights-results__compareTable__companyColumn:eq(0)').width()*$(element).find('.js-flights-results__compareTable__companyColumn_visible').length+'px');
+						}else{
+							$(element).hide();
+						}
 					}
 				,1);
 			}
-		}
+		};
 		ko.bindingHandlers.compareTablePosition = {
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var leftOffset = 0;
@@ -55,7 +77,7 @@ define(
 					$(element).removeClass('nemo-flights-results__compareTable__companyColumn_visible js-flights-results__compareTable__companyColumn_visible')
 				}
 			}
-		}
+		};
 		ko.bindingHandlers.compareTableCloneCell ={
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				$(element).on('click', function () {

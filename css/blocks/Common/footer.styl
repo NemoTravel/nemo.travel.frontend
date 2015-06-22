@@ -1,52 +1,54 @@
 .nemo-common-{
 	&footer{
-		background: linear-gradient(to bottom, rgba(99,101,104,0.5) 0%,rgba(99,101,104,0) 20%); /* W3C */
-		&__inner{
-			max-width: 1140px;
-			margin: 0 auto;
+		max-width: 1140px;
+		margin: 0 auto;
+		margin-top:-108px;
+		height: 108px;
+		position: relative;
+		&__footerInner {
 			padding: 30px 20px 20px;
-			@media only screen and (min-width: 1340px) { 
-				max-width: 1600px;
-			}
-			&__left{
-				display: inline-block;
-				width: 49%;
-				
-				.nemo-root_mobile &{
-					display: block;
-					width: 100%;
-				}
-			}
-			&__right{
-				display: inline-block;
-				width: 50%;
-				text-align: right;
-				
-				.nemo-root_mobile &{
-					display: block;
-					width: 100%;
-					text-align: left;
-					padding: 10px 0 0;
-				}
-			}
-			.nemo-root_mobile &{
-				padding: 25px 20px 15px;
-			}
-		  &__footerMenu{
+		}
+		@media only screen and (min-width: 1340px) {
+			max-width: 1600px;
+		}
+		&__left{
 			display: inline-block;
-			padding: 0 0 15px;
-			&__item{
-			  color: #63B4F5;
-			  font-size: 13px;
-			  line-height: 15px;
-			  text-decoration: underline;
-			  margin: 0 0 0 20px;
-			  &:first-child{
-				margin: 0;
-			  }
+			width: 49%;
+
+			.nemo-root_mobile &{
+				display: block;
+				width: 100%;
 			}
+		}
+		&__right{
+			display: inline-block;
+			width: 50%;
+			text-align: right;
+
+			.nemo-root_mobile &{
+				display: block;
+				width: 100%;
+				text-align: left;
+				padding: 10px 0 0;
+			}
+		}
+		.nemo-root_mobile &{
+			padding: 25px 20px 15px;
+		}
+	  &__footerMenu{
+		display: inline-block;
+		padding: 0 0 15px;
+		&__item{
+		  color: #63B4F5;
+		  font-size: 13px;
+		  line-height: 15px;
+		  text-decoration: underline;
+		  margin: 0 0 0 20px;
+		  &:first-child{
+			margin: 0;
 		  }
 		}
+	  }
 		&__copyRight{
 			color: #9F9F9F;
 			font-size: 13px;

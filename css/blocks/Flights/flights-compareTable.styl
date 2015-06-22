@@ -1,6 +1,6 @@
 $c_tableBorder = #afafaf;
 $c_tableBackground = #F0F0F0;
-$c_showMoreSwitchBackground = #5598C8
+$c_showMoreSwitchBackground = #FFFFFF;
 $c_tableMainColor = #3F3F3F;
 
 $d_tableColumnWidth = 150px;
@@ -11,16 +11,17 @@ $d_tableColumnPadding = 0 20px ;
 .nemo-flights-results__compareTable{
 	position: relative;
 	overflow-x: hidden;
-	border-radius: 0 0 3px 3px;
-
+	border-radius: 0 0 6px 6px;
 	transition: height 0.2s ease-in 0s;
 	&__wrapper{
 		margin-left: 20px;
 		position: relative;
+		display: inline-block;
+		vertical-align: top;
 	}
 	&__pager{
-		background: #5598C8;
-		border-radius: 3px 3px 0 0;
+		background: #4DB0E4;
+		border-radius: 6px 6px 0 0;
 		color: #ffffff;
 		display: flex;
 		justify-content:space-between;
@@ -28,6 +29,15 @@ $d_tableColumnPadding = 0 20px ;
 		padding: 10px 13px;
 		&__prev, &__next{
 			display: inline-block;
+			text-decoration: none;
+			background: rgba(255,255,255,.3);
+			color: rgba(255,255,255,.8);
+			opacity: .5;
+			padding: 1px 6px 2px;
+			border-radius: 3px;
+			&:hover{
+				opacity: 1;
+			}
 		}
 	}
 	&__inner {
@@ -36,7 +46,7 @@ $d_tableColumnPadding = 0 20px ;
 		width: 999999px;
 		display: flex;
 		justify-content:flex-start;
-		background: $c_tableBackground;
+		background: #fff;
 		&:before{
 			content: '';
 			width: 300%;
@@ -191,14 +201,82 @@ $d_tableColumnPadding = 0 20px ;
 			display: inline-block;
 			background: $c_showMoreSwitchBackground;
 			opacity: 0.8;
-			padding:3px 30px 3px 10px;
-			color: #ffffff;
+			padding:3px 10px 3px 10px;
+			color: $c_ui_textMain;
 			cursor: pointer;
 			border-radius: 0 0 5px 5px;
 			font-size: 13px;
 			&:hover{
 				opacity: 1;
 			}
+			&__icon{
+				color: #6FABCB;
+				font-size: 11px;
+				margin-left: 5px;
+			}
 		}
 	}
+	&__root{
+		text-align: center;
+		padding-top: 20px;
+		&_closed{
+			display: none;
+		}
+		&_opened{
+			display: inline-block;
+			width: 100%;
+		}
+	}
+	&__opener {
+		cursor: pointer;
+		text-align: center;
+		padding: 10px 0;
+		line-height: 19px;
+		transition: all 0.2s;
+		position: relative;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			width: 10px;
+			height: 20px;
+			vertical-align: top;
+			margin-right: 10px;
+			background: url('images/flights_results_sprite.svg') 0 -20px no-repeat;
+			opacity: 0.5;
+			transition: all 0.2s;
+			position: relative;
+			z-index: 1;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjYTBhMGEwIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+');
+			background: linear-gradient(to left, rgba(0,0,0,0.1) 0%,rgba(160,160,160,0.1) 50%,rgba(0,0,0,0.1) 100%);
+			opacity: 0;
+			transition: all 0.2s;
+		}
+
+		&__text {
+			display: inline-block;
+			vertical-align: top;
+			font-size: 13px;
+			color: #fff;
+			border-bottom: 1px dashed;
+			position: relative;
+			z-index: 1;
+		}
+
+		&:hover {
+			&:before, &:after {
+				opacity: 1;
+			}
+		}
+	}
+
 }

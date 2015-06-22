@@ -11,5 +11,12 @@
 	"flightsGroup__header_recommended" : "Лучший вариант",
 	"flightsCompareTable__unknownFlightTime":"Неизвестно",
 	"flightsCompareTable__time":"Время:",
-	"flightsCompareTable__buy":"Купить"
+	"flightsCompareTable__buy":"Купить",
+	"flightsCompareTable__disclaimerPrice":"Цена за всех пассажиров",
+	"flightsCompareTable__disclaimerTime":"Везде указано местное время",
+	"flightsCompareTable__goToTicket":"Перейти к билету",
+	"flightsCompareTable__directFlights":"Прямые рейсы",
+	"flightsCompareTable__transferFlights":"Рейсы с пересадками",
+	"flightsCompareTable__showMore":"Еще варианты",
+	"flightsCompareTable__showLess":"Свернуть"
 }
