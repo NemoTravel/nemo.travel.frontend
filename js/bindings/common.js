@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'jquery','js/lib/jquery.select2/v.4.0.0/select2.full'],
+	['knockout', 'jquery','js/lib/jquery.select2/v.4.0.0/select2.full', 'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min'],
 	function (ko, $) {
 		// Common Knockout bindings are defined here
 		/*
@@ -18,15 +18,50 @@ define(
 						f.apply(element, [viewModel, event]);
 					}
 				}
+
 				if (typeof element.addEventListener == 'function') {
 					element.addEventListener('click', doMagic);
 				}
+
 				else if (typeof element.attachEvent == 'function') {
 					element.attachEvent('onclick', doMagic);
 
 					ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 						element.detachEvent('onclick', doMagic);
 					});
+				}
+			}
+		};
+
+		ko.bindingHandlers.tooltip = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					try{
+						$(element).tooltipster('destroy');
+					}
+					catch (e) {/* do nothing */}
+				});
+			},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					options = valueAccessor();
+
+				// Overriding default options
+				options.content = options.content || ' ';
+				options.content = (options.header ? '<div class="tooltipster-header">'+options.header+'</div>' : '') + options.content;
+				options.theme = options.cssClass || '';
+				options.arrow = options.arrow || false;
+				options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
+				options.offsetX = 0;
+				options.offsetY = 0;
+
+				delete options.cssClass;
+
+				if ($element.data('tooltipsterNs')) {
+					$element.tooltipster('content', options.content);
+				}
+				else {
+					$element.tooltipster(options);
 				}
 			}
 		};
@@ -51,7 +86,9 @@ define(
 				simpleSelect.dropdownCssClass = simpleSelect.dropdownCssClass || 'new-ui-select2__dropdown';
 
 				// Overriding width
-				simpleSelect.width = simpleSelect.width || 'auto';
+				simpleSelect.width = simpleSelect.width || 'resolve';
+				simpleSelect.dropdownAutoWidth = simpleSelect.dropdownAutoWidth || true;
+				simpleSelect.fixWidth = true;
 
 				$(el).select2(simpleSelect);
 			},

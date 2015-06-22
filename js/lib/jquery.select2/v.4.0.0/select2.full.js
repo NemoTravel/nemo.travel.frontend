@@ -4874,6 +4874,19 @@ S2.define('select2/core',[
     this._syncAttributes();
 
     $element.data('select2', this);
+
+	  if (this.options.get('fixWidth')) {
+		  var tmp = this.options.get('dropdownAutoWidth'),
+			  tmp2;
+		  this.options.set('dropdownAutoWidth', true);
+		  this.open();
+		  tmp2 = this.$results.css('min-width');
+		  this.$results.css('min-width', 'auto');
+		  this.$selection.parents('.select2').width(this.$results.outerWidth(false)+this.$selection.find('.select2-selection__arrow').outerWidth(false)+'px');
+		  this.$results.css('min-width', tmp2);
+		  this.close();
+		  this.options.set('dropdownAutoWidth', tmp);
+	  }
   };
 
   Utils.Extend(Select2, Utils.Observable);

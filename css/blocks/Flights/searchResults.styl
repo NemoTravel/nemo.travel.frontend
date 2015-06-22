@@ -1,6 +1,7 @@
 .nemo-flights-results {
 	background: $c_content_bg;
 	padding: 10px 0 20px;
+	color: $c_ui_textMain;
 
 	&__loader {
 		max-width: 1540px;
@@ -196,14 +197,48 @@
 		&__results {
 			padding: 20px;
 			flex-basis: 64%;
+
+			&__controls {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+				align-items: flex-start;
+				padding: 10px 0;
+
+				&__item {
+					line-height: 40px;
+
+					&_count {
+						flex-grow: 0;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						padding-right: 20px;
+						font-size: 15px;
+					}
+
+					&_sorting {
+						flex-shrink: 0;
+						margin-left: auto;
+						font-size: 13px;
+					}
+
+					&__sortTitle {
+						display: inline-block;
+						vertical-align: middle;
+						margin-right: 20px;
+					}
+				}
+			}
 		}
 	}
 
 	&__showcase {
 		display: flex;
 		flex-flow: row wrap;
-		margin: -10px -10px 0;
-		padding: 10px;
+		margin: -20px -20px 0;
+		padding: 20px;
+		border-bottom: $i_ui_subContainer_divider_border;
 
 		&__item {
 			border: 10px solid transparent;
@@ -229,21 +264,6 @@
 			&__title {
 				flex 1 1 auto;
 				padding-left: $d_ui_subContainer_padding;
-
-				/* Dirty hacck for firefox :( */
-				&__ffEllipsisHack {
-					&__outer {
-						display: table;
-						table-layout: fixed;
-						width: 100%;
-					}
-
-					&__inner {
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						overflow: hidden;
-					}
-				}
 			}
 
 			&__additional {
@@ -336,7 +356,7 @@
 			align-content: center;
 			display: none;
 
-			border-bottom: $i_ui_subContainer_divider_border
+			border-bottom: $i_ui_subContainer_divider_border;
 
 			&__title {
 				flex 1 1 auto;
@@ -345,6 +365,8 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 				line-height: 34px;
+				font-size: 13px;
+				color: $c_ui_textSecondary;
 			}
 
 			&__additional {
@@ -354,20 +376,174 @@
 			}
 		}
 
-		&_cheapest &__header__title, &_cheapest &__header__additional {
+		&__leg {
+			border-bottom: $i_ui_subContainer_divider_border;
+
+			&__info {
+				padding: 20px 20px 15px 55px;
+				position: relative;
+				border-bottom: $i_ui_subContainer_divider_border;
+
+				&:before {
+					content: '';
+					position: absolute;
+					top: 50%;
+					left: 20px;
+					width: 20px;
+					height: 20px;
+					margin-top: -10px;
+					background: url("images/flights_results_sprite.svg") 0px -140px no-repeat;
+				}
+
+				&__date {
+					font-size: 12px;
+					color: $c_ui_textMain;
+					opacity: 0.75;
+
+					&__dayOfWeek {
+						color: $c_ui_textSecondary;
+					}
+				}
+
+				&__route {
+					font-size: 13px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+
+					&__departure, &__arrival {
+						display: inline;
+					}
+
+					&__departure {
+						&:after {
+							content: '';
+							background: url("images/flights_results_sprite.svg") 0 -10px no-repeat;
+							display: inline-block;
+							height: 15px;
+							margin: 0 5px;
+							vertical-align: middle;
+							width: 18px;
+						}
+					}
+				}
+			}
+
+			&:nth-child(2n) &__info:before {
+				background-position: 0px -170px;
+			}
+
+			&__selector {
+				padding: 0 20px;
+
+				&__header {
+					display: flex;
+					flex-flow: row nowrap;
+					font-size: 13px;
+					line-height: 40px;
+
+					&__title {
+						min-width: 1px;
+
+						&__text {
+							overflow: hidden;
+							text-overflow: ellipsis;
+							padding-right: 10px;
+						}
+
+						&__date {
+							display: none;
+
+							&__dayOfWeek {
+								color: $c_ui_textSecondary;
+							}
+						}
+					}
+
+					&__seatsAvailable {
+						flex-shrink: 0;
+						min-width: 1px;
+						white-space: nowrap;
+						margin-left: auto;
+
+						&_warning {
+							color: #FF9731;
+						}
+					}
+				}
+			}
+		}
+
+		&_common &__legs_count_2 {
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: stretch;
+		}
+
+		&_common &__legs_count_2 &__leg {
+			/*display: inline-block;*/
+			/*vertical-align: top;*/
+			/*width: 50%;*/
+			border-right: $i_ui_subContainer_divider_border;
+			border-right-style: dashed;
+			flex: 0 0 50%;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
+
+		&_cheapest &__header__title,
+		&_cheapest &__header__additional {
 			background: #B23E13;
 		}
 
-		&_fastest &__rating_inHeader,
-		&_cheapest &__rating_inHeader,
-		&_bestCompanies &__rating_inHeader {
-			display: none;
-		}
+		/* ================== */
+		/* USE FOR ADAPTIVITY */
+		/* ================== */
+		&_fastest,
+		&_cheapest,
+		&_bestCompanies {
+			.nemo-flights-results__flightsGroup {
+				&__header__logo {
+					max-width: 100px;
+				}
 
-		&_fastest &__subHeader,
-		&_cheapest &__subHeader,
-		&_bestCompanies &__subHeader {
-			display: flex;
+				&__rating_inHeader {
+					display: none;
+				}
+
+				&__subHeader {
+					display: flex;
+				}
+
+				&__leg {
+					&__info {
+						display: none;
+					}
+
+					&__selector__header {
+						font-size: 12px;
+						line-height: 30px;
+					}
+				}
+			}
+		}
+		/* ================== */
+		/* ================== */
+		/* ================== */
+	}
+
+	&__commonSelect {
+		background: linear-gradient(to bottom, #F2F2F2, #E5E5E5);
+		padding: 0 40px 0 20px;
+		line-height: 40px;
+		border-radius: 4px;
+
+		.select2-selection__arrow {
+			width: 40px;
+			top: 0;
+			right: 0;
 		}
 	}
 }

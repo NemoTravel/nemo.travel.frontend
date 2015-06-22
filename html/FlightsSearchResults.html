@@ -369,35 +369,55 @@
 			</aside>
 
 			<section class="new-ui-subContainer nemo-flights-results__content__results">
-				<!-- ko if: hasVisibleResult() -->
+				<!-- ko if: visibleResultsCount() > 0 -->
 					<div class="nemo-flights-results__showcase">
 						<!-- ko if: showcase.recommended() -->
 							<!-- ko with: {group: showcase.fastest(), modifier: 'recommended'} -->
-							<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
-							     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+								<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
+								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+							<!-- /ko -->
+						<!-- /ko -->
+
+						<!-- ko if: showcase.cheapest() -->
+							<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
+								<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_cheapest"
+								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 							<!-- /ko -->
 						<!-- /ko -->
 
 						<!-- ko if: showcase.fastest() -->
 							<!-- ko with: {group: showcase.fastest(), modifier: 'fastest'} -->
-							<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_fastest"
-							     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+								<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_fastest"
+								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 							<!-- /ko -->
-						<!-- /ko -->
-
-						<!-- ko if: showcase.cheapest() -->
-						<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
-						<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_cheapest"
-						     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
-						<!-- /ko -->
 						<!-- /ko -->
 					</div>
 				<!-- /ko -->
-				<select data-bind="options: possibleSorts, value: sort"></select>
+				<div class="nemo-flights-results__content__results__controls">
+					<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_count">
+						<!-- ko text: $root.i18n('FlightsSearchResults','controls__count').replace('[%-count-%]', visibleResultsCount()) --><!-- /ko -->
+					</div>
+					<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_sorting">
+						<span class="nemo-flights-results__content__results__controls__item__sortTitle">
+							Сортировать по
+						</span>
+						<select data-bind="
+							simpleSelect: {
+								data: possibleSorts,
+								minimumResultsForSearch: Infinity,
+								i18nSegment: 'FlightsSearchResults',
+								containerCssClass: 'nemo-flights-results__commonSelect',
+								i18nPrefix: 'sortType_'
+							},
+							value: sort
+						"></select>
+								<!--dropdownCssClass: 'nemo-flights-results__commonSelectDropdown',-->
+					</div>
+				</div>
 
 				<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
 
-				<!-- ko if: !hasVisibleResult() -->
+				<!-- ko if: visibleResultsCount() == 0 -->
 				<h2>FILTERS GIVEN EMPTY RESULT</h2>
 				<!-- /ko -->
 			</section>
@@ -455,11 +475,18 @@
 	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
 		<!-- ko if: !filteredOut() -->
 		<!-- TODO add carrier coloring here -->
-		<div data-bind="attr: {'class': 'new-ui-subContainer nemo-flights-results__flightsGroup ' + ($parent.modifier ? 'nemo-flights-results__flightsGroup_' + $parent.modifier : '')}">
+		<div data-bind="attr: {
+				'class': 'new-ui-subContainer nemo-flights-results__flightsGroup ' +
+						($parent.modifier ? 'nemo-flights-results__flightsGroup_' + $parent.modifier : '') +
+						' ' +
+						(!$parent.modifier || $parent.modifier == 'recommended' ? 'nemo-flights-results__flightsGroup_common' : '') +
+						' ' +
+						'new-ui-subContainer nemo-flights-results__flightsGroup_legsCount_' + legGroupings.length
+			}">
 			<div class="new-ui-subContainer__header nemo-flights-results__flightsGroup__header">
 				<div class="nemo-flights-results__flightsGroup__header__title">
-					<div class="nemo-flights-results__flightsGroup__header__title__ffEllipsisHack__outer">
-						<div class="nemo-flights-results__flightsGroup__header__title__ffEllipsisHack__inner" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
+					<div class="nemo-common-ffEllipsisHack">
+						<div class="nemo-common-ffEllipsisHack__inner" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
 					</div>
 				</div>
 				<div class="nemo-flights-results__flightsGroup__header__additional">
@@ -469,7 +496,13 @@
 					--><img class="nemo-flights-results__flightsGroup__header__logo"
 					     data-bind="attr: {src: $root.controller.options.staticInfoURL + getValidatingCompany().logo.image}"><!--
 					     ko if: carriersMismatch
-				    --><div class="nemo-flights-results__flightsGroup__header__info" data-bind=""></div>
+				    --><div
+							class="nemo-flights-results__flightsGroup__header__info"
+							data-bind="tooltip: {
+								header: $root.i18n('FlightsSearchResults','flightsGroup__header__carrierMismatch__header'),
+								content: $root.i18n('FlightsSearchResults','flightsGroup__header__carrierMismatch__content').replace('[%-validatingCarrier-%]', getValidatingCompany().name),
+								cssClass: 'nemo-flights-results__flightsGroup__header__infoTooltip'
+							}"></div>
 					<!-- /ko -->
 				</div>
 			</div>
@@ -486,29 +519,99 @@
 				</div>
 			</div>
 
-			<div data-bind="text: $parent.modifier"></div>
-			<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>
-			<strong data-bind="text: getValidatingCompany().name + ' ' + getValidatingCompany().rating"></strong>
-			<!--<div data-bind="foreach: flights">-->
-				<!--<div>-->
-					<!--<span data-bind="text: id"></span>-->
-					<!--<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>-->
+			<div data-bind="foreach: legGroupings, attr: {'class': 'nemo-flights-results__flightsGroup__legs nemo-flights-results__flightsGroup__legs_count_' + legGroupings.length}"><!--
+				--><div class="nemo-flights-results__flightsGroup__leg">
+					<div class="nemo-flights-results__flightsGroup__leg__info" data-bind="with: $parent.flights[0].legs[$index()]">
+						<div class="nemo-flights-results__flightsGroup__leg__info__date">
+							<span class="nemo-flights-results__flightsGroup__leg__info__date__day" data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
+							</span><span class="nemo-flights-results__flightsGroup__leg__info__date__dayOfWeek" data-bind="text: ', ' + depDateTime.getDOWName()"></span>
+						</div>
+
+						<div class="nemo-flights-results__flightsGroup__leg__info__route">
+							<div class="nemo-common-ffEllipsisHack">
+								<div class="nemo-common-ffEllipsisHack__inner">
+									<div
+										class="nemo-flights-results__flightsGroup__leg__info__route__departure"
+										data-bind="text: depAirp.city.name">
+									</div><div
+										class="nemo-flights-results__flightsGroup__leg__info__route__arrival"
+										data-bind="text: arrAirp.city.name"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="nemo-flights-results__flightsGroup__leg__selector">
+						<div class="nemo-flights-results__flightsGroup__leg__selector__header">
+							<div class="nemo-flights-results__flightsGroup__leg__selector__header__title">
+								<div class="nemo-common-ffEllipsisHack">
+									<div class="nemo-common-ffEllipsisHack__inner">
+										<div
+											class="nemo-flights-results__flightsGroup__leg__selector__header__title__text"
+											data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__selector__title');"></div>
+										<div
+											class="nemo-flights-results__flightsGroup__leg__selector__header__title__date"
+											data-bind="with: $parent.flights[0].legs[$index()]">
+											<span
+												class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__day"
+												data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
+											</span><span
+												class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__dayOfWeek"
+												data-bind="text: ', ' + depDateTime.getDOWNameShort()"></span>
+										</div>
+									</div>
+								</div>
+							</div><div
+								class="nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable"
+								data-bind="
+									text:
+										$parent.selectedFlight().availSeats > 0 ?
+										(
+											$parent.selectedFlight().availSeats +
+											' ' +
+											$root.i18n(
+												'FlightsSearchResults',
+												'flightsGroup__availSeats_' + $root.helpers.getNumeral($parent.selectedFlight().availSeats, 'one', 'twoToFour', 'fourPlus')
+											)
+										):
+										'',
+									css: {'nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable_warning' : $parent.selectedFlight().availSeats > 0 && $parent.selectedFlight().seatsAvailThreshold >= $parent.selectedFlight().availSeats}"></div>
+						</div>
+						<!--<select-->
+								<!--data-bind="-->
+											<!--options: options,-->
+											<!--value: selected,-->
+											<!--optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},-->
+											<!--optionsAfterRender: setOptionDisable-->
+										<!--"></select>-->
+					</div>
+					<!--<div data-bind="text: selected().flights.join(', ')"></div> data-bind="text: $parent.selectedFlight().id"-->
+				</div><!--
+			--></div>
+
+			<!--<div data-bind="text: $parent.modifier"></div>-->
+			<!--<strong data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency() + ' ' + (filteredOut() ? '-' : '+')"></strong>-->
+			<!--<strong data-bind="text: getValidatingCompany().name + ' ' + getValidatingCompany().rating"></strong>-->
+			<!--&lt;!&ndash;<div data-bind="foreach: flights">&ndash;&gt;-->
+				<!--&lt;!&ndash;<div>&ndash;&gt;-->
+					<!--&lt;!&ndash;<span data-bind="text: id"></span>&ndash;&gt;-->
+					<!--&lt;!&ndash;<strong data-bind="text: (filteredOut() ? '-' : '+') + '->' + totalTimeTransfers"></strong>&ndash;&gt;-->
+				<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--&lt;!&ndash;</div>&ndash;&gt;-->
+			<!--<div data-bind="foreach: legGroupings">-->
+				<!--<div style="display: inline-block;vertical-align: top;width: 33%;">-->
+					<!--<div data-bind="text: selected().flights.join(', ')"></div>-->
+					<!--<select-->
+							<!--style="width: 90%;"-->
+							<!--data-bind="-->
+										<!--options: options,-->
+										<!--value: selected,-->
+										<!--optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},-->
+										<!--optionsAfterRender: setOptionDisable-->
+									<!--"-->
+							<!-- ></select>-->
 				<!--</div>-->
 			<!--</div>-->
-			<div data-bind="foreach: legGroupings">
-				<div style="display: inline-block;vertical-align: top;width: 33%;">
-					<div data-bind="text: selected().flights.join(', ')"></div>
-					<select
-							style="width: 90%;"
-							data-bind="
-										options: options,
-										value: selected,
-										optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-										optionsAfterRender: setOptionDisable
-									"
-							></select>
-				</div>
-			</div>
 			<div>
 				<!-- ko if: selectedFlightsIds().length -->
 				<strong data-bind="text: selectedFlightsIds().join(', ')"></strong>

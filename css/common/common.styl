@@ -1,0 +1,12 @@
+/* Dirty hack for firefox :( */
+.nemo-common-ffEllipsisHack {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+
+	&__inner {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+}

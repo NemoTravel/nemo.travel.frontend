@@ -5,6 +5,10 @@ define(
 		function Airline (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
+			// Normalizing rating
+			this.rating = parseFloat(this.rating);
+			this.rating = !isNaN(this.rating) ? this.rating : 0;
+
 			if (!this.logo) {
 				this.logo = {
 					image: '',

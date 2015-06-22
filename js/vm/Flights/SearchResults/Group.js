@@ -143,6 +143,10 @@ define(
 			for (var i = 0; i < this.flights.length; i++) {
 				this.isDirectGroup = this.isDirectGroup || this.flights[i].isDirect;
 			}
+
+			this.selectedFlight = ko.computed(function () {
+				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : null;
+			}, this);
 		}
 		// Extending from dictionaryModel
 		helpers.extendModel(Group, [BaseModel]);
