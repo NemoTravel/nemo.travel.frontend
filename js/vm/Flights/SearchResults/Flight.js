@@ -68,7 +68,8 @@ define(
 					depDateTime: this.segmentsByLeg[i][0].depDateTime,
 					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime,
 					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
-					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg)
+					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg),
+					transfersCount: this.transfers[i].length
 				});
 			}
 

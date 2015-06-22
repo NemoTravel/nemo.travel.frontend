@@ -19,7 +19,6 @@
 			<select data-bind="
 					simpleSelect: {
 						data: tripTypes,
-						minimumResultsForSearch: Infinity,
 						containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeTypeSelector__select',
 						i18nSegment: 'FlightsSearchForm',
 						i18nPrefix: 'triptype_'
@@ -193,12 +192,12 @@
 				<!-- /ko -->
 			</div>
 			<div class="nemo-flights-form__buttonContainer">
-				<button class="new-ui-button new-ui-button_main nemo-flights-form__buyButton"
+				<button class="new-ui-button new-ui-button_main nemo-flights-form__searchButton"
 						data-bind="
 							click: startSearch,
 							css: {
 								'new-ui-button_disabled': validaTERROR() && !isValid(),
-								'nemo-flights-form__buyButton_searching': isSearching()
+								'nemo-flights-form__searchButton_searching': isSearching()
 							}">
 					Найти
 				</button>
@@ -213,7 +212,6 @@
 							<select data-bind="
 								simpleSelect: {
 									data: tripTypes,
-									minimumResultsForSearch: Infinity,
 									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
 									i18nSegment: 'FlightsSearchForm',
 									i18nPrefix: 'triptype_'
@@ -230,7 +228,6 @@
 							<select data-bind="
 								simpleSelect: {
 									data: serviceClasses,
-									minimumResultsForSearch: Infinity,
 									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
 									i18nSegment: 'FlightsSearchForm',
 									i18nPrefix: 'serviceClass_'

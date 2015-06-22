@@ -17,29 +17,57 @@ define(
 			this.years   = ko.observable(0);
 
 			this.length.subscribe(this.setBaseParts, this);
-			
+
 			this.readableString = ko.computed(function(){
-				var res = '';
+				var res = [];
+
 				if(this.years() > 0 ){
-					res += this.years()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.years(),"year_one","year_twoToFour","year_fourPlus")) +' ';
+					res.push(this.years()+ ' ' +this.$$controller.i18n('duration', 'year_' + helpers.getNumeral(this.years(),"one","twoToFour","fourPlus")));
 				}
 				if(this.months() > 0 ){
-					res += this.months()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.months(),"month_one","month_twoToFour","month_fourPlus"))+' ';
+					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', 'month_' + helpers.getNumeral(this.months(),"one","twoToFour","fourPlus")));
 				}
 				if(this.days() > 0 ){
-					res += this.days()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.days(),"day_one","day_twoToFour","day_fourPlus"))+' ';
+					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', 'day_' + helpers.getNumeral(this.days(),"one","twoToFour","fourPlus")));
 				}
 				if(this.hours() > 0 ){
-					res += this.hours()+' '+this.$$controller.i18n('duration',  helpers.getNumeral(this.hours(),"hour_one","hour_twoToFour","hour_fourPlus"))+' ';
+					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  'hour_' + helpers.getNumeral(this.hours(),"one","twoToFour","fourPlus")));
 				}
 				if(this.minutes() > 0 ){
-					res += this.minutes()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.minutes(),"minute_one","minute_twoToFour","minute_fourPlus"))+' ';
+					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', 'minute_' + helpers.getNumeral(this.minutes(),"one","twoToFour","fourPlus")));
 				}
 				if(this.seconds() > 0 ){
-					res +=  this.seconds()+' '+this.$$controller.i18n('duration', helpers.getNumeral(this.seconds(),"second_one","second_twoToFour","second_fourPlus"))+' ';
+					res.push( this.seconds()+ ' ' +this.$$controller.i18n('duration', 'second_' + helpers.getNumeral(this.seconds(),"one","twoToFour","fourPlus")));
 				}
-				return res;
+
+				return res.join(' ');
 			}, this);
+
+			this.readableStringShort = ko.computed(function(){
+				var res = [];
+
+				if(this.years() > 0 ){
+					res.push(this.years() + ' ' + this.$$controller.i18n('duration', "year_short"));
+				}
+				if(this.months() > 0 ){
+					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', "month_short"));
+				}
+				if(this.days() > 0 ){
+					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', "day_short"));
+				}
+				if(this.hours() > 0 ){
+					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  "hour_short"));
+				}
+				if(this.minutes() > 0 ){
+					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', "minute_short"));
+				}
+				if(this.seconds() > 0 ){
+					res.push( this.seconds()+ ' ' +this.$$controller.i18n('duration', "second_short"));
+				}
+
+				return res.join(' ');
+			}, this);
+
 			this.setBaseParts();
 		}
 

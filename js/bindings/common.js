@@ -66,6 +66,20 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.money = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $moneyElement = $(element),
+					money = valueAccessor();
+
+				$moneyElement
+					.attr('currency', money.currency())
+					.attr('amount', money.amount())
+					.text(Math.ceil(money.normalizedAmount()) + ' ' + money.currency())
+					.trigger('cc:updated');
+			}
+		}
+
 		ko.bindingHandlers.simpleSelect = {
 			init: function(el, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				ko.utils.domNodeDisposal.addDisposeCallback(el, function() {
@@ -88,6 +102,7 @@ define(
 				// Overriding width
 				simpleSelect.width = simpleSelect.width || 'resolve';
 				simpleSelect.dropdownAutoWidth = simpleSelect.dropdownAutoWidth || true;
+				simpleSelect.minimumResultsForSearch = simpleSelect.minimumResultsForSearch || Infinity;
 				simpleSelect.fixWidth = true;
 
 				$(el).select2(simpleSelect);

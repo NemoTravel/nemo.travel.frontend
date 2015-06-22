@@ -420,6 +420,258 @@
 						}
 					}
 				}
+
+				&__footer {
+					display: flex;
+					flex-flow: row nowrap;
+					font-size: 12px;
+					line-height: 30px;
+					color: $c_ui_textSecondary;
+
+					&__detailsLink {
+						min-width: 1px;
+						margin-left: auto;
+					}
+
+					&__transfers {
+						padding-right: 10px;
+						min-width: 1px;
+					}
+				}
+
+				&__selectContainer {
+					position: relative;
+				}
+
+				&__selected {
+					border-radius: 4px;
+					background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+					padding: 10px 40px 10px 50px;
+					position: relative;
+					cursor: pointer;
+
+					&:hover {
+						background: linear-gradient(to bottom, #f9f9f9, #efefef);
+					}
+
+					&:before, &:after {
+						content: '';
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+
+					&:before {
+						width: 20px;
+						height: 20px;
+						border-radius: 10px;
+						box-shadow: 0 1px 3px rgba(#000, 0.3);
+						background: url('images/flights_results_sprite.svg') -30px -30px no-repeat;
+						left: 15px;
+					}
+
+					&:after {
+						width: 12px;
+						height: 10px;
+						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
+						right: 14px;
+					}
+
+					&_unopenable {
+						cursor: auto;
+
+						&:after {
+							display: none;
+						}
+
+						&:hover {
+							background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+						}
+					}
+
+					&_open {
+						border-bottom-left-radius: 0;
+						border-bottom-right-radius: 0;
+					}
+
+					&__time {
+						font-size: 16px;
+						height: 23px;
+						display: inline-block;
+						vertical-align: baseline;
+
+						&__arrival, &__nextDayDate {
+							font-size: 12px;
+						}
+
+						&__departure {
+							font-weight: 600;
+						}
+					}
+
+					&__timeEnRoute {
+						font-size: 12px;
+						opacity: 0.75;
+						height: 17px;
+
+						&__addText {
+							color: $c_ui_textSecondary;
+						}
+					}
+				}
+
+				&__dropdown {
+					box-shadow: 0 1px 5px rgba(#000, 0.2);
+					border-radius: 0 0 4px 4px;
+					overflow: hidden;
+					position: absolute;
+					z-index: 1;
+					width: 100%;
+
+					&__option {
+						padding: 5px 15px;
+						border-bottom: 1px solid #D7D7D7;
+						background: #fff;
+						cursor: pointer;
+						transition: all 0.2s;
+
+						&:hover, &:hover &__transfers__transfer {
+							background: #EAF6FF;
+						}
+
+						&__departure, &__arrival {
+							font-size: 14px;
+							font-weight: 600;
+							line-height: 20px;
+							display: inline-block;
+							vertical-align: top;
+						}
+
+						&__transfers {
+							display: inline-block;
+							vertical-align: top;
+							min-width: 50px;
+							height: 20px;
+							text-align: center;
+							position: relative;
+							padding-right: 4px;
+							transition: all 0.2s;
+
+							&:before {
+								content: '';
+								position: absolute;
+								top: 9px;
+								border-bottom: 1px solid #969599;
+								left: 0;
+								right: 0;
+							}
+
+							&:after {
+								content: '';
+								position: absolute;
+								top: 6px;
+								border: 1px solid #969599;
+								right: 0;
+								width: 6px;
+								height: 6px;
+								transform: rotate(45deg);
+								border-bottom: none;
+								border-left: none;
+							}
+
+							&__transfer {
+								display: inline-block;
+								vertical-align: top;
+								margin: 5px;
+								width: 9px;
+								height: 9px;
+								border-radius: 9px;
+								background: #fff;
+								border: 1px solid #969599;
+								position: relative;
+								z-index: 1;
+							}
+						}
+
+						&__timeEnRoute {
+							font-size: 11px;
+						}
+					}
+				}
+			}
+		}
+
+		&__footer {
+			font-size: 13px;
+			color: $c_ui_textSecondary;
+			padding: 20px;
+
+			&__couplingButtonContainer, &__buyButtonContainer {
+				display: inline-block;
+				vertical-align: middle;
+				width: 50%;
+			}
+
+			&__buyButtonContainer {
+				display: inline-flex;
+				flex-flow: row nowrap;
+				justify-content: flex-end;
+
+				&__disclaimer {
+					margin-right: 15px;
+					text-align: right;
+					align-self: center;
+				}
+			}
+
+			&__disclaimer {
+				text-align: right;
+				padding-top: 10px;
+
+				display: none;
+			}
+		}
+
+		&__couplingButton {
+			height: 40px;
+			font-size: 13px;
+			line-height: 19px;
+			padding: 9px 30px;
+			border: 1px solid #A5C5E5;
+			background: none;
+
+			&:hover {
+				background: none;
+			}
+
+			&:active {
+				padding-top: 10px;
+			}
+		}
+
+		&__buyButton {
+			vertical-align: middle;
+			flex-grow: 0;
+			font-size: 16px;
+			padding: 0 20px 0 60px;
+			white-space: nowrap;
+
+			&, &:hover {
+				background-image: url('images/flights_results_sprite.svg');
+				background-position: -25px 11px;
+				background-repeat: no-repeat;
+		    }
+
+			&:active {
+				background-position: -25px 12px;
+			}
+		}
+
+		&_common {
+			margin-top: 20px;
+
+			&:first-child {
+				margin-top: 0;
 			}
 		}
 
@@ -475,6 +727,23 @@
 						font-size: 12px;
 						line-height: 30px;
 					}
+				}
+
+				&__footer {
+					padding-top: 10px;
+					padding-bottom: 10px;
+
+					&__buyButtonContainer__disclaimer {
+						display: none;
+					}
+
+					&__disclaimer {
+						display: block;
+					}
+				}
+
+				&__couplingButton__addText {
+					display: none;
 				}
 			}
 		}

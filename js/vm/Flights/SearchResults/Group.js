@@ -28,6 +28,9 @@ define(
 				var addObj = {
 						options: [],
 						selected: ko.observable(),
+
+						open: ko.observable(false),
+
 						setOptionDisable: function (option, item) {
 							ko.applyBindingsToNode(
 								option,
@@ -94,6 +97,18 @@ define(
 					}
 				}, this);
 
+				addObj.selectableCount = ko.computed(function () {
+					var ret = 0;
+
+					for (var i = 0; i < this.options.length; i++) {
+						if (!this.options[i].disabled()) {
+							ret++;
+						}
+					}
+
+					return ret;
+				}, addObj);
+
 				this.legGroupings.push(addObj);
 			}
 
@@ -153,6 +168,7 @@ define(
 
 		Group.prototype.getGroupingKey = function (flight, legNumber) {
 			return flight.legs[legNumber].depAirp.IATA + '-' +
+				flight.transfers[legNumber].length + '-' +
 				flight.legs[legNumber].arrAirp.IATA + '-' +
 				flight.legs[legNumber].depDateTime.getISODateTime() + '-' +
 				flight.legs[legNumber].arrDateTime.getISODateTime() + '-' +

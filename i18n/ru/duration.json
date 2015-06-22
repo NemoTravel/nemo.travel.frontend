@@ -25,5 +25,14 @@
 
 	"year_one" : "год",
 	"year_twoToFour" : "года",
-	"year_fourPlus" : "лет"
+	"year_fourPlus" : "лет",
+
+	"second_short" : "сек",
+	"minute_short" : "мин",
+	"hour_short"   : "ч",
+	"day_short"    : "дн",
+	"week_short"   : "нед",
+	"month_short"  : "мес",
+	"year_short"   : "лет"
+
 }

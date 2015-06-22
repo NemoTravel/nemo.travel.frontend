@@ -107,6 +107,35 @@ define(
 					}
 				});
 			}
-		}
+		};
+
+		ko.bindingHandlers.flightsResultsFlightSelector ={
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					data = valueAccessor(),
+					closeEvents = 'click';
+
+				function closeDropDown (e) {
+					var $target = $(e.target);
+
+					if (!$target.is($element[0]) && !$target.parents().is($element[0])) {
+						data.open(false);
+					}
+				}
+
+				function openDropDown () {
+					data.open(true);
+				}
+
+				$element.on('click', openDropDown);
+
+				$(document).on(closeEvents, closeDropDown);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$element.off('click', closeDropDown);
+					$(document).off(closeEvents, closeDropDown);
+				});
+			}
+		};
 	}
 );

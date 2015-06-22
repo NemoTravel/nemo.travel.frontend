@@ -37,5 +37,11 @@
 	"flightsGroup__availSeats_twoToFour" : "места",
 	"flightsGroup__availSeats_fourPlus" : "мест",
 
+	"flightsGroup__footer__passengersDisclaimer" : "Цена указана за всех пассажиров",
+
+	"flightsGroup__couplingButton__variants_one" : "вариант",
+	"flightsGroup__couplingButton__variants_twoToFour" : "варианта",
+	"flightsGroup__couplingButton__variants_fourPlus" : "вариантов",
+
 	"" : ""
 }
