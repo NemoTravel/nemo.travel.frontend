@@ -1,0 +1,43 @@
+use('../node_modules/stylobuild', {
+	autoprefixer: { browsers: "last 2 version, Explorer >=8"},
+	csso: true,
+	pixrem: false
+});
+
+@import 'common/variables.styl';
+@import 'common/normalize.styl';
+@import 'common/mixins.styl';
+@import 'common/pickmeup.styl';
+@import 'uikit/_uikit.styl';
+
+// Commons
+@import 'blocks/Common/header.styl';
+@import 'blocks/Common/breadcrumbs.styl';
+@import 'blocks/Common/footer.styl';
+
+// Flights form and adaptivity
+@import 'blocks/Flights/searchForm.styl';
+@import 'blocks/Flights/searchForm_adaptivity.styl';
+@import 'blocks/Flights/flights-compareTable.styl';
+
+// Flights results and adaptivity
+@import 'blocks/Flights/searchResults.styl';
+
+@import 'blocks/rating.styl';
+@import 'blocks/flight.styl';
+/*@import 'checkbox.styl';*/
+@import 'dropMenu.styl';
+@import 'form.styl';
+@import 'hint.styl';
+@import 'icons.styl';
+@import 'layouts.styl';
+@import 'sideMenu.styl';
+/*@import 'form-popup.styl';*/
+@import 'textBox.styl';
+@import 'blocks/hotel.styl';
+@import 'blocks/compareTable.styl';
+@import 'blocks/route.styl';
+@import 'time.styl';
+@import 'ticket.styl';
+@import 'hintOverlay.styl';
+

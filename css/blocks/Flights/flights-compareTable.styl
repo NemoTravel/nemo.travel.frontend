@@ -1,0 +1,204 @@
+$c_tableBorder = #afafaf;
+$c_tableBackground = #F0F0F0;
+$c_showMoreSwitchBackground = #5598C8
+$c_tableMainColor = #3F3F3F;
+
+$d_tableColumnWidth = 150px;
+$d_tableColumnPadding = 0 20px ;
+
+
+//@TODO REMOVE ALL BEFORE&AFTER ELEMENTS CRUTCH!!!!!11one
+.nemo-flights-results__compareTable{
+	position: relative;
+	overflow-x: hidden;
+	border-radius: 0 0 3px 3px;
+
+	transition: height 0.2s ease-in 0s;
+	&__wrapper{
+		margin-left: 20px;
+		position: relative;
+	}
+	&__pager{
+		background: #5598C8;
+		border-radius: 3px 3px 0 0;
+		color: #ffffff;
+		display: flex;
+		justify-content:space-between;
+		font-size: 14px;
+		padding: 10px 13px;
+		&__prev, &__next{
+			display: inline-block;
+		}
+	}
+	&__inner {
+		position: relative;
+		transition: left 0.2s ease-in 0s;
+		width: 999999px;
+		display: flex;
+		justify-content:flex-start;
+		background: $c_tableBackground;
+		&:before{
+			content: '';
+			width: 300%;
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			left: -100%;
+			background: $c_tableBorder;
+			z-index: 9;
+		}
+	}
+	&__companyLogo{
+		border-bottom: 1px solid $c_tableBorder;
+		display: flex;
+		overflow: hidden;
+		width: $d_tableColumnWidth;
+		height: 50px;
+		background: #FFFFFF;
+		align-items:center;
+		justify-content:center;
+		&__image{
+			height: 70%;
+			width: 70%;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+	}
+	&__companyColumn{
+		vertical-align: top;
+		width: 150px;
+		position: relative;
+		&:before{
+			content: '';
+			width: 1px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: -1px;
+			background: $c_tableBorder;
+			z-index: 9;
+		}
+		&:after{
+			content: '';
+			width: 1px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: $c_tableBorder;
+			z-index: 9;
+		}
+		&_visible{
+			&:before{
+				left: 0px;
+			}
+		}
+		&_visible ~ &_visible{
+			&:before{
+				left: -1px;
+			}
+		}
+	}
+	&__groups{
+		&Item{
+			display: block;
+			width:$d_tableColumnWidth;
+			position: absolute;
+			background: #ffffff;
+			z-index: 10;
+			&:before{
+				content: '';
+				width: 300%;
+				height: 1px;
+				position: absolute;
+				bottom: 0;
+				left: -100%;
+				background: $c_tableBorder;
+				z-index: 9;
+			}
+			&_minimized{
+				height: 60px;
+				position: relative;
+				z-index: 1;
+			}
+			&_minimized &__fullInfo{
+				display: none;
+			}
+			&__price{
+				color: $c_tableMainColor;
+				font-weight: normal;
+				font-size: 13px;
+				padding:$d_tableColumnPadding;
+				line-height: 24px;
+			}
+			&__duration{
+				color: $c_ui_textSecondary;
+				font-size: 55%;
+				font-weight: normal;
+				padding:$d_tableColumnPadding;
+				line-height: 12px;
+			}
+			&__flightSelectWrap{
+				height: 90px;
+				border-top:1px solid $c_tableBorder;
+				border-bottom:1px solid $c_tableBorder;
+				padding:$d_tableColumnPadding;
+				margin: 10px 0px;
+				&__tip{
+					color:$c_tableMainColor;
+				}
+			}
+			&__linkToFullTicket{
+				color:#0B90D6;
+				margin:$d_tableColumnPadding;
+				font-size: 11px;
+			}
+			&__buttonWrap{
+				text-align: center;
+			}
+			&__disclaimer{
+				color: #969599;
+				font-weight: normal;
+				font-size: 11px;
+				padding:$d_tableColumnPadding;
+				text-align: center;
+				margin:3px 0;
+			}
+			&_hidden{
+				display: none;
+			}
+			&_visible{
+				display: block;
+				box-shadow: 0 0 5px #888;
+				&:before{
+					display: none;
+				}
+			}
+			&__shortInfo{
+				min-height: 60px;
+			}
+		}
+	}
+	&__showMore{
+		&__container{
+			margin-top: -1px;
+			text-align: center;
+			vertical-align: top;
+			width: 100%;
+		}
+		&__switch{
+			display: inline-block;
+			background: $c_showMoreSwitchBackground;
+			opacity: 0.8;
+			padding:3px 30px 3px 10px;
+			color: #ffffff;
+			cursor: pointer;
+			border-radius: 0 0 5px 5px;
+			font-size: 13px;
+			&:hover{
+				opacity: 1;
+			}
+		}
+	}
+}
