@@ -6,6 +6,9 @@ define(
 			BaseModel.apply(this, arguments);
 
 			var self = this;
+
+			this.id = Group.prototype.globalIdIterator++;
+console.log(this.id);
 			this.flightsById = {};
 			this.legGroupings = [];
 			this.recalculateSelectedFlights = true;
@@ -165,6 +168,8 @@ define(
 		}
 		// Extending from dictionaryModel
 		helpers.extendModel(Group, [BaseModel]);
+
+		Group.prototype.globalIdIterator = 0;
 
 		Group.prototype.getGroupingKey = function (flight, legNumber) {
 			return flight.legs[legNumber].depAirp.IATA + '-' +

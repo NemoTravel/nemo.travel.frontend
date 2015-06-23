@@ -1,9 +1,10 @@
 <!-- nemo-flights-form_compact || nemo-flights-form_twoThirds -->
-<div class="nemo-flights-form js-autofocus-form"> <!-- MODIFIERS: nemo-flights-form_compact || nemo-flights-form_twoThirds -->
+<div class="nemo-flights-form js-autofocus-form js-nemoApp__component"> <!-- MODIFIERS: nemo-flights-form_compact || nemo-flights-form_twoThirds -->
 <!-- ko if: !$$loading() && !$$error() -->
 	<!-- ko if: isSearching -->
 
 	<!-- /ko -->
+
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons" data-bind="foreach: tripTypes"><!--
 		--><div
 			class="new-ui-button new-ui-button_secondary nemo-flights-form__routeTypeSelector__button"
@@ -174,8 +175,7 @@
 
 				<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
 
-				<!-- ko if: passengersFastSelectorOpen -->
-				<div class="nemo-flights-form__passengers__fastSelect">
+				<div class="nemo-flights-form__passengers__fastSelect" data-bind="visible: passengersFastSelectorOpen">
 					<!-- ko foreach: passengersFastSelectOptions -->
 					<div class="nemo-flights-form__passengers__fastSelect__item"
 					     data-bind="
@@ -184,12 +184,22 @@
 						         "></div>
 					<!-- /ko -->
 					<!-- ko if: passengersUseExtendedSelect -->
-					<div class="nemo-flights-form__passengers__fastSelect__item" data-bind="click: function () {passengersSelectorOpen(true);passengersFastSelectorOpen(false);}">
-						Больше пассажиров
-					</div>
+					<div class="nemo-flights-form__passengers__fastSelect__item" data-bind="
+						popup: {
+							block: 'passengersFullSelect',
+							title: 'Пассажиры',
+							buttons: [
+								{
+									text: 'Готово',
+									click: function () {$(this).data('ui-popup__close')()}
+								}
+							]
+						},
+						click: function () {passengersFastSelectorOpen(false);},
+						text: 'Больше пассажиров'
+						"></div>
 					<!-- /ko -->
 				</div>
-				<!-- /ko -->
 			</div>
 			<div class="nemo-flights-form__buttonContainer">
 				<button class="new-ui-button new-ui-button_main nemo-flights-form__searchButton"
@@ -254,49 +264,37 @@
 		</div>
 	</div>
 
-	<!-- ko if: passengersSelectorOpen -->
-		<div class="nemo-flights-form__passengersPopUpWrapper" data-bind="clickSelf: function (data, event) {passengersSelectorOpen(false)}">
-			<div class="nemo-flights-form__passengersPopUp" data-bind="positionPassengersPopup: null">
-				<div class="nemo-flights-form__passengersPopUp__header">
-					Пассажиры
-					<div class="nemo-flights-form__passengersPopUp__header__close" data-bind="click: function () {passengersSelectorOpen(false)}"></div>
-				</div>
-				<div class="nemo-flights-form__passengersPopUp__content" data-bind="foreach: {data: passengerTypesOrder, as: 'passType'}">
-					<!-- ko if: $parent.options.passengerCount[passType] &&  parseInt($parent.options.passengerCount[passType]) -->
-					<div class="nemo-flights-form__passengersPopUp__content__item nemo-flights-form__passengersPopUp__content__item_adt">
-						<div class="nemo-flights-form__passengersPopUp__content__item__header" data-bind="text: $root.i18n('FlightsSearchForm','passengerType_'+passType+'_passSelectorName')"></div>
-						<div class="nemo-flights-form__passengersPopUp__content__item__subheader" data-bind="text: $root.i18n('FlightsSearchForm','passengerType_'+passType+'_ageInfo')"></div>
-						<div class="nemo-flights-form__passengersPopUp__content__item__counts" data-bind="foreach: $parent.getPassengersCounts(passType)">
-							<div
-								data-bind="
-									text: $root.i18n('FlightsSearchForm','passengers_count_' + $data),
-									attr: {'class':
-											'nemo-flights-form__passengersPopUp__content__item__count nemo-flights-form__passengersPopUp__content__item__count_' + $data +
-											(
-												$parents[1].passengers()[passType] && $parents[1].passengers()[passType]() == $data ?
-												' nemo-flights-form__passengersPopUp__content__item__count_active' :
-												''
-											) +
-											(
-												$data > $parents[1].passengersRestrictions()[passType].max || $data < $parents[1].passengersRestrictions()[passType].min ?
-												' nemo-flights-form__passengersPopUp__content__item__count_disabled':
-												''
-											)
-										},
-									click: function () {$parents[1].setPassengers(passType, parseInt($data));}"
-								></div>
-						</div>
-					</div>
-					<!-- /ko -->
-				</div>
-				<div class="nemo-flights-form__passengersPopUp__footer">
-					<button class="new-ui-button new-ui-button_main" data-bind="click: function () {passengersSelectorOpen(false)}">
-						Готово
-					</button>
-				</div>
+	<div data-block="passengersFullSelect" style="display: none;"
+		class="nemo-flights-form__passengersPopUp js-nemoApp__popupBlock"
+		data-bind="foreach: {data: passengerTypesOrder, as: 'passType'}"
+		>
+		<!-- ko if: $parent.options.passengerCount[passType] &&  parseInt($parent.options.passengerCount[passType]) -->
+		<div data-bind="attr: {'class': 'nemo-flights-form__passengersPopUp__item nemo-flights-form__passengersPopUp__item_' + passType}">
+			<div class="nemo-flights-form__passengersPopUp__item__header" data-bind="text: $root.i18n('FlightsSearchForm','passengerType_'+passType+'_passSelectorName')"></div>
+			<div class="nemo-flights-form__passengersPopUp__item__subheader" data-bind="text: $root.i18n('FlightsSearchForm','passengerType_'+passType+'_ageInfo')"></div>
+			<div class="nemo-flights-form__passengersPopUp__item__counts" data-bind="foreach: $parent.getPassengersCounts(passType)">
+				<div
+					data-bind="
+						text: $root.i18n('FlightsSearchForm','passengers_count_' + $data),
+						attr: {'class':
+								'nemo-flights-form__passengersPopUp__item__count nemo-flights-form__passengersPopUp__item__count_' + $data +
+								(
+									$parents[1].passengers()[passType] && $parents[1].passengers()[passType]() == $data ?
+									' nemo-flights-form__passengersPopUp__item__count_active' :
+									''
+								) +
+								(
+									$data > $parents[1].passengersRestrictions()[passType].max || $data < $parents[1].passengersRestrictions()[passType].min ?
+									' nemo-flights-form__passengersPopUp__item__count_disabled':
+									''
+								)
+							},
+						click: function () {$parents[1].setPassengers(passType, parseInt($data));}"
+					></div>
 			</div>
 		</div>
-	<!-- /ko -->
+		<!-- /ko -->
+	</div>
 
 <!-- /ko -->
 
