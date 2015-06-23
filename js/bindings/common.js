@@ -1,6 +1,13 @@
 'use strict';
 define(
-	['knockout', 'jquery','js/lib/jquery.select2/v.4.0.0/select2.full', 'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min'],
+	[
+		'knockout',
+		'jquery',
+		'touchPunch',
+		'js/lib/jquery.select2/v.4.0.0/select2.full',
+		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
+		'js/lib/jquery.ui.popup/jquery.ui.popup'
+	],
 	function (ko, $) {
 		// Common Knockout bindings are defined here
 		/*
@@ -144,6 +151,67 @@ define(
 					$(el).select2("data", converted);
 				}
 			}
+		};
+
+		ko.bindingHandlers.popup = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var defaults = {
+						block: '',
+						contentType: 'html',
+						modal: true,
+						draggable: false,
+						closeText: bindingContext.$root.i18n('common', 'popup_closeText'),
+						width: 'auto',
+						height: 'auto',
+						title: '',
+						parentClass: 'js-nemoApp__component'
+					},
+					params = ko.utils.unwrapObservable(valueAccessor()),
+					$element = $(element);
+
+				if (
+					typeof params == 'object' &&
+					typeof params.block != "undefined"
+				) {
+					$element.on('click', function (e) {
+						e.preventDefault();
+
+						var popupParams = $.extend({},defaults,params),
+							$target = $element.parents('.' + popupParams.parentClass);
+
+						if ($target.length == 0) {
+							console.error('Component parent node not found (.' + popupParams.parentClass + ')');
+							return;
+						}
+
+						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
+
+						delete popupParams.block;
+
+						if (!$element.data('ui-popup')) {
+							if ($target.length == 1) {
+								popupParams.contentData = $target.show();
+
+								$element.popup(popupParams);
+							}
+							else {
+								console.error('Error on displaying popup. Collection length = '+$target.length+' (.js-nemoApp__popupBlock[data-block="'+params.block+'"])', popupParams);
+							}
+						}
+						else {
+							$element.popup('open');
+						}
+					});
+				}
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					try {
+						$element.popup("destroy");
+					}
+					catch (e) {}
+				});
+			},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 	}
 );

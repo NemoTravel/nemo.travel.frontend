@@ -5,7 +5,6 @@ define(
 		function FlightsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-
 			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
 			this.tripTypes = ['OW','RT','CR'];
 
@@ -49,7 +48,6 @@ define(
 
 			this.typeSelectorOpen           = ko.observable(false);
 			this.classSelectorOpen          = ko.observable(false);
-			this.passengersSelectorOpen     = ko.observable(false);
 			this.passengersFastSelectorOpen = ko.observable(false);
 
 			this.processInitParams();
@@ -315,10 +313,13 @@ define(
 		FlightsSearchFormController.prototype.$$KOBindings         = ['FlightsSearchForm'];
 
 		FlightsSearchFormController.prototype.openPassengersSelector = function () {
-			if (this.passengersFastSelectOptions.length == 0 && this.passengersUseExtendedSelect) {
-				this.passengersSelectorOpen(true);
-			}
-			else if (this.passengersFastSelectOptions.length != 0) {
+			if (
+				!(
+					this.passengersFastSelectOptions.length == 0 &&
+					this.passengersUseExtendedSelect
+				) &&
+				this.passengersFastSelectOptions.length != 0
+			) {
 				this.passengersFastSelectorOpen(!this.passengersFastSelectorOpen());
 			}
 		};

@@ -1,92 +1,75 @@
-$c_ui_popup_bg            = #fff;
-$c_ui_popup_title_bg      = #eee;
-$c_ui_popup_overlay_bg    = rgba(#50505A, 0.5);
-$c_ui_popup_buttonPane_bg = $c_ui_popup_title_bg;
+.ui-dialog {
+	border-radius: 4px;
+	overflow: hidden;
+	position: absolute;
+	outline: 0 none;
+	padding: 0;
+	z-index: 100;
+	border: none;
+	background: #fff;
 
-$c_ui_popup_progress_bg       = rgba(0,0,0, .5);
-$c_ui_popup_progress_value_bg = #0C91D7;
+	&__wrapper {
+		bottom: 0;
+		left: 0;
+		overflow: auto;
+		position: fixed;
+		right: 0;
+		top: 0;
 
-$c_ui_popup_scrollbar       = rgba(150, 149, 153, .25);
-$c_ui_popup_scrollbar_track = rgba(12, 145, 215, .5);
+		background: rgba(#636467, 0.5);
+	}
 
-$f_ui_popup_title      = #636467;
-
-// COMPLEX
-$i_ui_popup_boxShadow = none;
-
-.new-ui-popup {
-	position: fixed;
-	z-index: 1000;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
-	background: $c_ui_popup_overlay_bg;
-	text-align: center;
-	overflow: auto;
-
-	&__popup {
-		display: inline-block;
-		max-width: 100%;
-		border-radius: 2px;
-		background: $c_ui_popup_bg;
+	&__open {
 		overflow: hidden;
-		box-shadow: $i_ui_popup_boxShadow;
-		text-align: left;
+	}
 
-		&__header, &__footer {
-			background: #eee;
-			font-size: $f_ui_popup_title_size;
-		}
+	&-titlebar {
+		position: relative;
+		background: #EEEEEE;
+		border: none;
+		color: $c_ui_textMain;
+		padding: 10px 60px 10px 20px;
+		line-height: 30px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 
-		&__header {
-			position: relative;
-			line-height: 20px;
+		&-close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			width: 30px;
+			height: 30px;
+			border-radius: 4px;
+			background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+			border: none;
+			text-indent: -10000px;
+			overflow: hidden;
+			cursor: pointer;
 
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: space-between;
-			align-items: stretch;
+			transition: all .2s;
 
-			&__title, &__close {
-				min-width: 1px;
-				color: $f_ui_popup_title;
-				padding: 15px 20px 15px 20px;
-			}
-
-			&__title {
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
-			}
-
-			&__close {
-				flex-shrink: 0;
-				padding-left: 0;
-				text-align: right;
-				/*position: absolute;*/
-				/*top: 50%;*/
-				/*right: 15px;*/
-				/*margin-top: -15px;*/
-				/*width: 30px;*/
-				/*height: 30px;*/
-				/*background: #fff;*/
-				/*border-radius: 50%;*/
-				/*opacity: 0.5;*/
-				/*transition: all 0.2s;*/
-
-				/*background: url("images/fsf-sprite.svg") 7.5px -112px no-repeat;*/
-				/*cursor: pointer;*/
-
-				/*&:hover {*/
-					/*opacity: 1;*/
-				/*}*/
+			&:hover {
+				background-color: rgba(#000, 0.05);
 			}
 		}
+	}
 
-		&__footer {
-			padding: 10px 20px;
-			text-align: right;
+	&-content {
+		background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+		border: 0 none;
+		overflow: auto;
+		padding: 20px;
+		position: relative;
+	}
+
+	&-buttonpane {
+		padding: 10px 20px;
+		text-align: right;
+		background: #EEEEEE;
+
+		.ui-button {
+			@extend .new-ui-button;
 		}
 	}
 }

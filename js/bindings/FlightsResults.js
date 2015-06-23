@@ -126,7 +126,9 @@ define(
 				}
 
 				function openDropDown () {
-					data.open(true);
+					if (data.selectableCount() > 1) {
+						data.open(true);
+					}
 				}
 
 				$element.on('click', openDropDown);
