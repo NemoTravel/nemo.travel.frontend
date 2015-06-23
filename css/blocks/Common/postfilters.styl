@@ -1,6 +1,8 @@
 $c_postFilters_textColor = #fff;
-$c_postFilters_separatorColor = rgba(200, 200, 200, 1);
+$c_postFilters_separatorColor = rgba(200, 200, 200, .25);
+$c_postFilters_disabledBG = rgba(240, 240, 240, 1);
 $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
+$t_postFilters_animationTime = .1s;
 
 .nemo-common {
 
@@ -46,7 +48,7 @@ $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
 
         &:hover {
           opacity: 1;
-          transition: opacity .1s ease-in;
+          transition: opacity $t_postFilters_animationTime ease-in;
         }
 
         &__caption {
@@ -155,7 +157,13 @@ $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
               justify-content: space-between;
               align-items: center;
               cursor: pointer;
-              transition: all .15s ease-in;
+              transition: all $t_postFilters_animationTime ease-in;
+
+              border-top: 1px $c_postFilters_separatorColor solid;
+
+              &:first-of-type {
+                border-top: none;
+              }
 
               &_noFlex {
                 display: block;
@@ -164,7 +172,7 @@ $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
               }
 
               &:hover {
-                background: darken(#fff, 5);
+                background: darken(#fff, 2);
               }
 
               &_noMatter {
@@ -172,12 +180,12 @@ $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
               }
 
               &_disabled {
-                background-color: $c_postFilters_separatorColor;
+                background-color: $c_postFilters_disabledBG;
                 background-image: none;
                 cursor: default;
 
                 &:hover {
-                  background-color: $c_postFilters_separatorColor;
+                  background-color: $c_postFilters_disabledBG;
                   background-image: none;
                 }
               }
