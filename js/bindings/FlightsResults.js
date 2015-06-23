@@ -12,24 +12,26 @@ define(
 		 // Do not forget to add destroy callbacks
 		 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {});
 		 */
-		ko.bindingHandlers.compareTableToggle = {
-			update:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
-				setTimeout(
-					function(){
-						$(element).on('click',function(){
-							if($('.nemo-flights-results__compareTable__root').hasClass('nemo-flights-results__compareTable__root_closed')){
-								$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_closed')
-									.addClass('nemo-flights-results__compareTable__root_opened');
-							}else{
-								$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_opened')
-									.addClass('nemo-flights-results__compareTable__root_closed');
-							}
-						});
+		ko.bindingHandlers.flightsResultsCompareTableToggle = {
+			init:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+				function tableToggle(){
+					if($('.nemo-flights-results__compareTable__root').hasClass('nemo-flights-results__compareTable__root_closed')){
+						$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_closed')
+							.addClass('nemo-flights-results__compareTable__root_opened');
+						$('.js-flights-results__compareTable__opener').hide()
+					}else{
+						$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_opened')
+							.addClass('nemo-flights-results__compareTable__root_closed');
+						$('.js-flights-results__compareTable__opener').show()
 					}
-				,1);
+				}
+				$(element).on('click', tableToggle);
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(element).off('click', tableToggle);
+				})
 			}
 		};
-		ko.bindingHandlers.compareTableWidth = {
+		ko.bindingHandlers.flightsResultsCompareTableWidth = {
 			update:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
 				//unnecessary call just for bind watching
 				valueAccessor();
@@ -45,7 +47,7 @@ define(
 				,1);
 			}
 		};
-		ko.bindingHandlers.compareTablePosition = {
+		ko.bindingHandlers.flightsResultsCompareTablePosition = {
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var leftOffset = 0;
 				if(valueAccessor().paginationShownPages()*$('.nemo-flights-results__compareTable__companyColumn:eq(0)').width()
@@ -61,7 +63,7 @@ define(
 				$(element).css('left',  leftOffset)
 			}
 		};
-		ko.bindingHandlers.compareTableVisibleClass = {
+		ko.bindingHandlers.flightsResultsCompareTableVisibleClass = {
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				if(
 					bindingContext.$index() >= valueAccessor().paginationShownPages()
@@ -78,7 +80,7 @@ define(
 				}
 			}
 		};
-		ko.bindingHandlers.compareTableCloneCell ={
+		ko.bindingHandlers.flightsResultsCompareTableCloneCell ={
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				$(element).on('click', function () {
 					var thisId = $(element).attr('data-flightid');

@@ -1,5 +1,6 @@
 $c_postFilters_textColor = #fff;
 $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
+$c_postFilters_quantityBG = rgba(255, 255, 255, .25);
 
 .nemo-common {
 
@@ -35,12 +36,17 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
 
       &__filter {
 
-        opacity: .75;
-        transition: opacity .8s ease-out;
+        opacity: .85;
+        transition: opacity .4s ease-out;
+
+        &_slider {
+          background-color: #fff;
+          padding: 10px 10px;
+        }
 
         &:hover {
           opacity: 1;
-          transition: opacity .2s ease-in;
+          transition: opacity .1s ease-in;
         }
 
         &__caption {
@@ -65,6 +71,7 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
 
           &__clear {
             font-size: 13px;
+            display: none;
           }
         }
 
@@ -96,6 +103,10 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
 
             &:first-child {
               border-left: none;
+
+              &:before {
+                display: none;
+              }
             }
 
             &_selected {
@@ -133,18 +144,32 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
             overflow: hidden;
 
             &__value {
-              @extends .new-ui-button_secondary
+              //@extends .new-ui-button_secondary
+              background-color: #fff;
               box-shadow: none;
-              padding: 0 10px 0 10px;
+              padding: 0 10px 0 20px;
               height: 40px;
               line-height: 40px;
               width: 100%;
               display: flex;
               justify-content: space-between;
               align-items: center;
-              font-size: 13px;
               cursor: pointer;
-              transition: background-image ease-in 1.25s;
+              transition: all .15s ease-in;
+
+              &_noFlex {
+                display: block;
+                height: auto;
+                padding: 0 20px 0 20px;
+              }
+
+              &:hover {
+                background: darken(#fff, 5);
+              }
+
+              &_noMatter {
+                font-size: 95%;
+              }
 
               &_disabled {
                 background-color: $c_postFilters_separatorColor;
@@ -161,6 +186,7 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
                 background-color: $c_corporate_blue;
                 background-image: none;
                 cursor: default;
+                color: #fff;
 
                 &:hover {
                   background-color: $c_corporate_blue;
@@ -171,6 +197,8 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
               &__input {
                 width: 20px;
                 margin-right: 5px;
+                display: none;
+
               }
 
               &__name {
@@ -181,6 +209,26 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 margin-right: 10px;
+                font-size: 80%;
+
+                &_small {
+                  font-size: 70%;
+                  //white-space: normal;
+                  //line-height: 15px;
+                }
+              }
+
+              &__price {
+                flex-grow: 1;
+                margin-right: 2px;
+                font-size: 70%;
+                //color: $c_common_textColor_secondary;
+              }
+
+              &__currency {
+                flex-grow: 1;
+                margin-right: 5px;
+                font-size: 65%;
               }
 
               &__quantity {
@@ -188,23 +236,13 @@ $c_postFilters_separatorColor = rgba(200, 200, 200, 1);
                 width: 22px;
                 height: 22px;
                 line-height: 22px;
-                background-color: $c_postFilters_separatorColor;
+                background-color: $c_postFilters_quantityBG;
                 border-radius: 11px;
-                font-size: 80%;
+                font-size: 60%;
+                opacity: .5;
                 text-align: center;
                 margin-left: 5px;
               }
-
-              &__price {
-                flex-grow: 1;
-                margin-right: 5px;
-                font-size: 90%;
-                color: $c_common_textColor_secondary;
-
-                &__currency {}
-              }
-
-
 
             }
           }

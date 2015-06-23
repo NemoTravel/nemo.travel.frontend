@@ -117,6 +117,7 @@ $d_tableColumnPadding = 0 20px ;
 			position: absolute;
 			background: #ffffff;
 			z-index: 10;
+			text-align: left;
 			&:before{
 				content: '';
 				width: 300%;
@@ -218,13 +219,34 @@ $d_tableColumnPadding = 0 20px ;
 	}
 	&__root{
 		text-align: center;
-		padding-top: 20px;
+		padding: 20px 0 35px;
+		background: #5A595F;
+		border-top:1px solid #595961;
+		border-bottom:1px solid #595961;
+		position: relative;
 		&_closed{
 			display: none;
 		}
 		&_opened{
 			display: inline-block;
 			width: 100%;
+		}
+		&__closeSwitch{
+			display: inline-block;
+			background: $c_showMoreSwitchBackground;
+			opacity: 0.8;
+			padding:3px 10px 3px 10px;
+			color: $c_ui_textMain;
+			cursor: pointer;
+			border-radius: 5px 5px 0 0 ;
+			font-size: 13px;
+			position: absolute;
+			left: 50%;
+			margin-left: -30px;
+			bottom:0;
+			&:hover{
+				opacity: 1;
+			}
 		}
 	}
 	&__opener {
@@ -234,7 +256,7 @@ $d_tableColumnPadding = 0 20px ;
 		line-height: 19px;
 		transition: all 0.2s;
 		position: relative;
-
+		background: #63636B;
 		&:before {
 			content: '';
 			display: inline-block;
