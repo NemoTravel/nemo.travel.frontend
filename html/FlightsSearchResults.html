@@ -431,20 +431,22 @@
                             <!-- /ko -->
 
                             <!-- ko if: config.type == 'Number' -->
-                            <div data-bind="flightsResultsPFNumberSlider: value"></div>
-                            <div>
-                                MIN:
-                                <!-- ko text: values().min --><!-- /ko -->
-                            </div>
-                            <div>
-                                MAX:
-                                <!-- ko text: values().max --><!-- /ko -->
-                            </div>
-                            <div>
-                                SELECTED:
-                                <!-- ko text: value().min --><!-- /ko -->
-                                -
-                                <!-- ko text: value().max --><!-- /ko -->
+                            <div class="nemo-common-postFilters__filterList__filter">
+                                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
+
+                                        <div class="nemo-ui-slider__info">
+                                            <span class="nemo-ui-slider__info__block"><!-- ko text: value().min --><!-- /ko --></span>
+                                            <span class="nemo-ui-slider__info__block">&nbsp;—&nbsp;</span>
+                                            <span class="nemo-ui-slider__info__block"><!-- ko text: value().max --><!-- /ko --></span>
+                                        </div>
+
+                                        <div class="nemo-ui-slider__wrapper">
+                                            <div class="nemo-ui-slider" data-bind="flightsResultsPFNumberSlider: value"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                             <!-- /ko -->
 
