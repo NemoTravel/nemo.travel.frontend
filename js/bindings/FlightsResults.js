@@ -141,5 +141,257 @@ define(
 				});
 			}
 		};
+
+        ko.bindingHandlers.sticky = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+                $(element).addClass("js-common-sticker");
+                $(element).addClass("nemo-common-sticker");
+
+                $(element).children().wrapAll("<div class='nemo-common-sticker__inner js-common-sticker__inner'></div>");
+
+                var scrolled, initialPosition;
+                var sticker = $(element);
+                var stickerInner = sticker.children(".js-common-sticker__inner");
+
+                stickerInner.css("height", $(window).height() + "px");
+
+                $(window).on("resize", function(){
+                    initialPosition = $(element).offset().top;
+                    scrolled        = $(document).scrollTop();
+
+                    console.log(initialPosition, scrolled, $(window).height() - initialPosition + scrolled + "px");
+
+                    if (scrolled > initialPosition) {
+                        stickerInner.css("top", scrolled - initialPosition + "px");
+                    } else {
+                        stickerInner.css("top", '');
+                        stickerInner.css("height", $(window).height() - initialPosition + scrolled + "px");
+                    }
+
+                    if ((scrolled + $(window).height() - initialPosition) > $(element).height() ) {
+                        stickerInner.css("top", '');
+                        stickerInner.css("bottom", '0px');
+                    } else {
+                        stickerInner.css("bottom", '');
+                    }
+                });
+
+                $(document).scroll(function (event) {
+
+                    stickerInner.css("height", $(window).height() + "px");
+
+                    initialPosition = $(element).offset().top;
+                    scrolled        = $(document).scrollTop();
+
+                    if (scrolled > initialPosition) {
+                        stickerInner.css("top", scrolled - initialPosition + "px");
+                        stickerInner.css("height", $(window).height() + "px");
+                    } else {
+                        stickerInner.css("top", '');
+                        stickerInner.css("height", $(window).height() - initialPosition + scrolled + "px");
+                    }
+
+                    if ((scrolled + $(window).height() - initialPosition) > $(element).height() ) {
+                        stickerInner.css("top", '');
+                        stickerInner.css("bottom", '0px');
+                    } else {
+                        stickerInner.css("bottom", '');
+                    }
+
+                });
+
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+            }
+        };
+
+        ko.bindingHandlers.customScroll = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+                // TODO Initial state should be checked (when we finally loaded view)
+                // TODO Window.resize
+
+                $(element).addClass("nemo-common-scrollable js-common-scrollable");
+                $(element).children().wrapAll("<div class='nemo-common-scrollable__content js-scrollable__content'><div class='nemo-common-scrollable__content_inner js-scrollable__content_inner'>");
+                $(element).append("<div class='nemo-common-scrollable__scroller js-scrollable__scroller'><div class='nemo-common-scrollable__scroller__control js-scrollable__scroller__control'></div></div>");
+
+                var scrollAmount, scrollDistance, scrollerControlMoveAmount, scrollProportion, scrollerControlHeight;
+
+                var scrollableContent       = $(".js-scrollable__content");
+                var scrollableContentInner  = $(".js-scrollable__content_inner");
+                var scroller                = $(element).children(".js-scrollable__scroller");
+                var scrollerControl         = scroller.children(".js-scrollable__scroller__control");
+                var scrollDecay             = 0.5;
+                var scrollableDistance      = scrollableContentInner.height() - scrollableContent.height();
+                var dragging;
+
+                scroller.on("mousedown", function(event){
+                    dragging = true;
+                    //console.log("Pressed");
+                });
+
+                $(element).parent().on("mouseup", function(event){
+                    dragging = false;
+                    //console.log("UnPressed");
+                });
+
+                $(element).parent().on("mousemove", function(event) {
+
+                    if (dragging) {
+
+                        var scrollTo = event.pageY - scroller.offset().top;
+                        scrollProportion = scrollableContent.height() / scrollableContentInner.height();
+                        scrollerControlHeight = scroller.height() * scrollProportion;
+                        scrollerControl.css('height', scrollerControlHeight);
+
+                        if (scrollProportion < 1) {
+                            $(element).removeClass("js-common-scrollable_off");
+
+                            scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
+                            scrollDistance = (scrollTo - scrollerControl.height()/2) / scrollProportion;
+                            scrollAmount = scrollDistance;
+
+                            if (scrollAmount > scrollableDistance) {
+                                scrollAmount = scrollableDistance;
+                            } else if (scrollAmount < 0) {
+                                scrollAmount = 0;
+                            }
+
+                            scrollableContent.scrollTop(scrollAmount);
+                            scrollerControlHeight = scroller.height() * scrollProportion;
+                            scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                            scrollerControl.css('top', scrollerControlMoveAmount);
+                            scrollerControl.css('height', scrollerControlHeight);
+                        } else {
+                            $(element).addClass("js-common-scrollable_off");
+                        }
+                    }
+
+                });
+
+                scroller.on("click", function(event) {
+
+                    var scrollTo = event.pageY - $(this).offset().top;
+                    scrollProportion = scrollableContent.height() / scrollableContentInner.height();
+                    scrollerControlHeight = scroller.height() * scrollProportion;
+                    scrollerControl.css('height', scrollerControlHeight);
+
+
+                    if (scrollProportion < 1) {
+                        $(element).removeClass("js-common-scrollable_off");
+
+                        scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
+                        scrollDistance = (scrollTo - scrollerControl.height()/2) / scrollProportion;
+                        scrollAmount = scrollDistance;
+
+                        console.log(scrollDistance);
+
+                        if (scrollAmount > scrollableDistance) {
+                            scrollAmount = scrollableDistance;
+                        } else if (scrollAmount < 0) {
+                            scrollAmount = 0;
+                        }
+
+                        scrollableContent.scrollTop(scrollAmount);
+                        scrollerControlHeight = scroller.height() * scrollProportion;
+                        scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                        scrollerControl.css('top', scrollerControlMoveAmount);
+                        scrollerControl.css('height', scrollerControlHeight);
+                    } else {
+                        $(element).addClass("js-common-scrollable_off");
+                    }
+
+                    return false;
+                });
+
+                $(element).on("click", function(){
+
+                    scrollProportion = scrollableContent.height() / scrollableContentInner.height();
+
+                    if (scrollProportion < 1) {
+                        $(element).removeClass("js-common-scrollable_off");
+
+                        scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
+                        scrollDistance = event.deltaY * event.deltaFactor * scrollDecay;
+                        scrollAmount = scrollableContent.scrollTop() - scrollDistance;
+
+                        if (scrollAmount > scrollableDistance) {
+                            scrollAmount = scrollableDistance;
+                        } else if (scrollAmount < 0) {
+                            scrollAmount = 0;
+                        }
+
+                        scrollableContent.scrollTop(scrollAmount);
+                        scrollerControlHeight = scroller.height() * scrollProportion;
+                        scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                        scrollerControl.css('top', scrollerControlMoveAmount);
+                        scrollerControl.css('height', scrollerControlHeight);
+                    } else {
+                        $(element).addClass("js-common-scrollable_off");
+                    }
+
+                });
+
+                $(element).mousewheel(function (event) {
+                    scrollProportion = scrollableContent.height() / scrollableContentInner.height();
+
+                    if (scrollProportion < 1) {
+                        $(element).removeClass("js-common-scrollable_off");
+
+                        scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
+                        scrollDistance = event.deltaY * event.deltaFactor * scrollDecay;
+                        scrollAmount = scrollableContent.scrollTop() - scrollDistance;
+
+                        if (scrollAmount > scrollableDistance) {
+                            scrollAmount = scrollableDistance;
+                        } else if (scrollAmount < 0) {
+                            scrollAmount = 0;
+                        }
+
+                        scrollableContent.scrollTop(scrollAmount);
+                        scrollerControlHeight = scroller.height() * scrollProportion;
+                        scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                        scrollerControl.css('top', scrollerControlMoveAmount);
+                        scrollerControl.css('height', scrollerControlHeight);
+
+                        return false;
+                    } else {
+                        $(element).addClass("js-common-scrollable_off");
+                    }
+
+                });
+
+            },
+
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+            }
+        };
+
+
 	}
 );
+
+<!-- Scroll Script -->
+/*
+<script type="text/javascript">
+
+console.log("Scrolling...");
+
+$(document).ready(function() {
+
+    console.log("Scrolling...");
+
+    var scrolled;
+
+    $(document).scroll(function (event) {
+        console.log("Scrolling...");
+        scrolled = $(document).scrollTop();
+        console.log("Scrolled " + scrolled);
+    });
+
+});
+
+</script>*/

@@ -7,8 +7,21 @@ $t_postFilters_animationTime = .1s;
 .nemo-common {
 
   &-postFilters {
+    position: relative;
     //background-color: #222;
 
+    &_stick {
+      position: fixed;
+      //left: 20px;
+      top: 0;
+      height: 100%;
+      width: 280px;
+      padding-right: 20px;
+      overflow: hidden;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      //background: #000;
+    }
 
     &__notification {
       margin: 0 0 15px 0;
@@ -35,6 +48,8 @@ $t_postFilters_animationTime = .1s;
     }
 
     &__filterList {
+      position: relative;
+      z-index: 1;
 
       &__filter {
 
