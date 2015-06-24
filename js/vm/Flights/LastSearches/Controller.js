@@ -3,9 +3,9 @@ define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel'],
 	function (ko, helpers, BaseControllerModel) {
 		function FlightsLastSearchesController (componentParameters) {
+			this.name = 'FlightsLastSearchesController';
 			BaseControllerModel.apply(this, arguments);
 		}
-
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsLastSearchesController, [BaseControllerModel]);
 
