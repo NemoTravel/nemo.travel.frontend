@@ -8,7 +8,6 @@ define(
 			var self = this;
 
 			this.id = Group.prototype.globalIdIterator++;
-console.log(this.id);
 			this.flightsById = {};
 			this.legGroupings = [];
 			this.recalculateSelectedFlights = true;
