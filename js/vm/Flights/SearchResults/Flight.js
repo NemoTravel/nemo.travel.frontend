@@ -3,7 +3,8 @@ define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
 	function (ko, helpers, BaseModel) {
 		function Flight (initialData, controller) {
-			var tmp;
+			var tmp,
+				tmpClasses = [];
 
 			BaseModel.apply(this, arguments);
 
@@ -24,12 +25,15 @@ define(
 			for (var i = 0; i < this.segments.length; i++) {
 				if (this.segments[i].routeNumber != tmp) {
 					this.segmentsByLeg.push([]);
+					tmpClasses.push([]);
 					tmp = this.segments[i].routeNumber;
 				}
 
 				this.segmentsByLeg[this.segmentsByLeg.length - 1].push(this.segments[i]);
 
 				this.carriersMismatch = this.carriersMismatch || this.getValidatingCompany().IATA != this.segments[i].operatingCompany.IATA;
+
+				tmpClasses[this.segmentsByLeg.length - 1].push(this.price.segmentInfo[i]);
 			}
 
 			// Calculating total time in flight
@@ -48,7 +52,9 @@ define(
 
 						this.transfers[i].push({
 							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp()),
-							place: this.segmentsByLeg[i][j].depAirp
+							place: this.segmentsByLeg[i][j].depAirp,
+							depTerminal: this.segmentsByLeg[i][j].depTerminal,
+							arrTerminal: this.segmentsByLeg[i][j-1].arrTerminal
 						});
 
 						this.isDirect = false;
@@ -69,7 +75,8 @@ define(
 					arrDateTime: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrDateTime,
 					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
 					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg),
-					transfersCount: this.transfers[i].length
+					transfersCount: this.transfers[i].length,
+					classes: tmpClasses[i]
 				});
 			}
 

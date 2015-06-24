@@ -1,3 +1,205 @@
 .nemo-flights-flightInfo {
-	max-width: 880px;
+	width: 90vw;
+	max-width: 900px;
+	padding: 0 20px;
+
+	&__leg {
+		&__header {
+			padding: 20px;
+
+			&__carrierLogo {
+				display: inline-block;
+				vertical-align: middle;
+				height: auto;
+				max-height: 40px;
+				max-width: 140px;
+				padding: 0;
+				margin-right: 20px;
+			}
+
+			&__text {
+				display: inline-block;
+				vertical-align: middle;
+				color: $c_ui_textSecondary;
+				line-height: 20px;
+				font-size: 13px;
+			}
+		}
+
+		&__route {
+			padding: 10px 20px;
+			font-size: 16px;
+			line-height: 30px;
+			border-radius: 4px;
+			background: rgba($c_corporate_blue, 0.25);
+
+			&__departue, &__arrival {
+				display: inline-block;
+				padding-right: 30px;
+				position: relative;
+			}
+
+			&__departue:after {
+				content: '';
+				position: absolute;
+				width: 30px;
+				background: url('images/flights_flightInfo_legHeaderArrow.svg') center center no-repeat;
+				height: 20px;
+				top: 50%;
+				right: 0;
+				margin-top: -10px;
+			}
+		}
+
+		&__segment {
+			font-size: 13px;
+
+			display: flex;
+			flex-flow: row nowrap;
+
+			&__departure, &__arrival, &__additional {
+				padding: 0 20px 10px 20px;
+			}
+
+			&__departure {
+				flex: 0 0 32.5%;
+				position: relative;
+				min-width: 1px;
+
+				&:after {
+					content: '';
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					width: 20px;
+					background: url('images/flights_flightInfo_segmentRouteArrow.svg') center center no-repeat;
+					background-size: 100% 100%;
+				}
+			}
+
+			&__arrival {
+				flex: 0 0 32.5%;
+				min-width: 1px;
+			}
+
+			&__additional {
+				flex: 0 0 35%;
+				padding-top: 15px;
+				min-width: 1px;
+				line-height: 20px;
+
+				&__item {
+					white-space: nowrap;
+
+					&__title, &__value {
+						display: inline-block;
+						vertical-align: top;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+
+					&__title {
+						width: 30%;
+						color: $c_ui_textSecondary;
+					}
+
+					&__value {
+						width: 70%;
+
+						&_warning {
+							color: #FF9731;
+						}
+					}
+				}
+			}
+
+			&__time {
+				line-height: 35px;
+				font-size: 14px;
+				opacity: 0.75;
+			}
+
+			&__date {
+				color: $c_ui_textSecondary;
+				margin-bottom: 10px;
+			}
+
+			&__city {
+				font-size: 13px;
+				opacity: 0.75;
+				line-height: 20px;
+				margin-bottom: 5px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+
+			&__airport, &__terminal {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+
+				&__title {
+					color: $c_ui_textSecondary;
+				}
+			}
+
+			&:last-child {
+				border-bottom: 1px solid #B0B0B0;
+			}
+
+			&:first-child &__time_departure,
+			&:last-child &__time_arrival {
+				opacity: 1;
+				font-size: 20px;
+			}
+
+			&:first-child &__city_departure,
+			&:last-child &__city_arrival {
+				opacity: 1;
+				font-size: 15px;
+			}
+		}
+
+		&__transfer {
+			padding: 0 20px;
+			font-size: 13px;
+			line-height: 30px;
+			border-radius: 4px;
+			background: rgba($c_corporate_blue, 0.25);
+
+			&__duration {
+				display: inline-block;
+				margin-left: 5px;
+			}
+
+			&__terminalChange {
+				display: inline-block;
+				margin-left: 15px;
+			}
+		}
+
+		&__footer {
+			padding: 20px;
+			font-size: 13px;
+			line-height: 20px;
+
+			&__item {
+				display: inline-block;
+				vertical-align: top;
+				white-space: nowrap;
+				margin-right: 20px;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__title {
+					color: $c_ui_textSecondary;
+				}
+			}
+		}
+	}
 }
