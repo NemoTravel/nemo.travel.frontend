@@ -153,7 +153,7 @@ define (
 
 							self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
-							// Setting event listener thaat will fire on page URL change
+							// Setting event listener that will fire on page URL change
 							window.addEventListener(
 								"popstate",
 								function () {

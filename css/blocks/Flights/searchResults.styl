@@ -446,7 +446,7 @@
 					cursor: pointer;
 
 					&:hover {
-						background: linear-gradient(to bottom, #f9f9f9, #efefef);
+						background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
 					}
 
 					&:before, &:after {
@@ -470,23 +470,35 @@
 						height: 10px;
 						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
 						right: 14px;
+						transition: all 0.2s;
 					}
 
 					&_unopenable {
 						cursor: auto;
+						background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
 
 						&:after {
 							display: none;
 						}
 
 						&:hover {
-							background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+							background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
 						}
 					}
 
 					&_open {
 						border-bottom-left-radius: 0;
 						border-bottom-right-radius: 0;
+						background: #fff;
+						box-shadow: 0 1px 5px rgba(#000, 0.2);
+
+						&:after {
+							transform: rotate(180deg) translateY(50%);
+						}
+
+						&:hover {
+							background: #fff;
+						}
 					}
 
 					&__time {
@@ -518,14 +530,24 @@
 				&__dropdown {
 					box-shadow: 0 1px 5px rgba(#000, 0.2);
 					border-radius: 0 0 4px 4px;
-					overflow: hidden;
+					/*overflow: hidden;*/
 					position: absolute;
 					z-index: 1;
 					width: 100%;
 
+					&:before {
+						content: '';
+						position: absolute;
+						top: -10px;
+						left: 0;
+						right: 0;
+						height: 10px;
+						background: #fff;
+					}
+
 					&__option {
 						padding: 5px 15px;
-						border-bottom: 1px solid #D7D7D7;
+						border-top: 1px solid #D7D7D7;
 						background: #fff;
 						cursor: pointer;
 						transition: all 0.2s;
@@ -666,6 +688,10 @@
 			}
 		}
 
+		&__couplingTablePopup {
+			padding: 0;
+		}
+
 		&_common {
 			margin-top: 20px;
 
@@ -747,6 +773,29 @@
 
 				&__couplingButton__addText {
 					display: none;
+				}
+			}
+		}
+
+		&_bestCompanies {
+			.nemo-flights-results__flightsGroup {
+				&__footer {
+					padding-top: 10px;
+
+					&__couplingButtonContainer, &__buyButtonContainer {
+						display: block;
+						width: auto;
+						padding-top: 10px;
+					}
+				}
+
+				&__couplingButton, &__buyButton {
+					display: block;
+					width: auto;
+				}
+
+				&__couplingButton__addText {
+					display: inline;
 				}
 			}
 		}

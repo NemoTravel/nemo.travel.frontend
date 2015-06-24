@@ -54,7 +54,6 @@ define(
 					if (this.legGroupings[siter].flights()[i].indexOf(initiallySelected) >= 0) {
 						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[i]);
 					}
-
 				}
 
 				this.disabledGroupings.push(ko.observableArray([]));

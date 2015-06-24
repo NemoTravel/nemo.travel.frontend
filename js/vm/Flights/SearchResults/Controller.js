@@ -486,7 +486,7 @@ define(
 
 				for (var i in tmpGroups) {
 					if (tmpGroups.hasOwnProperty(i)) {
-						tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i]});
+						tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i], resultsController: this});
 
 						// Setting group "conjunction table"
 						tmp.buildCouplingTable(this.flights);
@@ -714,14 +714,14 @@ define(
 				}
 
 				if (bestFlight) {
-					bestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [bestFlight]});
+					bestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [bestFlight], resultsController: this});
 
 					// Setting group "conjunction table"
 					bestFlight.buildCouplingTable(this.flights);
 				}
 
 				if (fastestFlight) {
-					fastestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [fastestFlight]});
+					fastestFlight = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [fastestFlight], resultsController: this});
 
 					// Setting group "conjunction table"
 					fastestFlight.buildCouplingTable(this.flights);
@@ -765,7 +765,7 @@ define(
 					}
 
 					if (showcaseBC) {
-						var tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [showcaseBC.clone()]});
+						var tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: [showcaseBC.clone()], resultsController: this});
 
 						// Setting group "conjunction table"
 						tmp.buildCouplingTable(this.flights);
