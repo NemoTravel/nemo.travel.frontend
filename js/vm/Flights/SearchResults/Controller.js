@@ -211,6 +211,7 @@ define(
 			this.prices = {};
 			this.flights = {};
 			this.airlines = {};
+			this.aircrafts = {};
 			this.airlinesByRating = [];
 			this.flightsCompareTableDirect = ko.observable();
 			this.flightsCompareTableTransfer = ko.observable();
@@ -367,6 +368,13 @@ define(
 				this.searchInfo.vicinityDates = this.$$rawdata.flights.search.request.parameters.aroundDates != 0;
 
 				// Processing guide
+				// Proessing aircrafts
+				for (var i in this.$$rawdata.guide.aircrafts) {
+					if (this.$$rawdata.guide.aircrafts.hasOwnProperty(i)) {
+						this.aircrafts[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.guide.aircrafts[i]);
+					}
+				}
+
 				// Processing airlines
 				for (var i in this.$$rawdata.guide.airlines) {
 					if (this.$$rawdata.guide.airlines.hasOwnProperty(i)) {
@@ -391,6 +399,9 @@ define(
 
 						// Time in air - from minutes to seconds
 						this.segments[i].flightTime *= 60;
+
+						// Aircraft
+						this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
 
 						// Companies
 						this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
@@ -819,7 +830,7 @@ define(
 
 		FlightsSearchResultsController.prototype.$$KOBindings = ['PostFilters', 'FlightsResults'];
 
-		FlightsSearchResultsController.prototype.$$i18nSegments = ['FlightsSearchResults', 'FlightsSearchForm'];
+		FlightsSearchResultsController.prototype.$$i18nSegments = ['FlightsSearchResults', 'FlightsSearchForm', 'FlightsFlightInfo'];
 
 		FlightsSearchResultsController.prototype.dataURL = function () {
 			return '/flights/search/results/' + this.id;

@@ -8,7 +8,7 @@ define(
 			var self = this;
 
 			this.id = Group.prototype.globalIdIterator++;
-console.log(this.id);
+
 			this.flightsById = {};
 			this.legGroupings = [];
 			this.recalculateSelectedFlights = true;
@@ -21,7 +21,6 @@ console.log(this.id);
 			this.selectedFlightsIds = ko.observable([]);
 
 			this.couplingTable = null;
-			this.couplingTableOpen = ko.observable(false);
 
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
