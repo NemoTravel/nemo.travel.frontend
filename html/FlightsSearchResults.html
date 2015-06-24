@@ -6,9 +6,8 @@
 		}
 	}}"></div>
 
-
 <div class="nemo-flights-results js-nemoApp__component">
-	<!-- ko if: !$$loading() &&  !$$error() -->
+	<!-- ko if: !$$loading() && !$$error() -->
 		<!-- Form dummy -->
 		<section class="nemo-flights-results__formDummy"  data-bind="attr: {style: formActive() ? 'display: none;' : ''}">
 			<div
@@ -71,12 +70,12 @@
 			}
 			"></section>
 
-		<section class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
+		<div class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
 				data-bind="flightsResultsCompareTableToggle:none">
 				<div class="nemo-flights-results__compareTable__opener__text"
 				 data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
-		</section>
-	<div class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
+		</div>
+	<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
 		<div class="nemo-flights-results__compareTable__wrapper"
 			 data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
 			<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
@@ -388,7 +387,7 @@
 		<div class="nemo-flights-results__compareTable__root__closeSwitch"
 				data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess'),
 				flightsResultsCompareTableToggle:none"></div>
-	</div>
+	</section>
 	<section class="nemo-flights-results__content">
 			<aside class="nemo-flights-results__content__postfilters">
                 <!--FILTERES-->
@@ -576,7 +575,6 @@
 							},
 							value: sort
 						"></select>
-								<!--dropdownCssClass: 'nemo-flights-results__commonSelectDropdown',-->
 					</div>
 				</div>
 
@@ -823,7 +821,13 @@
 								<!-- /ko -->
 							</div>
 							<div class="nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink">
-								<span class="new-ui-pseudoLink" data-bind="popup: {block: 'flightInfoByLeg_' + $parent.id + '_' + $index(), 'title': 'Детали перелета', parentClass: 'js-flights-results__group'}">
+								<span class="new-ui-pseudoLink" data-bind="
+										popup: {
+											block: 'flightInfoByLeg_' + $parent.id + '_' + $index(),
+											title: 'Детали перелета',
+											parentClass: 'js-flights-results__group',
+											contentClass: 'nemo-flights-results__flightsGroup__flightInfo'
+										}">
 									Детали
 								</span>
 							</div>
@@ -835,7 +839,7 @@
 							style="display: none;"
 							data-bind="
 								attr: {'data-block' : 'flightInfoByLeg_' + $parents[1].id + '_' + leg},
-								template: { name: 'nemo-koTemplate-Flights-FlightInfo', data: flight }
+								template: { name: 'nemo-koTemplate-Flights-FlightInfo__oneLeg', data: flight }
 							"></div>
 					<!-- /ko -->
 				</div><!--
@@ -843,7 +847,12 @@
 
 			<div class="nemo-flights-results__flightsGroup__footer">
 				<div class="nemo-flights-results__flightsGroup__footer__couplingButtonContainer" data-bind="if: couplingTable && couplingTable.isActive">
-					<div class="new-ui-button nemo-flights-results__flightsGroup__couplingButton" data-bind="click: function () {couplingTableOpen(true);}">
+					<div class="new-ui-button nemo-flights-results__flightsGroup__couplingButton" data-bind="popup: {
+							block: 'couplingTable',
+							title: 'Рейсы авиакомпании',
+							parentClass: 'js-flights-results__group',
+							contentClass: 'nemo-flights-results__flightsGroup__couplingTable'
+						}">
 						<span class="new-ui-pseudoLink">
 							Еще
 							<!-- ko text: couplingTable.flights.length --><!-- /ko -->
@@ -855,77 +864,211 @@
 				</div><div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
 					<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 					<money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-					       data-bind="money: getTotalPrice(), click: function () {$parent.bookFlight(selectedFlightsIds());}" format="0,0 $"></money>
+					       data-bind="money: getTotalPrice(), click: function () {$parent.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
 				</div><div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 			</div>
 
-			<!-- ko if: couplingTable && couplingTable.isActive && couplingTableOpen()-->
-			<div data-bind="with: couplingTable">
-				<hr>
-				<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
-				<div data-bind="foreach: sortTypes">
-					<div data-bind="
-											text: $data, attr:{style: ($data == $parent.sort() ? 'border: 1px solid red;' : '') + 'display: inline-block;padding: 10px;'},
-											click: function () {$parent.sort($data);}
-										"></div>
-				</div>
-				<div data-bind="foreach: legGroupings">
-					<div data-bind="
-											attr: {style: (legActive() ? 'border: 1px solid #000;' : 'border: 1px solid #fff;') + 'display: inline-block;vertical-align: top; padding: 5px;'},
-											click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
-											foreach: flights">
-						<!-- ko if: $index() == 0 -->
-						<div data-bind="text: $parent.selected"></div>
-						<!-- /ko -->
-						<div data-bind="
-												attr: {
-													style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +
-													($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +
-													($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')
-												},
-												click: function () {$parents[1].selectVariant($data, $parentContext.$index())}
-											">
-							<div data-bind="text: $data.join(', ')"></div>
-							<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depAirp.IATA + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrAirp.IATA"></div>
-							<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depDateTime.getISOTime() + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrDateTime.getISOTime()"></div>
-						</div>
-					</div>
-					<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
-					<div data-bind="
-							attr: {style: 'border: 1px solid #fff;display: inline-block;vertical-align: top; padding: 5px;'},
-							foreach: flights">
-						<!-- ko if: $index() == 0 -->
-						<div>buy block</div>
-						<!-- /ko -->
-						<div data-bind="
-								attr: {style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' + ($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')}
-							">
-							&nbsp;
-							<br/>
-								<span class="new-ui-pseudoLink" data-bind="
-									click: function () {if ($data != $parent.selected()) {$parents[1].selectVariant($data, $parentContext.$index())}else{$parents[3].bookFlight($parents[1].selectedFlightsIds());}},
-									text: 'Buy for '+$parents[1].flightsById[$data[0]].getTotalPrice().normalizedAmount()+' '+$parents[1].flightsById[$data[0]].getTotalPrice().currency()
-								"></span>
-							<br/>
-							&nbsp;
-						</div>
-					</div>
-					<!-- /ko -->
-				</div>
-			</div>
+			<!-- ko if: couplingTable && couplingTable.isActive-->
+			<div
+				class="js-nemoApp__popupBlock"
+				data-block="couplingTable"
+				style="display: none;"
+				data-bind="template: { name: 'nemo-koTemplate-FlightsResults-CouplingTable', data: couplingTable }"></div>
 			<!-- /ko -->
 		</div>
 		<!-- /ko -->
 	</script>
 
-	<!-- Flights group -->
-	<script id="nemo-koTemplate-Flights-FlightInfo" type="text/html">
+	<!-- Coupling table -->
+	<script id="nemo-koTemplate-FlightsResults-CouplingTable" type="text/html">
+		<hr>
+		<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
+		<div data-bind="foreach: sortTypes">
+			<div data-bind="
+										text: $data, attr:{style: ($data == $parent.sort() ? 'border: 1px solid red;' : '') + 'display: inline-block;padding: 10px;'},
+										click: function () {$parent.sort($data);}
+									"></div>
+		</div>
+		<div data-bind="foreach: legGroupings">
+			<div data-bind="
+										attr: {style: (legActive() ? 'border: 1px solid #000;' : 'border: 1px solid #fff;') + 'display: inline-block;vertical-align: top; padding: 5px;'},
+										click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
+										foreach: flights">
+				<!-- ko if: $index() == 0 -->
+				<div data-bind="text: $parent.selected"></div>
+				<!-- /ko -->
+				<div data-bind="
+											attr: {
+												style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +
+												($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +
+												($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')
+											},
+											click: function () {$parents[1].selectVariant($data, $parentContext.$index())}
+										">
+					<div data-bind="text: $data.join(', ')"></div>
+					<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depAirp.IATA + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrAirp.IATA"></div>
+					<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depDateTime.getISOTime() + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrDateTime.getISOTime()"></div>
+				</div>
+			</div>
+			<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
+			<div data-bind="
+						attr: {style: 'border: 1px solid #fff;display: inline-block;vertical-align: top; padding: 5px;'},
+						foreach: flights">
+				<!-- ko if: $index() == 0 -->
+				<div>buy block</div>
+				<!-- /ko -->
+				<div data-bind="
+							attr: {style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' + ($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')}
+						">
+					&nbsp;
+					<br/>
+							<span class="new-ui-pseudoLink" data-bind="
+								click: function () {if ($data != $parent.selected()) {$parents[1].selectVariant($data, $parentContext.$index())}else{$parents[3].bookFlight($parents[1].selectedFlightsIds());}},
+								text: 'Buy for '+$parents[1].flightsById[$data[0]].getTotalPrice().normalizedAmount()+' '+$parents[1].flightsById[$data[0]].getTotalPrice().currency()
+							"></span>
+					<br/>
+					&nbsp;
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</script>
+
+	<!-- Flights Info -->
+	<script id="nemo-koTemplate-Flights-FlightInfo__oneLeg" type="text/html">
 		<div class="nemo-flights-flightInfo">
 			<div class="nemo-flights-flightInfo__leg">
-				<div class="nemo-flights-flightInfo__legHeader" data-bind="text: $parent.leg">
-
+				<div class="nemo-flights-flightInfo__leg__header">
+					<img class="nemo-flights-flightInfo__leg__header__carrierLogo" data-bind="attr: {src: $root.controller.options.staticInfoURL + getValidatingCompany().logo.image}">
+					<span class="nemo-flights-flightInfo__leg__header__text" data-bind="html: $root.i18n('FlightsFlightInfo','leg__header').replace('[%-carrier-%]', getValidatingCompany().name)"></span>
 				</div>
 
+				<div class="nemo-flights-flightInfo__leg__route">
+					<span class="nemo-flights-flightInfo__leg__route__departue" data-bind="text: legs[$parent.leg].depAirp.name">
+					</span><span class="nemo-flights-flightInfo__leg__route__arrival" data-bind="text: legs[$parent.leg].arrAirp.name">
+					</span><span class="nemo-flights-flightInfo__leg__route__date" data-bind="text: legs[$parent.leg].depDateTime.getDate() + ' ' + legs[$parent.leg].depDateTime.getMonthName()"></span>
+				</div>
+
+				<div class="nemo-flights-flightInfo__leg__segments" data-bind="foreach: segmentsByLeg[$parent.leg]">
+					<!-- ko if: $index() > 0 -->
+					<div class="nemo-flights-flightInfo__leg__transfer" data-bind="with: $parent.transfers[$parents[1].leg][$index() - 1]">
+						Пересадка
+						<span class="nemo-flights-flightInfo__leg__transfer__duration" data-bind="text: duration.readableString()"></span>
+						<!-- ko if: arrTerminal != depTerminal -->
+						<span class="nemo-flights-flightInfo__leg__transfer__terminalChange">Смена терминала</span>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+					<div class="nemo-flights-flightInfo__leg__segment">
+						<div class="nemo-flights-flightInfo__leg__segment__departure">
+							<div class="nemo-flights-flightInfo__leg__segment__time nemo-flights-flightInfo__leg__segment__time_departure" data-bind="text: depDateTime.getHours() + ':' + depDateTime.getMinutes()"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__date nemo-flights-flightInfo__leg__segment___departure" data-bind="text:
+									depDateTime.getDate() +
+									' ' +
+									depDateTime.getMonthName() +
+									' ' +
+									depDateTime.getYear() +
+									', ' +
+									depDateTime.getDOWName()
+							"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_departure" data-bind="text: depAirp.city.name"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__airport nemo-flights-flightInfo__leg__segment__airport_departure">
+								<span class="nemo-flights-flightInfo__leg__segment__airport__title">
+									Аэропорт
+								</span>
+								<span class="nemo-flights-flightInfo__leg__segment__airport__value" data-bind="text: depAirp.name"></span>
+							</div>
+
+							<!-- ko if: depTerminal -->
+							<div class="nemo-flights-flightInfo__leg__segment__terminal nemo-flights-flightInfo__leg__segment__terminal_departure">
+								<span class="nemo-flights-flightInfo__leg__segment__terminal__title">
+									Терминал
+								</span>
+								<span class="nemo-flights-flightInfo__leg__segment__terminal__value" data-bind="text: depAirp.depTerminal"></span>
+							</div>
+							<!-- /ko -->
+						</div>
+						<div class="nemo-flights-flightInfo__leg__segment__arrival">
+							<div class="nemo-flights-flightInfo__leg__segment__time nemo-flights-flightInfo__leg__segment__time_arrival" data-bind="text: arrDateTime.getHours() + ':' + arrDateTime.getMinutes()"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__date nemo-flights-flightInfo__leg__segment__date_arrival" data-bind="text:
+									arrDateTime.getDate() +
+									' ' +
+									arrDateTime.getMonthName() +
+									' ' +
+									arrDateTime.getYear() +
+									', ' +
+									arrDateTime.getDOWName()
+							"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_arrival" data-bind="text: arrAirp.city.name"></div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__airport nemo-flights-flightInfo__leg__segment__airport_arrival">
+								<span class="nemo-flights-flightInfo__leg__segment__airport__title">
+									Аэропорт
+								</span>
+								<span class="nemo-flights-flightInfo__leg__segment__airport__value" data-bind="text: arrAirp.name"></span>
+							</div>
+
+							<!-- ko if: arrTerminal -->
+							<div class="nemo-flights-flightInfo__leg__segment__terminal nemo-flights-flightInfo__leg__segment__terminal_arrival">
+								<span class="nemo-flights-flightInfo__leg__segment__terminal__title">
+									Терминал
+								</span>
+								<span class="nemo-flights-flightInfo__leg__segment__terminal__value" data-bind="text: arrAirp.arrTerminal"></span>
+							</div>
+							<!-- /ko -->
+						</div>
+						<div class="nemo-flights-flightInfo__leg__segment__additional">
+							<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_carrier">
+								<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">
+									Выполняет
+								</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: operatingCompany.name,
+								css: {'nemo-flights-flightInfo__leg__segment__additional__item__value_warning': operatingCompany.IATA != $parent.getValidatingCompany().IATA}"></div>
+							</div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_flightNumber">
+								<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">
+									Рейс
+								</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: operatingCompany.IATA + ' ' + flightNumber"></div>
+							</div>
+
+							<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_class"
+							     data-bind="with: $parent.legs[$parents[1].leg].classes[$index()]">
+								<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">
+									Класс
+								</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: $root.i18n('FlightsFlightInfo', 'serviceClass_' + serviceClass) + ' (' + bookingClass + ')'"></div>
+							</div>
+
+							<!-- ko if: aircraftType -->
+							<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_aircraft">
+								<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">
+									Самолет
+								</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: aircraftType.name"></div>
+							</div>
+							<!-- /ko -->
+
+							<!--<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_luggage"-->
+							     <!--data-bind="with: $parent.legs[$parents[1].leg].classes[$index()]">-->
+								<!--<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">-->
+									<!--Багаж-->
+								<!--</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: $root.i18n('FlightsFlightInfo', 'serviceClass_' + serviceClass) + ' (' + bookingClass + ')'"></div>-->
+							<!--</div>-->
+						</div>
+					</div>
+				</div>
+
+				<div class="nemo-flights-flightInfo__leg__footer">
+					<div class="nemo-flights-flightInfo__leg__footer__item nemo-flights-flightInfo__leg__footer__item_timeEnRoute">
+						<span class="nemo-flights-flightInfo__leg__footer__item__title">
+							В пути
+						</span>
+						<span class="nemo-flights-flightInfo__leg__footer__item__value" data-bind="text: legs[$parent.leg].timeEnRoute.readableString()"></span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</script>

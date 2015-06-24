@@ -1,0 +1,9 @@
+{
+	"leg__header" : "Перелет предоставлен компанией<br>[%-carrier-%]",
+
+	"serviceClass_Economy" : "Эконом",
+	"serviceClass_PremiumEconomy" : "Эконом-премиум",
+	"serviceClass_Business" : "Бизнес",
+	"serviceClass_First" : "Первый",
+	"serviceClass_All" : "Неизвестно"
+}
