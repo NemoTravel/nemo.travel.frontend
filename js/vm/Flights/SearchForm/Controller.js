@@ -5,6 +5,8 @@ define(
 		function FlightsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
+			this.name = 'FlightsSearchFormController';
+
 			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
 			this.tripTypes = ['OW','RT','CR'];
 

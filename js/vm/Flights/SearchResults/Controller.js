@@ -19,6 +19,7 @@ define(
 
 					return current;
 				};
+			this.name = 'FlightsSearchResultsController';
 
 			this.postfiltersData = {
 				configs: {

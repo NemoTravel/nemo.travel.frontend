@@ -352,7 +352,13 @@ define (
 			request.open(POSTParams ? 'POST' : 'GET', url, true);
 
 			if (POSTParams) {
-				request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+				//god damn IE for not supporting setRequestHeader in XDR.
+				if(request.setRequestHeader){
+					request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+				}else{
+					request.abort();
+					request.open('GET', url, true);
+				}
 			}
 
 			request.onreadystatechange = function() {

@@ -7,39 +7,38 @@ define(
 
 			this.elements = [];
 			this.additionalComponent = componentParameters.includeComponent;
+			var componentName = componentParameters.component.name;
+			if(typeof componentName != 'null' && typeof componentName != 'undefined'){
+				if (componentName.indexOf('Flights') === 0) {
+					this.elements = [
+						{
+							title: 'flights-step_search',
+							active: true,
+							link: '/',
+							router: true
+						},
+						{
+							title: 'flights-step_results',
+							active: false,
+							link: '/',
+							router: true
+						},
+						{
+							title: 'flights-step_checkout',
+							active: false,
+							link: '/order/',
+							router: true
+						}
+					];
 
-			var componentName = componentParameters.component.constructor.name;
-
-			if (componentName.indexOf('Flights') === 0) {
-				this.elements = [
-					{
-						title: 'flights-step_search',
-						active: true,
-						link: '/',
-						router: true
-					},
-					{
-						title: 'flights-step_results',
-						active: false,
-						link: '/',
-						router: true
-					},
-					{
-						title: 'flights-step_checkout',
-						active: false,
-						link: '/order/',
-						router: true
+					switch (componentName) {
+						case 'FlightsSearchResultsController':
+							this.elements[0].link += componentParameters.component.id;
+							break;
 					}
-				];
-
-				switch (componentName) {
-					case 'FlightsSearchResultsController':
-						this.elements[0].link += componentParameters.component.id;
-						break;
 				}
 			}
 		}
-
 		// Extending from dictionaryModel
 		helpers.extendModel(CommonBreadCrumbsController, [BaseControllerModel]);
 
