@@ -156,6 +156,27 @@ define(
 
                 stickerInner.css("height", $(window).height() + "px");
 
+                $(element).on("click", function(){
+                    initialPosition = $(element).offset().top;
+                    scrolled        = $(document).scrollTop();
+
+                    console.log(initialPosition, scrolled, $(window).height() - initialPosition + scrolled + "px");
+
+                    if (scrolled > initialPosition) {
+                        stickerInner.css("top", scrolled - initialPosition + "px");
+                    } else {
+                        stickerInner.css("top", '');
+                        stickerInner.css("height", $(window).height() - initialPosition + scrolled + "px");
+                    }
+
+                    if ((scrolled + $(window).height() - initialPosition) > $(element).height() ) {
+                        stickerInner.css("top", '');
+                        stickerInner.css("bottom", '0px');
+                    } else {
+                        stickerInner.css("bottom", '');
+                    }
+                });
+
                 $(window).on("resize", function(){
                     initialPosition = $(element).offset().top;
                     scrolled        = $(document).scrollTop();
@@ -267,6 +288,8 @@ define(
                         } else {
                             $(element).addClass("js-common-scrollable_off");
                         }
+
+                        return false;
                     }
 
                 });
@@ -373,25 +396,3 @@ define(
 
 	}
 );
-
-<!-- Scroll Script -->
-/*
-<script type="text/javascript">
-
-console.log("Scrolling...");
-
-$(document).ready(function() {
-
-    console.log("Scrolling...");
-
-    var scrolled;
-
-    $(document).scroll(function (event) {
-        console.log("Scrolling...");
-        scrolled = $(document).scrollTop();
-        console.log("Scrolled " + scrolled);
-    });
-
-});
-
-</script>*/
