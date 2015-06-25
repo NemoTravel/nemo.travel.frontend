@@ -1,4 +1,4 @@
-$c_postFilters_textColor = #fff;
+$c_postFilters_textColor = $nemo-color-LightPoint;
 $c_postFilters_separatorColor = rgba(200, 200, 200, .25);
 $c_postFilters_disabledBG = rgba(240, 240, 240, 1);
 $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
@@ -8,6 +8,12 @@ $t_postFilters_animationTime = .1s;
 
   &-postFilters {
     position: relative;
+    opacity: .75;
+
+    &:hover {
+      transition: opacity .1s ease;
+      opacity: 1;
+    }
     //background-color: #222;
 
     &_stick {
@@ -57,7 +63,7 @@ $t_postFilters_animationTime = .1s;
         transition: opacity .4s ease-out;
 
         &_slider {
-          background-color: #fff;
+          background-color: $nemo-color-LightPoint;
           padding: 10px 10px;
         }
 
@@ -102,7 +108,7 @@ $t_postFilters_animationTime = .1s;
           margin: 0 0 20px 0;
 
           &__part {
-            @extends .new-ui-button_secondary
+            @extends .new-ui-button_common
             box-shadow: none;
             flex-basis: 0;
             flex-grow: 1;
@@ -128,12 +134,12 @@ $t_postFilters_animationTime = .1s;
 
             &_selected {
               cursor: default;
-              background-color: $c_corporate_blue;
+              background-color: $nemo-color-main;
               background-image: none;
-              color: #ffffff;
+              color: $nemo-color-LightPoint;
 
               &:hover {
-                background-color: $c_corporate_blue;
+                background-color: $nemo-color-main;
                 background-image: none;
               }
             }
@@ -148,7 +154,7 @@ $t_postFilters_animationTime = .1s;
                 width: 6px;
                 height: 6px;
                 border-radius: 3px;
-                background-color: $c_corporate_blue;
+                background-color: $nemo-color-main;
               }
             }
           }
@@ -161,8 +167,8 @@ $t_postFilters_animationTime = .1s;
             overflow: hidden;
 
             &__value {
-              //@extends .new-ui-button_secondary
-              background-color: #fff;
+              //@extends .new-ui-button_common
+              background-color: $nemo-color-LightPoint;
               box-shadow: none;
               padding: 0 10px 0 20px;
               height: 40px;
@@ -187,11 +193,7 @@ $t_postFilters_animationTime = .1s;
               }
 
               &:hover {
-                background: darken(#fff, 2);
-              }
-
-              &_noMatter {
-                font-size: 95%;
+                background: darken($nemo-color-LightPoint, 2);
               }
 
               &_disabled {
@@ -206,13 +208,13 @@ $t_postFilters_animationTime = .1s;
               }
 
               &_checked {
-                background-color: $c_corporate_blue;
+                background-color: $nemo-color-main;
                 background-image: none;
                 cursor: default;
-                color: #fff;
+                color: $nemo-color-LightPoint;
 
                 &:hover {
-                  background-color: $c_corporate_blue;
+                  background-color: $nemo-color-main;
                   background-image: none;
                 }
               }
@@ -233,6 +235,10 @@ $t_postFilters_animationTime = .1s;
                 text-overflow: ellipsis;
                 margin-right: 10px;
                 font-size: 80%;
+
+                &_noMatter {
+                  font-size: 95%;
+                }
 
                 &_small {
                   font-size: 70%;

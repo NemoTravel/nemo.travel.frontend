@@ -390,7 +390,7 @@
 	</section>
 	<section class="nemo-flights-results__content">
 
-        <aside data-bind="customScroll, sticky" class="nemo-flights-results__content__postfilters">
+        <aside data-bind="customScroll, sticky" class="nemo-flights-results__content__postfilters nemo-common-postFilters">
             <!--FILTERES-->
 
             <div class="nemo-common-postFilters__notification">
@@ -400,7 +400,7 @@
 
             <div class="nemo-common-postFilters__clearAll">
                 <!-- ko if: postFiltersHaveValue() -->
-                <div data-bind="click: PFClearAll" class="new-ui-button new-ui-button_secondary nemo-common-postFilters__clearAll__button">Сбросить все фильтры</div>
+                <div data-bind="click: PFClearAll" class="new-ui-button new-ui-button_common nemo-common-postFilters__clearAll__button">Сбросить все фильтры</div>
                 <!-- /ko -->
             </div>
 
@@ -606,7 +606,7 @@
                             click: clear
                ">
 
-            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name">Все равно</span>
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name_noMatter">Все равно</span>
 
         </label>
 

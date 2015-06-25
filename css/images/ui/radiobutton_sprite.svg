@@ -6,22 +6,22 @@
 	<g>
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="9.5" y1="18" x2="9.5" y2="1.079">
 			<stop  offset="0" style="stop-color:#E6E6E6"/>
-			<stop  offset="1" style="stop-color:#FFFFFF"/>
+			<stop  offset="1" style="stop-color:$nemo-color-LightPoint"/>
 		</linearGradient>
 		<path fill="url(#SVGID_1_)" d="M18,9.5c0,4.7-3.8,8.5-8.5,8.5S1,14.2,1,9.5S4.8,1,9.5,1S18,4.8,18,9.5z"/>
 		<path fill="#DDDDDC" d="M9.5,1C14.2,1,18,4.8,18,9.5S14.2,18,9.5,18S1,14.2,1,9.5S4.8,1,9.5,1 M9.5,0C4.3,0,0,4.3,0,9.5
 			S4.3,19,9.5,19S19,14.7,19,9.5S14.7,0,9.5,0z"/>
-		<path fill="#FFFFFF" d="M9.5,2C13.6,2,17,5.4,17,9.5S13.6,17,9.5,17S2,13.6,2,9.5S5.4,2,9.5,2 M9.5,1C4.8,1,1,4.8,1,9.5
+		<path fill="$nemo-color-LightPoint" d="M9.5,2C13.6,2,17,5.4,17,9.5S13.6,17,9.5,17S2,13.6,2,9.5S5.4,2,9.5,2 M9.5,1C4.8,1,1,4.8,1,9.5
 			S4.8,18,9.5,18S18,14.2,18,9.5S14.2,1,9.5,1z"/>
 		<path fill="#2190CF" d="M13,9.5c0,1.9-1.6,3.5-3.5,3.5S6,11.4,6,9.5S7.6,6,9.5,6S13,7.6,13,9.5z"/>
 		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="9.5" y1="37" x2="9.5" y2="20.079">
 			<stop  offset="0" style="stop-color:#E6E6E6"/>
-			<stop  offset="1" style="stop-color:#FFFFFF"/>
+			<stop  offset="1" style="stop-color:$nemo-color-LightPoint"/>
 		</linearGradient>
 		<path fill="url(#SVGID_2_)" d="M18,28.5c0,4.7-3.8,8.5-8.5,8.5S1,33.2,1,28.5S4.8,20,9.5,20S18,23.8,18,28.5z"/>
 		<path fill="#DDDDDC" d="M9.5,20c4.7,0,8.5,3.8,8.5,8.5S14.2,37,9.5,37S1,33.2,1,28.5S4.8,20,9.5,20 M9.5,19C4.3,19,0,23.3,0,28.5
 			S4.3,38,9.5,38s9.5-4.3,9.5-9.5S14.7,19,9.5,19z"/>
-		<path fill="#FFFFFF" d="M9.5,21c4.1,0,7.5,3.4,7.5,7.5S13.6,36,9.5,36S2,32.6,2,28.5S5.4,21,9.5,21 M9.5,20C4.8,20,1,23.8,1,28.5
+		<path fill="$nemo-color-LightPoint" d="M9.5,21c4.1,0,7.5,3.4,7.5,7.5S13.6,36,9.5,36S2,32.6,2,28.5S5.4,21,9.5,21 M9.5,20C4.8,20,1,23.8,1,28.5
 			S4.8,37,9.5,37s8.5-3.8,8.5-8.5S14.2,20,9.5,20z"/>
 	</g>
 </g>

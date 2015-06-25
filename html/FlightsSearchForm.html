@@ -7,7 +7,7 @@
 
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons" data-bind="foreach: tripTypes"><!--
 		--><div
-			class="new-ui-button new-ui-button_secondary nemo-flights-form__routeTypeSelector__button"
+			class="new-ui-button new-ui-button_common nemo-flights-form__routeTypeSelector__button"
 			data-bind="
 				text: $root.i18n('FlightsSearchForm','triptype_'+$data),
 				css: {'nemo-flights-form__routeTypeSelector__button_active': $parent.tripType() == $data},
@@ -20,7 +20,7 @@
 			<select data-bind="
 					simpleSelect: {
 						data: tripTypes,
-						containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeTypeSelector__select',
+						containerCssClass: 'new-ui-button new-ui-button_common new-ui-button_small nemo-flights-form__routeTypeSelector__select',
 						i18nSegment: 'FlightsSearchForm',
 						i18nPrefix: 'triptype_'
 					},
@@ -173,7 +173,7 @@
 				<!-- /ko -->
 				<div class="nemo-flights-form__passengers__container" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
 
-				<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
+				<div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
 
 				<div class="nemo-flights-form__passengers__fastSelect" data-bind="visible: passengersFastSelectorOpen">
 					<!-- ko foreach: passengersFastSelectOptions -->
@@ -222,7 +222,7 @@
 							<select data-bind="
 								simpleSelect: {
 									data: tripTypes,
-									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
+									containerCssClass: 'new-ui-button new-ui-button_common new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
 									i18nSegment: 'FlightsSearchForm',
 									i18nPrefix: 'triptype_'
 								},
@@ -238,7 +238,7 @@
 							<select data-bind="
 								simpleSelect: {
 									data: serviceClasses,
-									containerCssClass: 'new-ui-button new-ui-button_secondary new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
+									containerCssClass: 'new-ui-button new-ui-button_common new-ui-button_small nemo-flights-form__routeOptions__item__selector__button',
 									i18nSegment: 'FlightsSearchForm',
 									i18nPrefix: 'serviceClass_'
 								},

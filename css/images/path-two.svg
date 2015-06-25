@@ -11,6 +11,6 @@
 		</g>
 	</g>
 </g>
-<circle fill="#FFFFFF" stroke="#969599" stroke-miterlimit="10" cx="14.7" cy="4.5" r="4"/>
-<circle fill="#FFFFFF" stroke="#969599" stroke-miterlimit="10" cx="29.7" cy="4.5" r="4"/>
+<circle fill="$nemo-color-LightPoint" stroke="#969599" stroke-miterlimit="10" cx="14.7" cy="4.5" r="4"/>
+<circle fill="$nemo-color-LightPoint" stroke="#969599" stroke-miterlimit="10" cx="29.7" cy="4.5" r="4"/>
 </svg>

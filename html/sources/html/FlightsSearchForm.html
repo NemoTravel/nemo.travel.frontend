@@ -1,11 +1,11 @@
 <div class="nemo-flights-form">
 <!-- ko if: !$$loading() -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons">
-		<div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
+		<div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_state new-ui-button_checked nemo-flights-form__routeTypeSelector__button">
 			В одну сторону
-		</div><div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
+		</div><div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
 			Туда и обратно
-		</div><div class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
+		</div><div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_state nemo-flights-form__routeTypeSelector__button">
 			Сложный маршрут
 		</div>
 	</div>
@@ -143,7 +143,7 @@
 								</span>
 						<div class="nemo-flights-form__routeOptions__item__selector">
 							<div
-								class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
+								class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
 								data-bind="
 									click: toggleTypeSelector,
 									css: {'new-ui-button_direction_active': typeSelectorOpen()},
@@ -167,7 +167,7 @@
 						</span>
 						<div class="nemo-flights-form__routeOptions__item__selector">
 							<div
-								class="new-ui-button new-ui-button_secondary new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
+								class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_direction_down nemo-flights-form__routeOptions__item__selector__button"
 								data-bind="click: toggleClassSelector,
 									css: {'new-ui-button_direction_active': classSelectorOpen()},
 									text: $root.i18n('FlightsSearchForm','serviceClass_'+serviceClass())"></div>
