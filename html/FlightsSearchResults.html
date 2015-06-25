@@ -9,7 +9,7 @@
 <div class="nemo-flights-results js-nemoApp__component">
 	<!-- ko if: !$$loading() && !$$error() -->
 		<!-- Form dummy -->
-		<section class="nemo-flights-results__formDummy"  data-bind="attr: {style: formActive() ? 'display: none;' : ''}">
+		<section class="nemo-flights-results__formDummy"  data-bind=" attr: {style: formActive() ? 'display: none;' : ''}">
 			<div
 				data-bind="
 					foreach: searchInfo.segments,
@@ -389,7 +389,7 @@
 	</section>
 	<section class="nemo-flights-results__content">
 
-        <aside data-bind="customScroll, sticky" class="nemo-flights-results__content__postfilters nemo-common-postFilters">
+        <aside data-bind="customScroll, flightsResultsContainerSticky" class="nemo-flights-results__content__postfilters nemo-common-postFilters">
             <!--FILTERES-->
 
             <div class="nemo-common-postFilters__notification">

@@ -4,7 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 8.5 8.5" enable-background="new 0 0 8.5 8.5" xml:space="preserve">
 <g>
-	<polygon fill="$nemo-color-LightPoint" points="3.2,0.4 8.5,0 8.1,5.3 	"/>
-	<polygon fill="$nemo-color-LightPoint" points="5.3,8.1 0,8.5 0.4,3.2 	"/>
+	<polygon fill="#ffffff" points="3.2,0.4 8.5,0 8.1,5.3 	"/>
+	<polygon fill="#ffffff" points="5.3,8.1 0,8.5 0.4,3.2 	"/>
 </g>
 </svg>
