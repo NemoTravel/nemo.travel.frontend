@@ -38,10 +38,17 @@ define(
 				setTimeout(
 					function(){
 						if($(element).find('.js-flights-results__compareTable__companyColumn_visible').length > 1){
+							$(element).parents('.js-flights-results__compareTable__wrapper').removeClass('js-flights-results__compareTable__wrapper_hidden');
+							$('.js-flights-results__compareTable__opener').show();
 							$(element).show();
 							$(element).width($('.js-flights-results__compareTable__companyColumn:eq(0)').width()*$(element).find('.js-flights-results__compareTable__companyColumn_visible').length+'px');
 						}else{
 							$(element).hide();
+							$(element).parents('.js-flights-results__compareTable__wrapper').addClass('js-flights-results__compareTable__wrapper_hidden');
+							if($('.js-flights-results__compareTable__wrapper').length == $('.js-flights-results__compareTable__wrapper.js-flights-results__compareTable__wrapper_hidden').length){
+								$('.js-flights-results__compareTable__opener').hide();
+								$(element).hide();
+							}
 						}
 					}
 				,1);

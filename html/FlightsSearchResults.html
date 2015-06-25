@@ -75,7 +75,7 @@
 				 data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
 		</div>
 	<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
-		<div class="nemo-flights-results__compareTable__wrapper"
+		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
 			 data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
 			<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
 				 data-bind="foreach: flightsCompareTableTransfer().groups">
@@ -229,7 +229,7 @@
 			   visible:$data.flagToShowMore()"></a>
 			</div>
 		</div>
-		<div class="nemo-flights-results__compareTable__wrapper"
+		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
 		 data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
 		<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
 			 data-bind="foreach: flightsCompareTableDirect().groups">
