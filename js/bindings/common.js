@@ -164,7 +164,9 @@ define(
 						width: 'auto',
 						height: 'auto',
 						title: '',
-						parentClass: 'js-nemoApp__component'
+						parentClass: 'js-nemoApp__component',
+						beforeOpen: null,
+						close: function () {console.log(this, arguments)}
 					},
 					params = ko.utils.unwrapObservable(valueAccessor()),
 					$element = $(element);
@@ -179,6 +181,10 @@ define(
 						var popupParams = $.extend({},defaults,params),
 							$target = $element.parents('.' + popupParams.parentClass);
 
+						if (typeof popupParams.beforeOpen == 'function') {
+							popupParams.beforeOpen();
+						}
+
 						if ($target.length == 0) {
 							console.error('Component parent node not found (.' + popupParams.parentClass + ')');
 							return;
@@ -187,6 +193,7 @@ define(
 						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
 
 						delete popupParams.block;
+						delete popupParams.beforeOpen;
 
 						if (!$element.data('ui-popup')) {
 							if ($target.length == 1) {

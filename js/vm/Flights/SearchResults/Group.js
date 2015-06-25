@@ -21,6 +21,7 @@ define(
 			this.selectedFlightsIds = ko.observable([]);
 
 			this.couplingTable = null;
+			this.couplingTableOpen = ko.observable(false);
 
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
@@ -32,6 +33,7 @@ define(
 						selected: ko.observable(),
 
 						open: ko.observable(false),
+						detailsOpen: ko.observable(false),
 
 						setOptionDisable: function (option, item) {
 							ko.applyBindingsToNode(

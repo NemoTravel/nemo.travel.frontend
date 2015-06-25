@@ -43,5 +43,15 @@
 	"flightsGroup__couplingButton__variants_twoToFour" : "варианта",
 	"flightsGroup__couplingButton__variants_fourPlus" : "вариантов",
 
+	"couplingTable__sortHeader" : "Сортировка",
+	"couplingTable__sortType_price" : "Цена",
+	"couplingTable__sortType_timeEnRoute" : "Время в пути",
+	"couplingTable__sortType_departureTime" : "Время вылета",
+
+	"couplingTable__group__item__transfers_none" : "Без пересадок",
+	"couplingTable__group__item__transfers_one" : "пересадка",
+	"couplingTable__group__item__transfers_twoToFour" : "пересадки",
+	"couplingTable__group__item__transfers_fourPlus" : "пересадок",
+
 	"" : ""
 }

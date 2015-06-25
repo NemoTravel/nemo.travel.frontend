@@ -127,43 +127,45 @@ define (
 			this.router.init();
 
 			// Requiring base things: common bindings, base models etc
-			require (
-				[
-					/*this.options.sourceURL + */'js/vm/BaseDynamicModel',
-					/*this.options.sourceURL + */'js/vm/BaseStaticModel',
-					/*this.options.sourceURL + */'js/vm/BaseI18nizedModel',
-					/*this.options.sourceURL + */'js/vm/BaseControllerModel',
-					/*this.options.sourceURL + */'js/bindings/common',
-					'domReady'
-				],
-				function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
-					// We must always require a domready event.
-					// domready is triggered after popstate event and we don't need our listener catch the first one due
-					// to different browsers triggering popstate differently
-					require (['domReady!'], function () {
-						// Adding base models to storage
-						self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
-						self.processLoadedModel('BaseStaticModel', BaseStaticModel);
-						self.processLoadedModel('BaseI18nizedModel', BaseI18nizedModel);
-						self.processLoadedModel('BaseControllerModel', BaseControllerModel);
+			this.loadI18n(['common'], function () {
+				require (
+					[
+						/*this.options.sourceURL + */'js/vm/BaseDynamicModel',
+						/*this.options.sourceURL + */'js/vm/BaseStaticModel',
+						/*this.options.sourceURL + */'js/vm/BaseI18nizedModel',
+						/*this.options.sourceURL + */'js/vm/BaseControllerModel',
+						/*this.options.sourceURL + */'js/bindings/common',
+						'domReady'
+					],
+					function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
+						// We must always require a domready event.
+						// domready is triggered after popstate event and we don't need our listener catch the first one due
+						// to different browsers triggering popstate differently
+						require (['domReady!'], function () {
+							// Adding base models to storage
+							self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
+							self.processLoadedModel('BaseStaticModel', BaseStaticModel);
+							self.processLoadedModel('BaseI18nizedModel', BaseI18nizedModel);
+							self.processLoadedModel('BaseControllerModel', BaseControllerModel);
 
-						// Setting KO
-						ko.applyBindings(self.viewModel, self.scope);
+							// Setting KO
+							ko.applyBindings(self.viewModel, self.scope);
 
-						self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
+							self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
-						// Setting event listener thaat will fire on page URL change
-						window.addEventListener(
-							"popstate",
-							function () {
-								self.processRoute();
-							}
-							, false);
+							// Setting event listener that will fire on page URL change
+							window.addEventListener(
+								"popstate",
+								function () {
+									self.processRoute();
+								}
+								, false);
 
-						self.processRoute();
-					});
-				}
-			);
+							self.processRoute();
+						});
+					}
+				);
+			});
 		};
 
 		NemoFrontEndController.prototype.navigate = function (url, processRoute) {
@@ -348,6 +350,7 @@ define (
 			}
 
 			request.open(POSTParams ? 'POST' : 'GET', url, true);
+
 			if (POSTParams) {
 				//god damn IE for not supporting setRequestHeader in XDR.
 				if(request.setRequestHeader){

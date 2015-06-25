@@ -1,0 +1,232 @@
+.nemo-flights-results__couplingTable {
+	padding: 0;
+
+	&__header {
+		white-space: nowrap;
+		padding: 15px 20px;
+		border-bottom: $i_ui_subContainer_divider_border;
+
+		&__title {
+			display: inline-block;
+			vertical-align: top;
+			line-height: 30px;
+			font-size: 13px;
+			color: $c_ui_textSecondary;
+			margin-right: 15px;
+		}
+
+		&__sort {
+			display: inline-block;
+			vertical-align: top;
+		}
+	}
+
+	&__groups {
+		width: 800px;
+		padding: 0 20px;
+
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+
+		&__group {
+			flex: 0 0 70px;
+			min-width: 1px;
+			transition: all 0.2s;
+
+			&__header {
+				font-size: 13px;
+				line-height: 20px;
+				padding: 15px 0;
+
+				&__departure, &__arrival, &__date {
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				&__date {
+					color: $c_ui_textSecondary;
+				}
+			}
+
+			&__item {
+				padding: 10px 0;
+
+				&:after {
+					content: '';
+					position: absolute;
+					left: 20px;
+					right: 20px;
+					border-bottom: $i_ui_subContainer_divider_border;
+					margin-top: 10px;
+				}
+
+				&:last-child:after {
+					display: none;
+				}
+
+				&__inner {
+					display: block;
+					margin: 0 10px 0 0;
+					padding: 5px;
+					font-size: 12px;
+					line-height: normal;
+					height: auto;
+					text-align: left;
+					white-space: nowrap;
+					min-width: auto;
+					transition: all 0.25s ease-in-out;
+					min-height: 60px;
+					position: relative;
+
+					&:active {
+						padding: 6px 5px 4px;
+					}
+
+					&:after {
+						position: absolute;
+						width: 19px;
+						height: 19px;
+						border-radius: 20px;
+						background: $c_ui_button_sec_top url('images/flights_results_sprite.svg') -35px -95px no-repeat;
+						right: -7px;
+						top: -7px
+					}
+				}
+
+				&__depTime {
+					font-size: 16px;
+					font-weight: 600;
+					line-height: 25px;
+				}
+
+				&__arrTime {
+					font-size: 13px;
+					opacity: 0.75;
+
+					&_nextDay {
+						color: #FF9630;
+					}
+				}
+
+				&__timeEnRoute {
+					opacity: 0.75;
+				}
+
+				&__depTime,
+				&__arrTime {
+					display: block;
+				}
+
+				&__timeEnRoute,
+				&__transfers {
+					display: none;
+				}
+
+				&__transfers {
+					line-height: 25px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: $c_ui_textSecondary;
+				}
+
+				&_inactive &__inner {
+					opacity: 0.5;
+					cursor: auto;
+				}
+
+				&_selected &__inner {
+					background: $c_ui_stateBtn_checked;
+
+					&:hover {
+						background: $c_ui_stateBtn_checked_hover;
+					}
+
+					&:active {
+						background: $c_ui_stateBtn_checked_active;
+					}
+				}
+
+				&_selected &__depTime,
+				&_selected &__arrTime,
+				&_selected &__timeEnRoute,
+				&_selected &__transfers {
+					color: #fff;
+				}
+
+				&_selected &__transfers__caption {
+					opacity: 0.5;
+				}
+
+				&_selected &__inner:after {
+					background: url('images/flights_results_sprite.svg') -35px -75px no-repeat;
+					background-color: inherit;
+				}
+			}
+
+			&_active {
+				flex: 0 0 210px;
+			}
+
+			&_active &__item {
+				&__depTime,
+				&__arrTime,
+				&__timeEnRoute {
+					display: inline-block;
+				}
+
+				&__arrTime,
+				&__timeEnRoute {
+					margin-left: 5px;
+				}
+
+				&__transfers {
+					display: block;
+				}
+
+				&__inner:after {
+					content: '';
+				}
+			}
+		}
+
+		&__buyGroup {
+			margin-left: auto;
+			flex-grow: 100;
+			text-align: right;
+
+			&__header {
+				height: 90px;
+			}
+
+			&__item {
+				padding: 10px 0;
+				min-height: 80px;
+			}
+		}
+	}
+
+	&__buyButton {
+		height: 60px;
+		min-width: 150px;
+		line-height: normal;
+
+		&_inactive {
+			opacity: 0.6;
+		}
+
+		&__text {
+			font-size: 13px;
+			line-height: 15px;
+			margin-top: 10px;
+		}
+
+		&__price {
+			font-size: 16px;
+			line-height: 25px;
+			display: block;
+			font-weight: 600;
+		}
+	}
+}

@@ -36,28 +36,22 @@
 </g>
 <g>
 	<g>
-		<rect x="8" y="52" fill="$nemo-color-LightPoint" width="4" height="20"/>
+		<rect x="8" y="52" fill="#FFFFFF" width="4" height="20"/>
 	</g>
 	<g>
-		<rect y="60" fill="$nemo-color-LightPoint" width="20" height="4"/>
+		<rect y="60" fill="#FFFFFF" width="20" height="4"/>
 	</g>
 </g>
 <g>
-	
-		<image overflow="visible" opacity="0.25" enable-background="new    " width="24" height="23" xlink:href="D276240E.png"  transform="matrix(1 0 0 1 -1.97 77.6195)">
-	</image>
 	<g>
 		<polygon fill="#D9D9D9" points="10.412,80 12.834,85.511 18.823,86.111 14.331,90.118 15.61,96 10.412,92.965 5.213,96 
 			6.493,90.118 2,86.111 7.99,85.511 		"/>
 	</g>
 </g>
 <g>
-	
-		<image overflow="visible" opacity="0.25" enable-background="new    " width="24" height="23" xlink:href="D2762412.png"  transform="matrix(1 0 0 1 -1.97 107.6195)">
-	</image>
 	<g>
 		
-			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.4115" y1="69.239" x2="10.4115" y2="85.239" gradientTransform="matrix(1 0 0 -1 0 195.239)">
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.4115" y1="722.761" x2="10.4115" y2="706.761" gradientTransform="matrix(1 0 0 1 0 -596.761)">
 			<stop  offset="0" style="stop-color:#F9BA00"/>
 			<stop  offset="1" style="stop-color:#ECD590"/>
 		</linearGradient>
@@ -65,28 +59,25 @@
 			5.213,126 6.493,120.118 2,116.111 7.99,115.511 		"/>
 	</g>
 </g>
-<polygon opacity="0.75" fill="#52A2CC" points="15.556,160 17.538,158.012 13.875,148.192 20,142.047 19.522,140.479 17.958,140 
-	11.832,146.143 1.982,142.409 0,144.397 8.409,149.699 4.144,153.977 1.142,153.977 3.603,156.444 6.062,158.912 6.065,155.902 
-	10.329,151.626 "/>
+<polygon opacity="0.75" fill="#52A2CC" enable-background="new    " points="15.556,160 17.538,158.012 13.875,148.192 20,142.047 
+	19.522,140.479 17.958,140 11.832,146.143 1.982,142.409 0,144.397 8.409,149.699 4.144,153.977 1.142,153.977 3.603,156.444 
+	6.062,158.912 6.065,155.902 10.329,151.626 "/>
 <polygon fill="#7BB236" points="15.556,190 17.538,188.012 13.875,178.192 20,172.047 19.522,170.479 17.958,170 11.832,176.143 
 	1.982,172.409 0,174.397 8.409,179.699 4.145,183.977 1.142,183.977 3.603,186.444 6.063,188.912 6.065,185.902 10.33,181.626 "/>
 <g>
 	<g>
-		<path fill="$nemo-color-LightPoint" d="M61.809,1.888C61.621,1.629,61.321,1.476,61,1.476H45.701l-4.392-1.427c-0.526-0.17-1.09,0.117-1.26,0.642
-			c-0.17,0.525,0.117,1.089,0.642,1.26l4.058,1.318l2.794,8.601c0.134,0.412,0.518,0.691,0.951,0.691h9.553
-			c0.433,0,0.817-0.279,0.951-0.691l2.952-9.085C62.05,2.481,61.997,2.147,61.809,1.888z M59.624,3.476l-0.826,2.543H47.746
-			l-0.826-2.543H59.624z M57.322,10.562h-8.1l-0.826-2.543h9.752L57.322,10.562z"/>
-		<circle fill="$nemo-color-LightPoint" cx="50.12" cy="15.925" r="2"/>
-		<circle fill="$nemo-color-LightPoint" cx="56.245" cy="15.925" r="2"/>
+		<path fill="#FFFFFF" d="M61.809,1.888C61.621,1.629,61.321,1.476,61,1.476H45.701l-4.392-1.427c-0.526-0.17-1.09,0.117-1.26,0.642
+			s0.117,1.089,0.642,1.26l4.058,1.318l2.794,8.601c0.134,0.412,0.518,0.691,0.951,0.691h9.553c0.433,0,0.817-0.279,0.951-0.691
+			l2.952-9.085C62.05,2.481,61.997,2.147,61.809,1.888z M59.624,3.476l-0.826,2.543H47.746L46.92,3.476H59.624z M57.322,10.562h-8.1
+			l-0.826-2.543h9.752L57.322,10.562z"/>
+		<circle fill="#FFFFFF" cx="50.12" cy="15.925" r="2"/>
+		<circle fill="#FFFFFF" cx="56.245" cy="15.925" r="2"/>
 	</g>
 </g>
 <g>
 	<g>
-		
-			<image overflow="visible" opacity="0.25" width="27" height="27" xlink:href="D2762415.png"  transform="matrix(1 0 0 1 26.0425 27.6195)">
-		</image>
 		<g>
-			<circle fill="$nemo-color-LightPoint" cx="40" cy="40" r="10"/>
+			<circle fill="#FFFFFF" cx="40" cy="40" r="10"/>
 		</g>
 	</g>
 	<circle fill="#D4E8F2" cx="40" cy="40" r="8.125"/>
@@ -98,4 +89,12 @@
 	<circle fill="#52A2CC" cx="40" cy="40" r="0.938"/>
 </g>
 <polyline fill="none" stroke="#64B5F6" stroke-width="2" stroke-miterlimit="10" points="50,60 45,66 40,60 "/>
+<g>
+	<polygon fill="#FFFFFF" points="43.182,80.353 48.485,80 48.132,85.303 	"/>
+	<polygon fill="#FFFFFF" points="45.304,88.132 40,88.484 40.354,83.182 	"/>
+</g>
+<g>
+	<polygon fill="#A0A0A0" points="43.182,100.353 48.485,100 48.132,105.303 	"/>
+	<polygon fill="#A0A0A0" points="45.304,108.132 40,108.484 40.354,103.182 	"/>
+</g>
 </svg>

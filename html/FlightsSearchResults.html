@@ -60,15 +60,14 @@
 		</section>
 
 		<!-- Actual form -->
+		<!-- ko if: formActive() -->
 		<section class="nemo-flights-results__form" data-bind="
 			component: {
 	            name: 'Flights/SearchForm/Controller',
 				params: {route: [], formData: $$rawdata}
-			},
-			attr: {
-				style: !formActive() ? 'display: none;' : ''
 			}
 			"></section>
+		<!-- /ko -->
 
 		<div class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
 				data-bind="flightsResultsCompareTableToggle:none">
@@ -116,7 +115,7 @@
 							<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
 								<!-- ko if: selectedFlightsIds().length -->
 								<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-										data-bind="click: function () {$parent.bookFlight(selectedFlightsIds());},
+										data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
 												text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
 								</button>
 								<!-- /ko -->
@@ -199,7 +198,7 @@
 									<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
 										<!-- ko if: selectedFlightsIds().length -->
 										<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-												data-bind="click: function () {$parent.bookFlight(selectedFlightsIds());},
+												data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
 												text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
 										</button>
 										<!-- /ko -->
@@ -270,7 +269,7 @@
 						<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
 							<!-- ko if: selectedFlightsIds().length -->
 							<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-									data-bind="click: function () {$parent.bookFlight(selectedFlightsIds());},
+									data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
 												text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
 							</button>
 							<!-- /ko -->
@@ -353,7 +352,7 @@
 								<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
 									<!-- ko if: selectedFlightsIds().length -->
 									<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-											data-bind="click: function () {$parent.bookFlight(selectedFlightsIds());},
+											data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
 												text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
 									</button>
 									<!-- /ko -->
@@ -533,7 +532,7 @@
 				<!-- ko if: visibleResultsCount() > 0 -->
 					<div class="nemo-flights-results__showcase">
 						<!-- ko if: showcase.recommended() -->
-							<!-- ko with: {group: showcase.fastest(), modifier: 'recommended'} -->
+							<!-- ko with: {group: showcase.recommended(), modifier: 'recommended'} -->
 								<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
 								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 							<!-- /ko -->
@@ -574,10 +573,14 @@
 					</div>
 				</div>
 
-				<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
+				<div cclass="nemo-flights-results__groupList" data-bind="foreach: groups">
+					<!-- ko if: !filteredOut() -->
+					<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data }"></div>
+					<!-- /ko -->
+				</div>
 
 				<!-- ko if: visibleResultsCount() == 0 -->
-				<h2>FILTERS GIVEN EMPTY RESULT</h2>
+				<h2 class="new-ui-subSectionHeader">Ничего не найдено</h2>
 				<!-- /ko -->
 			</section>
 
@@ -641,7 +644,6 @@
 
 	<!-- Flights group -->
 	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
-		<!-- ko if: !filteredOut() -->
 		<!-- TODO add carrier coloring here -->
 		<div data-bind="attr: {
 				'class': 'new-ui-subContainer nemo-flights-results__flightsGroup js-flights-results__group ' +
@@ -825,27 +827,32 @@
 									</div>
 								<!-- /ko -->
 							</div>
-							<div class="nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink">
+							<!-- "With" binding is needed here to reconstruct link on every flight change -->
+							<div class="nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink" data-bind="with: $parent.selectedFlight()">
 								<span class="new-ui-pseudoLink" data-bind="
 										popup: {
-											block: 'flightInfoByLeg_' + $parent.id + '_' + $index(),
+											block: 'flightInfoByLeg_' + $parentContext.$index(),
 											title: 'Детали перелета',
 											parentClass: 'js-flights-results__group',
-											contentClass: 'nemo-flights-results__flightsGroup__flightInfo'
+											contentClass: 'nemo-flights-results__flightsGroup__flightInfo',
+											beforeOpen: function () {$parent.detailsOpen(true);},
+											close: function () {$parent.detailsOpen(false);}
 										}">
 									Детали
 								</span>
 							</div>
 						</div>
 					</div>
+					<!-- ko if: detailsOpen -->
 					<!-- ko with: {flight: $parent.selectedFlight(), leg: $index()} -->
 						<div
 							class="js-nemoApp__popupBlock"
 							style="display: none;"
 							data-bind="
-								attr: {'data-block' : 'flightInfoByLeg_' + $parents[1].id + '_' + leg},
+								attr: {'data-block' : 'flightInfoByLeg_' + leg},
 								template: { name: 'nemo-koTemplate-Flights-FlightInfo__oneLeg', data: flight }
 							"></div>
+					<!-- /ko -->
 					<!-- /ko -->
 				</div><!--
 			--></div>
@@ -854,9 +861,11 @@
 				<div class="nemo-flights-results__flightsGroup__footer__couplingButtonContainer" data-bind="if: couplingTable && couplingTable.isActive">
 					<div class="new-ui-button nemo-flights-results__flightsGroup__couplingButton" data-bind="popup: {
 							block: 'couplingTable',
-							title: 'Рейсы авиакомпании',
+							title: 'Рейсы авиакомпании '+ getValidatingCompany().name,
 							parentClass: 'js-flights-results__group',
-							contentClass: 'nemo-flights-results__flightsGroup__couplingTable'
+							contentClass: 'nemo-flights-results__flightsGroup__couplingTablePopup',
+							beforeOpen: function () {couplingTableOpen(true);},
+							close: function () {couplingTableOpen(false);}
 						}">
 						<span class="new-ui-pseudoLink">
 							Еще
@@ -869,73 +878,127 @@
 				</div><div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
 					<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 					<money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-					       data-bind="money: getTotalPrice(), click: function () {$parent.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
+					       data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
 				</div><div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 			</div>
 
-			<!-- ko if: couplingTable && couplingTable.isActive-->
-			<div
-				class="js-nemoApp__popupBlock"
-				data-block="couplingTable"
-				style="display: none;"
-				data-bind="template: { name: 'nemo-koTemplate-FlightsResults-CouplingTable', data: couplingTable }"></div>
+			<!-- ko if: couplingTable && couplingTable.isActive && couplingTableOpen() -->
+				<div
+					class="js-nemoApp__popupBlock"
+					data-block="couplingTable"
+					style="display: none;"
+					data-bind="template: { name: 'nemo-koTemplate-FlightsResults-CouplingTable', data: couplingTable }"></div>
 			<!-- /ko -->
 		</div>
-		<!-- /ko -->
 	</script>
 
 	<!-- Coupling table -->
 	<script id="nemo-koTemplate-FlightsResults-CouplingTable" type="text/html">
-		<hr>
-		<strong data-bind="text: selectedFlightsIds().join(', ') || '---'"></strong>
-		<div data-bind="foreach: sortTypes">
-			<div data-bind="
-										text: $data, attr:{style: ($data == $parent.sort() ? 'border: 1px solid red;' : '') + 'display: inline-block;padding: 10px;'},
-										click: function () {$parent.sort($data);}
-									"></div>
-		</div>
-		<div data-bind="foreach: legGroupings">
-			<div data-bind="
-										attr: {style: (legActive() ? 'border: 1px solid #000;' : 'border: 1px solid #fff;') + 'display: inline-block;vertical-align: top; padding: 5px;'},
-										click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
-										foreach: flights">
-				<!-- ko if: $index() == 0 -->
-				<div data-bind="text: $parent.selected"></div>
-				<!-- /ko -->
-				<div data-bind="
-											attr: {
-												style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +
-												($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +
-												($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')
-											},
-											click: function () {$parents[1].selectVariant($data, $parentContext.$index())}
-										">
-					<div data-bind="text: $data.join(', ')"></div>
-					<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depAirp.IATA + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrAirp.IATA"></div>
-					<div data-bind="text: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].depDateTime.getISOTime() + ' - ' + $parents[1].flightsById[$data[0]].legs[$parentContext.$index()].arrDateTime.getISOTime()"></div>
+		<div class="nemo-flights-results__couplingTable">
+			<div class="nemo-flights-results__couplingTable__header">
+				<div class="nemo-flights-results__couplingTable__header__title" data-bind="text: $root.i18n('FlightsSearchResults', 'couplingTable__sortHeader')"></div>
+
+				<div class="new-ui-stateGroup new-ui-stateGroup_separate nemo-flights-results__couplingTable__header__sort" data-bind="foreach: sortTypes">
+					<label class="new-ui-stateGroup__label nemo-flights-results__couplingTable__header__sort__item" data-bind="click: function () {$parent.sort($data);}">
+						<input type="checkbox" class="new-ui-stateGroup__label__input" data-bind="checked: $data == $parent.sort()">
+						<div class="new-ui-stateGroup__label__button nemo-flights-results__couplingTable__header__sort__button"
+						     data-bind="
+						        text: $root.i18n('FlightsSearchResults', 'couplingTable__sortType_' + $data),
+								css: {'nemo-flights-results__couplingTable__header__sort__button_active': $data == $parent.sort()}
+						"></div>
+					</label>
 				</div>
 			</div>
-			<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
-			<div data-bind="
-						attr: {style: 'border: 1px solid #fff;display: inline-block;vertical-align: top; padding: 5px;'},
-						foreach: flights">
-				<!-- ko if: $index() == 0 -->
-				<div>buy block</div>
-				<!-- /ko -->
-				<div data-bind="
-							attr: {style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' + ($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')}
+
+			<div class="nemo-flights-results__couplingTable__groups" data-bind="foreach: legGroupings">
+				<div
+					class="nemo-flights-results__couplingTable__groups__group"
+					data-bind="
+						css: {'nemo-flights-results__couplingTable__groups__group_active': legActive() || $parent.legGroupings.length <= 2},
+						click: function () {for (var i = 0; i < $parent.legGroupings.length; i++) {$parent.legGroupings[i].legActive(i == $index())}},
+						foreach: flights
+				">
+					<!-- ko if: $index() == 0 -->
+					<div class="nemo-flights-results__couplingTable__groups__group__header" data-bind="with: $parents[1].flightsById[$parent.flights()[0][0]].legs[$parentContext.$index()]">
+						<div class="nemo-flights-results__couplingTable__groups__group__header__departure" data-bind="text: depAirp.city.name"></div>
+						<div class="nemo-flights-results__couplingTable__groups__group__header__arrival" data-bind="text: arrAirp.city.name"></div>
+						<div class="nemo-flights-results__couplingTable__groups__group__header__date" data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()"></div>
+					</div>
+					<!-- /ko -->
+
+					<!--attr: {-->
+					<!--style: 'padding: 5px;border: 1px solid;margin-bottom: 5px;' +-->
+					<!--($data == $parent.selected() ? 'border-color: red;background: #eee;' : '') +-->
+					<!--($parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0 ? 'opacity: 0.5;' : '')-->
+					<!--},-->
+					<!--click: function () {$parents[1].selectVariant($data, $parentContext.$index())}-->
+
+					<div class="nemo-flights-results__couplingTable__groups__group__item" data-bind="
+						css: {
+							'nemo-flights-results__couplingTable__groups__group__item_selected': $data == $parent.selected(),
+							'nemo-flights-results__couplingTable__groups__group__item_inactive': $parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) >= 0
+						}
+					">
+						<div
+							class="new-ui-button new-ui-button_secondary nemo-flights-results__couplingTable__groups__group__item__inner"
+							data-bind="
+								click: function () {$parents[1].selectVariant($data, $parentContext.$index())}">
+							<!-- ko with: $parents[1].flightsById[$data[0]].legs[$parentContext.$index()] -->
+								<span class="nemo-flights-results__couplingTable__groups__group__item__depTime" data-bind="text: depDateTime.getHours() + ':' + depDateTime.getMinutes()"></span>
+								<span
+									class="nemo-flights-results__couplingTable__groups__group__item__arrTime"
+									data-bind="
+										text: arrDateTime.getHours() + ':' + arrDateTime.getMinutes(),
+										css: {'nemo-flights-results__couplingTable__groups__group__item__arrTime_nextDay': depDateTime.getDate() != arrDateTime.getDate()}
+									"></span>
+								<span class="nemo-flights-results__couplingTable__groups__group__item__timeEnRoute" data-bind="text: timeEnRoute.readableStringShort()"></span>
+							<!-- /ko -->
+
+							<!-- ko with: $parents[1].flightsById[$data[0]].transfers[$parentContext.$index()] -->
+								<div class="nemo-flights-results__couplingTable__groups__group__item__transfers">
+									<!-- ko if: $data.length == 1 -->
+										<span class="nemo-flights-results__couplingTable__groups__group__item__transfers__caption">Через</span>
+										<!-- ko text: $data[0].place.city.name --><!-- /ko -->
+									<!-- /ko -->
+
+									<!-- ko if: $data.length > 1 -->
+										<!-- ko text: $data.length + ' ' + $root.i18n('FlightsSearchResults', 'couplingTable__group__item__transfers_' + $root.helpers.getNumeral($data.length, 'one', 'twoToFour', 'fourPlus')) --><!-- /ko -->
+									<!-- /ko -->
+
+									<!-- ko if: $data.length == 0 -->
+										<!-- ko text: $root.i18n('FlightsSearchResults', 'couplingTable__group__item__transfers_none') --><!-- /ko -->
+									<!-- /ko -->
+								</div>
+							<!-- /ko -->
+						</div>
+					</div>
+				</div>
+				<!-- ko if: $index() == ($parent.legGroupings.length - 1) -->
+				<div class="nemo-flights-results__couplingTable__groups__buyGroup" data-bind="foreach: flights">
+					<!-- ko if: $index() == 0 -->
+					<div class="nemo-flights-results__couplingTable__groups__buyGroup__header"></div>
+					<!-- /ko -->
+
+					<!--($data == $parent.selected() ? 'border-color: red;background: #eee;' : '')-->
+					<div class="nemo-flights-results__couplingTable__groups__buyGroup__item" data-bind="if: $parents[1].disabledGroupings[$parentContext.$index()].indexOf($data) < 0">
+						<span class="new-ui-button new-ui-button_main nemo-flights-results__couplingTable__buyButton" data-bind="
+							css: {'nemo-flights-results__couplingTable__buyButton_inactive': $data != $parent.selected()},
+							click: function () {
+								if ($data != $parent.selected()) {
+									$parents[1].selectVariant($data, $parentContext.$index());
+								}
+								else {
+									$parents[2].resultsController.bookFlight($parents[1].selectedFlightsIds());
+								}
+							}
 						">
-					&nbsp;
-					<br/>
-							<span class="new-ui-pseudoLink" data-bind="
-								click: function () {if ($data != $parent.selected()) {$parents[1].selectVariant($data, $parentContext.$index())}else{$parents[3].bookFlight($parents[1].selectedFlightsIds());}},
-								text: 'Buy for '+$parents[1].flightsById[$data[0]].getTotalPrice().normalizedAmount()+' '+$parents[1].flightsById[$data[0]].getTotalPrice().currency()
-							"></span>
-					<br/>
-					&nbsp;
+							<div class="nemo-flights-results__couplingTable__buyButton__text">Купить за</div>
+							<money class="nemo-flights-results__couplingTable__buyButton__price" data-bind="money: $parents[1].flightsById[$data[0]].getTotalPrice()"></money>
+						</span>
+					</div>
 				</div>
+				<!-- /ko -->
 			</div>
-			<!-- /ko -->
 		</div>
 	</script>
 
