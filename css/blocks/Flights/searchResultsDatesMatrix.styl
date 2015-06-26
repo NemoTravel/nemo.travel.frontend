@@ -1,0 +1,81 @@
+.nemo-flights-results__matrix {
+	margin: 0 auto 20px;
+	max-width: 980px;
+
+	&__table {
+		width: 100%;
+		table-layout: fixed;
+		border-collapse: collapse;
+
+		&__header, &__cell {
+			border: 1px solid rgba(#D7E9F2, 0.5);
+		}
+
+		&__header, &__cell {
+			height: 63px;
+			vertical-align: middle;
+			padding: 0 15px;
+			font-size: 12px;
+			color: #636467;
+		}
+
+		&__corner {
+			&__rowTitle, &__columnTitle {
+				font-size: 13px;
+				text-align: right;
+			}
+
+			&__columnTitle {
+				text-align: left;
+			}
+		}
+
+
+		&__header {
+			background: rgba($nemo-color-main, 0.1);
+			font-weight: normal;
+
+			&_direct {
+				text-align: left;
+			}
+
+			&_originalDate {
+				background: rgba($nemo-color-main, 0.4);
+			}
+		}
+
+		&__cell {
+			text-align: center;
+			background: rgba($nemo-color-main, 0.05);
+			cursor: pointer;
+
+			&_empty, &_impossible {
+				background: transparent;
+				cursor: auto;
+			}
+
+			&_hilighted {
+				background: rgba($nemo-color-main, 0.05);
+			}
+
+			&__emptyText, &__impossibleText {
+				opacity: 0.5;
+			}
+
+			&__company {
+				color: $nemo-color-text-secondary;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				line-height: 17px;
+				max-height: 34px;
+			}
+
+			&__price {
+				font-size: 15px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+}

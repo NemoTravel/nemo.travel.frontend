@@ -368,10 +368,6 @@ adapt_flights_form_compact() {
 	adapt_flights_form_noOptsCaptions();
 }
 
-@media (max-width: 1250px) {
-
-}
-
 @media (max-width: 1220px) {
 	.nemo-flights-form {
 		&__formContainer__inner {
@@ -421,22 +417,32 @@ adapt_flights_form_compact() {
 }
 
 @media (max-width: 625px) {
-	.nemo-flights-form__route {
-		&_CR &__segment {
-			&__item {
-				&__date {
-					&__dummy {
-						padding-right: 10px;
-					}
+	.nemo-flights-form {
+		&__route {
+			&_CR &__segment {
+				&__item {
+					&__date {
+						&__dummy {
+							padding-right: 10px;
+						}
 
-					&__indicator {
-						display: none;
+						&__indicator {
+							display: none;
+						}
 					}
 				}
-			}
 
-			&__input_date {
-				padding-right: 10px;
+				&__input_date {
+					padding-right: 10px;
+				}
+			}
+		}
+
+		&__searchingInfo {
+			&__segments_RTLike &__segment {
+				display: block;
+				width: auto;
+				margin-bottom: 20px;
 			}
 		}
 	}

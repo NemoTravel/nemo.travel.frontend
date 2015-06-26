@@ -153,6 +153,56 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.automaticPopup = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					try {
+						$(element).popup("destroy");
+					}
+					catch (e) {}
+				});
+			},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var defaults = {
+						modal: true,
+						draggable: false,
+						closeText: bindingContext.$root.i18n('common', 'popup_closeText'),
+						width: 'auto',
+						height: 'auto',
+						title: '',
+						beforeOpen: null,
+						autoOpen: true,
+						close: function () {}
+					},
+					params = ko.utils.unwrapObservable(valueAccessor()),
+					$element = $(element);
+
+				if (typeof params == 'object') {
+					var popupParams = $.extend({},defaults,params),
+						$target = $element.children();
+
+					popupParams.contentType = 'html';
+
+					if (typeof popupParams.beforeOpen == 'function') {
+						popupParams.beforeOpen();
+					}
+
+					delete popupParams.beforeOpen;
+
+					try {
+						$element.popup("destroy");
+					}
+					catch (e) {}
+
+
+					setTimeout(function (){
+						popupParams.contentData = $target.show();
+						$element.popup(popupParams);
+					},1);
+				}
+			}
+		};
+
 		ko.bindingHandlers.popup = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var defaults = {
@@ -166,7 +216,7 @@ define(
 						title: '',
 						parentClass: 'js-nemoApp__component',
 						beforeOpen: null,
-						close: function () {console.log(this, arguments)}
+						close: function () {}
 					},
 					params = ko.utils.unwrapObservable(valueAccessor()),
 					$element = $(element);
