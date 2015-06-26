@@ -1,7 +1,7 @@
 .nemo-flights-results {
 	background: $c_content_bg;
 	padding: 10px 0 20px;
-	color: $c_ui_textMain;
+	color: $c_common_textColor;
 
 	&__loader {
 		max-width: 1540px;
@@ -29,16 +29,20 @@
 	&__formDummy {
 		max-width: 980px;
 		margin: 0 auto 10px;
-		color: $c_ui_textMain;
+		padding: 0 10px;
 
-		background: $nemo-color-LightPoint;
-		border-radius: 4px;
-		box-shadow: 0 0 7px rgba(0, 0, 0, 0.6) inset;
+		&__inner {
+			color: $c_common_textColor;
 
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: flex-start/*space-between*/;
-		align-items: stretch;
+			background: $nemo-color-LightPoint;
+			border-radius: 4px;
+			box-shadow: 0 0 7px rgba(0, 0, 0, 0.6) inset;
+
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start/*space-between*/;
+			align-items: stretch;
+		}
 
 		&__route, &__passengers {
 			font-size: 13px;
@@ -140,8 +144,8 @@
 
 		&__results {
 			padding: 20px;
-			flex-basis: 64%;
             border-radius: 8px;
+			flex-basis: 100%;
 
 			&__controls {
 				display: flex;
@@ -360,7 +364,7 @@
 
 				&__date {
 					font-size: 12px;
-					color: $c_ui_textMain;
+					color: $c_common_textColor;
 					opacity: 0.75;
 
 					&__dayOfWeek {
