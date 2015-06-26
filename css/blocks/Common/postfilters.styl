@@ -6,286 +6,291 @@ $t_postFilters_animationTime = .1s;
 
 .nemo-common {
 
-  &-postFilters {
-    position: relative;
-    opacity: .75;
-
-    &:hover {
-      transition: opacity .1s ease;
-      opacity: 1;
-    }
-    //background-color: #222;
-
-    &_stick {
-      position: fixed;
-      //left: 20px;
-      top: 0;
-      height: 100%;
-      width: 280px;
-      padding-right: 20px;
-      overflow: hidden;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      //background: #000;
-    }
-
-    &__notification {
-      margin: 0 0 15px 0;
-      display: block;
-      font-size: 12px;
-      line-height: 20px;
-      padding: 10px 50px 10px 20px;
-      background-color: $c_highlight_warning;
-      border-radius: 4px;
-
-      &__close {}
-    }
-
-    &__sort {}
-
-    &__clearAll {
-
-      &__button {
-        display: block;
-        width: 100%;
-        font-size: 14px;
-
-      }
-    }
-
-    &__filterList {
-      position: relative;
-      z-index: 1;
-
-      &__filter {
-
-        opacity: .85;
-        transition: opacity .4s ease-out;
-
-        &_slider {
-          background-color: $nemo-color-LightPoint;
-          padding: 10px 10px;
-        }
+    &-postFilters {
+        position: relative;
+        opacity: .75;
+        padding: 10px 0;
 
         &:hover {
-          opacity: 1;
-          transition: opacity $t_postFilters_animationTime ease-in;
+            transition: opacity .1s ease;
+            opacity: 1;
         }
+        //background-color: #222;
 
-        &__caption {
-          display: flex;
-          justify-content: space-between;
-          line-height: 20px;
-          margin: 20px 0 15px 0;
-          font-size: 15px;
-
-          &_inner {
-            margin-top: -10px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            opacity: .75;
-          }
-
-          &__name {
-            color: $c_postFilters_textColor;
-            font-weight: normal;
-            margin: 0;
-          }
-
-          &__clear {
-            font-size: 13px;
-            display: none;
-          }
-        }
-
-        &__partSelector {
-          border-radius: 4px;
-          overflow: hidden;
-          display: flex;
-          height: 40px;
-          line-height: 40px;
-          cursor: pointer;
-          margin: 0 0 20px 0;
-
-          &__part {
-            @extends .new-ui-button_common
-            box-shadow: none;
-            flex-basis: 0;
-            flex-grow: 1;
-            text-align: center;
-            position: relative;
-
-            &::before {
-              content: '';
-              border-left: 1px solid $c_postFilters_separatorColor;
-              height: 60%;
-              position: absolute;
-              left: 0;
-              top: 20%;
-            }
-
-            &:first-child {
-              border-left: none;
-
-              &:before {
-                display: none;
-              }
-            }
-
-            &_selected {
-              cursor: default;
-              background-color: $nemo-color-main;
-              background-image: none;
-              color: $nemo-color-LightPoint;
-
-              &:hover {
-                background-color: $nemo-color-main;
-                background-image: none;
-              }
-            }
-
-            &_hasChanges {
-
-              &::after {
-                content: '';
-                position: absolute;
-                top: 6px;
-                right: 6px;
-                width: 6px;
-                height: 6px;
-                border-radius: 3px;
-                background-color: $nemo-color-main;
-              }
-            }
-          }
-        }
-
-        &__valuesBlock {
-
-          &__values {
-            border-radius: 4px;
+        &_stick {
+            position: fixed;
+            //left: 20px;
+            top: 0;
+            height: 100%;
+            width: 280px;
+            padding-right: 20px;
             overflow: hidden;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            //background: #000;
+        }
 
-            &__value {
-              //@extends .new-ui-button_common
-              background-color: $nemo-color-LightPoint;
-              box-shadow: none;
-              padding: 0 10px 0 20px;
-              height: 40px;
-              line-height: 40px;
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              cursor: pointer;
-              transition: all $t_postFilters_animationTime ease-in;
+        &__notification {
+            margin: 0 0 15px 0;
+            display: block;
+            font-size: 12px;
+            line-height: 20px;
+            padding: 10px 50px 10px 20px;
+            background-color: $c_highlight_warning;
+            border-radius: 4px;
 
-              border-top: 1px $c_postFilters_separatorColor solid;
+            &__close {
+            }
+        }
 
-              &:first-of-type {
-                border-top: none;
-              }
+        &__sort {
+        }
 
-              &_noFlex {
+        &__clearAll {
+
+            &__button {
                 display: block;
-                height: auto;
-                padding: 0 20px 0 20px;
-              }
-
-              &:hover {
-                background: darken($nemo-color-LightPoint, 2);
-              }
-
-              &_disabled {
-                background-color: $c_postFilters_disabledBG;
-                background-image: none;
-                cursor: default;
-
-                &:hover {
-                  background-color: $c_postFilters_disabledBG;
-                  background-image: none;
-                }
-              }
-
-              &_checked {
-                background-color: $nemo-color-main;
-                background-image: none;
-                cursor: default;
-                color: $nemo-color-LightPoint;
-
-                &:hover {
-                  background-color: $nemo-color-main;
-                  background-image: none;
-                }
-              }
-
-              &__input {
-                width: 20px;
-                margin-right: 5px;
-                display: none;
-
-              }
-
-              &__name {
-                flex-grow: 50;
-                display: block;
-                width: 100px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin-right: 10px;
-                font-size: 80%;
-
-                &_noMatter {
-                  font-size: 95%;
-                }
-
-                &_small {
-                  font-size: 70%;
-                  //white-space: normal;
-                  //line-height: 15px;
-                }
-              }
-
-              &__price {
-                flex-grow: 1;
-                margin-right: 2px;
-                font-size: 70%;
-                //color: $c_common_textColor_secondary;
-              }
-
-              &__currency {
-                flex-grow: 1;
-                margin-right: 5px;
-                font-size: 65%;
-              }
-
-              &__quantity {
-                flex-grow: 1;
-                width: 22px;
-                height: 22px;
-                line-height: 22px;
-                background-color: $c_postFilters_quantityBG;
-                border-radius: 11px;
-                font-size: 60%;
-                opacity: .5;
-                text-align: center;
-                margin-left: 5px;
-              }
+                width: 100%;
+                font-size: 14px;
 
             }
-          }
-
-          &__sliderBlock {
-
-            &__selection {}
-
-            &__slider {}
-          }
         }
-      }
+
+        &__filterList {
+            position: relative;
+            z-index: 1;
+
+            &__filter {
+
+                opacity: .85;
+                transition: opacity .4s ease-out;
+
+                &_slider {
+                    background-color: $nemo-color-LightPoint;
+                    padding: 10px 10px;
+                }
+
+                &:hover {
+                    opacity: 1;
+                    transition: opacity $t_postFilters_animationTime ease-in;
+                }
+
+                &__caption {
+                    display: flex;
+                    justify-content: space-between;
+                    line-height: 20px;
+                    margin: 20px 0 15px 0;
+                    font-size: 15px;
+
+                    &_inner {
+                        margin-top: -10px;
+                        margin-bottom: 10px;
+                        font-size: 13px;
+                        opacity: .75;
+                    }
+
+                    &__name {
+                        color: $c_postFilters_textColor;
+                        font-weight: normal;
+                        margin: 0;
+                    }
+
+                    &__clear {
+                        font-size: 13px;
+                        display: none;
+                    }
+                }
+
+                &__partSelector {
+                    border-radius: 4px;
+                    overflow: hidden;
+                    display: flex;
+                    height: 40px;
+                    line-height: 40px;
+                    cursor: pointer;
+                    margin: 0 0 20px 0;
+
+                    &__part {
+                        @extends .new-ui-button_common
+                        box-shadow: none;
+                        flex-basis: 0;
+                        flex-grow: 1;
+                        text-align: center;
+                        position: relative;
+
+                        &::before {
+                            content: '';
+                            border-left: 1px solid $c_postFilters_separatorColor;
+                            height: 60%;
+                            position: absolute;
+                            left: 0;
+                            top: 20%;
+                        }
+
+                        &:first-child {
+                            border-left: none;
+
+                            &:before {
+                                display: none;
+                            }
+                        }
+
+                        &_selected {
+                            cursor: default;
+                            background-color: $nemo-color-main;
+                            background-image: none;
+                            color: $nemo-color-LightPoint;
+
+                            &:hover {
+                                background-color: $nemo-color-main;
+                                background-image: none;
+                            }
+                        }
+
+                        &_hasChanges {
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 6px;
+                                right: 6px;
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 3px;
+                                background-color: $nemo-color-main;
+                            }
+                        }
+                    }
+                }
+
+                &__valuesBlock {
+
+                    &__values {
+                        border-radius: 4px;
+                        overflow: hidden;
+
+                        &__value {
+                            //@extends .new-ui-button_common
+                            background-color: $nemo-color-LightPoint;
+                            box-shadow: none;
+                            padding: 0 10px 0 20px;
+                            height: 40px;
+                            line-height: 40px;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            cursor: pointer;
+                            transition: all $t_postFilters_animationTime ease-in;
+
+                            border-top: 1px $c_postFilters_separatorColor solid;
+
+                            &:first-of-type {
+                                border-top: none;
+                            }
+
+                            &_noFlex {
+                                display: block;
+                                height: auto;
+                                padding: 0 20px 0 20px;
+                            }
+
+                            &:hover {
+                                background: darken($nemo-color-LightPoint, 2);
+                            }
+
+                            &_disabled {
+                                background-color: $c_postFilters_disabledBG;
+                                background-image: none;
+                                cursor: default;
+
+                                &:hover {
+                                    background-color: $c_postFilters_disabledBG;
+                                    background-image: none;
+                                }
+                            }
+
+                            &_checked {
+                                background-color: $nemo-color-main;
+                                background-image: none;
+                                cursor: default;
+                                color: $nemo-color-LightPoint;
+
+                                &:hover {
+                                    background-color: $nemo-color-main;
+                                    background-image: none;
+                                }
+                            }
+
+                            &__input {
+                                width: 20px;
+                                margin-right: 5px;
+                                display: none;
+
+                            }
+
+                            &__name {
+                                flex-grow: 50;
+                                display: block;
+                                width: 100px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                margin-right: 10px;
+                                font-size: 80%;
+
+                                &_noMatter {
+                                    font-size: 95%;
+                                }
+
+                                &_small {
+                                    font-size: 70%;
+                                    //white-space: normal;
+                                    //line-height: 15px;
+                                }
+                            }
+
+                            &__price {
+                                flex-grow: 1;
+                                margin-right: 2px;
+                                font-size: 70%;
+                                //color: $c_common_textColor_secondary;
+                            }
+
+                            &__currency {
+                                flex-grow: 1;
+                                margin-right: 5px;
+                                font-size: 65%;
+                            }
+
+                            &__quantity {
+                                flex-grow: 1;
+                                width: 22px;
+                                height: 22px;
+                                line-height: 22px;
+                                background-color: $c_postFilters_quantityBG;
+                                border-radius: 11px;
+                                font-size: 60%;
+                                opacity: .5;
+                                text-align: center;
+                                margin-left: 5px;
+                            }
+
+                        }
+                    }
+
+                    &__sliderBlock {
+
+                        &__selection {
+                        }
+
+                        &__slider {
+                        }
+                    }
+                }
+            }
+
+        }
 
     }
-
-  }
 }
