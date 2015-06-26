@@ -1,0 +1,37 @@
+@media (max-width: 1220px) {
+	.nemo-flights-results__content__offers {
+		display: none;
+	}
+}
+
+@media (max-width: 940px) {
+	.nemo-flights-results__content__postfilters {
+		padding: $d_ui_subContainer_padding;
+		border-radius: $d_ui_subContainer_borderradius;
+		box-shadow: $i_ui_subContainer_outershadow;
+		background-color: $c_ui_subContainer_bg;
+
+		position: absolute;
+		top: 0;
+		/*flex-basis: auto;*/
+		/*flex-grow: 1;*/
+		width: 380px;
+		opacity: 1;
+
+		.nemo-common-sticker__inner {
+			left: 20px;
+			right: 5px;
+			width: auto;
+		}
+	}
+
+	.nemo-common-postFilters {
+		&__filterList__filter {
+			border: 1px solid #E5E5E5;
+
+			&__caption__name {
+				color: $c_common_textColor;
+			}
+		}
+	}
+}
