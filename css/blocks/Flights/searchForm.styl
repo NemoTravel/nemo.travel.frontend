@@ -3,6 +3,8 @@ $i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0.4);
 $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 .nemo-flights-form {
+	position: relative;
+
 	&, & input {
 		font: 14px "Open Sans", sans-serif;
 	}
@@ -10,13 +12,6 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 	// Setting initial box-sizing and fonts
 	&, & * {
 		box-sizing: border-box;
-	}
-
-	// Invisibility class
-	.i-invisible {
-		left: -9999px;
-		position: absolute;
-		visibility: hidden;
 	}
 
 	&__loader {
@@ -28,6 +23,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 		width: 100%;
 
 		&__inner {
+			width: 1260px;
 			max-width: 1260px;
 			margin: 0 auto;
 			padding: 20px 30px;
@@ -586,4 +582,111 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 			height: 30px;
 		}
 	}
+
+	&__searchingInfoPopup {
+		&__content {
+			padding: 0;
+		}
+
+		&__header {
+			padding-left: 55px;
+
+			&:after {
+				content: '';
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background: url('images/fsf-sprite.svg') -40px -70px no-repeat;
+				top: 50%;
+				left: 20px;
+				margin-top: -10px;
+				animation: nemo-flights-form__searchingInfoPopup__headerAnimation 1s infinite;
+			}
+		}
+	}
+
+	&__searchingInfo {
+		width: 80vw;
+		max-width: 700px;
+		color: $c_ui_textMain;
+		font-size: 13px;
+		line-height: 20px;
+		padding: 5px 20px 20px;
+
+		&__subHeader {
+			margin-bottom: 10px;
+		}
+
+		&__segment {
+			margin-bottom: 20px;
+			padding: 0 10px;
+
+			&__inner {
+				background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f2f2f2, #e5e5e5) repeat scroll 0 0;
+				border-radius: 4px;
+				padding: 10px 20px 10px 55px;
+				position: relative;
+				line-height: 20px;
+
+				&:before {
+					content: '';
+					position: absolute;
+					width: 20px;
+					height: 20px;
+					left: 20px;
+					top: 50%;
+					margin-top: -10px;
+					background: transparent url('images/fsf-sprite.svg') -40px 0px no-repeat;
+				}
+
+				&:nth-child(2n):before {
+					background-position: -40px -30px;
+				}
+			}
+
+			&:last-child {
+				margin: 0;
+			}
+
+			&:nth-child(2n) &__inner:before {
+				background-position: -40px -30px;
+			}
+
+			&__date {
+				font-size: 12px;
+				color: $c_ui_textSecondary;
+			}
+
+			&__route {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+
+				&__departure {
+					&:after {
+						content: '';
+						display: inline-block;
+						height: 10px;
+						width: 20px;
+						background: url('images/fsf-sprite.svg') -32px -54px no-repeat;
+					}
+				}
+			}
+		}
+
+		&__segments {
+			margin: 0 -10px;
+		}
+
+		&__segments_RTLike &__segment {
+			display: inline-block;
+			width: 50%;
+			margin-bottom: 0;
+		}
+	}
+}
+
+@keyframes nemo-flights-form__searchingInfoPopup__headerAnimation {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
 }

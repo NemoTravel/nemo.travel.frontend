@@ -19,6 +19,7 @@ define(
 
 					return current;
 				};
+
 			this.name = 'FlightsSearchResultsController';
 
 			this.postfiltersData = {
@@ -506,6 +507,34 @@ define(
 				this.sort(this.options.defaultSort);
 
 				this.setShowcase();
+
+				// FIXME remove dummy data
+				this.matrixData = [];
+				var days = 3,
+					c = 0;
+
+				for (var i = -days; i <= days; i++) {
+					var tmp = [];
+
+					for (var j = -days; j <= days; j++) {
+						var tmp2 = this.flights[Object.keys(this.flights)[c++]],
+							tmp3 = {
+								date: this.$$controller.getModel('Common/Date', '2015-09-' + (15 + i)),
+								returndate: this.$$controller.getModel('Common/Date', '2015-09-' + (18 + j)),
+								price: null,//c == 12 ? null : tmp2.getTotalPrice(),
+								company: null//tmp2.getValidatingCompany()
+							};
+
+						if (tmp3.date.getTimestamp() <= tmp3.returndate.getTimestamp() && c % 5 && c > 7) {
+							tmp3.price = tmp2.getTotalPrice();
+							tmp3.company = tmp2.getValidatingCompany();
+						}
+
+						tmp.push(tmp3);
+					}
+
+					this.matrixData.push(tmp);
+				}
 			}
 		};
 

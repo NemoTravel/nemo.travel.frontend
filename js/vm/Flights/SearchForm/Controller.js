@@ -238,10 +238,6 @@ define(
 
 							prevDate = segments[i].items.departureDate.value().dateObject();
 						}
-						// @CRUTCH - ignore missing date of second leg on RT
-						else if (i == 1 && this.tripType() == 'RT') {
-							segments[i].items.departureDate.error(null);
-						}
 
 						for (var j in segments[i].items) {
 							if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].error()) {
@@ -569,9 +565,12 @@ define(
 
 		FlightsSearchFormController.prototype.startSearch = function () {
 			function searchError (message, systemData) {
-				if (systemData[0] !== 0) {
-					self.searchError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
+				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
 					self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				}
+
+				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
+					self.searchError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
 				}
 
 				self.isSearching(false);
@@ -610,6 +609,12 @@ define(
 					this.segments(tmp);
 				}
 			}
+			// @CRUTCH RT with no second segment's date set -> OW
+			else if (this.tripType() == 'RT' && !this.segments()[1].items.departureDate.value()) {
+				this.tripType('OW');
+			}
+
+			this.searchError(false);
 
 			if (!this.isValid()) {
 				this.validaTERROR(true);
@@ -622,7 +627,7 @@ define(
 						passengers: [],
 						parameters: {
 							direct: this.directFlights(),
-							aroundDates: this.vicinityDates() ? 3 : 0,
+							aroundDates: this.vicinityDates() ? this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1] : 0,
 							serviceClass: this.serviceClass(),
 							airlines: []
 						}
@@ -646,11 +651,6 @@ define(
 					});
 				}
 
-				// @CRUTCH - ignore missing date of second leg on RT - send as CR
-				if (this.tripType() == 'RT' && !params.segments[1].departureDate) {
-					params.segments.pop();
-				}
-
 				for (var i in passengers) {
 					if (passengers.hasOwnProperty(i)) {
 						params.passengers.push({
@@ -662,6 +662,8 @@ define(
 
 				this.$$controller.log('STARTING SEARCH');
 				this.isSearching(true);
+
+				self.searchError(false);
 
 				this.searchRequest(
 					this.$$controller.loadData(
@@ -675,13 +677,20 @@ define(
 
 								// Checking for errors
 								if (!response.system || !response.system.error) {
-									self.$$controller.navigate('results/' + response.flights.search.request.id);
+									// Empty results check
+									if (response.flights.search.results && response.flights.search.results.flightGroups.length > 0) {
+										self.$$controller.navigate('results/' + response.flights.search.request.id);
+									}
+									else {
+										searchError('emptyResult');
+									}
 								}
 								else {
 									searchError('systemError', response.system.error);
 								}
 							}
 							catch (e) {
+								console.log(e);
 								searchError('brokenJSON', text);
 							}
 						},

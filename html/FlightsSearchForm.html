@@ -1,10 +1,6 @@
 <!-- nemo-flights-form_compact || nemo-flights-form_twoThirds -->
 <div class="nemo-flights-form js-autofocus-form js-nemoApp__component"> <!-- MODIFIERS: nemo-flights-form_compact || nemo-flights-form_twoThirds -->
 <!-- ko if: !$$loading() && !$$error() -->
-	<!-- ko if: isSearching -->
-
-	<!-- /ko -->
-
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons" data-bind="foreach: tripTypes"><!--
 		--><div
 			class="new-ui-button new-ui-button_secondary nemo-flights-form__routeTypeSelector__button"
@@ -246,7 +242,7 @@
 							"></select>
 						</div>
 					</div><!--
-						ko if: tripType() != 'CR'
+						ko if: tripType() != 'CR' && options.dateOptions.aroundDatesValues.length > 1
 					--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_multiDate">
 						<label class="new-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
 							<input class="new-ui-checkbox__input" type="checkbox" data-bind="checked: vicinityDates">
@@ -296,6 +292,47 @@
 		<!-- /ko -->
 	</div>
 
+	<!-- ko if: isSearching () -->
+		<div data-bind="
+			automaticPopup: {
+				title: 'Идет поиск',
+				close: function () {abortSearch()},
+				closeOnOverlayClick: false,
+				dialogClass: 'nemo-flights-form__searchingInfoPopup',
+				contentClass: 'nemo-flights-form__searchingInfoPopup__content',
+				headerClass: 'ui-dialog-titlebar_progress nemo-flights-form__searchingInfoPopup__header'
+			}
+		">
+			<div class="nemo-flights-form__searchingInfo nemo-flights-form__searchingInfoPopup" style="display: none;">
+				<div class="nemo-flights-form__searchingInfo__header">
+					Пожалуйста, подождите
+				</div>
+				<div class="nemo-flights-form__searchingInfo__subHeader">
+					Мы ищем
+					<!-- ko text: $root.i18n('FlightsSearchForm', 'searchingInfo__flightType_' + tripType()) --><!-- /ko -->
+					<!-- ko text: $root.i18n('FlightsSearchForm', 'searchingInfo__class_' + serviceClass()) --><!-- /ko -->
+					по маршруту
+				</div>
+				<div class="nemo-flights-form__searchingInfo__segments" data-bind="css: {'nemo-flights-form__searchingInfo__segments_RTLike': segments().length == 2}, foreach: segments"><!--
+					--><div class="nemo-flights-form__searchingInfo__segment">
+						<div class="nemo-flights-form__searchingInfo__segment__inner">
+							<div class="nemo-flights-form__searchingInfo__segment__date" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() + ' ' + items.departureDate.value().getMonthName() + ', ' + items.departureDate.value().getDOWName() : ''"></div>
+							<div class="nemo-flights-form__searchingInfo__segment__route">
+								<span class="nemo-flights-form__searchingInfo__segment__route__departure" data-bind="text: items.departure.value() ? items.departure.value().city.name : ''"></span>
+								<span class="nemo-flights-form__searchingInfo__segment__route__arrival" data-bind="text: items.arrival.value() ? items.arrival.value().city.name : ''"></span>
+							</div>
+						</div>
+					</div><!--
+				--></div>
+			</div>
+		</div>
+	<!-- /ko -->
+
+	<!-- ko if: searchError -->
+		<div data-bind="automaticPopup: {title: 'Ошибка', close: function () {searchError(false);}}">
+			<div data-bind="text: searchError" style="display: none;"></div>
+		</div>
+	<!-- /ko -->
 <!-- /ko -->
 
 <!-- ko if: $$error() -->

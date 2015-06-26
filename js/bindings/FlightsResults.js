@@ -393,6 +393,43 @@ define(
             }
         };
 
+		ko.bindingHandlers.flightsResultsMatrixHilighter = {
+			init: function (element) {
+				var $matrix = $(element);
 
+				function hilightCells (event) {
+					var $this = $(event.target),
+						$targets = $matrix.find('.js-flights-results__matrix__row__cell_target').removeClass('nemo-flights-results__matrix__table__cell_hilighted'),
+						posX, posY, $rows, $row;
+
+					if (
+						event.type == 'mouseenter' &&
+						$this.hasClass('js-flights-results__matrix__row__cell_target')
+					) {
+						// Defining position
+						// X poxition
+						$row = $this.parents('.js-flights-results__matrix__row');
+
+						posX = $row.find('.js-flights-results__matrix__row__cell_target').index($this);
+
+						$rows = $matrix.find('.js-flights-results__matrix__row');
+
+						posY = $rows.index($row);
+
+						$rows.each(function (i) {
+							var $row = $(this);
+
+							if (i <= posY) {
+								$row.find('.js-flights-results__matrix__row__cell_target:' + ($row.is($row[0]) ? 'lt(' + (posX + 1) + ')' : 'eq(' + posX + ')')).addClass('nemo-flights-results__matrix__table__cell_hilighted');
+							}
+						});
+					}
+				}
+
+				$matrix
+					.on('mouseleave', hilightCells)
+					.on('mouseenter', '.js-flights-results__matrix__row__cell', hilightCells);
+			}
+		};
 	}
 );
