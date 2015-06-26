@@ -1,4 +1,4 @@
-$c_corporate_blue = #64B5F6;
+$nemo-color-main = #64B5F6;
 
 $c_content_bg = #63636C;
 
@@ -6,3 +6,67 @@ $c_highlight_warning = #ffd321;
 
 $c_common_textColor = rgba(65, 64, 66, 1);
 $c_common_textColor_secondary = rgba(99, 100, 103, 1);
+
+
+//-------------------------------
+//-------- Colors table ---------
+//-------------------------------
+
+// Main interface colors
+
+$nemo-color-LightPoint                = rgba(255, 255, 255, 1);
+$nemo-color-MiddlePoint               = rgba(100, 100, 110, 1);
+$nemo-color-DarkPoint                 = rgba(10, 10, 10, 1);
+
+$nemo-color-main                      = rgba(100, 181, 246, 1);
+$nemo-color-secondary                 = rgba(123, 178, 54, 1);
+$nemo-color-secondary-2               = rgba(225, 225, 225, 1);
+
+$nemo-color-notification_error        = rgba(255, 211, 33, 1);
+$nemo-color-notification_neutral      = $nemo-color-main;
+$nemo-color-notification_good         = $nemo-color-secondary;
+
+$nemo-color-highlight                 = $nemo-color-notification_error;
+
+
+// Buttons
+$nemo-color-button-main          = $nemo-color-secondary;
+$nemo-color-button-secondary     = $nemo-color-secondary-2;
+$nemo-color-button-secondary_g1  = alpha($nemo-color-button-secondary, .25);
+$nemo-color-button-secondary_g2  = darken($nemo-color-button-secondary, 5);
+
+  // Button states
+  $nemo-color-button-main_disabled       = darken($nemo-color-secondary-2, 10);
+  $nemo-color-button-secondary_checked   = $nemo-color-main;
+  $nemo-color-button-secondary_disabled  = $nemo-color-button-main_disabled;
+  $nemo-color-button-highlight           = $nemo-color-highlight;
+
+  // Button Text
+  $nemo-color-button-text           = $nemo-color-LightPoint;
+  $nemo-color-button-text-alt       = alpha($nemo-color-DarkPoint, .75);
+
+// Containers
+$nemo-color-container-main                = $nemo-color-LightPoint;
+$nemo-color-container-flat                = lighten($nemo-color-secondary-2, 10);
+$nemo-color-container-vivid               = $nemo-color-main;
+$nemo-color-container-vivid_secondary     = alpha($nemo-color-main, .75);
+$nemo-color-container-vivid_secondary_alt = alpha($nemo-color-LightPoint, .25);
+
+  // Containers Additional
+  $nemo-color-container-shadow       = alpha($nemo-color-DarkPoint, .25);
+  $nemo-color-container-shadow       = alpha($nemo-color-DarkPoint, .25);
+
+// Text
+$nemo-color-text-main           = $nemo-color-DarkPoint;
+$nemo-color-text-secondary      = alpha($nemo-color-MiddlePoint, .75);
+$nemo-color-text-placeholder    = alpha($nemo-color-MiddlePoint, .5);
+$nemo-color-text-disabled       = alpha($nemo-color-MiddlePoint, .4);
+
+// Link
+$nemo-color-link            = $nemo-color-main;
+$nemo-color-alternate       = $nemo-color-LightPoint;
+
+// Input
+$nemo-color-input-BG              = $nemo-color-LightPoint;
+$nemo-color-input-border          = $nemo-color-secondary-2;
+$nemo-color-input-border_focus    = $nemo-color-main;

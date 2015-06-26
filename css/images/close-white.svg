@@ -4,7 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
 <g>
-	<circle fill="#FFFFFF" cx="10" cy="10" r="10"/>
+	<circle fill="#ffffff" cx="10" cy="10" r="10"/>
 	<g>
 		<rect x="5.1" y="9.3" transform="matrix(0.7071 0.7071 -0.7071 0.7071 10 -4.1421)" fill="#636568" width="9.9" height="1.4"/>
 		<rect x="5.1" y="9.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -4.1421 10)" fill="#636568" width="9.9" height="1.4"/>

@@ -9,7 +9,7 @@
 <div class="nemo-flights-results js-nemoApp__component">
 	<!-- ko if: !$$loading() && !$$error() -->
 		<!-- Form dummy -->
-		<section class="nemo-flights-results__formDummy"  data-bind="attr: {style: formActive() ? 'display: none;' : ''}">
+		<section class="nemo-flights-results__formDummy"  data-bind=" attr: {style: formActive() ? 'display: none;' : ''}">
 			<div
 				data-bind="
 					foreach: searchInfo.segments,
@@ -77,7 +77,7 @@
 				 data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
 		</div>
 	<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
-		<div class="nemo-flights-results__compareTable__wrapper"
+		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
 			 data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
 			<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
 				 data-bind="foreach: flightsCompareTableTransfer().groups">
@@ -231,7 +231,7 @@
 			   visible:$data.flagToShowMore()"></a>
 			</div>
 		</div>
-		<div class="nemo-flights-results__compareTable__wrapper"
+		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
 		 data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
 		<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
 			 data-bind="foreach: flightsCompareTableDirect().groups">
@@ -391,7 +391,7 @@
 	</section>
 	<section class="nemo-flights-results__content">
 
-        <aside data-bind="customScroll, sticky" class="nemo-flights-results__content__postfilters">
+        <aside data-bind="customScroll, flightsResultsContainerSticky" class="nemo-flights-results__content__postfilters nemo-common-postFilters">
             <!--FILTERES-->
 
             <div class="nemo-common-postFilters__notification">
@@ -401,7 +401,7 @@
 
             <div class="nemo-common-postFilters__clearAll">
                 <!-- ko if: postFiltersHaveValue() -->
-                <div data-bind="click: PFClearAll" class="new-ui-button new-ui-button_secondary nemo-common-postFilters__clearAll__button">Сбросить все фильтры</div>
+                <div data-bind="click: PFClearAll" class="new-ui-button new-ui-button_common nemo-common-postFilters__clearAll__button">Сбросить все фильтры</div>
                 <!-- /ko -->
             </div>
 
@@ -611,7 +611,7 @@
                             click: clear
                ">
 
-            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name">Все равно</span>
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name_noMatter">Все равно</span>
 
         </label>
 

@@ -1,12 +1,12 @@
 $i_flights_form_segment_input_bsh = inset 0 0 5px rgba(#000, 0.2);
 $i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0.4);
-$i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
+$i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint, 0.4);
 
 .nemo-flights-form {
 	position: relative;
 
 	&, & input {
-		font: 14px "Open Sans", sans-serif;
+		font: 13px "Open Sans", sans-serif;
 	}
 
 	// Setting initial box-sizing and fonts
@@ -31,14 +31,14 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 	}
 
 	&__formContainer{
-		background: $c_corporate_blue;
-		color: #fff;
+		background: $nemo-color-container-vivid;
+		color: $nemo-color-LightPoint;
 		position: relative;
 
 		&__inner {
 			display: table;
 			padding-bottom: 0;
-			max-width: 1260px;
+			max-width: 1280px;
 		}
 	}
 
@@ -151,7 +151,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 						z-index: 1;
 						opacity: 0.75;
 						border-radius: 2px;
-						border: 2px solid $c_corporate_blue;
+						border: 2px solid $nemo-color-main;
 						font-size: 14px;
 						background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjc1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjkyIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iI2UzZTVlNyIgc3RvcC1vcGFjaXR5PSIwLjkyIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iI2UzZTVlNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=');
 						background: linear-gradient(to bottom, rgba(255,255,255,0.75) 0%,rgba(255,255,255,0.92) 50%,rgba(227,229,231,0.92) 51%,rgba(227,229,231,1) 75%);
@@ -164,7 +164,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 							right: 0;
 							height: 2px;
 							margin-top: -1px;
-							background: $c_corporate_blue;
+							background: $nemo-color-main;
 						}
 					}
 				}
@@ -172,7 +172,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				&__dummy {
 					text-indent: 9px;
 					line-height: 32px;
-					background: #ffffff;
+					background: $nemo-color-LightPoint;
 				}
 
 				&__inputContainer {
@@ -183,7 +183,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 		&__switchToRT {
 			line-height: 40px;
-			background: rgba(#fff, .25);
+			background: rgba($nemo-color-LightPoint, .25);
 			border-radius: 2px;
 			padding: 0 35px;
 			text-align: center;
@@ -205,7 +205,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 			width: 20px;
 			height: 20px;
 			border-radius: 50%;
-			background: #fff url("images/fsf-sprite.svg") 6px -54px no-repeat;
+			background: $nemo-color-LightPoint url("images/fsf-sprite.svg") 6px -54px no-repeat;
 			cursor: pointer;
 			transition: all 0.2s;
 			opacity: 0.5;
@@ -218,7 +218,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 		&__continueCR {
 			line-height: 40px;
-			background: rgba(#fff, .25);
+			background: rgba($nemo-color-LightPoint, .25);
 			border-radius: 2px;
 			cursor: pointer;
 			transition: all 0.2s;
@@ -271,7 +271,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				content: '';
 				position: absolute;
 				z-index: 0;
-				background: rgba(#fff, .25);
+				background: $nemo-color-container-vivid_secondary_alt;
 
 				left: 0;
 				right: 0;
@@ -323,9 +323,9 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				}
 
 				&__dropdown {
-					background: #fff;
+					background: $nemo-color-LightPoint;
 					border-radius: 4px;
-					box-shadow: 0px 1px 4px rgba(#000,.25);
+					box-shadow: 0 1px 4px rgba(#000,.25);
 					overflow: hidden;
 
 					position: absolute;
@@ -348,7 +348,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 						}
 
 						&:hover {
-							background: rgba($c_corporate_blue, 0.25);
+							background: rgba($nemo-color-main, 0.25);
 						}
 					}
 				}
@@ -359,12 +359,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 
 				&__caption {
 					font-size: 14px;
-					color: #fff;
+					color: $nemo-color-LightPoint;
 					transition: all 0.2s;
 				}
 
 				&:hover &__caption {
-					color: darken(#fff, 5%);
+					color: darken($nemo-color-LightPoint, 5%);
 				}
 			}
 		}
@@ -393,7 +393,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 			line-height: 40px;
 			font-size: 13px;
 			color: $c_ui_textMain;
-			background: #fff ;
+			background: $nemo-color-LightPoint ;
 			padding: 0 40px 0 10px;
 			box-shadow: $i_flights_form_segment_input_bsh;
 			border-radius: 2px;
@@ -482,11 +482,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				}
 
 				&_active {
-					color: #fff;
+					color: $nemo-color-LightPoint;
 					background: #52A2CC;
 
 					&:hover {
-						color: #fff;
+						color: $nemo-color-LightPoint;
 						background: rgba(#52A2CC, 0.75);
 					}
 				}
@@ -532,7 +532,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				width: 1px;
 				background: #BDBDBD;
 				top: 8px;
-				right: 0px;
+				right: 0;
 			}
 
 			&:last-child {
@@ -554,8 +554,8 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 			/*}*/
 
 			&_active {
-				background: $c_corporate_blue;
-				color: #fff;
+				background: $nemo-color-main;
+				color: $nemo-color-LightPoint;
 				margin-left: -1px;
 				box-shadow: inset 0 0 5px rgba(#000, 0.2);
 
@@ -564,7 +564,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba(#fff, 0.4);
 				}
 
 				&:hover {
-					background: lighten($c_corporate_blue, 10%);
+					background: lighten($nemo-color-main, 10%);
 				}
 			}
 		}

@@ -1,24 +1,24 @@
 // COLORS
-$c_ui_link_text                     = #0c91d7;
+$c_ui_link_text                     = $nemo-color-main;
 $c_ui_link_changeable_text          = inherit;
-$c_ui_link_border                   = $c_ui_link_text;
-$c_ui_link_blue_text				= #6FABCB;
-$c_ui_link_blue_border 				= #6FABCB;
+$c_ui_link_border                   = alpha($nemo-color-main, .5);
+$c_ui_link_blue_text				= $c_ui_link_text;
+$c_ui_link_blue_border 				= $c_ui_link_border;
 
 $c_ui_link_grey_text				= #636467;
 
-$c_ui_link_hover_text               = #32B4F0;
+$c_ui_link_hover_text               = darken($c_ui_link_text, 10);
 $c_ui_link_changeable_hover_text    = inherit;
-$c_ui_link_hover_border             = #32B4F0;
+$c_ui_link_hover_border             = darken($c_ui_link_border, 10);
 
 $i_ui_link_bBorder                  = 1px solid $c_ui_link_border;
 $i_ui_link_bBorder_hover            = 1px solid $c_ui_link_hover_border;
 
 $c_ui_pseudoLink_text               = $c_ui_link_text;
-$c_ui_pseudoLink_border             = $c_ui_pseudoLink_text;
+$c_ui_pseudoLink_border             = $c_ui_link_border;
 
-$c_ui_pseudoLink_hover_text         = #32b4f0;
-$c_ui_pseudoLink_hover_border       = $c_ui_pseudoLink_hover_text;
+$c_ui_pseudoLink_hover_text         = darken($c_ui_link_border, 10);
+$c_ui_pseudoLink_hover_border       = darken($c_ui_link_border, 10);
 
 $c_ui_full_width_text				= #FEFEFE;
 $fz_ui_full_width_text				= 13px;

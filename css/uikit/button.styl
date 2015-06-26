@@ -8,10 +8,10 @@
  */
 
 // COLORS
-$c_ui_button						= #66A912;
-$c_ui_button_hover					= lighten($c_ui_button, 10);
+$c_ui_button						= $nemo-color-button-main;
+$c_ui_button_hover					= lighten($c_ui_button, 5);
 
-$c_ui_button_disabled               = #BFBFBF;
+$c_ui_button_disabled               = $nemo-color-button-secondary_disabled;
 
 $c_ui_button_danger_top             = #B23E13;
 $c_ui_button_danger_bottom          = #7F2C0D;
@@ -22,23 +22,25 @@ $c_ui_button_danger_hover_bottom    = lighten($c_ui_button_danger_bottom, 10);
 $c_ui_button_danger_pressed_top     = darken($c_ui_button_danger_top, 10);
 $c_ui_button_danger_pressed_bottom  = darken($c_ui_button_danger_bottom, 10);
 
-$c_ui_button_sec_top                = #E5E5E5;
-$c_ui_button_sec_bottom             = #CCCCCC;
+$c_ui_button_sec_top                = $nemo-color-button-secondary_g1;
+$c_ui_button_sec_bottom             = $nemo-color-button-secondary_g2;
 
-$c_ui_button_common_text			= #636467;
+$c_ui_button_common_text			= $nemo-color-button-text-alt;
 
-$c_ui_button_common_top				= #E5E5E5;
-$c_ui_button_common_bottom			= #CCCCCC;
+$c_ui_button_common                 = $nemo-color-button-secondary;
+
+$c_ui_button_common_top				= $nemo-color-button-secondary_g1;
+$c_ui_button_common_bottom			= $nemo-color-button-secondary_g2;
 
 $c_ui_button_common_hover_top		= lighten($c_ui_button_common_top, 5);
 $c_ui_button_common_hover_bottom	= lighten($c_ui_button_common_bottom, 5);
 
-$c_ui_button_common_focus			= #64B5F6;
-$c_ui_button_common_focus_text		= #fff;
+$c_ui_button_common_focus			= $nemo-color-highlight;
+$c_ui_button_common_focus_text		= $nemo-color-button-text-alt;
 
-$c_ui_button_blue					= #63B4F5;
+$c_ui_button_blue					= $nemo-color-container-vivid;
 
-$c_ui_button_blue_text				= #fff;
+$c_ui_button_blue_text				= $nemo-color-button-text-alt;
 
 $c_ui_button_sec_hover_top          = lighten($c_ui_button_sec_top, 5);
 $c_ui_button_sec_hover_bottom       = lighten($c_ui_button_sec_bottom, 5);
@@ -46,7 +48,7 @@ $c_ui_button_sec_hover_bottom       = lighten($c_ui_button_sec_bottom, 5);
 $c_ui_button_sec_pressed_top        = darken($c_ui_button_sec_top, 5);
 $c_ui_button_sec_pressed_bottom     = darken($c_ui_button_sec_bottom, 5);
 
-$c_ui_button_direction_arrow        = #2988BD;
+$c_ui_button_direction_arrow        = $nemo-color-main;
 
 // DIMENSIONS
 $d_ui_button_minwidth               = 100px;
@@ -54,8 +56,6 @@ $d_ui_button_height                 = 35px;
 $d_ui_button_padding                = 0px 18px;
 $d_ui_button_borderradius           = 4px;
 $d_ui_button_border                 = 0;
-
-$d_ui_button_second_minwidth 		= 90px;
 
 $d_ui_button_small_minwidth         = 66px;
 $d_ui_button_small_height           = 24px;
@@ -73,21 +73,21 @@ $d_ui_button_transparent_minWidth   = 20px;
 $d_ui_button_transparent_padding    = 0 10px;
 $d_ui_button_transparent_height     = 30px;
 
-$d_ui_button_common_height			= 40px;
+$d_ui_button_common_height			= 30px;
 $d_ui_button_common_padding			= 0 10px;
-$d_ui_button_common_minWidth		= 30px;
+$d_ui_button_common_minWidth		= 20px;
 
-$d_ui_button_blue_height			= 40px;
-$d_ui_button_blue_padding			= 0 20px;
+$d_ui_button_blue_height			= 30px;
+$d_ui_button_blue_padding			= 0 10px;
 
 // FONT
 $f_ui_button_size       			= 18px;
-$f_ui_button_color      			= #fff;
-$f_ui_button_sec_color  			= #404040;
+$f_ui_button_color      			= $nemo-color-button-text;
+$f_ui_button_sec_color  			= $nemo-color-button-text-alt;
 $f_ui_button_shadow     			= 0px 1px 0px rgba(0,0,0,0.5);
 $f_ui_button_lineheight 			= $d_ui_button_height - 2*$d_ui_button_border;
 
-$f_ui_button_small_size       		= 14px;
+$f_ui_button_small_size       		= 13px;
 $f_ui_button_small_lineheight 		= $d_ui_button_small_height - 2*$d_ui_button_border;
 
 $fz_ui_button_common				= 15px;
@@ -99,16 +99,12 @@ $f_ui_button_medium_lineheight 		= $d_ui_button_medium_height - 2*$d_ui_button_b
 $f_ui_button_main_size       		= 20px;
 $f_ui_button_main_lineheight 		= $d_ui_button_main_height - 2*$d_ui_button_border;
 
-$f_ui_button_second_size      		= 15px;
-$f_ui_button_second_size_lineheight = $d_ui_button_main_height - 2*$d_ui_button_border;
-
 $fz_ui_button_blue					= 15px;
 $lh_ui_button_blue					= $d_ui_button_blue_height;
 
 // VALUES
 $i_ui_button_border = none;
-$i_ui_button_innershadow         = inset 0 0 5px rgba(0,0,0,.1);
-$i_ui_button_focused_outershadow = 0 0 5px rgba(255,145,26,1);
+$i_ui_button_focused_outershadow    = 0 0 8px darken($nemo-color-highlight, 10);
 
 $i_ui_button_sec_innershadow = 0 0 5px rgba(0,0,0,.1);
 $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
@@ -131,6 +127,56 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	outline: none;
 	user-select: none;
 
+    transition: all .15s ease-in;
+
+    // States
+    &:link {
+      color: $f_ui_button_color;
+    }
+
+    &:visited {
+      color: $f_ui_button_color;
+    }
+
+    &:hover {
+      background: $c_ui_button_hover;
+    }
+
+    &:active {
+      padding-top: 1px;
+    }
+
+    &:focus {
+      background: $c_ui_button;
+      box-shadow: $i_ui_button_focused_outershadow;
+      /*text-shadow: $f_ui_button_shadow;*/
+
+      &:hover {
+        background: $c_ui_button_hover;
+      }
+    }
+
+    &_common{
+      height: $d_ui_button_common_height;
+      line-height: $lh_ui_button_common;
+      font-size: $fz_ui_button_common;
+
+      background-color: $c_ui_button_common;
+      background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+      color: $c_ui_button_common_text;
+
+
+      &:hover{
+        background-color: lighten($c_ui_button_common, 5);
+        background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+      }
+
+      &:focus, &:focus:hover{
+        background-color: lighten($c_ui_button_common, 5);
+        background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+      }
+    }
+
 	// Dimensions
 	min-width: $d_ui_button_minwidth;
 	height: $d_ui_button_height;
@@ -147,34 +193,6 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 
 	// Background
 	background: $c_ui_button;
-
-	// States
-	&:link {
-		color: $f_ui_button_color;
-	}
-
-	&:visited {
-		color: $f_ui_button_color;
-	}
-
-	&:hover {
-		background: $c_ui_button_hover;
-	}
-
-	&:active {
-		padding-top: 1px;
-		box-shadow: $i_ui_button_innershadow;
-	}
-
-	&:focus {
-		background: $c_ui_button;
-		box-shadow: $i_ui_button_innershadow, $i_ui_button_focused_outershadow;
-		/*text-shadow: $f_ui_button_shadow;*/
-
-		&:hover {
-			background: $c_ui_button_hover;
-		}
-	}
 
 	// Common state + modifier (sent to the end because it has the highest priority)
 	&:disabled,
@@ -232,25 +250,6 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 		// Text
 		font-size: $f_ui_button_main_size;
 		line-height: $f_ui_button_main_lineheight;
-	}
-	
-	&_common{
-		height: $d_ui_button_common_height;
-		line-height: $lh_ui_button_common;
-		font-size: $fz_ui_button_common;
-		background: $c_ui_button_common_top;
-		background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-		box-shadow: $i_ui_button_sec_outershadow, $i_ui_button_sec_innershadow;
-		text-shadow: none;
-		color: $c_ui_button_common_text;
-		&:hover{
-			background: $c_ui_button_common_hover_top;
-			background-image: linear-gradient(to bottom, $c_ui_button_common_hover_top, $c_ui_button_common_hover_bottom);
-		}
-		&:focus, &:focus:hover{
-			background: $c_ui_button_common_focus;
-			color:$c_ui_button_common_focus_text;
-		}
 	}
 	
 	&_blue{
@@ -311,65 +310,8 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 			background-image: linear-gradient(to bottom, $c_ui_button_danger_pressed_top, $c_ui_button_danger_pressed_bottom);
 		}
 	}
-
-	&_secondary, &_second, &_soc {
-		border: none;
-		background: $c_ui_button_sec_top;
-		background-image: linear-gradient(to bottom, $c_ui_button_sec_top, $c_ui_button_sec_bottom);
-		box-shadow: $i_ui_button_sec_outershadow, $i_ui_button_sec_innershadow;
-		text-shadow: none;
-		color: $f_ui_button_sec_color;
-		
-		& img{
-			vertical-align: middle;
-		}
-
-		// States
-		&:link {
-			color: $f_ui_button_sec_color;
-		}
-
-		&:visited {
-			color: $f_ui_button_sec_color;
-		}
-
-		&:hover {
-			background: $c_ui_button_sec_hover_top;
-			background-image: linear-gradient(to bottom, $c_ui_button_sec_hover_top, $c_ui_button_sec_hover_bottom);
-		}
-
-		&:active {
-			background: $c_ui_button_sec_pressed_top;
-			background-image: linear-gradient(to bottom, $c_ui_button_sec_pressed_top, $c_ui_button_sec_pressed_bottom);
-		}
-
-		&:focus {
-			background: $c_ui_button_sec_top;
-			box-shadow: $i_ui_button_focused_outershadow, $i_ui_button_sec_innershadow;
-			outline: none;
-
-			&:hover {
-				background: $c_ui_button_sec_hover_top;
-				background-image: linear-gradient(to bottom, $c_ui_button_sec_hover_top, $c_ui_button_sec_hover_bottom);
-			}
-		}
-	}
 	
-	&_second{
-		min-width: $d_ui_button_second_minwidth;
-		font-size: $f_ui_button_second_size;
-	}
-	
-	&_soc{
-		height: 40px;
-		min-width: 40px;
-		padding: 0;
-		& i{
-			vertical-align: middle;
-		}
-	}
-	
-	&_wide{
+	&_wide {
 		width: 100%;
 	}
 	
