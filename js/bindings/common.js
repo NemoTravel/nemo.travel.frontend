@@ -275,7 +275,6 @@ define(
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                 // TODO Initial state should be checked (when we finally loaded view)
-                // TODO Window.resize
 
                 $(element).addClass("nemo-common-scrollable js-common-scrollable");
                 $(element).children().wrapAll("<div class='nemo-common-scrollable__content js-scrollable__content'><div class='nemo-common-scrollable__content_inner js-scrollable__content_inner'>");
@@ -293,12 +292,10 @@ define(
 
                 scroller.on("mousedown", function(event){
                     dragging = true;
-                    //console.log("Pressed");
                 });
 
-                $(element).parent().on("mouseup", function(event){
+                $(document).on("mouseup", function(event){
                     dragging = false;
-                    //console.log("UnPressed");
                 });
 
                 $(element).parent().on("mousemove", function(event) {
@@ -352,8 +349,6 @@ define(
                         scrollDistance = (scrollTo - scrollerControl.height()/2) / scrollProportion;
                         scrollAmount = scrollDistance;
 
-                        console.log(scrollDistance);
-
                         if (scrollAmount > scrollableDistance) {
                             scrollAmount = scrollableDistance;
                         } else if (scrollAmount < 0) {
@@ -373,61 +368,56 @@ define(
                 });
 
                 $(element).on("click", function(){
+                   scrollRedraw(1, 0);
+                });
 
-                    scrollProportion = scrollableContent.height() / scrollableContentInner.height();
-
-                    if (scrollProportion < 1) {
-                        $(element).removeClass("js-common-scrollable_off");
-
-                        scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
-                        scrollDistance = event.deltaY * event.deltaFactor * scrollDecay;
-                        scrollAmount = scrollableContent.scrollTop() - scrollDistance;
-
-                        if (scrollAmount > scrollableDistance) {
-                            scrollAmount = scrollableDistance;
-                        } else if (scrollAmount < 0) {
-                            scrollAmount = 0;
-                        }
-
-                        scrollableContent.scrollTop(scrollAmount);
-                        scrollerControlHeight = scroller.height() * scrollProportion;
-                        scrollerControlMoveAmount = scrollAmount * scrollProportion;
-                        scrollerControl.css('top', scrollerControlMoveAmount);
-                        scrollerControl.css('height', scrollerControlHeight);
-                    } else {
-                        $(element).addClass("js-common-scrollable_off");
-                    }
-
+                $(window).on("resize", function(){
+                    scrollRedraw(1, 0);
                 });
 
                 $(element).mousewheel(function (event) {
+                    return (scrollRedraw(event.deltaY, event.deltaFactor));
+                });
+
+                function scrollRedraw(scrollDirection, scrollDistance) {
                     scrollProportion = scrollableContent.height() / scrollableContentInner.height();
 
                     if (scrollProportion < 1) {
                         $(element).removeClass("js-common-scrollable_off");
 
                         scrollableDistance = scrollableContentInner.height() - scrollableContent.height();
-                        scrollDistance = event.deltaY * event.deltaFactor * scrollDecay;
+                        scrollDistance = scrollDirection * scrollDistance * scrollDecay;
                         scrollAmount = scrollableContent.scrollTop() - scrollDistance;
 
                         if (scrollAmount > scrollableDistance) {
                             scrollAmount = scrollableDistance;
+
+                            scrollableContent.scrollTop(scrollAmount);
+                            scrollerControlHeight = scroller.height() * scrollProportion;
+                            scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                            scrollerControl.css('top', scrollerControlMoveAmount);
+                            scrollerControl.css('height', scrollerControlHeight);
                         } else if (scrollAmount < 0) {
                             scrollAmount = 0;
+
+                            scrollableContent.scrollTop(scrollAmount);
+                            scrollerControlHeight = scroller.height() * scrollProportion;
+                            scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                            scrollerControl.css('top', scrollerControlMoveAmount);
+                            scrollerControl.css('height', scrollerControlHeight);
+                        } else {
+                            scrollableContent.scrollTop(scrollAmount);
+                            scrollerControlHeight = scroller.height() * scrollProportion;
+                            scrollerControlMoveAmount = scrollAmount * scrollProportion;
+                            scrollerControl.css('top', scrollerControlMoveAmount);
+                            scrollerControl.css('height', scrollerControlHeight);
+                            return false;
                         }
 
-                        scrollableContent.scrollTop(scrollAmount);
-                        scrollerControlHeight = scroller.height() * scrollProportion;
-                        scrollerControlMoveAmount = scrollAmount * scrollProportion;
-                        scrollerControl.css('top', scrollerControlMoveAmount);
-                        scrollerControl.css('height', scrollerControlHeight);
-
-                        return false;
                     } else {
                         $(element).addClass("js-common-scrollable_off");
                     }
-
-                });
+                }
 
             },
 

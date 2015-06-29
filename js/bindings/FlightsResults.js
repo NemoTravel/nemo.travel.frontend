@@ -185,6 +185,9 @@ define(
                 });
 
                 $(window).on("resize", function(){
+
+                    stickerInner.css("height", $(window).height() + "px");
+
                     initialPosition = $(element).offset().top;
                     scrolled        = $(document).scrollTop();
 
