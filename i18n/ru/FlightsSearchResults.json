@@ -1,5 +1,6 @@
 {
-	"controls__count" : "Все билеты ([%-count-%])",
+	"controls__count_all" : "Все билеты ([%-count-%])",
+	"controls__count_filtered" : "Выбрано [%-count-%] из [%-total-%]",
 
 	"sortType_price" : "Цене",
 	"sortType_durationOnLeg" : "Длительности",

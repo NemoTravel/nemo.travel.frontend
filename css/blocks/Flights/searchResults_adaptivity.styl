@@ -61,37 +61,60 @@ adapt_flights_results_condensedGroup() {
 
 // PF hidden
 @media (max-width: 940px) {
-	.nemo-flights-results__content__postfilters {
-		padding: $d_ui_subContainer_padding;
-		border-radius: $d_ui_subContainer_borderradius;
-		box-shadow: $i_ui_subContainer_outershadow;
-		background-color: $c_ui_subContainer_bg;
+	.nemo-flights-results {
+		&__content__postfilters {
+			padding: $d_ui_subContainer_padding;
+			border-radius: $d_ui_subContainer_borderradius;
+			box-shadow: $i_ui_subContainer_outershadow;
+			background-color: $c_ui_subContainer_bg;
 
-		position: absolute;
-		top: 0;
-		width: 380px;
-		opacity: 1;
+			position: absolute;
+			top: 0;
+			width: 380px;
+			opacity: 1;
 
-		display: none;
+			display: none;
 
-		.nemo-common-sticker__inner {
-			left: 20px;
-			right: 5px;
-			width: auto;
-		}
-	}
-
-	.nemo-common-postFilters {
-		&__filterList__filter {
-			border: 1px solid #E5E5E5;
-
-			&__caption__name {
-				color: $c_common_textColor;
+			.nemo-common-sticker__inner {
+				left: 20px;
+				right: 5px;
+				width: auto;
 			}
 		}
-	}
-}
 
+		&__formDummy {
+			&__filterSwitch, &__filters {
+				display: block;
+			}
+		}
+
+		.nemo-common-postFilters {
+			&__notification {
+				display: none;
+			}
+
+			&__filterList__filter {
+				&__caption__name {
+					color: $c_common_textColor;
+				}
+
+				&__valuesBlock__values__value {
+					border: 1px solid #E5E5E5;
+					border-bottom: none;
+
+					&:last-child {
+						border: 1px solid #E5E5E5;
+					}
+				}
+			}
+		}
+
+		&__content__postfilters_forced {
+			display: block;
+		}
+	}
+
+}
 // Coupling table button - hidden
 @media (max-width: 850px) {
 	.nemo-flights-results__flightsGroup__footer {
@@ -138,12 +161,70 @@ adapt_flights_results_condensedGroup() {
 
 // Width < 750px - showcase in column
 @media (max-width: 750px) {
-	.nemo-flights-results__showcase__additional {
-		display: block;
+	.nemo-flights-results {
+		&__showcase__additional {
+			display: block;
 
-		&__item {
-			margin-right: 0;
-			margin-bottom: 20px;
+			&__item {
+				margin-right: 0;
+				margin-bottom: 20px;
+			}
+		}
+
+		&__formDummy {
+			position: relative;
+			padding: 0;
+			padding-bottom: 50px;
+
+			&__filterSwitch {
+				position: absolute;
+				bottom: 0;
+				margin: 10px 10px 0;
+			}
+
+			&__switch {
+				display: none;
+			}
+
+			&__inner {
+				border-radius: 0;
+				box-shadow: none;
+				background: $nemo-color-main;
+				color: #fff;
+				display: block;
+				width: 100%;
+				padding: 10px;
+			}
+
+			&__passengers {
+				padding: 0;
+			}
+
+			&__route {
+				padding: 0;
+				white-space: normal;
+
+				&__segment {
+					display: block;
+
+					&__date {
+						color: inherit;
+					}
+
+					&__geo {
+						&_departure:after {
+							background: transparent;
+							content: '—';
+							height: auto;
+							vertical-align: baseline;
+						}
+
+						&__aux {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -188,6 +269,34 @@ adapt_flights_results_condensedGroup() {
 // < 400px - supercondensed view of wrappers
 @media (max-width: 450px)  {
 	.nemo-flights-results {
+		&__formDummy {
+			&__filterSwitch_active {
+				&:before {
+					content: '';
+					position: fixed;
+					z-index: 900;
+					background: rgba(#000, 0.75);
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+				}
+			}
+
+			&__filters {
+				width: auto;
+				right: 0;
+				max-width: 100vw;
+			}
+		}
+
+		.nemo-common-postFilters__filterList__filter__valuesBlock {
+			&_slider .nemo-common-postFilters__filterList__filter__valuesBlock__values__value {
+				border: none;
+				padding: 0;
+			}
+		}
+
 		&__content {
 			display: block;
 

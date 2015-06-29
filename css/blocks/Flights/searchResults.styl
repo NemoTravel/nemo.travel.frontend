@@ -30,6 +30,43 @@
 		max-width: 980px;
 		margin: 0 auto 10px;
 		padding: 0 10px;
+		white-space: nowrap;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+		position: relative;
+
+		&__filterSwitch {
+			height: 40px;
+			line-height: 40px;
+			margin-right: 20px;
+			flex: 0 0 auto;
+			display: none;
+
+			&_active {
+				background: $nemo-color-main;
+				color: $nemo-color-LightPoint;
+
+				&:hover, &:active {
+					background: lighten($nemo-color-main, 10%);
+				}
+			}
+		}
+
+		&__filters {
+			@extend .new-ui-subContainer;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: 1000;
+			opacity: 1;
+			padding: 20px;
+			margin: 10px;
+			max-width: 320px;
+			white-space: normal;
+			display: none;
+		}
 
 		&__inner {
 			color: $c_common_textColor;
@@ -40,8 +77,10 @@
 
 			display: flex;
 			flex-flow: row nowrap;
-			justify-content: flex-start/*space-between*/;
+			justify-content: flex-start;
 			align-items: stretch;
+			flex:  0 1 auto;
+			min-width: 1px;
 		}
 
 		&__route, &__passengers {
@@ -140,6 +179,26 @@
 			min-width: 280px;
 			transition: all 0.2s;
 			flex-shrink: 0;
+		}
+
+		&__offers {
+			opacity: 0.75;
+			transition: all 0.2s;
+
+			&:hover {
+				opacity: 1;
+			}
+
+			&__text {
+				color: $nemo-color-LightPoint;
+				font-size: 13px;
+				margin-bottom: 20px;
+
+				&__header {
+					font-size: 15px;
+					margin: 20px 0;
+				}
+			}
 		}
 
 		&__results {
@@ -562,7 +621,6 @@
 				&__dropdown {
 					box-shadow: 0 1px 5px rgba(#000, 0.2);
 					border-radius: 0 0 4px 4px;
-					overflow: hidden;
 					position: absolute;
 					z-index: 1;
 					width: 100%;
@@ -573,7 +631,7 @@
 						top: -10px;
 						left: 0;
 						right: 0;
-						height: 10px;
+						height: 9px;
 						background: #fff;
 					}
 
@@ -586,6 +644,7 @@
 
 						&:last-child {
 							border: none;
+							border-radius: inherit;
 						}
 
 						&:hover, &:hover &__transfers__transfer {

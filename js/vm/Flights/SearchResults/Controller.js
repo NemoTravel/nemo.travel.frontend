@@ -220,6 +220,9 @@ define(
 
 			this.groups = ko.observableArray([]);
 			this.visibleResultsCount = ko.observable(0);
+			this.totalResultsCount = 0;
+
+			this.PFActive = ko.observable(false);
 
 			this.formActive = ko.observable(false);
 
@@ -470,6 +473,7 @@ define(
 				}
 
 				this.visibleResultsCount(tmp);
+				this.totalResultsCount = tmp;
 
 				// Creating flight groups (we group by same price and validating company)
 				// Also - post-processing flights for them to calculate their "recommended" rating
@@ -574,7 +578,7 @@ define(
 						this.postFilters.push(tmp);
 
 						if (tmp.isActive()) {
-							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0) {
+							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo.tripType == 'RT') {
 								pfGroup.push(tmp);
 							}
 							else {

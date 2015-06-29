@@ -4,141 +4,216 @@ $c_postFilters_disabledBG = rgba(240, 240, 240, 1);
 $c_postFilters_quantityBG = rgba(255, 255, 255, .25);
 $t_postFilters_animationTime = .1s;
 
-.nemo-common {
+.nemo-common-postFilters {
+    position: relative;
+    opacity: .75;
+    padding: 10px 0;
 
-    &-postFilters {
-        position: relative;
-        opacity: .75;
-        padding: 10px 0;
+    &:hover {
+        transition: opacity .1s ease;
+        opacity: 1;
+    }
 
-        &:hover {
-            transition: opacity .1s ease;
-            opacity: 1;
+    &_stick {
+        position: fixed;
+        top: 0;
+        height: 100%;
+        width: 280px;
+        padding-right: 20px;
+        overflow: hidden;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    &__notification {
+        margin: 0 0 15px 0;
+        display: block;
+        font-size: 12px;
+        line-height: 20px;
+        padding: 10px 50px 10px 20px;
+        background-color: $c_highlight_warning;
+        border-radius: 4px;
+
+        &__close {
         }
-        //background-color: #222;
+    }
 
-        &_stick {
-            position: fixed;
-            //left: 20px;
-            top: 0;
-            height: 100%;
-            width: 280px;
-            padding-right: 20px;
-            overflow: hidden;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            //background: #000;
-        }
+    &__sort {
+    }
 
-        &__notification {
-            margin: 0 0 15px 0;
+    &__clearAll {
+	    margin-bottom: 20px;
+
+        &__button {
             display: block;
-            font-size: 12px;
-            line-height: 20px;
-            padding: 10px 50px 10px 20px;
-            background-color: $c_highlight_warning;
-            border-radius: 4px;
+            width: 100%;
+            font-size: 14px;
 
-            &__close {
+        }
+    }
+
+    &__filterList {
+        position: relative;
+        z-index: 1;
+
+        &__filter {
+	        margin-top: 20px;
+            opacity: .85;
+            transition: opacity .4s ease-out;
+
+			&:first-child {
+				margin: 0;
+			}
+
+            &:hover {
+                opacity: 1;
+                transition: opacity $t_postFilters_animationTime ease-in;
             }
-        }
 
-        &__sort {
-        }
-
-        &__clearAll {
-
-            &__button {
-                display: block;
-                width: 100%;
-                font-size: 14px;
-
+            &_slider {
+                background-color: $nemo-color-LightPoint;
+                padding: 10px 10px;
             }
-        }
 
-        &__filterList {
-            position: relative;
-            z-index: 1;
+            &__caption {
+                display: flex;
+                justify-content: space-between;
+                line-height: 20px;
+                margin: 0 0 15px 0;
+                font-size: 15px;
 
-            &__filter {
-
-                opacity: .85;
-                transition: opacity .4s ease-out;
-
-                &_slider {
-                    background-color: $nemo-color-LightPoint;
-                    padding: 10px 10px;
+                &_inner {
+                    margin-top: -10px;
+                    margin-bottom: 10px;
+                    font-size: 13px;
+                    opacity: .75;
                 }
 
-                &:hover {
-                    opacity: 1;
-                    transition: opacity $t_postFilters_animationTime ease-in;
+                &__name {
+                    color: $c_postFilters_textColor;
+                    font-weight: normal;
+                    margin: 0;
                 }
 
-                &__caption {
-                    display: flex;
-                    justify-content: space-between;
-                    line-height: 20px;
-                    margin: 20px 0 15px 0;
-                    font-size: 15px;
+                &__clear {
+                    font-size: 13px;
+                    display: none;
+                }
+            }
 
-                    &_inner {
-                        margin-top: -10px;
-                        margin-bottom: 10px;
-                        font-size: 13px;
-                        opacity: .75;
+            &__partSelector {
+                border-radius: 4px;
+                overflow: hidden;
+                display: flex;
+                height: 40px;
+                line-height: 40px;
+                cursor: pointer;
+                margin: 0 0 20px 0;
+
+                &__part {
+                    @extends .new-ui-button_common
+                    box-shadow: none;
+                    flex-basis: 0;
+                    flex-grow: 1;
+                    text-align: center;
+                    position: relative;
+
+                    &::before {
+                        content: '';
+                        border-left: 1px solid $c_postFilters_separatorColor;
+                        height: 60%;
+                        position: absolute;
+                        left: 0;
+                        top: 20%;
                     }
 
-                    &__name {
-                        color: $c_postFilters_textColor;
-                        font-weight: normal;
-                        margin: 0;
+                    &:first-child {
+                        border-left: none;
+
+                        &:before {
+                            display: none;
+                        }
                     }
 
-                    &__clear {
-                        font-size: 13px;
-                        display: none;
+                    &_selected {
+                        cursor: default;
+                        background-color: $nemo-color-main;
+                        background-image: none;
+                        color: $nemo-color-LightPoint;
+
+                        &:hover {
+                            background-color: $nemo-color-main;
+                            background-image: none;
+                        }
+                    }
+
+                    &_hasChanges {
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 6px;
+                            right: 6px;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 3px;
+                            background-color: $nemo-color-main;
+                        }
                     }
                 }
+            }
 
-                &__partSelector {
+            &__valuesBlock {
+
+                &__values {
                     border-radius: 4px;
                     overflow: hidden;
-                    display: flex;
-                    height: 40px;
-                    line-height: 40px;
-                    cursor: pointer;
-                    margin: 0 0 20px 0;
 
-                    &__part {
-                        @extends .new-ui-button_common
+                    &__value {
+                        //@extends .new-ui-button_common
+                        background-color: $nemo-color-LightPoint;
                         box-shadow: none;
-                        flex-basis: 0;
-                        flex-grow: 1;
-                        text-align: center;
-                        position: relative;
+                        padding: 0 10px 0 20px;
+                        height: 40px;
+                        line-height: 40px;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        cursor: pointer;
+                        transition: all $t_postFilters_animationTime ease-in;
 
-                        &::before {
-                            content: '';
-                            border-left: 1px solid $c_postFilters_separatorColor;
-                            height: 60%;
-                            position: absolute;
-                            left: 0;
-                            top: 20%;
+                        border-top: 1px $c_postFilters_separatorColor solid;
+
+                        &:first-of-type {
+                            border-top: none;
                         }
 
-                        &:first-child {
-                            border-left: none;
+                        &_noFlex {
+                            display: block;
+                            height: auto;
+                            padding: 0 20px 0 20px;
+                        }
 
-                            &:before {
-                                display: none;
+                        &:hover {
+                            background: darken($nemo-color-LightPoint, 2);
+                        }
+
+                        &_disabled {
+                            background-color: $c_postFilters_disabledBG;
+                            background-image: none;
+                            cursor: default;
+
+                            &:hover {
+                                background-color: $c_postFilters_disabledBG;
+                                background-image: none;
                             }
                         }
 
-                        &_selected {
-                            cursor: default;
+                        &_checked {
                             background-color: $nemo-color-main;
                             background-image: none;
+                            cursor: default;
                             color: $nemo-color-LightPoint;
 
                             &:hover {
@@ -147,149 +222,73 @@ $t_postFilters_animationTime = .1s;
                             }
                         }
 
-                        &_hasChanges {
+                        &__input {
+                            width: 20px;
+                            margin-right: 5px;
+                            display: none;
 
-                            &::after {
-                                content: '';
-                                position: absolute;
-                                top: 6px;
-                                right: 6px;
-                                width: 6px;
-                                height: 6px;
-                                border-radius: 3px;
-                                background-color: $nemo-color-main;
+                        }
+
+                        &__name {
+                            flex-grow: 50;
+                            display: block;
+                            width: 100px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            margin-right: 10px;
+                            font-size: 80%;
+
+                            &_noMatter {
+                                font-size: 95%;
+                            }
+
+                            &_small {
+                                font-size: 70%;
+                                //white-space: normal;
+                                //line-height: 15px;
                             }
                         }
+
+                        &__price {
+                            flex-grow: 1;
+                            margin-right: 2px;
+                            font-size: 70%;
+	                        white-space: nowrap;
+                            //color: $c_common_textColor_secondary;
+                        }
+
+                        &__currency {
+                            flex-grow: 1;
+                            margin-right: 5px;
+                            font-size: 65%;
+                        }
+
+                        &__quantity {
+                            flex-grow: 1;
+                            width: 22px;
+                            height: 22px;
+                            line-height: 22px;
+                            background-color: $c_postFilters_quantityBG;
+                            border-radius: 11px;
+                            font-size: 60%;
+                            opacity: .5;
+                            text-align: center;
+                            margin-left: 5px;
+                        }
+
                     }
                 }
 
-                &__valuesBlock {
+                &__sliderBlock {
 
-                    &__values {
-                        border-radius: 4px;
-                        overflow: hidden;
-
-                        &__value {
-                            //@extends .new-ui-button_common
-                            background-color: $nemo-color-LightPoint;
-                            box-shadow: none;
-                            padding: 0 10px 0 20px;
-                            height: 40px;
-                            line-height: 40px;
-                            width: 100%;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            cursor: pointer;
-                            transition: all $t_postFilters_animationTime ease-in;
-
-                            border-top: 1px $c_postFilters_separatorColor solid;
-
-                            &:first-of-type {
-                                border-top: none;
-                            }
-
-                            &_noFlex {
-                                display: block;
-                                height: auto;
-                                padding: 0 20px 0 20px;
-                            }
-
-                            &:hover {
-                                background: darken($nemo-color-LightPoint, 2);
-                            }
-
-                            &_disabled {
-                                background-color: $c_postFilters_disabledBG;
-                                background-image: none;
-                                cursor: default;
-
-                                &:hover {
-                                    background-color: $c_postFilters_disabledBG;
-                                    background-image: none;
-                                }
-                            }
-
-                            &_checked {
-                                background-color: $nemo-color-main;
-                                background-image: none;
-                                cursor: default;
-                                color: $nemo-color-LightPoint;
-
-                                &:hover {
-                                    background-color: $nemo-color-main;
-                                    background-image: none;
-                                }
-                            }
-
-                            &__input {
-                                width: 20px;
-                                margin-right: 5px;
-                                display: none;
-
-                            }
-
-                            &__name {
-                                flex-grow: 50;
-                                display: block;
-                                width: 100px;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                margin-right: 10px;
-                                font-size: 80%;
-
-                                &_noMatter {
-                                    font-size: 95%;
-                                }
-
-                                &_small {
-                                    font-size: 70%;
-                                    //white-space: normal;
-                                    //line-height: 15px;
-                                }
-                            }
-
-                            &__price {
-                                flex-grow: 1;
-                                margin-right: 2px;
-                                font-size: 70%;
-                                //color: $c_common_textColor_secondary;
-                            }
-
-                            &__currency {
-                                flex-grow: 1;
-                                margin-right: 5px;
-                                font-size: 65%;
-                            }
-
-                            &__quantity {
-                                flex-grow: 1;
-                                width: 22px;
-                                height: 22px;
-                                line-height: 22px;
-                                background-color: $c_postFilters_quantityBG;
-                                border-radius: 11px;
-                                font-size: 60%;
-                                opacity: .5;
-                                text-align: center;
-                                margin-left: 5px;
-                            }
-
-                        }
+                    &__selection {
                     }
 
-                    &__sliderBlock {
-
-                        &__selection {
-                        }
-
-                        &__slider {
-                        }
+                    &__slider {
                     }
                 }
             }
-
         }
 
     }

@@ -25,6 +25,7 @@ define(
 					},
 					change: function( event, ui ) {
 						if (event.originalEvent) {
+							console.log('-->', ui.values);
 							switch (viewModel.type) {
 								case 'range':
 									valueAccessor()({
@@ -57,12 +58,12 @@ define(
 					catch (e) {}
 				});
 			},
+
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var value = viewModel.value(),
 					values = viewModel.values();
 
-				// We update values on clear only due to strange bug in jQueryUI when both handles are to the right
-				if (value.min == values.min && value.max == values.max) {
+				if (value.min != value.max) {
 					$(element).slider(
 						viewModel.type == 'range' ? 'values' : 'value',
 						viewModel.type == 'range' ? [ value.min, value.max ] : (viewModel.type == 'min' ? value.max : value.min)
