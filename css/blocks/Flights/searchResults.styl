@@ -199,9 +199,10 @@
           padding: 0 20px 20px;
 
           &__item {
-
-            &:first-child {
               margin-right: 20px;
+
+            &:last-child {
+	            margin: 0;
             }
           }
         }
@@ -416,6 +417,14 @@
 							overflow: hidden;
 							text-overflow: ellipsis;
 							padding-right: 10px;
+
+							&_dates {
+								display: none;
+							}
+
+							&__dayOfWeek {
+								color: $nemo-color-text-secondary;
+							}
 						}
 
 						&__date {
@@ -553,7 +562,7 @@
 				&__dropdown {
 					box-shadow: 0 1px 5px rgba(#000, 0.2);
 					border-radius: 0 0 4px 4px;
-					/*overflow: hidden;*/
+					overflow: hidden;
 					position: absolute;
 					z-index: 1;
 					width: 100%;
@@ -574,6 +583,10 @@
 						background: $nemo-color-LightPoint;
 						cursor: pointer;
 						transition: all 0.2s;
+
+						&:last-child {
+							border: none;
+						}
 
 						&:hover, &:hover &__transfers__transfer {
 							background: #EAF6FF;
@@ -723,25 +736,6 @@
 			}
 		}
 
-		&_common &__legs_count_2 {
-			display: flex;
-			flex-flow: row nowrap;
-			align-content: stretch;
-		}
-
-		&_common &__legs_count_2 &__leg {
-			/*display: inline-block;*/
-			/*vertical-align: top;*/
-			/*width: 50%;*/
-			border-right: $i_ui_subContainer_divider_border;
-			border-right-style: dashed;
-			flex: 0 0 50%;
-
-			&:last-child {
-				border-right: none;
-			}
-		}
-
 		&_cheapest &__header__title,
 		&_cheapest &__header__additional {
 			background: #B23E13;
@@ -754,52 +748,6 @@
 		/* ================== */
 		/* USE FOR ADAPTIVITY */
 		/* ================== */
-		&_fastest,
-		&_cheapest,
-		&_bestCompanies {
-			.nemo-flights-results__flightsGroup {
-				&__header__logo {
-					max-width: 100px;
-				}
-
-				&__rating_inHeader {
-					display: none;
-				}
-
-				&__subHeader {
-					display: flex;
-				}
-
-				&__leg {
-					&__info {
-						display: none;
-					}
-
-					&__selector__header {
-						font-size: 12px;
-						line-height: 30px;
-					}
-				}
-
-				&__footer {
-					padding-top: 10px;
-					padding-bottom: 10px;
-
-					&__buyButtonContainer__disclaimer {
-						display: none;
-					}
-
-					&__disclaimer {
-						display: block;
-					}
-				}
-
-				&__couplingButton__addText {
-					display: none;
-				}
-			}
-		}
-
 		&_bestCompanies {
 			.nemo-flights-results__flightsGroup {
 				&__footer {

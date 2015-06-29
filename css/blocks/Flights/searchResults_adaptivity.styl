@@ -1,9 +1,65 @@
+adapt_flights_results_condensedGroup() {
+	.nemo-flights-results__flightsGroup {
+		&__header__logo {
+			max-width: 100px;
+		}
+
+		&__rating_inHeader {
+			display: none;
+		}
+
+		&__subHeader {
+			display: flex;
+		}
+
+		&__leg {
+			&__info {
+				display: none;
+			}
+
+			&__selector__header {
+				font-size: 12px;
+				line-height: 30px;
+
+				&__title__text {
+					&_short {
+						display: none;
+					}
+
+					&_dates {
+						display: block;
+					}
+				}
+			}
+		}
+
+		&__footer {
+			padding-top: 10px;
+			padding-bottom: 10px;
+
+			&__buyButtonContainer__disclaimer {
+				display: none;
+			}
+
+			&__disclaimer {
+				display: block;
+			}
+		}
+
+		&__couplingButton__addText {
+			display: none;
+		}
+	}
+}
+
+// Less than 1220 px - no offers sidebar
 @media (max-width: 1220px) {
 	.nemo-flights-results__content__offers {
 		display: none;
 	}
 }
 
+// PF hidden
 @media (max-width: 940px) {
 	.nemo-flights-results__content__postfilters {
 		padding: $d_ui_subContainer_padding;
@@ -13,10 +69,10 @@
 
 		position: absolute;
 		top: 0;
-		/*flex-basis: auto;*/
-		/*flex-grow: 1;*/
 		width: 380px;
 		opacity: 1;
+
+		display: none;
 
 		.nemo-common-sticker__inner {
 			left: 20px;
@@ -31,6 +87,150 @@
 
 			&__caption__name {
 				color: $c_common_textColor;
+			}
+		}
+	}
+}
+
+// Coupling table button - hidden
+@media (max-width: 850px) {
+	.nemo-flights-results__flightsGroup__footer {
+		&__couplingButtonContainer {
+			display: none;
+		}
+
+		&__buyButtonContainer {
+			/*display: block;*/
+			/*width: auto;*/
+			width: 100%;
+			text-align: right;
+		}
+	}
+}
+
+// 751+px - wide view of showcase, showcase items condensed
+@media (min-width 751px) {
+	.nemo-flights-results__flightsGroup {
+		&_fastest,
+		&_cheapest,
+		&_bestCompanies {
+			adapt_flights_results_condensedGroup();
+		}
+
+		// 2 segments - in row
+		&_common &__legs_count_2 {
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: stretch;
+		}
+
+		&_common &__legs_count_2 &__leg {
+			border-right: $i_ui_subContainer_divider_border;
+			border-right-style: dashed;
+			flex: 0 0 50%;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+}
+
+// Width < 750px - showcase in column
+@media (max-width: 750px) {
+	.nemo-flights-results__showcase__additional {
+		display: block;
+
+		&__item {
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+// 601px - 750px - condensed view of showcase, showcase items - as normal
+@media (min-width: 601px) and (max-width: 750px)  {
+	// 2 segments in row
+	.nemo-flights-results__flightsGroup {
+		&__legs_count_2 {
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: stretch;
+		}
+
+		&__legs_count_2 &__leg {
+			border-right: $i_ui_subContainer_divider_border;
+			border-right-style: dashed;
+			flex: 0 0 50%;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+}
+
+@media (max-width: 500px)  {
+	.nemo-flights-results__content__results__controls {
+		display: block;
+	}
+}
+
+// Width < 500px - everything - condensed
+@media (max-width: 500px)  {
+	adapt_flights_results_condensedGroup();
+
+	.nemo-flights-results__compareTable {
+		display: none;
+	}
+}
+
+// < 400px - supercondensed view of wrappers
+@media (max-width: 450px)  {
+	.nemo-flights-results {
+		&__content {
+			display: block;
+
+			&__results {
+				margin: 0;
+				padding: 10px;
+				border-radius: 0;
+				background: none;
+				box-shadow: none;
+
+				&__controls {
+					&__item {
+						&_count, &__sortTitle {
+							color: $nemo-color-LightPoint;
+						}
+					}
+				}
+			}
+		}
+
+		&__showcase {
+			margin: 0px;
+			padding: 0px;
+
+			&__main, &__additional {
+				padding-left: 0;
+				padding-right: 0;
+				padding-top: 0;
+			}
+		}
+
+		&__flightsGroup__header {
+			&__title {
+				display: none;
+			}
+
+			&__additional {
+				width: 100%;
+				text-align: center;
+			}
+
+			&__logo {
+				margin-left: 0;
 			}
 		}
 	}
