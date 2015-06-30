@@ -525,7 +525,7 @@
 							checked: $parent.value">
 
             <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name"
-                  data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
+                  data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value))
             "></span>
 
             <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="text: addValue() ? 'от ' + addValue().normalizedAmount() + ' ' + addValue().currency() : ''">
@@ -1135,9 +1135,7 @@
                 <div class="nemo-common-postFilters__filterList__filter">
 
                     <div class="nemo-common-postFilters__filterList__filter__caption">
-                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                            <!-- ko text: config.name --><!-- /ko -->
-                        </h4>
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4>
 
                         <!-- ko if: hasValue -->
                         <span data-bind="click: clear" class="new-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear">сбросить</span>
@@ -1146,11 +1144,11 @@
 
 
                     <!-- ko if: config.isLegged -->
-                            <span class="nemo-common-postFilters__filterList__filter__caption nemo-common-postFilters__filterList__filter__caption_inner">
-                                <h5 class="nemo-common-postFilters__filterList__filter__caption__name">
-                                    <!-- ko text: $parent.searchInfo.segments[config.legNumber].departure.IATA + ' - ' + $parent.searchInfo.segments[config.legNumber].arrival.IATA --><!-- /ko -->
-                                </h5>
-                            </span>
+                        <span class="nemo-common-postFilters__filterList__filter__caption nemo-common-postFilters__filterList__filter__caption_inner">
+                            <h5 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="with: $parent.searchInfo.segments[config.legNumber]">
+                                <!-- ko text: departure.name + ' — ' + arrival.name + ' ' + departureDate.getDate() + ' ' + departureDate.getMonthName() --><!-- /ko -->
+                            </h5>
+                        </span>
                     <!-- /ko -->
 
                     <!-- ko if: config.type == 'Number' -->
@@ -1159,9 +1157,16 @@
                             <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
 
                                 <div class="nemo-ui-slider__info">
-                                    <span class="nemo-ui-slider__info__block"><!-- ko text: value().min --><!-- /ko --></span>
-                                    <span class="nemo-ui-slider__info__block">&nbsp;—&nbsp;</span>
-                                    <span class="nemo-ui-slider__info__block"><!-- ko text: value().max --><!-- /ko --></span>
+	                                <!-- ko if: config.name == 'price' -->
+	                                <money class="nemo-ui-slider__info__block nemo-ui-slider__info__block_min" data-bind="money: displayValues.min" format="0,0 $"></money>
+	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">—</span>
+	                                <money class="nemo-ui-slider__info__block nemo-ui-slider__info__block_max" data-bind="money: displayValues.max" format="0,0 $"></money>
+	                                <!-- /ko -->
+	                                <!-- ko if: config.name == 'timeEnRoute' || config.name == 'transfersDuration' -->
+	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_min" data-bind="text: displayValues.min.readableStringShortNoSeconds()"></span>
+	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">—</span>
+	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_max" data-bind="text: displayValues.max.readableStringShortNoSeconds()"></span>
+	                                <!-- /ko -->
                                 </div>
 
                                 <div class="nemo-ui-slider__wrapper">
@@ -1190,9 +1195,7 @@
                 <div class="nemo-common-postFilters__filterList__filter">
 
                     <div class="nemo-common-postFilters__filterList__filter__caption">
-                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                            <!-- ko text: filters[0].config.name --><!-- /ko -->
-                        </h4>
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4>
 
                         <!-- ko if: filters.length > 1 -->
 
