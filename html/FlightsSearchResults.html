@@ -528,7 +528,7 @@
                   data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : value)
             "></span>
 
-            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="text: addValue() ? 'от ' + addValue().normalizedAmount() + ' ' + addValue().currency() : ''">
+            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="text: addValue() ? 'от ' + addValue().normalizedAmount().toFixed(0) + ' ' + addValue().currency() : ''">
                 <!-- ko if: addValue() --><!-- /ko -->
             </span>
 
@@ -766,28 +766,37 @@
 			--></div>
 
 			<div class="nemo-flights-results__flightsGroup__footer">
-				<div class="nemo-flights-results__flightsGroup__footer__couplingButtonContainer" data-bind="if: couplingTable && couplingTable.isActive">
-					<div class="new-ui-button nemo-flights-results__flightsGroup__couplingButton" data-bind="popup: {
-							block: 'couplingTable',
-							title: 'Рейсы авиакомпании '+ getValidatingCompany().name,
-							parentClass: 'js-flights-results__group',
-							contentClass: 'nemo-flights-results__flightsGroup__couplingTablePopup',
-							beforeOpen: function () {couplingTableOpen(true);},
-							close: function () {couplingTableOpen(false);}
-						}">
-						<span class="new-ui-pseudoLink">
-							Еще
-							<!-- ko text: couplingTable.flights.length --><!-- /ko -->
-							<span
-								class="nemo-flights-results__flightsGroup__couplingButton__addText"
-								data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__couplingButton__variants_' + $root.helpers.getNumeral(couplingTable.flights.length, 'one', 'twoToFour', 'fourPlus'))"></span>
-						</span>
-					</div>
-				</div><div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
-					<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
-					<money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-					       data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
-				</div><div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
+
+                <div class="nemo-flights-results__flightsGroup__footer__controls">
+
+                    <div class="nemo-flights-results__flightsGroup__footer__couplingButtonContainer" data-bind="if: couplingTable && couplingTable.isActive">
+                        <div class="new-ui-button nemo-flights-results__flightsGroup__couplingButton" data-bind="popup: {
+                                block: 'couplingTable',
+                                title: 'Рейсы авиакомпании '+ getValidatingCompany().name,
+                                parentClass: 'js-flights-results__group',
+                                contentClass: 'nemo-flights-results__flightsGroup__couplingTablePopup',
+                                beforeOpen: function () {couplingTableOpen(true);},
+                                close: function () {couplingTableOpen(false);}
+                            }">
+                            <span class="new-ui-pseudoLink">
+                                Еще
+                                <!-- ko text: couplingTable.flights.length --><!-- /ko -->
+                                <span
+                                    class="nemo-flights-results__flightsGroup__couplingButton__addText"
+                                    data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__couplingButton__variants_' + $root.helpers.getNumeral(couplingTable.flights.length, 'one', 'twoToFour', 'fourPlus'))"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
+                        <money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
+                               data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
+                        <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
+                    </div>
+
+                </div>
+
+                <div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 			</div>
 
 			<!-- ko if: couplingTable && couplingTable.isActive && couplingTableOpen() -->

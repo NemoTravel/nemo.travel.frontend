@@ -279,7 +279,7 @@
 
 	&__flightsGroup {
 		padding: 0;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+        box-shadow: 0 1px 16px rgba(0, 0, 0, .25);
 
 		&__header {
 			display: flex;
@@ -716,28 +716,33 @@
 		&__footer {
 			font-size: 13px;
 			color: $nemo-color-text-secondary;
-			padding: 20px;
+			padding: 15px 20px 12px;
+
+            &__controls {
+                display: flex;
+                justify-content: space-between;
+            }
 
 			&__couplingButtonContainer, &__buyButtonContainer {
-				display: inline-block;
-				vertical-align: middle;
-				width: 50%;
+				//display: inline-block;
+				//vertical-align: middle;
+				//width: 50%;
 			}
 
 			&__buyButtonContainer {
-				display: inline-flex;
-				justify-content: space-between;
+                text-align: right;
 
 				&__disclaimer {
-					margin-right: 15px;
-					text-align: right;
+					//margin-right: 15px;
+					//text-align: right;
+                    padding-top: 10px;
 					align-self: center;
 				}
 			}
 
 			&__disclaimer {
 				text-align: right;
-				padding-top: 10px;
+				padding-top: 8px;
 
 				display: none;
 			}
@@ -756,7 +761,7 @@
 			}
 
 			&:active {
-				padding-top: 10px;
+				padding-top: 8px;
 			}
 		}
 
@@ -768,8 +773,9 @@
 			vertical-align: middle;
 			flex-grow: 0;
 			font-size: 16px;
-			padding: 0 20px 0 60px;
+			padding: 0 20px 0 50px;
 			white-space: nowrap;
+            text-align: right;
 
 			&, &:hover {
 				background-image: url('images/flights_results_sprite.svg');
@@ -796,7 +802,7 @@
 
 		&_cheapest &__header__title,
 		&_cheapest &__header__additional {
-			background: #B23E13;
+			//background: #B23E13;
 		}
 
 		&_bestCompanies {
