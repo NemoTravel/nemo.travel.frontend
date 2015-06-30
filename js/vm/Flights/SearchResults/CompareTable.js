@@ -84,6 +84,11 @@ define(
 				this.groups = tempGroupsArrTransfer;
 			}
 
+			var tempFlightsLength = 0;
+			for(var i=0;i<this.groups.length;i++){
+				tempFlightsLength += parseInt(this.groups[i].groups.length);
+			}
+			this.flightsLength = tempFlightsLength;
 			//pagination
 			this.paginationStep = ko.observable(3);
 			this.paginationShownPages = ko.observable(0);

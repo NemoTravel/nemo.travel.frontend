@@ -16,11 +16,13 @@ define(
 			init:function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
 				function tableToggle(){
 					if($('.nemo-flights-results__compareTable__root').hasClass('nemo-flights-results__compareTable__root_closed')){
-						$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_closed')
+						$('.nemo-flights-results__compareTable__root')
+							.removeClass('nemo-flights-results__compareTable__root_closed')
 							.addClass('nemo-flights-results__compareTable__root_opened');
 						$('.js-flights-results__compareTable__opener').hide()
 					}else{
-						$('.nemo-flights-results__compareTable__root').removeClass('nemo-flights-results__compareTable__root_opened')
+						$('.nemo-flights-results__compareTable__root')
+							.removeClass('nemo-flights-results__compareTable__root_opened')
 							.addClass('nemo-flights-results__compareTable__root_closed');
 						$('.js-flights-results__compareTable__opener').show()
 					}
@@ -48,10 +50,13 @@ define(
 							if($('.js-flights-results__compareTable__wrapper').length == $('.js-flights-results__compareTable__wrapper.js-flights-results__compareTable__wrapper_hidden').length){
 								$('.js-flights-results__compareTable__opener').hide();
 								$(element).hide();
+								$(element).parents('.js-flights-results__compareTable__root')
+									.removeClass('nemo-flights-results__compareTable__root_opened')
+									.addClass('nemo-flights-results__compareTable__root_closed');
 							}
 						}
 					}
-				,1);
+				,100);
 			}
 		};
 		ko.bindingHandlers.flightsResultsCompareTablePosition = {
@@ -118,6 +123,23 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.flightsResultsCompareTableGoToTicket = {
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element);
+				var groupId = $element.data('groupid');
+				function scrollToTicket(){
+					$('html, body').scrollTop(
+						$('[data-groupanchorid='+groupId+']').offset().top-10
+					);
+					console.log(groupId);
+				}
+				$element.on('click', scrollToTicket);
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$elemen.off('click', scrollToTicket);
+				})
+			}
+		};
+
 		ko.bindingHandlers.flightsResultsFlightSelector ={
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
@@ -126,15 +148,14 @@ define(
 
 				function closeDropDown (e) {
 					var $target = $(e.target);
-
 					if (!$target.is($element[0]) && !$target.parents().is($element[0])) {
-						data.open(false);
+						$element.removeClass('nemo-flights-results__flightGroupsSelector_open')
 					}
 				}
 
 				function openDropDown () {
 					if (data.selectableCount() > 1) {
-						data.open(true);
+						$element.addClass('nemo-flights-results__flightGroupsSelector_open')
 					}
 				}
 

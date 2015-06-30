@@ -1,6 +1,6 @@
 $c_tableBorder = #afafaf;
 $c_tableBackground = #F0F0F0;
-$c_showMoreSwitchBackground = $nemo-color-LightPoint;
+$c_showMoreSwitchBackground = #E8E8E8;
 $c_tableMainColor = #3F3F3F;
 
 $d_tableColumnWidth = 150px;
@@ -13,6 +13,8 @@ $d_tableColumnPadding = 0 20px ;
 	overflow-x: hidden;
 	border-radius: 0 0 6px 6px;
 	transition: height 0.2s ease-in 0s;
+	box-shadow: 0 3px 4px rgba(255,255,255,0.25);
+	z-index: 9;
 	&__wrapper{
 		margin-left: 20px;
 		position: relative;
@@ -154,9 +156,10 @@ $d_tableColumnPadding = 0 20px ;
 				border-top:1px solid $c_tableBorder;
 				border-bottom:1px solid $c_tableBorder;
 				margin: 10px 0px;
-				padding: 10px 20px;
+				padding: 10px;
 				&__tip{
 					color:$c_tableMainColor;
+					font-size: 13px;
 				}
 			}
 			&__linkToFullTicket{
@@ -188,6 +191,214 @@ $d_tableColumnPadding = 0 20px ;
 			&__shortInfo{
 				min-height: 60px;
 			}
+			&__selector {
+				padding: 0 20px;
+
+				&__header {
+					display: flex;
+					flex-flow: row nowrap;
+					font-size: 13px;
+					line-height: 40px;
+
+					&__title {
+						min-width: 1px;
+
+						&__text {
+							overflow: hidden;
+							text-overflow: ellipsis;
+							padding-right: 10px;
+						}
+
+						&__date {
+							display: none;
+
+							&__dayOfWeek {
+								color: $c_ui_textSecondary;
+							}
+						}
+					}
+
+					&__seatsAvailable {
+						flex-shrink: 0;
+						min-width: 1px;
+						white-space: nowrap;
+						margin-left: auto;
+
+						&_warning {
+							color: #FF9731;
+						}
+					}
+				}
+
+				&__footer {
+					display: flex;
+					flex-flow: row nowrap;
+					font-size: 12px;
+					line-height: 30px;
+					color: $c_ui_textSecondary;
+
+					&__detailsLink {
+						min-width: 1px;
+						margin-left: auto;
+					}
+
+					&__transfers {
+						padding-right: 10px;
+						min-width: 1px;
+					}
+				}
+
+				&__selectContainer {
+					position: relative;
+				}
+
+				&__selected {
+					border-radius: 2px;
+					background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+					padding: 0 10px;
+					position: relative;
+					cursor: pointer;
+					color: $c_ui_textMain;
+
+					&:hover {
+						background: linear-gradient(to bottom, #e5e5e5, #f2f2f2);
+					}
+
+					&:after {
+						content: '';
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+
+					&:after {
+						content: "▼";
+						font-size: 10px;
+						height: 10px;
+						margin-top: 3px;
+						right: 9px;
+						transition: all 0.2s ease 0s;
+						width: auto
+					}
+					&_unopenable {
+						cursor: auto;
+						background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+
+						&:after {
+							display: none;
+						}
+
+						&:hover {
+							background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+						}
+					}
+
+					&.nemo-flights-results__flightGroupsSelector_open {
+						border-bottom-left-radius: 0;
+						border-bottom-right-radius: 0;
+						background: linear-gradient(to bottom,#e5e5e5, #f2f2f2);
+					}
+
+					&__time {
+						font-size: 11px;
+						height: 17px;
+						display: inline-block;
+						vertical-align: baseline;
+					}
+					&__timeEnRoute {
+						font-size: 10px;
+						height: 20px;
+					}
+					&__optionsNumber{
+						font-size: 11px;
+						position: absolute;
+						right: 10px;
+						top: 10px;
+						z-index: 9;
+						opacity: .6;
+					}
+				}
+
+				&__dropdown {
+					/*overflow: hidden;*/
+					position: absolute;
+					z-index: 1;
+					width: 100%;
+					display: none;
+					border-bottom:1px solid #f2f2f2;
+					border-left:1px solid #f2f2f2;
+					border-right:1px solid #f2f2f2;
+					&__option {
+						padding: 5px;
+						border-bottom: 1px solid #D7D7D7;
+						background: $nemo-color-LightPoint;
+						cursor: pointer;
+						transition: all 0.2s;
+						font-size: 12px;
+						&:hover, &:hover &__transfers__transfer {
+							background: #EAF6FF;
+						}
+
+						&__departure, &__arrival {
+							line-height: 20px;
+							display: inline-block;
+							vertical-align: top;
+							color:$c_ui_textMain;
+						}
+
+						&__transfers {
+							display: inline-block;
+							vertical-align: top;
+							min-width: 50px;
+							height: 20px;
+							text-align: center;
+							position: relative;
+							padding-right: 4px;
+							transition: all 0.2s;
+
+							&:before {
+								content: '';
+								position: absolute;
+								top: 9px;
+								border-bottom: 1px solid #969599;
+								left: 0;
+								right: 0;
+							}
+
+							&:after {
+								content: '';
+								position: absolute;
+								top: 6px;
+								border: 1px solid #969599;
+								right: 0;
+								width: 6px;
+								height: 6px;
+								transform: rotate(45deg);
+								border-bottom: none;
+								border-left: none;
+							}
+
+							&__transfer {
+								display: inline-block;
+								vertical-align: top;
+								margin: 5px;
+								width: 9px;
+								height: 9px;
+								border-radius: 9px;
+								background: $nemo-color-LightPoint;
+								border: 1px solid #969599;
+								position: relative;
+								z-index: 1;
+							}
+						}
+
+						&__timeEnRoute {
+							font-size: 9px;
+							color: $c_ui_textSecondary;
+						}
+					}
+				}
+			}
 		}
 	}
 	&__showMore{
@@ -201,11 +412,11 @@ $d_tableColumnPadding = 0 20px ;
 			display: inline-block;
 			background: $c_showMoreSwitchBackground;
 			opacity: 0.8;
-			padding:3px 10px 3px 10px;
 			color: $c_common_textColor;
 			cursor: pointer;
-			border-radius: 0 0 5px 5px;
-			font-size: 13px;
+			border-radius: 0 0 3px 3px;
+			font-size: 12px;
+			padding: 5px 15px;
 			&:hover{
 				opacity: 1;
 			}
@@ -232,16 +443,16 @@ $d_tableColumnPadding = 0 20px ;
 		}
 		&__closeSwitch{
 			display: inline-block;
-			background: $c_showMoreSwitchBackground;
+			background: #C7C7C7;
 			opacity: 0.8;
-			padding:3px 10px 3px 10px;
+			padding: 6px 20px;
 			color: $c_common_textColor;
 			cursor: pointer;
 			border-radius: 5px 5px 0 0 ;
-			font-size: 13px;
+			font-size: 11px;
 			position: absolute;
 			left: 50%;
-			margin-left: -30px;
+			margin-left: -35px;
 			bottom:0;
 			&:hover{
 				opacity: 1;
