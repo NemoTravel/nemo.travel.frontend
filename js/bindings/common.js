@@ -3,9 +3,7 @@ define(
 	[
 		'knockout',
 		'jquery',
-//		'touchPunch',
 		'numeralJS',
-//		'numeralJS',
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.select2/v.4.0.0/select2.full',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',

@@ -560,9 +560,11 @@
 					&:after {
 						width: 12px;
 						height: 10px;
-						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
 						right: 14px;
 						transition: all 0.2s;
+						content: '▼';
+						font-size: 10px;
+						color: #fff;
 					}
 
 					&_unopenable {
@@ -578,7 +580,7 @@
 						}
 					}
 
-					&_open {
+					&.nemo-flights-results__flightGroupsSelector_open {
 						border-bottom-left-radius: 0;
 						border-bottom-right-radius: 0;
 						background: #fff;
@@ -591,6 +593,7 @@
 						&:hover {
 							background: #fff;
 						}
+
 					}
 
 					&__time {
@@ -625,6 +628,7 @@
 					position: absolute;
 					z-index: 1;
 					width: 100%;
+					display: none;
 
 					&:before {
 						content: '';
@@ -851,5 +855,8 @@
 			top: 0;
 			right: 0;
 		}
+	}
+	&__flightGroupsSelector_open + &__flightGroupsSelector__dropdown{
+		display: block;
 	}
 }

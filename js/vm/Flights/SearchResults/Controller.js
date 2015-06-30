@@ -50,7 +50,24 @@ define(
 							// which is used for Number postFilters' view
 							return Math.ceil(obj.getTotalPrice().amount());
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							/* Filter-specific options here */
+							onInit: function (initParams) {
+								var currency = '',
+									keys = Object.keys(initParams.items);
+
+								if (keys.length) {
+									currency = initParams.items[keys[0]].getTotalPrice().currency();
+								}
+
+								this.displayValues.min = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
+								this.displayValues.max = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
+							},
+							onValuesUpdate: function (newValue) {
+								this.displayValues.min.amount(newValue.min);
+								this.displayValues.max.amount(newValue.max);
+							}
+						}
 					},
 					carrier: {
 						name: 'carrier',
@@ -84,7 +101,17 @@ define(
 								return obj.totalTimeTransfers;
 							}
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							/* Filter-specific options here */
+							onInit: function (initParams) {
+								this.displayValues.min = this.$$controller.getModel('Common/Duration', {length: 0});
+								this.displayValues.max = this.$$controller.getModel('Common/Duration', {length: 0});
+							},
+							onValuesUpdate: function (newValue) {
+								this.displayValues.min.length(newValue.min);
+								this.displayValues.max.length(newValue.max);
+							}
+						}
 					},
 //					departureTime: {
 //						name: 'departureTime',
@@ -198,7 +225,17 @@ define(
 						getter: function (obj) {
 							return obj.totalTimeEnRoute.length();
 						},
-						options: {/* Filter-specific options here */}
+						options: {
+							/* Filter-specific options here */
+							onInit: function (initParams) {
+								this.displayValues.min = this.$$controller.getModel('Common/Duration', {length: 0});
+								this.displayValues.max = this.$$controller.getModel('Common/Duration', {length: 0});
+							},
+							onValuesUpdate: function (newValue) {
+								this.displayValues.min.length(newValue.min);
+								this.displayValues.max.length(newValue.max);
+							}
+						}
 					}
 				},
 				order: ['price','transfersCount','carrier','transfersDuration','departureTime','arrivalTime','departureAirport','arrivalAirport','timeEnRoute'],

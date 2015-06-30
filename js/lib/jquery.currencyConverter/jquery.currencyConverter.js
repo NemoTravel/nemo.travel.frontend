@@ -119,7 +119,7 @@ define(
 
 				// Checking (and fixing if needed) conversion table
 				if (options.conversionTable == null) {
-					error('No conversion table defined defined! Terminating.', options);
+					error('No conversion table defined! Terminating.', options);
 					return;
 				}
 

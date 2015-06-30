@@ -21,11 +21,21 @@ define(
 					max: values.max,
 					values: viewModel.type == 'range' ? [ value.min, value.max ] : (viewModel.type == 'min' ? value.max : value.min),
 					slide: function( event, ui ) {
-						// TODO values display
+						var setter = viewModel.config.name == 'price' ? 'amount' : 'length';
+
+						if (viewModel.type == 'range') {
+							viewModel.displayValues.min[setter](ui.values[0]);
+							viewModel.displayValues.max[setter](ui.values[1]);
+						}
+						else if (viewModel.type == 'min') {
+							viewModel.displayValues.max[setter](ui.value);
+						}
+						else {
+							viewModel.displayValues.min[setter](ui.value);
+						}
 					},
 					change: function( event, ui ) {
 						if (event.originalEvent) {
-							console.log('-->', ui.values);
 							switch (viewModel.type) {
 								case 'range':
 									valueAccessor()({
