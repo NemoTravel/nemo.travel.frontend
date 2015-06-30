@@ -143,7 +143,7 @@
 		<!--<div>Overridden Flights Results Group template</div>-->
 	<!--</script>-->
 
-	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp">
+	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: $data">
 		<!-- ko if: component() -->
 			<div style="display: none;" data-bind="attr:{style: ''}">
 				<div class="" data-bind="component: {
@@ -188,8 +188,9 @@
 				jqueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.1.11.4/jquery-ui.min',
 				jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie',
 				tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
-//				touchPunch:   nemoSourceHost+'/js/lib/jquery.touchpunch/v.0.2.3/jquery.ui.touch-punch.min',
-                mousewheel:   nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min'
+//				touchPunch:    nemoSourceHost+'/js/lib/jquery.touchpunch/v.0.2.3/jquery.ui.touch-punch.min',
+				numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
+                mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min'
 			},
 
 			baseUrl: nemoSourceHost,
@@ -221,12 +222,12 @@
 						root: '/',
 //						verbose: true,
 						i18nLanguage: 'ru',
-						postParameters: {}
+						postParameters: {},
 
 						// Passing additional parametes to components
-						/*,
 						componentsAdditionalInfo: {
 							'Flights/SearchForm/Controller': {
+								delayed: true/*,
 								init: {
 									direct: true,
 									serviceClass: 'Business',
@@ -252,9 +253,9 @@
 											true
 										],
 									]
-								}
+								}*/
 							}
-						}*/
+						}
 					}
 				);
 			}
