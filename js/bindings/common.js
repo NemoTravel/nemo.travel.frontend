@@ -4,6 +4,9 @@ define(
 		'knockout',
 		'jquery',
 //		'touchPunch',
+		'numeralJS',
+//		'numeralJS',
+		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.select2/v.4.0.0/select2.full',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup'
@@ -269,6 +272,17 @@ define(
 				});
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
+		};
+
+		ko.bindingHandlers.moneyInit ={
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				$(element).currencyConverter({
+					defaultCurrency: 'EUR',
+					conversionTable: {},
+					currencyType: 'symbol',
+					roundingFunction: Math.round
+				});
+			}
 		};
 
         ko.bindingHandlers.customScroll = {

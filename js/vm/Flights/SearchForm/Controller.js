@@ -7,6 +7,8 @@ define(
 
 			this.name = 'FlightsSearchFormController';
 
+			this.delayedSearch = false;
+
 			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
 			this.tripTypes = ['OW','RT','CR'];
 
@@ -386,6 +388,10 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.processInitParams = function () {
+			if (typeof this.$$componentParameters.additional != 'undefined' && typeof this.$$componentParameters.additional.delayed != 'undefined') {
+				this.delayedSearch = !!this.$$componentParameters.additional.delayed;
+			}
+
 			// Analyzing parameters
 			// Preinitted by formData
 			if (this.$$componentParameters.formData) {
@@ -629,7 +635,8 @@ define(
 							direct: this.directFlights(),
 							aroundDates: this.vicinityDates() ? this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1] : 0,
 							serviceClass: this.serviceClass(),
-							airlines: []
+							airlines: [],
+							delayed: this.delayedSearch
 						}
 					},
 					segments = this.segments(),
@@ -677,8 +684,14 @@ define(
 
 								// Checking for errors
 								if (!response.system || !response.system.error) {
-									// Empty results check
-									if (response.flights.search.results && response.flights.search.results.flightGroups.length > 0) {
+									// Empty results check (automatically passed if we have a delayed search)
+									if (
+										response.flights.search.results &&
+										(
+											self.delayedSearch ||
+											response.flights.search.results.flightGroups.length > 0
+										)
+									) {
 										self.$$controller.navigate('results/' + response.flights.search.request.id);
 									}
 									else {
@@ -690,7 +703,6 @@ define(
 								}
 							}
 							catch (e) {
-								console.log(e);
 								searchError('brokenJSON', text);
 							}
 						},

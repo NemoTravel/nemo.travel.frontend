@@ -786,7 +786,7 @@
 				</div><div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
 					<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 					<money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-					       data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
+					       data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $" currency-class="TMP"></money><!---->
 				</div><div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 			</div>
 
