@@ -561,9 +561,9 @@
                   data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value))
             "></span>
 
-            <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="text: addValue() ? 'от ' + addValue().normalizedAmount().toFixed(0) + ' ' + addValue().currency() : ''">
-                <!-- ko if: addValue() --><!-- /ko -->
-            </span>
+
+            <!-- TODO add "от" -->
+            <money class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price" data-bind="money: addValue()" format="0,0 $"></money>
 
             <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__quantity" data-bind="text: count() "></span>
         </label>
