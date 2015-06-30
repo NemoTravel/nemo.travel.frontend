@@ -68,6 +68,28 @@ define(
 				return res.join(' ');
 			}, this);
 
+			this.readableStringShortNoSeconds = ko.computed(function(){
+				var res = [];
+
+				if(this.years() > 0 ){
+					res.push(this.years() + ' ' + this.$$controller.i18n('duration', "year_short"));
+				}
+				if(this.months() > 0 ){
+					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', "month_short"));
+				}
+				if(this.days() > 0 ){
+					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', "day_short"));
+				}
+				if(this.hours() > 0 ){
+					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  "hour_short"));
+				}
+				if(this.minutes() > 0 ){
+					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', "minute_short"));
+				}
+
+				return res.join(' ');
+			}, this);
+
 			this.setBaseParts();
 		}
 

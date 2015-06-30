@@ -7,6 +7,19 @@ define(
 
 			this.type = this.config.options.type || 'range'; // 'range' / 'min' (Fixed minimum, maximum can be set) / 'max' (Fixed maximum, minimum can be set)
 
+			this.displayValues = {
+				min: null,
+				max: null
+			};
+
+			if (typeof this.config.options.onInit == 'function') {
+				this.config.options.onInit.call(this, initialData);
+			}
+
+			if (typeof this.config.options.onValuesUpdate == 'function') {
+				this.value.subscribe(this.config.options.onValuesUpdate, this);
+			}
+
 			this.value({
 				min: this.values().min,
 				max: this.values().max
