@@ -135,7 +135,7 @@ define(
 				}
 				$element.on('click', scrollToTicket);
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$elemen.off('click', scrollToTicket);
+					$element.off('click', scrollToTicket);
 				})
 			}
 		};

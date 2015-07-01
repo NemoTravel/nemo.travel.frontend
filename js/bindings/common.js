@@ -81,9 +81,9 @@ define(
 					money = valueAccessor();
 
 				$moneyElement
-					.attr('currency', money.currency())
-					.attr('amount', money.amount())
-					.text(Math.ceil(money.normalizedAmount()) + ' ' + money.currency())
+					.attr('currency', money ? money.currency() : '')
+					.attr('amount', money ? money.amount() : '')
+					.text(money ? Math.ceil(money.normalizedAmount()) + ' ' + money.currency() : '')
 					.trigger('cc:updated');
 			}
 		}
