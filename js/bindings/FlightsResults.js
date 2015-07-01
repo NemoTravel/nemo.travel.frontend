@@ -102,7 +102,7 @@ define(
 						.addClass('nemo-flights-results__compareTable__groupsItem_hidden')
 						.removeClass('js-flights-results__compareTable__groupsItem_visible nemo-flights-results__compareTable__groupsItem_visible');
 					var position = $(element).position();
-					var parentOffsetLeft = $(element).parents('.js-flights-results__compareTable__companyColumn').position().left + $('.nemo-flights-results__compareTable__inner').position().left;
+					var parentOffsetLeft = $(element).parents('.js-flights-results__compareTable__companyColumn').position().left + $(element).parents('.nemo-flights-results__compareTable__inner').position().left;
 					var parentOffsetTop = $(element).parents('.js-flights-results__compareTable__groups').position().top-10;
 					cloneElement
 						.css({

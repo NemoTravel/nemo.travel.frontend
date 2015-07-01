@@ -28,6 +28,7 @@
 	"flightsCompareTable__transferFlights":"Рейсы с пересадками",
 	"flightsCompareTable__showMore":"Еще варианты",
 	"flightsCompareTable__showLess":"Свернуть",
+	"flightsCompareTable__transfers":"Пересадок",
 
 	"flightsGroup__header__carrierMismatch__header" : "Несколько перевозчиков",
 	"flightsGroup__header__carrierMismatch__content" : "Перелет предоставлен компанией &laquo;[%-validatingCarrier-%]&raquo;, но выполняет его другая компания.<br/>Вы можете ожидать сервиса и правил авиакомпании предоставляющей перелет.",
