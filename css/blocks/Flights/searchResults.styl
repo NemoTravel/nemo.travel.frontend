@@ -314,7 +314,7 @@
 
 	&__flightsGroup {
 		padding: 0;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+        box-shadow: 0 1px 16px rgba(0, 0, 0, .25);
 
 		&__header {
 			display: flex;
@@ -594,9 +594,11 @@
 					&:after {
 						width: 12px;
 						height: 10px;
-						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
 						right: 14px;
 						transition: all 0.2s;
+						content: '▼';
+						font-size: 10px;
+						color: #fff;
 					}
 
 					&_unopenable {
@@ -612,7 +614,7 @@
 						}
 					}
 
-					&_open {
+					&.nemo-flights-results__flightGroupsSelector_open {
 						border-bottom-left-radius: 0;
 						border-bottom-right-radius: 0;
 						background: #fff;
@@ -625,6 +627,7 @@
 						&:hover {
 							background: #fff;
 						}
+
 					}
 
 					&__time {
@@ -659,6 +662,7 @@
 					position: absolute;
 					z-index: 1;
 					width: 100%;
+					display: none;
 
 					&:before {
 						content: '';
@@ -751,28 +755,33 @@
 		&__footer {
 			font-size: 13px;
 			color: $nemo-color-text-secondary;
-			padding: 20px;
+			padding: 15px 20px 12px;
+
+            &__controls {
+                display: flex;
+                justify-content: space-between;
+            }
 
 			&__couplingButtonContainer, &__buyButtonContainer {
-				display: inline-block;
-				vertical-align: middle;
-				width: 50%;
+				//display: inline-block;
+				//vertical-align: middle;
+				//width: 50%;
 			}
 
 			&__buyButtonContainer {
-				display: inline-flex;
-				justify-content: flex-end;//space-between;
+                text-align: right;
 
 				&__disclaimer {
-					margin-right: 15px;
-					text-align: right;
+					//margin-right: 15px;
+					//text-align: right;
+                    padding-top: 10px;
 					align-self: center;
 				}
 			}
 
 			&__disclaimer {
 				text-align: right;
-				padding-top: 10px;
+				padding-top: 8px;
 
 				display: none;
 			}
@@ -791,7 +800,7 @@
 			}
 
 			&:active {
-				padding-top: 10px;
+				padding-top: 8px;
 			}
 		}
 
@@ -803,8 +812,9 @@
 			vertical-align: middle;
 			flex-grow: 0;
 			font-size: 16px;
-			padding: 0 20px 0 60px;
+			padding: 0 20px 0 50px;
 			white-space: nowrap;
+            text-align: right;
 
 			&, &:hover {
 				background-image: url('images/flights_results_sprite.svg');
@@ -831,7 +841,7 @@
 
 		&_cheapest &__header__title,
 		&_cheapest &__header__additional {
-			background: #B23E13;
+			//background: #B23E13;
 		}
 
 		&_bestCompanies {
@@ -879,5 +889,8 @@
 			top: 0;
 			right: 0;
 		}
+	}
+	&__flightGroupsSelector_open + &__flightGroupsSelector__dropdown{
+		display: block;
 	}
 }
