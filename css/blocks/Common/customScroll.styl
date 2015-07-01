@@ -2,59 +2,67 @@ $c_scroller_bg = rgba(255, 255, 255, .25);
 $c_scroller_control = $nemo-color-main;
 
 .nemo-common-scrollable {
-  //height: 100%;
-  align-self: stretch;
-  min-height: 100%;
-  position: relative;
-  z-index: 1;
-  margin-right: 0 !important;
+    //height: 100%;
+    align-self: stretch;
+    min-height: 100%;
+    position: relative;
+    z-index: 1;
+    margin-right: 0 !important;
 
-  &__content {
-    position: absolute;
-    height: 100%;
-    overflow: hidden;
-    padding-right: 14px;
-  }
+    &__content {
+        position: absolute;
+        height: 100%;
+        overflow: hidden;
+        padding-right: 14px;
 
-  &__scroller {
-    position: absolute;
-    z-index: 10;
-
-    opacity: .25;
-
-    right: 0;
-    top:   0;
-
-    height: 100%;
-    width: 8px;
-    border-radius: 4px;
-    background-color: $c_scroller_bg;
-    transition: all .1s ease;
-
-    overflow: hidden;
-
-
-    &__control {
-      position: absolute;
-      width: 8px;
-      border-radius: 4px;
-      background-color $nemo-color-main;
-
-      transition: all .1s ease;
+        @media screen and (max-width: 960px) {
+            overflow: scroll;
+        }
     }
-  }
 
-  &:hover .nemo-common-scrollable__scroller {
-    opacity: .5;
-  }
+    &__scroller {
+        position: absolute;
+        z-index: 10;
+
+        opacity: .25;
+
+        right: 0;
+        top:   0;
+
+        height: 100%;
+        width: 8px;
+        border-radius: 4px;
+        background-color: $c_scroller_bg;
+        transition: all .1s ease;
+
+        overflow: hidden;
+
+        @media screen and (max-width: 960px) {
+            display: none;
+        }
+
+
+        &__control {
+            position: absolute;
+            width: 8px;
+            border-radius: 4px;
+            background-color $nemo-color-main;
+
+            transition: all .1s ease;
+        }
+    }
+
+    &:hover .nemo-common-scrollable__scroller {
+        opacity: .5;
+    }
 
 }
 
 .js-common-scrollable {
 
-  &_off {
-    .js-scrollable__scroller {
-      display: none;
+    &_off {
+        .js-scrollable__scroller {
+            display: none;
+        }
     }
-  }
 }
