@@ -349,6 +349,19 @@ define(
 					return this.options.contentType == 'ajax'
 						|| this.options.contentType == 'iframe'
 						|| this.options.contentType == 'html';
+				},
+
+				_position: function() {
+					// Need to show the dialog to get the actual offset in the position plugin
+					var isVisible = this.uiDialog.is( ":visible" );
+					if ( !isVisible ) {
+						this.uiDialog.show();
+					}
+					this.options.position.of = this.uiWrapper;
+					this.uiDialog.position( this.options.position );
+					if ( !isVisible ) {
+						this.uiDialog.hide();
+					}
 				}
 			});
 		}(window, document, jQuery);

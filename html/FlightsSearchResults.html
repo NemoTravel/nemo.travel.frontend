@@ -579,13 +579,13 @@
 		<!-- /ko -->
 	<!-- /ko -->
 
-		<!-- ko if: $$loading -->
-		<div class="new-ui-subContainer nemo-flights-results__loader"></div>
-		<!-- /ko -->
+	<!-- ko if: $$loading -->
+	<div class="new-ui-subContainer nemo-flights-results__loader"></div>
+	<!-- /ko -->
 
-		<!-- ko if: $$error -->
-		<div class="new-ui-subContainer nemo-flights-results__error" data-bind="text: $$error()"></div>
-		<!-- /ko -->
+	<!-- ko if: $$error -->
+	<div class="new-ui-subContainer nemo-flights-results__error" data-bind="text: $$error()"></div>
+	<!-- /ko -->
 
 	<!-- PF TEMPLATES -->
     <script id="nemo-koTemplate-FlightsResults-PF-String" type="text/html">
@@ -633,6 +633,7 @@
 	<!-- Flights group -->
 	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
 		<!-- TODO add carrier coloring here -->
+		<!-- ko if: id == 24 -->
 		<div data-bind="attr: {
 				'class': 'new-ui-subContainer nemo-flights-results__flightsGroup js-flights-results__group ' +
 						($parent.modifier ? 'nemo-flights-results__flightsGroup_' + $parent.modifier : '') +
@@ -765,6 +766,22 @@
 									},
 									flightsResultsFlightSelector: $data,
 									with: $parent.selectedFlight().legs[$index()]">
+								<!-- ko if: $parent.selected().uncombinable().length > 0 -->
+								<div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__uncombinableWarn" data-bind="
+									text: $root.i18n('FlightsSearchResults', 'flightsGroup__selector__uncombinable_' + ($parent.selected().uncombinable().length == 1 ? 'one' : 'many'))
+											.replace(
+												'[%-numbers-%]',
+												$root.helpers.smartJoin(
+													$parent.selected().uncombinable(),
+													', ',
+													$root.i18n(
+														'FlightsSearchResults',
+														'flightsGroup__selector__uncombinable__lastConjunction'
+													)
+												)
+											)
+								"></div>
+								<!-- /ko -->
 								<div class="nemo-flights-results__flightsGroup__leg__selector__selected__time">
 									<span class="nemo-flights-results__flightsGroup__leg__selector__selected__time__departure" data-bind="text: depDateTime.getHours() + ':' + depDateTime.getMinutes()"></span>
 									&mdash;
@@ -786,21 +803,40 @@
 										class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option"
 										data-bind="
 										click: function () {$parent.selected($data)},
-										with: $parents[1].flightsById[$data.flights[0]].legs[$parentContext.$index()]
+										with: $parents[1].flightsById[$data.flights[0]].legs[$parentContext.$index()],
+										css: {'nemo-flights-results__flightsGroup__leg__selector__dropdown__option_uncombinable': uncombinable().length > 0}
 									">
-										<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__departure" data-bind="text: depDateTime.getHours() + ':' + depDateTime.getMinutes()"></span>
-										<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__transfers" data-bind="foreach: new Array(transfersCount)"><div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__transfers__transfer"></div></span>
-										<span
-											class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival"
-											data-bind="css: {'nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival_nextday': depDateTime.getDate() != arrDateTime.getDate()}">
-											<!-- ko text: arrDateTime.getHours() + ':' + arrDateTime.getMinutes() --><!-- /ko -->
-											<!-- ko if: depDateTime.getDate() != arrDateTime.getDate() -->
-												<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival__nextDayDate">
-													(<!-- ko text: arrDateTime.getDate() + ' ' + arrDateTime.getMonthNameShort() --><!-- /ko -->)
-												</span>
+										<!-- ko if: $parent.uncombinable().length > 0 -->
+										<div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__uncombinableWarn" data-bind="
+											text: $root.i18n('FlightsSearchResults', 'flightsGroup__selector__uncombinable_' + ($parent.uncombinable().length == 1 ? 'one' : 'many'))
+													.replace(
+														'[%-numbers-%]',
+														$root.helpers.smartJoin(
+															$parent.uncombinable(),
+															', ',
+															$root.i18n(
+																'FlightsSearchResults',
+																'flightsGroup__selector__uncombinable__lastConjunction'
+															)
+														)
+													)
+										"></div>
 										<!-- /ko -->
-										</span>
-										<div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__timeEnRoute" data-bind="text: timeEnRoute.readableString()"></div>
+										<div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__data">
+											<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__departure" data-bind="text: depDateTime.getHours() + ':' + depDateTime.getMinutes()"></span>
+											<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__transfers" data-bind="foreach: new Array(transfersCount)"><div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__transfers__transfer"></div></span>
+											<span
+												class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival"
+												data-bind="css: {'nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival_nextday': depDateTime.getDate() != arrDateTime.getDate()}">
+												<!-- ko text: arrDateTime.getHours() + ':' + arrDateTime.getMinutes() --><!-- /ko -->
+												<!-- ko if: depDateTime.getDate() != arrDateTime.getDate() -->
+													<span class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__arrival__nextDayDate">
+														(<!-- ko text: arrDateTime.getDate() + ' ' + arrDateTime.getMonthNameShort() --><!-- /ko -->)
+													</span>
+											<!-- /ko -->
+											</span>
+											<div class="nemo-flights-results__flightsGroup__leg__selector__dropdown__option__timeEnRoute" data-bind="text: timeEnRoute.readableString()"></div>
+										</div>
 									</div>
 								<!-- /ko -->
 							</div>
@@ -879,7 +915,10 @@
 
                     <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
                         <money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-                               data-bind="money: getTotalPrice(), click: function () {resultsController.bookFlight(selectedFlightsIds());}" format="0,0 $"></money><!---->
+                               data-bind="
+                                money: getTotalPrice(),
+                                css: {'new-ui-button_disabled': selectedFlightsIds().length == 0},
+                                click: function () {if (selectedFlightsIds().length > 0) {resultsController.bookFlight(selectedFlightsIds());}}" format="0,0 $"></money><!---->
                         <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
                     </div>
 
@@ -896,6 +935,7 @@
 					data-bind="template: { name: 'nemo-koTemplate-FlightsResults-CouplingTable', data: couplingTable }"></div>
 			<!-- /ko -->
 		</div>
+		<!-- /ko -->
 	</script>
 
 	<!-- Coupling table -->
@@ -1151,8 +1191,10 @@
 	<script id="nemo-koTemplate-FlightsResults-DatesMatrix" type="text/html">
 		<div class="new-ui-subContainer nemo-flights-results__matrix">
 			<table class="nemo-flights-results__matrix__table js-flights-results__matrix" data-bind="flightsResultsMatrixHilighter">
-				<tr class="nemo-flights-results__matrix__table__row nemo-flights-results__matrix__table__row_header js-flights-results__matrix__row" data-bind="foreach: matrixData[0]">
-					<!-- ko if: $index() == 0 -->
+				<tr
+					class="nemo-flights-results__matrix__table__row nemo-flights-results__matrix__table__row_header js-flights-results__matrix__row"
+					data-bind="foreach: matrixData[0]">
+					<!-- ko if: $index() == 0 && $parent.searchInfo.tripType == 'RT' -->
 					<th class="nemo-flights-results__matrix__table__header nemo-flights-results__matrix__table__header__corner js-flights-results__matrix__row__cell">
 						<div class="nemo-flights-results__matrix__table__corner__rowTitle">
 							Обратно
@@ -1166,16 +1208,17 @@
 					    data-bind="
 							css: {
 								'nemo-flights-results__matrix__table__header_originalDate': $index() == Math.floor($parent.matrixData[0].length / 2)
-							}
+							},
+							with: $parent.searchInfo.tripType == 'RT' ? returndate : date
 					">
-						<div class="nemo-flights-results__matrix__table__header__date" data-bind="text: returndate.getDate() + '.' + returndate.getMonth() + '.' + returndate.getYear()"></div>
-						<div class="nemo-flights-results__matrix__table__header__DOW" data-bind="text: returndate.getDOWName()"></div>
+						<div class="nemo-flights-results__matrix__table__header__date" data-bind="text: getDate() + '.' + getMonth() + '.' + getYear()"></div>
+						<div class="nemo-flights-results__matrix__table__header__DOW" data-bind="text: getDOWName()"></div>
 					</th>
 				</tr>
 
 				<tbody data-bind="foreach: matrixData">
 					<tr class="nemo-flights-results__matrix__table__row js-flights-results__matrix__row" data-bind="foreach: $data">
-						<!-- ko if: $index() == 0 -->
+						<!-- ko if: $index() == 0 && $parents[1].searchInfo.tripType == 'RT' -->
 						<th class="nemo-flights-results__matrix__table__header nemo-flights-results__matrix__table__header_forth js-flights-results__matrix__row__cell"
 					        data-bind="
 								css: {
@@ -1190,13 +1233,13 @@
 							data-bind="
 								css: {
 									'nemo-flights-results__matrix__table__cell_empty': !price || !company,
-									'nemo-flights-results__matrix__table__cell_impossible': date.getTimestamp() > returndate.getTimestamp()
+									'nemo-flights-results__matrix__table__cell_impossible': returndate && date.getTimestamp() > returndate.getTimestamp()
 								}
 						">
-							<!-- ko if: !price && date.getTimestamp() <= returndate.getTimestamp() -->
+							<!-- ko if: !price && (!returndate || date.getTimestamp() <= returndate.getTimestamp()) -->
 							<div class="nemo-flights-results__matrix__table__cell__emptyText">Нет перелетов</div>
 							<!-- /ko -->
-							<!-- ko if: date.getTimestamp() > returndate.getTimestamp() -->
+							<!-- ko if: returndate && date.getTimestamp() > returndate.getTimestamp() -->
 							<div class="nemo-flights-results__matrix__table__cell__impossibleText">&mdash;</div>
 							<!-- /ko -->
 							<!-- ko if: price && company -->
