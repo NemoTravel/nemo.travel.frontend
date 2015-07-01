@@ -176,16 +176,16 @@
 						route: componentRoute(),
 						additional: componentAdditionalParams()
 					}
-				}">Loading component...</div>
+				}">
+				<div class="nemo-common-appLoader"></div>
+			</div>
 		</div>
 		<!-- /ko -->
 		<!-- ko if: !component() && !globalError() -->
-		<div>
-			LOADING APP
-		</div>
+		<div class="nemo-common-appLoader"></div>
 		<!-- /ko -->
 		<!-- ko if: globalError() -->
-		<div data-bind="text: globalError"></div>
+		<div class="nemo-common-appError" data-bind="text: globalError"></div>
 		<!-- /ko -->
 	</div>
 
