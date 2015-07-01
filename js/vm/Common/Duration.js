@@ -2,7 +2,7 @@
 define(
 	['knockout','js/vm/helpers','js/vm/BaseDynamicModel','js/vm/BaseI18nizedModel'],
 	function (ko, helpers, BaseModel, BaseI18nizedModel) {
-		function length (initialData) {
+		function Duration (initialData) {
 			BaseModel.apply(this, arguments);
 
 			initialData = parseInt(initialData);
@@ -21,23 +21,23 @@ define(
 			this.readableString = ko.computed(function(){
 				var res = [];
 
-				if(this.years() > 0 ){
+				if(this.years() > 0) {
 					res.push(this.years()+ ' ' +this.$$controller.i18n('duration', 'year_' + helpers.getNumeral(this.years(),"one","twoToFour","fourPlus")));
 				}
-				if(this.months() > 0 ){
+				if(this.months() > 0) {
 					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', 'month_' + helpers.getNumeral(this.months(),"one","twoToFour","fourPlus")));
 				}
-				if(this.days() > 0 ){
+				if(this.days() > 0) {
 					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', 'day_' + helpers.getNumeral(this.days(),"one","twoToFour","fourPlus")));
 				}
-				if(this.hours() > 0 ){
+				if(this.hours() > 0) {
 					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  'hour_' + helpers.getNumeral(this.hours(),"one","twoToFour","fourPlus")));
 				}
-				if(this.minutes() > 0 ){
+				if(this.minutes() > 0) {
 					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', 'minute_' + helpers.getNumeral(this.minutes(),"one","twoToFour","fourPlus")));
 				}
-				if(this.seconds() > 0 ){
-					res.push( this.seconds()+ ' ' +this.$$controller.i18n('duration', 'second_' + helpers.getNumeral(this.seconds(),"one","twoToFour","fourPlus")));
+				if(this.seconds() > 0) {
+					res.push(this.seconds()+ ' ' +this.$$controller.i18n('duration', 'second_' + helpers.getNumeral(this.seconds(),"one","twoToFour","fourPlus")));
 				}
 
 				return res.join(' ');
@@ -46,44 +46,70 @@ define(
 			this.readableStringShort = ko.computed(function(){
 				var res = [];
 
-				if(this.years() > 0 ){
+				if(this.years() > 0) {
 					res.push(this.years() + ' ' + this.$$controller.i18n('duration', "year_short"));
 				}
-				if(this.months() > 0 ){
+				if(this.months() > 0) {
 					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', "month_short"));
 				}
-				if(this.days() > 0 ){
+				if(this.days() > 0) {
 					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', "day_short"));
 				}
-				if(this.hours() > 0 ){
+				if(this.hours() > 0) {
 					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  "hour_short"));
 				}
-				if(this.minutes() > 0 ){
+				if(this.minutes() > 0) {
 					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', "minute_short"));
 				}
-				if(this.seconds() > 0 ){
-					res.push( this.seconds()+ ' ' +this.$$controller.i18n('duration', "second_short"));
+				if(this.seconds() > 0) {
+					res.push(this.seconds()+ ' ' +this.$$controller.i18n('duration', "second_short"));
 				}
 
 				return res.join(' ');
 			}, this);
 
+			this.readableStringShortest = ko.computed(function(){
+				var res = [];
+
+				if(this.years() > 0){
+					res.push(this.years());
+				}
+				if(this.months() > 0 || res.length){
+					res.push(this.months());
+				}
+				if(this.days() > 0 || res.length){
+					res.push(this.days());
+				}
+				if(this.hours() > 0 || res.length){
+					res.push(this.hours());
+				}
+				if(this.minutes() > 0 || res.length){
+					res.push(this.minutes());
+				}
+
+				res.push(this.seconds());
+
+				res = res.map(this.prependZero);
+
+				return res.join(':');
+			}, this);
+
 			this.readableStringShortNoSeconds = ko.computed(function(){
 				var res = [];
 
-				if(this.years() > 0 ){
+				if(this.years() > 0) {
 					res.push(this.years() + ' ' + this.$$controller.i18n('duration', "year_short"));
 				}
-				if(this.months() > 0 ){
+				if(this.months() > 0) {
 					res.push(this.months()+ ' ' +this.$$controller.i18n('duration', "month_short"));
 				}
-				if(this.days() > 0 ){
+				if(this.days() > 0) {
 					res.push(this.days()+ ' ' +this.$$controller.i18n('duration', "day_short"));
 				}
-				if(this.hours() > 0 ){
+				if(this.hours() > 0) {
 					res.push(this.hours()+ ' ' +this.$$controller.i18n('duration',  "hour_short"));
 				}
-				if(this.minutes() > 0 ){
+				if(this.minutes() > 0) {
 					res.push(this.minutes()+ ' ' +this.$$controller.i18n('duration', "minute_short"));
 				}
 
@@ -94,11 +120,11 @@ define(
 		}
 
 		// Extending from base and i18nized model
-		helpers.extendModel(length, [BaseModel, BaseI18nizedModel]);
+		helpers.extendModel(Duration, [BaseModel, BaseI18nizedModel]);
 
-		length.prototype.$$i18nSegments = ['duration'];
+		Duration.prototype.$$i18nSegments = ['duration'];
 
-		length.prototype.prependZero = function (num) {
+		Duration.prototype.prependZero = function (num) {
 			if (num >= 0 && num < 10) {
 				num = '0' + num.toString();
 			}
@@ -106,7 +132,15 @@ define(
 			return num;
 		};
 
-		length.prototype.setBaseParts = function () {
+		Duration.prototype.decrement = function (num) {
+			this.length(this.length() - 1);
+		};
+
+		Duration.prototype.increment = function (num) {
+			this.length(this.length() + 1);
+		};
+
+		Duration.prototype.setBaseParts = function () {
 			var left = this.length();
 
 			// Years
@@ -132,6 +166,6 @@ define(
 			this.seconds(left % 60);
 		};
 
-		return length;
+		return Duration;
 	}
 );

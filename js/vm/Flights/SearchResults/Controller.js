@@ -284,6 +284,14 @@ define(
 			this.possibleSorts = ['price', 'durationOnLeg', 'rating', 'carrierRating'];
 			this.sort = ko.observable(null);
 
+			this.expirationPopupWarning = null;
+			this.expirationPopupExpired = null;
+			this.expirationPopupTimer = null;
+
+			this.matrixData = null;
+
+			this.error = ko.observable(false);
+
 			this.sort.subscribe(function (newValue) {
 				switch (newValue) {
 					case 'price':
@@ -430,152 +438,212 @@ define(
 						return parseFloat(b.rating) - parseFloat(a.rating);
 					});
 
-				// Processing segments
-				for (var i in this.$$rawdata.flights.search.results.groupsData.segments) {
-					if (this.$$rawdata.flights.search.results.groupsData.segments.hasOwnProperty(i)) {
-						this.segments[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.flights.search.results.groupsData.segments[i]);
-
-						// Times
-						this.segments[i].depDateTime = this.$$controller.getModel('Common/Date', this.segments[i].depDateTime);
-						this.segments[i].arrDateTime = this.$$controller.getModel('Common/Date', this.segments[i].arrDateTime);
-
-						// Time in air - from minutes to seconds
-						this.segments[i].flightTime *= 60;
-
-						// Aircraft
-						this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
-
-						// Companies
-						this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
-						this.segments[i].operatingCompany = this.airlines[this.segments[i].operatingCompany];
-
-						this.segments[i].depAirp = this.$$controller.getModel(
-							'Flights/Common/Geo',
-							{
-								data: {
-									IATA: this.segments[i].depAirp
-								},
-								guide: setSegmentsGuide ? this.$$rawdata.guide : null
-							}
-						);
-
-						// Guide for Flights/Common/Geo is already set
-						this.segments[i].arrAirp = this.$$controller.getModel(
-							'Flights/Common/Geo',
-							{
-								data: {
-									IATA: this.segments[i].arrAirp
-								},
-								guide: null
-							}
-						);
-
-						setSegmentsGuide = false;
-					}
+				// Checking results
+				if (this.$$rawdata.flights.search.results.info && this.$$rawdata.flights.search.results.info.errorCode) {
+					this.error(this.$$rawdata.flights.search.results.info.errorCode);
 				}
+				else {
+					if (this.$$rawdata.flights.search.resultMatrix && this.$$rawdata.flights.search.resultMatrix.rangeData) {
+						var days = this.$$rawdata.flights.search.request.parameters.aroundDates,
+							matrixHash = {};
 
-				// Processing price objects
-				for (var i in this.$$rawdata.flights.search.results.groupsData.prices) {
-					if (this.$$rawdata.flights.search.results.groupsData.prices.hasOwnProperty(i)) {
-						this.prices[i] = this.$$controller.getModel('Flights/SearchResults/FlightPrice', this.$$rawdata.flights.search.results.groupsData.prices[i]);
-						this.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
-					}
-				}
+						// Preparing matrix data
+						for (var i = 0; i < this.$$rawdata.flights.search.resultMatrix.rangeData.length; i++) {
+							var key = this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDate + '-' + this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDateBack;
 
-				// Processing flights (iterating over groups because flights are grouped by routes)
-				tmp = 0;
-
-				for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
-					var segsarr = [],
-						source = this.$$rawdata.flights.search.results.flightGroups[i];
-
-					// Preparing segments array
-					for (var j = 0; j < source.segments.length; j++) {
-						segsarr.push(this.segments[source.segments[j]]);
-					}
-
-					// Creating flights and defining minimum and maximum flight durations and prices
-					for (var j = 0; j < source.flights.length; j++) {
-						this.flights[source.flights[j].id] = this.$$controller.getModel(
-							'Flights/SearchResults/Flight',
-							{
-								id: source.flights[j].id,
-								price: this.prices[source.flights[j].price],
-								segments: segsarr
-							}
-						);
-
-						tmp++;
-					}
-				}
-
-				this.visibleResultsCount(tmp);
-				this.totalResultsCount = tmp;
-
-				// Creating flight groups (we group by same price and validating company)
-				// Also - post-processing flights for them to calculate their "recommended" rating
-				// that relies on maximum/minimum values for all flights
-				for (var i in this.flights) {
-					if (this.flights.hasOwnProperty(i)) {
-						tmp = this.flights[i].getTotalPrice().normalizedAmount() + '-' + this.flights[i].getTotalPrice().currency() + '-' + this.flights[i].getValidatingCompany();
-
-						if (!tmpGroups[tmp]) {
-							tmpGroups[tmp] = [];
+							matrixHash[key] = this.$$rawdata.flights.search.resultMatrix.rangeData[i];
 						}
 
-						tmpGroups[tmp].push(this.flights[i]);
+						this.matrixData = [];
+
+						for (var i = -days; i <= days; i++) {
+							var tmp = [];
+
+							if (this.searchInfo.tripType == 'RT') {
+								for (var j = -days; j <= days; j++) {
+									var date = new Date(this.searchInfo.segments[0].departureDate.dateObject()),
+										returndate = new Date(this.searchInfo.segments[1].departureDate.dateObject()),
+										tmp2, key;
+
+									date.setDate(date.getDate() + i);
+									returndate.setDate(returndate.getDate() + j);
+
+
+									tmp2 = {
+										date: this.$$controller.getModel('Common/Date', date),
+										returndate: this.$$controller.getModel('Common/Date', returndate),
+										price: null,
+										company: null,
+										uri: null
+									};
+
+									key = tmp2.date.getISODate() + '-' + tmp2.returndate.getISODate();
+
+									if (typeof matrixHash[key] != 'undefined') {
+										tmp2.price = this.$$controller.getModel('Common/Money', matrixHash[key].minPriceFlight.minPrice);
+										tmp2.company = this.airlines[matrixHash[key].minPriceFlight.carrier];
+										tmp2.uri = matrixHash[key].uri;
+									}
+
+									tmp.push(tmp2);
+								}
+							}
+							else {
+
+							}
+
+							this.matrixData.push(tmp);
+						}
+					}
+					else {
+						// Processing segments
+						for (var i in this.$$rawdata.flights.search.results.groupsData.segments) {
+							if (this.$$rawdata.flights.search.results.groupsData.segments.hasOwnProperty(i)) {
+								this.segments[i] = this.$$controller.getModel('BaseStaticModel', this.$$rawdata.flights.search.results.groupsData.segments[i]);
+
+								// Times
+								this.segments[i].depDateTime = this.$$controller.getModel('Common/Date', this.segments[i].depDateTime);
+								this.segments[i].arrDateTime = this.$$controller.getModel('Common/Date', this.segments[i].arrDateTime);
+
+								// Time in air - from minutes to seconds
+								this.segments[i].flightTime *= 60;
+
+								// Aircraft
+								this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
+
+								// Companies
+								this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
+								this.segments[i].operatingCompany = this.airlines[this.segments[i].operatingCompany];
+
+								this.segments[i].depAirp = this.$$controller.getModel(
+									'Flights/Common/Geo',
+									{
+										data: {
+											IATA: this.segments[i].depAirp
+										},
+										guide: setSegmentsGuide ? this.$$rawdata.guide : null
+									}
+								);
+
+								// Guide for Flights/Common/Geo is already set
+								this.segments[i].arrAirp = this.$$controller.getModel(
+									'Flights/Common/Geo',
+									{
+										data: {
+											IATA: this.segments[i].arrAirp
+										},
+										guide: null
+									}
+								);
+
+								setSegmentsGuide = false;
+							}
+						}
+
+						// Processing price objects
+						for (var i in this.$$rawdata.flights.search.results.groupsData.prices) {
+							if (this.$$rawdata.flights.search.results.groupsData.prices.hasOwnProperty(i)) {
+								this.prices[i] = this.$$controller.getModel('Flights/SearchResults/FlightPrice', this.$$rawdata.flights.search.results.groupsData.prices[i]);
+								this.prices[i].validatingCompany = this.airlines[this.$$rawdata.flights.search.results.groupsData.prices[i].validatingCompany];
+							}
+						}
+
+						// Processing flights (iterating over groups because flights are grouped by routes)
+						tmp = 0;
+
+						for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
+							var segsarr = [],
+								source = this.$$rawdata.flights.search.results.flightGroups[i];
+
+							// Preparing segments array
+							for (var j = 0; j < source.segments.length; j++) {
+								segsarr.push(this.segments[source.segments[j]]);
+							}
+
+							// Creating flights and defining minimum and maximum flight durations and prices
+							for (var j = 0; j < source.flights.length; j++) {
+								this.flights[source.flights[j].id] = this.$$controller.getModel(
+									'Flights/SearchResults/Flight',
+									{
+										id: source.flights[j].id,
+										price: this.prices[source.flights[j].price],
+										segments: segsarr
+									}
+								);
+
+								tmp++;
+							}
+						}
+
+						this.visibleResultsCount(tmp);
+						this.totalResultsCount = tmp;
+
+						// Creating flight groups (we group by same price and validating company)
+						// Also - post-processing flights for them to calculate their "recommended" rating
+						// that relies on maximum/minimum values for all flights
+						for (var i in this.flights) {
+							if (this.flights.hasOwnProperty(i)) {
+								tmp = this.flights[i].getTotalPrice().normalizedAmount() + '-' + this.flights[i].getTotalPrice().currency() + '-' + this.flights[i].getValidatingCompany();
+
+								if (!tmpGroups[tmp]) {
+									tmpGroups[tmp] = [];
+								}
+
+								tmpGroups[tmp].push(this.flights[i]);
+							}
+						}
+
+						for (var i in tmpGroups) {
+							if (tmpGroups.hasOwnProperty(i)) {
+								tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i], resultsController: this});
+
+								// Setting group "conjunction table"
+								tmp.buildCouplingTable(this.flights);
+
+								this.groups.push(tmp);
+							}
+						}
+
+						if (this.options.showBlocks.useFlightCompareTable) {
+							this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
+							this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
+						}
+
+						this.buildPFs();
+
+						this.sort(this.options.defaultSort);
+
+						this.setShowcase();
 					}
 				}
 
-				for (var i in tmpGroups) {
-					if (tmpGroups.hasOwnProperty(i)) {
-						tmp = this.$$controller.getModel('Flights/SearchResults/Group', {flights: tmpGroups[i], resultsController: this});
+				// Processing search timeouts
+				// Just in case
+				clearInterval(this.expirationPopupTimer);
 
-						// Setting group "conjunction table"
-						tmp.buildCouplingTable(this.flights);
+				if (this.options.searchTimeout.useSearchTimeout) {
+					this.expirationPopupWarning = this.$$controller.getModel('Common/Duration', self.options.searchTimeout.warningBeforeSearchTimeout);
+					this.expirationPopupExpired = this.$$controller.getModel('Common/Duration', self.options.searchTimeout.searchTimeout);
 
-						this.groups.push(tmp);
-					}
+					this.expirationPopupTimer = setInterval(function () {
+						// We haven't shown expiration warning popup and the time has come
+						if (
+							self.expirationPopupWarning.length() < self.expirationPopupExpired.length() &&
+							self.expirationPopupWarning.length() >= 0
+						) {
+							self.expirationPopupWarning.decrement();
+						}
+
+						// We haven't shown expiration popup and the time has come
+						if (self.expirationPopupExpired.length() >= 0) {
+							self.expirationPopupExpired.decrement();
+						}
+
+						if (self.expirationPopupExpired.length() < 0) {
+							clearInterval(self.expirationPopupTimer);
+						}
+					}, 1000);
 				}
-
-				if (this.options.showBlocks.useFlightCompareTable) {
-					this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true}));
-					this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false}));
-				}
-
-				this.buildPFs();
-
-				this.sort(this.options.defaultSort);
-
-				this.setShowcase();
-
-				// FIXME remove dummy data
-//				this.matrixData = [];
-//				var days = 3,
-//					c = 0;
-//
-//				for (var i = -days; i <= days; i++) {
-//					var tmp = [];
-//
-//					for (var j = -days; j <= days; j++) {
-//						var tmp2 = this.flights[Object.keys(this.flights)[c++]],
-//							tmp3 = {
-//								date: this.$$controller.getModel('Common/Date', '2015-09-' + (15 + i)),
-//								returndate: this.$$controller.getModel('Common/Date', '2015-09-' + (18 + j)),
-//								price: null,//c == 12 ? null : tmp2.getTotalPrice(),
-//								company: null//tmp2.getValidatingCompany()
-//							};
-//
-//						if (tmp3.date.getTimestamp() <= tmp3.returndate.getTimestamp() && c % 5 && c > 7) {
-//							tmp3.price = tmp2.getTotalPrice();
-//							tmp3.company = tmp2.getValidatingCompany();
-//						}
-//
-//						tmp.push(tmp3);
-//					}
-//
-//					this.matrixData.push(tmp);
-//				}
 			}
 		};
 
@@ -851,6 +919,10 @@ define(
 
 				this.showcase.bestCompanies(bestCompanies);
 			}
+		};
+
+		FlightsSearchResultsController.prototype.refreshSearch = function () {
+			alert('REFRESHING SEARCH');
 		};
 
 		FlightsSearchResultsController.prototype.passengersSummary = function () {

@@ -92,6 +92,31 @@
 
 		.ui-button {
 			@extend .new-ui-button;
+
+			margin: 0 15px 0 0;
+
+			&:last-child {
+				margin: 0;
+			}
+
+			&_secondary {
+				// The only place float is allowed due to our inability to change buttonpane templating
+				float: left;
+			}
+
+			&_pseudoLink {
+				&, &:hover, &:active, &:focus {
+					line-height: normal!important;
+					padding: 0!important;
+					box-shadow: none!important;
+					background: transparent!important;
+				}
+			}
+
+			&_pseudoLink .ui-button-text {
+				@extend .new-ui-pseudoLink;
+				line-height: normal;
+			}
 		}
 	}
 }
