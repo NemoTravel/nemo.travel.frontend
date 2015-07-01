@@ -109,6 +109,10 @@
 							<div class="nemo-flights-results__compareTable__groupsItem__duration"
 								 data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
 							</div>
+							<!-- ko if:$data.selectedFlight().transfersCount > 0 -->
+								<div class="nemo-flights-results__compareTable__groupsItem__transfers"
+									 data-bind="html:$root.i18n('FlightsSearchResults', 'flightsCompareTable__transfers')+': '+$data.selectedFlight().transfersCount"></div>
+							<!-- /ko -->
 						</div>
 						<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
 							<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
@@ -244,6 +248,10 @@
 									<div class="nemo-flights-results__compareTable__groupsItem__duration"
 										 data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
 									</div>
+									<!-- ko if:$data.selectedFlight().transfersCount > 0 -->
+										<div class="nemo-flights-results__compareTable__groupsItem__transfers"
+											 data-bind="html:$root.i18n('FlightsSearchResults', 'flightsCompareTable__transfers')+': '+$data.selectedFlight().transfersCount"></div>
+									<!-- /ko -->
 								</div>
 								<!-- /ko -->
 							</div>
