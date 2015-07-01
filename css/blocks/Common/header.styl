@@ -6,85 +6,101 @@ $d_ui_pageHeader_inner_padding = 0 30px;
 
 $d_ui_pageHeader_tablet_inner_padding = 0 20px 0 10px;
 
-$d_headerLinks_padding 				= 0 50px;
-$d_headerLinks_tablet_padding 		= 0 0 0 10px;
+$d_headerLinks_padding = 0 50px;
+$d_headerLinks_tablet_padding = 0 0 0 10px;
 
+.nemo-common {
+    &-pageHeader {
+        background: $nemo-header-bg;
+        padding: $d_pageHeader_padding;
 
-.nemo-common-{
-	&pageHeader{
-	background: $nemo-header-bg;
-	padding: $d_pageHeader_padding;
-		&__logo {
-			display: inline-block;
-			&__image {
-				display: block;
-			}
-		}
-	.nemo-root_mobile &{
-		padding: $d_pageHeader_padding_mobile;
-		.logo{
-			display: none;
-		}
-	}
+        &__logo {
+            display: inline-block;
+            &__image {
+                display: block;
+            }
+        }
 
-	.nemo-root_tablet &{
+        .nemo-root_mobile & {
+            padding: $d_pageHeader_padding_mobile;
+            .logo {
+                display: none;
+            }
+        }
 
-	  &__inner{
-		padding: $d_ui_pageHeader_tablet_inner_padding;
-	  }
-	}
+        .nemo-root_tablet & {
 
-		&__inner{
-			display:flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			justify-content: flex-start;
-			align-content: flex-start;
-			align-items: center;
-			margin: 0 auto;
-			height: 100%;
-			vertical-align: middle;
-			width: 100%;
-			max-width: $d_ui_pageHeader_inner_maxWidth;
-			padding: $d_ui_pageHeader_inner_padding;
-			@media only screen and (min-width: 1340px) {
-				max-width: 1600px;
-			}
-			.nemo-root_mobile &{
-				padding: 0 0 0 10px;
-			}
-			&__headerRight {
-				margin-left: auto;
-			}
-			&__headerLinks {
-				padding: $d_headerLinks_padding;
-				line-height: 30px;
-				.new-ui-pseudoLink {
-					vertical-align: middle;
-					display:inline-block;
-					margin: 0 10px 0 20px;
-					& + .new-ui-link {
-						margin: 0 10px;
-					}
-				}
-				&__headerMenuControlls{
-				  &__menuButton{
-						height: 35px;
-					}
-				}
-			}
-		}
+            &__inner {
+                padding: $d_ui_pageHeader_tablet_inner_padding;
+            }
+        }
 
-	.nemo-root_tablet & {
-	  padding: $d_headerLinks_tablet_padding;
-	}
+        .nemo-root_mobile & {
+            padding: 0 0 0 10px;
+        }
 
-	.nemo-root_mobile & {
-	  display: none;
-	}
-	&__langSelectImage{
-		width: 32px;
-		height: 18px;
-	}
-  }
+        &__inner {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: center;
+            margin: 0 auto;
+            height: 100%;
+            vertical-align: middle;
+            width: 100%;
+            //max-width: $d_ui_pageHeader_inner_maxWidth;
+            padding: $d_ui_pageHeader_inner_padding;
+            @media only screen and (min-width: 1340px) {
+            max-width: 1600px;
+        }
+
+        &__headerMenuControls {
+            display: none;
+        }
+
+        &__headerLinks {
+            padding: $d_headerLinks_padding;
+            line-height: 30px;
+            white-space: nowrap;
+
+            &__item {
+                margin-right: 20px;
+                white-space: nowrap;
+            }
+
+            &__headerMenuControlls {
+                &__menuButton {
+                    height: 35px;
+                }
+            }
+
+        }
+
+        &__headerRight {
+            margin-left: auto;
+            display: flex;
+
+        }
+
+        &__langSelectImage {
+            //display: inline-block;
+            margin-top: 6px;
+        }
+    }
+
+    .nemo-root_tablet & {
+        padding: $d_headerLinks_tablet_padding;
+    }
+
+    .nemo-root_mobile & {
+        display: none;
+    }
+    &__langSelectImage {
+        width: 32px;
+        height: 18px;
+    }
+}
+
 }

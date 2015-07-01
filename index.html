@@ -7,50 +7,72 @@
 </head>
 <body>
 <div class="nemo-common-pageWrapper">
+
 	<header class="nemo-common-pageHeader">
 		<div class="nemo-common-pageHeader__inner">
-			<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControlls">
+
+			<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControls">
 					<span class="new-ui-button new-ui-button_transparent nemo-common-pageHeader__headerMenuControlls__menuButton js-menuButton">
 						<i class="new-ui-mMenuIcon"></i>
 					</span>
 			</div>
+
 			<a href="/" class="nemo-common-pageHeader__logo">
 				<img class="nemo-common-pageHeader__logo__image" src="../img/logo.png" alt="">
 			</a>
+
 			<div class="nemo-common-pageHeader__inner__headerLinks">
-				<button class="new-ui-button new-ui-button_common new-ui-button_medium">Войти</button>
-				<a href="#" class="new-ui-pseudoLink new-ui-pseudoLink_blue">
+
+				<button class="new-ui-button new-ui-button_common new-ui-button_medium nemo-common-pageHeader__inner__headerLinks__item">
+                    Войти
+                </button>
+
+				<a href="#" class="new-ui-pseudoLink new-ui-pseudoLink_blue nemo-common-pageHeader__inner__headerLinks__item">
 					Регистрация
 				</a>
-				<a href="#" class="new-ui-pseudoLink new-ui-link_blue">
+
+				<a href="#" class="new-ui-pseudoLink new-ui-link_blue nemo-common-pageHeader__inner__headerLinks__item">
 					Состояние заказа
 				</a>
+
 			</div>
+
 			<div class="nemo-common-pageHeader__inner__headerRight">
+
 				<div class="new-ui-dropMenu">
+
 					<div class="new-ui-dropMenu__main">
-						<button class="new-ui-button new-ui-button_common new-ui-button_medium">
+						<button class="new-ui-button new-ui-button_common new-ui-button_languageAndCurrency">
 							<img class="nemo-common-pageHeader__langSelectImage" src="../img/flag.svg" alt="">
 						</button>
 					</div>
+
 					<div class="new-ui-dropMenu__drop">
 
 					</div>
+
 				</div>
+
 				<div class="new-ui-dropMenu">
+
 					<div class="new-ui-dropMenu__main">
-						<button class="new-ui-button new-ui-button_common new-ui-button_medium">
+						<button class="new-ui-button new-ui-button_common new-ui-button_languageAndCurrency">
 							$
 						</button>
 					</div>
+
 					<div class="new-ui-dropMenu__drop">
 
 					</div>
+
 				</div>
+
 				<div class="new-layout-overlayMenu">
+
 					<div class="new-layout-overlayMenu__main js-overlay-menu">
 						<i class="new-ui-overlayMenu"></i>
 					</div>
+
 					<div class="new-layout-overlayMenu__drop js-overlay-menu">
 						<div class="new-ui-mobileDropMenu">
 							<div class="new-ui-mobileDropMenu__item">
@@ -134,8 +156,10 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
+
 	</header>
 
 	<!-- Template override example -->
@@ -169,11 +193,11 @@
 	<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.min.css">-->
 	<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.css">-->
 
-	<link rel="stylesheet" href="http://nemofront.dev/css/style.css">
+	<link rel="stylesheet" href="http://front.nemo.travel/css/style.css">
 
-	<script src="http://nemofront.dev/js/lib/requirejs/v.2.1.15/require.js"></script>
+	<script src="http://front.nemo.travel/js/lib/requirejs/v.2.1.15/require.js"></script>
 	<script>
-		var nemoSourceHost = 'http://nemofront.dev';
+		var nemoSourceHost = 'http://front.nemo.travel';
 		require.config({
 			// This should be deleted
 			urlArgs: "bust=" + (new Date()).getTime(),
