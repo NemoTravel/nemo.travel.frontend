@@ -51,10 +51,6 @@ define(
 
 				for (var i = 0; i < this.legGroupings[siter].flights().length; i++) {
 
-//					if (this.group.id == 24) {
-//						console.log(initiallySelected, this.legGroupings[siter].flights()[i]);
-//					}
-
 					if (this.legGroupings[siter].flights()[i].indexOf(initiallySelected) >= 0) {
 						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[i]);
 					}else{
@@ -66,18 +62,6 @@ define(
 
 				this.isActive = this.isActive || this.legGroupings[siter].flights().length > 1;
 			}
-
-//			if (!this.isActive || 1) {
-//
-//				for (var siter = 0; siter < this.flights[0].legs.length; siter++) {
-//					if (!this.legGroupings[siter].selected()) {
-//						console.log(this, siter, this.group.id);
-//						console.log(this.legGroupings[siter].flights());
-//						console.log(this.legGroupings[siter].selected());
-//						console.log('==============================');
-//					}
-//				}
-//			}
 
 			this.sort.subscribe(function () {
 				var self = this;
@@ -173,7 +157,7 @@ define(
 		};
 
 		CouplingTable.prototype.calculateSelectedFlights = function () {
-			var ret = [];
+			var ret;
 
 			for (var i = 0; i < this.legGroupings.length; i++) {
 				var tmp = [],
@@ -194,7 +178,7 @@ define(
 				ret = tmp;
 			}
 
-			return ret;
+			return ret || [];
 		};
 
 		CouplingTable.prototype.selectVariant = function (data, leg) {
