@@ -48,8 +48,7 @@ define(
 				// Converting to array
 				addObj.flights(Object.keys(tmp).map(function (key) {return tmp[key]}));
 				this.legGroupings.push(addObj);
-				console.warn(this)
-				console.log(this.legGroupings[siter]);
+
 				for (var i = 0; i < this.legGroupings[siter].flights().length; i++) {
 					if (this.legGroupings[siter].flights()[i].indexOf(initiallySelected) >= 0) {
 						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[i]);
