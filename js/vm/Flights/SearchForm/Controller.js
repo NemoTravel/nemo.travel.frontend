@@ -686,11 +686,8 @@ define(
 								if (!response.system || !response.system.error) {
 									// Empty results check (automatically passed if we have a delayed search)
 									if (
-										response.flights.search.results &&
-										(
-											self.delayedSearch ||
-											response.flights.search.results.flightGroups.length > 0
-										)
+										self.delayedSearch ||
+										!response.flights.search.results.info.errorCode
 									) {
 										self.$$controller.navigate('results/' + response.flights.search.request.id);
 									}

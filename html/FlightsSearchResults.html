@@ -9,10 +9,6 @@
 <div class="nemo-flights-results js-nemoApp__component">
 	<!-- ko if: !$$loading() && !$$error() -->
 
-		<!-- ko if: typeof matrixData != 'undefined' -->
-		<section class="nemo-flights-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-DatesMatrix', data: $data}"></section>
-		<!-- /ko -->
-
 		<!-- Actual form -->
 		<!-- ko if: formActive() -->
 		<section class="nemo-flights-results__form" data-bind="
@@ -85,408 +81,459 @@
 			<!-- /ko -->
 		</section>
 
-	<section class="nemo-flights-results__compareTable">
-		<div class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
-		     data-bind="flightsResultsCompareTableToggle:none">
-			<div class="nemo-flights-results__compareTable__opener__text"
-			     data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
-		</div>
-		<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
-		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
-		     data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
-			<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
-			     data-bind="foreach: flightsCompareTableTransfer().groups">
-				<!-- ko if: !groupsFilteredOut() -->
-				<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
-				     data-bind="foreach: groups">
-					<!-- ko if: !filteredOut() -->
-					<div class="nemo-flights-results__compareTable__groupsItem nemo-flights-results__compareTable__groupsItem_hidden js-flights-results__compareTable__groupsItem"
-					     data-bind="attr:{'data-flightId':$data.flights[0].id}">
-						<!-- ko if: !filteredOut() -->
-						<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-							<div class="nemo-flights-results__compareTable__groupsItem__price"
-							     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__duration"
-							     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
-							</div>
-						</div>
-						<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
-							<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
-							   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
-								   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
-							<!--<div data-bind="foreach: flights">-->
-							<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
-							<!--</div>-->
-							<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
-							     data-bind="foreach: legGroupings">
-											<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
-											      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
-								<select style="max-width: 100%"
-								        data-bind="options: options,
-												value: selected,
-												optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-										optionsAfterRender: setOptionDisable
-										"></select>
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
-								<!-- ko if: selectedFlightsIds().length -->
-								<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-								        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
-													text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
-								</button>
-								<!-- /ko -->
-								<!-- ko if: !selectedFlightsIds().length -->
-								<strong>--- NO COMBINABLE FLIGHTS ---</strong>
-								<!-- /ko -->
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-							     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-							     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
-							</div>
-						</div>
-						<!-- /ko -->
+		<!-- ko if: error -->
+		<div class="new-ui-subContainer nemo-flights-results__error" data-bind="text: $root.i18n('FlightsSearchResults', 'error_' + error())"></div>
+		<!-- /ko -->
+
+		<!-- ko if: !error() -->
+			<!-- EXPIRATION POPUPS -->
+			<!-- ko if: expirationPopupWarning && expirationPopupWarning.length() < 0 && expirationPopupExpired.length() >= 0 -->
+			<div data-bind="automaticPopup: {title: 'Поспешите'}">
+				<div class="nemo-flights-results__expirePopup nemo-flights-results__expirePopup_warning" style="display: none;">
+					<div class="nemo-flights-results__expirePopup__inner">
+						<div class="nemo-flights-results__expirePopup__text">Осталось не так много времени, пока результаты поиска не устарели.</div>
+						<div class="nemo-flights-results__expirePopup__countdown" data-bind="text: expirationPopupExpired.readableStringShortest()"></div>
 					</div>
-					<!-- /ko -->
 				</div>
-				<!-- /ko -->
 			</div>
-			<div class="nemo-flights-results__compareTable nemo-flights-results__compareTable_flightsTransfer"
-			     data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
-				<div class="nemo-flights-results__compareTable__pager" data-bind="with: flightsCompareTableTransfer">
-					<a href="#" class="nemo-flights-results__compareTable__pager__prev"
-					   data-bind="click: paginationPrev, style: {'visibility':paginationHasPrev() == true ?'visible':'hidden'}">
-						&#9664;</a>
-					<div class="nemo-flights-results__compareTable__title"
-					     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__transferFlights') + ' ('+$data.groups.length+')'">
+			<!-- /ko -->
+
+			<!-- ko if: expirationPopupExpired && expirationPopupExpired.length() < 0 -->
+			<div data-bind="
+						automaticPopup: {
+							title: 'Результаты поиска устарели',
+							buttons: [
+								{
+									text: 'Начать заново',
+									click: function () {$$controller.navigate('/' + id)},
+									'class': 'ui-button_pseudoLink ui-button_secondary'
+								},
+
+								{
+									text: 'Обновить',
+									click: function () {$(this).data('ui-popup__close')();refreshSearch();}
+								}
+							]
+						}">
+				<div class="nemo-flights-results__expirePopup nemo-flights-results__expirePopup_expired"  style="display: none;">
+					<div class="nemo-flights-results__expirePopup__inner">
+						<div class="nemo-flights-results__expirePopup__text">Попробуйте обновить результаты или начать поиск заново.</div>
 					</div>
-					<a href="#" class="nemo-flights-results__compareTable__pager__next"
-					   data-bind="click: paginationNext, style: {'visibility':paginationHasNext() == true ?'visible':'hidden'}">
-						&#9654;</a>
 				</div>
-				<div class="nemo-flights-results__compareTable__inner"
-				     data-bind="foreach: flightsCompareTableTransfer().groups,
-						flightsResultsCompareTablePosition:flightsCompareTableTransfer()">
-					<!-- ko if: !groupsFilteredOut() -->
-					<div class="nemo-flights-results__compareTable__companyColumn js-flights-results__compareTable__companyColumn"
-					     data-bind="flightsResultsCompareTableVisibleClass:$parents[0].flightsCompareTableTransfer(),null,null,$data">
-						<div class="nemo-flights-results__compareTable__companyLogo">
-							<div class="nemo-flights-results__compareTable__companyLogo__image" data-bind="style: { backgroundImage: 'url('+$root.controller.options.staticInfoURL+company.logo.icon+')' }"></div>
-						</div>
-						<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
-						     data-bind="foreach: groups">
-							<!-- ko if: !filteredOut() -->
-							<div class="nemo-flights-results__compareTable__groupsItem  nemo-flights-results__compareTable__groupsItem_minimized js-flights-results__compareTable__groupsItem"
-							     data-bind="visible:($parents[1].flightsCompareTableTransfer().allGroupsVisible()
-									&&
-									$($element).parents('.js-flights-results__compareTable__companyColumn').hasClass('js-flights-results__compareTable__companyColumn_visible')) ? true : $index() < 2,
-									flightsResultsCompareTableCloneCell:null,
-									attr:{'data-flightId':$data.flights[0].id}">
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: matrixData !== null -->
+			<section class="nemo-flights-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-DatesMatrix', data: $data}"></section>
+			<!-- /ko -->
+
+			<!-- ko if: matrixData === null -->
+				<!-- ko if: flightsCompareTableDirect() || flightsCompareTableTransfer() -->
+				<section class="nemo-flights-results__compareTable">
+					<div class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
+					     data-bind="flightsResultsCompareTableToggle:none">
+						<div class="nemo-flights-results__compareTable__opener__text"
+						     data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
+					</div>
+					<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed">
+					<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
+					     data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
+						<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
+						     data-bind="foreach: flightsCompareTableTransfer().groups">
+							<!-- ko if: !groupsFilteredOut() -->
+							<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
+							     data-bind="foreach: groups">
 								<!-- ko if: !filteredOut() -->
-								<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-									<div class="nemo-flights-results__compareTable__groupsItem__price"
-									     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+								<div class="nemo-flights-results__compareTable__groupsItem nemo-flights-results__compareTable__groupsItem_hidden js-flights-results__compareTable__groupsItem"
+								     data-bind="attr:{'data-flightId':$data.flights[0].id}">
+									<!-- ko if: !filteredOut() -->
+									<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
+										<div class="nemo-flights-results__compareTable__groupsItem__price"
+										     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__duration"
+										     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+										</div>
 									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__duration"
-									     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+									<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
+										<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
+										   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
+											   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
+										<!--<div data-bind="foreach: flights">-->
+										<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
+										<!--</div>-->
+										<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
+										     data-bind="foreach: legGroupings">
+														<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
+														      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
+											<select style="max-width: 100%"
+											        data-bind="options: options,
+															value: selected,
+															optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+													optionsAfterRender: setOptionDisable
+													"></select>
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
+											<!-- ko if: selectedFlightsIds().length -->
+											<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
+											        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
+																text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
+											</button>
+											<!-- /ko -->
+											<!-- ko if: !selectedFlightsIds().length -->
+											<strong>--- NO COMBINABLE FLIGHTS ---</strong>
+											<!-- /ko -->
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+										     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+										     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
+										</div>
 									</div>
-								</div>
-								<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
-									<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
-									   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
-										   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
-									<!--<div data-bind="foreach: flights">-->
-									<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
-									<!--</div>-->
-									<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
-									     data-bind="foreach: legGroupings">
-											<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
-											      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
-										<select style="max-width: 100%"
-										        data-bind="
-														options: options,
-																value: selected,
-																optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-														optionsAfterRender: setOptionDisable
-														"></select>
-									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
-										<!-- ko if: selectedFlightsIds().length -->
-										<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-										        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
-													text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
-										</button>
-										<!-- /ko -->
-										<!-- ko if: !selectedFlightsIds().length -->
-										<strong>--- NO COMBINABLE FLIGHTS ---</strong>
-										<!-- /ko -->
-									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-									     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
-									</div><div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-									           data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
-								</div>
+									<!-- /ko -->
 								</div>
 								<!-- /ko -->
 							</div>
 							<!-- /ko -->
 						</div>
-					</div>
-					<!-- /ko -->
-				</div>
-			</div>
-			<div class="nemo-flights-results__compareTable__showMore__container" data-bind="with: flightsCompareTableTransfer">
-				<a class="nemo-flights-results__compareTable__showMore__switch"
-				   data-bind="html:$data.allGroupsVisible()
-					   ? $root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9650;<\/span>'
-					   : $root.i18n('FlightsSearchResults', 'flightsCompareTable__showMore') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9660;<\/span>',
-				   click:$data.toggleVisibleGroups(),
-				   visible:$data.flagToShowMore()"></a>
-			</div>
-		</div>
-		<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
-		     data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
-			<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
-			     data-bind="foreach: flightsCompareTableDirect().groups">
-				<!-- ko if: !groupsFilteredOut() -->
-				<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
-				     data-bind="foreach: groups">
-					<!-- ko if: !filteredOut() -->
-					<div class="nemo-flights-results__compareTable__groupsItem nemo-flights-results__compareTable__groupsItem_hidden js-flights-results__compareTable__groupsItem"
-					     data-bind="attr:{'data-flightId':$data.flights[0].id}">
-						<!-- ko if: !filteredOut() -->
-						<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-							<div class="nemo-flights-results__compareTable__groupsItem__price"
-							     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+						<div class="nemo-flights-results__compareTable nemo-flights-results__compareTable_flightsTransfer"
+						     data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
+							<div class="nemo-flights-results__compareTable__pager" data-bind="with: flightsCompareTableTransfer">
+								<a href="#" class="nemo-flights-results__compareTable__pager__prev"
+								   data-bind="click: paginationPrev, style: {'visibility':paginationHasPrev() == true ?'visible':'hidden'}">
+									&#9664;</a>
+								<div class="nemo-flights-results__compareTable__title"
+								     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__transferFlights') + ' ('+$data.groups.length+')'">
+								</div>
+								<a href="#" class="nemo-flights-results__compareTable__pager__next"
+								   data-bind="click: paginationNext, style: {'visibility':paginationHasNext() == true ?'visible':'hidden'}">
+									&#9654;</a>
 							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__duration"
-							     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
-							</div>
-						</div>
-						<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
-							<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
-							   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
-								   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
-							<!--<div data-bind="foreach: flights">-->
-							<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
-							<!--</div>-->
-							<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
-							     data-bind="foreach: legGroupings">
-											<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
-											      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
-								<select style="max-width: 100%"
-								        data-bind="options: options,
-												value: selected,
-												optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-										optionsAfterRender: setOptionDisable
-										"></select>
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
-								<!-- ko if: selectedFlightsIds().length -->
-								<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-								        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
-													text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
-								</button>
+							<div class="nemo-flights-results__compareTable__inner"
+							     data-bind="foreach: flightsCompareTableTransfer().groups,
+									flightsResultsCompareTablePosition:flightsCompareTableTransfer()">
+								<!-- ko if: !groupsFilteredOut() -->
+								<div class="nemo-flights-results__compareTable__companyColumn js-flights-results__compareTable__companyColumn"
+								     data-bind="flightsResultsCompareTableVisibleClass:$parents[0].flightsCompareTableTransfer(),null,null,$data">
+									<div class="nemo-flights-results__compareTable__companyLogo">
+										<div class="nemo-flights-results__compareTable__companyLogo__image" data-bind="style: { backgroundImage: 'url('+$root.controller.options.staticInfoURL+company.logo.icon+')' }"></div>
+									</div>
+									<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
+									     data-bind="foreach: groups">
+										<!-- ko if: !filteredOut() -->
+										<div class="nemo-flights-results__compareTable__groupsItem  nemo-flights-results__compareTable__groupsItem_minimized js-flights-results__compareTable__groupsItem"
+										     data-bind="visible:($parents[1].flightsCompareTableTransfer().allGroupsVisible()
+												&&
+												$($element).parents('.js-flights-results__compareTable__companyColumn').hasClass('js-flights-results__compareTable__companyColumn_visible')) ? true : $index() < 2,
+												flightsResultsCompareTableCloneCell:null,
+												attr:{'data-flightId':$data.flights[0].id}">
+											<!-- ko if: !filteredOut() -->
+											<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
+												<div class="nemo-flights-results__compareTable__groupsItem__price"
+												     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__duration"
+												     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+												</div>
+											</div>
+											<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
+												<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
+												   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
+													   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
+												<!--<div data-bind="foreach: flights">-->
+												<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
+												<!--</div>-->
+												<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
+												     data-bind="foreach: legGroupings">
+														<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
+														      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
+													<select style="max-width: 100%"
+													        data-bind="
+																	options: options,
+																			value: selected,
+																			optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+																	optionsAfterRender: setOptionDisable
+																	"></select>
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
+													<!-- ko if: selectedFlightsIds().length -->
+													<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
+													        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
+																text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
+													</button>
+													<!-- /ko -->
+													<!-- ko if: !selectedFlightsIds().length -->
+													<strong>--- NO COMBINABLE FLIGHTS ---</strong>
+													<!-- /ko -->
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+												     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
+												</div><div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+												           data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
+											</div>
+											</div>
+											<!-- /ko -->
+										</div>
+										<!-- /ko -->
+									</div>
+								</div>
 								<!-- /ko -->
-								<!-- ko if: !selectedFlightsIds().length -->
-								<strong>--- NO COMBINABLE FLIGHTS ---</strong>
-								<!-- /ko -->
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-							     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
-							</div>
-							<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-							     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
 							</div>
 						</div>
-						<!-- /ko -->
-					</div>
-					<!-- /ko -->
-				</div>
-				<!-- /ko -->
-			</div>
-			<div class="nemo-flights-results__compareTable nemo-flights-results__compareTable_flightsDirect"
-			     data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
-				<div class="nemo-flights-results__compareTable__pager" data-bind="with: flightsCompareTableDirect">
-					<a href="#" class="nemo-flights-results__compareTable__pager__prev"
-					   data-bind="click: paginationPrev, style: {'visibility':paginationHasPrev() == true ?'visible':'hidden'}">
-						&#9664;</a>
-					<div class="nemo-flights-results__compareTable__title"
-					     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__directFlights') + ' ('+$data.groups.length+')'">
-					</div>
-					<a href="#" class="nemo-flights-results__compareTable__pager__next"
-					   data-bind="click: paginationNext, style: {'visibility':paginationHasNext() == true ?'visible':'hidden'}">
-						&#9654;</a>
-				</div>
-				<div class="nemo-flights-results__compareTable__inner"
-				     data-bind="foreach: flightsCompareTableDirect().groups,
-						flightsResultsCompareTablePosition:flightsCompareTableDirect()">
-					<!-- ko if: !groupsFilteredOut() -->
-					<div class="nemo-flights-results__compareTable__companyColumn js-flights-results__compareTable__companyColumn"
-					     data-bind="flightsResultsCompareTableVisibleClass:$parents[0].flightsCompareTableDirect(),null,null,$data">
-						<div class="nemo-flights-results__compareTable__companyLogo">
-							<div class="nemo-flights-results__compareTable__companyLogo__image" data-bind="style: { backgroundImage: 'url('+$root.controller.options.staticInfoURL+company.logo.icon+')' }"></div>
+						<div class="nemo-flights-results__compareTable__showMore__container" data-bind="with: flightsCompareTableTransfer">
+							<a class="nemo-flights-results__compareTable__showMore__switch"
+							   data-bind="html:$data.allGroupsVisible()
+								   ? $root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9650;<\/span>'
+								   : $root.i18n('FlightsSearchResults', 'flightsCompareTable__showMore') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9660;<\/span>',
+							   click:$data.toggleVisibleGroups(),
+							   visible:$data.flagToShowMore()"></a>
 						</div>
-						<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
-						     data-bind="foreach: groups">
-							<!-- ko if: !filteredOut() -->
-							<div class="nemo-flights-results__compareTable__groupsItem  nemo-flights-results__compareTable__groupsItem_minimized js-flights-results__compareTable__groupsItem"
-							     data-bind="visible:($parents[1].flightsCompareTableDirect().allGroupsVisible()
-									&&
-									$($element).parents('.js-flights-results__compareTable__companyColumn').hasClass('js-flights-results__compareTable__companyColumn_visible')) ? true : $index() < 2,
-									flightsResultsCompareTableCloneCell:null,
-									attr:{'data-flightId':$data.flights[0].id}">
+					</div>
+					<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
+					     data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
+						<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
+						     data-bind="foreach: flightsCompareTableDirect().groups">
+							<!-- ko if: !groupsFilteredOut() -->
+							<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
+							     data-bind="foreach: groups">
 								<!-- ko if: !filteredOut() -->
-								<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-									<div class="nemo-flights-results__compareTable__groupsItem__price"
-									     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+								<div class="nemo-flights-results__compareTable__groupsItem nemo-flights-results__compareTable__groupsItem_hidden js-flights-results__compareTable__groupsItem"
+								     data-bind="attr:{'data-flightId':$data.flights[0].id}">
+									<!-- ko if: !filteredOut() -->
+									<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
+										<div class="nemo-flights-results__compareTable__groupsItem__price"
+										     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__duration"
+										     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+										</div>
 									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__duration"
-									     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+									<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
+										<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
+										   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
+											   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
+										<!--<div data-bind="foreach: flights">-->
+										<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
+										<!--</div>-->
+										<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
+										     data-bind="foreach: legGroupings">
+														<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
+														      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
+											<select style="max-width: 100%"
+											        data-bind="options: options,
+															value: selected,
+															optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+													optionsAfterRender: setOptionDisable
+													"></select>
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
+											<!-- ko if: selectedFlightsIds().length -->
+											<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
+											        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
+																text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
+											</button>
+											<!-- /ko -->
+											<!-- ko if: !selectedFlightsIds().length -->
+											<strong>--- NO COMBINABLE FLIGHTS ---</strong>
+											<!-- /ko -->
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+										     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
+										</div>
+										<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+										     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
+										</div>
 									</div>
-								</div>
-								<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
-									<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
-									   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
-										   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
-									<!--<div data-bind="foreach: flights">-->
-									<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
-									<!--</div>-->
-									<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
-									     data-bind="foreach: legGroupings">
-											<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
-											      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
-										<select style="max-width: 100%"
-										        data-bind="
-														options: options,
-																value: selected,
-																optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
-														optionsAfterRender: setOptionDisable
-														"></select>
-									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
-										<!-- ko if: selectedFlightsIds().length -->
-										<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
-										        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
-													text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
-										</button>
-										<!-- /ko -->
-										<!-- ko if: !selectedFlightsIds().length -->
-										<strong>--- NO COMBINABLE FLIGHTS ---</strong>
-										<!-- /ko -->
-									</div>
-									<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-									     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
-									</div><div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
-									           data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
-								</div>
+									<!-- /ko -->
 								</div>
 								<!-- /ko -->
 							</div>
 							<!-- /ko -->
 						</div>
+						<div class="nemo-flights-results__compareTable nemo-flights-results__compareTable_flightsDirect"
+						     data-bind="flightsResultsCompareTableWidth:flightsCompareTableDirect()">
+							<div class="nemo-flights-results__compareTable__pager" data-bind="with: flightsCompareTableDirect">
+								<a href="#" class="nemo-flights-results__compareTable__pager__prev"
+								   data-bind="click: paginationPrev, style: {'visibility':paginationHasPrev() == true ?'visible':'hidden'}">
+									&#9664;</a>
+								<div class="nemo-flights-results__compareTable__title"
+								     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__directFlights') + ' ('+$data.groups.length+')'">
+								</div>
+								<a href="#" class="nemo-flights-results__compareTable__pager__next"
+								   data-bind="click: paginationNext, style: {'visibility':paginationHasNext() == true ?'visible':'hidden'}">
+									&#9654;</a>
+							</div>
+							<div class="nemo-flights-results__compareTable__inner"
+							     data-bind="foreach: flightsCompareTableDirect().groups,
+									flightsResultsCompareTablePosition:flightsCompareTableDirect()">
+								<!-- ko if: !groupsFilteredOut() -->
+								<div class="nemo-flights-results__compareTable__companyColumn js-flights-results__compareTable__companyColumn"
+								     data-bind="flightsResultsCompareTableVisibleClass:$parents[0].flightsCompareTableDirect(),null,null,$data">
+									<div class="nemo-flights-results__compareTable__companyLogo">
+										<div class="nemo-flights-results__compareTable__companyLogo__image" data-bind="style: { backgroundImage: 'url('+$root.controller.options.staticInfoURL+company.logo.icon+')' }"></div>
+									</div>
+									<div class="nemo-flights-results__compareTable__groups js-flights-results__compareTable__groups"
+									     data-bind="foreach: groups">
+										<!-- ko if: !filteredOut() -->
+										<div class="nemo-flights-results__compareTable__groupsItem  nemo-flights-results__compareTable__groupsItem_minimized js-flights-results__compareTable__groupsItem"
+										     data-bind="visible:($parents[1].flightsCompareTableDirect().allGroupsVisible()
+												&&
+												$($element).parents('.js-flights-results__compareTable__companyColumn').hasClass('js-flights-results__compareTable__companyColumn_visible')) ? true : $index() < 2,
+												flightsResultsCompareTableCloneCell:null,
+												attr:{'data-flightId':$data.flights[0].id}">
+											<!-- ko if: !filteredOut() -->
+											<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
+												<div class="nemo-flights-results__compareTable__groupsItem__price"
+												     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__duration"
+												     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
+												</div>
+											</div>
+											<div class="nemo-flights-results__compareTable__groupsItem__fullInfo">
+												<a class="new-ui-pseudoLink nemo-flights-results__compareTable__groupsItem__linkToFullTicket"
+												   data-bind="attr{'data-FirstFlightId':$data.flights[0].id},
+													   text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__goToTicket')"></a>
+												<!--<div data-bind="foreach: flights">-->
+												<!--<strong data-bind="text:totalTimeEnRoute.length"></strong>-->
+												<!--</div>-->
+												<div class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap"
+												     data-bind="foreach: legGroupings">
+														<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
+														      data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__time')"></span>
+													<select style="max-width: 100%"
+													        data-bind="
+																	options: options,
+																			value: selected,
+																			optionsText: function (item) {return $parent.getSelectedFlightsData(item, $index())},
+																	optionsAfterRender: setOptionDisable
+																	"></select>
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__buttonWrap">
+													<!-- ko if: selectedFlightsIds().length -->
+													<button class="new-ui-button nemo-flights-results__compareTable__groupsItem__buyButton"
+													        data-bind="click: function () {resultsController.bookFlight(selectedFlightsIds());},
+																text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')">
+													</button>
+													<!-- /ko -->
+													<!-- ko if: !selectedFlightsIds().length -->
+													<strong>--- NO COMBINABLE FLIGHTS ---</strong>
+													<!-- /ko -->
+												</div>
+												<div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+												     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerPrice')">
+												</div><div class="nemo-flights-results__compareTable__groupsItem__disclaimer"
+												           data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__disclaimerTime')">
+											</div>
+											</div>
+											<!-- /ko -->
+										</div>
+										<!-- /ko -->
+									</div>
+								</div>
+								<!-- /ko -->
+							</div>
+						</div>
+						<div class="nemo-flights-results__compareTable__showMore__container" data-bind="with: flightsCompareTableDirect">
+							<a class="nemo-flights-results__compareTable__showMore__switch"
+							   data-bind="html:$data.allGroupsVisible()
+								   ? $root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9650;<\/span>'
+								   : $root.i18n('FlightsSearchResults', 'flightsCompareTable__showMore') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9660;<\/span>',
+							   click:$data.toggleVisibleGroups(),
+							   visible:$data.flagToShowMore()"></a>
+						</div>
 					</div>
-					<!-- /ko -->
-				</div>
-			</div>
-			<div class="nemo-flights-results__compareTable__showMore__container" data-bind="with: flightsCompareTableDirect">
-				<a class="nemo-flights-results__compareTable__showMore__switch"
-				   data-bind="html:$data.allGroupsVisible()
-					   ? $root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9650;<\/span>'
-					   : $root.i18n('FlightsSearchResults', 'flightsCompareTable__showMore') + '<span class=\'nemo-flights-results__compareTable__showMore__switch__icon\'>&#9660;<\/span>',
-				   click:$data.toggleVisibleGroups(),
-				   visible:$data.flagToShowMore()"></a>
-			</div>
-		</div>
-		<div class="nemo-flights-results__compareTable__root__closeSwitch"
-		     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess'),
-					flightsResultsCompareTableToggle:none"></div>
-		</section>
-	</section>
-
-	<section class="nemo-flights-results__content">
-
-        <aside
-	        class="nemo-common-postFilters nemo-flights-results__content__postfilters"
-	        data-bind="template: {name: 'nemo-koTemplate-FlightsResults-PostFilters', data: $data}, customScroll, flightsResultsContainerSticky">
-        </aside>
-
-			<section class="new-ui-subContainer nemo-flights-results__content__results">
-				<!-- ko if: visibleResultsCount() > 0 -->
-					<div class="nemo-flights-results__showcase">
-
-                        <div class="nemo-flights-results__showcase__main">
-						<!-- ko if: showcase.recommended() -->
-							<!-- ko with: {group: showcase.recommended(), modifier: 'recommended'} -->
-								<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
-								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
-							<!-- /ko -->
-						<!-- /ko -->
-                        </div>
-
-                        <div class="nemo-flights-results__showcase__additional">
-						<!-- ko if: showcase.cheapest() -->
-							<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
-								<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_cheapest"
-								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
-							<!-- /ko -->
-						<!-- /ko -->
-
-						<!-- ko if: showcase.fastest() -->
-							<!-- ko with: {group: showcase.fastest(), modifier: 'fastest'} -->
-								<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_fastest"
-								     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
-							<!-- /ko -->
-						<!-- /ko -->
-                        </div>
-					</div>
+					<div class="nemo-flights-results__compareTable__root__closeSwitch"
+					     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__showLess'),
+								flightsResultsCompareTableToggle:none"></div>
+					</section>
+				</section>
 				<!-- /ko -->
-				<div class="nemo-flights-results__content__results__controls">
-					<div
-						class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_count"
-						data-bind="text:
-									$root.i18n('FlightsSearchResults', 'controls__count_' + (visibleResultsCount() == totalResultsCount ? 'all' : 'filtered'))
-										.replace('[%-count-%]', visibleResultsCount())
-										.replace('[%-total-%]', totalResultsCount)"></div>
-					<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_sorting">
-						<span class="nemo-flights-results__content__results__controls__item__sortTitle">
-							Сортировать по
-						</span>
-						<select data-bind="
-							simpleSelect: {
-								data: possibleSorts,
-								i18nSegment: 'FlightsSearchResults',
-								containerCssClass: 'nemo-flights-results__commonSelect',
-								i18nPrefix: 'sortType_'
-							},
-							value: sort
-						"></select>
-					</div>
-				</div>
 
-				<div cclass="nemo-flights-results__groupList" data-bind="foreach: groups">
-					<!-- ko if: !filteredOut() -->
-					<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data }"></div>
-					<!-- /ko -->
-				</div>
+				<section class="nemo-flights-results__content">
 
-				<!-- ko if: visibleResultsCount() == 0 -->
-				<h2 class="new-ui-subSectionHeader">Ничего не найдено</h2>
-				<!-- /ko -->
-			</section>
+			        <aside
+				        class="nemo-common-postFilters nemo-flights-results__content__postfilters"
+				        data-bind="template: {name: 'nemo-koTemplate-FlightsResults-PostFilters', data: $data}, customScroll, flightsResultsContainerSticky">
+			        </aside>
 
-			<aside class="nemo-flights-results__content__offers">
-				<div class="nemo-flights-results__content__offers__text">
-					<div class="nemo-flights-results__content__offers__text__header">Топ-3 авиакомпаний</div>
-					Обратите внимание на билеты от лучших авиакомпаний на рынке, это гарантия комфортного путешествия и качественного обслуживания.
-				</div>
-				<!-- ko with: {groups: showcase.bestCompanies, modifier: 'bestCompanies'} -->
-					<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
-				<!-- /ko -->
-			</aside>
-		</section>
+					<section class="new-ui-subContainer nemo-flights-results__content__results">
+						<!-- ko if: visibleResultsCount() > 0 -->
+							<div class="nemo-flights-results__showcase">
+
+		                        <div class="nemo-flights-results__showcase__main">
+								<!-- ko if: showcase.recommended() -->
+									<!-- ko with: {group: showcase.recommended(), modifier: 'recommended'} -->
+										<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
+										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+									<!-- /ko -->
+								<!-- /ko -->
+		                        </div>
+
+		                        <div class="nemo-flights-results__showcase__additional">
+								<!-- ko if: showcase.cheapest() -->
+									<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
+										<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_cheapest"
+										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+									<!-- /ko -->
+								<!-- /ko -->
+
+								<!-- ko if: showcase.fastest() -->
+									<!-- ko with: {group: showcase.fastest(), modifier: 'fastest'} -->
+										<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_fastest"
+										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
+									<!-- /ko -->
+								<!-- /ko -->
+		                        </div>
+							</div>
+						<!-- /ko -->
+						<div class="nemo-flights-results__content__results__controls">
+							<div
+								class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_count"
+								data-bind="text:
+											$root.i18n('FlightsSearchResults', 'controls__count_' + (visibleResultsCount() == totalResultsCount ? 'all' : 'filtered'))
+												.replace('[%-count-%]', visibleResultsCount())
+												.replace('[%-total-%]', totalResultsCount)"></div>
+							<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_sorting">
+								<span class="nemo-flights-results__content__results__controls__item__sortTitle">
+									Сортировать по
+								</span>
+								<select data-bind="
+									simpleSelect: {
+										data: possibleSorts,
+										i18nSegment: 'FlightsSearchResults',
+										containerCssClass: 'nemo-flights-results__commonSelect',
+										i18nPrefix: 'sortType_'
+									},
+									value: sort
+								"></select>
+							</div>
+						</div>
+
+						<div cclass="nemo-flights-results__groupList" data-bind="foreach: groups">
+							<!-- ko if: !filteredOut() -->
+							<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data }"></div>
+							<!-- /ko -->
+						</div>
+
+						<!-- ko if: visibleResultsCount() == 0 -->
+						<h2 class="new-ui-subSectionHeader">Ничего не найдено</h2>
+						<!-- /ko -->
+					</section>
+
+					<aside class="nemo-flights-results__content__offers">
+						<div class="nemo-flights-results__content__offers__text">
+							<div class="nemo-flights-results__content__offers__text__header">Топ-3 авиакомпаний</div>
+							Обратите внимание на билеты от лучших авиакомпаний на рынке, это гарантия комфортного путешествия и качественного обслуживания.
+						</div>
+						<!-- ko with: {groups: showcase.bestCompanies, modifier: 'bestCompanies'} -->
+							<div data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', foreach: groups }"></div>
+						<!-- /ko -->
+					</aside>
+				</section>
+			<!-- /ko -->
+		<!-- /ko -->
 	<!-- /ko -->
 
 	<!-- ko if: $$loading -->
@@ -494,7 +541,7 @@
 	<!-- /ko -->
 
 	<!-- ko if: $$error -->
-	<div class="new-ui-subContainer nemo-flights-results__error" data-bind="text: $$error() + console.log($$error())"></div>
+	<div class="new-ui-subContainer nemo-flights-results__error" data-bind="text: $$error()"></div>
 	<!-- /ko -->
 
 	<!-- PF TEMPLATES -->
@@ -1067,7 +1114,7 @@
 					<th class="nemo-flights-results__matrix__table__header nemo-flights-results__matrix__table__header_return js-flights-results__matrix__row__cell"
 					    data-bind="
 							css: {
-								'nemo-flights-results__matrix__table__header_originalDate': $index() == 3
+								'nemo-flights-results__matrix__table__header_originalDate': $index() == Math.floor($parent.matrixData[0].length / 2)
 							}
 					">
 						<div class="nemo-flights-results__matrix__table__header__date" data-bind="text: returndate.getDate() + '.' + returndate.getMonth() + '.' + returndate.getYear()"></div>
@@ -1081,7 +1128,7 @@
 						<th class="nemo-flights-results__matrix__table__header nemo-flights-results__matrix__table__header_forth js-flights-results__matrix__row__cell"
 					        data-bind="
 								css: {
-									'nemo-flights-results__matrix__table__header_originalDate': $parentContext.$index() == 3
+									'nemo-flights-results__matrix__table__header_originalDate': $parentContext.$index() == Math.floor($parents[1].matrixData.length / 2)
 								}
 						">
 							<div class="nemo-flights-results__matrix__table__header__date" data-bind="text: date.getDate() + '.' + date.getMonth() + '.' + date.getYear()"></div>
@@ -1162,6 +1209,7 @@
 	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">—</span>
 	                                <money class="nemo-ui-slider__info__block nemo-ui-slider__info__block_max" data-bind="money: displayValues.max" format="0,0 $"></money>
 	                                <!-- /ko -->
+
 	                                <!-- ko if: config.name == 'timeEnRoute' || config.name == 'transfersDuration' -->
 	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_min" data-bind="text: displayValues.min.readableStringShortNoSeconds()"></span>
 	                                <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">—</span>
