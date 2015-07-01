@@ -9,12 +9,14 @@ $d_tableColumnPadding = 0 20px ;
 
 //@TODO REMOVE ALL BEFORE&AFTER ELEMENTS CRUTCH!!!!!11one
 .nemo-flights-results__compareTable{
-	position: relative;
-	overflow-x: hidden;
-	border-radius: 0 0 6px 6px;
-	transition: height 0.2s ease-in 0s;
-	box-shadow: 0 3px 4px rgba(255,255,255,0.25);
-	z-index: 9;
+	&__item{
+		position: relative;
+		overflow-x: hidden;
+		border-radius: 0 0 6px 6px;
+		transition: height 0.2s ease-in 0s;
+		box-shadow: 0 3px 4px rgba(255,255,255,0.25);
+		z-index: 9;
+	}
 	&__wrapper{
 		margin-left: 20px;
 		position: relative;
