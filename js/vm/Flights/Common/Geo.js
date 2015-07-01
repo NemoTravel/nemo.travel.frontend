@@ -58,6 +58,12 @@ define(
 			else if (!this.isCity && this.airport) {
 				this.identifier = this.airport.IATA;
 			}
+
+			if (!this.city) {
+				this.city = {
+					name: this.name
+				};
+			}
 		}
 
 		// Extending from dictionaryModel

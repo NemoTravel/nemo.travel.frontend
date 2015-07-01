@@ -7,7 +7,8 @@ define(
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.select2/v.4.0.0/select2.full',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
-		'js/lib/jquery.ui.popup/jquery.ui.popup'
+		'js/lib/jquery.ui.popup/jquery.ui.popup',
+		'touchpunch'
 	],
 	function (ko, $) {
 		// Common Knockout bindings are defined here

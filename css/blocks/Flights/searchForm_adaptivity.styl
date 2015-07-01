@@ -238,20 +238,6 @@ adapt_flights_form_compact() {
 							display: block;
 							right: 5px;
 						}
-
-						&__dummy {
-							&_short {
-								display: none;
-							}
-
-							&_full {
-								display: block;
-
-								.new-ui-dummiedInput__dummy__aux {
-									display: inline;
-								}
-							}
-						}
 					}
 				}
 
@@ -261,6 +247,22 @@ adapt_flights_form_compact() {
 
 				&__input {
 					height: 30px;
+				}
+			}
+
+			&_CR, &_OW, &_RT {
+				.new-ui-dummiedInput__dummy__aux {
+					display: inline;
+				}
+
+				.nemo-flights-form__route__segment__item__date__dummy {
+					&_full {
+						display: block;
+					}
+
+					&_short {
+						display: none;
+					}
 				}
 			}
 
