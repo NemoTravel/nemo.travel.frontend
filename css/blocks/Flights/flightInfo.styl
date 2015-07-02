@@ -35,19 +35,27 @@
 
 			&__departue, &__arrival {
 				display: inline-block;
-				padding-right: 30px;
+				/*padding-right: 30px;*/
 				position: relative;
 			}
 
 			&__departue:after {
 				content: '';
-				position: absolute;
 				width: 30px;
-				background: url('images/flights_flightInfo_legHeaderArrow.svg') center center no-repeat;
 				height: 20px;
-				top: 50%;
-				right: 0;
-				margin-top: -10px;
+				background: url('images/flights_flightInfo_legHeaderArrow.svg') center center no-repeat;
+
+				display: inline-block;
+				vertical-align: middle;
+
+				/*position: absolute;*/
+				/*top: 50%;*/
+				/*right: 0;*/
+				/*margin-top: -10px;*/
+			}
+
+			&__date {
+				white-space: nowrap;
 			}
 		}
 

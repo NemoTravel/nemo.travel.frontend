@@ -275,7 +275,7 @@ define(
 
 		ko.bindingHandlers.moneyInit ={
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				$(element).currencyConverter({
+				$(document).currencyConverter({
 					defaultCurrency: 'EUR',
 					conversionTable: {},
 					currencyType: 'symbol',

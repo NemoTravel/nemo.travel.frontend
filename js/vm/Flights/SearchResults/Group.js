@@ -299,7 +299,7 @@ define(
 								this.legGroupings[k].selected().flights
 							).length == 0
 						) {
-							this.legGroupings[i].options[j].uncombinable.push(k);
+							this.legGroupings[i].options[j].uncombinable.push(k + 1);
 						}
 					}
 				}

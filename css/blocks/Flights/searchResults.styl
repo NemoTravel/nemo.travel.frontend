@@ -462,6 +462,10 @@
 					background: url("images/flights_results_sprite.svg") 0px -140px no-repeat;
 				}
 
+				&_direct:before {
+					background-position: 0px -170px;
+				}
+
 				&__date {
 					font-size: 12px;
 					color: $c_common_textColor;
@@ -494,10 +498,6 @@
 						}
 					}
 				}
-			}
-
-			&:nth-child(2n) &__info:before {
-				background-position: 0px -170px;
 			}
 
 			&__selector {

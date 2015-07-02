@@ -35,7 +35,7 @@
 
 	"flightsGroup__selector__title" : "Вылет и прилет",
 
-	"flightsGroup__selector__uncombinable_one" : "Не комбинируется с [%-numbers-%]-м перелетом",
+	"flightsGroup__selector__uncombinable_one" : "Не комбинируется с перелетом №[%-numbers-%]",
 	"flightsGroup__selector__uncombinable_many" : "Не комбинируется с перелетами [%-numbers-%]",
 	"flightsGroup__selector__uncombinable__lastConjunction" : " и ",
 

@@ -1,0 +1,88 @@
+@media (max-width: 900px) {
+	.nemo-flights-flightInfo {
+		&__leg__segment {
+			flex-wrap: wrap;
+
+			&__departure, &__arrival {
+				flex-basis: 50%;
+			}
+
+			&__additional {
+				border-top: 1px solid #B0B0B0;
+				flex-basis: 100%;
+				padding-top: 10px;
+
+				&__item {
+					display: inline-block;
+					margin-right: 20px;
+					max-width: 80%;
+
+					&__title {
+						width: auto;
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 550px) {
+	.nemo-flights-flightInfo {
+		&__leg__segment {
+			&__departure, &__arrival {
+				flex-basis: 100%;
+				display: flex;
+				flex: row nowrap;
+
+				&__dateInfo, &__geoInfo {
+					flex: 0 1 50%;
+				}
+			}
+
+			&__departure {
+				padding-bottom: 30px;
+				position: relative;
+
+				&:after {
+					width: auto;
+					top: auto;
+					left: 20px;
+					right: 20px;
+					bottom: 5px;
+					height: 20px;
+					background-image: url('images/flights_flightInfo_segmentRouteArrow_down.svg');
+				}
+			}
+
+			&__city {
+				line-height: 35px;
+				margin: 0;
+			}
+
+			&__city, &__airport, &__terminal {
+				white-space: normal;
+			}
+		}
+	}
+}
+
+@media (max-width: 350px) {
+	.nemo-flights-flightInfo {
+		&__leg__segment {
+			&__departure, &__arrival {
+				display: block;
+			}
+
+			&__city {
+				line-height: normal;
+			}
+
+			&__additional__item {
+				display: block;
+				max-width: 100%;
+				margin: 0;
+			}
+		}
+	}
+}
