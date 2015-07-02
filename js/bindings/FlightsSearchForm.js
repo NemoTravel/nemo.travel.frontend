@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'jquery', 'jqueryUI', 'js/lib/jquery.pickmeup/jquery.pickmeup'],
-	function (ko, $) {
+	['knockout', 'js/vm/mobileDetect','jquery', 'jqueryUI', 'js/lib/jquery.pickmeup/jquery.pickmeup' ],
+	function (ko, mobileDetect, $) {
 		// FlightsSearchForm Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -196,6 +196,11 @@ define(
 					$element.pickmeup('destroy');
 					$element.off('blur');
 				});
+
+				if(mobileDetect().deviceType != 'desktop'){
+					$element.attr('readonly', 'true')
+				}
+
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element);
@@ -262,6 +267,7 @@ define(
 					}
 				});
 			}
+
 		};
 	}
 );
