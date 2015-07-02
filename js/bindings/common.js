@@ -109,10 +109,10 @@ define(
 				simpleSelect.dropdownCssClass = simpleSelect.dropdownCssClass || 'new-ui-select2__dropdown';
 
 				// Overriding width
-				simpleSelect.width = simpleSelect.width || 'resolve';
+				simpleSelect.width = typeof simpleSelect.width != 'undefined' ? simpleSelect.width : 'resolve';
 				simpleSelect.dropdownAutoWidth = simpleSelect.dropdownAutoWidth || true;
 				simpleSelect.minimumResultsForSearch = simpleSelect.minimumResultsForSearch || Infinity;
-				simpleSelect.fixWidth = true;
+				simpleSelect.fixWidth = typeof simpleSelect.fixWidth != 'undefined' ? simpleSelect.fixWidth : true;
 
 				$(el).select2(simpleSelect);
 			},

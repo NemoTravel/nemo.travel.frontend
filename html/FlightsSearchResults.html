@@ -553,12 +553,23 @@
 							</div>
 						</div>
 
-						<div class="nemo-flights-results__groupList" data-bind="foreach: groups">
-							<!-- ko if: !filteredOut() -->
-							<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data },
-							attr:{'data-GroupAnchorId':$data.id}"></div>
-							<!-- /ko -->
+						<!--<div class="nemo-flights-results__groupList" data-bind="foreach: groups">-->
+							<!--&lt;!&ndash; ko if: !filteredOut() &ndash;&gt;-->
+							<!--<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data },-->
+							<!--attr:{'data-GroupAnchorId':$data.id}"></div>-->
+							<!--&lt;!&ndash; /ko &ndash;&gt;-->
+						<!--</div>-->
+
+						<div class="nemo-flights-results__groupList" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group', foreach: visibleGroups}"></div>
+
+						<!-- ko if: totalVisibleGroups() > shownGroups() -->
+						<div class="nemo-flights-results__showAll">
+							<button class="new-ui-button nemo-flights-results__showAll__button" data-bind="click: function(){showAllGroups();}">
+								Показать еще
+								<span class="nemo-flights-results__showAll__button__count" data-bind="text: totalVisibleGroups() - visibleGroups().length"></span>
+							</button>
 						</div>
+						<!-- /ko -->
 
 						<!-- ko if: visibleResultsCount() == 0 -->
 						<h2 class="new-ui-subSectionHeader">Ничего не найдено</h2>
@@ -913,12 +924,12 @@
                     </div>
 
                     <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
+                        <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
                         <money class="new-ui-button new-ui-button_main nemo-flights-results__flightsGroup__buyButton"
                                data-bind="
                                 money: getTotalPrice(),
                                 css: {'new-ui-button_disabled': selectedFlightsIds().length == 0},
                                 click: function () {if (selectedFlightsIds().length > 0) {resultsController.bookFlight(selectedFlightsIds());}}" format="0,0 $"></money><!---->
-                        <div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
                     </div>
 
                 </div>

@@ -256,6 +256,11 @@ define(
 			this.flightsCompareTableTransfer = ko.observable();
 
 			this.groups = ko.observableArray([]);
+			this.visibleGroups = ko.observableArray([]);
+
+			this.shownGroups = ko.observable(10);
+			this.totalVisibleGroups = ko.observable(0);
+
 			this.visibleResultsCount = ko.observable(0);
 			this.totalResultsCount = 0;
 
@@ -315,6 +320,8 @@ define(
 						});
 						break;
 				}
+
+				this.buildVisibleGroups();
 			}, this);
 
 			this.postFiltersHaveValue = ko.computed(function () {
@@ -748,6 +755,31 @@ define(
 			this.usePostfilters = true;
 		};
 
+		FlightsSearchResultsController.prototype.buildVisibleGroups = function () {
+			var groups = this.groups(),
+				newGroupList = [],
+				c = 0;
+
+			for (var i = 0; i < groups.length; i++) {
+				if (!groups[i].filteredOut()) {
+					if (c < this.shownGroups()) {
+						newGroupList.push(groups[i]);
+					}
+
+					c++;
+				}
+			}
+
+			this.visibleGroups(newGroupList);
+			this.totalVisibleGroups(c);
+		};
+
+		FlightsSearchResultsController.prototype.showAllGroups = function () {
+			this.shownGroups(Infinity);
+
+			this.buildVisibleGroups();
+		};
+
 		FlightsSearchResultsController.prototype.PFChanged = function (filter) {
 			var self = this,
 				filterResults = {},
@@ -833,6 +865,7 @@ define(
 			this.visibleResultsCount(visibleCount);
 
 			this.setShowcase();
+			this.buildVisibleGroups();
 		};
 
 		FlightsSearchResultsController.prototype.PFClearAll = function () {

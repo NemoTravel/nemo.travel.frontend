@@ -163,9 +163,9 @@
 	</header>
 
 	<!-- Template override example -->
-	<!--<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">
-		<div>Overridden Flights Results Group template</div>
-	</script>-->
+<!--	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">-->
+<!--		<div>Overridden Flights Results Group template <span data-bind="text: id"></span></div>-->
+<!--	</script>-->
 
 	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: $data">
 		<!-- ko if: component() -->
@@ -194,7 +194,7 @@
 	<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.css">-->
 	<?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
 
-	<link rel="stylesheet" href="<?php echo $host; ?>/css/style.css">
+	<link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 
 	<script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 	<script>
@@ -252,7 +252,7 @@
 								// Passing additional parametes to components
 								componentsAdditionalInfo: {
 									'Flights/SearchForm/Controller': {
-										delayed: true/*,
+										delayed: false/*,
 										 init: {
 										 direct: true,
 										 serviceClass: 'Business',

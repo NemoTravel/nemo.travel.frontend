@@ -217,6 +217,12 @@ define(
 				filteredOut = filteredOut && this.flights[i].filteredOut();
 			}
 
+			this.filteredOut(filteredOut);
+
+			if (this.filteredOut()) {
+				return;
+			}
+
 			// Calculating options disabled status
 			for (i = 0; i < this.legGroupings.length; i++) {
 				for (j = 0; j < this.legGroupings[i].options.length; j++) {
@@ -266,9 +272,6 @@ define(
 			}
 
 			this.selectedFlightsIds(this.calculateSelectedFlights());
-
-			// Setting everything
-			this.filteredOut(filteredOut);
 
 			this.recalculateSelectedFlights = true;
 		};
