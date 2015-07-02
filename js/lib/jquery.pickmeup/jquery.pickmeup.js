@@ -952,7 +952,7 @@
 				}
 				$(document)
 					.on(
-					'mousedown' + options.events_namespace + ' touchstart' + options.events_namespace + 'blur' + options.events_namespace,
+					'click' + options.events_namespace + 'touch' + options.events_namespace + 'blur' + options.events_namespace,
 					options.binded.hide
 				)
 					.on(

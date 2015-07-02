@@ -2,6 +2,9 @@ define(
 	['js/lib/mobile.detect.js/mobileDetect'],
 	function (MobileDetect) {
 		function mobileDetect(userAgent) {
+			if (typeof userAgent == 'undefined'){
+				userAgent = navigator.userAgent
+			}
 			var libParseResult = new MobileDetect(userAgent);
 			var screenRatio = window.devicePixelRatio || parseFloat(window.screen.availWidth / document.documentElement.clientWidth).toFixed(2) || 1,
 				screenWidth = window.innerWidth * screenRatio,
