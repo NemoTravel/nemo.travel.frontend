@@ -10,7 +10,6 @@
 				click: function () {$parent.tripType($data);$parent.typeSelectorOpen(false);}"></div><!--
 	--></div>
 
-	<!-- TODO dropdown -->
 	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_select">
 		<div class="nemo-flights-form__routeTypeSelector__selectWrap">
 			<select data-bind="
@@ -18,7 +17,9 @@
 						data: tripTypes,
 						containerCssClass: 'new-ui-button new-ui-button_common new-ui-button_small nemo-flights-form__routeTypeSelector__select',
 						i18nSegment: 'FlightsSearchForm',
-						i18nPrefix: 'triptype_'
+						i18nPrefix: 'triptype_',
+						width: '',
+						fixWidth: false
 					},
 					value: tripType
 				"></select>

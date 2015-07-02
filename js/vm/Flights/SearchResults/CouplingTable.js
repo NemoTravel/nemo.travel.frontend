@@ -50,6 +50,7 @@ define(
 				this.legGroupings.push(addObj);
 
 				for (var i = 0; i < this.legGroupings[siter].flights().length; i++) {
+
 					if (this.legGroupings[siter].flights()[i].indexOf(initiallySelected) >= 0) {
 						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[i]);
 					}else{
@@ -125,8 +126,10 @@ define(
 			for (var i = 0; i < this.legGroupings.length; i++) {
 				var tmp = this.legGroupings[i].selected();
 
-				for (var j = 0; j < tmp.length; j++) {
-					allPossibleFlights[tmp[j]] = tmp[j];
+				if (tmp) {
+					for (var j = 0; j < tmp.length; j++) {
+						allPossibleFlights[tmp[j]] = tmp[j];
+					}
 				}
 			}
 
@@ -161,19 +164,21 @@ define(
 					flights = this.legGroupings[i].selected(),
 					j;
 
-				for (j = 0; j < flights.length; j++) {
-					if (
-						typeof ret == 'undefined' ||
-						ret.indexOf(flights[j]) >= 0
-					) {
-						tmp.push(flights[j]);
+				if (flights) {
+					for (j = 0; j < flights.length; j++) {
+						if (
+							typeof ret == 'undefined' ||
+							ret.indexOf(flights[j]) >= 0
+						) {
+							tmp.push(flights[j]);
+						}
 					}
 				}
 
 				ret = tmp;
 			}
 
-			return ret;
+			return ret || [];
 		};
 
 		CouplingTable.prototype.selectVariant = function (data, leg) {

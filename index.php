@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Nemo Front-End</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 </head>
 <body>
 <div class="nemo-common-pageWrapper">
@@ -12,9 +12,9 @@
 		<div class="nemo-common-pageHeader__inner">
 
 			<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControls">
-					<span class="new-ui-button new-ui-button_transparent nemo-common-pageHeader__headerMenuControlls__menuButton js-menuButton">
-						<i class="new-ui-mMenuIcon"></i>
-					</span>
+				<span class="new-ui-button new-ui-button_transparent nemo-common-pageHeader__headerMenuControlls__menuButton js-menuButton">
+					<i class="new-ui-mMenuIcon"></i>
+				</span>
 			</div>
 
 			<a href="/" class="nemo-common-pageHeader__logo">
@@ -163,9 +163,9 @@
 	</header>
 
 	<!-- Template override example -->
-	<!--<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">-->
-		<!--<div>Overridden Flights Results Group template</div>-->
-	<!--</script>-->
+<!--	<script id="nemo-koTemplate-FlightsResults-Group" type="text/html">-->
+<!--		<div>Overridden Flights Results Group template <span data-bind="text: id"></span></div>-->
+<!--	</script>-->
 
 	<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: $data">
 		<!-- ko if: component() -->
@@ -176,16 +176,16 @@
 						route: componentRoute(),
 						additional: componentAdditionalParams()
 					}
-				}">Loading component...</div>
+				}">
+				<div class="nemo-common-appLoader"></div>
+			</div>
 		</div>
 		<!-- /ko -->
 		<!-- ko if: !component() && !globalError() -->
-		<div>
-			LOADING APP
-		</div>
+		<div class="nemo-common-appLoader"></div>
 		<!-- /ko -->
 		<!-- ko if: globalError() -->
-		<div data-bind="text: globalError"></div>
+		<div class="nemo-common-appError" data-bind="text: globalError"></div>
 		<!-- /ko -->
 	</div>
 
@@ -194,7 +194,7 @@
 	<!--<link rel="stylesheet" href="/js/lib/jqueryUI/v.1.11.4/jquery-ui.css">-->
 	<?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
 
-	<link rel="stylesheet" href="<?php echo $host; ?>/css/style.css">
+	<link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 
 	<script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 	<script>
@@ -214,7 +214,8 @@
 				jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie',
 				tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
 				numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
-				mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min'
+				mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min',
+				touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min'
 			},
 
 			baseUrl: nemoSourceHost,
@@ -251,7 +252,7 @@
 								// Passing additional parametes to components
 								componentsAdditionalInfo: {
 									'Flights/SearchForm/Controller': {
-										delayed: true/*,
+										delayed: false/*,
 										 init: {
 										 direct: true,
 										 serviceClass: 'Business',

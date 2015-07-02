@@ -38,6 +38,16 @@ define(
 
 				return clone;
 			},
+			smartJoin: function (arr, conj, lastConj) {
+				var ret = arr.slice(0),
+					tmp = '';
+
+				if (ret.length > 1) {
+					tmp = lastConj + ret.pop();
+				}
+
+				return ret.join(conj) + tmp;
+			},
 			intersectArrays: function () {
 				var ret;
 

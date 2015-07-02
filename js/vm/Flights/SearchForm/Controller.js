@@ -335,16 +335,13 @@ define(
 				}
 			}
 
-			if (ret.length > 1) {
-				tmp = (this.$$controller.i18n('FlightsSearchForm','passSummary_fastSelect_lastConjunction')[0] == ',' ? '' : ' ') +
+			return helpers.smartJoin(
+				ret,
+				', ',
+				(this.$$controller.i18n('FlightsSearchForm','passSummary_fastSelect_lastConjunction')[0] == ',' ? '' : ' ') +
 					this.$$controller.i18n('FlightsSearchForm','passSummary_fastSelect_lastConjunction') +
-					' ' +
-					ret.pop();
-			}
-
-			ret = ret.join(', ') + tmp;
-
-			return ret;
+					' '
+			);
 		};
 
 		FlightsSearchFormController.prototype.passengersSelectFast = function (index) {

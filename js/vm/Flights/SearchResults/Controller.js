@@ -256,6 +256,11 @@ define(
 			this.flightsCompareTableTransfer = ko.observable();
 
 			this.groups = ko.observableArray([]);
+			this.visibleGroups = ko.observableArray([]);
+
+			this.shownGroups = ko.observable(10);
+			this.totalVisibleGroups = ko.observable(0);
+
 			this.visibleResultsCount = ko.observable(0);
 			this.totalResultsCount = 0;
 
@@ -315,6 +320,8 @@ define(
 						});
 						break;
 				}
+
+				this.buildVisibleGroups();
 			}, this);
 
 			this.postFiltersHaveValue = ko.computed(function () {
@@ -449,7 +456,7 @@ define(
 
 						// Preparing matrix data
 						for (var i = 0; i < this.$$rawdata.flights.search.resultMatrix.rangeData.length; i++) {
-							var key = this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDate + '-' + this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDateBack;
+							var key = this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDate + (this.searchInfo.tripType == 'RT' ? '-' + this.$$rawdata.flights.search.resultMatrix.rangeData[i].flightDateBack : '');
 
 							matrixHash[key] = this.$$rawdata.flights.search.resultMatrix.rangeData[i];
 						}
@@ -457,17 +464,17 @@ define(
 						this.matrixData = [];
 
 						for (var i = -days; i <= days; i++) {
-							var tmp = [];
+							var tmp = [],
+								date = new Date(this.searchInfo.segments[0].departureDate.dateObject()),
+								returndate = null,
+								tmp2, key;
+
+							date.setDate(date.getDate() + i);
 
 							if (this.searchInfo.tripType == 'RT') {
 								for (var j = -days; j <= days; j++) {
-									var date = new Date(this.searchInfo.segments[0].departureDate.dateObject()),
-										returndate = new Date(this.searchInfo.segments[1].departureDate.dateObject()),
-										tmp2, key;
-
-									date.setDate(date.getDate() + i);
+									returndate = new Date(this.searchInfo.segments[1].departureDate.dateObject());
 									returndate.setDate(returndate.getDate() + j);
-
 
 									tmp2 = {
 										date: this.$$controller.getModel('Common/Date', date),
@@ -489,10 +496,28 @@ define(
 								}
 							}
 							else {
+								tmp = {
+									date: this.$$controller.getModel('Common/Date', date),
+									returndate: null,
+									price: null,
+									company: null,
+									uri: null
+								};
 
+								key = tmp.date.getISODate();
+
+								if (typeof matrixHash[key] != 'undefined') {
+									tmp.price = this.$$controller.getModel('Common/Money', matrixHash[key].minPriceFlight.minPrice);
+									tmp.company = this.airlines[matrixHash[key].minPriceFlight.carrier];
+									tmp.uri = matrixHash[key].uri;
+								}
 							}
 
 							this.matrixData.push(tmp);
+						}
+
+						if (this.searchInfo.tripType != 'RT') {
+							this.matrixData = [this.matrixData];
 						}
 					}
 					else {
@@ -730,6 +755,31 @@ define(
 			this.usePostfilters = true;
 		};
 
+		FlightsSearchResultsController.prototype.buildVisibleGroups = function () {
+			var groups = this.groups(),
+				newGroupList = [],
+				c = 0;
+
+			for (var i = 0; i < groups.length; i++) {
+				if (!groups[i].filteredOut()) {
+					if (c < this.shownGroups()) {
+						newGroupList.push(groups[i]);
+					}
+
+					c++;
+				}
+			}
+
+			this.visibleGroups(newGroupList);
+			this.totalVisibleGroups(c);
+		};
+
+		FlightsSearchResultsController.prototype.showAllGroups = function () {
+			this.shownGroups(Infinity);
+
+			this.buildVisibleGroups();
+		};
+
 		FlightsSearchResultsController.prototype.PFChanged = function (filter) {
 			var self = this,
 				filterResults = {},
@@ -815,6 +865,7 @@ define(
 			this.visibleResultsCount(visibleCount);
 
 			this.setShowcase();
+			this.buildVisibleGroups();
 		};
 
 		FlightsSearchResultsController.prototype.PFClearAll = function () {

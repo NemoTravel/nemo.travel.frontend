@@ -11,11 +11,25 @@
 	}
 }
 
+.nemo-common-appLoader {
+	height: 200px;
+	width: 200px;
+	background: url('images/ui/ui-loader-planes.svg') center center no-repeat;
+	margin: 0 auto;
+}
+
 /* General money styles */
 money {
 	white-space: nowrap;
 
 	currency[currency="RUB"][type="symbol"], currency[currency="RUB"][type="name"] {
 		font-family: 'RubleFont';
+	}
+}
+
+// Turning animations off on small screens
+@media (max-width: 500px) {
+	* {
+		transition: none!important;
 	}
 }

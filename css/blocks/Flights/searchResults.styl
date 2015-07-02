@@ -4,6 +4,7 @@
 	color: $c_common_textColor;
 
 	&__loader {
+		width: 90vw;
 		max-width: 1540px;
 		margin: 10px auto;
 		height: 200px;
@@ -600,9 +601,7 @@
 						height: 10px;
 						right: 14px;
 						transition: all 0.2s;
-						content: '▼';
-						font-size: 10px;
-						color: #fff;
+						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
 					}
 
 					&_unopenable {
@@ -694,6 +693,15 @@
 							background: #EAF6FF;
 						}
 
+						&_uncombinable &__data {
+							opacity: 0.5;
+						}
+
+						&__uncombinableWarn {
+							font-size: 12px;
+							color: #ff9731;
+						}
+
 						&__departure, &__arrival {
 							font-size: 14px;
 							font-weight: 600;
@@ -776,10 +784,11 @@
                 text-align: right;
 
 				&__disclaimer {
-					//margin-right: 15px;
 					//text-align: right;
                     padding-top: 10px;
 					align-self: center;
+					display: inline-block;
+					margin-right: 15px;
 				}
 			}
 
@@ -894,7 +903,24 @@
 			right: 0;
 		}
 	}
+
 	&__flightGroupsSelector_open + &__flightGroupsSelector__dropdown{
 		display: block;
+	}
+
+	&__showAll {
+		text-align: center;
+		margin-top: 20px;
+
+		&__button {
+			height: 40px;
+			line-height: 40px;
+			background: $nemo-color-main;
+			font-size: 15px;
+
+			&:hover, &:active {
+				background: lighten($nemo-color-main, 10%);
+			}
+		}
 	}
 }

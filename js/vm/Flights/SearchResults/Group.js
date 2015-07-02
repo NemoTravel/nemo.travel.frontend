@@ -50,12 +50,6 @@ define(
 					key;
 
 				for (var fiter = 0; fiter < this.flights.length; fiter++) {
-					// REFER TO "COUPLINGTABLE". MUST CORRESPOND. HERE PRICE IS NOT ADDED FOR OBVIOUS REASONS
-					/*this.flights[fiter].legs[siter].depAirp.IATA + '-' +
-					 this.flights[fiter].legs[siter].arrAirp.IATA + '-' +
-					 this.flights[fiter].legs[siter].depDateTime.getISODateTime() + '-' +
-					 this.flights[fiter].legs[siter].arrDateTime.getISODateTime() + '-' +
-					 this.flights[fiter].legs[siter].timeEnRoute.length();*/
 					key = this.getGroupingKey(this.flights[fiter], siter);
 
 					if (!tmp[key]) {
@@ -70,6 +64,7 @@ define(
 				for (var i = 0; i < tmpIter.length; i++) {
 					var adder = {
 						flights: tmp[tmpIter[i]],
+						uncombinable: ko.observableArray([]),
 						disabled: ko.observable(false)
 					};
 
@@ -99,6 +94,8 @@ define(
 					if (this.recalculateSelectedFlights) {
 						this.selectedFlightsIds(this.calculateSelectedFlights());
 					}
+
+					this.recalculateUncombinable();
 				}, this);
 
 				addObj.selectableCount = ko.computed(function () {
@@ -117,6 +114,9 @@ define(
 			}
 
 			this.selectedFlightsIds(this.calculateSelectedFlights());
+
+			this.recalculateUncombinable();
+
 			this.recalculateSelf();
 
 			this.durationOnLeg = ko.computed(function () {
@@ -217,6 +217,12 @@ define(
 				filteredOut = filteredOut && this.flights[i].filteredOut();
 			}
 
+			this.filteredOut(filteredOut);
+
+			if (this.filteredOut()) {
+				return;
+			}
+
 			// Calculating options disabled status
 			for (i = 0; i < this.legGroupings.length; i++) {
 				for (j = 0; j < this.legGroupings[i].options.length; j++) {
@@ -267,9 +273,6 @@ define(
 
 			this.selectedFlightsIds(this.calculateSelectedFlights());
 
-			// Setting everything
-			this.filteredOut(filteredOut);
-
 			this.recalculateSelectedFlights = true;
 		};
 
@@ -279,6 +282,28 @@ define(
 			ret.buildCouplingTable(this.couplingTable.flights);
 
 			return ret;
+		};
+
+		Group.prototype.recalculateUncombinable = function () {
+			var i, j, k;
+
+			for (i = 0; i < this.legGroupings.length; i++) {
+				for (j = 0; j < this.legGroupings[i].options.length; j++) {
+					this.legGroupings[i].options[j].uncombinable([]);
+
+					for (k = 0; k < this.legGroupings.length; k++) {
+						if (
+							i != k &&
+							helpers.intersectArrays(
+								this.legGroupings[i].options[j].flights,
+								this.legGroupings[k].selected().flights
+							).length == 0
+						) {
+							this.legGroupings[i].options[j].uncombinable.push(k);
+						}
+					}
+				}
+			}
 		};
 
 		Group.prototype.calculateSelectedFlights = function () {
