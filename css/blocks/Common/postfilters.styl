@@ -105,18 +105,21 @@ $t_postFilters_animationTime = .1s;
                 border-radius: 4px;
                 overflow: hidden;
                 display: flex;
-                height: 40px;
                 line-height: 40px;
                 cursor: pointer;
                 margin: 0 0 20px 0;
 
                 &__part {
-                    @extends .new-ui-button_common
+	                @extends .new-ui-button;
+	                @extends .new-ui-button_common;
                     box-shadow: none;
                     flex-basis: 0;
                     flex-grow: 1;
                     text-align: center;
                     position: relative;
+					border-radius: 0;
+	                line-height: 40px;
+                    height: 40px;
 
                     &::before {
                         content: '';

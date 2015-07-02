@@ -112,7 +112,7 @@
 							buttons: [
 								{
 									text: 'Начать заново',
-									click: function () {$$controller.navigate('/' + id)},
+									click: function () {$$controller.navigate('/search/' + id)},
 									'class': 'ui-button_pseudoLink ui-button_secondary'
 								},
 
@@ -536,50 +536,61 @@
 								<!-- /ko -->
 		                        </div>
 							</div>
-						<!-- /ko -->
-						<div class="nemo-flights-results__content__results__controls">
-							<div
-								class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_count"
-								data-bind="text:
-											$root.i18n('FlightsSearchResults', 'controls__count_' + (visibleResultsCount() == totalResultsCount ? 'all' : 'filtered'))
-												.replace('[%-count-%]', visibleResultsCount())
-												.replace('[%-total-%]', totalResultsCount)"></div>
-							<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_sorting">
-								<span class="nemo-flights-results__content__results__controls__item__sortTitle">
-									Сортировать по
-								</span>
-								<select data-bind="
-									simpleSelect: {
-										data: possibleSorts,
-										i18nSegment: 'FlightsSearchResults',
-										containerCssClass: 'nemo-flights-results__commonSelect',
-										i18nPrefix: 'sortType_'
-									},
-									value: sort
-								"></select>
+
+							<div class="nemo-flights-results__content__results__controls">
+								<div
+									class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_count"
+									data-bind="text:
+												$root.i18n('FlightsSearchResults', 'controls__count_' + (visibleResultsCount() == totalResultsCount ? 'all' : 'filtered'))
+													.replace('[%-count-%]', visibleResultsCount())
+													.replace('[%-total-%]', totalResultsCount)"></div>
+								<div class="nemo-flights-results__content__results__controls__item nemo-flights-results__content__results__controls__item_sorting">
+									<span class="nemo-flights-results__content__results__controls__item__sortTitle">
+										Сортировать по
+									</span>
+									<select data-bind="
+										simpleSelect: {
+											data: possibleSorts,
+											i18nSegment: 'FlightsSearchResults',
+											containerCssClass: 'nemo-flights-results__commonSelect',
+											i18nPrefix: 'sortType_'
+										},
+										value: sort
+									"></select>
+								</div>
 							</div>
-						</div>
 
-						<!--<div class="nemo-flights-results__groupList" data-bind="foreach: groups">-->
-							<!--&lt;!&ndash; ko if: !filteredOut() &ndash;&gt;-->
-							<!--<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: $data },-->
-							<!--attr:{'data-GroupAnchorId':$data.id}"></div>-->
-							<!--&lt;!&ndash; /ko &ndash;&gt;-->
-						<!--</div>-->
+							<div class="nemo-flights-results__groupList" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group', foreach: visibleGroups}"></div>
 
-						<div class="nemo-flights-results__groupList" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group', foreach: visibleGroups}"></div>
-
-						<!-- ko if: totalVisibleGroups() > shownGroups() -->
-						<div class="nemo-flights-results__showAll">
-							<button class="new-ui-button nemo-flights-results__showAll__button" data-bind="click: function(){showAllGroups();}">
-								Показать еще
-								<span class="nemo-flights-results__showAll__button__count" data-bind="text: totalVisibleGroups() - visibleGroups().length"></span>
-							</button>
-						</div>
+							<!-- ko if: totalVisibleGroups() > shownGroups() -->
+							<div class="nemo-flights-results__showAll">
+								<button class="new-ui-button nemo-flights-results__showAll__button" data-bind="click: function(){showAllGroups();}">
+									Показать еще
+									<span class="nemo-flights-results__showAll__button__count" data-bind="text: totalVisibleGroups() - visibleGroups().length"></span>
+								</button>
+							</div>
+							<!-- /ko -->
 						<!-- /ko -->
 
 						<!-- ko if: visibleResultsCount() == 0 -->
-						<h2 class="new-ui-subSectionHeader">Ничего не найдено</h2>
+						<div class="nemo-flights-results__emptyFilterResults">
+							<h2 class="new-ui-subSectionHeader nemo-flights-results__emptyFilterResults__header">К сожалению, доступных вариантов нет</h2>
+							<div class="nemo-flights-results__emptyFilterResults__text">
+								Вы можете сбросить следующие фильтры:
+							</div>
+							<div class="nemo-flights-results__emptyFilterResults__filterList" data-bind="foreach: postFilters"><!--
+								ko if: hasValue
+								--><div class="nemo-flights-results__emptyFilterResults__filterList__item" data-bind="click: function () {clear();}">
+									<span class="nemo-flights-results__emptyFilterResults__filterList__item__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></span>
+									<!-- ko if: config.isLegged -->
+									<span class="nemo-flights-results__emptyFilterResults__filterList__item__additional" data-bind="with: $parent.searchInfo.segments[config.legNumber]">
+										<!-- ko text: departure.name + ' — ' + arrival.name + ' ' + departureDate.getDate() + ' ' + departureDate.getMonthName() --><!-- /ko -->
+									</span>
+									<!-- /ko -->
+								</div><!--
+								/ko
+							--></div>
+						</div>
 						<!-- /ko -->
 					</section>
 
@@ -1373,21 +1384,19 @@
 
                         <div class="nemo-common-postFilters__filterList__filter__partSelector__part"
                              data-bind="click: function () {activeFilter(-1);},
-                                                css: {
-                                                   'nemo-common-postFilters__filterList__filter__partSelector__part_selected': activeFilter() == -1
-                                                }">
-                            ALL
-                        </div>
+                                css: {
+                                   'nemo-common-postFilters__filterList__filter__partSelector__part_selected': activeFilter() == -1
+                                },
+                                text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_all')"></div>
 
                         <!-- ko foreach: filters -->
                         <div class="nemo-common-postFilters__filterList__filter__partSelector__part"
                              data-bind="click: function () {$parent.activeFilter($index());},
-                                                css: {
-                                                   'nemo-common-postFilters__filterList__filter__partSelector__part_hasChanges': hasValue(),
-                                                   'nemo-common-postFilters__filterList__filter__partSelector__part_selected': $index() == $parent.activeFilter()
-                                                }">
-                            Leg: <!-- ko text: config.legNumber --><!-- /ko -->
-                        </div>
+                                css: {
+                                   'nemo-common-postFilters__filterList__filter__partSelector__part_hasChanges': hasValue(),
+                                   'nemo-common-postFilters__filterList__filter__partSelector__part_selected': $index() == $parent.activeFilter()
+                                },
+                                text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_' + config.legNumber)"></div>
                         <!-- /ko-->
 
                     </div>

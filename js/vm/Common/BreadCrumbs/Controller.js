@@ -14,13 +14,13 @@ define(
 						{
 							title: 'flights-step_search',
 							active: true,
-							link: '/',
+							link: '/search/',
 							router: true
 						},
 						{
 							title: 'flights-step_results',
 							active: false,
-							link: '/',
+							link: '/results/',
 							router: true
 						},
 						{

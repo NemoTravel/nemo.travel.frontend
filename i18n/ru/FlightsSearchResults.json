@@ -59,6 +59,10 @@
 	"couplingTable__group__item__transfers_twoToFour" : "пересадки",
 	"couplingTable__group__item__transfers_fourPlus" : "пересадок",
 
+	"PF__RTgroup__leg_all" : "Все",
+	"PF__RTgroup__leg_0" :   "Туда",
+	"PF__RTgroup__leg_1" :   "Обратно",
+
 	"PF__name_price" :             "Цена",
 	"PF__name_carrier" :           "Перевозчик",
 	"PF__name_departureTime" :     "Время вылета",
