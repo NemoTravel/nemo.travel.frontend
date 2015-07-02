@@ -254,6 +254,7 @@ define(
 			this.airlinesByRating = [];
 			this.flightsCompareTableDirect = ko.observable();
 			this.flightsCompareTableTransfer = ko.observable();
+			this.compareTablesOpen = ko.observable(false);
 
 			this.groups = ko.observableArray([]);
 			this.visibleGroups = ko.observableArray([]);

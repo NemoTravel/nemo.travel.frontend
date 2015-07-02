@@ -131,11 +131,11 @@
 				<!-- ko if: flightsCompareTableDirect() || flightsCompareTableTransfer() -->
 					<section class="nemo-flights-results__compareTable">
 						<div class="nemo-flights-results__compareTable__opener js-flights-results__compareTable__opener"
-							 data-bind="flightsResultsCompareTableToggle:none">
+							 data-bind="flightsResultsCompareTableToggle:null, click: function () {compareTablesOpen(true);}">
 							<div class="nemo-flights-results__compareTable__opener__text"
 								 data-bind="text: $root.i18n('FlightsSearchResults','compareTableSwitcher_open')"></div>
 						</div>
-						<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed js-flights-results__compareTable__root">
+						<section class="nemo-flights-results__compareTable__root nemo-flights-results__compareTable__root_closed js-flights-results__compareTable__root" data-bind="if: compareTablesOpen">
 							<div class="nemo-flights-results__compareTable__wrapper js-flights-results__compareTable__wrapper"
 								 data-bind="flightsResultsCompareTableWidth:flightsCompareTableTransfer()">
 								<div class="nemo-flights-results__compareTable__inner_hidden js-flights-results__compareTable__inner_hidden"
