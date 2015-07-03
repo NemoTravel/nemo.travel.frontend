@@ -35,7 +35,7 @@
 
 	"flightsGroup__selector__title" : "Вылет и прилет",
 
-	"flightsGroup__selector__uncombinable_one" : "Не комбинируется с [%-numbers-%]-м перелетом",
+	"flightsGroup__selector__uncombinable_one" : "Не комбинируется с перелетом №[%-numbers-%]",
 	"flightsGroup__selector__uncombinable_many" : "Не комбинируется с перелетами [%-numbers-%]",
 	"flightsGroup__selector__uncombinable__lastConjunction" : " и ",
 
@@ -58,6 +58,10 @@
 	"couplingTable__group__item__transfers_one" : "пересадка",
 	"couplingTable__group__item__transfers_twoToFour" : "пересадки",
 	"couplingTable__group__item__transfers_fourPlus" : "пересадок",
+
+	"PF__RTgroup__leg_all" : "Все",
+	"PF__RTgroup__leg_0" :   "Туда",
+	"PF__RTgroup__leg_1" :   "Обратно",
 
 	"PF__name_price" :             "Цена",
 	"PF__name_carrier" :           "Перевозчик",

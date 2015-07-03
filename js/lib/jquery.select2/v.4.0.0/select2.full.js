@@ -1352,7 +1352,7 @@ S2.define('select2/selection/base',[
       self.$selection.removeAttr('aria-activedescendant');
       self.$selection.removeAttr('aria-owns');
 
-      self.$selection.focus();
+//      self.$selection.focus();
 
       self._detachCloseHandler(container);
     });
@@ -4034,8 +4034,8 @@ S2.define('select2/dropdown/attachBody',[
   AttachBody.prototype._positionDropdown = function () {
     var $window = $(window);
 
-    var isCurrentlyAbove = this.$dropdown.hasClass('select2-dropdown--above');
-    var isCurrentlyBelow = this.$dropdown.hasClass('select2-dropdown--below');
+    var isCurrentlyAbove = false;
+    var isCurrentlyBelow = false;
 
     var newDirection = null;
 
@@ -4879,7 +4879,9 @@ S2.define('select2/core',[
 		  var tmp = this.options.get('dropdownAutoWidth'),
 			  tmp2;
 		  this.options.set('dropdownAutoWidth', true);
+		  this.options.set('__nofocus', true);
 		  this.open();
+		  this.options.set('__nofocus', false);
 		  tmp2 = this.$results.css('min-width');
 		  this.$results.css('min-width', 'auto');
 		  this.$selection.parents('.select2').width(this.$results.outerWidth(false)+this.$selection.find('.select2-selection__arrow').outerWidth(false)+'px');

@@ -13,14 +13,11 @@ define(
 			this.disabledGroupings = [];
 			this.selectedFlightsIds = ko.observable();
 
-			var initiallySelected = this.group.selectedFlightsIds()[0];
-
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
 			}
 
 			for (var siter = 0; siter < this.flights[0].legs.length; siter++) {
-//				console.log(this.flights[0].legs[i]);
 				var addObj = {
 						flights: ko.observableArray([]),
 						selected: ko.observable(),
@@ -48,15 +45,6 @@ define(
 				// Converting to array
 				addObj.flights(Object.keys(tmp).map(function (key) {return tmp[key]}));
 				this.legGroupings.push(addObj);
-
-				for (var i = 0; i < this.legGroupings[siter].flights().length; i++) {
-
-					if (this.legGroupings[siter].flights()[i].indexOf(initiallySelected) >= 0) {
-						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[i]);
-					}else{
-						this.legGroupings[siter].selected(this.legGroupings[siter].flights()[0])
-					}
-				}
 
 				this.disabledGroupings.push(ko.observableArray([]));
 
@@ -111,7 +99,7 @@ define(
 
 			this.sort(this.sortTypes[0]);
 
-			this.recalculateSelf();
+			this.selectVariant(this.legGroupings[0].flights()[0], 0);
 		}
 
 		// Extending from dictionaryModel
@@ -189,7 +177,7 @@ define(
 				var selected = data;
 
 				for (var i = 0; i < this.legGroupings.length; i++) {
-					var legSelected = helpers.intersectArrays(this.legGroupings[i].selected(), selected);
+					var legSelected = helpers.intersectArrays(this.legGroupings[i].selected() || [], selected);
 
 					if (!legSelected.length) {
 						var flights = this.legGroupings[i].flights();
@@ -212,7 +200,7 @@ define(
 			this.recalculateSelf();
 		};
 
-		CouplingTable.prototype.sortTypes = ['price','timeEnRoute','departureTime'/*,''*/];
+		CouplingTable.prototype.sortTypes = ['departureTime','price','timeEnRoute'/*,''*/];
 
 		return CouplingTable;
 	}

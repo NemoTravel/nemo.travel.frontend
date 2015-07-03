@@ -10,7 +10,7 @@ define (
 			this.ko = ko;
 			this.routes = [
 				// Form with optional data from existing search
-				{re: /^(\d+)?$/,          handler: 'Flights/SearchForm/Controller'},
+				{re: /^(?:search\/(\d+))?$/,          handler: 'Flights/SearchForm/Controller'},
 
 				// Form with initialization by URL
 				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
