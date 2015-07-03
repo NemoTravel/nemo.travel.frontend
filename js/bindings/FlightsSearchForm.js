@@ -231,10 +231,11 @@ define(
 						}
 					}
 				}
+				var calendarsToShow = mobileDetect().deviceType != 'desktop' ? 1 : 2;
 
 				$element.pickmeup({
 					locale: PMULocale,
-					calendars: 2,
+					calendars: calendarsToShow,
 					min: bindingContext.$parent.options.dateOptions.minDate,
 					max: bindingContext.$parent.options.dateOptions.maxDate,
 					format: 'd.m.Y',

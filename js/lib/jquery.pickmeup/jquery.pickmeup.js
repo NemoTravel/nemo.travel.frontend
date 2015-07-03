@@ -84,7 +84,7 @@
 		calendars: 1,
 		format: 'd-m-Y',
 		position: 'bottom',
-		triggerEvent: 'click touchstart focus',
+		triggerEvent: 'click focus',
 		className: '',
 		separator: ' - ',
 		hideOnSelect: true,
@@ -1376,7 +1376,7 @@
 			};
 			options.events_namespace = '.pickmeup-' + (++instances_count);
 			pickmeup
-				.on('click touchstart focus', options.binded.click)
+				.on('click focus', options.binded.click)
 				.addClass(options.views[options.view])
 				.append(html)
 				.on(
