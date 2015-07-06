@@ -660,7 +660,7 @@
 				}
 
 				&__dropdown {
-					box-shadow: 0 1px 5px rgba(#000, 0.2);
+					box-shadow: 0 0 15px rgba($nemo-color-container-shadow);
 					border-radius: 0 0 4px 4px;
 					position: absolute;
 					z-index: 1;
@@ -679,7 +679,7 @@
 
 					&__option {
 						padding: 5px 15px;
-						border-bottom: 1px solid #D7D7D7;
+						border-bottom: 1px solid $nemo-color-container-separator;
 						background: $nemo-color-LightPoint;
 						cursor: pointer;
 						transition: all 0.2s;
@@ -703,11 +703,12 @@
 						}
 
 						&__departure, &__arrival {
-							font-size: 14px;
+							font-size: 95%;
 							font-weight: 600;
 							line-height: 20px;
 							display: inline-block;
 							vertical-align: top;
+                            margin-bottom: 0px;
 						}
 
 						&__transfers {
@@ -757,7 +758,7 @@
 						}
 
 						&__timeEnRoute {
-							font-size: 11px;
+							font-size: 80%;
 						}
 					}
 				}
