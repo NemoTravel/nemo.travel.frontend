@@ -269,6 +269,10 @@ define(
 
 			this.formActive = ko.observable(false);
 
+			this.requestActive = ko.observable(false);
+			this.requestError = ko.observable(false);
+			this.request = false;
+
 			this.showcase = {
 				recommended: ko.observable(null),
 				fastest: ko.observable(null),
@@ -974,7 +978,70 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.refreshSearch = function () {
-			alert('REFRESHING SEARCH');
+			this.makeSearch('/flights/search/request', 'refreshing');
+		};
+
+		FlightsSearchResultsController.prototype.makeSearch = function (url, identifier) {
+			var self = this;
+
+			function searchError (message, systemData) {
+				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
+					self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				}
+
+				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
+					self.requestError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
+				}
+
+				self.requestActive(false);
+			}
+
+			this.requestActive(identifier);
+			this.request = this.$$controller.loadData(
+				url,
+				{request: JSON.stringify(this.$$rawdata.flights.search.request)},
+
+				function (text, request) {
+					var response;
+
+					try {
+						response = JSON.parse(text);
+
+						// Checking for errors
+						if (!response.system || !response.system.error) {
+							// Empty results check (automatically passed if we have a delayed search)
+							if (!response.flights.search.results.info.errorCode) {
+								self.$$controller.navigate('results/' + response.flights.search.request.id);
+							}
+							else {
+								searchError('emptyResult');
+							}
+						}
+						else {
+							searchError('systemError', response.system.error);
+						}
+					}
+					catch (e) {
+						searchError('brokenJSON', text);
+					}
+				},
+				function (request) {
+					searchError('requestFailed', [request.status, request.statusText]);
+				}
+			);
+		};
+
+		FlightsSearchResultsController.prototype.abortRequest = function () {
+			if (this.requestActive()) {
+				this.requestActive(false);
+				this.request.abort();
+			}
+		};
+
+		FlightsSearchResultsController.prototype.datesMatrixDateRequest = function (data) {
+			if (data.uri) {
+				this.makeSearch('/flights/search/results/' + this.id + '/' + data.date.getISODate() + (data.returndate ? '/' + data.returndate.getISODate() : ''), 'matrixSubSearch');
+			}
 		};
 
 		FlightsSearchResultsController.prototype.passengersSummary = function () {

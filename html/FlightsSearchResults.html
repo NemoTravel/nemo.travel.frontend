@@ -87,9 +87,42 @@
 		<!-- /ko -->
 
 		<!-- ko if: !error() -->
+			<!-- Searching/refreshing popup -->
+			<!-- ko if: requestActive() == 'refreshing' -->
+			<div data-bind="automaticPopup: {
+				title: 'Пожалуйста, подождите',
+				close: function () {abortRequest();},
+				closeOnOverlayClick: false,
+				headerClass: 'ui-dialog-titlebar_progress'
+			}">
+				<div class="nemo-flights-results__refreshPopup" style="display: none;">
+					Обновляем результаты.
+				</div>
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: requestActive() == 'matrixSubSearch' -->
+			<div data-bind="automaticPopup: {
+						title: 'Пожалуйста, подождите',
+						close: function () {abortRequest();},
+						closeOnOverlayClick: false,
+						headerClass: 'ui-dialog-titlebar_progress'
+					}">
+				<div class="nemo-flights-results__refreshPopup" style="display: none;">
+					Ищем перелеты
+				</div>
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: requestError -->
+			<div data-bind="automaticPopup: {title: 'Ошибка', close: function () {requestError(false);}}">
+				<div data-bind="text: requestError" style="display: none;"></div>
+			</div>
+			<!-- /ko -->
+
 			<!-- EXPIRATION POPUPS -->
 			<!-- ko if: expirationPopupWarning && expirationPopupWarning.length() < 0 && expirationPopupExpired.length() >= 0 -->
-			<div data-bind="automaticPopup: {title: 'Поспешите'
+			<div data-bind="automaticPopup: {title: 'Поспешите',
 							buttons: [
 								{
 									text: 'Продолжить',
@@ -1261,6 +1294,7 @@
 						<!-- /ko -->
 						<td class="nemo-flights-results__matrix__table__cell js-flights-results__matrix__row__cell js-flights-results__matrix__row__cell_target"
 							data-bind="
+								click: function () {if (price && company) {$parents[1].datesMatrixDateRequest($data);}},
 								css: {
 									'nemo-flights-results__matrix__table__cell_empty': !price || !company,
 									'nemo-flights-results__matrix__table__cell_impossible': returndate && date.getTimestamp() > returndate.getTimestamp()
@@ -1274,7 +1308,7 @@
 							<!-- /ko -->
 							<!-- ko if: price && company -->
 							<div class="nemo-flights-results__matrix__table__cell__company" data-bind="text: company.name"></div>
-							<price class="nemo-flights-results__matrix__table__cell__price" data-bind="money: price"></price>
+							<money class="nemo-flights-results__matrix__table__cell__price" data-bind="money: price"></money>
 							<!-- /ko -->
 						</td>
 					</tr>

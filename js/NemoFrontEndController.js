@@ -457,7 +457,7 @@ define (
 			}
 			else {
 				this.warn('No route detected. App terminated.');
-				self.viewModel.globalError('No route detected. App terminated.');
+				self.viewModel.globalError(this.i18n('common', 'nemoApp__globalError__noRoute'));
 			}
 		};
 
