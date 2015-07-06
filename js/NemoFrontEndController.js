@@ -275,7 +275,7 @@ define (
 						self.makeRequest(
 							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + loadArray[index] + '.json?bust=' + (new Date()).getTime(),
 							null,
-							function (text) {
+							function (text, request) {
 								requestsCompleted++;
 
 								try {
@@ -332,48 +332,67 @@ define (
 		 */
 		NemoFrontEndController.prototype.makeRequest = function (url, additionalParams, callback, errorCallback) {
 			// We use vanilla js because we don't know which of the third-party libraries are present on page
-			var request = new XMLHttpRequest(),
+			if ( typeof XDomainRequest != "undefined" && url.indexOf(window.location.hostname) <= 0) {
+				//This pitiful parody on a normal request is written solely for IE9. Kill it with fire when support will no longer be needed
+				var request = new XDomainRequest(),
 				POSTParams = '';
-
-			if (!("withCredentials" in request) && typeof XDomainRequest != "undefined") {
-				request = new XDomainRequest();
-			}
-
-			// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
-			request.withCredentials = this.options.CORSWithCredentials;
-
-			if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
-				POSTParams += this.processPOSTParameters(this.options.postParameters);
-			}
-			if (typeof additionalParams == 'object' && additionalParams) {
-				POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
-			}
-
-			request.open(POSTParams ? 'POST' : 'GET', url, true);
-
-			if (POSTParams) {
-				//god damn IE for not supporting setRequestHeader in XDR.
-				if(request.setRequestHeader){
-					request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-				}else{
-					request.abort();
-					request.open('GET', url, true);
+				if (typeof additionalParams == 'object' && additionalParams) {
+					POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
 				}
-			}
+				request.open('GET', url+'&'+POSTParams);
+				request.onload = function(){
+						if(callback){
+							callback(request.responseText, request);
+						}
+					};
+				request.onerror = function(){
+					if(errorCallback){
+						errorCallback(request)
+					}
+				};
+				request.onprogress = function(){ };
+				request.ontimeout = function(){ };
+				setTimeout(function(){
+					request.send();
+				}, 0);
+				return request
+			}else{
+				var request = new XMLHttpRequest(),
+					POSTParams = '';
 
-			request.onreadystatechange = function() {
-				if (request.readyState === 4) {
-					if (request.status >= 200 && request.status < 400) {
-						callback(request.responseText, request);
-					} else {
-						errorCallback(request);
+				// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
+				request.withCredentials = this.options.CORSWithCredentials;
+
+				if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
+					POSTParams += this.processPOSTParameters(this.options.postParameters);
+				}
+				if (typeof additionalParams == 'object' && additionalParams) {
+					POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
+				}
+
+				request.open(POSTParams ? 'POST' : 'GET', url, true);
+
+				if (POSTParams) {
+					if(request.setRequestHeader) {
+						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 					}
 				}
-			};
 
-			request.send(POSTParams);
+				request.onreadystatechange = function() {
+					if (request.readyState === 4) {
+						if (request.status >= 200 && request.status < 400) {
+							callback(request.responseText, request);
+						} else {
+							errorCallback(request);
+						}
+					}
+				};
 
-			return request;
+				request.send(POSTParams);
+
+				return request;
+			}
+
 		};
 
 		/**
