@@ -128,10 +128,16 @@ define(
 				var $element = $(element);
 				var groupId = $element.data('groupid');
 				function scrollToTicket(){
-					$('html, body').scrollTop(
-						$('[data-groupanchorid='+groupId+']').offset().top-10
-					);
-					console.log(groupId);
+					if($('[data-groupanchorid='+groupId+']').length > 0){
+						$('html, body').scrollTop(
+							$('[data-groupanchorid='+groupId+']').offset().top-10
+						);
+					}else{
+						bindingContext.$parents[1].showAllGroups();
+						$('html, body').scrollTop(
+							$('[data-groupanchorid='+groupId+']').offset().top-10
+						);
+					}
 				}
 				$element.on('click', scrollToTicket);
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
