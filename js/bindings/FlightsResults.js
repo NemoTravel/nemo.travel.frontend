@@ -303,5 +303,13 @@ define(
 					.on('mouseenter', '.js-flights-results__matrix__row__cell', hilightCells);
 			}
 		};
+
+		ko.bindingHandlers.flightsResultsAdaptivePF = {
+			init: function (element) {
+				$('body').addClass('nemo-flights-results__adaptivePF');
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {$('body').removeClass('nemo-flights-results__adaptivePF');});
+			}
+		};
 	}
 );

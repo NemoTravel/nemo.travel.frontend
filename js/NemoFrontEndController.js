@@ -411,7 +411,7 @@ define (
 			this.log('Detected component', name, callback);
 
 			callback({
-				viewModel: { require: self.options.sourceURL + '/js/vm/' + name },
+				viewModel: { require: self.options.sourceURL + '/js/vm/' + name + '.js' },
 				template: { require: 'text!' + self.options.sourceURL + '/html/' + template + '.html' }
 			});
 		};

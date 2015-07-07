@@ -161,9 +161,9 @@ define(
 						}
 					}
 					else if (
-						bindingContext.$data.tripType() == 'RT' &&
+						viewModel.tripType() == 'RT' &&
 						segment.index == 0 &&
-						!bindingContext.$data.segments()[1].items.departureDate.value()
+						!viewModel.segments()[1].items.departureDate.value()
 					) {
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
 					}
