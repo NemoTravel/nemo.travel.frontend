@@ -61,10 +61,12 @@ define(
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
-					source: function (request, callback) {
-						$.get(
+					source:function(request, callback){
+						viewModel.$$controller.makeRequest(
 							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
+							'',
 							function (data) {
+								data = JSON.parse(data);
 								var result = [],
 									tmp;
 
@@ -86,14 +88,10 @@ define(
 
 								callback(result);
 							},
-							'json'
-						).error(function () {
-							callback(noResultsResults);
-						});
-					},
-					// We juggle "new-ui-autocomplete_open" class due to jQueryUI autocomplete kind ignoring of
-					// all attempts to shift its menu down with CSS only
-					// (position can not be used due to a need to change visuals using CSS only)
+							function(){
+								callback(noResultsResults);
+							})
+						},
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
@@ -243,7 +241,7 @@ define(
 					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
 					render: function (dateObj) {
 						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
-
+						ret.className = '';
 						if (ret.segments.length > 0) {
 							ret.className = 'nemo-pmu-date_hilighted';
 							for (var i = 0; i < ret.segments.length; i++) {
@@ -265,6 +263,30 @@ define(
 
 						// Autofocus stuff
 						$element.trigger('nemo.fsf.segmentPropChanged');
+					},
+					beforeShow:function(){
+						var minDate =  bindingContext.$parent.options.dateOptions.minDate,
+							maxDate =  bindingContext.$parent.options.dateOptions.maxDate;
+						for(var segment in viewModel.form.segments()){
+							var $this = viewModel.form.segments()[segment];
+							if($this.index < viewModel.index
+								&&
+								$this.items.departureDate.value() != null)
+							{
+								minDate = $this.items.departureDate.value().dateObject();
+							}
+							if($this.index > viewModel.index
+								&&
+								$this.items.departureDate.value() != null)
+							{
+								maxDate = $this.items.departureDate.value().dateObject();
+								break;
+							}
+						}
+						$element.pickmeup({
+							'max':maxDate,
+							'min':minDate
+						})
 					}
 				});
 			}
