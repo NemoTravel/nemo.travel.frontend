@@ -108,3 +108,30 @@
   display: block;
   float: left;
 }
+/* PostFilters */
+.nemo-common-postFilters__filterList__filter__valuesBlock__values {
+  display: block;
+}
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value {
+  display: block;
+}
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name,
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price,
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__quantity {
+  display: inline-block;
+  vertical-align: middle;
+}
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name {
+  width: 60%;
+  margin: 0;
+  padding-right: 5px;
+}
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__price {
+  width: 20%;
+  text-align: right;
+  margin: 0;
+}
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value__quantity {
+  width: 15%;
+  margin: 0;
+}

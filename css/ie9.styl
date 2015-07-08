@@ -122,3 +122,36 @@
 	display: block;
 	float: left;
 }
+
+/* PostFilters */
+.nemo-common-postFilters__filterList__filter__valuesBlock__values {
+    display: block;
+}
+
+.nemo-common-postFilters__filterList__filter__valuesBlock__values__value {
+    display: block;
+
+    &__name, &__price, &__quantity {
+        display: inline-block;
+        //height: 100%;
+        vertical-align: middle;
+        //line-height: 40px;
+    }
+
+    &__name {
+        width: 60%;
+        margin: 0;
+        padding-right: 5px;
+    }
+
+    &__price {
+        width: 20%;
+        text-align: right;
+        margin: 0;
+    }
+
+    &__quantity {
+        width: 15%;
+        margin: 0;
+    }
+}
