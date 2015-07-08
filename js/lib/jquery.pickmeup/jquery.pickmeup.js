@@ -424,7 +424,7 @@
 						disabled = (options.min && options.min > localDate) || (options.max && options.max < localDate);
 					//collecting data for data-attributes
 					day.val = val;
-					day.date.push(new Date(val).getDay());
+					day.date.push(localDate.getDate());
 					day.date.push(new Date(val).getMonth());
 					day.date.push(new Date(val).getFullYear());
 					if (from_user.disabled || disabled) {
@@ -796,10 +796,13 @@
 					if (el.hasClass('nemo-pmu-notInMonth')) {
 						options.current.addMonths(val > 15 ? -1 : 1);
 					}
-					console.log(el.data('year'));
-					//console.log($this.pickmeup('set_date'));
-					options.current.setDate(val);
-					options.binded.update_date();
+					var dateToSet = new Date(el.data('year'), el.data('month'), el.data('day'));
+					if(options.mode == 'single'){
+						options.current = dateToSet;
+					}else{
+						options.current.setDate(val);
+						options.binded.update_date();
+					}
 					options.onSetDate();
 				}
 			}
