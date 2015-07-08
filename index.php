@@ -195,7 +195,9 @@
 	<?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
 
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
-
+	<!--[if IE 9]>
+		<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
+	<![endif]-->
 	<script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 	<script>
 		var nemoSourceHost = '<?php echo $host; ?>';

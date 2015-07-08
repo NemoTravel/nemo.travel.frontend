@@ -370,7 +370,9 @@ define(
 		];
 
 		FlightsSearchResultsController.prototype.bookFlight = function (flids) {
-			alert('Booking flights: ' + flids);
+			if (flids instanceof Array && flids.length > 0) {
+				document.location = this.$$controller.options.dataURL.split('/').slice(0, 3).join('/') + '/booking__info?uid=' + this.id + '&flight=' + flids[0];
+			}
 		};
 
 		FlightsSearchResultsController.prototype.getTimeType = function (d) {

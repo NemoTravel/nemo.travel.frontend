@@ -61,10 +61,12 @@ define(
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
-					source: function (request, callback) {
-						$.get(
+					source:function(request, callback){
+						viewModel.$$controller.makeRequest(
 							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
+							'',
 							function (data) {
+								data = JSON.parse(data);
 								var result = [],
 									tmp;
 
@@ -86,14 +88,10 @@ define(
 
 								callback(result);
 							},
-							'json'
-						).error(function () {
-							callback(noResultsResults);
-						});
-					},
-					// We juggle "new-ui-autocomplete_open" class due to jQueryUI autocomplete kind ignoring of
-					// all attempts to shift its menu down with CSS only
-					// (position can not be used due to a need to change visuals using CSS only)
+							function(){
+								callback(noResultsResults);
+							})
+						},
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
@@ -163,9 +161,9 @@ define(
 						}
 					}
 					else if (
-						bindingContext.$data.tripType() == 'RT' &&
+						viewModel.tripType() == 'RT' &&
 						segment.index == 0 &&
-						!bindingContext.$data.segments()[1].items.departureDate.value()
+						!viewModel.segments()[1].items.departureDate.value()
 					) {
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
 					}
@@ -243,7 +241,7 @@ define(
 					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
 					render: function (dateObj) {
 						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
-
+						ret.className = '';
 						if (ret.segments.length > 0) {
 							ret.className = 'nemo-pmu-date_hilighted';
 							for (var i = 0; i < ret.segments.length; i++) {
@@ -265,10 +263,41 @@ define(
 
 						// Autofocus stuff
 						$element.trigger('nemo.fsf.segmentPropChanged');
+					},
+					beforeShow:function(){
+						var minDate =  bindingContext.$parent.options.dateOptions.minDate,
+							maxDate =  bindingContext.$parent.options.dateOptions.maxDate;
+						for(var segment in viewModel.form.segments()){
+							var $this = viewModel.form.segments()[segment];
+							if($this.index < viewModel.index
+								&&
+								$this.items.departureDate.value() != null)
+							{
+								minDate = $this.items.departureDate.value().dateObject();
+							}
+							if($this.index > viewModel.index
+								&&
+								$this.items.departureDate.value() != null)
+							{
+								maxDate = $this.items.departureDate.value().dateObject();
+								break;
+							}
+						}
+						$(this).data('pickmeup-options').max = maxDate;
+						$(this).data('pickmeup-options').min = minDate;
 					}
 				});
 			}
-
 		};
+		ko.bindingHandlers.flightsFormRTAutoFocus = {
+		init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+			var setFocus = function(){
+				bindingContext.$parent.segments()[1].items.departureDate.focus(true)
+			};
+			$(element).on('click', setFocus);
+			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+				$(element).off('click', setFocus);
+			})
+		}}
 	}
 );

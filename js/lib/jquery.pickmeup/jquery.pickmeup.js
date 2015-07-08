@@ -424,7 +424,7 @@
 						disabled = (options.min && options.min > localDate) || (options.max && options.max < localDate);
 					//collecting data for data-attributes
 					day.val = val;
-					day.date.push(new Date(val).getDay());
+					day.date.push(localDate.getDate());
 					day.date.push(new Date(val).getMonth());
 					day.date.push(new Date(val).getFullYear());
 					if (from_user.disabled || disabled) {
@@ -796,8 +796,13 @@
 					if (el.hasClass('nemo-pmu-notInMonth')) {
 						options.current.addMonths(val > 15 ? -1 : 1);
 					}
-					options.current.setDate(val);
-					options.binded.update_date();
+					var dateToSet = new Date(el.data('year'), el.data('month'), el.data('day'));
+					if(options.mode == 'single'){
+						options.current = dateToSet;
+					}else{
+						options.current.setDate(val);
+						options.binded.update_date();
+					}
 					options.onSetDate();
 				}
 			}
@@ -874,6 +879,7 @@
 								options.onSetDate()
 							}else if(options.min == null && options.max == null){
 								$this.pickmeup('set_date', options.current)
+								options.onSetDate()
 							}
 						}
 					})
@@ -952,7 +958,7 @@
 				}
 				$(document)
 					.on(
-					'click' + options.events_namespace + 'touch' + options.events_namespace + 'blur' + options.events_namespace,
+					'mousedown' + options.events_namespace + 'touch' + options.events_namespace + 'blur' + options.events_namespace,
 					options.binded.hide
 				)
 					.on(
@@ -1001,7 +1007,7 @@
 						$this.pickmeup('set_date', inputDate)
 					}
 				}
-			if ($(this).val().length>0){
+				if ($(this).val().length>0){
 					var parsedDate = parseDate($(this).val(), options.format, options.separator, options.locale);
 					if(!(parsedDate >=options.min && parsedDate <= options.max)) {
 						$(this).val(formatDate(options.current, options.format, options.locale));
