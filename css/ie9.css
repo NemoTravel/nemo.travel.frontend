@@ -1,3 +1,7 @@
+/*common*/
+.nemo-common-scrollable__scroller {
+  display: none;
+}
 /*header*/
 .nemo-common-pageHeader__inner {
   display: block;
@@ -50,10 +54,43 @@
   position: static;
   max-width: 280px;
 }
+.nemo-flights-results__flightsGroup__footer__controls div {
+  display: inline-block;
+  width: 50%;
+  margin-right: -4px;
+}
+.nemo-flights-results__flightsGroup__footer__controls .nemo-flights-results__flightsGroup__footer__buyButtonContainer {
+  text-align: right;
+}
+.nemo-flights-results__flightsGroup__footer__controls .nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer {
+  margin-right: 8px;
+}
+.nemo-flights-results__flightsGroup__leg__selector__selected {
+  background: #f2f2f2;
+}
+.nemo-flights-flightInfo__leg__segment>div {
+  display: inline-block;
+  vertical-align: top;
+  width: 33%;
+}
+.nemo-flights-results__flightsGroup__leg__selector__header>div {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  margin-right: -4px;
+}
+.nemo-flights-results__flightsGroup__leg__selector__header .nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable {
+  text-align: right;
+}
 /*compare table*/
 .nemo-flights-results__compareTable__companyColumn {
   display: block;
   float: left;
+}
+.nemo-flights-results__compareTable__companyLogo__image >div {
+  width: 100%;
+  height: 100%;
+  background-size: 75%;
 }
 .nemo-flights-results__compareTable__pager__prev,
 .nemo-flights-results__compareTable__pager__next {
@@ -65,4 +102,9 @@
 .nemo-flights-results__compareTable__pager__next {
   float: right;
   margin-top: -18px;
+}
+/*Coupling table*/
+.nemo-flights-results__couplingTable__groups__group {
+  display: block;
+  float: left;
 }
