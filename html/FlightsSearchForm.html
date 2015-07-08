@@ -154,7 +154,7 @@
 					</div>
 				</div><!-- ko if: $parent.tripType() == 'OW' --><div class="nemo-flights-form__route__segment nemo-flights-form__route__segment_returnSegment">
 					<div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date">
-						<div class="nemo-flights-form__route__switchToRT" data-bind="click: function () {$parent.tripType('RT')}">
+						<div class="nemo-flights-form__route__switchToRT" data-bind="click: function () {$parent.tripType('RT')}, flightsFormRTAutoFocus:null">
 							И обратно
 						</div>
 					</div>
