@@ -2,7 +2,7 @@ $d_pageHeader_padding = 14px 0;
 $d_pageHeader_padding_mobile = 8px 0;
 
 $d_ui_pageHeader_inner_maxWidth = 1140px;
-$d_ui_pageHeader_inner_padding = 0 30px;
+$d_ui_pageHeader_inner_padding = 0 20px;
 
 $d_ui_pageHeader_tablet_inner_padding = 0 20px 0 10px;
 
@@ -13,31 +13,6 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
     &-pageHeader {
         background: $nemo-header-bg;
         padding: $d_pageHeader_padding;
-
-        &__logo {
-            display: inline-block;
-            &__image {
-                display: block;
-            }
-        }
-
-        .nemo-root_mobile & {
-            padding: $d_pageHeader_padding_mobile;
-            .logo {
-                display: none;
-            }
-        }
-
-        .nemo-root_tablet & {
-
-            &__inner {
-                padding: $d_ui_pageHeader_tablet_inner_padding;
-            }
-        }
-
-        .nemo-root_mobile & {
-            padding: 0 0 0 10px;
-        }
 
         &__inner {
             display: flex;
@@ -52,12 +27,17 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
             width: 100%;
             //max-width: $d_ui_pageHeader_inner_maxWidth;
             padding: $d_ui_pageHeader_inner_padding;
+
             @media only screen and (min-width: 1340px) {
                 max-width: 1600px;
             }
 
             &__headerMenuControls {
                 display: none;
+
+                @media only screen and (max-width: 980px) {
+                    display: inline-block;
+                }
             }
 
             &__headerLinks {
@@ -74,6 +54,10 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
                     &__menuButton {
                         height: 35px;
                     }
+                }
+
+                @media only screen and (max-width: 980px) {
+                    display: none;
                 }
 
             }

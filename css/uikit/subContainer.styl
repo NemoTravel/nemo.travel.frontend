@@ -16,16 +16,18 @@
 	</div>
  */
 // COLORS
-$c_ui_subContainer_bg                    = $nemo-color-LightPoint;
-$c_ui_subContainer_header_bg             = #4EB1E5;
-$c_ui_subContainer_header_hilight_light  = $c_ui_subContainer_bg;
-$c_ui_subContainer_header_hilight_dark   = #E6E7E8;
-$c_ui_subContainer_header_greenLight     = rgba(19, 178, 57, .75);
+
+
+$c_ui_subContainer_bg                    = $nemo-color-container-main;
+$c_ui_subContainer_header_bg             = $nemo-color-main;
+$c_ui_subContainer_header_hilight_light  = $nemo-color-container-flat;
+$c_ui_subContainer_header_hilight_dark   = darken($nemo-color-container-flat, 10);
+$c_ui_subContainer_header_greenLight     = $nemo-color-secondary ;
 
 $c_ui_subContainer_section_border        = #d7d7d7;
 
-$c_ui_subContainer_divider           = #D6D6D6;
-$c_ui_subContainer_divider_secondary = #fafafa;
+$c_ui_subContainer_divider           = $nemo-color-container-separator;
+$c_ui_subContainer_divider_secondary = lighten($nemo-color-container-separator, 5);
 
 
 // DIMENSIONS
@@ -53,8 +55,8 @@ $f_ui_subContainer_header_hilight_lineheight = $f_ui_subContainer_header_linehei
 
 // VALUES
 $i_ui_subContainer_outershadow = 0px 1px 4px rgba(0,0,0,0.25);
-$i_ui_subContainer_divider_border = $d_ui_subContainer_divider_height solid $c_ui_subContainer_divider;
-$i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height solid $c_ui_subContainer_divider_secondary;
+$i_ui_subContainer_divider_border = $d_ui_subContainer_divider_height solid alpha($nemo-color-secondary-2, .5);
+$i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height solid alpha($nemo-color-secondary-2, .5);
 
 
 .new-ui-subContainer {

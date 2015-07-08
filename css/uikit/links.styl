@@ -1,15 +1,15 @@
 // COLORS
 $c_ui_link_text                     = $nemo-color-main;
 $c_ui_link_changeable_text          = inherit;
-$c_ui_link_border                   = alpha($nemo-color-main, .5);
+$c_ui_link_border                   = alpha($nemo-color-main, .25);
 $c_ui_link_blue_text				= $c_ui_link_text;
 $c_ui_link_blue_border 				= $c_ui_link_border;
 
-$c_ui_link_grey_text				= #636467;
+$c_ui_link_grey_text				= $nemo-color-text-secondary;
 
 $c_ui_link_hover_text               = darken($c_ui_link_text, 10);
 $c_ui_link_changeable_hover_text    = inherit;
-$c_ui_link_hover_border             = darken($c_ui_link_border, 10);
+$c_ui_link_hover_border             = alpha(darken($c_ui_link_border, 10), .75);
 
 $i_ui_link_bBorder                  = 1px solid $c_ui_link_border;
 $i_ui_link_bBorder_hover            = 1px solid $c_ui_link_hover_border;
@@ -18,7 +18,7 @@ $c_ui_pseudoLink_text               = $c_ui_link_text;
 $c_ui_pseudoLink_border             = $c_ui_link_border;
 
 $c_ui_pseudoLink_hover_text         = darken($c_ui_link_border, 10);
-$c_ui_pseudoLink_hover_border       = darken($c_ui_link_border, 10);
+$c_ui_pseudoLink_hover_border       = darken($c_ui_link_hover_border, 10);
 
 $c_ui_full_width_text				= #FEFEFE;
 $fz_ui_full_width_text				= 13px;
@@ -63,6 +63,8 @@ $d_ui_full_width_text_margin		= 0 0 0 10px;
 		text-decoration: none;
 
 		border-bottom: $i_ui_link_bBorder;
+
+        transition: border-color $nemo-transition-main ease-in;
 
 		&:hover {
 			color: $c_ui_link_hover_text;
