@@ -283,10 +283,8 @@ define(
 								break;
 							}
 						}
-						$element.pickmeup({
-							'max':maxDate,
-							'min':minDate
-						})
+						$(this).data('pickmeup-options').max = maxDate;
+						$(this).data('pickmeup-options').min = minDate;
 					}
 				});
 			}
