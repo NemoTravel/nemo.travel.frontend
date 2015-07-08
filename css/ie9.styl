@@ -1,7 +1,3 @@
-/*common*/
-.nemo-common-scrollable__scroller{
-	display: none;
-}
 /*header*/
 .nemo-common-pageHeader__inner{
 	display: block;
@@ -45,17 +41,6 @@
 	top: 0;
 }
 
-.nemo-common-postFilters .nemo-common-sticker__inner{
-	position: static;
-	height: auto!important;
-	.nemo-common-scrollable__content{
-		width: 280px;
-	}
-}
-.nemo-flights-results__content__postfilters{
-	position: static;
-	max-width: 280px;
-}
 .nemo-flights-results__flightsGroup__footer__controls{
 	div{
 		display: inline-block;
@@ -154,4 +139,17 @@
         width: 15%;
         margin: 0;
     }
+}
+
+.nemo-common-postFilters {
+    position: absolute !important;
+    //position: static;
+    //height: auto!important;
+    //.nemo-common-scrollable__content{
+    //    width: 280px;
+    //}
+}
+.nemo-flights-results__content__postfilters{
+    //position: static;
+    //max-width: 280px;
 }
