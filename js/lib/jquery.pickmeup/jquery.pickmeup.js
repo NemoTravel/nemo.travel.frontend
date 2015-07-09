@@ -873,13 +873,17 @@
 							}
 						}
 						if(e.keyCode == 13){
+							e.preventDefault();
 							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-							if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
+							console.log(parsedDate, '< parsed', options.min,'< min', options.max, '< max');
+							if(options.min != 'null' && parsedDate.getDate() >=options.min.getDate() || options.max != 'null' && parsedDate.getDate() <= options.max.getDate() ){
 								$this.pickmeup('set_date', parsedDate);
 								options.onSetDate()
 							}else if(options.min == null && options.max == null){
 								$this.pickmeup('set_date', options.current)
 								options.onSetDate()
+							}else{
+								return false
 							}
 						}
 					})
