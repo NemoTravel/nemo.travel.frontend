@@ -17,10 +17,14 @@ $c_common_textColor_secondary = rgba(99, 100, 103, 1);
 $nemo-color-LightPoint                = rgba(255, 255, 255, 1);
 $nemo-color-MiddlePoint               = rgba(100, 100, 110, 1);
 $nemo-color-DarkPoint                 = rgba(10, 10, 10, 1);
+/*$nemo-color-LightPoint                = rgba(50, 50, 50, 1);*/
+/*$nemo-color-MiddlePoint               = rgba(100, 100, 110, 1);*/
+/*$nemo-color-DarkPoint                 = rgba(240, 240, 240, 1);*/
 
 $nemo-color-main                      = rgba(100, 181, 246, 1);
 $nemo-color-secondary                 = rgba(123, 178, 54, 1);
-$nemo-color-secondary-2               = rgba(225, 225, 225, 1);
+//$nemo-color-secondary-2               = rgba(225, 225, 225, 1);
+$nemo-color-secondary-2               = darken($nemo-color-LightPoint, 10);
 
 $nemo-color-notification_error        = rgba(255, 211, 33, 1);
 $nemo-color-notification_neutral      = $nemo-color-main;
@@ -42,7 +46,7 @@ $nemo-color-button-highlight           = $nemo-color-highlight;
 
 // Button Text
 $nemo-color-button-text           = $nemo-color-LightPoint;
-$nemo-color-button-text-alt       = alpha($nemo-color-DarkPoint, .75);
+$nemo-color-button-text-alt       = lighten($nemo-color-DarkPoint, 10);
 
 // Containers
 $nemo-color-container-main                = $nemo-color-LightPoint;

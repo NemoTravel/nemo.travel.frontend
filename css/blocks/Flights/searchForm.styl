@@ -1,6 +1,6 @@
-$i_flights_form_segment_input_bsh = inset 0 0 5px rgba(#000, 0.2);
-$i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0.4);
-$i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint, 0.4);
+$i_flights_form_segment_input_bsh = inset 0 0 5px rgba(#000, 0);
+$i_flights_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0);
+$i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, .2);
 
 .nemo-flights-form {
 	position: relative;
@@ -8,6 +8,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 
 	&, & input {
 		font: 13px "Open Sans", sans-serif;
+		//line-height: 40px;
 	}
 
 	// Setting initial box-sizing and fonts
@@ -88,11 +89,13 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 			&__input {
 				margin: 0;
 				border-radius: 2px;
-				padding: 8px 10px;
+				padding: 0px 10px;
 				height: 40px;
 				box-shadow: $i_flights_form_segment_input_bsh;
 				cursor: pointer;
 				//font-size: 13px;
+				line-height: 40px;
+				font-size: 105% !important;
 				color: $nemo-color-text-main;
 
 				//border: 0px solid transparent;
@@ -109,8 +112,25 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 					/*background-image: url('images/fsf-sprite.svg');*/
 					background-position: right 11px;
 					background-repeat: no-repeat;
-
 					padding-right: 36px;
+
+					&_there {
+						border-radius: 2px 0 0 2px;
+					}
+
+					&_back {
+						border-radius: 0 2px 2px 0;
+						border-left: 1px solid $nemo-color-main !important;
+						//position: relative;
+						&::before {
+							content: '';
+							position: absolute;
+							height: 100%;
+							left: 0;
+							top: 0;
+
+						}
+					}
 				}
 
 				&::-webkit-input-placeholder {
@@ -135,7 +155,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 
 				&__dummy {
 					text-indent: 10px;
-					line-height: 40px;
+					line-height: 42px;
 					font-size: 105%;
 					//background: $nemo-color-LightPoint;
 				}
@@ -215,7 +235,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			cursor: pointer;
-			transition: all 0.2s;
+			transition: all $nemo-transition-main ease-in;
 
 			&:hover {
 				box-shadow: $i_flights_form_segment_toRT_hover;

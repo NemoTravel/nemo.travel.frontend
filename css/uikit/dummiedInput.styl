@@ -8,6 +8,7 @@
 
 	&__input {
 		margin: 0;
+		line-height: 20px;
 	}
 
 	&__dummy {
@@ -23,7 +24,7 @@
 		bottom: 0;
 		margin: 0;
 		line-height: $d_ui_input_height - 2 * ($d_ui_input_border + $d_ui_input_vPadding);
-		text-indent: $d_ui_input_hPadding;
+		//text-indent: $d_ui_input_hPadding;
 		border: none;
 
 		overflow: hidden;
@@ -59,7 +60,8 @@
 	}
 
 	&__input:focus ~ &__dummy {
-		right: 100%;
+		//right: 100%;
+		display: none;
 		padding-left: 0;
 		padding-right: 0;
 		text-overflow: clip;

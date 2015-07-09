@@ -11,7 +11,7 @@
 	cursor: default;
 	background: $nemo-color-LightPoint;
 	border-radius: 4px;
-	box-shadow: $i_ui_subContainer_outershadow;
+	box-shadow: 0 1px 16px $nemo-color-container-shadow;
 
 	&__match {
 		background: rgba(#FF9731, 0.5);
@@ -28,8 +28,8 @@
 		min-height: 0;
 		position: relative;
 		padding: 10px;
-		border-bottom: 1px solid #D7D7D7;
-		transition: all 0.2s;
+		border-bottom: 1px solid $nemo-color-container-separator;
+		transition: all $nemo-transition-main ease-in;
 
 		font-size: 13px;
 		line-height: 20px;

@@ -129,6 +129,7 @@
 										data-bind="
 											attr: {placeholder: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'},
 											flightsFormDatepicker: items.departureDate.value,
+											css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-flights-form__route__segment__input_date_there' : 'nemo-flights-form__route__segment__input_date_back') : 'nemo-flights-form__route__segment__input_date_there',
 											hasFocus: items.departureDate.focus">
 
                                 <div data-bind="css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-flights-form__route__segment__item__date__dummy_there' : 'nemo-flights-form__route__segment__item__date__dummy_back') : 'nemo-flights-form__route__segment__item__date__dummy_there'"
