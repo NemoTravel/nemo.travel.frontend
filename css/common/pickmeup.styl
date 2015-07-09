@@ -9,9 +9,7 @@
  * @license		MIT License, see license.txt if present.
  */
 $instance_width = 258px;
-.js-picker::-ms-clear {
-  display: none;
-}
+
 /*input::-webkit-calendar-picker-indicator{
 display: none;
 }
@@ -19,111 +17,112 @@ input[type="date"]::-webkit-input-placeholder{
 visibility: hidden !important;
 }*/
 .nemo-pmu-wrapper {
-  background: $nemo-color-LightPoint;
-  display: none;
-  position: absolute;
-  box-shadow: 0 0 5px #ccc;
-  font-size: 12px;
-  div{display: inline-block;}
+	background: $nemo-color-LightPoint;
+	display: none;
+	position: absolute;
+	box-shadow: 0 0 5px #ccc;
+	font-size: 12px;
+	div{display: inline-block;}
 }
 
 .nemo-pmu-instance {
-  display: inline-block;
-  text-align: center;
-  width: $instance_width;
+	display: inline-block;
+	text-align: center;
+	width: $instance_width;
 }
 
 .nemo-pmu-yearWrap,
 .nemo-pmu-monthWrap{
-  padding: 10px;
+	padding: 10px;
 }
 .nemo-pmu-dayWrap{
-  padding: 0 10px 10px;
+	padding: 0 10px 10px;
 }
 .nemo-pmu-button {
-  color: #414042;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  &:hover {
-	background: rgba(122,177,53, 0.2);
 	color: #414042;
-  }
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	&:hover {
+		background: rgba(122,177,53, 0.2);
+		color: #414042;
+	}
 }
 .nemo-pmu-years,
 .nemo-pmu-months,
 .nemo-pmu-days {
-  border: 1px solid #DCDCDC;
-  border-radius: 3px;
-  padding: 7px;
-  margin-bottom: 14px;
-  width: 220px;
+	border: 1px solid #DCDCDC;
+	border-radius: 3px;
+	padding: 7px;
+	margin-bottom: 14px;
+	width: 220px;
 }
 .nemo-pmu-years,
 .nemo-pmu-months{
-  margin-top: 14px;
+	margin-top: 14px;
 }
 .nemo-pmu-days .nemo-pmu-button,
 .nemo-pmu-months .nemo-pmu-button,
 .nemo-pmu-years .nemo-pmu-button{
-  border-right: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC;
+	border-right: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
 }
 .nemo-pmu-days .nemo-pmu-button{
-  &:nth-child(7n){
-	border-right: 0px;
-  }
-  &:nth-child(35) ~ div{
-	border-bottom: 0px;
-  }
+	&:nth-child(7n){
+		border-right: 0px;
+	}
+	&:nth-child(35) ~ div{
+		border-bottom: 0px;
+	}
 }
 .nemo-pmu-months .nemo-pmu-button,
 .nemo-pmu-years .nemo-pmu-button{
-  &:nth-child(4n){
-	border-right: 0px;
-  }
-  &:nth-child(8) ~ div{
-	border-bottom: 0px;
-  }
+	&:nth-child(4n){
+		border-right: 0px;
+	}
+	&:nth-child(8) ~ div{
+		border-bottom: 0px;
+	}
 }
 .nemo-pmu-days_day{
-  width: 29px;
-  height: 29px;
-  line-height: 29px;
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
 }
 .nemo-pmu-days .nemo-pmu-today {
-  border-color: #0C91D7;
-  color: #0C91D7;
-  border-left: 1px solid;
-  border-top: 1px solid;
-  margin-top: -1px;
-  margin-left: -1px;
+	border-color: #0C91D7;
+	color: #0C91D7;
+	border-left: 1px solid;
+	border-top: 1px solid;
+	margin-top: -1px;
+	position: relative;
+	top: 1px;
 }
 .nemo-pmu-notInMonth {
-  color: #BDBDBD;
+	color: #BDBDBD;
 }
 .nemo-pmu-disabled,
 .nemo-pmu-disabled:hover {
-  color: #BDBDBD;
-  cursor: default;
+	color: #BDBDBD;
+	cursor: default;
 }
 .nemo-pmu-selected {
-  background: #4EB1E5;
-  color: #eee;
+	background: #4EB1E5;
+	color: #eee;
 }
 .nemo-pmu-not-in-month.nemo-pmu-selected {
-  background: #17384d;
+	background: #17384d;
 }
 .nemo-pmu-monthHeader{
-  background: #4DB0E4;
-  border-radius: 2px;
-  position: relative;
-  .nemo-pmu-button{
-	color: $nemo-color-LightPoint;
-	&:hover{
-	  background: transparent;
+	background: #4DB0E4;
+	border-radius: 2px;
+	position: relative;
+	.nemo-pmu-button{
+		color: $nemo-color-LightPoint;
+		&:hover{
+			background: transparent;
+		}
 	}
-  }
 }
 .nemo-pmu-date_hilighted{
 	background: rgba(#ff0000, 0.2);
@@ -132,48 +131,48 @@ visibility: hidden !important;
 	background: rgba(#0000ff, 0.2);
 }
 .nemo-pmu-monthHeader {
-  line-height: 29px;
+	line-height: 29px;
 }
 .nemo-pmu-prev,
 .nemo-pmu-next {
-  display: none;
-  height: 2em;
-  width: 1em;
-  position: absolute;
+	display: none;
+	height: 2em;
+	width: 1em;
+	position: absolute;
 }
 .nemo-pmu-prev{
-  left: 10px;
+	left: 10px;
 }
 .nemo-pmu-next {
-  right: 10px;
+	right: 10px;
 }
 .nemo-pmu-month {
-  width: auto;
+	width: auto;
 }
 .nemo-pmu-years *,
 .nemo-pmu-months * {
-  display: inline-block;
-  line-height: 3.8em;
-  width: 3.8em;
+	display: inline-block;
+	line-height: 3.8em;
+	width: 3.8em;
 }
 .nemo-pmu-dayOfWeek {
-  color: #414042;
-  cursor: default;
-  &:nth-child(6), &:nth-child(7){
-	color:#4DB0E4;
-  }
+	color: #414042;
+	cursor: default;
+	&:nth-child(6), &:nth-child(7){
+		color:#4DB0E4;
+	}
 }
 .nemo-pmu-dayOfWeek{
-  display: inline-block;
-  line-height: 1.8em;
-  width: 30px;
+	display: inline-block;
+	line-height: 1.8em;
+	width: 30px;
 }
 .nemo-pmu-wrapper:not(.nemo-pmu-viewDays) .nemo-pmu-daysWrap,
 .nemo-pmu-wrapper:not(.nemo-pmu-viewDays) .nemo-pmu-dayOfWeek,
 .nemo-pmu-wrapper:not(.nemo-pmu-viewMonths) .nemo-pmu-monthsWrap,
 .nemo-pmu-wrapper:not(.nemo-pmu-viewYears) .nemo-pmu-yearsWrap {
-  display: none;
+	display: none;
 }
 .nemo-pmu-thinView{
-  max-width:$instance_width;
+	max-width:$instance_width;
 }
