@@ -10,21 +10,25 @@
 	<!-- ko if: !$$loading() && !$$error() -->
 
 		<!-- Actual form -->
-		<!-- ko if: formActive() -->
+
 		<section class="nemo-flights-results__form" data-bind="
 			component: {
 	            name: 'Flights/SearchForm/Controller',
 				params: {route: [], formData: $$rawdata}
-			}
+			}, style: {display: formActive() ? 'block' : 'none' }"
 			"></section>
-		<!-- /ko -->
+
 
 		<!-- Form dummy -->
-		<section class="nemo-flights-results__formDummy">
+		<section class="nemo-flights-results__formDummy"  data-bind="style: {display: !formActive() ? 'block' : 'none' }">
 			<!-- ko if: matrixData === null -->
 			<div class="new-ui-button new-ui-button_common nemo-flights-results__formDummy__filterSwitch" data-bind="click: function () {PFActive(!PFActive());}, css: {'nemo-flights-results__formDummy__filterSwitch_active': PFActive()}">
 				Фильтрация
-			</div><!-- /ko --><div class="nemo-flights-results__formDummy__inner" data-bind="visible: !formActive()">
+			</div>
+            <!-- /ko -->
+
+            <div class="nemo-flights-results__formDummy__inner">
+
 				<div
 					data-bind="
 						foreach: searchInfo.segments,

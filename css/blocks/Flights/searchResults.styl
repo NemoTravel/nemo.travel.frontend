@@ -3,6 +3,23 @@
 	padding: 10px 0 20px;
 	color: $c_common_textColor;
 
+	// TODO: do it with parameters, not css
+
+    .nemo-flights-form {
+
+        .nemo-flights-form__routeOptions {
+            display: none;
+        }
+
+		.nemo-flights-form__formContainer__inner {
+			padding-top: 10px;
+		}
+
+		.nemo-flights-form__route__segment {
+			padding-bottom: 10px;
+		}
+    }
+
 	&__adaptivePF {
 		overflow: hidden;
 	}
@@ -72,13 +89,14 @@
 	&__formDummy {
 		max-width: 980px;
 		margin: 0 auto 10px;
-		padding: 0 10px;
+		padding: 10px 10px;
 		white-space: nowrap;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: stretch;
 		position: relative;
+        //height: 40px;
 
 		&__filterSwitch {
 			height: 40px;
