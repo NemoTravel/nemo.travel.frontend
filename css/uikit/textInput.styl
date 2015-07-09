@@ -13,22 +13,22 @@
 */
 
 // COLORS
-$c_ui_caption                         = $c_ui_textMain;
-$c_ui_caption_err                     = $c_ui_textErr;
+$c_ui_caption                         = $nemo-color-text-main;
+$c_ui_caption_err                     = $nemo-color-notification_error;
 
 $c_ui_hint                            = $nemo-color-text-secondary;
 
-$c_ui_input_border                    = #D9D9D9;
-$c_ui_input_border_hover              = #AAAAAA;
-$c_ui_input_border_focus              = #0C91D7;
-$c_ui_input_border_err                = #B13D12;
-$c_ui_input_disable_border            = #F6F6F6;
-$c_ui_input_text                      = $c_ui_textMain;
+$c_ui_input_border                    = $nemo-color-input-border;
+$c_ui_input_border_hover              = lighten($nemo-color-input-border, 10);
+$c_ui_input_border_focus              = $c_ui_input_border_hover;
+$c_ui_input_border_err                = $c_ui_caption_err;
+$c_ui_input_disable_border            = lighten($c_ui_input_border, 20);
+$c_ui_input_text                      = $nemo-color-text-main;
 $c_ui_input_placeholder               = $nemo-color-text-secondary;
-$c_ui_input_placeholder_disable       = $c_ui_textDisable;
-$c_ui_input_background                = $white;
-$c_ui_input_disable_background        = #FAFAFA;
-$c_ui_input_disable_background_hover  = #FAFAFA;
+$c_ui_input_placeholder_disable       = $nemo-color-text-disabled;
+$c_ui_input_background                = $nemo-color-LightPoint;
+$c_ui_input_disable_background        = darken($nemo-color-LightPoint, 10);
+$c_ui_input_disable_background_hover  = $c_ui_input_disable_background ;
 
 
 // DIMENSIONS
@@ -68,6 +68,7 @@ $i_ui_input_border_err_hover        = $d_ui_input_border solid lighten($c_ui_inp
 .new-ui-textInput {
     display: block;
     cursor: pointer;
+	transition: all $nemo-transition-main ease-in;
 
     &__caption{
         display: block;
@@ -86,7 +87,7 @@ $i_ui_input_border_err_hover        = $d_ui_input_border solid lighten($c_ui_inp
         color: $c_ui_input_text;
         border: $i_ui_input_border;
         border-radius: $d_ui_input_borderRadius;
-        box-shadow: $i_ui_input_innershadow;
+        //box-shadow: $i_ui_input_innershadow;
         height: $d_ui_input_height;
         padding: $d_ui_input_vPadding $d_ui_input_hPadding;
         margin: $d_ui_input_margin;
@@ -107,7 +108,7 @@ $i_ui_input_border_err_hover        = $d_ui_input_border solid lighten($c_ui_inp
 
         &:focus {
             border: $i_ui_input_border_focus;
-            box-shadow: $i_ui_input_innershadow_focus;
+            //box-shadow: $i_ui_input_innershadow_focus;
         }
 
         &:disabled {

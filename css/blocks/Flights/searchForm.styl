@@ -70,7 +70,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 
 			&_returnSegment {
 				width: 20%;
-				padding-left: 1px;
+				//padding-left: 1px;
 			}
 
 			&_CR, &_returnSegment &__item_date {
@@ -92,15 +92,17 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 				height: 40px;
 				box-shadow: $i_flights_form_segment_input_bsh;
 				cursor: pointer;
-				font-size: 13px;
-				color: $c_ui_textMain;
+				//font-size: 13px;
+				color: $nemo-color-text-main;
+
+				//border: 0px solid transparent;
 
 				&, &:focus {
 					border: 0;
 				}
 
 				&:hover {
-					box-shadow: $i_flights_form_segment_input_bsh_hover;
+					//box-shadow: $i_flights_form_segment_input_bsh_hover;
 				}
 
 				&_date {
@@ -131,14 +133,41 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 					padding-right: 0;
 				}
 
+				&__dummy {
+					text-indent: 10px;
+					line-height: 40px;
+					font-size: 105%;
+					//background: $nemo-color-LightPoint;
+				}
+
 				&__date {
 					&__dummy {
 						padding-right: 36px;
+						font-size: 95%;
+
+						&_there {
+							border-radius: 2px 0 0 2px;
+						}
+
+						&_back {
+							border-radius: 0 2px 2px 0;
+							//position: relative;
+							&::before {
+								content: '';
+								position: absolute;
+								height: 100%;
+								left: 0;
+								top: 0;
+								border-left: 1px solid $nemo-color-main;
+							}
+						}
 
 						&_short {
 							display: none;
 						}
 					}
+
+
 
 					&__indicator {
 						position: absolute;
@@ -168,12 +197,6 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 							background: $nemo-color-main;
 						}
 					}
-				}
-
-				&__dummy {
-					text-indent: 9px;
-					line-height: 32px;
-					background: $nemo-color-LightPoint;
 				}
 
 				&__inputContainer {
@@ -393,7 +416,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 			height: 40px;
 			line-height: 40px;
 			font-size: 13px;
-			color: $c_ui_textMain;
+			color: $nemo-color-text-main;
 			background: $nemo-color-LightPoint ;
 			padding: 0 40px 0 10px;
 			box-shadow: $i_flights_form_segment_input_bsh;
@@ -609,7 +632,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 10px rgba($nemo-color-LightPoint,
 	&__searchingInfo {
 		width: 80vw;
 		max-width: 700px;
-		color: $c_ui_textMain;
+		color: $nemo-color-text-main;
 		font-size: 13px;
 		line-height: 20px;
 		padding: 5px 20px 20px;

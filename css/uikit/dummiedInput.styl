@@ -12,7 +12,7 @@
 
 	&__dummy {
 		@extend .new-ui-textInput__input;
-		padding-left: 0;
+		padding: 0;
 		bordder-color: transparent;
 		position: absolute;
 		width: auto;
@@ -24,10 +24,15 @@
 		margin: 0;
 		line-height: $d_ui_input_height - 2 * ($d_ui_input_border + $d_ui_input_vPadding);
 		text-indent: $d_ui_input_hPadding;
+		border: none;
 
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+
+		&:hover {
+			border: none;
+		}
 
 		&__icon {
 			display: inline-block;

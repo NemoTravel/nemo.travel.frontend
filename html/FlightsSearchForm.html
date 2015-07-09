@@ -130,7 +130,9 @@
 											attr: {placeholder: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'},
 											flightsFormDatepicker: items.departureDate.value,
 											hasFocus: items.departureDate.focus">
-								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_full">
+
+                                <div data-bind="css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-flights-form__route__segment__item__date__dummy_there' : 'nemo-flights-form__route__segment__item__date__dummy_back') : 'nemo-flights-form__route__segment__item__date__dummy_there'"
+                                    class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_full">
 									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->
@@ -138,7 +140,9 @@
 									<span class="new-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthName()"></span><span class="new-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWName()"></span>
 									<!-- /ko -->
 								</div>
-								<div class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_short">
+
+                                <div data-bind="css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-flights-form__route__segment__item__date__dummy_there' : 'nemo-flights-form__route__segment__item__date__dummy_back') : 'nemo-flights-form__route__segment__item__date__dummy_there'"
+                                    class="new-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_short">
 									<!-- ko if: !items.departureDate.value() -->
 									<span class="new-ui-dummiedInput__dummy__placeholder" data-bind="text: $parent.tripType() == 'RT' ? ($index() == 0 ? 'Туда' : 'Назад') : 'Когда'"></span>
 									<!-- /ko -->

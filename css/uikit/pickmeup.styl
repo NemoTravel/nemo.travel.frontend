@@ -14,11 +14,11 @@ $instance_width=258px;
 	background: $nemo-color-LightPoint;
 	display: none;
 	position: absolute;
-	box-shadow: 0 0 5px #b7b7b7;
-	font-size: 12px;
+	box-shadow: 0 0 16px $nemo-color-container-shadow;
+	font-size: 13px;
 	z-index: 99;
 	margin-top: 5px;
-	border-radius: 3px;
+	border-radius: $nemo-border-radius;
 	div {
 		display: inline-block;
 	}
@@ -28,7 +28,7 @@ $instance_width=258px;
 	display: inline-block;
 	text-align: center;
 	width: $instance_width;
-	border-radius: 3px;
+	border-radius: $nemo-border-radius;
 }
 
 .nemo-pmu-yearWrap,
@@ -46,7 +46,7 @@ $instance_width=258px;
 	outline: none;
 	text-decoration: none;
 	&:hover {
-		background: rgba(122, 177, 53, 0.2);
+		background: $nemo-color-datepicker-highlight;
 		color: #414042;
 	}
 }
@@ -54,8 +54,8 @@ $instance_width=258px;
 .nemo-pmu-years,
 .nemo-pmu-months,
 .nemo-pmu-days {
-	border: 1px solid #DCDCDC;
-	border-radius: 3px;
+	border: 1px solid $nemo-color-container-separator;
+	border-radius: $nemo-border-radius;
 	padding: 7px;
 	margin-bottom: 14px;
 	width: 220px;
@@ -66,11 +66,15 @@ $instance_width=258px;
 	margin-top: 14px;
 }
 
+.nemo-pmu-month {
+	font-size: 110%;
+}
+
 .nemo-pmu-days .nemo-pmu-button,
 .nemo-pmu-months .nemo-pmu-button,
 .nemo-pmu-years .nemo-pmu-button {
-	border-right: 1px solid #DCDCDC;
-	border-bottom: 1px solid #DCDCDC;
+	border-right: 1px solid $nemo-color-container-separator;
+	border-bottom: 1px solid $nemo-color-container-separator;
 }
 
 .nemo-pmu-days .nemo-pmu-button {
@@ -96,15 +100,19 @@ $instance_width=258px;
 	width: 29px;
 	height: 29px;
 	line-height: 29px;
+	transition: all $nemo-transition-main ease-in;
 }
 
 .nemo-pmu-days .nemo-pmu-today {
-	border-color: #0C91D7;
-	color: #0C91D7;
+	//outline: 1px solid $nemo-color-link;
+	border-color: $nemo-color-link;
+	color: $nemo-color-link;
 	border-left: 1px solid;
 	border-top: 1px solid;
 	margin-top: -1px;
 	margin-left: -1px;
+	width: 30px;
+	height: 30px;
 }
 
 .nemo-pmu-notInMonth {
@@ -123,22 +131,45 @@ $instance_width=258px;
 }
 
 .nemo-pmu-not-in-month.nemo-pmu-selected {
-	background: #17384d;
+	background: $nemo-color-datepicker-selected;
 }
 
 
 .nemo-pmu-date_hilighted {
-	background: rgba(#ff0000, 0.2);
+	background: $nemo-color-datepicker-selected;
+
+	border-color: $nemo-color-link !important;
+	color: $nemo-color-LightPoint;
+	border-left: 1px solid;
+	border-top: 1px solid;
+	margin-top: -1px;
+	margin-left: -1px;
+	width: 30px;
+	height: 30px;
+
+	&:hover {
+		background: lighten($nemo-color-datepicker-selected, 5);
+
+		border-color: lighten($nemo-color-link, 5) !important;
+		color: $nemo-color-LightPoint;
+		border-left: 1px solid;
+		border-top: 1px solid;
+		margin-top: -1px;
+		margin-left: -1px;
+		width: 30px;
+		height: 30px;
+	}
 }
 
 .nemo-pmu-date_period {
-	background: rgba(#0000ff, 0.2);
+	background: $nemo-color-datepicker-period;
 }
 
 .nemo-pmu-monthHeader {
-	background: #4DB0E4;
+	background: $nemo-color-container-header;
 	position: relative;
 	line-height: 40px;
+
 	.nemo-pmu-button {
 		color: $nemo-color-LightPoint;
 		&:hover {
@@ -161,7 +192,7 @@ $instance_width=258px;
 }
 .nemo-pmu-instance:first-child{
 	.nemo-pmu-monthHeader {
-		border-radius: 2px 0 0 2px;
+		border-radius: $nemo-border-radius 0 0 0;
 	}
 	.nemo-pmu-prev{
 		display: inline-block;
@@ -169,7 +200,7 @@ $instance_width=258px;
 }
 .nemo-pmu-instance:last-child{
 	.nemo-pmu-monthHeader {
-		border-radius: 0 2px 2px 0;
+		border-radius: 0 $nemo-border-radius 0 0;
 	}
 	.nemo-pmu-next{
 		display: inline-block;
@@ -195,16 +226,18 @@ $instance_width=258px;
 }
 
 .nemo-pmu-dayOfWeek {
-	color: #414042;
+	color: $nemo-color-text-secondary;
 	cursor: default;
+	font-size: 85%;
+
 	&:nth-child(6), &:nth-child(7) {
-		color: #4DB0E4;
+		color: $nemo-color-link;
 	}
 }
 
 .nemo-pmu-dayOfWeek {
 	display: inline-block;
-	line-height: 1.8em;
+	line-height: 2em;
 	width: 30px;
 }
 

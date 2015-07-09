@@ -20,9 +20,11 @@ visibility: hidden !important;
 	background: $nemo-color-LightPoint;
 	display: none;
 	position: absolute;
-	box-shadow: 0 0 5px #ccc;
+	box-shadow: 0 0 16px $nemo-color-container-shadow;
 	font-size: 12px;
-	div{display: inline-block;}
+	div {
+		display: inline-block;
+	}
 }
 
 .nemo-pmu-instance {
@@ -114,7 +116,7 @@ visibility: hidden !important;
 	background: #17384d;
 }
 .nemo-pmu-monthHeader{
-	background: #4DB0E4;
+	background: $nemo-color-container-header;
 	border-radius: 2px;
 	position: relative;
 	.nemo-pmu-button{
