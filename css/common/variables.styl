@@ -15,14 +15,19 @@ $c_common_textColor_secondary = rgba(99, 100, 103, 1);
 // Main interface colors
 
 $nemo-color-LightPoint                = rgba(255, 255, 255, 1);
-$nemo-color-MiddlePoint               = rgba(100, 100, 110, 1);
-$nemo-color-DarkPoint                 = rgba(10, 10, 10, 1);
-
+$nemo-color-MiddlePoint               = rgba(100, 100, 100, 1);
+$nemo-color-DarkPoint                 = rgba(10, 10, 15, 1);
 $nemo-color-main                      = rgba(100, 181, 246, 1);
-$nemo-color-secondary                 = rgba(123, 178, 54, 1);
-$nemo-color-secondary-2               = darken($nemo-color-LightPoint, 10);
+$nemo-color-secondary                 = lighten(rgba(123, 178, 54, 1), 5);
+//$nemo-color-secondary                 = rgba(100, 150, 15, 1);
 
+/*$nemo-color-LightPoint                = rgba(43, 43, 43, 1);
+$nemo-color-MiddlePoint               = rgba(115, 110, 107, 1);
+$nemo-color-DarkPoint                 = rgba(250, 245, 242, 1);
+$nemo-color-main                      = rgba(125, 7, 23, 1);
+$nemo-color-secondary                 = rgba(181, 175, 171, 1);*/
 
+$nemo-color-neutral                   = darken($nemo-color-LightPoint, 10);
 
 $nemo-color-notification_error        = rgba(255, 211, 33, 1);
 $nemo-color-notification_neutral      = $nemo-color-main;
@@ -32,12 +37,12 @@ $nemo-color-highlight                 = $nemo-color-notification_error;
 
 // Buttons
 $nemo-color-button-main          = $nemo-color-secondary;
-$nemo-color-button-secondary     = $nemo-color-secondary-2;
+$nemo-color-button-secondary     = $nemo-color-neutral;
 $nemo-color-button-secondary_g1  = alpha($nemo-color-button-secondary, .25);
 $nemo-color-button-secondary_g2  = darken($nemo-color-button-secondary, 5);
 
 // Button states
-$nemo-color-button-main_disabled       = darken($nemo-color-secondary-2, 10);
+$nemo-color-button-main_disabled       = darken($nemo-color-neutral, 10);
 $nemo-color-button-secondary_checked   = $nemo-color-main;
 $nemo-color-button-secondary_disabled  = $nemo-color-button-main_disabled;
 $nemo-color-button-highlight           = $nemo-color-highlight;
@@ -48,7 +53,7 @@ $nemo-color-button-text-alt       = lighten($nemo-color-DarkPoint, 10);
 
 // Containers
 $nemo-color-container-main                = $nemo-color-LightPoint;
-$nemo-color-container-flat                = lighten($nemo-color-secondary-2, 10);
+$nemo-color-container-flat                = lighten($nemo-color-neutral, 10);
 $nemo-color-container-header              = $nemo-color-main;
 $nemo-color-container-vivid               = $nemo-color-main;
 $nemo-color-container-vivid_secondary     = alpha($nemo-color-main, .75);
@@ -56,7 +61,7 @@ $nemo-color-container-vivid_secondary_alt = alpha($nemo-color-LightPoint, .25);
 
 // Containers Additional
 $nemo-color-container-shadow       = alpha($nemo-color-DarkPoint, .25);
-$nemo-color-container-separator    = $nemo-color-secondary-2;
+$nemo-color-container-separator    = $nemo-color-neutral;
 
 // Datepicker
 $nemo-color-datepicker-selected            = $nemo-color-main;
@@ -75,7 +80,7 @@ $nemo-color-alternate       = $nemo-color-LightPoint;
 
 // Input
 $nemo-color-input-BG              = $nemo-color-LightPoint;
-$nemo-color-input-border          = $nemo-color-secondary-2;
+$nemo-color-input-border          = $nemo-color-neutral;
 $nemo-color-input-border_focus    = $nemo-color-main;
 
 // Layout
@@ -93,7 +98,7 @@ $nemo-border-radius               = 4px;
 //-------- Time -----------------
 //-------------------------------
 
-$nemo-transition-main       = .2s;
+$nemo-transition-main       = .1s;
 
 
 //-------------------------------

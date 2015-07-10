@@ -12,8 +12,8 @@
  */
 // COLORS
 $c_ui_caption                     = $nemo-color-text-main;
-$c_ui_caption_text_hover          = #4F6D85;
-$c_ui_caption_disabled            = $c_ui_textDisabled;
+$c_ui_caption_text_hover          = lighten($nemo-color-text-main, 10);
+$c_ui_caption_disabled            = $nemo-color-text-disabled;
 
 $c_ui_switcher 			  	      = #0C91D7;
 $c_ui_switcher_notChecked 	      = $nemo-color-LightPoint;
@@ -28,7 +28,7 @@ $d_ui_caption_lPadding            = 25px;
 $d_ui_caption_padding             = 0 0 0 $d_ui_caption_lPadding;
 $d_ui_pseudoInput_width           = 19px;
 $d_ui_pseudoInput_height          = 19px;
-$d_ui_pseudoInput_borderRadius    = 2px;
+$d_ui_pseudoInput_borderRadius    = 5px;
 
 $d_ui_switcher_width              = 71px;
 $d_ui_switcher_height             = 30px;
@@ -75,22 +75,27 @@ $i_ui_switcher_textShadow         = 0 1px 0px rgba(0, 0, 0, 0.25);
 	&__input:not(:checked) + &__caption {
 		&:before {
 			background-image: url($i_ui_checkbox);
-			background-position: bottom;
+			background-color: $nemo-color-neutral;
+
+			//background-position: bottom;
 		}
 	}
 
     &__input:checked + &__caption {
         &:before {
 			background-image: url($i_ui_checkbox);
+			background-color: $nemo-color-main;
 		}
     }
 
     &__input:disabled + &__caption {
         color: $c_ui_caption_disabled;
+		background-color: $nemo-color-button-secondary_disabled;
 
 		&:before {
 			background-image: url($i_ui_checkbox);
-			background-position: bottom;
+
+			//background-position: bottom;
 		}
     }
 
@@ -109,10 +114,12 @@ $i_ui_switcher_textShadow         = 0 1px 0px rgba(0, 0, 0, 0.25);
             display: none;
             left: 0;
             top: 50%;
+			overflow: hidden;
             width: $d_ui_pseudoInput_width;
             height: $d_ui_pseudoInput_height;
             margin-top: - ($d_ui_pseudoInput_height / 2);
             border-radius: $d_ui_pseudoInput_borderRadius;
+			transition: background-color $nemo-transition-main ease;
         }
 
         &:hover {

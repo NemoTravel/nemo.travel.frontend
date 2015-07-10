@@ -33,7 +33,7 @@ $c_ui_input_disable_background_hover  = $c_ui_input_disable_background ;
 
 // DIMENSIONS
 $d_ui_input_border          = 1px;
-$d_ui_input_borderRadius    = 2px;
+$d_ui_input_borderRadius    = 0px;
 $d_ui_input_height          = 24px;
 $d_ui_input_width           = 100%;
 $d_ui_input_height_big      = 30px;
@@ -57,8 +57,8 @@ $f_ui_input_size            = 13px;
 
 // VALUES
 $i_ui_input_innershadow             = inset 0px 0px 5px rgba(0,0,0,0.1);
-//$i_ui_input_innershadow_focus       = inset 0px 0px 5px rgba(8,33,58, 0.2);
-//$i_ui_input_innershadow_hover       = inset 0px 0px 0px rgba(0,0,0,0.1);
+$i_ui_input_innershadow_focus       = inset 0px 0px 8px alpha($nemo-color-main, .25);
+$i_ui_input_innershadow_hover       = inset 0px 0px 1px $nemo-color-container-shadow;
 $i_ui_input_innershadow_disable     = $i_ui_input_innershadow;
 $i_ui_input_border                  = $d_ui_input_border solid $c_ui_input_border;
 $i_ui_input_border_focus            = $d_ui_input_border solid $c_ui_input_border_focus;
@@ -104,11 +104,12 @@ $i_ui_input_border_err_hover        = $d_ui_input_border solid lighten($c_ui_inp
 
         &:hover {
             border-color: $c_ui_input_border_hover;
+			box-shadow: $i_ui_input_innershadow_hover;
 		}
 
         &:focus {
             border: $i_ui_input_border_focus;
-            //box-shadow: $i_ui_input_innershadow_focus;
+            box-shadow: $i_ui_input_innershadow_focus;
         }
 
         &:disabled {

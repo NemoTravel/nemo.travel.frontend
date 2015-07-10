@@ -9,7 +9,7 @@
 
 // COLORS
 $c_ui_button						= $nemo-color-button-main;
-$c_ui_button_hover					= lighten($c_ui_button, 5);
+$c_ui_button_hover					= lighten($c_ui_button, 2);
 
 $c_ui_button_disabled               = $nemo-color-button-secondary_disabled;
 
@@ -96,7 +96,7 @@ $lh_ui_button_common				= $d_ui_button_common_height;
 $f_ui_button_medium_size       		= 13px;
 $f_ui_button_medium_lineheight 		= $d_ui_button_medium_height - 2*$d_ui_button_border;
 
-$f_ui_button_main_size       		= 20px;
+$f_ui_button_main_size       		= 18px;
 $f_ui_button_main_lineheight 		= $d_ui_button_main_height - 2*$d_ui_button_border;
 
 $fz_ui_button_blue					= 15px;
@@ -259,6 +259,12 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	&_main {
 		height: $d_ui_button_main_height;
 		padding: $d_ui_button_main_padding;
+
+		box-shadow: 0 4px 8px 0 alpha(darken($nemo-color-secondary, 16), .25), inset 0 1px 2px 0 lighten($nemo-color-secondary, 20);
+
+		&_form {
+			box-shadow: 0 4px 8px 0 alpha(darken($nemo-color-secondary, 16), .5), inset 0 1px 2px 0 lighten($nemo-color-secondary, 20);
+		}
 
 		// Text
 		font-size: $f_ui_button_main_size;
