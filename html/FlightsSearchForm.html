@@ -173,9 +173,9 @@
 				<!-- ko if: validaTERROR() && passengersError() -->
 				<div data-bind="text: $root.i18n('FlightsSearchForm','error_passengers_'+passengersError());" class="new-ui-hint nemo-flights-form__passengers__error"></div>
 				<!-- /ko -->
-				<div class="nemo-flights-form__passengers__container" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
+				<div class="nemo-flights-form__passengers__container js-flights-searchForm-passSelect" data-bind="flightsFormPassengersSelector: null, text: passengersSummary"></div>
 
-				<div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn" data-bind="click: openPassengersSelector, text: passengersSummary"></div>
+				<div class="new-ui-button new-ui-button_common new-ui-button_small new-ui-button_direction_down nemo-flights-form__passengers__containerColumn js-flights-searchForm-passSelect" data-bind="flightsFormPassengersSelector: null, text: passengersSummary"></div>
 
 				<div class="nemo-flights-form__passengers__fastSelect" data-bind="visible: passengersFastSelectorOpen">
 					<!-- ko foreach: passengersFastSelectOptions -->

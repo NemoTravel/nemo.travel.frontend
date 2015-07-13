@@ -875,7 +875,6 @@
 						if(e.keyCode == 13){
 							e.preventDefault();
 							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-							console.log(parsedDate, '< parsed', options.min,'< min', options.max, '< max');
 							if(options.min != 'null' && parsedDate.getDate() >=options.min.getDate() || options.max != 'null' && parsedDate.getDate() <= options.max.getDate() ){
 								$this.pickmeup('set_date', parsedDate);
 								options.onSetDate()

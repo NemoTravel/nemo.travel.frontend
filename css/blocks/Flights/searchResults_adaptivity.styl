@@ -145,12 +145,14 @@ adapt_flights_results_condensedGroup() {
 			display: flex;
 			flex-flow: row nowrap;
 			align-content: stretch;
+			min-width: 1px;
 		}
 
 		&_common &__legs_count_2 &__leg {
 			border-right: $i_ui_subContainer_divider_border;
 			border-right-style: dashed;
 			flex: 0 0 50%;
+			min-width: 1px;
 
 			&:last-child {
 				border-right: none;

@@ -99,6 +99,8 @@ define(
 
 					//add class to dialog wrapper
 					this.uiWrapper.addClass(this.options.wrapperClass);
+
+					this.reposition = this.reposition.bind(this);
 				},
 
 				_init: function () {
@@ -155,6 +157,13 @@ define(
 					if (this._isDynamicContent()) {
 						this.loaderElement.height(this.element.height());
 					}
+
+//					var reposition = function () {
+//						that._position();
+//					};
+
+					// Setting reposition
+					$(window).on('resize orientationchange', this.reposition);
 				},
 
 				close: function () {
@@ -168,6 +177,14 @@ define(
 					this.uiWrapper.hide();
 
 					this._super('close');
+
+					// Removing reposition
+					$(window).off('resize orientationchange', this.reposition);
+				},
+
+				reposition: function () {
+					console.log('!');
+					this._position();
 				},
 
 				_destroy: function () {

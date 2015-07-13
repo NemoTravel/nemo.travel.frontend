@@ -83,6 +83,25 @@ define(
 			return false;
 		};
 
+		PostFilterString.prototype.selectValue = function (value) {
+			if (this.type == 'singleChoice') {
+				this.value([value]);
+			}
+			else {
+				var values = this.value() || [],
+					index = values.indexOf(value);
+
+				if (index < 0) {
+					values.push(value);
+				}
+				else {
+					values.splice(index, 1);
+				}
+
+				this.value(values);
+			}
+		};
+
 		PostFilterString.prototype.recalculateOptions = function (items) {
 			var values = this.values(),
 				additionalData = [];

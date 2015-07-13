@@ -217,30 +217,26 @@
 						<!-- ko if: visibleResultsCount() > 0 -->
 							<div class="nemo-flights-results__showcase">
 
-		                        <div class="nemo-flights-results__showcase__main">
 								<!-- ko if: showcase.recommended() -->
 									<!-- ko with: {group: showcase.recommended(), modifier: 'recommended'} -->
 										<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_recommended"
 										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 									<!-- /ko -->
 								<!-- /ko -->
-		                        </div>
 
-		                        <div class="nemo-flights-results__showcase__additional">
 								<!-- ko if: showcase.cheapest() -->
 									<!-- ko with: {group: showcase.cheapest(), modifier: 'cheapest'} -->
-										<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_cheapest"
+										<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_cheapest"
 										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 									<!-- /ko -->
 								<!-- /ko -->
 
 								<!-- ko if: showcase.fastest() -->
 									<!-- ko with: {group: showcase.fastest(), modifier: 'fastest'} -->
-										<div class="nemo-flights-results__showcase__additional__item nemo-flights-results__showcase__item_fastest"
+										<div class="nemo-flights-results__showcase__item nemo-flights-results__showcase__item_fastest"
 										     data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group', data: group }"></div>
 									<!-- /ko -->
 								<!-- /ko -->
-		                        </div>
 							</div>
 
 							<div class="nemo-flights-results__content__results__controls">
@@ -339,15 +335,16 @@
                data-bind="css: {
                     'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_disabled' : count() == 0,
                     'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_checked' : $parent.value() instanceof Array ? $parent.value().indexOf(key) >= 0 : $parent.value() == key
-                }">
+                },
+                click: function () {$parent.selectValue(key);}">
 
-            <input class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__input"
-                   data-bind="attr: {
-								value: key,
-								type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox',
-								disabled: count() == 0
-							},
-							checked: $parent.value">
+            <!--<input class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__input"-->
+                   <!--data-bind="attr: {-->
+								<!--value: key,-->
+								<!--type: $parent.type == 'singleChoice' ? 'radio' : 'checkbox',-->
+								<!--disabled: count() == 0-->
+							<!--},-->
+							<!--checked: $parent.value">-->
 
             <span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name"
                   data-bind="text: ($parent.config.name == 'carrier' || $parent.config.name == 'departureAirport' || $parent.config.name == 'arrivalAirport' ? value.name : $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value))
@@ -378,11 +375,8 @@
 				'data-groupanchorid':$data.id
 			}">
 			<div class="new-ui-subContainer__header nemo-flights-results__flightsGroup__header">
-				<div class="nemo-flights-results__flightsGroup__header__title">
-					<div class="nemo-common-ffEllipsisHack">
-						<div class="nemo-common-ffEllipsisHack__inner" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
-					</div>
-				</div>
+				<div class="nemo-flights-results__flightsGroup__header__title" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
+
 				<div class="nemo-flights-results__flightsGroup__header__additional">
 					<div class="nemo-flights-results__flightsGroup__rating nemo-flights-results__flightsGroup__rating_inHeader" data-bind="foreach: getValidatingCompany().ratingItems"><!--
 						--><div class="nemo-flights-results__flightsGroup__rating__item" data-bind="css:{'nemo-flights-results__flightsGroup__rating__item_active': $data}"></div><!--
@@ -425,66 +419,58 @@
 						</div>
 
 						<div class="nemo-flights-results__flightsGroup__leg__info__route">
-							<div class="nemo-common-ffEllipsisHack">
-								<div class="nemo-common-ffEllipsisHack__inner">
-									<div
-										class="nemo-flights-results__flightsGroup__leg__info__route__departure"
-										data-bind="text: depAirp.city.name">
-									</div><div
-										class="nemo-flights-results__flightsGroup__leg__info__route__arrival"
-										data-bind="text: arrAirp.city.name"></div>
-								</div>
-							</div>
+							<div
+								class="nemo-flights-results__flightsGroup__leg__info__route__departure"
+								data-bind="text: depAirp.city.name">
+							</div><div
+								class="nemo-flights-results__flightsGroup__leg__info__route__arrival"
+								data-bind="text: arrAirp.city.name"></div>
 						</div>
 					</div>
 
 					<div class="nemo-flights-results__flightsGroup__leg__selector">
 						<div class="nemo-flights-results__flightsGroup__leg__selector__header">
 							<div class="nemo-flights-results__flightsGroup__leg__selector__header__title">
-								<div class="nemo-common-ffEllipsisHack">
-									<div class="nemo-common-ffEllipsisHack__inner">
-										<div
-												class="
-													nemo-flights-results__flightsGroup__leg__selector__header__title__text
-													nemo-flights-results__flightsGroup__leg__selector__header__title__text_short
-												"
-												data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__selector__title');"></div>
-										<div
-												class="
-													nemo-flights-results__flightsGroup__leg__selector__header__title__text
-													nemo-flights-results__flightsGroup__leg__selector__header__title__text_dates
-												"
-												data-bind="with: $parent.flights[0].legs[$index()]">
-											<span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__day" data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
-											</span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__dayOfWeek" data-bind="text: ', ' + depDateTime.getDOWName()"></span>
-										</div>
-										<div
-											class="nemo-flights-results__flightsGroup__leg__selector__header__title__date"
-											data-bind="with: $parent.flights[0].legs[$index()]">
-											<span
-												class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__day"
-												data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
-											</span><span
-												class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__dayOfWeek"
-												data-bind="text: ', ' + depDateTime.getDOWNameShort()"></span>
-										</div>
-									</div>
+								<div
+										class="
+											nemo-flights-results__flightsGroup__leg__selector__header__title__text
+											nemo-flights-results__flightsGroup__leg__selector__header__title__text_short
+										"
+										data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__selector__title');"></div>
+								<div
+										class="
+											nemo-flights-results__flightsGroup__leg__selector__header__title__text
+											nemo-flights-results__flightsGroup__leg__selector__header__title__text_dates
+										"
+										data-bind="with: $parent.flights[0].legs[$index()]">
+									<span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__day" data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
+									</span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__dayOfWeek" data-bind="text: ', ' + depDateTime.getDOWName()"></span>
+								</div>
+								<div
+									class="nemo-flights-results__flightsGroup__leg__selector__header__title__date"
+									data-bind="with: $parent.flights[0].legs[$index()]">
+									<span
+										class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__day"
+										data-bind="text: depDateTime.getDate() + ' ' + depDateTime.getMonthName()">
+									</span><span
+										class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__dayOfWeek"
+										data-bind="text: ', ' + depDateTime.getDOWNameShort()"></span>
 								</div>
 							</div><div
 								class="nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable"
 								data-bind="
 									text:
-										$parent.selectedFlight().availSeats > 0 ?
+										$parent.selectedFlight().legs[$index()].availSeats > 0 ?
 										(
-											$parent.selectedFlight().availSeats +
+											$parent.selectedFlight().legs[$index()].availSeats +
 											' ' +
 											$root.i18n(
 												'FlightsSearchResults',
-												'flightsGroup__availSeats_' + $root.helpers.getNumeral($parent.selectedFlight().availSeats, 'one', 'twoToFour', 'fourPlus')
+												'flightsGroup__availSeats_' + $root.helpers.getNumeral($parent.selectedFlight().legs[$index()].availSeats, 'one', 'twoToFour', 'fourPlus')
 											)
 										):
 										'',
-									css: {'nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable_warning' : $parent.selectedFlight().availSeats > 0 && $parent.selectedFlight().seatsAvailThreshold >= $parent.selectedFlight().availSeats}"></div>
+									css: {'nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable_warning' : $parent.selectedFlight().legs[$index()].availSeats > 0 && $parent.selectedFlight().seatsAvailThreshold >= $parent.selectedFlight().legs[$index()].availSeats}"></div>
 						</div>
 
 						<div class="nemo-flights-results__flightsGroup__leg__selector__selectContainer">

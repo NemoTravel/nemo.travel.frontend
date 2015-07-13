@@ -51,7 +51,7 @@ define(
 				});
 
 				$(ul).addClass('new-ui-autocomplete');
-			},
+			}
 		});
 
 		ko.bindingHandlers.flightsFormGeoAC = {
@@ -296,15 +296,40 @@ define(
 				});
 			}
 		};
+
 		ko.bindingHandlers.flightsFormRTAutoFocus = {
-		init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-			var setFocus = function(){
-				bindingContext.$parent.segments()[1].items.departureDate.focus(true)
-			};
-			$(element).on('click', setFocus);
-			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-				$(element).off('click', setFocus);
-			})
-		}}
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var setFocus = function(){
+					bindingContext.$parent.segments()[1].items.departureDate.focus(true)
+				};
+				$(element).on('click', setFocus);
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(element).off('click', setFocus);
+				})
+			}
+		};
+
+		ko.bindingHandlers.flightsFormPassengersSelector = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var closeSelector = function (e) {
+						var $target = $(e.target);
+
+						if (!$target.is('.js-flights-searchForm-passSelect') && !$target.parents().is('.js-flights-searchForm-passSelect')) {
+							viewModel.passengersFastSelectorOpen(false);
+						}
+					},
+					$document = $(document);
+
+				$(element).on('click', function () {
+					viewModel.openPassengersSelector();
+				});
+
+				$document.on('click', closeSelector);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$document.off(closeSelector);
+				});
+			}
+		};
 	}
 );

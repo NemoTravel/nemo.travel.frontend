@@ -194,8 +194,6 @@ define(
                     initialPosition = $(element).offset().top;
                     scrolled        = $(document).scrollTop();
 
-                    console.log(initialPosition, scrolled, $(window).height() - initialPosition + scrolled + "px");
-
                     if (scrolled > initialPosition) {
                         stickerInner.css("top", scrolled - initialPosition + "px");
                     } else {
@@ -217,8 +215,6 @@ define(
 
                     initialPosition = $(element).offset().top;
                     scrolled        = $(document).scrollTop();
-
-                    console.log(initialPosition, scrolled, $(window).height() - initialPosition + scrolled + "px");
 
                     if (scrolled > initialPosition) {
                         stickerInner.css("top", scrolled - initialPosition + "px");

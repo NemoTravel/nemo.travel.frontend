@@ -76,6 +76,11 @@ define(
 			this.resultsController.PFChanged();
 		};
 
+
+		PFGroup.prototype.selectValue = function (value) {
+			this.value([value]);
+		};
+
 		return PFGroup;
 	}
 );

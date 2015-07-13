@@ -19,8 +19,6 @@ define(
 			this.isDirect = true;
 			this.carriersMismatch = false;
 
-			this.availSeats = 0;
-
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
 				if (this.segments[i].routeNumber != tmp) {
@@ -76,21 +74,29 @@ define(
 					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
 					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg),
 					transfersCount: this.transfers[i].length,
-					classes: tmpClasses[i]
+					classes: tmpClasses[i],
+					availSeats: 0
 				});
 			}
 
 			// Getting available seats count
 			for (var i = 0; i < this.price.passengerFares.length; i++) {
 				for (var j = 0; j < this.price.passengerFares[i].tariffs.length; j++) {
+					var tmp = null;
+
+					if (this.segments[this.price.passengerFares[i].tariffs[j].segNum]) {
+						tmp = this.segments[this.price.passengerFares[i].tariffs[j].segNum].routeNumber;
+					}
+
 					if (
+						tmp !== null &&
 						this.price.passengerFares[i].tariffs[j].avlSeats &&
 						(
-							this.availSeats == 0 ||
-							this.availSeats < this.price.passengerFares[i].tariffs[j].avlSeats
+							this.legs[tmp].availSeats == 0 ||
+							this.legs[tmp].availSeats < this.price.passengerFares[i].tariffs[j].avlSeats
 						)
 					) {
-						this.availSeats = this.price.passengerFares[i].tariffs[j].avlSeats;
+						this.legs[tmp].availSeats = this.price.passengerFares[i].tariffs[j].avlSeats;
 					}
 				}
 			}

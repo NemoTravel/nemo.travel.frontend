@@ -88,7 +88,8 @@ define(
 							valuesSorter: function (a,b) {
 								return a.value.name.localeCompare(b.value.name);
 							},
-							additionalValueChooser: stringPFMinPrice
+							additionalValueChooser: stringPFMinPrice,
+							type: 'multiChoice'
 						}
 					},
 					transfersDuration: {
