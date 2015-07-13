@@ -39,7 +39,7 @@ define(
 				valueAccessor();
 				setTimeout(
 					function(){
-						if($(element).find('.js-flights-results__compareTable__companyColumn_visible').length > 1){
+						if($(element).find('.js-flights-results__compareTable__companyColumn_visible').length > 0){
 							$(element).parents('.js-flights-results__compareTable__wrapper').removeClass('js-flights-results__compareTable__wrapper_hidden');
 							$('.js-flights-results__compareTable__opener').show();
 							$(element).show();

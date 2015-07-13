@@ -51,7 +51,7 @@ define(
 				});
 
 				$(ul).addClass('new-ui-autocomplete');
-			}
+			},
 		});
 
 		ko.bindingHandlers.flightsFormGeoAC = {
@@ -118,7 +118,14 @@ define(
 						}
 
 						return false;
+					},
+					focus: function( event, ui ) {
+						$(this).val(ui.item.name)
+					},
+					close:function(){
+						$(this).val(' ')
 					}
+
 				});
 
 				$element.on('blur', function (e) {

@@ -1144,9 +1144,10 @@
 					     data-bind="attr:{'data-flightId':$data.flights[0].id}">
 						<!-- ko if: !filteredOut() -->
 						<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-							<div class="nemo-flights-results__compareTable__groupsItem__price"
-							     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
-							</div>
+							<money class="nemo-flights-results__compareTable__groupsItem__price"
+								 format="0,0 $"
+								 data-bind="money: getTotalPrice()">
+							</money>
 							<div class="nemo-flights-results__compareTable__groupsItem__duration"
 							     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
 							</div>
@@ -1275,9 +1276,10 @@
 									attr:{'data-flightId':$data.flights[0].id}">
 								<!-- ko if: !filteredOut() -->
 								<div class="nemo-flights-results__compareTable__groupsItem__shortInfo">
-									<div class="nemo-flights-results__compareTable__groupsItem__price"
-									     data-bind="text: getTotalPrice().normalizedAmount() + ' ' + getTotalPrice().currency()">
-									</div>
+									<money class="nemo-flights-results__compareTable__groupsItem__price"
+										   format="0,0 $"
+										   data-bind="money: getTotalPrice()">
+									</money>
 									<div class="nemo-flights-results__compareTable__groupsItem__duration"
 									     data-bind="text: durationOnLegString().readableString() != 0 ? durationOnLegString().readableString() : $root.i18n('FlightsSearchResults', 'flightsCompareTable__unknownFlightTime');">
 									</div>
