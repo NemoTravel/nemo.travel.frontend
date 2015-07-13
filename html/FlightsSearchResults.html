@@ -1246,7 +1246,9 @@
 					   data-bind="click: paginationPrev, style: {'visibility':paginationHasPrev() == true ?'visible':'hidden'}">
 						&#9664;</a>
 					<div class="nemo-flights-results__compareTable__title"
-					     data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__transferFlights') + ' ('+$data.flightsLength+')'">
+					     data-bind="text:$data.direct
+					     ? $root.i18n('FlightsSearchResults', 'flightsCompareTable__directFlights') + ' ('+$data.flightsLength+')'
+					     : $root.i18n('FlightsSearchResults', 'flightsCompareTable__transferFlights') + ' ('+$data.flightsLength+')'">
 					</div>
 					<a href="#" class="nemo-flights-results__compareTable__pager__next"
 					   data-bind="click: paginationNext, style: {'visibility':paginationHasNext() == true ?'visible':'hidden'}">
