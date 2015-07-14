@@ -864,7 +864,8 @@
 								<div class="nemo-flights-flightInfo__leg__segment__additional__item__title">
 									Выполняет
 								</div><div class="nemo-flights-flightInfo__leg__segment__additional__item__value" data-bind="text: operatingCompany.name,
-								css: {'nemo-flights-flightInfo__leg__segment__additional__item__value_warning': operatingCompany.IATA != $parent.getValidatingCompany().IATA}"></div>
+								css: {'nemo-flights-flightInfo__leg__segment__additional__item__value_warning': operatingCompany.IATA != $parent.getValidatingCompany().IATA},
+								attr:{title:operatingCompany.name}"></div>
 							</div>
 
 							<div class="nemo-flights-flightInfo__leg__segment__additional__item nemo-flights-flightInfo__leg__segment__additional__item_flightNumber">
@@ -1151,7 +1152,7 @@
 							     data-bind="foreach: legGroupings">
 								<!-- dirty magic to get to flight airports -->
 								<span class="nemo-flights-results__compareTable__groupsItem__flightSelectWrap__tip"
-								      data-bind="html:$parent.selectedFlight().legs[$index()].depAirp.city.name+' &dash; '+$parent.selectedFlight().legs[$index()].arrAirp.city.name+', '+$parent.selectedFlight().legs[$index()].depDateTime.getDate()+'&nbsp;'+$parent.selectedFlight().legs[$index()].depDateTime.getMonthNameShort()">
+								      data-bind="html:$parent.selectedFlight().legs[$index()].depAirp.city.name+' - '+$parent.selectedFlight().legs[$index()].arrAirp.city.name+', '+$parent.selectedFlight().legs[$index()].depDateTime.getDate()+'&nbsp;'+$parent.selectedFlight().legs[$index()].depDateTime.getMonthNameShort()">
 								</span>
 								<div class="nemo-flights-results__compareTable__groupsItem__selector__selectContainer">
 									<div
