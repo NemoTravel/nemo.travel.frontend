@@ -16,6 +16,10 @@ define(
 				};
 			}
 
+			if (!this.monochromeLogo) {
+				this.monochromeLogo = this.logo;
+			}
+
 			// Processing rating
 			this.ratingItems = [];
 

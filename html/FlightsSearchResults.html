@@ -27,8 +27,7 @@
 			</div>
             <!-- /ko -->
 
-            <div class="nemo-flights-results__formDummy__inner">
-
+            <div class="nemo-flights-results__formDummy__inner" data-bind="click: function () {formActive(!formActive())}">
 				<div
 					data-bind="
 						foreach: searchInfo.segments,
@@ -75,7 +74,7 @@
 
 				<div
 					class="new-ui-button nemo-flights-results__formDummy__switch"
-					data-bind="text: $root.i18n('FlightsSearchResults', 'formDummy__switch'), click: function () {formActive(!formActive())}"></div>
+					data-bind="text: $root.i18n('FlightsSearchResults', 'formDummy__switch')"></div>
 			</div>
 
 			<!-- ko if: PFActive() -->
@@ -374,7 +373,8 @@
 						'new-ui-subContainer nemo-flights-results__flightsGroup_legsCount_' + legGroupings.length,
 				'data-groupanchorid':$data.id
 			}">
-			<div class="new-ui-subContainer__header nemo-flights-results__flightsGroup__header">
+			<div class="new-ui-subContainer__header nemo-flights-results__flightsGroup__header"
+			     data-bind="attr: {'style': getValidatingCompany().colors.companyСolor ? 'background: ' + getValidatingCompany().colors.companyСolor + ';' : ''}">
 				<div class="nemo-flights-results__flightsGroup__header__title" data-bind="text: $parent.modifier && $parent.modifier != 'bestCompanies' ? $root.i18n('FlightsSearchResults', 'flightsGroup__header_' + $parent.modifier) : getValidatingCompany().name"></div>
 
 				<div class="nemo-flights-results__flightsGroup__header__additional">
@@ -382,7 +382,7 @@
 						--><div class="nemo-flights-results__flightsGroup__rating__item" data-bind="css:{'nemo-flights-results__flightsGroup__rating__item_active': $data}"></div><!--
 					--></div><!--
 					--><img class="nemo-flights-results__flightsGroup__header__logo"
-					     data-bind="attr: {src: $root.controller.options.staticInfoURL + getValidatingCompany().logo.image}"><!--
+					     data-bind="attr: {src: $root.controller.options.staticInfoURL + getValidatingCompany().monochromeLogo.image}"><!--
 					     ko if: carriersMismatch
 				    --><div
 							class="nemo-flights-results__flightsGroup__header__info"
