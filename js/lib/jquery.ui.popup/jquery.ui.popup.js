@@ -163,7 +163,7 @@ define(
 //					};
 
 					// Setting reposition
-					$(window).on('resize orientationchange', this.reposition);
+					$(document).on('resize orientationchange', this.reposition);
 				},
 
 				close: function () {
@@ -179,11 +179,10 @@ define(
 					this._super('close');
 
 					// Removing reposition
-					$(window).off('resize orientationchange', this.reposition);
+					$(document).off('resize orientationchange', this.reposition);
 				},
 
 				reposition: function () {
-					console.log('!');
 					this._position();
 				},
 

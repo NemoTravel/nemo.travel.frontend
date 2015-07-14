@@ -327,7 +327,7 @@ define(
 				$document.on('click', closeSelector);
 
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$document.off(closeSelector);
+					$document.off('click', closeSelector);
 				});
 			}
 		};
