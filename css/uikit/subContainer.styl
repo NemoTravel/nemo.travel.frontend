@@ -150,25 +150,7 @@ $i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height 
 				border-left: $d_ui_subContainer_header_hilight_skewedpart_width solid transparent;
 			}
 		}
-
-		&_greenLight {
-			@extends .new-ui-subContainer__header;
-			background: $c_ui_subContainer_header_greenLight;
-
-			.new-ui-subContainer_contentPadding &{
-				margin-top: 0;
-			}
-
-			.new-ui-subContainer__header__hilight {
-				@extends .new-ui-subContainer__header__hilight;
-
-				&:before {
-					border-top-color: $c_ui_subContainer_header_greenLight;
-				}
-			}
-		}
 	}
-
 
 	&__divider{
 	    border: none;

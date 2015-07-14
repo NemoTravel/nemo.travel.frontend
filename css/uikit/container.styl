@@ -18,7 +18,6 @@ $c_ui_container_divider_second = #D6D6D6;
 // DIMENSIONS
 $d_ui_container_borderRadius          = 8px;
 $d_ui_container_borderWidth           = 1px;
-$d_ui_container_bordered_borderRadius = 4px;
 
 $d_ui_container_padding               = 20px;
 $d_ui_container_divider_height        = 1px;
@@ -33,20 +32,11 @@ $d_ui_container_divider_margin_big    = 20px (- $d_ui_container_padding);
 $i_ui_container_border = $d_ui_container_borderWidth solid $c_ui_container_border;
 $i_ui_container_outerShadow = 0 1px 4px rgba(0, 0, 0, 0.1);
 
-//TODO в разработке
-// доватиь второй разделитель
-
 .new-ui-container {
     padding: $d_ui_container_padding;
     background: $c_ui_container;
     border-radius: $d_ui_container_borderRadius;
     box-shadow: $i_ui_container_outerShadow;
-
-	&_bordered {
-		border: $i_ui_container_border;
-		border-radius: $d_ui_container_bordered_borderRadius;
-		box-shadow: none;
-	}
 
     &__divider {
         border: none;
@@ -65,8 +55,4 @@ $i_ui_container_outerShadow = 0 1px 4px rgba(0, 0, 0, 0.1);
             margin: $d_ui_container_divider_margin_big;
         }
     }
-		
-	&_darker {
-		background: $c_ui_container_darker;
-	}
 }

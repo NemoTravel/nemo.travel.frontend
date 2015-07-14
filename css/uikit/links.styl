@@ -41,20 +41,6 @@ $d_link_full-width_width			= 100%;
 $d_link_full-width_height			= 40px;
 $d_ui_full_width_text_margin		= 0 0 0 10px;
 
-.common-close{
-	color: $c_ui_link_grey_text;
-	font-size: $fz_ui_grey_close;
-	line-height: $lh_ui_grey_close;
-	font-family: $f_ui_font_family;
-	text-decoration: none;
-	padding: 0 25px 0 0;
-	background: url("images/close.svg") 100% 50% no-repeat;
-	background-size: 14px 14px;
-	.new-ui-greyCross{
-		margin: 0 0 0 5px;
-	}
-}
-
 .new-ui {
 
 	&-link {
@@ -91,7 +77,7 @@ $d_ui_full_width_text_margin		= 0 0 0 10px;
 				color: $c_ui_link_changeable_hover_text;
 			}
 		}
-		
+
 		&_blue {
 			color: $c_ui_link_blue_text;
 			border-bottom: $i_ui_blue;
@@ -99,19 +85,19 @@ $d_ui_full_width_text_margin		= 0 0 0 10px;
 			font-size: $fz_ui_link_blue;
 			line-height: $lh_ui_link_blue;
 		}
-		
+
 		&_grey {
 			font-family: $f_ui_font_family;
 			font-size: $fz_ui_link_grey;
 			line-height: $lh_ui_link_grey;
 			color: $c_ui_link_grey_text;
 			border-bottom: 0;
-			
+
 			&:hover{
 				border-bottom: 0;
 			}
 		}
-		
+
 		&_full-width{
 			display: block;
 			background-color: transparent;
@@ -133,8 +119,8 @@ $d_ui_full_width_text_margin		= 0 0 0 10px;
 				border-bottom: 0;
 			}
 		}
-		
-		
+
+
 	}
 
 	&-pseudoLink {
@@ -162,13 +148,5 @@ $d_ui_full_width_text_margin		= 0 0 0 10px;
 				@extends .new-ui-link_changeable:hover;
 			}
 		}
-	}
-}
-
-.logo{
-	display: block;
-	
-	img{
-		display: block;
 	}
 }

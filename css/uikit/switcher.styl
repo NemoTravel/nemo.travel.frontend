@@ -1,0 +1,118 @@
+/**
+ * Checkbox
+ *
+ * @usage: class "new-ui-checkbox" on element
+ * @modifiers:
+ * @tags: label
+ * @example:
+    <label class="new-ui-checkbox">
+        <input class="new-ui-checkbox__input" type="checkbox">
+        <span class="new-ui-checkbox__caption">Чекбокс</span>
+    </label>
+ */
+// COLORS
+$c_ui_switcher 			  	      = #0C91D7;
+$c_ui_switcher_notChecked 	      = $nemo-color-LightPoint;
+$c_ui_switcher_after_top          = #E5E5E5;
+$c_ui_switcher_after_bottom       = #CCCCCC;
+$c_ui_switcher_on_color           = #F6F6F6;
+$c_ui_switcher_off_color          = #969599;
+
+// DIMENSIONS
+$d_ui_switcher_width              = 71px;
+$d_ui_switcher_height             = 30px;
+$d_ui_switcher_after_height       = 30px;
+$d_ui_switcher_after_width        = 30px;
+
+// FONT
+$f_ui_switcher_text_size          = 12px;
+
+// VALUES
+$i_ui_switcher_borderRadius       = 5px;
+$i_ui_switcher_after_borderRadius = 4px;
+$i_ui_switcher_boxShadowInner     = inset 0 0 5px rgba(0,0,0,.1);
+$i_ui_switcher_boxShadowOuter     = 0 1px 2px rgba(0,0,0,.5);
+$i_ui_switcher_textShadow         = 0 1px 0px rgba(0, 0, 0, 0.25);
+
+// SWITCHER
+.new-ui-switcher {
+
+	&__label {
+		cursor: pointer;
+		display: block;
+
+		&__input {
+			position: absolute;
+		}
+
+		&__input:checked,
+		&__input:not(:checked) {
+			left: -99999px;
+		}
+
+		&__input:checked + &__text {
+			&:after {
+				right: 0;
+			}
+		}
+
+		&__input:not(:checked) + &__text {
+			background: $c_ui_switcher_notChecked;
+
+			&:after {
+				right: 100%;
+				margin-right: - $d_ui_switcher_after_width;
+			}
+		}
+
+		&__input:checked + &__text &__text__off {
+			display: none;
+		}
+
+		&__input:not(:checked) + &__text &__text__on {
+			display: none;
+		}
+
+		&__text {
+			position: relative;
+			background: $c_ui_switcher;
+			width: $d_ui_switcher_width;
+			height: $d_ui_switcher_height;
+			font-size: $f_ui_switcher_text_size;
+			border-radius: $i_ui_switcher_borderRadius;
+			box-shadow: $i_ui_switcher_boxShadowInner, $i_ui_switcher_boxShadowOuter;
+			text-shadow: $i_ui_switcher_textShadow;
+			transition: background .4s ease-in-out;
+
+			&:after {
+				content:'';
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: $d_ui_switcher_after_width;
+				height: $d_ui_switcher_after_height;
+				border-radius: $i_ui_switcher_after_borderRadius;
+				cursor: pointer;
+				background-image: linear-gradient(to bottom, $c_ui_switcher_after_top, $c_ui_switcher_after_bottom);
+				z-index: 5;
+				transition: all .25s ease-in-out;
+			}
+
+			&__off {
+				position: absolute;
+				right: 6px;
+				top: 6px;
+				color: $c_ui_switcher_off_color;
+			}
+
+			&__on {
+				position: absolute;
+				left: 9px;
+				top: 6px;
+				color: $c_ui_switcher_on_color;
+			}
+		}
+	}
+}
+
