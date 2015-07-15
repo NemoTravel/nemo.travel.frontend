@@ -566,6 +566,37 @@ define(
 			}
 		};
 
+		FlightsSearchFormController.prototype.goToResults = function (id) {
+			var urlAdder = '',
+				segments = this.segments(),
+				passengers = this.passengers();
+
+			for (var i = 0; i < segments.length; i++) {
+				urlAdder += (segments[i].items.departure.value().isCity ? 'c' : 'a') + segments[i].items.departure.value().IATA +
+					(segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA +
+					segments[i].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+			}
+
+			for (var i in passengers) {
+				if (passengers.hasOwnProperty(i) && passengers[i]() > 0) {
+					urlAdder += i+passengers[i]();
+				}
+			}
+
+			urlAdder += '-class=' + this.serviceClass();
+
+			if (this.directFlights()) {
+				urlAdder += '-direct';
+			}
+
+			if (this.vicinityDates() && this.tripType() != 'CR') {
+				urlAdder += '-vicinityDates='+this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1];
+			}
+
+			// TODO proper navigation for light form
+			this.$$controller.navigate('results/' + id + '/' + urlAdder);
+		};
+
 		FlightsSearchFormController.prototype.startSearch = function () {
 			function searchError (message, systemData) {
 				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
@@ -625,19 +656,18 @@ define(
 			}
 			else {
 				var self = this,
-					params = {
+				passengers = this.passengers(),
+				params = {
 						segments: [],
 						passengers: [],
 						parameters: {
 							direct: this.directFlights(),
 							aroundDates: this.vicinityDates() ? this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1] : 0,
 							serviceClass: this.serviceClass(),
-							airlines: [],
-							delayed: this.delayedSearch
+							airlines: []/*,
+							delayed: this.delayedSearch*/
 						}
-					},
-					segments = this.segments(),
-					passengers = this.passengers();
+					};
 
 				// Constructing params
 				for (var i = 0; i < segments.length; i++) {
@@ -686,7 +716,7 @@ define(
 										self.delayedSearch ||
 										!response.flights.search.results.info.errorCode
 									) {
-										self.$$controller.navigate('results/' + response.flights.search.request.id);
+										self.goToResults(response.flights.search.request.id);
 									}
 									else {
 										searchError('emptyResult');
@@ -826,9 +856,16 @@ define(
 					this.tripType('OW');
 				}
 				else if (
+					// Checking segments count
 					this.preinittedData.segments.length == 2 &&
+
+					// Checking IATAs
 					this.preinittedData.segments[0][0] == this.preinittedData.segments[1][1] &&
-					this.preinittedData.segments[0][1] == this.preinittedData.segments[1][0]
+					this.preinittedData.segments[0][1] == this.preinittedData.segments[1][0] &&
+
+					// Checking city flags
+					this.preinittedData.segments[0][3] == this.preinittedData.segments[1][4] &&
+					this.preinittedData.segments[0][4] == this.preinittedData.segments[1][3]
 				) {
 					this.tripType('RT');
 				}

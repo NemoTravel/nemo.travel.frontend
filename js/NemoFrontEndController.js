@@ -23,7 +23,7 @@ define (
 				// GO - immediate search flag
 				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
 
-				{re: /^results\/(\d+)$/,  handler: 'Flights/SearchResults/Controller'},
+				{re: /^results\/(\d+)(?:\/.*)?$/,  handler: 'Flights/SearchResults/Controller'},
 				{re: /^order\/(\d+)$/,    handler: 'Flights/Checkout/Controller'}
 			];
 			this.i18nStorage = {};
@@ -188,14 +188,14 @@ define (
 			}
 		};
 
-		NemoFrontEndController.prototype.navigateBack = function (processRoute) {
-			this.ignorePopState = true;
-			this.router.back();
-			this.ignorePopState = false;
-
-			if (typeof processRoute == 'undefined' || processRoute) {
-				this.processRoute();
+		NemoFrontEndController.prototype.navigateReplace = function (newUrl, processRoute) {
+			if (this.router.pushStateSupport) {
+				this.ignorePopState = true;
+				this.router.back();
+				this.ignorePopState = false;
 			}
+
+			this.navigate(newUrl, processRoute);
 		};
 
 		NemoFrontEndController.prototype.navigateGetPushStateSupport = function () {
