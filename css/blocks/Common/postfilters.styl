@@ -37,8 +37,19 @@ $t_postFilters_animationTime = .1s;
         padding: 10px 50px 10px 20px;
         background-color: $c_highlight_warning;
         border-radius: 4px;
+	    position: relative;
 
         &__close {
+			border-radius: 20px;
+	        width: 20px;
+	        height: 20px;
+	        background: $nemo-color-LightPoint url("images/pf_hint_close.svg") center center no-repeat;
+	        cursor: pointer;
+
+	        position: absolute;
+	        right: 15px;
+			top: 50%;
+	        margin-top: -10px;
         }
     }
 

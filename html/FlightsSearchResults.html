@@ -983,10 +983,12 @@
 		<!--FILTERS-->
 
         <div class="nemo-common-postFilters__inner">
+	        <!-- ko if: PFHintActive -->
             <div class="nemo-common-postFilters__notification">
                 Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
-                <div class="nemo-common-postFilters__notification__close"></div>
+                <div class="nemo-common-postFilters__notification__close" data-bind="click: function() {disablePFHint()}"></div>
             </div>
+	        <!-- /ko -->
 
             <!-- ko if: postFiltersHaveValue() -->
             <div class="nemo-common-postFilters__clearAll">

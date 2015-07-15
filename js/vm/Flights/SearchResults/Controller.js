@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel'],
-	function (ko, helpers, BaseControllerModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
+	function (ko, helpers, BaseControllerModel, Cookie) {
 		function FlightsSearchResultsController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
@@ -243,6 +243,8 @@ define(
 				grouppable: ['departureTime','arrivalTime']
 			};
 
+			this.PFHintCookie = 'flightsResults__PFHintRemoved';
+
 			this.id = this.$$componentParameters.route[0];
 
 			this.options = {};
@@ -267,6 +269,7 @@ define(
 			this.totalResultsCount = 0;
 
 			this.PFActive = ko.observable(false);
+			this.PFHintActive = ko.observable(!Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.PFHintCookie));
 
 			this.formActive = ko.observable(false);
 
@@ -1045,6 +1048,12 @@ define(
 			if (data.uri) {
 				this.makeSearch('/flights/search/results/' + this.id + '/' + data.date.getISODate() + (data.returndate ? '/' + data.returndate.getISODate() : ''), 'matrixSubSearch');
 			}
+		};
+
+		FlightsSearchResultsController.prototype.disablePFHint = function (data) {
+			this.PFHintActive(false);
+
+			Cookie.set(this.$$controller.options.cookiesPrefix + this.PFHintCookie, true, { expires: 365 });
 		};
 
 		FlightsSearchResultsController.prototype.passengersSummary = function () {
