@@ -133,7 +133,7 @@ define(
 							$('[data-groupanchorid='+groupId+']').offset().top-10
 						);
 					}else{
-						bindingContext.$parents[1].showAllGroups();
+						bindingContext.$parents[2].showAllGroups();
 						$('html, body').scrollTop(
 							$('[data-groupanchorid='+groupId+']').offset().top-10
 						);
