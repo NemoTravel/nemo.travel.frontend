@@ -15,19 +15,20 @@
 			component: {
 	            name: 'Flights/SearchForm/Controller',
 				params: {route: [], formData: $$rawdata}
-			}, style: {display: formActive() ? 'block' : 'none' }"
+			},
+			style: {display: formActive() ? 'block' : 'none' }
 			"></section>
 
 
 		<!-- Form dummy -->
-		<section class="nemo-flights-results__formDummy"  data-bind="style: {display: !formActive() ? 'block' : 'none' }">
+		<section class="nemo-flights-results__formDummy" data-bind="css: {'nemo-flights-results__formDummy_formActive': formActive()}">
 			<!-- ko if: matrixData === null -->
 			<div class="new-ui-button new-ui-button_common nemo-flights-results__formDummy__filterSwitch" data-bind="click: function () {PFActive(!PFActive());}, css: {'nemo-flights-results__formDummy__filterSwitch_active': PFActive()}">
 				Фильтрация
 			</div>
             <!-- /ko -->
 
-            <div class="nemo-flights-results__formDummy__inner" data-bind="click: function () {formActive(!formActive())}">
+            <div class="nemo-flights-results__formDummy__inner" data-bind="click: function () {formActive(!formActive())}, visible: !formActive()">
 				<div
 					data-bind="
 						foreach: searchInfo.segments,
@@ -983,10 +984,12 @@
 		<!--FILTERS-->
 
         <div class="nemo-common-postFilters__inner">
+	        <!-- ko if: PFHintActive -->
             <div class="nemo-common-postFilters__notification">
                 Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
-                <div class="nemo-common-postFilters__notification__close"></div>
+                <div class="nemo-common-postFilters__notification__close" data-bind="click: function() {disablePFHint()}"></div>
             </div>
+	        <!-- /ko -->
 
             <!-- ko if: postFiltersHaveValue() -->
             <div class="nemo-common-postFilters__clearAll">

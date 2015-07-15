@@ -41,7 +41,7 @@
 						<label class="new-ui-textInput new-ui-dummiedInput js-autocomplete">
 							<!-- ko if: $parent.validaTERROR() && items.departure.error() && items.departure.focus() -->
 							<div
-									class="new-ui-hint nemo-flights-form__route__segment__item__error"
+									class="new-ui-hint new-ui-hint_warn nemo-flights-form__route__segment__item__error"
 									data-bind="text: $root.i18n('FlightsSearchForm','error_departure_'+items.departure.error());"></div>
 							<!-- /ko -->
 							<div class="nemo-flights-form__route__segment__item__inputContainer">
@@ -76,7 +76,7 @@
 						<label class="new-ui-textInput new-ui-dummiedInput js-autocomplete">
 							<!-- ko if: $parent.validaTERROR() && items.arrival.error() && items.arrival.focus() -->
 							<div
-									class="new-ui-hint nemo-flights-form__route__segment__item__error"
+									class="new-ui-hint new-ui-hint_warn nemo-flights-form__route__segment__item__error"
 									data-bind="text: $root.i18n('FlightsSearchForm','error_arrival_'+items.arrival.error());"></div>
 							<!-- /ko -->
 							<div class="nemo-flights-form__route__segment__item__inputContainer">
@@ -113,7 +113,7 @@
 							<div class="nemo-flights-form__route__segment__item__date__indicator" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31"></div>
 							<!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
 							<div
-								class="new-ui-hint nemo-flights-form__route__segment__item__error"
+								class="new-ui-hint new-ui-hint_warn nemo-flights-form__route__segment__item__error"
 								data-bind="text: $root.i18n('FlightsSearchForm','error_departureDate_'+items.departureDate.error());"></div>
 							<!-- /ko -->
 							<div class="nemo-flights-form__route__segment__item__inputContainer">
@@ -171,7 +171,7 @@
 			--></div>
 			<div class="nemo-flights-form__passengers">
 				<!-- ko if: validaTERROR() && passengersError() -->
-				<div data-bind="text: $root.i18n('FlightsSearchForm','error_passengers_'+passengersError());" class="new-ui-hint nemo-flights-form__passengers__error"></div>
+				<div data-bind="text: $root.i18n('FlightsSearchForm','error_passengers_'+passengersError());" class="new-ui-hint new-ui-hint_warn nemo-flights-form__passengers__error"></div>
 				<!-- /ko -->
 				<div class="nemo-flights-form__passengers__container js-flights-searchForm-passSelect" data-bind="flightsFormPassengersSelector: null, text: passengersSummary"></div>
 

@@ -7,22 +7,18 @@
 
     .nemo-flights-form {
 
-        .nemo-flights-form__routeOptions {
+        &__routeOptions {
             display: none;
         }
 
-		.nemo-flights-form__formContainer__inner {
+		&__formContainer__inner {
 			padding-top: 10px;
 		}
 
-		.nemo-flights-form__route__segment {
+		&__route__segment {
 			padding-bottom: 10px;
 		}
     }
-
-	&__adaptivePF {
-		overflow: hidden;
-	}
 
 	&__loader {
 		width: 90vw;
@@ -79,7 +75,7 @@
 	}
 
 	&__form {
-		margin: 0 0 10px;
+		margin: 0;
 
         .nemo-flights-form {
             margin-top: 0;
@@ -97,6 +93,11 @@
 		align-items: stretch;
 		position: relative;
         //height: 40px;
+
+		&_formActive {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
 
 		&__filterSwitch {
 			height: 40px;
@@ -432,7 +433,7 @@
 				max-height: 50px;
 				max-width: 200px;
 				padding: 0;
-				margin-top: -2px;
+				margin-top: -4px;
 			}
 
 			&__info {

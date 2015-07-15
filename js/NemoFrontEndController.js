@@ -8,11 +8,19 @@ define (
 			this.scope = scope;
 			this.options = {};
 			this.ko = ko;
+			this.ignorePopState = false;
 			this.routes = [
 				// Form with optional data from existing search
 				{re: /^(?:search\/(\d+))?$/,          handler: 'Flights/SearchForm/Controller'},
 
-				// Form with initialization by URL
+				// Form with initialization by URL:
+				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
+				// IEV, PEW - IATAs with city priority, 20150718 - YYYY-MM-DD date
+				// ADT 3 INS 1 CLD 2 - Passenger types with corresponding counts
+				// direct - direct flights flag
+				// vicinityDates - vicinity dates flag
+				// class=Business - class definition
+				// GO - immediate search flag
 				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				{re: /^results\/(\d+)$/,  handler: 'Flights/SearchResults/Controller'},
@@ -51,11 +59,9 @@ define (
 			 * Routing object.
 			 *
 			 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
-			 *
-			 * @type {{interval: null, init: init, getFragment: getFragment, clearSlashes: clearSlashes, check: check, navigate: navigate}}
 			 */
 			this.router = {
-				interval: null,
+				pushStateSupport: !!(history.pushState),
 				init: function () {
 					self.options.root = '/'+this.clearSlashes(self.options.root)+'/';
 
@@ -96,11 +102,15 @@ define (
 				},
 				navigate: function(path) {
 					path = path ? path : '';
-					if(!!(history.pushState)) {
+					if(this.pushStateSupport) {
 						history.pushState(null, null, self.options.root + this.clearSlashes(path));
 					} else {
 						window.location = self.options.root + this.clearSlashes(path);
 					}
+					return this;
+				},
+				back: function() {
+					history.back();
 					return this;
 				}
 			};
@@ -157,7 +167,9 @@ define (
 							window.addEventListener(
 								"popstate",
 								function () {
-									self.processRoute();
+									if (!self.ignorePopState) {
+										self.processRoute();
+									}
 								}
 								, false);
 
@@ -174,6 +186,20 @@ define (
 			if (typeof processRoute == 'undefined' || processRoute) {
 				this.processRoute();
 			}
+		};
+
+		NemoFrontEndController.prototype.navigateBack = function (processRoute) {
+			this.ignorePopState = true;
+			this.router.back();
+			this.ignorePopState = false;
+
+			if (typeof processRoute == 'undefined' || processRoute) {
+				this.processRoute();
+			}
+		};
+
+		NemoFrontEndController.prototype.navigateGetPushStateSupport = function () {
+			return this.router.pushStateSupport;
 		};
 
 		NemoFrontEndController.prototype.i18n = function (segment, key) {
