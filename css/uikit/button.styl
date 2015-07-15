@@ -128,65 +128,81 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	outline: none;
 	user-select: none;
 
-    transition: all .15s ease-in;
+	transition: all .15s ease-in;
 
-    // States
-    &:link {
-      color: $f_ui_button_color;
-    }
+	// States
+	&:link {
+		color: $f_ui_button_color;
+	}
 
-    &:visited {
-      color: $f_ui_button_color;
-    }
+	&:visited {
+		color: $f_ui_button_color;
+	}
 
-    &:hover {
-      background: $c_ui_button_hover;
-    }
+	&:hover {
+		background: $c_ui_button_hover;
+	}
 
-    &:active {
-      padding-top: 1px;
-    }
+	&:active {
+		padding-top: 1px;
+	}
 
-    &:focus {
-      background: $c_ui_button;
-      box-shadow: $i_ui_button_focused_outershadow;
-      /*text-shadow: $f_ui_button_shadow;*/
+	&:focus {
+		background: $c_ui_button;
+		box-shadow: $i_ui_button_focused_outershadow;
+		/*text-shadow: $f_ui_button_shadow;*/
 
-      &:hover {
-        background: $c_ui_button_hover;
-      }
-    }
+		&:hover {
+			background: $c_ui_button_hover;
+		}
+	}
 
-    &_common{
-      height: $d_ui_button_common_height;
-      line-height: $lh_ui_button_common;
-      font-size: $fz_ui_button_common;
+	&_common{
+		height: $d_ui_button_common_height;
+		line-height: $lh_ui_button_common;
+		font-size: $fz_ui_button_common;
 
-      background-color: $c_ui_button_common;
-      background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-      color: $c_ui_button_common_text;
+		background-color: $c_ui_button_common;
+		background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		color: $c_ui_button_common_text;
 
 
-      &:hover{
-        background-color: lighten($c_ui_button_common, 5);
-        background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-      }
+		&:hover{
+			background-color: lighten($c_ui_button_common, 5);
+			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		}
 
-      &:focus, &:focus:hover{
-        background-color: lighten($c_ui_button_common, 5);
-        background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-      }
-    }
+		&:focus, &:focus:hover{
+			background-color: lighten($c_ui_button_common, 5);
+			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		}
+	}
+	&_light{
+		height: $d_ui_button_common_height;
+		line-height: $lh_ui_button_common;
+		font-size: $fz_ui_button_common;
+
+		background-color: $nemo-color-LightPoint;
+		color: $c_ui_button_common_text;
+
+
+		&:hover{
+			background-color: lighten($nemo-color-LightPoint, 5);
+		}
+
+		&:focus, &:focus:hover{
+			background-color: lighten($nemo-color-LightPoint, 5);
+		}
+	}
 
 	// Dimensions
-	min-width: $d_ui_button_minwidth;
 	height: $d_ui_button_height;
 	padding: $d_ui_button_padding;
 
 	// Borders and shadows
 	border: $i_ui_button_border;
 	border-radius: $d_ui_button_borderradius;
-	
+
 	// Text
 	font-size: $f_ui_button_size;
 	color: $f_ui_button_color;
@@ -201,7 +217,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 		background: $c_ui_button_disabled;
 		cursor: default;
 		overflow: hidden;
-		
+
 		&:hover,
 		&:active,
 		&:focus {
@@ -232,7 +248,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 		font-size: $f_ui_button_small_size;
 		line-height: $f_ui_button_small_lineheight;
 	}
-	
+
 	&_medium {
 		// Dimensions
 		min-width: $d_ui_button_medium_minwidth;
@@ -259,7 +275,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 		font-size: $f_ui_button_main_size;
 		line-height: $f_ui_button_main_lineheight;
 	}
-	
+
 	&_danger {
 		background: $c_ui_button_danger_bottom;
 		background-image: linear-gradient(to bottom, $c_ui_button_danger_top, $c_ui_button_danger_bottom);
@@ -280,7 +296,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 			background-image: linear-gradient(to bottom, $c_ui_button_danger_pressed_top, $c_ui_button_danger_pressed_bottom);
 		}
 	}
-	
+
 	&_direction_down {
 		position: relative;
 		padding-right: 33px;
@@ -314,7 +330,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 			border-color: transparent $c_ui_button_direction_arrow transparent transparent;
 		}
 	}
-	
+
 	&_direction_right {
 		position: relative;
 		padding-right: 33px;
