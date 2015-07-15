@@ -1,4 +1,4 @@
-$d_pageHeader_padding = 14px 0;
+$d_pageHeader_padding = 12px 0;
 $d_pageHeader_padding_mobile = 8px 0;
 
 $d_ui_pageHeader_inner_maxWidth = 1140px;
@@ -10,79 +10,98 @@ $d_headerLinks_padding = 0 50px;
 $d_headerLinks_tablet_padding = 0 0 0 10px;
 
 .nemo-common {
-    &-pageHeader {
-        background: $nemo-header-bg;
-        padding: $d_pageHeader_padding;
+	&-pageHeader {
+		background: $nemo-header-bg;
+		padding: $d_pageHeader_padding;
 
-        &__inner {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-content: flex-start;
-            align-items: center;
-            margin: 0 auto;
-            height: 100%;
-            vertical-align: middle;
-            width: 100%;
-            //max-width: $d_ui_pageHeader_inner_maxWidth;
-            padding: $d_ui_pageHeader_inner_padding;
+		&__inner {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			align-content: flex-start;
+			align-items: center;
+			margin: 0 auto;
+			height: 100%;
+			vertical-align: middle;
+			width: 100%;
+			//max-width: $d_ui_pageHeader_inner_maxWidth;
+			padding: $d_ui_pageHeader_inner_padding;
 
-            @media only screen and (min-width: 1340px) {
-                max-width: 1600px;
-            }
+			@media only screen and (min-width: 1340px) {
+				max-width: 1600px;
+			}
 
-            &__headerMenuControls {
-                display: none;
+			&__headerMenuControls {
+				display: none;
 
-                @media only screen and (max-width: 980px) {
-                    display: inline-block;
-                }
-            }
+				@media only screen and (max-width: 980px) {
+					display: inline-block;
+				}
+			}
 
-            &__headerLinks {
-                padding: $d_headerLinks_padding;
-                line-height: 30px;
-                white-space: nowrap;
+			&__headerLinks {
+				padding: $d_headerLinks_padding;
+				line-height: 30px;
+				white-space: nowrap;
 
-                &__item {
-                    margin-right: 20px;
-                    white-space: nowrap;
-                }
+				&__item {
+					margin-right: 20px;
+					white-space: nowrap;
+				}
 
-                &__headerMenuControlls {
-                    &__menuButton {
-                        height: 35px;
-                    }
-                }
 
-                @media only screen and (max-width: 980px) {
-                    display: none;
-                }
+				@media only screen and (max-width: 980px) {
+					display: none;
+				}
 
-            }
+			}
 
-            &__headerRight {
-                margin-left: auto;
-                display: flex;
+			&__headerRight {
+				margin-left: auto;
+				display: flex;
 
-            }
-        }
+			}
+		}
+		&__headerMenuControlls {
+			&__menuButton {
+				font-size: 37px;
+				height: 30px;
+				line-height: 30px;
+				margin-right: 10px;
+				color: #626366;
+				cursor: pointer;
+				&__image{
+					width: 22px;
+				}
+			}
+		}
+		&__langSelectImage {
+			//display: inline-block;
+			margin-top: 6px;
+			width: 32px;
+			height: 18px;
+		}
 
-        &__langSelectImage {
-            //display: inline-block;
-            margin-top: 6px;
-            width: 32px;
-            height: 18px;
-        }
+		.nemo-root_tablet & {
+			padding: $d_headerLinks_tablet_padding;
+		}
 
-        .nemo-root_tablet & {
-            padding: $d_headerLinks_tablet_padding;
-        }
-
-        .nemo-root_mobile & {
-            display: none;
-        }
-    }
+		.nemo-root_mobile & {
+			display: none;
+		}
+		&__logo{
+			width: 175px;
+			height: 27px;
+		}
+		&__dropMenu{
+			&__button {
+				//sorry.
+				padding: 1px !important;
+				width: 50px;
+				margin-right: 20px;
+			}
+		}
+	}
 
 }
