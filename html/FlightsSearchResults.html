@@ -42,7 +42,7 @@
 									data-bind="text: name">
 								</span><span
 									class="nemo-flights-results__formDummy__route__segment__geo__aux"
-									data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+									data-bind="text: ', ' + (!isCity && city && name != city.name && city.name ? city.name + ', ' : '') + country.name"></span>
 							</div>
 							<div class="nemo-flights-results__formDummy__route__segment__geo nemo-flights-results__formDummy__route__segment__geo_arrival" data-bind="with: arrival">
 								<span
@@ -50,7 +50,7 @@
 									data-bind="text: name">
 								</span><span
 									class="nemo-flights-results__formDummy__route__segment__geo__aux"
-									data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+									data-bind="text: ', ' + (!isCity && city && name != city.name && city.name ? city.name + ', ' : '') + country.name"></span>
 							</div>
 						<!-- /ko -->
 
@@ -421,10 +421,10 @@
 						<div class="nemo-flights-results__flightsGroup__leg__info__route">
 							<div
 								class="nemo-flights-results__flightsGroup__leg__info__route__departure"
-								data-bind="text: depAirp.city.name">
+								data-bind="text: depAirp.city.name || depAirp.name">
 							</div><div
 								class="nemo-flights-results__flightsGroup__leg__info__route__arrival"
-								data-bind="text: arrAirp.city.name"></div>
+								data-bind="text: arrAirp.city.name || arrAirp.name"></div>
 						</div>
 					</div>
 

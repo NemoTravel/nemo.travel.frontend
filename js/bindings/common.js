@@ -238,7 +238,6 @@ define(
 						}
 
 						if ($target.length == 0) {
-							console.error('Component parent node not found (.' + popupParams.parentClass + ')');
 							return;
 						}
 
@@ -254,7 +253,7 @@ define(
 								$element.popup(popupParams);
 							}
 							else {
-								console.error('Error on displaying popup. Collection length = '+$target.length+' (.js-nemoApp__popupBlock[data-block="'+params.block+'"])', popupParams);
+								viewModel.$$controller.error('Error on displaying popup. Collection length = '+$target.length+' (.js-nemoApp__popupBlock[data-block="'+params.block+'"])', popupParams);
 							}
 						}
 						else {

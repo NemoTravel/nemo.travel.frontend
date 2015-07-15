@@ -65,7 +65,7 @@
 									<!-- ko if: items.departure.value() -->
 										<!-- ko with: items.departure.value() -->
 											<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: name"></span><!--
-											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name && city.name ? city.name + ', ' : '') + country.name"></span>
 										<!-- /ko -->
 									<!-- /ko -->
 								</div>
@@ -99,7 +99,7 @@
 									<!-- ko if: items.arrival.value() -->
 										<!-- ko with: items.arrival.value() -->
 											<span class="new-ui-dummiedInput__dummy__main js-autocomplete-dummy__main" data-bind="text: name"></span><!--
-											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name ? city.name + ', ' : '') + country.name"></span>
+											--><span class="new-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux" data-bind="text: ', ' + (!isCity && city && name != city.name && city.name ? city.name + ', ' : '') + country.name"></span>
 										<!-- /ko -->
 									<!-- /ko -->
 								</div>
@@ -324,8 +324,8 @@
 						<div class="nemo-flights-form__searchingInfo__segment__inner">
 							<div class="nemo-flights-form__searchingInfo__segment__date" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() + ' ' + items.departureDate.value().getMonthName() + ', ' + items.departureDate.value().getDOWName() : ''"></div>
 							<div class="nemo-flights-form__searchingInfo__segment__route">
-								<span class="nemo-flights-form__searchingInfo__segment__route__departure" data-bind="text: items.departure.value() ? items.departure.value().city.name : ''"></span>
-								<span class="nemo-flights-form__searchingInfo__segment__route__arrival" data-bind="text: items.arrival.value() ? items.arrival.value().city.name : ''"></span>
+								<span class="nemo-flights-form__searchingInfo__segment__route__departure" data-bind="text: items.departure.value() ? items.departure.value().city.name || items.departure.value().name : ''"></span>
+								<span class="nemo-flights-form__searchingInfo__segment__route__arrival" data-bind="text: items.arrival.value() ? items.arrival.value().city.name || items.arrival.value().name : ''"></span>
 							</div>
 						</div>
 					</div><!--
