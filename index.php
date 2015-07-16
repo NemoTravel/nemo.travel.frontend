@@ -254,33 +254,40 @@
 								// Passing additional parametes to components
 								componentsAdditionalInfo: {
 									'Flights/SearchForm/Controller': {
-										delayed: false/*,
-										 init: {
-										 direct: true,
-										 serviceClass: 'Business',
-										 vicinityDates: true,
-										 passengers: {
-										 ADT: 2,
-										 INF: 1,
-										 CLD: 2
-										 },
-										 segments: [
-										 [
-										 'KBP',
-										 'LON',
-										 '2015-05-31',
-										 false,
-										 true
-										 ],
-										 [
-										 'LON',
-										 'IEV',
-										 '2015-06-01',
-										 true,
-										 true
-										 ],
-										 ]
-										 }*/
+										delayed: true/*,
+										init: {
+											direct: true,
+											serviceClass: 'Business',
+											vicinityDates: true,
+											passengers: {
+												ADT: 2,
+												INF: 1,
+												CLD: 2
+											},
+											segments: [
+												[
+													'KBP',
+													'LON',
+													'2015-05-31',
+													false,
+													true
+												],
+												[
+													'DME',
+													'IEV',
+													'2015-06-01',
+													false,
+													true
+												],
+												[
+													'LON',
+													'IEV',
+													'2015-06-07',
+													true,
+													false
+												]
+											]
+										}*/
 									}
 								}
 							}
