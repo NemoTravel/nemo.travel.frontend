@@ -12,8 +12,8 @@
 		<div class="nemo-common-pageHeader__inner">
 
 			<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControls">
-				<span class="new-ui-button new-ui-button_transparent nemo-common-pageHeader__headerMenuControlls__menuButton js-menuButton">
-					<i class="new-ui-mMenuIcon"></i>
+				<span class="nemo-common-pageHeader__headerMenuControlls__menuButton js-common-pageHeader__menuButton">
+					<img class="nemo-common-pageHeader__headerMenuControlls__menuButton__image" src="../img/menu-icon.svg" alt="">
 				</span>
 			</div>
 
@@ -39,10 +39,10 @@
 
 			<div class="nemo-common-pageHeader__inner__headerRight">
 
-				<div class="new-ui-dropMenu">
+				<div class="new-ui-dropMenu nemo-common-pageHeader__dropMenu nemo-common-pageHeader__dropMenu_language">
 
 					<div class="new-ui-dropMenu__main">
-						<button class="new-ui-button new-ui-button_common new-ui-button_languageAndCurrency">
+						<button class="new-ui-button new-ui-button_common nemo-common-pageHeader__dropMenu__button">
 							<img class="nemo-common-pageHeader__langSelectImage" src="../img/flag.svg" alt="">
 						</button>
 					</div>
@@ -53,10 +53,10 @@
 
 				</div>
 
-				<div class="new-ui-dropMenu">
+				<div class="new-ui-dropMenu nemo-common-pageHeader__dropMenu nemo-common-pageHeader__dropMenu_currency">
 
 					<div class="new-ui-dropMenu__main">
-						<button class="new-ui-button new-ui-button_common new-ui-button_languageAndCurrency">
+						<button class="new-ui-button new-ui-button_common nemo-common-pageHeader__dropMenu__button">
 							$
 						</button>
 					</div>
@@ -67,95 +67,95 @@
 
 				</div>
 
-				<div class="new-layout-overlayMenu">
-
-					<div class="new-layout-overlayMenu__main js-overlay-menu">
-						<i class="new-ui-overlayMenu"></i>
-					</div>
-
-					<div class="new-layout-overlayMenu__drop js-overlay-menu">
-						<div class="new-ui-mobileDropMenu">
-							<div class="new-ui-mobileDropMenu__item">
-								<div class="new-ui-dropMobile js-dropMobile" data-menu="lang">
-									<div class="new-ui-dropMobile__main">
-										<p>
-											Русский
-											<span>изменить</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="new-ui-mobileDropMenu__item">
-								<div class="new-ui-dropMobile js-dropMobile" data-menu="cur">
-									<div class="new-ui-dropMobile__main">
-										<p>
-											Российский рубль
-											<span>изменить</span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="new-ui-dropMobile-drop" data-menu-drop="lang">
-							<div class="new-ui-dropMobile-drop__main">
-								<div class="new-ui-mobileDropMenu">
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Русский
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Английский
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Испанский
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Украинский
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="new-ui-dropMobile-drop__btns">
-								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
-							</div>
-						</div>
-						<div class="new-ui-dropMobile-drop" data-menu-drop="cur">
-							<div class="new-ui-dropMobile-drop__main">
-								<div class="new-ui-mobileDropMenu">
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Русский рубль
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Английский фунт
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Испанский евро
-										</a>
-									</div>
-									<div class="new-ui-mobileDropMenu__item">
-										<a href="#" class="new-ui-link new-ui-link_grey">
-											Украинская гривна
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="new-ui-dropMobile-drop__btns">
-								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>
-							</div>
-						</div>
-					</div>
-				</div>
+<!--				<div class="new-layout-overlayMenu">-->
+<!---->
+<!--					<div class="new-layout-overlayMenu__main js-overlay-menu">-->
+<!--						<i class="new-ui-overlayMenu"></i>-->
+<!--					</div>-->
+<!---->
+<!--					<div class="new-layout-overlayMenu__drop js-overlay-menu">-->
+<!--						<div class="new-ui-mobileDropMenu">-->
+<!--							<div class="new-ui-mobileDropMenu__item">-->
+<!--								<div class="new-ui-dropMobile js-dropMobile" data-menu="lang">-->
+<!--									<div class="new-ui-dropMobile__main">-->
+<!--										<p>-->
+<!--											Русский-->
+<!--											<span>изменить</span>-->
+<!--										</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="new-ui-mobileDropMenu__item">-->
+<!--								<div class="new-ui-dropMobile js-dropMobile" data-menu="cur">-->
+<!--									<div class="new-ui-dropMobile__main">-->
+<!--										<p>-->
+<!--											Российский рубль-->
+<!--											<span>изменить</span>-->
+<!--										</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="new-ui-dropMobile-drop" data-menu-drop="lang">-->
+<!--							<div class="new-ui-dropMobile-drop__main">-->
+<!--								<div class="new-ui-mobileDropMenu">-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Русский-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Английский-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Испанский-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Украинский-->
+<!--										</a>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="new-ui-dropMobile-drop__btns">-->
+<!--								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="new-ui-dropMobile-drop" data-menu-drop="cur">-->
+<!--							<div class="new-ui-dropMobile-drop__main">-->
+<!--								<div class="new-ui-mobileDropMenu">-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Русский рубль-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Английский фунт-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Испанский евро-->
+<!--										</a>-->
+<!--									</div>-->
+<!--									<div class="new-ui-mobileDropMenu__item">-->
+<!--										<a href="#" class="new-ui-link new-ui-link_grey">-->
+<!--											Украинская гривна-->
+<!--										</a>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="new-ui-dropMobile-drop__btns">-->
+<!--								<button class="new-ui-button new-ui-button_second js-closeDropMobile">Отмена</button>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
 
 			</div>
 		</div>
@@ -326,6 +326,9 @@
 <footer class="nemo-common-footer">
 	<div class="nemo-common-footer__footerInner">
 		<div class="nemo-common-footer__left">
+			<div class="nemo-common-footer__copyRight">
+				© nemo.travel
+			</div>
 			<div class="nemo-common-footer__footerMenu">
 				<a href="#" class="nemo-common-footer__footerMenu__item">
 					Помощь
@@ -334,9 +337,7 @@
 					Обратная связь
 				</a>
 			</div>
-			<div class="nemo-common-footer__copyRight">
-				© nemo.travel
-			</div>
+
 		</div>
 		<div class="nemo-common-footer__right">
 			<div class="nemo-common-footer__companyLogo">
