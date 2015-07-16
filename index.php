@@ -11,9 +11,9 @@
 	<header class="nemo-common-pageHeader">
 		<div class="nemo-common-pageHeader__inner">
 
-			<div class="new-ui-headerMenuControls nemo-common-pageHeader__inner__headerMenuControls">
-				<span class="nemo-common-pageHeader__headerMenuControlls__menuButton js-common-pageHeader__menuButton">
-					<img class="nemo-common-pageHeader__headerMenuControlls__menuButton__image" src="../img/menu-icon.svg" alt="">
+			<div class="nemo-common-pageHeader__inner__headerMenuControls nemo-common-pageHeader__inner__headerMenuControls_links">
+				<span class="nemo-common-pageHeader__headerMenuControlls__menuButton nemo-common-pageHeader__headerMenuControlls__menuButton_links js-common-pageHeader__menuButton">
+					<img class="nemo-common-pageHeader__headerMenuControlls__menuButton__image nemo-common-pageHeader__headerMenuControlls__menuButton__image_links" src="../img/menu-icon.svg" alt="">
 				</span>
 			</div>
 
@@ -38,7 +38,11 @@
 			</div>
 
 			<div class="nemo-common-pageHeader__inner__headerRight">
-
+				<div class="nemo-common-pageHeader__inner__headerMenuControls nemo-common-pageHeader__inner__headerMenuControls_selects">
+					<span class="nemo-common-pageHeader__headerMenuControlls__menuButton nemo-common-pageHeader__headerMenuControlls__menuButton_selects js-common-pageHeader__menuButton">
+						<img class="nemo-common-pageHeader__headerMenuControlls__menuButton__image nemo-common-pageHeader__headerMenuControlls__menuButton__image_selects" src="../img/menu-icon-dots.svg" alt="">
+					</span>
+				</div>
 				<div class="new-ui-dropMenu nemo-common-pageHeader__dropMenu nemo-common-pageHeader__dropMenu_language">
 
 					<div class="new-ui-dropMenu__main">
@@ -333,9 +337,6 @@
 <footer class="nemo-common-footer">
 	<div class="nemo-common-footer__footerInner">
 		<div class="nemo-common-footer__left">
-			<div class="nemo-common-footer__copyRight">
-				© nemo.travel
-			</div>
 			<div class="nemo-common-footer__footerMenu">
 				<a href="#" class="nemo-common-footer__footerMenu__item">
 					Помощь
@@ -344,7 +345,9 @@
 					Обратная связь
 				</a>
 			</div>
-
+			<div class="nemo-common-footer__copyRight">
+				© nemo.travel
+			</div>
 		</div>
 		<div class="nemo-common-footer__right">
 			<div class="nemo-common-footer__companyLogo">
