@@ -385,6 +385,10 @@
 				align-items: flex-start;
 				padding: 10px 0;
 
+				&_resultLoadingDummy {
+					opacity: .5;
+				}
+
 				&__item {
 					line-height: 40px;
 
@@ -407,6 +411,15 @@
 						display: inline-block;
 						vertical-align: middle;
 						margin-right: 20px;
+
+						&__fakeSort {
+							display: inline-block;
+							vertical-align: middle;
+							width: 100px;
+							border-radius: 4px;
+							background: $nemo-color-neutral;
+							height: 40px;
+						}
 					}
 				}
 			}
@@ -421,6 +434,10 @@
 		padding: 10px;
 		border-bottom: $i_ui_subContainer_divider_border;
 
+		&_resultLoadingDummy {
+			opacity: .7;
+		}
+
 		&__item  {
 			padding: 10px;
 			flex: 0 0 auto;
@@ -434,6 +451,10 @@
 	}
 
 	&__groupList {
+		&_resultLoadingDummy {
+			opacity: .7;
+		}
+
 		&__item {
 			margin-top: 20px;
 
@@ -490,12 +511,6 @@
 				max-width: 200px;
 				padding: 0;
 				margin-top: -4px;
-
-				&_stub {
-					width: 130px;
-					height: 30px;
-					background: rgba($nemo-color-LightPoint, 0.5);
-				}
 			}
 
 			&__info {
