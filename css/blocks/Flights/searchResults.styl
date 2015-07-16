@@ -83,7 +83,7 @@
 	}
 
 	&__formDummy {
-		max-width: 980px;
+		max-width: 1220px;
 		margin: 0 auto 10px;
 		padding: 10px 10px;
 		white-space: nowrap;
@@ -296,12 +296,60 @@
 			flex-shrink: 0;
 		}
 
+		&__postfilters {
+			&_resultLoadingDummy {
+				opacity: .4;
+
+				&:hover {
+					opacity: .4;
+				}
+			}
+
+			&__loadingDummy {
+				text-align: center;
+				padding: 135px 40px 40px;
+				position: relative;
+
+				&:before {
+					content: "";
+					width: 40px;
+					height: 40px;
+					left: 50%;
+					top: 70px;
+
+					margin: -20px 0 0 -20px;
+
+					position: absolute;
+					background: url("images/fsf-sprite.svg") no-repeat scroll -40px 5px;
+					background-size: 200%;
+					animation: nemo-flights-form__searchingInfoPopup__headerAnimation 1s infinite;
+				}
+
+				&__title {
+					font-size: 15px;
+					margin-bottom: 10px;
+				}
+
+				&__text {
+					font-size: 13px;
+				}
+			}
+		}
+
 		&__offers {
 			opacity: 0.75;
 			transition: all 0.2s;
 
 			&:hover {
 				opacity: 1;
+			}
+
+			&_resultLoadingDummy {
+				opacity: .4;
+
+				&:hover {
+					opacity: .4;
+				}
 			}
 
 			&__text {
@@ -321,6 +369,14 @@
             border-radius: 8px;
 			flex: 0 1 64%;
 			/*flex-basis: 100%;*/
+
+			&__loadingDummy {
+				&__header {
+					border-radius: 4px;
+
+					margin-bottom: 20px;
+				}
+			}
 
 			&__controls {
 				display: flex;
@@ -434,6 +490,12 @@
 				max-width: 200px;
 				padding: 0;
 				margin-top: -4px;
+
+				&_stub {
+					width: 130px;
+					height: 30px;
+					background: rgba($nemo-color-LightPoint, 0.5);
+				}
 			}
 
 			&__info {

@@ -245,7 +245,7 @@ define(
 
 			this.PFHintCookie = 'flightsResults__PFHintRemoved';
 
-			this.id = this.$$componentParameters.route[0];
+			this.id = 0;//this.$$componentParameters.route[0];
 
 			this.options = {};
 
@@ -284,12 +284,7 @@ define(
 				bestCompanies: ko.observable()
 			};
 
-			this.searchInfo = {
-				segments: [],
-				tripType: '',
-				passengers: {},
-				vicinityDates: 0
-			};
+			this.searchInfo = {};
 
 			this.postFilters = ko.observableArray([]);
 			this.visiblePostFilters = ko.observableArray([]);
@@ -302,9 +297,27 @@ define(
 			this.expirationPopupExpired = null;
 			this.expirationPopupTimer = null;
 
-			this.matrixData = null;
+			this.matrixData = ko.observable(null);
 
 			this.error = ko.observable(false);
+
+			this.resultsLoaded = ko.observable(false);
+
+			this.searchParameters = {
+				segments: [],
+				passengers: [],
+				parameters: {
+					direct: false,
+					aroundDates: 0,
+					serviceClass: 'All',
+					airlines: [],
+					delayed: true
+				}
+			};
+
+			this.mode = 'id'; // 'search'
+
+			this.processInitParams();
 
 			this.sort.subscribe(function (newValue) {
 				switch (newValue) {
@@ -348,6 +361,87 @@ define(
 
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
+
+		FlightsSearchResultsController.prototype.paramsParsers = {
+			rtseg: /^([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})(\d{8})$/g,
+			segs: /([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})/g,
+			passengers: /([A-Z]{3})(\d+)/g
+		};
+
+		FlightsSearchResultsController.prototype.processInitParams = function () {
+			// We have the ID
+			if (this.$$componentParameters.route.length == 1) {
+				this.id = this.$$componentParameters.route[0];
+			}
+			// Initialized by URL - we must start searching
+			else if (this.$$componentParameters.route.length == 3) {
+				this.mode = 'search';
+
+				// Parsing segments
+				var tmp = this.paramsParsers.rtseg.exec(this.$$componentParameters.route[0]),
+					tmpsegs = [];
+
+				// RT - 2 cIATAs and 2 dates
+				if (tmp) {
+					tmpsegs.push(
+						[tmp[1], tmp[2], tmp[3]]
+					);
+
+					tmpsegs.push(
+						[tmp[2], tmp[1], tmp[4]]
+					);
+				}
+				// Everything else
+				else {
+					while (tmp = this.paramsParsers.segs.exec(this.$$componentParameters.route[0])) {
+						tmpsegs.push(
+							[tmp[1], tmp[2], tmp[3]]
+						);
+					}
+				}
+
+				for (var i = 0; i < tmpsegs.length; i++) {
+					this.searchParameters.segments.push({
+						departure: {
+							IATA: tmpsegs[i][0].substr(1),
+							isCity: tmpsegs[i][0][0] == 'c'
+						},
+						arrival: {
+							IATA: tmpsegs[i][1].substr(1),
+							isCity: tmpsegs[i][1][0] == 'c'
+						},
+						departureDate: tmpsegs[i][2].substr(0,4) + '-' + tmpsegs[i][2].substr(4,2) + '-' + tmpsegs[i][2].substr(6) + 'T00:00:00'
+					});
+				}
+
+				// Parsing passengers
+				while (tmp = this.paramsParsers.passengers.exec(this.$$componentParameters.route[1])) {
+					this.searchParameters.passengers.push({
+						type: tmp[1],
+						count: parseInt(tmp[2])
+					});
+				}
+
+				tmp = this.$$componentParameters.route[2].split('-');
+
+				for (var i = 0; i < tmp.length; i++) {
+					// Direct flights flag
+					if (tmp[i] == 'direct') {
+						this.searchParameters.parameters.direct = true;
+					}
+
+					// Vicinity dates flag
+					if (tmp[i].substr(0, 14) == 'vicinityDates=') {
+						this.searchParameters.parameters.aroundDates = parseInt(tmp[i].substr(14));
+					}
+
+					// Class
+					if (tmp[i].substr(0, 6) == 'class=') {
+						this.searchParameters.parameters.serviceClass = tmp[i].substr(6);
+					}
+				}
+			}
+		};
 
 		// Own prototype stuff
 		FlightsSearchResultsController.prototype.PFTimeTypes = [
@@ -397,7 +491,39 @@ define(
 			return timeType;
 		};
 
-		FlightsSearchResultsController.prototype.buildModels = function () {
+		FlightsSearchResultsController.prototype.processSearchInfo = function () {
+			this.searchInfo = {
+				segments: [],
+				tripType: '',
+				serviceClass: '',
+				passengers: {},
+				vicinityDates: 0
+			};
+
+			// Segments
+			for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
+				var data = this.$$rawdata.flights.search.request.segments[i];
+
+				// departureDate = 2015-04-11T00:00:00
+				this.searchInfo.segments.push({
+					departure: this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}),
+					arrival: this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}),
+					departureDate: this.$$controller.getModel('Common/Date', data.departureDate)
+				});
+			}
+
+			// Processing passengers
+			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
+				this.searchInfo.passengers[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
+			}
+
+			// Processing other options
+			this.searchInfo.tripType = this.$$rawdata.flights.search.request.parameters.searchType;
+			this.searchInfo.serviceClass = this.$$rawdata.flights.search.request.parameters.serviceClass;
+			this.searchInfo.vicinityDates = this.$$rawdata.flights.search.request.parameters.aroundDates != 0;
+		};
+
+		FlightsSearchResultsController.prototype.processSearchResults = function () {
 			var setSegmentsGuide = true,
 				self = this,
 				tmpGroups = {},
@@ -413,27 +539,7 @@ define(
 				// Processing options
 				this.options = this.$$rawdata.flights.search.resultData;
 
-				// Processing search info
-				// Segments
-				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
-					var data = this.$$rawdata.flights.search.request.segments[i];
-
-					// departureDate = 2015-04-11T00:00:00
-					this.searchInfo.segments.push({
-						departure: this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}),
-						arrival: this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}),
-						departureDate: this.$$controller.getModel('Common/Date', data.departureDate)
-					});
-				}
-
-				// Processing passengers
-				for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
-					this.searchInfo.passengers[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
-				}
-
-				// Processing other options
-				this.searchInfo.tripType = this.$$rawdata.flights.search.request.parameters.searchType;
-				this.searchInfo.vicinityDates = this.$$rawdata.flights.search.request.parameters.aroundDates != 0;
+				this.processSearchInfo();
 
 				// Processing guide
 				// Proessing aircrafts
@@ -463,7 +569,8 @@ define(
 				else {
 					if (this.$$rawdata.flights.search.resultMatrix && this.$$rawdata.flights.search.resultMatrix.rangeData) {
 						var days = this.$$rawdata.flights.search.request.parameters.aroundDates,
-							matrixHash = {};
+							matrixHash = {},
+							matrixData = [];
 
 						// Preparing matrix data
 						for (var i = 0; i < this.$$rawdata.flights.search.resultMatrix.rangeData.length; i++) {
@@ -472,7 +579,6 @@ define(
 							matrixHash[key] = this.$$rawdata.flights.search.resultMatrix.rangeData[i];
 						}
 
-						this.matrixData = [];
 
 						for (var i = -days; i <= days; i++) {
 							var tmp = [],
@@ -524,12 +630,14 @@ define(
 								}
 							}
 
-							this.matrixData.push(tmp);
+							matrixData.push(tmp);
 						}
 
 						if (this.searchInfo.tripType != 'RT') {
-							this.matrixData = [this.matrixData];
+							matrixData = [matrixData];
 						}
+
+						this.matrixData(matrixData);
 					}
 					else {
 						// Processing segments
@@ -665,8 +773,8 @@ define(
 						// We haven't shown expiration warning popup and the time has come
 						if (
 							self.expirationPopupWarning.length() < self.expirationPopupExpired.length() &&
-							self.expirationPopupWarning.length() >= 0
-						) {
+								self.expirationPopupWarning.length() >= 0
+							) {
 							self.expirationPopupWarning.decrement();
 						}
 
@@ -679,6 +787,80 @@ define(
 							clearInterval(self.expirationPopupTimer);
 						}
 					}, 1000);
+				}
+			}
+
+			this.resultsLoaded(true);
+		};
+
+		FlightsSearchResultsController.prototype.buildModels = function () {
+			var self = this;
+
+			function searchError (message, systemData) {
+				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
+					self.$$controller.error('SEARCH ERROR: '+message, systemData);
+				}
+
+				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
+					self.error(message);
+				}
+			}
+
+			// We have results - build models
+			if (this.mode == 'id') {
+				this.processSearchResults();
+			}
+			// We were performin search - process response and load results
+			else {
+				this.processSearchInfo();
+
+				this.id = this.$$rawdata.flights.search.results.id;
+
+				// Processing error
+				if (this.$$rawdata.flights.search.results.info && this.$$rawdata.flights.search.results.info.errorCode) {
+					this.error(this.$$rawdata.flights.search.results.info.errorCode);
+					this.resultsLoaded(true);
+				}
+				// Loading results
+				else {
+//					this.$$controller.navigateReplace('results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''), false);
+
+					this.mode = 'id';
+
+					// Loading search results
+					this.$$controller.loadData(
+						this.dataURL(),
+						this.dataPOSTParameters(),
+						function (text, request) {
+							var response;
+
+							try {
+								response = JSON.parse(text);
+
+								// Checking for errors
+								if (!response.system || !response.system.error) {
+									if (!response.flights.search.results.info.errorCode) {
+										self.$$rawdata = response;
+
+//										self.processSearchResults();
+									}
+									else {
+										searchError('emptyResult');
+									}
+								}
+								else {
+									searchError('systemError', response.system.error);
+								}
+							}
+							catch (e) {
+								console.error(e);
+//								searchError('brokenJSON', text);
+							}
+						},
+						function (request) {
+
+						}
+					)
 				}
 			}
 		};
@@ -1107,7 +1289,20 @@ define(
 		FlightsSearchResultsController.prototype.$$i18nSegments = ['FlightsSearchResults', 'FlightsSearchForm', 'FlightsFlightInfo'];
 
 		FlightsSearchResultsController.prototype.dataURL = function () {
-			return '/flights/search/results/' + this.id;
+			if (this.mode == 'id') {
+				return '/flights/search/results/' + this.id;
+			}
+			else {
+				return '/flights/search/request';
+			}
+		};
+
+		FlightsSearchResultsController.prototype.dataPOSTParameters = function () {
+			if (this.mode != 'id') {
+				return {request: JSON.stringify(this.searchParameters)}
+			}
+
+			return {};
 		};
 
 		return FlightsSearchResultsController;

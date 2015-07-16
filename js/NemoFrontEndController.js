@@ -11,7 +11,7 @@ define (
 			this.ignorePopState = false;
 			this.routes = [
 				// Form with optional data from existing search
-				{re: /^(?:search\/(\d+))?$/,          handler: 'Flights/SearchForm/Controller'},
+				{re: /^(?:search\/(\d+))?$/, handler: 'Flights/SearchForm/Controller'},
 
 				// Form with initialization by URL:
 				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
@@ -21,10 +21,16 @@ define (
 				// vicinityDates - vicinity dates flag
 				// class=Business - class definition
 				// GO - immediate search flag
-				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
 
-				{re: /^results\/(\d+)(?:\/.*)?$/,  handler: 'Flights/SearchResults/Controller'},
-				{re: /^order\/(\d+)$/,    handler: 'Flights/Checkout/Controller'}
+				{re: /^results\/(\d+)(?:\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
+
+				// Search by URL params
+				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=All-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
+				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=All-direct - CR, 3 segments
+				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Flights/SearchResults/Controller'},
+
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
 			this.i18nStorage = {};
 
@@ -62,6 +68,7 @@ define (
 			 */
 			this.router = {
 				pushStateSupport: !!(history.pushState),
+				history: [],
 				init: function () {
 					self.options.root = '/'+this.clearSlashes(self.options.root)+'/';
 
@@ -104,13 +111,16 @@ define (
 					path = path ? path : '';
 					if(this.pushStateSupport) {
 						history.pushState(null, null, self.options.root + this.clearSlashes(path));
+						this.history.push(self.options.root + this.clearSlashes(path));
 					} else {
 						window.location = self.options.root + this.clearSlashes(path);
 					}
 					return this;
 				},
 				back: function() {
-					history.back();
+					if (this.history.length > 0) {
+						history.back();
+					}
 					return this;
 				}
 			};
@@ -167,6 +177,8 @@ define (
 							window.addEventListener(
 								"popstate",
 								function () {
+									self.router.history.pop();
+
 									if (!self.ignorePopState) {
 										self.processRoute();
 									}
