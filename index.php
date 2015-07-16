@@ -253,12 +253,12 @@
 								root: '/',
 //						verbose: true,
 								i18nLanguage: 'ru',
-								postParameters: {},
+								postParameters: {}/*,
 
 								// Passing additional parametes to components
 								componentsAdditionalInfo: {
 									'Flights/SearchForm/Controller': {
-										delayed: true/*,
+										delayed: false,
 										init: {
 											direct: true,
 											serviceClass: 'Business',
@@ -291,9 +291,9 @@
 													false
 												]
 											]
-										}*/
+										}
 									}
-								}
+								}*/
 							}
 					);
 				}

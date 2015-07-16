@@ -7,7 +7,7 @@ define(
 
 			this.name = 'FlightsSearchFormController';
 
-			this.delayedSearch = false;
+			this.delayedSearch = true;
 
 			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
 			this.tripTypes = ['OW','RT','CR'];
@@ -571,10 +571,18 @@ define(
 				segments = this.segments(),
 				passengers = this.passengers();
 
-			for (var i = 0; i < segments.length; i++) {
-				urlAdder += (segments[i].items.departure.value().isCity ? 'c' : 'a') + segments[i].items.departure.value().IATA +
-					(segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA +
-					segments[i].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+			if (this.tripType() == 'RT') {
+				urlAdder += (segments[0].items.departure.value().isCity ? 'c' : 'a') + segments[0].items.departure.value().IATA +
+					(segments[0].items.arrival.value().isCity ? 'c' : 'a') + segments[0].items.arrival.value().IATA +
+					segments[0].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g') +
+					segments[1].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+			}
+			else {
+				for (var i = 0; i < segments.length; i++) {
+					urlAdder += (segments[i].items.departure.value().isCity ? 'c' : 'a') + segments[i].items.departure.value().IATA +
+						(segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA +
+						segments[i].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+				}
 			}
 
 			for (var i in passengers) {
@@ -594,7 +602,7 @@ define(
 			}
 
 			// TODO proper navigation for light form
-			this.$$controller.navigate('results/' + id + '/' + urlAdder);
+			this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder);
 		};
 
 		FlightsSearchFormController.prototype.startSearch = function () {
@@ -653,6 +661,9 @@ define(
 			if (!this.isValid()) {
 				this.validaTERROR(true);
 				this.processValidation();
+			}
+			else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
+				this.goToResults();
 			}
 			else {
 				var self = this,
