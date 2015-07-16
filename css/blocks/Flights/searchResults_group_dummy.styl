@@ -1,0 +1,49 @@
+.nemo-flights-results__flightsGroup_dummy {
+	color: $nemo-color-neutral;
+
+	.new-ui-pseudoLink {
+		&, &:hover, &_active {
+			color: $nemo-color-neutral;
+			border-color: $nemo-color-neutral;
+			cursor: auto;
+		}
+	}
+
+	.new-ui-button {
+		cursor: auto;
+	}
+
+	.nemo-flights-results__flightsGroup {
+		&__header {
+			background: $nemo-color-neutral;
+
+			&__logo {
+				width: 130px;
+				height: 30px;
+				background: rgba($nemo-color-LightPoint, 0.5);
+			}
+		}
+
+		&__leg {
+			&__selector {
+				&__header__seatsAvailable {
+					color: inherit;
+				}
+
+				&__selected__timeEnRoute {
+					color: inherit;
+				}
+
+				&__footer {
+					color: inherit;
+				}
+			}
+
+			&__info__date {
+				&, &__dayOfWeek {
+					color: inherit;
+				}
+			}
+		}
+	}
+}
