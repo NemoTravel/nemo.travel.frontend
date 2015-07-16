@@ -106,8 +106,53 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 				margin-right: 20px;
 			}
 		}
-	}
+		&__droplist{
+			background: $nemo-color-LightPoint;
+			box-shadow: 0 0 8px #ccc;
+			border-radius: 6px;
+			padding: 10px;
+			color: $c_ui_textMain;
+			font-size: 13px;
+			min-width: 240px;
+			display: none;
+			&__header{
+				display: block;
+				margin-bottom: 5px;
+			}
+			&__option{
+				border-radius: 6px;
+				border: 1px solid transparent;
+				margin-bottom: 3px;
+				height: 26px;
+				padding: 0 8px;
+				&__icon{
+					display: inline-block;
+					margin-right: 7px;
+					min-width: 15px;
+					vertical-align: middle;
+				}
 
+				&_selected{
+					border-color: rgba(100,181,246,.5);
+					opacity: .5;
+				}
+				&:hover{
+					border-color: transparent;
+					background: rgba(100,181,246,.25);
+					cursor: pointer;
+					opacity: 1;
+				}
+				&:last-child{
+					margin-bottom: 0;
+				}
+			}
+			&_language{
+				.nemo-common-pageHeader__langSelectImage{
+					margin-top: 3px;
+				}
+			}
+		}
+	}
 }
 @media (max-width: 600px) {
 	.nemo-common{
