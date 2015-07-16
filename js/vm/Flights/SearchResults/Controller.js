@@ -823,7 +823,7 @@ define(
 				}
 				// Loading results
 				else {
-//					this.$$controller.navigateReplace('results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''), false);
+					this.$$controller.navigateReplace('results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''), false);
 
 					this.mode = 'id';
 
@@ -842,7 +842,7 @@ define(
 									if (!response.flights.search.results.info.errorCode) {
 										self.$$rawdata = response;
 
-//										self.processSearchResults();
+										self.processSearchResults();
 									}
 									else {
 										searchError('emptyResult');
