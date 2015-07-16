@@ -34,9 +34,10 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 
 			&__headerMenuControls {
 				display: none;
-
-				@media only screen and (max-width: 980px) {
-					display: inline-block;
+				&_links{
+					@media only screen and (max-width: 980px) {
+						display: inline-block;
+					}
 				}
 			}
 
@@ -74,6 +75,9 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 				cursor: pointer;
 				&__image{
 					width: 22px;
+					&_selects{
+						width: 10px;
+					}
 				}
 			}
 		}
@@ -105,4 +109,20 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 		}
 	}
 
+}
+@media (max-width: 600px) {
+	.nemo-common{
+		&-pageHeader{
+			&__dropMenu{
+				display: none;
+			}
+			&__inner{
+				&__headerMenuControls{
+					&_selects{
+						display: inline-block;
+					}
+				}
+			}
+		}
+	}
 }
