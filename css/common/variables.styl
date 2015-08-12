@@ -25,7 +25,7 @@ $nemo-color-DarkPoint                 = rgba(250, 245, 242, 1);
 $nemo-color-main                      = rgba(125, 7, 23, 1);
 $nemo-color-secondary                 = rgba(181, 175, 171, 1);*/
 
-$nemo-color-neutral                   = darken($nemo-color-LightPoint, 10);
+$nemo-color-neutral                   = darken($nemo-color-LightPoint, 5);
 
 $nemo-color-notification_error        = rgba(255, 211, 33, 1);
 $nemo-color-notification_neutral      = $nemo-color-main;
@@ -36,8 +36,11 @@ $nemo-color-highlight                 = $nemo-color-notification_error;
 // Buttons
 $nemo-color-button-main          = $nemo-color-secondary;
 $nemo-color-button-secondary     = $nemo-color-neutral;
-$nemo-color-button-secondary_g1  = alpha($nemo-color-button-secondary, .25);
-$nemo-color-button-secondary_g2  = darken($nemo-color-button-secondary, 5);
+/*$nemo-color-button-secondary_g1  = $nemo-color-button-secondary;*/
+/*$nemo-color-button-secondary_g2  = darken($nemo-color-button-secondary, 5);*/
+
+$nemo-color-button-secondary_g1  = rgba(250, 250, 250, .75);
+$nemo-color-button-secondary_g2  = rgba(235, 235, 235, .75);
 
 // Button states
 $nemo-color-button-main_disabled       = darken($nemo-color-neutral, 10);
@@ -84,6 +87,11 @@ $nemo-color-input-border_focus    = $nemo-color-main;
 // Layout
 $nemo-header-bg       = darken($nemo-color-container-main, 2);
 
+
+//-------------------------------
+//---------- Fonts --------------
+//-------------------------------
+$nemo-font-main = "Roboto", "Open Sans", sans-serif;
 
 //-------------------------------
 //-------- Dimentions -----------

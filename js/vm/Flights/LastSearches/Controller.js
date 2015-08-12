@@ -5,21 +5,82 @@ define(
 		function FlightsLastSearchesController (componentParameters) {
 			this.name = 'FlightsLastSearchesController';
 			BaseControllerModel.apply(this, arguments);
+
+			this.history = ko.observableArray([]);
 		}
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsLastSearchesController, [BaseControllerModel]);
 
-		FlightsLastSearchesController.prototype.buildModels = function () {};
+		FlightsLastSearchesController.prototype.maxCount = 5;
 
-		FlightsLastSearchesController.prototype.dataURL = function () {
-			return null;
+		FlightsLastSearchesController.prototype.buildModels = function () {
+			var tmpArr = [],
+				tmp;
+
+			if (this.$$rawdata.flights.search.history) {
+				for (var i = 0; i < this.$$rawdata.flights.search.history.length; i++) {
+					if (tmpArr.length >= this.maxCount) {
+						break;
+					}
+
+					tmp = this.$$rawdata.flights.search.history[i];
+
+					for (var j = 0; j < tmp.segments.length; j++) {
+						// FIXME
+						//tmp.segments[j].departure.isCity = true;
+						//tmp.segments[j].arrival.isCity = true;
+
+						tmp.segments[j].departure = this.$$controller.getModel('Flights/Common/Geo', {data: tmp.segments[j].departure, guide: this.$$rawdata.guide});
+						tmp.segments[j].arrival = this.$$controller.getModel('Flights/Common/Geo', {data: tmp.segments[j].arrival, guide: this.$$rawdata.guide});
+						tmp.segments[j].departureDate = this.$$controller.getModel('Common/Date', tmp.segments[j].departureDate);
+					}
+
+					if (tmp.summary.resultsCount > 0 && tmp.parameters.exist) {
+						tmpArr.push(tmp);
+					}
+				}
+
+				this.history(tmpArr);
+			}
 		};
 
-//		FlightsLastSearchesController.prototype.$$usedModels = [];
+		FlightsLastSearchesController.prototype.passengersSummary = function (passArray) {
+			var ret = '',
+				total = 0,
+				passTypes = [],
+				passengers = {};
 
-//		FlightsLastSearchesController.prototype.$$i18nSegments = [];
+			passArray.map(function (item) {
+				total += item.count;
+				passTypes.push(item.type);
+			});
 
-//		FlightsLastSearchesController.prototype.$$KOBindings = [];
+			if (passTypes.length == 0) {
+				ret = this.$$controller.i18n('FlightsSearchForm','passSummary_numeral_noPassengers');
+			}
+			else if (passTypes.length == 1) {
+				ret = total + ' ' + this.$$controller.i18n('FlightsSearchForm','passSummary_numeral_' + passTypes.pop() + '_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
+			}
+			else {
+				ret = total + ' ' + this.$$controller.i18n('FlightsSearchForm','passSummary_numeral_mixed_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
+			}
+
+			return ret;
+		};
+
+		FlightsLastSearchesController.prototype.goTo = function (data) {
+			this.$$controller.navigate('results/' + data.id, true, 'FlightsResults');
+		};
+
+		FlightsLastSearchesController.prototype.dataURL = function () {
+			return '/flights/search/history';
+		};
+
+		FlightsLastSearchesController.prototype.$$usedModels = ['Common/Date','Flights/Common/Geo'];
+
+		FlightsLastSearchesController.prototype.$$i18nSegments = ['FlightsLastSearches', 'FlightsSearchForm'];
+
+		FlightsLastSearchesController.prototype.$$KOBindings = ['FlightsLastSearches'];
 
 		return FlightsLastSearchesController;
 	}

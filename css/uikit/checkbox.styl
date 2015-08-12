@@ -1,13 +1,13 @@
 /**
  * Checkbox
  *
- * @usage: class "new-ui-checkbox" on element
+ * @usage: class "nemo-ui-checkbox" on element
  * @modifiers:
  * @tags: label
  * @example:
-    <label class="new-ui-checkbox">
-        <input class="new-ui-checkbox__input" type="checkbox">
-        <span class="new-ui-checkbox__caption">Чекбокс</span>
+    <label class="nemo-ui-checkbox">
+        <input class="nemo-ui-checkbox__input" type="checkbox">
+        <span class="nemo-ui-checkbox__caption">Чекбокс</span>
     </label>
  */
 // COLORS
@@ -24,24 +24,21 @@ $d_ui_pseudoInput_height          = 19px;
 $d_ui_pseudoInput_borderRadius    = 5px;
 
 // FONT
-$f_ui_caption_size                = 14px;
+$f_ui_caption_size                = 13px;
 $f_ui_caption_lineHeight          = 16px;
 
 // VALUES
 $i_ui_checkbox                    = 'images/ui/checkbox_sprite.svg';
 
-.new-ui-checkbox {
+.nemo-ui-checkbox {
     display: inline-block;
     padding: $d_ui_padding;
     cursor: pointer;
 
     &__input {
         position: absolute;
-    }
-
-    &__input:checked,
-    &__input:not(:checked) {
         left: -99999px;
+	    opacity: 0.1;
     }
 
     &__input:checked + &__caption,
@@ -92,11 +89,10 @@ $i_ui_checkbox                    = 'images/ui/checkbox_sprite.svg';
             position: absolute;
             display: none;
             left: 0;
-            top: 50%;
+            top: 0;
 			overflow: hidden;
             width: $d_ui_pseudoInput_width;
             height: $d_ui_pseudoInput_height;
-            margin-top: - ($d_ui_pseudoInput_height / 2);
             border-radius: $d_ui_pseudoInput_borderRadius;
 			transition: background-color $nemo-transition-main ease;
         }

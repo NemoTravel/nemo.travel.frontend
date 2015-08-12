@@ -1,15 +1,29 @@
 .nemo-flights-results__couplingTable {
-	padding: 0;
+	padding: 0 0 10px;
+
+	&__carrierLogo {
+		@extend .nemo-flights-results__flightsGroup__header__logo;
+		margin: 0;
+		position: absolute;
+		right: 50px;
+		top: -25px;
+
+		//height: auto;
+		//max-height: 50px;
+		//max-width: 150px;
+		//padding: 0;
+
+		transform: translate(0, -50%);
+	}
 
 	&__header {
 		white-space: nowrap;
-		padding: 15px 20px;
+		padding: 10px 20px;
 		border-bottom: $i_ui_subContainer_divider_border;
 
 		&__title {
 			display: inline-block;
-			vertical-align: top;
-			line-height: 30px;
+			vertical-align: middle;
 			font-size: 13px;
 			color: $nemo-color-text-secondary;
 			margin-right: 15px;
@@ -17,27 +31,50 @@
 
 		&__sort {
 			display: inline-block;
-			vertical-align: top;
+			vertical-align: middle;
 		}
 	}
 
 	&__groups {
-		width: 800px;
-		padding: 0 20px;
+		width: 840px;
+		margin: 0 20px;
 
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
+		position: relative;
+
+		&__connector {
+			position: absolute;
+			width: 2px;
+			background: #B0B0B0;
+			z-index: 1;
+			//left: 395px;
+			margin-top: 22px;
+			margin-left: -1px;
+
+			&_selected {
+				background: $nemo-color-main;
+				z-index: 2;
+			}
+		}
 
 		&__group {
-			flex: 0 0 70px;
 			min-width: 1px;
-			transition: all 0.2s;
+			flex: 1 1 100%;
+
+			&_firstLeg {
+				padding-right: 15px;
+			}
+
+			&_lastLeg {
+				padding-left: 15px;
+			}
 
 			&__header {
 				font-size: 13px;
 				line-height: 20px;
-				padding: 15px 0;
+				padding: 5px 0;
 
 				&__departure, &__arrival, &__date {
 					white-space: nowrap;
@@ -47,179 +84,242 @@
 
 				&__date {
 					color: $nemo-color-text-secondary;
+					font-size: 11px;
 				}
 			}
 
 			&__item {
-				padding: 10px 0;
+				height: 45px;
+				margin-bottom: 5px;
+				position: relative;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&:before, &:after {
+					content: '';
+					height: 2px;
+					width: 15px;
+					position: absolute;
+					top: 50%;
+					margin-top: -1px;
+					background: #B0B0B0;
+				}
+
+				&:before {
+					right: 100%;
+				}
 
 				&:after {
-					content: '';
-					position: absolute;
-					left: 20px;
-					right: 20px;
-					border-bottom: $i_ui_subContainer_divider_border;
-					margin-top: 10px;
+					left: 100%;
 				}
 
-				&:last-child:after {
-					display: none;
+				&_selected {
+					&:before, &:after {
+						background: $nemo-color-main;
+					}
 				}
 
-				&__inner {
+				&_inactive {
+					&:before, &:after {
+						display: none;
+					}
+				}
+
+				&__button {
 					display: block;
-					margin: 0 10px 0 0;
-					padding: 5px;
-					font-size: 12px;
-					line-height: normal;
-					height: auto;
+					white-space: normal;
+					height: 45px;
+					line-height: 17px;
+					padding: 5px 10px 6px;
 					text-align: left;
-					white-space: nowrap;
-					min-width: auto;
-					transition: all 0.25s ease-in-out;
-					min-height: 60px;
-					position: relative;
 
 					&:active {
-						padding: 6px 5px 4px;
+						padding-top: 6px;
 					}
 
-					&:after {
-						position: absolute;
-						width: 19px;
-						height: 19px;
-						border-radius: 20px;
-						background: $nemo-color-button-secondary url('images/flights_results_sprite.svg') -35px -95px no-repeat;
-						right: -7px;
-						top: -7px
+					&_selected {
+						background: $nemo-color-main none repeat scroll 0 0;
+						box-shadow: inset 0 0 5px rgba(#000, 0.25);
+						color: #fff;
+
+						&:hover {
+							background: $c_ui_stateBtn_checked_hover;
+						}
+
+						&:active {
+							background: $c_ui_stateBtn_checked_active;
+						}
+					}
+
+					&_inactive {
+						opacity: 0.5;
+						background: none;
+						padding: 4px 9px 5px;
+						border: 1px solid $nemo-color-input-border;
+
+						&:active, &:hover {
+							background: none;
+							opacity: 1;
+						}
+
+						&:active {
+							padding-top: 5px;
+						}
 					}
 				}
 
 				&__depTime {
-					font-size: 16px;
+					font-size: 15px;
 					font-weight: 600;
-					line-height: 25px;
+					display: inline-block;
+					margin-right: 5px;
 				}
 
 				&__arrTime {
-					font-size: 13px;
+					font-size: 11px;
 					opacity: 0.75;
+					display: inline-block;
+					margin-right: 10px;
 
 					&_nextDay {
-						color: #FF9630;
+						color: #B23E13;
 					}
 				}
 
-				&__timeEnRoute {
-					opacity: 0.75;
-				}
-
-				&__depTime,
-				&__arrTime {
-					display: block;
-				}
-
-				&__timeEnRoute,
-				&__transfers {
-					display: none;
-				}
-
-				&__transfers {
-					line-height: 25px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					color: $nemo-color-text-secondary;
-				}
-
-				&_inactive &__inner {
+				&__timeEnRoute, &__transfers {
+					font-size: 11px;
 					opacity: 0.5;
-					cursor: auto;
 				}
 
-				&_selected &__inner {
-					background: $c_ui_stateBtn_checked;
-
-					&:hover {
-						background: $c_ui_stateBtn_checked_hover;
-					}
-
-					&:active {
-						background: $c_ui_stateBtn_checked_active;
-					}
+				&__details {
+					font-size: 11px;
+					position: absolute;
+					right: 10px;
+					bottom: 4px;
+					line-height: 16px;
 				}
 
-				&_selected &__depTime,
-				&_selected &__arrTime,
-				&_selected &__timeEnRoute,
-				&_selected &__transfers {
+				&__route {
+					font-size: 11px;
+				}
+
+				&__button_selected &__arrTime_nextDay {
 					color: #fff;
 				}
 
-				&_selected &__transfers__caption {
-					opacity: 0.5;
-				}
-
-				&_selected &__inner:after {
-					background: url('images/flights_results_sprite.svg') -35px -75px no-repeat;
-					background-color: inherit;
+				&__button_selected &__details {
+					&, &:hover, &:active {
+						color: #fff;
+						border-bottom-color: #fff;
+					}
 				}
 			}
 
-			&_active {
-				flex: 0 0 210px;
+			&_firstLeg &__item:before {
+				display: none
 			}
 
-			&_active &__item {
-				&__depTime,
-				&__arrTime,
-				&__timeEnRoute {
-					display: inline-block;
-				}
+			&_lastLeg &__item:after {
+				display: none;
+			}
+		}
 
-				&__arrTime,
-				&__timeEnRoute {
-					margin-left: 5px;
-				}
+		&__infoGroup {
+			flex: 1 0 auto;
 
-				&__transfers {
-					display: block;
-				}
+			padding: 50px 10px 0 0;
 
-				&__inner:after {
-					content: '';
+			&__item {
+				height: 45px;
+				margin-bottom: 5px;
+				overflow: hidden;
+				font-size: 12px;
+				line-height: 20px;
+				padding-top: 5px;
+				white-space: nowrap;
+				color: $nemo-color-text-secondary;
+				text-align: right;
+
+				&__selector {
+					font-size: 11px;
 				}
 			}
 		}
 
 		&__buyGroup {
-			margin-left: auto;
-			flex-grow: 100;
 			text-align: right;
+			flex: 1 0 auto;
+			padding-left: 10px;
+			position: relative;
+			z-index: 1;
 
-			&__header {
-				height: 90px;
-			}
+			padding-top: 50px;
 
 			&__item {
-				padding: 10px 0;
-				min-height: 80px;
+				height: 45px;
+				margin-bottom: 5px;
+				position: relative;
+				white-space: nowrap;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&:before {
+					content: '';
+					height: 2px;
+					width: 10px;
+					position: absolute;
+					top: 50%;
+					margin-top: -1px;
+					background: #B0B0B0;
+					right: 100%;
+				}
+
+				&_selected {
+					&:before {
+						background: $nemo-color-main;
+					}
+				}
+
+				&_inactive {
+					font-size: 12px;
+					color: $nemo-color-text-secondary;
+					line-height: 20px;
+					padding-top: 5px;
+					text-align left;
+
+					&:before {
+						display: none;
+					}
+				}
+
+				&__selector {
+					font-size: 11px;
+				}
 			}
+		}
+
+		&_1 &__buyGroup__item::before {
+			display: none;
 		}
 	}
 
 	&__buyButton {
-		height: 60px;
-		min-width: 150px;
+		min-width: 100px;
 		line-height: normal;
-
-		&_inactive {
-			opacity: 0.6;
-		}
+		height: auto;
+		white-space: normal;
+		padding: 3px 2px;
+		display: block;
 
 		&__text {
-			font-size: 13px;
+			font-size: 12px;
 			line-height: 15px;
-			margin-top: 10px;
+			color: rgba($nemo-color-LightPoint, 0.5);
+			white-space: nowrap;
 		}
 
 		&__price {
@@ -227,6 +327,16 @@
 			line-height: 25px;
 			display: block;
 			font-weight: 600;
+		}
+	}
+
+	&__showAll {
+		padding-top: 5px;
+
+		&__button {
+			font-size: 13px;
+			line-height: 35px;
+			height: 35px;
 		}
 	}
 }

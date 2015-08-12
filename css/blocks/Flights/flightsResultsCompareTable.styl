@@ -7,17 +7,21 @@ $d_tableColumnWidth = 150px;
 $d_tableColumnPadding = 0 20px ;
 
 
-//@TODO REMOVE ALL BEFORE&AFTER ELEMENTS CRUTCH!!!!!11one
 .nemo-flights-results__compareTable{
 	margin-bottom: 10px;
-
+	&__dummy{
+		padding: 100px 0;
+		width: 100%;
+		text-align: center;
+		color:$nemo-color-LightPoint;
+	}
 	&__item{
 		position: relative;
 		overflow-x: hidden;
-		border-radius: 0 0 6px 6px;
 		transition: height 0.2s ease-in 0s;
 		box-shadow: 0 2px 16px $nemo-color-container-shadow;
 		z-index: 9;
+		border-radius: 6px;
 	}
 	&__wrapper{
 		margin-left: 20px;
@@ -37,14 +41,17 @@ $d_tableColumnPadding = 0 20px ;
 		&__prev, &__next{
 			display: inline-block;
 			text-decoration: none;
-			background: rgba(255,255,255,.3);
+			background: url('images/compareTable-arrow.png') no-repeat center rgba(255,255,255,.3);
 			color: rgba(255,255,255,.8);
 			opacity: .5;
-			padding: 1px 6px 2px;
+			padding: 1px 10px 2px;
 			border-radius: 3px;
 			&:hover{
 				opacity: 1;
 			}
+		}
+		&__prev{
+			transform: rotate(180deg);
 		}
 	}
 	&__inner {
@@ -126,55 +133,63 @@ $d_tableColumnPadding = 0 20px ;
 			z-index: 10;
 			text-align: left;
 			cursor: pointer;
-			&:before{
-				content: '';
-				width: 500%;
-				height: 1px;
-				position: absolute;
-				bottom: 0;
-				left: -200%;
-				background: $c_tableBorder;
-				z-index: 9;
-			}
+			border-bottom: 1px solid $c_tableBorder;
 			&_minimized{
 				height: 60px;
 				position: relative;
 				z-index: 1;
+
+				&:hover {
+					//background-color: #ccc;
+				}
 			}
 			&_minimized &__fullInfo{
 				display: none;
 			}
 			&__price{
-				color: $c_tableMainColor;
-				font-weight: normal;
-				font-size: 13px;
+				color: $nemo-color-text-main;
+				font-weight: 500;
+				font-size: 110%;
+				margin-top: 4px;
+				display: block;
 				padding:$d_tableColumnPadding;
 				line-height: 24px;
 			}
 			&__duration, &__transfers{
 				color: $nemo-color-text-secondary;
-				font-size: 55%;
-				font-weight: normal;
+				font-size: 85%;
+				//font-weight: 500;
 				padding:$d_tableColumnPadding;
-				line-height: 12px;
+				line-height: 14px;
+
 			}
 			&__flightSelectWrap{
 				border-top:1px solid $c_tableBorder;
 				border-bottom:1px solid $c_tableBorder;
 				margin: 10px 0px;
 				padding: 10px;
+
 				&__tip{
-					color:$c_tableMainColor;
-					font-size: 75%;
+					//color:$c_tableMainColor;
+					font-size: 85%;
+					text-align: center;
 					line-height: 15px;
 					display: block;
-					margin-bottom: 5px;
+					//font-weight: 500;
+					margin-bottom: 0;
+					margin-top: 10px;
+					opacity: .75;
+
+					&:first-child {
+						margin-top: 0;
+					}
 				}
 			}
 			&__linkToFullTicket{
 				color: $nemo-color-link  ;
 				margin: $d_tableColumnPadding;
-				font-size: 11px;
+				font-size: 65%;
+				text-align: center;
 			}
 			&__buttonWrap{
 				text-align: center;
@@ -182,11 +197,16 @@ $d_tableColumnPadding = 0 20px ;
 			&__disclaimer{
 				color: $nemo-color-text-secondary ;
 				font-weight: normal;
-				font-size: 11px;
+				font-size: 65%;
 				padding:$d_tableColumnPadding;
 				text-align: center;
-				margin: 10px 0;
+				margin: 8px 0;
+				line-height: 12px;
 				display: block;
+
+				&:first-child {
+					margin-top: 4px;
+				}
 
 			}
 			&_hidden{
@@ -262,151 +282,69 @@ $d_tableColumnPadding = 0 20px ;
 
 				&__selectContainer {
 					position: relative;
+					display: block;
+					padding: 5px 0px;
 				}
 
 				&__selected {
 					border-radius: 2px;
-					background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
-					padding: 0 10px;
 					position: relative;
-					cursor: pointer;
 					color: $nemo-color-text-main;
+					display: block;
+					white-space: normal;
+					height: 50px;
+					line-height: 20px;
+					padding: 0px 10px;
+					font-weight: 500;
 
-					&:hover {
-						background: linear-gradient(to bottom, #e5e5e5, #f2f2f2);
-					}
-
-					&:after {
-						content: '';
-						position: absolute;
-						top: 50%;
-						transform: translateY(-50%);
-					}
-
-					&:after {
-						content: "▼";
-						font-size: 10px;
-						height: 10px;
-						margin-top: 3px;
-						right: 9px;
-						transition: all 0.2s ease 0s;
-						width: auto
-					}
 					&_unopenable {
 						cursor: auto;
-						background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+						background:  #f2f2f2;
 
 						&:after {
 							display: none;
 						}
 
 						&:hover {
-							background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+							background:  #f2f2f2;
 						}
 					}
 
-					&.nemo-flights-results__flightGroupsSelector_open {
-						border-bottom-left-radius: 0;
-						border-bottom-right-radius: 0;
-						background: linear-gradient(to bottom,#e5e5e5, #f2f2f2);
-					}
-
 					&__time {
-						font-size: 11px;
-						height: 17px;
+						font-size: 100%;
+						margin-top: 5px;
 						display: inline-block;
 						vertical-align: baseline;
+
+						&__departure, &__arrival {
+							display: inline-block;
+							vertical-align: top;
+							color: $nemo-color-text-main;
+
+							&_nextDay {
+								color: $nemo-color-notification_error;
+							}
+						}
 					}
+
 					&__timeEnRoute {
-						font-size: 10px;
-						height: 20px;
-					}
-					&__optionsNumber{
-						font-size: 11px;
-						position: absolute;
-						right: 10px;
-						top: 10px;
-						z-index: 9;
-						opacity: .6;
+						font-size: 85%;
+						color: $nemo-color-text-secondary;
 					}
 				}
 
 				&__dropdown {
-					/*overflow: hidden;*/
-					position: absolute;
-					z-index: 1;
-					width: 100%;
-					display: none;
-					border-bottom:1px solid #f2f2f2;
-					border-left:1px solid #f2f2f2;
-					border-right:1px solid #f2f2f2;
+
 					&__option {
-						padding: 5px;
-						border-bottom: 1px solid #D7D7D7;
-						background: $nemo-color-LightPoint;
-						cursor: pointer;
-						transition: all 0.2s;
-						font-size: 12px;
-						&:hover, &:hover &__transfers__transfer {
-							background: #EAF6FF;
-						}
-
-						&__departure, &__arrival {
-							line-height: 20px;
-							display: inline-block;
-							vertical-align: top;
-							color:$nemo-color-text-main;
-						}
-
-						&__transfers {
-							display: inline-block;
-							vertical-align: top;
-							min-width: 50px;
-							height: 20px;
-							text-align: center;
-							position: relative;
-							padding-right: 4px;
-							transition: all 0.2s;
-
-							&:before {
-								content: '';
-								position: absolute;
-								top: 9px;
-								border-bottom: 1px solid #969599;
-								left: 0;
-								right: 0;
-							}
-
-							&:after {
-								content: '';
-								position: absolute;
-								top: 6px;
-								border: 1px solid #969599;
-								right: 0;
-								width: 6px;
-								height: 6px;
-								transform: rotate(45deg);
-								border-bottom: none;
-								border-left: none;
-							}
-
-							&__transfer {
-								display: inline-block;
-								vertical-align: top;
-								margin: 5px;
-								width: 9px;
-								height: 9px;
-								border-radius: 9px;
-								background: $nemo-color-LightPoint;
-								border: 1px solid #969599;
-								position: relative;
-								z-index: 1;
-							}
-						}
+						//font-weight: 500;
+						padding: 8px 10px;
+						font-size: 90%;
+						line-height: 20px;
 
 						&__timeEnRoute {
-							font-size: 9px;
-							color: $nemo-color-secondary;
+							font-size: 85%;
+							line-height: 10px;
+							color: $nemo-color-text-secondary;
 						}
 					}
 				}
@@ -435,9 +373,18 @@ $d_tableColumnPadding = 0 20px ;
 				opacity: 1;
 			}
 			&__icon{
-				color: #6FABCB;
-				font-size: 11px;
-				margin-left: 5px;
+				background: rgba(0, 0, 0, 0) url("images/flights_results_sprite.svg") no-repeat scroll -36px -57px;
+				height: 10px;
+				min-width: 15px;
+				display: inline-block;
+				margin-left: 4px;
+				&_close{
+					left: 4px;
+					position: relative;
+					top: 2px;
+					transform: rotate(180deg);
+				}
+
 			}
 		}
 	}
@@ -448,13 +395,7 @@ $d_tableColumnPadding = 0 20px ;
 		border-top:1px solid #595961;
 		border-bottom:1px solid #595961;
 		position: relative;
-		&_closed{
-			display: none;
-		}
-		&_opened{
-			display: inline-block;
-			width: 100%;
-		}
+
 		&__closeSwitch{
 			display: inline-block;
 			background: #C7C7C7;

@@ -1,67 +1,67 @@
 /**
  * General-purpose table
  * usage:
- * COMPACT TABLE ADDITIONAL CLASS: "new-ui-table_compact"
- * ZEBRED ROWS MUST HAVE ADDITIONAL CLASS "new-ui-table__tr_zebred"
- * SUMMARY ROW MUST HAVE ADDITIONAL CLASS "new-ui-table__tr_summary"
- * INSIGNIFICANT DATA ROW MUST HAVE ADDITIONAL CLASS "new-ui-table__tr_insignificant"
- * ROW THAT IS FIRST OF SOME SECTION MUST HAVE ADDITIONAL CLASS "new-ui-table__tr_newSection"
+ * COMPACT TABLE ADDITIONAL CLASS: "nemo-ui-table_compact"
+ * ZEBRED ROWS MUST HAVE ADDITIONAL CLASS "nemo-ui-table__tr_zebred"
+ * SUMMARY ROW MUST HAVE ADDITIONAL CLASS "nemo-ui-table__tr_summary"
+ * INSIGNIFICANT DATA ROW MUST HAVE ADDITIONAL CLASS "nemo-ui-table__tr_insignificant"
+ * ROW THAT IS FIRST OF SOME SECTION MUST HAVE ADDITIONAL CLASS "nemo-ui-table__tr_newSection"
 
- * INSIGNIFICANT CELL ADDITIONAL CLASS: "new-ui-table__td_insignificant"
-<table class="new-ui-table">
-	<tr class="new-ui-table__tr">
-		<th class="new-ui-table__th">
+ * INSIGNIFICANT CELL ADDITIONAL CLASS: "nemo-ui-table__td_insignificant"
+<table class="nemo-ui-table">
+	<tr class="nemo-ui-table__tr">
+		<th class="nemo-ui-table__th">
 			Header 1
 		</th>
-		<th class="new-ui-table__th">
+		<th class="nemo-ui-table__th">
 			Header 2
 		</th>
-		<th class="new-ui-table__th">
+		<th class="nemo-ui-table__th">
 			Header 3
 		</th>
-		<th class="new-ui-table__th">
+		<th class="nemo-ui-table__th">
 			Header 4
 		</th>
 	</tr>
-	<tr class="new-ui-table__tr">
-		<td class="new-ui-table__td">
+	<tr class="nemo-ui-table__tr">
+		<td class="nemo-ui-table__td">
 			Value 1 1
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 1 2
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 1 3
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 1 4
 		</td>
 	</tr>
-	<tr class="new-ui-table__tr">
-		<td class="new-ui-table__td">
+	<tr class="nemo-ui-table__tr">
+		<td class="nemo-ui-table__td">
 			Value 2 1
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 2 2
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 2 3
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Value 2 4
 		</td>
 	</tr>
-	<tr class="new-ui-table__tr">
-		<td class="new-ui-table__td" colspan="3">
+	<tr class="nemo-ui-table__tr">
+		<td class="nemo-ui-table__td" colspan="3">
 			Summary title
 		</td>
-		<td class="new-ui-table__td">
+		<td class="nemo-ui-table__td">
 			Summary
 		</td>
 	</tr>
 </table>
  * For inserting in subContainer and such - use wrapper:
-<div class="new-ui-tableWrap"></div>
+<div class="nemo-ui-tableWrap"></div>
  */
 
 // COLORS
@@ -91,7 +91,7 @@ $f_ui_table_compact_th_size    = $f_ui_table_compact_size;
 
 // COMPOSITES
 
-.new-ui-table {
+.nemo-ui-table {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0px;
@@ -108,7 +108,7 @@ $f_ui_table_compact_th_size    = $f_ui_table_compact_size;
 		}
 
 		&_summary {
-			.new-ui-table__td {
+			.nemo-ui-table__td {
 				/*padding: $d_ui_table_td_summary_vPadding $d_ui_table_td_hPadding;*/
 
 				&:first-child {
@@ -188,14 +188,14 @@ $f_ui_table_compact_th_size    = $f_ui_table_compact_size;
 }
 
 // WRAPPER STYLES
-.new-ui-container {
-	.new-ui-tableWrap {
+.nemo-ui-container {
+	.nemo-ui-tableWrap {
 		margin: 0px 0 - $d_ui_container_padding;
 	}
 }
 
-.new-ui-subContainer {
-	.new-ui-tableWrap {
+.nemo-ui-subContainer {
+	.nemo-ui-tableWrap {
 		margin: 0px 0 - $d_ui_subContainer_padding;
 	}
 }

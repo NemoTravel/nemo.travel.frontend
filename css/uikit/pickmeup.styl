@@ -29,6 +29,7 @@ $instance_width=258px;
 	text-align: center;
 	width: $instance_width;
 	border-radius: $nemo-border-radius;
+	vertical-align: top;
 }
 
 .nemo-pmu-yearWrap,
@@ -70,13 +71,16 @@ $instance_width=258px;
 	font-size: 110%;
 }
 
-.nemo-pmu-days .nemo-pmu-button,
-.nemo-pmu-months .nemo-pmu-button,
-.nemo-pmu-years .nemo-pmu-button {
+.nemo-pmu-days_day ,
+.nemo-pmu-months_month ,
+.nemo-pmu-years_year  {
 	border-right: 1px solid $nemo-color-container-separator;
 	border-bottom: 1px solid $nemo-color-container-separator;
 }
 
+.nemo-pmu-months_month{
+	text-transform: capitalize;
+}
 .nemo-pmu-days .nemo-pmu-button {
 	&:nth-child(7n) {
 		border-right: 0px;
@@ -103,7 +107,7 @@ $instance_width=258px;
 	transition: all $nemo-transition-main ease-in;
 }
 
-.nemo-pmu-days .nemo-pmu-today {
+.nemo-pmu-today {
 	//outline: 1px solid $nemo-color-link;
 	border-color: $nemo-color-link;
 	color: $nemo-color-link;
@@ -113,6 +117,10 @@ $instance_width=258px;
 	margin-left: -1px;
 	width: 30px;
 	height: 30px;
+	&:hover {
+		background: $nemo-color-datepicker-highlight;
+		color: $nemo-color-link;
+	}
 }
 
 .nemo-pmu-notInMonth {
@@ -123,6 +131,7 @@ $instance_width=258px;
 .nemo-pmu-disabled:hover {
 	color: #BDBDBD;
 	cursor: default;
+	background: inherit;
 }
 
 .nemo-pmu-selected {
@@ -169,12 +178,9 @@ $instance_width=258px;
 	background: $nemo-color-container-header;
 	position: relative;
 	line-height: 40px;
-
+	text-transform: capitalize;
 	.nemo-pmu-button {
 		color: $nemo-color-LightPoint;
-		&:hover {
-			background: transparent;
-		}
 	}
 }
 //necessary due to 2-or-more-calendars view
@@ -185,6 +191,11 @@ $instance_width=258px;
 	height: 36px;
 	position: absolute;
 	width: 18px;
+	background: url('images/datepicker-arrow.png') no-repeat center transparent;
+	font-size: 0;
+	&:hover{
+		background: url('images/datepicker-arrow.png') no-repeat center transparent;
+	}
 	//i'm sorry.
 	&_hidden{
 		display: none!important;
@@ -207,11 +218,14 @@ $instance_width=258px;
 	}
 }
 .nemo-pmu-prev {
-	left: 10px;
+	left: 12px;
+	top: 3px;
+	transform: rotate(180deg);
 }
 
 .nemo-pmu-next {
-	right: 10px;
+	top: 3px;
+	right: 12px;
 }
 
 .nemo-pmu-month {
@@ -229,16 +243,14 @@ $instance_width=258px;
 	color: $nemo-color-text-secondary;
 	cursor: default;
 	font-size: 85%;
+	display: inline-block;
+	line-height: 2em;
+	width: 30px;
+	text-transform: capitalize;
 
 	&:nth-child(6), &:nth-child(7) {
 		color: $nemo-color-link;
 	}
-}
-
-.nemo-pmu-dayOfWeek {
-	display: inline-block;
-	line-height: 2em;
-	width: 30px;
 }
 
 .nemo-pmu-wrapper:not(.nemo-pmu-viewDays) .nemo-pmu-daysWrap,
@@ -250,4 +262,12 @@ $instance_width=258px;
 
 .nemo-pmu-thinView {
 	max-width: $instance_width;
+}
+
+.nemo-pmu-viewMonths, .nemo-pmu-viewYears{
+	.nemo-pmu-instance{
+		.nemo-pmu-prev, .nemo-pmu-next{
+			display: none;
+		}
+	}
 }

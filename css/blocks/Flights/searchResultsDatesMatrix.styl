@@ -2,6 +2,11 @@
 	margin: 0 auto 20px;
 	max-width: 980px;
 
+	&__dummyLoader {
+		border-radius: 4px;
+		margin-bottom: 20px;
+	}
+
 	&__table {
 		width: 100%;
 		table-layout: fixed;
@@ -18,15 +23,22 @@
 			font-size: 12px;
 			color: #636467;
 		}
-
+		&__header{
+			color: #000;
+		}
 		&__corner {
 			&__rowTitle, &__columnTitle {
 				font-size: 13px;
 				text-align: right;
 			}
-
 			&__columnTitle {
 				text-align: left;
+				margin-top: 11px;
+			}
+			&__row{
+				&_header{
+					text-align: center;
+				}
 			}
 		}
 
@@ -41,6 +53,9 @@
 
 			&_originalDate {
 				background: rgba($nemo-color-main, 0.4);
+			}
+			&_forth{
+				text-align: left;
 			}
 		}
 
@@ -76,6 +91,210 @@
 				white-space: nowrap;
 				text-overflow: ellipsis;
 			}
+			&_possible{
+				&:hover {
+					background: #64b5f6 none repeat scroll 0 0;
+					color: white;
+					//let's do more complex css than js, shall we?
+					.nemo-flights-results__matrix__table__cell__company{
+						color: white;
+					}
+				}
+			}
 		}
+	}
+
+	&_dummy &__table {
+		opacity: 0.7;
+		color: $nemo-color-neutral;
+	}
+
+	&_dummy &__table__cell {
+		letter-spacing: -4px;
+	}
+}
+
+
+.nemo-flights-results__listMatrix {
+	padding: 0 10px;
+	max-width: 400px;
+	margin: 0 auto;
+	font-size: 12px;
+	display: none;
+
+	&_dummy &__selector__price__price,
+	&_dummy &__selectableDays__day__price__price,
+	&_dummy &__selectableDays__day__carrier {
+		letter-spacing: -4px;
+	}
+
+	&__header, &__leg {
+		&_dummy {
+			opacity: 0.5;
+		}
+	}
+
+	&__dummyLoader {
+		border-radius: 4px;
+
+		&_rt {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__container {
+		padding: 15px 10px 10px;
+	}
+
+	&__header {
+		text-align: center;
+	}
+
+	&__leg {
+		margin-bottom: 5px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&__route {
+			font-size: 13px;
+			text-align: center;
+			padding: 10px 0;
+
+			&__departure:after {
+				content: ' —';//–
+			}
+		}
+	}
+
+	&__selector {
+		display: block;
+
+		&__selected {
+			padding-left: 10px;
+			line-height: 20px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			height: 50px;
+			font-size: 12px;
+			position: relative;
+
+			&:active {
+				padding-top: 6px;
+			}
+
+			&_inDropDown {
+				&:after {
+					background: rgba(0, 0, 0, 0) url("images/ui/ui-select-arrow.svg") no-repeat scroll center center;
+					content: "";
+					height: 9px;
+					margin-top: -4px;
+					position: absolute;
+					right: 14px;
+					top: 50%;
+					width: 12px;
+					transform: rotate(180deg);
+				}
+			}
+
+			&__dow {
+				color: $nemo-color-text-secondary;
+			}
+		}
+
+		&__dropdown {
+			top: 0;
+			margin: 0;
+
+			&__option {
+				padding-left: 10px;
+				padding-right: 10px;
+
+				&_disabled {
+					color: $nemo-color-text-secondary;
+					cursor: auto;
+
+					&, &:hover, &:active {
+						background: #fff url("images/flights_results_datesMatrix_stripes.svg");
+					}
+				}
+
+				&__dow {
+					color: $nemo-color-text-secondary;
+				}
+
+				&__price__price {
+					font-size: 13px;
+				}
+			}
+		}
+
+		&__dow {
+			color: $nemo-color-text-secondary;
+		}
+
+		&__price__price {
+			font-size: 13px;
+		}
+	}
+
+	&__selectableDays {
+		&__day {
+			display: flex;
+			align-items: center;
+
+			margin-bottom: 10px;
+			white-space: normal;
+			line-height: 20px;
+			height: 40px;
+			text-align: left;
+			font-size: inherit;
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&_empty, &_impossible {
+				color: $nemo-color-text-secondary;
+				cursor: auto;
+				
+				&, &:hover, &:active {
+					background: transparent url("images/flights_results_datesMatrix_stripes.svg");
+				}
+			}
+
+			&__info {
+				line-height: 15px;
+				padding: 5px 0;
+				flex: 0 0 auto;
+			}
+
+			&__price {
+				flex: 0 0 auto;
+				margin-left: auto;
+				padding: 5px 0;
+
+				&_price {
+					font-size: 13px;
+				}
+			}
+
+			&__dow {
+				color: $nemo-color-text-secondary;
+			}
+		}
+	}
+}
+
+@media (max-width: 1000px) {
+	.nemo-flights-results__listMatrix {
+		display: block;
+	}
+
+	.nemo-flights-results__matrix {
+		display: none;
 	}
 }

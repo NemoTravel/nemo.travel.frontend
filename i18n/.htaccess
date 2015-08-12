@@ -1,0 +1,7 @@
+# Routing rules
+RewriteEngine On
+
+# 404 handling: if we've got a not found route (without dot and/or slash at the end) - reroute it to 404.html (for future CMS processing)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^[^\/]+/(.*).json$ nothingFound.json

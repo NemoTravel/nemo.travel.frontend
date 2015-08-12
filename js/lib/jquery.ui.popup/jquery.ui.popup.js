@@ -5,6 +5,30 @@ define(
 	['jquery', 'jqueryUI'],
 	function (jQuery) {
 		!function (window, document, $, undefined) {
+			function getScrollbarWidth() {
+				var outer = document.createElement("div");
+				outer.style.visibility = "hidden";
+				outer.style.width = "100px";
+				outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+				document.body.appendChild(outer);
+
+				var widthNoScroll = outer.offsetWidth;
+				// force scrollbars
+				outer.style.overflow = "scroll";
+
+				// add innerdiv
+				var inner = document.createElement("div");
+				inner.style.width = "100%";
+				outer.appendChild(inner);
+
+				var widthWithScroll = inner.offsetWidth;
+
+				// remove divs
+				outer.parentNode.removeChild(outer);
+
+				return widthNoScroll - widthWithScroll;
+			}
 			$.widget('ui.popup', $.ui.dialog, {
 				//override default dialog options
 				options: {
@@ -158,12 +182,14 @@ define(
 						this.loaderElement.height(this.element.height());
 					}
 
-//					var reposition = function () {
-//						that._position();
-//					};
-
 					// Setting reposition
-					$(document).on('resize orientationchange', this.reposition);
+					$(window).on('resize orientationchange', this.reposition);
+					var bodyHasVScroll = document.body.scrollHeight > document.body.clientHeight;
+					if(bodyHasVScroll){
+						$('body').css({
+							'padding-right':getScrollbarWidth()
+						})
+					}
 				},
 
 				close: function () {
@@ -179,7 +205,7 @@ define(
 					this._super('close');
 
 					// Removing reposition
-					$(document).off('resize orientationchange', this.reposition);
+					$(window).off('resize orientationchange', this.reposition);
 				},
 
 				reposition: function () {
@@ -254,12 +280,12 @@ define(
 				_addBodyClass: function () {
 					if (!this.document.data('ui-dialog__open')) {
 						var scrollBarWidth = this._scrollBarWidth();
+					}
 
-						if (this.options.modal) {
-							$('body')
-								.addClass('ui-dialog__open')
-								.css({'padding-right': scrollBarWidth});
-						}
+					if (this.options.modal) {
+						$('body')
+							.addClass('ui-dialog__open')
+							.css({'padding-right': scrollBarWidth});
 					}
 
 					this.document.data('ui-dialog__open',

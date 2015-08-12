@@ -1,43 +1,46 @@
 .nemo-flights-results {
-	background: $c_content_bg;
-	padding: 10px 0 20px;
+	padding: 0;
 	color: $c_common_textColor;
 
 	// TODO: do it with parameters, not css
 
-    .nemo-flights-form {
+    //.nemo-flights-form {
+    //
+    //    &__routeOptions, &__additional {
+    //        display: none;
+    //    }
+    //
+		//&__formContainer__inner {
+		//	padding-top: 10px;
+		//}
+    //
+		//&__route__segment {
+		//	padding-bottom: 10px;
+		//}
+    //}
 
-        &__routeOptions {
-            display: none;
-        }
-
-		&__formContainer__inner {
-			padding-top: 10px;
-		}
-
-		&__route__segment {
-			padding-bottom: 10px;
-		}
-    }
-
-	&__loader {
-		width: 90vw;
-		max-width: 1540px;
-		margin: 10px auto;
-		height: 200px;
-		background-image: url('images/ui/ui-loader-planes.svg');
-		background-position: center center;
-		background-repeat: no-repeat;
-	}
+	/*&__loader {*/
+		/*width: 90vw;*/
+		/*max-width: 1540px;*/
+		/*margin: 10px auto;*/
+		/*height: 200px;*/
+		/*background-image: url('images/ui/ui-loader-planes.svg');*/
+		/*background-position: center center;*/
+		/*background-repeat: no-repeat;*/
+	/*}*/
 
 	&__error {
-		padding-top: 30px;
-		padding-bottom: 30px;
-		text-align: center;
 		max-width: 1540px;
-		color: #cc0000;
-		font-size: 20px;
 		margin: 0 auto;
+		padding: 0 10px;
+
+		&__block {
+			text-align: center;
+			padding-top: 30px;
+			padding-bottom: 30px;
+			color: #cc0000;
+			font-size: 20px;
+		}
 	}
 
 	&__expirePopup {
@@ -74,8 +77,18 @@
 		}
 	}
 
+	//&__formBlocker {
+	//	position: fixed;
+	//	top: 0;
+	//	left: 0;
+	//	right: 0;
+	//	bottom: 0;
+	//	z-index: 50;
+	//}
+
 	&__form {
 		margin: 0;
+		position: relative;
 
         .nemo-flights-form {
             margin-top: 0;
@@ -136,7 +149,7 @@
 			position: absolute;
 			top: 100%;
 			left: 0;
-			z-index: 1000;
+			z-index: 100;
 			opacity: 1;
 			padding: 0px;
 			margin: 10px;
@@ -276,6 +289,8 @@
 
 	&__content {
 		max-width: 1700px;
+
+		min-height: 85vh;
 		margin: 0 auto;
 
 		display: flex;
@@ -287,6 +302,7 @@
 			margin: 0 10px;
 			flex-grow: 0;
 			min-width: 1px;
+			align-self: stretch;
 		}
 
 		&__postfilters, &__offers {
@@ -297,6 +313,17 @@
 		}
 
 		&__postfilters {
+			position: relative;
+
+			&:before{
+				content: "";
+				width: 100vw;
+				top: 0;
+				bottom: 0;
+				right: 100%;
+				position: absolute;
+			}
+
 			&_resultLoadingDummy {
 				opacity: .4;
 
@@ -343,7 +370,6 @@
 			&:hover {
 				opacity: 1;
 			}
-
 			&_resultLoadingDummy {
 				opacity: .4;
 
@@ -365,10 +391,14 @@
 		}
 
 		&__results {
-			padding: 20px;
-            border-radius: 8px;
+			//padding: 0 20px 20;
+			border-radius: 8px 8px 0px 0px;
 			flex: 0 1 64%;
 			/*flex-basis: 100%;*/
+
+			&_PFWorking {
+				opacity: 0.25;
+			}
 
 			&__loadingDummy {
 				&__header {
@@ -383,7 +413,11 @@
 				flex-flow: row nowrap;
 				justify-content: space-between;
 				align-items: flex-start;
-				padding: 10px 0;
+				margin-bottom: 0px;
+
+				&:first-child {
+					margin-top: -10px;
+				}
 
 				&_resultLoadingDummy {
 					opacity: .5;
@@ -398,7 +432,8 @@
 						overflow: hidden;
 						text-overflow: ellipsis;
 						padding-right: 20px;
-						font-size: 15px;
+						font-size: 120%;
+						//font-weight: 500;
 					}
 
 					&_sorting {
@@ -410,7 +445,10 @@
 					&__sortTitle {
 						display: inline-block;
 						vertical-align: middle;
-						margin-right: 20px;
+						margin-right: 10px;
+						font-size: 95%;
+						opacity: .75;
+						font-weight: 500;
 
 						&__fakeSort {
 							display: inline-block;
@@ -433,28 +471,31 @@
 		margin: -20px -20px 0;
 		padding: 10px;
 		border-bottom: $i_ui_subContainer_divider_border;
+		margin-bottom: 10px;
 
-		&_resultLoadingDummy {
-			opacity: .7;
+		&:last-child {
+			border-bottom: none;
+			margin-bottom: -20px;
+
 		}
+
+		//&_resultLoadingDummy {
+		//	opacity: .7;
+		//}
 
 		&__item  {
 			padding: 10px;
-			flex: 0 0 auto;
-			width: 50%;
+			flex: 1 1 50%;
+			width: 100%;
 			min-width: 1px;
 
 			&_recommended {
-				width: 100%;
+				flex-basis: 100%;
 			}
 		}
 	}
 
 	&__groupList {
-		&_resultLoadingDummy {
-			opacity: .7;
-		}
-
 		&__item {
 			margin-top: 20px;
 
@@ -466,7 +507,7 @@
 
 	&__flightsGroup {
 		padding: 0;
-        box-shadow: 0 1px 16px rgba(0, 0, 0, .25);
+        //box-shadow: 0 1px 16px rgba(0, 0, 0, .25);
 
 		&__header {
 			display: flex;
@@ -507,8 +548,8 @@
 			&__logo {
 				height: auto;
 				vertical-align: middle;
-				max-height: 50px;
-				max-width: 200px;
+				max-height: 40px;
+				max-width: 150px;
 				padding: 0;
 				margin-top: -4px;
 			}
@@ -518,7 +559,7 @@
 				width: 30px;
 				margin-top: 10px;
 				background: url("images/flights_results_sprite.svg") 5px -47px no-repeat;
-				cursor: pointer;
+				//cursor: pointer;
 				border-radius: 4px;
 				transition: all .2s;
 
@@ -722,46 +763,41 @@
 					&__transfers {
 						padding-right: 10px;
 						min-width: 1px;
+
+						&__places {
+							line-height: 18px;
+							padding: 6px 0;
+						}
 					}
 				}
 
 				&__selectContainer {
-					position: relative;
+					//position: relative;
+					display: block;
 				}
 
 				&__selected {
-					border-radius: 4px;
-					background: linear-gradient(to bottom, #f2f2f2, #e5e5e5);
 					padding: 10px 40px 10px 50px;
+					height: 60px;
+					line-height: normal;
 					position: relative;
-					cursor: pointer;
+					font-size: 16px;
 
-					&:hover {
-						background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+					&:active {
+						padding-top: 11px;
 					}
 
-					&:before, &:after {
+					&:before {
 						content: '';
 						position: absolute;
 						top: 50%;
 						transform: translateY(-50%);
-					}
-
-					&:before {
 						width: 20px;
 						height: 20px;
 						border-radius: 10px;
 						box-shadow: 0 1px 3px rgba(#000, 0.3);
 						background: url('images/flights_results_sprite.svg') -30px -30px no-repeat;
 						left: 15px;
-					}
-
-					&:after {
-						width: 12px;
-						height: 10px;
-						right: 14px;
-						transition: all 0.2s;
-						background: url('images/flights_results_sprite.svg') -39px -58px no-repeat;
 					}
 
 					&_unopenable {
@@ -777,20 +813,25 @@
 						}
 					}
 
-					&.nemo-flights-results__flightGroupsSelector_open {
-						border-bottom-left-radius: 0;
-						border-bottom-right-radius: 0;
-						background: #fff;
-						box-shadow: 0 1px 5px rgba(#000, 0.2);
+					//&.nemo-ui-select__toggle_open {
+					//
+					//	&, &:hover, &:active {
+					//		background: #fff;
+					//	}
+					//}
 
+					&_inDropDown {
 						&:after {
-							transform: rotate(180deg) translateY(50%);
+							background: rgba(0, 0, 0, 0) url("images/ui/ui-select-arrow.svg") no-repeat scroll center center;
+							content: "";
+							height: 9px;
+							margin-top: -4px;
+							position: absolute;
+							right: 14px;
+							top: 50%;
+							width: 12px;
+							transform: rotate(180deg);
 						}
-
-						&:hover {
-							background: #fff;
-						}
-
 					}
 
 					&__time {
@@ -799,8 +840,12 @@
 						display: inline-block;
 						vertical-align: baseline;
 
-						&__arrival, &__nextDayDate {
+						&__arrival {
                             font-size: 80%;
+
+							&_nextDay {
+								color: #B23E13;
+							}
 						}
 
 						&__departure {
@@ -821,38 +866,20 @@
 				}
 
 				&__dropdown {
-					box-shadow: 0 0 15px rgba($nemo-color-container-shadow);
-					border-radius: 0 0 4px 4px;
-					position: absolute;
-					z-index: 1;
 					width: 100%;
-					display: none;
-
-					&:before {
-						content: '';
-						position: absolute;
-						top: -10px;
-						left: 0;
-						right: 0;
-						height: 9px;
-						background: #fff;
-					}
+					top: 0;
+					margin: 0;
 
 					&__option {
 						padding: 5px 15px;
-						border-bottom: 1px solid $nemo-color-container-separator;
-						background: $nemo-color-LightPoint;
-						cursor: pointer;
-						transition: all 0.2s;
 
-						&:last-child {
-							border: none;
-							border-radius: inherit;
-						}
-
-						&:hover, &:hover &__transfers__transfer {
+						&:hover &__transfers__transfer {
 							background: #EAF6FF;
 						}
+
+						//&_selected {
+						//	background: red;//lighten(#EAF6FF, 70%);
+						//}
 
 						&_uncombinable &__data {
 							opacity: 0.5;
@@ -861,6 +888,7 @@
 						&__uncombinableWarn {
 							font-size: 12px;
 							color: #ff9731;
+							white-space: normal;
 						}
 
 						&__departure, &__arrival {
@@ -870,6 +898,10 @@
 							display: inline-block;
 							vertical-align: top;
                             margin-bottom: 0px;
+						}
+
+						&__arrival_nextday {
+							color: #B23E13;
 						}
 
 						&__transfers {
@@ -1009,70 +1041,30 @@
 
 		&__couplingTablePopup {
 			padding: 0;
+			overflow: visible;
 		}
 
-		&_common {
-			margin-top: 20px;
+		//&_common {
+		//	margin-top: 20px;
+		//
+		//	&:first-child {
+		//		margin-top: 0;
+		//	}
+		//}
 
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-
-		&_cheapest &__header__title,
-		&_cheapest &__header__additional {
+		//&_cheapest &__header__title,
+		//&_cheapest &__header__additional {
 			//background: #B23E13;
-		}
+		//}
 
 		&_bestCompanies {
 			margin-bottom: 20px;
 		}
-
-		/* ================== */
-		/* USE FOR ADAPTIVITY */
-		/* ================== */
-		&_bestCompanies {
-			.nemo-flights-results__flightsGroup {
-				&__footer {
-					padding-top: 10px;
-
-					&__couplingButtonContainer, &__buyButtonContainer {
-						display: block;
-						width: auto;
-						padding-top: 10px;
-					}
-				}
-
-				&__couplingButton, &__buyButton {
-					display: block;
-					width: auto;
-				}
-
-				&__couplingButton__addText {
-					display: inline;
-				}
-			}
-		}
-		/* ================== */
-		/* ================== */
-		/* ================== */
 	}
 
 	&__commonSelect {
-		background: linear-gradient(to bottom, #F2F2F2, #E5E5E5);
-		padding: 0 40px 0 20px;
 		line-height: 40px;
-		border-radius: 4px;
-
-		.select2-selection__arrow {
-			width: 40px;
-			top: 0;
-			right: 0;
-		}
-	}
-
-	&__flightGroupsSelector_open + &__flightGroupsSelector__dropdown{
-		display: block;
+		height: 40px;
 	}
 
 	&__showAll {
@@ -1102,8 +1094,8 @@
 		&__filterList {
 			&__item {
 				/*display: inline-block;*/
-				@extend .new-ui-button;
-				@extend .new-ui-button_common;
+				@extend .nemo-ui-button;
+				@extend .nemo-ui-button_common;
 				padding-right: 28px;
 				margin: 20px 10px 0 0;
 				max-width: 80%;

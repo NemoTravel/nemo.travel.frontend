@@ -1,13 +1,13 @@
 /**
  * Block (not page wrapper) with possible header with possible "hilight"
  *
- * @usage: class "new-ui-block" on element
+ * @usage: class "nemo-ui-block" on element
  * @modifiers:
  * @tags: div
  * @example:
-	<div class="new-ui-subContainer">
-		<div class="new-ui-subContainer__header">
-			<div class="new-ui-subContainer__header__hilight">
+	<div class="nemo-ui-subContainer">
+		<div class="nemo-ui-subContainer__header">
+			<div class="nemo-ui-subContainer__header__hilight">
 				I'm an optional header hilight!
 			</div>
 			I'm an optional header!
@@ -54,12 +54,12 @@ $f_ui_subContainer_header_hilight_size = 15px;
 $f_ui_subContainer_header_hilight_lineheight = $f_ui_subContainer_header_lineheight;
 
 // VALUES
-$i_ui_subContainer_outershadow = 0px 1px 4px rgba(0,0,0,0.25);
+$i_ui_subContainer_outershadow = 0px 1px 8px alpha($nemo-color-DarkPoint, .15);
 $i_ui_subContainer_divider_border = $d_ui_subContainer_divider_height solid alpha($nemo-color-neutral, .5);
 $i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height solid alpha($nemo-color-neutral, .5);
 
 
-.new-ui-subContainer {
+.nemo-ui-subContainer {
 	// General
 
 	// Dimensions
@@ -87,7 +87,7 @@ $i_ui_subContainer_divider_secondary_border = $d_ui_subContainer_divider_height 
 		overflow: hidden;
 		position: relative;
 
-		.new-ui-subContainer_contentPadding &{
+		.nemo-ui-subContainer_contentPadding &{
 		    margin-top: 0;
 		}
 

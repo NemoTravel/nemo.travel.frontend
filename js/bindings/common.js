@@ -5,7 +5,6 @@ define(
 		'jquery',
 		'numeralJS',
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
-		'js/lib/jquery.select2/v.4.0.0/select2.full',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'touchpunch'
@@ -56,16 +55,20 @@ define(
 					options = valueAccessor();
 
 				// Overriding default options
-				options.content = options.content || ' ';
-				options.content = (options.header ? '<div class="tooltipster-header">'+options.header+'</div>' : '') + options.content;
-				options.theme = options.cssClass || '';
-				options.arrow = options.arrow || false;
-				options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
-				options.offsetX = 0;
-				options.offsetY = 0;
+				if(options.content){
+					options.content = options.content || '';
+					options.content = (options.header ? '<div class="tooltipster-header">'+options.header+'</div>' : '') + options.content;
+					options.theme = options.cssClass || '';
+					options.arrow = options.arrow || false;
+					options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
+					options.offsetX = 0;
+					options.offsetY = 0;
 
-				delete options.cssClass;
+					delete options.cssClass;
 
+				}else{
+					return false;
+				}
 				if ($element.data('tooltipsterNs')) {
 					$element.tooltipster('content', options.content);
 				}
@@ -88,72 +91,6 @@ define(
 					.trigger('cc:updated');
 			}
 		}
-
-		ko.bindingHandlers.simpleSelect = {
-			init: function(el, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				ko.utils.domNodeDisposal.addDisposeCallback(el, function() {
-					$(el).select2('destroy');
-				});
-
-				var allBindings = allBindingsAccessor(),
-					simpleSelect = ko.utils.unwrapObservable(allBindings.simpleSelect);
-
-				simpleSelect.templateResult = simpleSelect.templateSelection = function (state) {
-					if (simpleSelect.i18nPrefix && simpleSelect.i18nSegment) {
-						return bindingContext.$root.i18n(simpleSelect.i18nSegment, simpleSelect.i18nPrefix + state.text);
-					}
-					return state.text;
-				};
-
-				simpleSelect.containerCssClass = simpleSelect.containerCssClass || 'new-ui-select2__container';
-				simpleSelect.dropdownCssClass = simpleSelect.dropdownCssClass || 'new-ui-select2__dropdown';
-
-				// Overriding width
-				simpleSelect.width = typeof simpleSelect.width != 'undefined' ? simpleSelect.width : 'resolve';
-				simpleSelect.dropdownAutoWidth = simpleSelect.dropdownAutoWidth || true;
-				simpleSelect.minimumResultsForSearch = simpleSelect.minimumResultsForSearch || Infinity;
-				simpleSelect.fixWidth = typeof simpleSelect.fixWidth != 'undefined' ? simpleSelect.fixWidth : true;
-
-				$(el).select2(simpleSelect);
-			},
-			update: function (el, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var allBindings = allBindingsAccessor();
-
-				if ("value" in allBindings) {
-					if (allBindings.simpleSelect.multiple && allBindings.value().constructor != Array) {
-						$(el).select2("val", allBindings.value().split(","));
-					}
-					else {
-						$(el).select2("val", allBindings.value());
-					}
-				}
-				else if ("selectedOptions" in allBindings) {
-					var converted = [],
-						textAccessor = function(value) { return value; };
-
-					if ("optionsText" in allBindings) {
-						textAccessor = function(value) {
-							var valueAccessor = function (item) { return item; }
-
-							if ("optionsValue" in allBindings) {
-								valueAccessor = function (item) { return item[allBindings.optionsValue]; }
-							}
-							var items = $.grep(allBindings.options(), function (e) { return valueAccessor(e) == value});
-							if (items.length == 0 || items.length > 1) {
-								return "UNKNOWN";
-							}
-							return items[0][allBindings.optionsText];
-						}
-					}
-
-					$.each(allBindings.selectedOptions(), function (key, value) {
-						converted.push({id: value, text: textAccessor(value)});
-					});
-
-					$(el).select2("data", converted);
-				}
-			}
-		};
 
 		ko.bindingHandlers.automaticPopup = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -272,13 +209,14 @@ define(
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 
-		ko.bindingHandlers.moneyInit ={
+		ko.bindingHandlers.moneyInit = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				$(document).currencyConverter({
 					defaultCurrency: 'EUR',
-					conversionTable: {},
+					conversionTable: valueAccessor(),
 					currencyType: 'symbol',
-					roundingFunction: Math.round
+					roundingFunction: Math.round,
+					useCache: false
 				});
 			}
 		};
@@ -423,19 +361,118 @@ define(
                             scrollerControlMoveAmount = scrollAmount * scrollProportion;
                             scrollerControl.css('top', scrollerControlMoveAmount);
                             scrollerControl.css('height', scrollerControlHeight);
-                            return false;
                         }
+
+                        return false;
 
                     } else {
                         $(element).addClass("js-common-scrollable_off");
                     }
                 }
 
-            },
-
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
             }
         };
+
+		ko.bindingHandlers.pseudoSelect = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $this = $(element),
+					$root = $this.parents('.js-common-pseudoSelect'),
+					$dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
+					options = $.extend({}, {
+						reposition: true,
+						adjustWidth: true
+					}, valueAccessor() || {}),
+					close = true;
+
+				function hideDropdown (e) {
+					if (
+						!$(e.target).closest('.js-common-pseudoSelect__toggle').length ||
+						($dropdown.is(':visible') && close)
+					) {
+						$dropdown.hide();
+						$this.removeClass('nemo-ui-select__toggle_open');
+					}
+
+					close = true;
+				}
+
+				// Adjusting width
+				if (options.adjustWidth) {
+					setTimeout(function () {
+						$dropdown.show();
+
+						$this.css('min-width',$dropdown.children().eq(0).width() + ($this.outerWidth() - $this.width()) + 'px');
+
+						$dropdown.hide();
+					}, 1);
+				}
+
+				$this.on('click', function (e) {
+					var $dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
+						vpHeight = $(window).height(),
+						vpOffset = $(document).scrollTop(), // positive
+						rootOffset = $root.offset().top,
+						rootHeight = $root.outerHeight(),
+						dropHeight;
+
+					e.preventDefault();
+
+					if (!$dropdown.length) {
+						return;
+					}
+
+
+					$this.addClass('nemo-ui-select__toggle_open');
+
+					close = $dropdown.is(':visible');
+
+					$dropdown.css({top: '', bottom: ''}).show();
+
+					if (options.reposition) {
+						// Process positioning
+						dropHeight = $dropdown.outerHeight();
+
+						if (
+							rootOffset + rootHeight + dropHeight > vpHeight + vpOffset && // Drop is lower than bottom screen border
+							rootOffset > dropHeight                                       // Drop won't be cut off by screen top
+						) {
+							$dropdown.css({bottom: '100%'});
+						}
+						else {
+							$dropdown.css({top: '100%'});
+						}
+					}
+				});
+
+				$(document).on('click', hideDropdown);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(document).off('click', hideDropdown);
+				});
+			}
+		};
+
+		ko.bindingHandlers.setBodyClass = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				$('body').addClass(valueAccessor());
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$('body').removeClass(valueAccessor());
+				});
+			}
+		};
+
+		ko.bindingHandlers.timedBlockToggle = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					timeout = setTimeout(function () {
+						$element.toggle();
+					}, valueAccessor() * 1000);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					clearTimeout(timeout);
+				});
+			}
+		};
 	}
 );

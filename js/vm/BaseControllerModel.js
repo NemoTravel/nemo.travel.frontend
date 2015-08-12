@@ -17,6 +17,7 @@ define(
 			this.$$error = ko.observable(null);
 			this.$$rawdata = null;
 			this.$$loadingItems = 0;
+			this.name = '';
 		}
 
 		/**
@@ -149,6 +150,8 @@ define(
 		BaseControllerModel.prototype.$$i18nSegments = [];
 
 		BaseControllerModel.prototype.$$KOBindings = [];
+
+		BaseControllerModel.prototype.pageTitle = null;
 
 		return BaseControllerModel;
 	}

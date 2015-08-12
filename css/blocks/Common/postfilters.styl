@@ -63,7 +63,8 @@ $t_postFilters_animationTime = .1s;
             display: block;
             width: 100%;
             font-size: 14px;
-
+            line-height: 30px;
+            height: 30px;
         }
     }
 
@@ -125,8 +126,8 @@ $t_postFilters_animationTime = .1s;
                 margin: 0 0 20px 0;
 
                 &__part {
-	                @extends .new-ui-button;
-	                @extends .new-ui-button_common;
+	                @extends .nemo-ui-button;
+	                @extends .nemo-ui-button_common;
                     box-shadow: none;
                     flex-basis: 0;
                     flex-grow: 1;
@@ -137,7 +138,8 @@ $t_postFilters_animationTime = .1s;
                     height: 40px;
                     min-width: 0;
                     padding: 0;
-                    font-size: 90%;
+                    font-size: 95%;
+					//font-weight: 500;
 
                     &::before {
                         content: '';
@@ -191,7 +193,7 @@ $t_postFilters_animationTime = .1s;
                     overflow: hidden;
 
                     &__value {
-                        //@extends .new-ui-button_common
+                        //@extends .nemo-ui-button_common
                         background-color: $nemo-color-LightPoint;
                         box-shadow: none;
                         padding: 0 10px 0 20px;
@@ -257,14 +259,15 @@ $t_postFilters_animationTime = .1s;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             margin-right: 10px;
-                            font-size: 80%;
+                            font-size: 100%;
+							font-weight: 400;
 
                             &_noMatter {
-                                font-size: 95%;
+                                font-size: 110%;
                             }
 
                             &_small {
-                                font-size: 70%;
+                                font-size: 90%;
                                 //white-space: normal;
                                 //line-height: 15px;
                             }
@@ -273,8 +276,10 @@ $t_postFilters_animationTime = .1s;
                         &__price {
                             flex-grow: 1;
                             margin-right: 2px;
-                            font-size: 70%;
+                            font-size: 90%;
 	                        white-space: nowrap;
+							font-weight: 500;
+							opacity: .75;
                             //color: $c_common_textColor_secondary;
 
                             currency {
@@ -286,10 +291,11 @@ $t_postFilters_animationTime = .1s;
                             flex-grow: 1;
                             width: 22px;
                             height: 22px;
-                            line-height: 22px;
+                            line-height: 20px;
                             background-color: $c_postFilters_quantityBG;
                             border-radius: 11px;
-                            font-size: 60%;
+                            font-size: 80%;
+							font-weight: 500;
                             opacity: .5;
                             text-align: center;
                             margin-left: 5px;

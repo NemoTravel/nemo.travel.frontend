@@ -3,8 +3,11 @@
 		<!-- ko if: !$$loading() -->
 		<div class="nemo-common-breadCrumbs__crumbs" data-bind="foreach: elements"><span class="nemo-common-breadCrumbs__crumbs__crumb">
 				<!-- ko if: active -->
-				<a href="#" class="new-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title"
-				   data-bind="text: $root.i18n('CommonBreadCrumbs', title), attr: {href: link}, click: function (model, e) {e.preventDefault();$parent.$$controller.navigate(link);}"></a>
+				<a href="#" class="nemo-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title"
+					data-bind="
+						text: $root.i18n('CommonBreadCrumbs', title),
+						attr: {href: link},
+						click: function (model, e) {e.preventDefault();$parent.$$controller.navigate(link, true, pageTitle);}"></a>
 				<!-- /ko -->
 				<!-- ko if: !active -->
 				<span class="nemo-common-breadCrumbs__crumbs__crumb__title"

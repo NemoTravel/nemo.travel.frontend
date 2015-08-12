@@ -5,8 +5,8 @@ define(
 		// FlightsSearchForm Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
-			 init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
-			 update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
+		 init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
+		 update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		 };
 
 		 // Do not forget to add destroy callbacks
@@ -32,7 +32,7 @@ define(
 				var text;
 
 				if (typeof item.label == 'undefined') {
-					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="new-ui-autocomplete__match">$1</span>') + ', ' + item.country.name;
+					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + ', ' + item.country.name;
 				}
 				else {
 					text = item.label;
@@ -50,7 +50,7 @@ define(
 					that._renderItemData(ul, item);
 				});
 
-				$(ul).addClass('new-ui-autocomplete');
+				$(ul).addClass('nemo-ui-autocomplete');
 			}
 		});
 
@@ -91,7 +91,7 @@ define(
 							function(){
 								callback(noResultsResults);
 							})
-						},
+					},
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
@@ -99,11 +99,11 @@ define(
 							$children.eq(0).mouseenter().click();
 						}
 						else {
-							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('new-ui-autocomplete_open');
+							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
 						}
 					},
 					response: function (event, ui) {
-						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('new-ui-autocomplete_open');
+						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
 					},
 					select: function( event, ui ) {
 						$element.blur();
@@ -120,6 +120,7 @@ define(
 						return false;
 					},
 					focus: function( event, ui ) {
+						event.preventDefault();
 						$(this).val(ui.item.name)
 					},
 					close:function(){
@@ -131,10 +132,21 @@ define(
 				$element.on('blur', function (e) {
 					$element.val('');
 				});
-
+				$element.on('keyup',function(e){
+					if(
+						e.keyCode == 13
+					){
+						$('.ui-menu-item').each(function(){
+							if($(this).is(':visible')){
+								$(this).click();
+								return false;
+							}
+						})
+					}
+				});
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					$element.off('blur');
-
+					$element.off('keyup');
 					try {
 						$element.autocomplete('destroy');
 					}
@@ -155,23 +167,22 @@ define(
 						$focusField = null;
 
 					if ($target.hasClass('js-autofocus-field_departure')) {
-						if (!segment.items.arrival.value()) {
-							$focusField = $segment.find('.js-autofocus-field_arrival');
-						}
-						else if (!segment.items.departureDate.value()) {
-							$focusField = $segment.find('.js-autofocus-field_date');
-						}
+						$focusField = $segment.find('.js-autofocus-field_arrival');
 					}
 					else if ($target.hasClass('js-autofocus-field_arrival')) {
-						if (!segment.items.departureDate.value()) {
-							$focusField = $segment.find('.js-autofocus-field_date');
-						}
+						$focusField = $segment.find('.js-autofocus-field_date');
 					}
 					else if (
+						viewModel.tripType() == 'CR' &&
+						segment.index < viewModel.segments().length-1
+					) {
+						$focusField = $segment.next().find('.js-autofocus-field').eq(0);
+					}
+					else if(
 						viewModel.tripType() == 'RT' &&
 						segment.index == 0 &&
 						!viewModel.segments()[1].items.departureDate.value()
-					) {
+					){
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
 					}
 

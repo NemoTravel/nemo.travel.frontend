@@ -1,19 +1,19 @@
 /**
  * Radio button
  *
- * @usage: class "new-ui-radioBtn" on element
+ * @usage: class "nemo-ui-radioBtn" on element
  * @modifiers:
  * @tags: label
  * @example:
-    <label class="new-ui-radioBtn">
-        <input class="new-ui-radioBtn__input" type="radio">
-        <span class="new-ui-radioBtn__caption">Радио кнопка</span>
+    <label class="nemo-ui-radioBtn">
+        <input class="nemo-ui-radioBtn__input" type="radio">
+        <span class="nemo-ui-radioBtn__caption">Радио кнопка</span>
     </label>
  */
 // COLORS
 $c_ui_caption                   = $nemo-color-text-main;
 $c_ui_caption_hover             = #4F6D85;
-$c_ui_caption_disabled          = $c_ui_textDisabled;
+$c_ui_caption_disabled          = $nemo-color-text-disabled;
 
 // DIMENSIONS
 $d_ui_padding                   = 3px 0;
@@ -24,13 +24,13 @@ $d_ui_pseudoInput_height        = 19px;
 $d_ui_pseudoInput_borderRadius  = 50%;
 
 // FONT
-$f_ui_caption_size              = 14px;
+$f_ui_caption_size              = 13px;
 $f_ui_caption_lineHeight        = 16px;
 
 // VALUES
 $i_ui_radio            = 'images/ui/radiobutton_sprite.svg';
 
-.new-ui-radioBtn{
+.nemo-ui-radioBtn{
     display: inline-block;
     padding: $d_ui_padding;
     cursor: pointer;
@@ -80,10 +80,9 @@ $i_ui_radio            = 'images/ui/radiobutton_sprite.svg';
             position: absolute;
             display: none;
             left: 0;
-            top: 50%;
+            top: 0;
             width: $d_ui_pseudoInput_width;
             height: $d_ui_pseudoInput_height;
-            margin-top: - ($d_ui_pseudoInput_height / 2);
             border-radius: $d_ui_pseudoInput_borderRadius;
 			background-image: url($i_ui_radio);
 			background-position: bottom;

@@ -1,4 +1,52 @@
-last searches
 <!-- ko if: !$$loading() -->
-	LOADED
+	<div class="nemo-ui-select nemo-flights-lastSearches js-common-pseudoSelect" data-bind="if: history().length">
+		<div class="nemo-ui-select__toggle nemo-flights-lastSearches__toggler js-common-pseudoSelect__toggle" data-bind="pseudoSelect: {adjustWidth: false}">
+			Предыдущие поиски
+		</div>
+		<div class="nemo-ui-select__dropdown nemo-flights-lastSearches__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: history">
+			<div data-bind="
+					attr:{'class':'nemo-ui-select__dropdown__item nemo-flights-lastSearches__dropdown__option nemo-flights-lastSearches__dropdown__option_' + summary.searchType},
+					click: function () {$parent.goTo($data);}
+				">
+				<div class="nemo-flights-lastSearches__dropdown__option__legs" data-bind="foreach: segments">
+					<!-- ko if: $parent.summary.searchType != 'RT' || $index() == 0 -->
+					<div class="nemo-flights-lastSearches__dropdown__option__leg">
+						<span class="nemo-flights-lastSearches__dropdown__option__leg__departure">
+							<!-- ko text: departure.name --><!-- /ko --><span class="nemo-flights-lastSearches__dropdown__option__leg__country" data-bind="text: ', ' + departure.country.name"></span>
+						</span>
+						<span class="nemo-flights-lastSearches__dropdown__option__leg__arrival">
+							<!-- ko text: arrival.name --><!-- /ko --><span class="nemo-flights-lastSearches__dropdown__option__leg__country" data-bind="text: ', ' + arrival.country.name"></span>
+						</span>
+
+						<!-- ko if: $parent.summary.searchType == 'CR' -->
+						<div class="nemo-flights-lastSearches__dropdown__option__leg__date" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName() + ', ' + departureDate.getDOWNameShort() + '.'"></div>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+				</div>
+
+				<!-- ko if: summary.searchType == 'RT' -->
+				<div class="nemo-flights-lastSearches__dropdown__option__rtdates">
+					<span class="nemo-flights-lastSearches__dropdown__option__rtdates__date" data-bind="with: segments[0].departureDate">
+						Туда
+						<span class="nemo-flights-lastSearches__dropdown__option__rtdates__actualDate" data-bind="text: getDate() + ' ' + getMonthName() + ', ' + getDOWNameShort() + '.'"></span>
+					</span>
+
+					<span class="nemo-flights-lastSearches__dropdown__option__rtdates__backdate" data-bind="with: segments[1].departureDate">
+						Обратно
+						<span class="nemo-flights-lastSearches__dropdown__option__rtdates__actualDate" data-bind="text: getDate() + ' ' + getMonthName() + ', ' + getDOWNameShort() + '.'"></span>
+					</span>
+				</div>
+				<!-- /ko -->
+
+				<div class="nemo-flights-lastSearches__dropdown__option__additional">
+					<!-- ko if: summary.searchType == 'OW' -->
+					<span class="nemo-flights-lastSearches__dropdown__option__additional__owdate" data-bind="text: segments[0].departureDate.getDate() + ' ' + segments[0].departureDate.getMonthName() + ', ' + segments[0].departureDate.getDOWNameShort() + '.'"></span>
+					<!-- /ko -->
+					<span class="nemo-flights-lastSearches__dropdown__option__additional__passengers" data-bind="text: $parent.passengersSummary(passengers)"></span>
+					<span class="nemo-flights-lastSearches__dropdown__option__additional__class" data-bind="text: $root.i18n('FlightsSearchForm', 'serviceClass_' + summary.serviceClass)"></span>
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- /ko -->

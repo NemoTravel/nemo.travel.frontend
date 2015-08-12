@@ -2,32 +2,32 @@
  * Tabbed blocks
  *
  * @usage:
-<div class="new-ui-tabber js-ui-tabber">
-	<div class="new-ui-tabber__tabs">
-	    <div class="new-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab1">
-	        <div class="new-ui-tabber__tabs__tab__title">
+<div class="nemo-ui-tabber js-ui-tabber">
+	<div class="nemo-ui-tabber__tabs">
+	    <div class="nemo-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab1">
+	        <div class="nemo-ui-tabber__tabs__tab__title">
 	            Tab 1 text
 	        </div>
-	    </div><div class="new-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab2">
-	        <div class="new-ui-tabber__tabs__tab__title">
+	    </div><div class="nemo-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab2">
+	        <div class="nemo-ui-tabber__tabs__tab__title">
 	            Tab 2 text
 	        </div>
-	    </div><div class="new-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab3">
-	        <div class="new-ui-tabber__tabs__tab__title">
+	    </div><div class="nemo-ui-tabber__tabs__tab js-ui-tabber__control" data-ui-tabber="tab3">
+	        <div class="nemo-ui-tabber__tabs__tab__title">
 	            Tab 3 text
 	        </div>
 	    </div>
 	</div>
-	<div class="new-ui-subContainer new-ui-tabber__blocks">
-	    <div class="new-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab1">
+	<div class="nemo-ui-subContainer nemo-ui-tabber__blocks">
+	    <div class="nemo-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab1">
 	        Tab 1 contents
 	    </div>
 
-	    <div class="new-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab2">
+	    <div class="nemo-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab2">
 	        Tab 2 contents
 	    </div>
 
-	    <div class="new-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab3">
+	    <div class="nemo-ui-tabber__blocks__block js-ui-tabber__block js-ui-tabber__block_tab3">
 	        Tab 3 contents
 	    </div>
 	</div>
@@ -49,7 +49,7 @@ $d_ui_tabber_tab_bRadius           = 4px;
 // FONT
 $f_ui_tab_size                     = 16px;
 $f_ui_tab_title                    = $nemo-color-text-main;
-$f_ui_tab_title_hover              = $nemo-color-text-main_hover;
+$f_ui_tab_title_hover              = lighten($nemo-color-text-main, 5);
 $f_ui_tab_title_disabled           = $nemo-color-LightPoint;
 
 // VALUES
@@ -58,7 +58,7 @@ $i_ui_tab_shadow                   = 0 1px 2px rgba(0, 1px, 2px, 0.5), inset 0 0
 $i_ui_tab_shadow_active            = 0 1px 2px rgba(0, 1px, 2px, 0.5), inset 0 3px 5px rgba(0, 0, 0, 0.1);
 $i_ui_tab_textShadow               = 0px 1px 0px rgba(0, 0, 0, 0.25);
 
-.new-ui-tabber {
+.nemo-ui-tabber {
 	&__tabs {
         padding: 0 0 0 20px;
 
@@ -101,7 +101,7 @@ $i_ui_tab_textShadow               = 0px 1px 0px rgba(0, 0, 0, 0.25);
             &_disabled{
                 cursor: default;
 
-				.new-ui-tabber__tabs__tab__title {
+				.nemo-ui-tabber__tabs__tab__title {
 					color: $f_ui_tab_title_disabled;
 					opacity: 1;
 				}

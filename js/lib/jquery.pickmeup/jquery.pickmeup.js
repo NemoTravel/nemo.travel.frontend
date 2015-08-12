@@ -7,18 +7,7 @@
  * @copyright    Copyright (c) 2008-2009, Stefan Petre
  * @copyleft    Copyleft (c) 2015, Boris Sobolevskiy
  * @license        MIT License, see license.txt if present.
- * ДП:
- 1. Позиционирование неправильное (не центруется по гризонтали)
- 2. Если ДП упирается в правую часть вьюпорта - ЖОПА
- 3. nemo-pmu-button - есть свои классы на днях, но нет на месяцах и годах +
- 4. nemo-pmu-days-wrap -> nemo-pmu-daysWrap, с месяцами/годами - аналогично +
- 5. nemo-pmu-day -> nemo-pmu-days__day (консистентность, ёба)
- 6. days-of-week - привести к нормальному виду. (daysOfWeek) та-же хуйня везде. "-" у нас "зарезервирован" как разделитель префиксов разделов
- 7. nemo-pickmeup-wrapper - а тут внезапно "pickmeup"
- 8. js-nemo-pmu-prev и прочие js-классы. Правила именования такие-же, как и для обычных
- 9. js-классы не везде, есть выборки по не-js-классам
- 10. Допилить занесение даты в ДП при вводе руками
- */
+*/
 'use strict';
 (function (d) {
 	function getMaxDays() {
@@ -90,6 +79,7 @@
 		hideOnSelect: true,
 		min: null,
 		max: null,
+		lastState:null,
 		render: function () {
 		},
 		change: function () {
@@ -129,7 +119,7 @@
 			days: 'js-nemo-pmu-viewDays nemo-pmu-viewDays'
 		},
 		tpl: {
-			wrapper: '<div class="nemo-pmu-wrapper" />',
+			wrapper: '<div class="nemo-pmu-wrapper js-nemo-pmu" />',
 			head: function (d) {
 				var result = '';
 				for (var i = 0; i < 7; ++i) {
@@ -170,6 +160,7 @@
 			return ~~((options.calendars / 2))
 		}
 	}
+
 	function fill() {
 		var options = $(this).data('pickmeup-options'),
 			pickmeup = this.pickmeup,
@@ -196,7 +187,10 @@
 			maxDate.addMonths(1);
 			maxDate.addDays(-1);
 		}
-
+		if(options.lastState != null){
+			options.current = options.lastState;
+			currentDate = options.current
+		}
 		/**
 		 * Remove old content except header navigation
 		 */
@@ -470,14 +464,14 @@
 		shownDateTo.addMonths(1);
 		shownDateTo.addDays(-1);
 		if(options.min && options.min >= shownDateFrom){
-			pickmeup.find('.js-nemo-pmu-prev').addClass('nemo-pmu-prev_hidden');
+			pickmeup.find('.js-nemo-pmu-prev').addClass('nemo-pmu-prev_hidden js-pmu-prev_hidden');
 		}else{
-			pickmeup.find('.js-nemo-pmu-prev').removeClass('nemo-pmu-prev_hidden');
+			pickmeup.find('.js-nemo-pmu-prev').removeClass('nemo-pmu-prev_hidden js-pmu-prev_hidden');
 		}
 		if(options.max && options.max <= shownDateTo){
-			pickmeup.find('.js-nemo-pmu-next').addClass('nemo-pmu-next_hidden');
+			pickmeup.find('.js-nemo-pmu-next').addClass('nemo-pmu-next_hidden js-pmu-next_hidden');
 		}else{
-			pickmeup.find('.js-nemo-pmu-next').removeClass('nemo-pmu-next_hidden');
+			pickmeup.find('.js-nemo-pmu-next').removeClass('nemo-pmu-next_hidden js-pmu-next_hidden');
 		}
 		options.fill.apply(this);
 	}
@@ -719,7 +713,8 @@
 				options = $this.data('pickmeup-options'),
 				instance = el.parents('.js-nemo-pmu-instance').eq(0),
 				root = instance.parent(),
-				instance_index = $('.js-nemo-pmu-instance', root).index(instance);
+				instance_index = $('.js-nemo-pmu-instance', root).index(instance),
+				pickmeup = this.pickmeup;
 			if (el.parent().is('nav')) {
 				if (el.hasClass('js-nemo-pmu-month')) {
 					options.current.addMonths(instance_index - options.binded.currentCalendar());
@@ -803,6 +798,12 @@
 						options.current.setDate(val);
 						options.binded.update_date();
 					}
+					var elDummy = pickmeup.find('.nemo-pmu-days_day').eq(15);
+					var lastStateToSet = new Date(elDummy.data('year'), elDummy.data('month'), elDummy.data('day'));
+					if(options.mode == 'single'){
+						options.lastState = lastStateToSet;
+						options.current = dateToSet;
+					}
 					options.onSetDate();
 				}
 			}
@@ -847,7 +848,6 @@
 			var format = $this.pickmeup().format;
 			format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
 			if ($this.is('input')) {
-
 				//crutch! saving input value for blur event trigger.
 				var inputDate, inputValue;
 				inputWidth = $this.outerWidth();
@@ -859,31 +859,29 @@
 					})
 					.on('keyup', function (e) {
 						inputValue = $this.val();
-						e.stopPropagation();
-						if (e.keyCode == 27) {
+						var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
+						if(e.keyCode == 13){
+							if(parsedDate.getTime() >= options.min.getTime()
+								&& parsedDate.getTime() <= options.max.getTime()){
+								options.current = parsedDate;
+								$this.pickmeup('set_date', parsedDate);
+								options.onSetDate();
+								return false;
+							}
+						}
+						else if (e.keyCode == 27) {
 							$this.pickmeup('hide');
 							$this.pickmeup('set_date', options.current)
 						}
-						if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
-							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-							if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
+						else if($this.val().match(testDate)!=null
+							&& options.mode != 'range'
+							&& options.mode != 'multiple'
+							){
+							if(options.min != 'null' && parsedDate.getTime() >=options.min.getTime()
+								|| options.max != 'null'&& parsedDate.getTime() <= options.max.getTime()){
 								$this.pickmeup('set_date', parsedDate);
-							}else if(options.min == null && options.max == null){
-								$this.pickmeup('set_date', options.current)
 							}
-						}
-						if(e.keyCode == 13){
-							e.preventDefault();
-							var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-							if(options.min != 'null' && parsedDate.getDate() >=options.min.getDate() || options.max != 'null' && parsedDate.getDate() <= options.max.getDate() ){
-								$this.pickmeup('set_date', parsedDate);
-								options.onSetDate()
-							}else if(options.min == null && options.max == null){
-								$this.pickmeup('set_date', options.current)
-								options.onSetDate()
-							}else{
-								return false
-							}
+						return false;
 						}
 					})
 					.on('blur', function(){
@@ -928,12 +926,12 @@
 				if(instancesWidth + left + instanceCenter >= viewport.w || instanceCenter > left){
 					instanceCenter = 0;
 				}
-				if (instancesWidth < viewport.w && instancesWidth+left-instanceCenter >= viewport.w) {
+				if (instancesWidth < viewport.w && instancesWidth+left-instanceCenter >= viewport.w + 20) {
 					pickmeup.removeClass('nemo-pmu-thinView');
 					pickmeup.css({
 						display: 'inline-block',
 						top: top + 'px',
-						right:0
+						right:20 + 'px'
 					});
 				}else if(instancesWidth >= viewport.w && instanceWidth+left-instanceCenter <= viewport.w){
 					pickmeup.addClass('nemo-pmu-thinView');
@@ -997,23 +995,15 @@
 					.off('resize', options.binded.forced_show);
 				options.lastSel = false;
 			}
+
 			if ($(this).is('input')){
-				var format = options.format;
-				format = format.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/[dD]+/, '[0-9]{1,2}').replace(/[mM]+/, '[0-9]{1,2}').replace(/[yY]+/, '[0-9]{4}');
-				var testDate = new RegExp(format , 'i');
-				if($this.val().match(testDate)!=null && options.mode != 'range' && options.mode != 'multiple'){
-					var parsedDate = parseDate($this.val(), options.format, options.separator, options.locale);
-					if(options.min != 'null' && parsedDate >=options.min || parsedDate <= options.max && options.max != 'null'){
-						$this.pickmeup('set_date', parsedDate);
-						options.onSetDate()
-					}else if(options.min == null && options.max == null){
-						$this.pickmeup('set_date', inputDate)
-					}
-				}
 				if ($(this).val().length>0){
 					var parsedDate = parseDate($(this).val(), options.format, options.separator, options.locale);
-					if(!(parsedDate >=options.min && parsedDate <= options.max)) {
-						$(this).val(formatDate(options.current, options.format, options.locale));
+					if(parsedDate.getTime() >= options.min.getTime()
+						&& parsedDate.getTime() <= options.max.getTime()){
+						$(this).pickmeup('set_date',options.current);
+						options.onSetDate();
+						return false;
 					}
 				}
 			}
@@ -1094,8 +1084,10 @@
 	}
 	function set_date(date) {
 		var $this = $(this),
-			options = $this.data('pickmeup-options');
+			options = $this.data('pickmeup-options'),
+			pickmeup = this.pickmeup;
 		options.date = date;
+
 		if (typeof options.date === 'string') {
 			options.date = parseDate(options.date, options.format, options.separator, options.locale).setHours(0, 0, 0, 0);
 		} else if (options.date.constructor == Date) {

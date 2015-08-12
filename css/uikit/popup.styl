@@ -1,20 +1,16 @@
 .ui-dialog {
-	border-radius: 4px;
 	overflow: hidden;
 	position: absolute;
 	outline: 0 none;
-	padding: 0;
+	padding: 20px 0;
 	z-index: 100;
 	border: none;
-	background: $nemo-color-LightPoint;
 
 	&__wrapper {
 		top: 0;
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		/*right: 0;*/
-		/*bottom: 0;*/
 		overflow: auto;
 		position: fixed;
 
@@ -40,6 +36,7 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		border-radius: 4px 4px 0 0;
 
 		&-close {
 			position: absolute;
@@ -74,26 +71,34 @@
 				left: 0;
 				bottom: 0;
 				background: $nemo-color-main;
-				animation: new-ui-popup__progressAnimation 5s ease-in-out 1 forwards;
+				animation: nemo-ui-popup__progressAnimation 200s infinite forwards;
+				border-radius: 4px 0 0 4px;
 			}
 		}
 	}
 
 	&-content {
-		background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+		background: $nemo-color-LightPoint;
 		border: 0 none;
 		overflow: auto;
 		padding: 20px;
 		position: relative;
+		border-radius: 0 0 4px 4px;
+	}
+
+	&-buttons &-content {
+		border-radius: 0;
 	}
 
 	&-buttonpane {
 		padding: 10px 20px;
 		text-align: right;
 		background: #EEEEEE;
+		overflow: hidden;
+		border-radius: 0 0 4px 4px;
 
 		.ui-button {
-			@extend .new-ui-button;
+			@extend .nemo-ui-button;
 
 			margin: 0 15px 0 0;
 
@@ -104,6 +109,7 @@
 			&_secondary {
 				// The only place float is allowed due to our inability to change buttonpane templating
 				float: left;
+				font-size: 13px;
 			}
 
 			&_pseudoLink {
@@ -116,14 +122,15 @@
 			}
 
 			&_pseudoLink .ui-button-text {
-				@extend .new-ui-pseudoLink;
+				@extend .nemo-ui-pseudoLink;
 				line-height: normal;
 			}
 		}
 	}
 }
 
-@keyframes new-ui-popup__progressAnimation {
+@keyframes nemo-ui-popup__progressAnimation {
 	0% {width: 0%;}
-	100% {width: 75%;}
+	5% {width: 80%;}
+	100% {width: 100%;}
 }

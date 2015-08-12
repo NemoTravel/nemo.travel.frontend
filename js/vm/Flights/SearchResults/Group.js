@@ -15,7 +15,7 @@ define(
 
 			this.isDirectGroup = false;
 
-			this.carriersMismatch = false;
+			this.carriersMismatch = ko.observable(false);
 
 			this.filteredOut = ko.observable(false);
 			this.selectedFlightsIds = ko.observable([]);
@@ -208,13 +208,16 @@ define(
 		Group.prototype.recalculateSelf = function () {
 			var i, j, k,
 				tmp,
-				filteredOut = true;
+				filteredOut = true,
+				carriersMismatch = false;
 
 			this.recalculateSelectedFlights = false;
 
 			// Calculating filteredOut status
 			for (i = 0; i < this.flights.length; i++) {
 				filteredOut = filteredOut && this.flights[i].filteredOut();
+
+				carriersMismatch = carriersMismatch || this.flights[i].carriersMismatch;
 			}
 
 			this.filteredOut(filteredOut);
@@ -222,6 +225,8 @@ define(
 			if (this.filteredOut()) {
 				return;
 			}
+
+			this.carriersMismatch(carriersMismatch);
 
 			// Calculating options disabled status
 			for (i = 0; i < this.legGroupings.length; i++) {
@@ -328,14 +333,6 @@ define(
 
 				ret = tmp;
 			}
-
-			return ret;
-		};
-
-		Group.prototype.getSelectedFlightsData = function (flarr, leg) {
-			var ret = '';
-
-			ret += this.flightsById[flarr.flights[0]].legs[leg].depDateTime.getISODateTime() + ' - ' + this.flightsById[flarr.flights[0]].legs[leg].arrDateTime.getISODateTime()
 
 			return ret;
 		};

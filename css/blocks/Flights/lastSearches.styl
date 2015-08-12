@@ -1,0 +1,67 @@
+.nemo-flights-lastSearches {
+	//position: relative;
+
+	&__toggler {
+		padding-left: 10px;
+	}
+
+	&__dropdown {
+
+		&__option {
+			white-space: nowrap;
+			padding: 5px 15px;
+			line-height: 30px;
+
+			&__leg {
+				text-overflow: ellipsis;
+				overflow: hidden;
+
+				&__departure {
+					&:after {
+						content: '';
+						display: inline-block;
+						vertical-align: middle;
+						background: rgba(0, 0, 0, 0) url("images/flights_results_sprite.svg") no-repeat scroll 0 -10px;
+						height: 15px;
+						margin: 0 5px;
+						width: 18px;
+					}
+				}
+
+				&__country {
+					color: $nemo-color-text-secondary;
+				}
+			}
+
+			&__rtdates {
+				color: $nemo-color-text-secondary;
+				text-overflow: ellipsis;
+				overflow: hidden;
+
+				&__date {
+					padding-right: 5px;
+				}
+			}
+
+			&__additional {
+				text-overflow: ellipsis;
+				overflow: hidden;
+
+				&__owdate, &__passengers {
+					padding-right: 10px;
+				}
+			}
+
+			&_RT &__leg__departure:after {
+				background-position: 0 1px;
+			}
+		}
+	}
+}
+
+@media (max-width: 450px) {
+	.nemo-flights-lastSearches__toggler {
+		display: block;
+		text-align: left;
+	}
+}

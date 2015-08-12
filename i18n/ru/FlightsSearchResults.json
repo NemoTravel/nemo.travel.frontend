@@ -2,10 +2,10 @@
 	"controls__count_all" : "Все билеты ([%-count-%])",
 	"controls__count_filtered" : "Выбрано [%-count-%] из [%-total-%]",
 
-	"sortType_price" : "Цене",
-	"sortType_durationOnLeg" : "Длительности",
-	"sortType_rating" : "Рейтингу",
-	"sortType_carrierRating" : "Рейтингу перевозчика",
+	"sortType_price" : "Сначала дешевые",
+	"sortType_durationOnLeg" : "По времени в пути",
+	"sortType_rating" : "Сначала лучшие",
+	"sortType_carrierRating" : "По рейтингу авиакомпании",
 
 	"formDummy__route__rt__flight" : "Туда",
 	"formDummy__route__rt__return" : "Обратно",
@@ -16,8 +16,14 @@
 
 	"flightsGroup__header_cheapest" : "Самый дешевый",
 	"flightsGroup__header_fastest" : "Самый быстрый",
-	"flightsGroup__header_recommended" : "Лучший вариант",
-	
+  	"flightsGroup__header_recommended" : "Лучший вариант",
+
+	"flightsGroup__header_cheapest_fastest_recommended" : "Самый быстрый, дешевый и удобный",
+	"flightsGroup__header_cheapest_fastest" : "Самый быстрый и дешевый",
+	"flightsGroup__header_cheapest_recommended" : "Самый дешевый и удобный",
+	"flightsGroup__header_fastest_recommended" : "Самый быстрый и удобный",
+
+	"flightsCompareTableDummy":"Загрузка данных...",
 	"flightsCompareTable__unknownFlightTime":"Неизвестно",
 	"flightsCompareTable__time":"Время:",
 	"flightsCompareTable__buy":"Купить",
@@ -28,7 +34,9 @@
 	"flightsCompareTable__transferFlights":"Рейсы с пересадками",
 	"flightsCompareTable__showMore":"Еще варианты",
 	"flightsCompareTable__showLess":"Свернуть",
+	"flightsCompareTable__showAll":"Все варианты",
 	"flightsCompareTable__transfers":"Пересадок",
+	"flightsCompareTable__nextDay":"На следующий день",
 
 	"flightsGroup__header__carrierMismatch__header" : "Несколько перевозчиков",
 	"flightsGroup__header__carrierMismatch__content" : "Перелет предоставлен компанией &laquo;[%-validatingCarrier-%]&raquo;, но выполняет его другая компания.<br/>Вы можете ожидать сервиса и правил авиакомпании предоставляющей перелет.",
@@ -99,6 +107,9 @@
 	"error_brokenJSON": "Поиск не удался, обратитесь к разработчику. (Некорректный ответ)",
 	"error_systemError": "Поиск не удался, обратитесь к разработчику. (Ошибка на сервере)",
 	"error_emptyResult": "Поиск не дал результатов",
+
+	"matrix__table__emptyText":"",
+	"matrix__table__impossibleText":"",
 
 	"" : ""
 }

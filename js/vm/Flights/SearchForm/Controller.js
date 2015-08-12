@@ -9,7 +9,7 @@ define(
 
 			this.delayedSearch = true;
 
-			this.serviceClasses = ['All', 'Economy', 'Business', 'First'];
+			this.serviceClasses = ['Economy', 'Business', 'First']; //'All' class removed
 			this.tripTypes = ['OW','RT','CR'];
 
 			this.segments = ko.observableArray([]);
@@ -53,6 +53,9 @@ define(
 			this.typeSelectorOpen           = ko.observable(false);
 			this.classSelectorOpen          = ko.observable(false);
 			this.passengersFastSelectorOpen = ko.observable(false);
+
+			this.useAdditionalOptions = true;
+			this.forceSelfHostNavigation = false;
 
 			this.processInitParams();
 
@@ -314,10 +317,8 @@ define(
 
 		FlightsSearchFormController.prototype.openPassengersSelector = function () {
 			if (
-				!(
-					this.passengersFastSelectOptions.length == 0 &&
-					this.passengersUseExtendedSelect
-				) &&
+				this.passengersUseExtendedSelect
+				||
 				this.passengersFastSelectOptions.length != 0
 			) {
 				this.passengersFastSelectorOpen(!this.passengersFastSelectorOpen());
@@ -385,8 +386,18 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.processInitParams = function () {
-			if (typeof this.$$componentParameters.additional != 'undefined' && typeof this.$$componentParameters.additional.delayed != 'undefined') {
-				this.delayedSearch = !!this.$$componentParameters.additional.delayed;
+			if (typeof this.$$componentParameters.additional != 'undefined') {
+				if ('delayed' in this.$$componentParameters.additional) {
+					this.delayedSearch = !!this.$$componentParameters.additional.delayed;
+				}
+
+				if ('useAdditionalOptions' in this.$$componentParameters.additional) {
+					this.useAdditionalOptions = !!this.$$componentParameters.additional.useAdditionalOptions;
+				}
+
+				if ('forceSelfHostNavigation' in this.$$componentParameters.additional) {
+					this.forceSelfHostNavigation = !!this.$$componentParameters.additional.forceSelfHostNavigation;
+				}
 			}
 
 			// Analyzing parameters
@@ -574,14 +585,14 @@ define(
 			if (this.tripType() == 'RT') {
 				urlAdder += (segments[0].items.departure.value().isCity ? 'c' : 'a') + segments[0].items.departure.value().IATA +
 					(segments[0].items.arrival.value().isCity ? 'c' : 'a') + segments[0].items.arrival.value().IATA +
-					segments[0].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g') +
-					segments[1].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+					segments[0].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') +
+					segments[1].items.departureDate.value().dropTime().getISODate().replace(/-/g, '');
 			}
 			else {
 				for (var i = 0; i < segments.length; i++) {
 					urlAdder += (segments[i].items.departure.value().isCity ? 'c' : 'a') + segments[i].items.departure.value().IATA +
 						(segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA +
-						segments[i].items.departureDate.value().dropTime().getISODate().replace('-', '', 'g');
+						segments[i].items.departureDate.value().dropTime().getISODate().replace(/-/g, '');
 				}
 			}
 
@@ -601,8 +612,16 @@ define(
 				urlAdder += '-vicinityDates='+this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1];
 			}
 
-			// TODO proper navigation for light form
-			this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder);
+			if (
+				this.forceSelfHostNavigation ||
+				this.$$controller.options.dataURL.indexOf('/') === 0 ||
+				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) === 0
+			) {
+				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'FlightsResults');
+			}
+			else {
+				document.location = this.$$controller.options.dataURL.split('/').splice(0, 3).join('/') + '/results/' + (id ? id + '/' : '') + urlAdder;
+			}
 		};
 
 		FlightsSearchFormController.prototype.startSearch = function () {
@@ -1030,6 +1049,8 @@ define(
 
 			return ret;
 		};
+
+		FlightsSearchFormController.prototype.pageTitle = 'FlightsSearch';
 
 		return FlightsSearchFormController;
 	}

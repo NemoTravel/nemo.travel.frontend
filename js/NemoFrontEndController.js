@@ -8,10 +8,10 @@ define (
 			this.scope = scope;
 			this.options = {};
 			this.ko = ko;
-			this.ignorePopState = false;
+
 			this.routes = [
 				// Form with optional data from existing search
-				{re: /^(?:search\/(\d+))?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^(?:search\/(\d+)(?:\/.*)?)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				// Form with initialization by URL:
 				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
@@ -21,13 +21,13 @@ define (
 				// vicinityDates - vicinity dates flag
 				// class=Business - class definition
 				// GO - immediate search flag
-				{re: /^((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^search\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				{re: /^results\/(\d+)(?:\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
 
 				// Search by URL params
-				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=All-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
-				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=All-direct - CR, 3 segments
+				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
+				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
 				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
@@ -68,7 +68,6 @@ define (
 			 */
 			this.router = {
 				pushStateSupport: !!(history.pushState),
-				history: [],
 				init: function () {
 					self.options.root = '/'+this.clearSlashes(self.options.root)+'/';
 
@@ -107,22 +106,35 @@ define (
 
 					return null;
 				},
-				navigate: function(path) {
+				navigate: function(path, title) {
 					path = path ? path : '';
+
+					document.title = title;
+
 					if(this.pushStateSupport) {
-						history.pushState(null, null, self.options.root + this.clearSlashes(path));
-						this.history.push(self.options.root + this.clearSlashes(path));
+						history.pushState('', title, self.options.root + this.clearSlashes(path));
 					} else {
 						window.location = self.options.root + this.clearSlashes(path);
 					}
 					return this;
 				},
-				back: function() {
-					if (this.history.length > 0) {
-						history.back();
+				replaceState: function(path, title) {
+					path = path ? path : '';
+
+					document.title = title;
+
+					if(this.pushStateSupport) {
+						history.replaceState(null, null, self.options.root + this.clearSlashes(path));
+					} else {
+						window.location = self.options.root + this.clearSlashes(path);
 					}
 					return this;
-				}
+				}/*,
+				back: function() {
+					history.back();
+
+					return this;
+				}*/
 			};
 
 			this.viewModel = {
@@ -147,7 +159,7 @@ define (
 			this.router.init();
 
 			// Requiring base things: common bindings, base models etc
-			this.loadI18n(['common'], function () {
+			this.loadI18n(['common', 'pageTitles'], function () {
 				require (
 					[
 						/*this.options.sourceURL + */'js/vm/BaseDynamicModel',
@@ -177,11 +189,7 @@ define (
 							window.addEventListener(
 								"popstate",
 								function () {
-									self.router.history.pop();
-
-									if (!self.ignorePopState) {
-										self.processRoute();
-									}
+									self.processRoute();
 								}
 								, false);
 
@@ -192,22 +200,20 @@ define (
 			});
 		};
 
-		NemoFrontEndController.prototype.navigate = function (url, processRoute) {
-			this.router.navigate(url);
+		NemoFrontEndController.prototype.navigate = function (url, processRoute, titlekey) {
+			this.router.navigate(url, this.i18n('pageTitles', titlekey));
 
 			if (typeof processRoute == 'undefined' || processRoute) {
 				this.processRoute();
 			}
 		};
 
-		NemoFrontEndController.prototype.navigateReplace = function (newUrl, processRoute) {
-			if (this.router.pushStateSupport) {
-				this.ignorePopState = true;
-				this.router.back();
-				this.ignorePopState = false;
-			}
+		NemoFrontEndController.prototype.navigateReplace = function (newUrl, processRoute, titlekey) {
+			this.router.replaceState(newUrl, this.i18n('pageTitles', titlekey));
 
-			this.navigate(newUrl, processRoute);
+			if (typeof processRoute == 'undefined' || processRoute) {
+				this.processRoute();
+			}
 		};
 
 		NemoFrontEndController.prototype.navigateGetPushStateSupport = function () {
@@ -475,6 +481,10 @@ define (
 				var ret = self.getModel(name, params);
 
 				ret.run();
+
+				if (params.$$rootComponent && ret.pageTitle) {
+					document.title = self.i18n('pageTitles', ret.pageTitle);
+				}
 
 				return ret;
 			});

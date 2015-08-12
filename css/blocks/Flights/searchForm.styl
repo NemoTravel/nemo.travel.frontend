@@ -7,7 +7,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
     margin-top: 30vh;
 
 	&, & input {
-		font: 13px "Open Sans", sans-serif;
+		font: 13px "Roboto", "Open Sans", sans-serif;
 		//line-height: 40px;
 	}
 
@@ -16,12 +16,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		box-sizing: border-box;
 	}
 
-	&__loader {
-		height: 200px;
-		background: url('images/ui/ui-loader-planes.svg') center center no-repeat;
-		background-size: contain;
-		display: none;
-	}
+	/*&__loader {*/
+		/*height: 200px;*/
+		/*background: url('images/ui/ui-loader-planes.svg') center center no-repeat;*/
+		/*background-size: contain;*/
+		/*display: none;*/
+	/*}*/
 
 	&__formContainer, &__searchOptions {
 		width: 100%;
@@ -42,7 +42,24 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		&__inner {
 			display: table;
 			padding-bottom: 0;
+			width: 1280px;
 			max-width: 1280px;
+		}
+	}
+
+	&__additional {
+		max-width: 1280px;
+		margin: 20px auto;
+		padding: 0 30px;
+
+		&__item {
+			display: inline-block;
+			vertical-align: top;
+			width: 50%;
+
+			&_lastSearches {
+				text-align: right;
+			}
 		}
 	}
 
@@ -91,11 +108,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			&__input {
 				margin: 0;
 				//border-radius: 2px;
-				padding: 0px 10px;
+				padding: 0 10px;
 				height: 40px;
 				cursor: pointer;
 				line-height: 40px;
-				font-size: 105% !important;
+				font-size: 105%;
 				color: $nemo-color-text-main;
 
 				&, &:focus {
@@ -131,7 +148,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				}
 
 				&::-webkit-input-placeholder {
-					line-height: 20px;
+					line-height: normal;//20px;
 				}
 			}
 
@@ -152,7 +169,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 				&__dummy {
 					text-indent: 10px;
-					line-height: 41px;
+					line-height: 40px;
 					font-size: 105%;
 				}
 
@@ -240,6 +257,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 		&__switchToOW {
 			position: absolute;
+			z-index: 10;
 			top: -10px;
 			right: -10px;
 			width: 20px;
@@ -351,51 +369,57 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				box-shadow: none;
 
 				&__button {
-					line-height: 30px;
-					height: 30px;
-					box-shadow: none;
-					padding-right: 33px;
+					//line-height: 30px;
+					//height: 30px;
+					//box-shadow: none;
+					padding-left: 10px;
+					padding-right: 30px;
 					text-align: left;
+					display: block;
 
-					.select2-selection__arrow {
-						width: 33px;
+					&:after {
+						right: 9px;
 					}
+
+					//.select2-selection__arrow {
+					//	width: 33px;
+					//}
 				}
 
 				&__dropdown {
-					background: $nemo-color-LightPoint;
-					border-radius: 4px;
-					box-shadow: 0 1px 4px rgba(#000,.25);
-					overflow: hidden;
-
-					position: absolute;
-					margin-top: 5px;
-					z-index: 50;
-
+				//	background: $nemo-color-LightPoint;
+				//	border-radius: 4px;
+				//	box-shadow: 0 1px 4px rgba(#000,.25);
+				//	overflow: hidden;
+				//
+				//	position: absolute;
+				//	margin-top: 5px;
+				//	z-index: 50;
+				//
 					&__item {
-						font-size: 13px;
-						color: #636467;
-						line-height: 20px;
-						padding: 10px;
-						cursor: pointer;
-						border-bottom: 1px solid #D7D7D7;
-						transition: all .2s;
-						min-width: 100px;
-						text-align: left;
-
-						&:last-child {
-							border: none;
-						}
-
-						&:hover {
-							background: rgba($nemo-color-main, 0.25);
-						}
+				//		font-size: 13px;
+				//		color: #636467;
+				//		line-height: 20px;
+				//		padding: 10px;
+				//		cursor: pointer;
+				//		border-bottom: 1px solid #D7D7D7;
+				//		transition: all .2s;
+				//		min-width: 100px;
+				//		text-align: left;
+				//
+				//		&:last-child {
+				//			border: none;
+				//		}
+				//
+				//		&:hover {
+				//			background: rgba($nemo-color-main, 0.25);
+				//		}
 					}
 				}
 			}
 
 			&__checkbox {
-				padding: 5px 0 0 0;
+				padding: 0;
 
 				&__caption {
 					font-size: 14px;
@@ -433,7 +457,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			line-height: 40px;
 			font-size: 13px;
 			color: $nemo-color-text-main;
-			background: $nemo-color-LightPoint ;
+			background: $nemo-color-LightPoint;
 			padding: 0 40px 0 10px;
 			box-shadow: $i_flights_form_segment_input_bsh;
 			border-radius: 2px;
@@ -445,52 +469,24 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 			&:hover {
 				box-shadow: $i_flights_form_segment_input_bsh_hover;
-			}
-
-			&:before {
-				content: '';
-				position: absolute;
-				top: 50%;
-				right: 14px;
-				margin-top: -3px;
-				border-width: 7px 5px 0;
-				border-style: solid;
-				border-color: #2888bc transparent transparent;
+				background: $nemo-color-LightPoint;
 			}
 		}
 
 		&__fastSelect {
-			@extend .nemo-flights-form__routeOptions__item__selector__dropdown;
-
-			&__item {
-				@extend .nemo-flights-form__routeOptions__item__selector__dropdown__item;
-			}
+			display: block;
 		}
 	}
 
-	/*&__passengersPopUpWrapper {*/
-		/*position: fixed;*/
-		/*top: 0;*/
-		/*left: 0;*/
-		/*height: 100vh;*/
-		/*width: 100vw;*/
-		/*background: rgba(#50505A, 0.5);*/
-		/*text-align: center;*/
-		/*overflow: auto;*/
-		/*z-index: 1000;*/
-	/*}*/
-
 	&__passengersPopUp {
+		margin: 0 -10px;
+
 		&__item {
 			display: inline-block;
 			vertical-align: top;
-			margin-left: 20px;
+			margin: 0 10px;
 			font-size: 13px;
 			white-space: normal;
-
-			&:first-child {
-				margin: 0;
-			}
 
 			&__header {
 				font-size: 14px;
@@ -624,12 +620,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 	}
 
 	&__searchingInfoPopup {
-		width: 80vw;
-		max-width: 700px;
-		padding: 5px 20px 20px;
+		padding: 0;
 
 		&__content {
-			padding: 0;
+			width: 80vw;
+			max-width: 700px;
+			padding: 5px 20px 20px;
 		}
 
 		&__header {

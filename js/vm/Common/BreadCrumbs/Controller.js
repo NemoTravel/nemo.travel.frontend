@@ -15,13 +15,15 @@ define(
 							title: 'flights-step_search',
 							active: true,
 							link: '/search/',
-							router: true
+							router: true,
+							pageTitle: 'FlightsSearch'
 						},
 						{
 							title: 'flights-step_results',
 							active: false,
 							link: '/results/',
-							router: true
+							router: true,
+							pageTitle: 'FlightsResults'
 						},
 						{
 							title: 'flights-step_checkout',
@@ -33,7 +35,7 @@ define(
 
 					switch (componentName) {
 						case 'FlightsSearchResultsController':
-							this.elements[0].link += componentParameters.component.id;
+							this.elements[0].link += componentParameters.component.id + '/' + helpers.getFlightsRouteURLAdder('search', componentParameters.component.searchInfo());
 							break;
 					}
 				}

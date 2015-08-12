@@ -1,15 +1,15 @@
 /**
  * Button
  *
- * @usage: class "new-ui-button" on element
+ * @usage: class "nemo-ui-button" on element
  * @modifiers: _small, _red, _disabled
  * @tags: input, button, div, span, a
- * @example: <a href="http://google.com" class="new-ui-button">Google it!</a>
+ * @example: <a href="http://google.com" class="nemo-ui-button">Google it!</a>
  */
 
 // COLORS
 $c_ui_button						= $nemo-color-button-main;
-$c_ui_button_hover					= lighten($c_ui_button, 2);
+$c_ui_button_hover					= lighten($c_ui_button, 5);
 
 $c_ui_button_disabled               = $nemo-color-button-secondary_disabled;
 
@@ -90,7 +90,7 @@ $f_ui_button_lineheight 			= $d_ui_button_height - 2*$d_ui_button_border;
 $f_ui_button_small_size       		= 13px;
 $f_ui_button_small_lineheight 		= $d_ui_button_small_height - 2*$d_ui_button_border;
 
-$fz_ui_button_common				= 15px;
+$fz_ui_button_common				= 100%;
 $lh_ui_button_common				= $d_ui_button_common_height;
 
 $f_ui_button_medium_size       		= 13px;
@@ -105,6 +105,7 @@ $lh_ui_button_blue					= $d_ui_button_blue_height;
 // VALUES
 $i_ui_button_border = none;
 $i_ui_button_focused_outershadow    = 0 0 8px darken($nemo-color-highlight, 10);
+$i_ui_button_disabled_outershadow    = 0 0 8px darken($nemo-color-button-secondary_disabled, 10);
 $i_ui_button_innershadow            = inset 0 0 5px rgba(0,0,0,.1);
 
 $i_ui_button_sec_innershadow = 0 0 5px rgba(0,0,0,.1);
@@ -114,11 +115,11 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 // animation for disabled button
 @keyframes shakes {
 	0%, 100%                {transform: translateX(0);}
-	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
-	20%, 40%, 60%, 80%      {transform: translateX(10px);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+	20%, 40%, 60%, 80%      {transform: translateX(5px);}
 }
 
-.new-ui-button {
+.nemo-ui-button {
 	// General
 	display: inline-block;
 	vertical-align: baseline;
@@ -128,72 +129,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	outline: none;
 	user-select: none;
 
-	transition: all .15s ease-in;
-
-	// States
-	&:link {
-		color: $f_ui_button_color;
-	}
-
-	&:visited {
-		color: $f_ui_button_color;
-	}
-
-	&:hover {
-		background: $c_ui_button_hover;
-	}
-
-	&:active {
-		padding-top: 1px;
-	}
-
-	&:focus {
-		background: $c_ui_button;
-		box-shadow: $i_ui_button_focused_outershadow;
-		/*text-shadow: $f_ui_button_shadow;*/
-
-		&:hover {
-			background: $c_ui_button_hover;
-		}
-	}
-
-	&_common{
-		height: $d_ui_button_common_height;
-		line-height: $lh_ui_button_common;
-		font-size: $fz_ui_button_common;
-
-		background-color: $c_ui_button_common;
-		background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-		color: $c_ui_button_common_text;
-
-
-		&:hover{
-			background-color: lighten($c_ui_button_common, 5);
-			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-		}
-
-		&:focus, &:focus:hover{
-			background-color: lighten($c_ui_button_common, 5);
-			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
-		}
-	}
-	&_light{
-		height: $d_ui_button_common_height;
-		line-height: $lh_ui_button_common;
-		font-size: $fz_ui_button_common;
-
-		background-color: $nemo-color-LightPoint;
-		color: $c_ui_button_common_text;
-
-
-		&:hover{
-			background-color: lighten($nemo-color-LightPoint, 5);
-		}
-
-		&:focus, &:focus:hover{
-			background-color: lighten($nemo-color-LightPoint, 5);
-		}
-	}
+	transition: all $nemo-transition-main ease-in;
 
 	// Dimensions
 	height: $d_ui_button_height;
@@ -211,13 +147,74 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	// Background
 	background: $c_ui_button;
 
+	// States
+	&:link {
+		color: $f_ui_button_color;
+	}
+
+	&:visited {
+		color: $f_ui_button_color;
+	}
+
+	&:hover {
+		background: $c_ui_button_hover;
+	}
+
+	&:active {
+		/*padding-top: 0px;*/
+	}
+
+	&:focus {
+		background: $c_ui_button;
+		box-shadow: $i_ui_button_focused_outershadow;
+		/*text-shadow: $f_ui_button_shadow;*/
+
+		&:hover {
+			background: $c_ui_button_hover;
+		}
+	}
+
+	&_common {
+		height: $d_ui_button_common_height;
+		line-height: $lh_ui_button_common;
+		font-size: $fz_ui_button_common;
+
+		background-color: $c_ui_button_common;
+		background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		color: $c_ui_button_common_text;
+
+
+		// States
+		&:link {
+			color: $c_ui_button_common_text;
+		}
+
+		&:visited {
+			color: $c_ui_button_common_text;
+		}
+
+		&:hover {
+			background: $c_ui_button_common_text;
+		}
+
+		&:hover{
+			background-color: lighten($c_ui_button_common, 2);
+			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		}
+
+		&:focus, &:focus:hover{
+			background-color: lighten($c_ui_button_common, 2);
+			background-image: linear-gradient(to bottom, $c_ui_button_common_top, $c_ui_button_common_bottom);
+		}
+	}
+
 	// Common state + modifier (sent to the end because it has the highest priority)
 	&:disabled,
 	&_disabled {
 		background: $c_ui_button_disabled;
 		cursor: default;
 		overflow: hidden;
-
+		box-shadow:$i_ui_button_disabled_outershadow!important;
 		&:hover,
 		&:active,
 		&:focus {
@@ -233,7 +230,7 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 
 		&:active {
 			padding-top: 0;
-			animation: shakes .25s 1;
+			animation: shakes .75s 1;
 		}
 	}
 
@@ -300,17 +297,38 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 	&_direction_down {
 		position: relative;
 		padding-right: 33px;
+
 		&:after {
 			content: '';
 			display: block;
 			position: absolute;
-			top: 13px;
+			top: 50%;
 			right: 10px;
+			margin-top: -3px;
 			width: 0;
 			height: 0;
 			border-style: solid;
 			border-width: 6px 5px 0 5px;
 			border-color: $c_ui_button_direction_arrow transparent transparent transparent;
+		}
+	}
+
+	&_direction_up {
+		position: relative;
+		padding-right: 33px;
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			margin-top: -3px;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 5px 6px 5px;
+			border-color: transparent transparent $c_ui_button_direction_arrow transparent;
 		}
 	}
 

@@ -2,12 +2,18 @@
 define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
 	function (ko, helpers, BaseModel) {
-		function CompareTable (initialData, controller) {
-
+		function CompareTable (initialData) {
+			this.controller = initialData.controller;
 			var tempFlightGroups = initialData.groups,
 				tmpct = {},
 				tmpctDirect = {},
-				tmpctTransfer = {};
+				tmpctTransfer = {},
+				tempGroupsArrDirect =[],
+				tempGroupsArrTransfer =[],
+				tempFlightsLength = 0,
+				tmpLongestTransfer = 0,
+				tmpLongestDirect = 0;
+
 
 			for (var i = 0; i < tempFlightGroups.length; i++) {
 				if (tempFlightGroups[i].isDirectGroup == false && tempFlightGroups[i].filteredOut() == false){
@@ -29,8 +35,6 @@ define(
 				}
 			}
 
-			var tempGroupsArrDirect =[],
-			tempGroupsArrTransfer =[];
 
 			for(var i in tmpctTransfer ) {
 				if (tmpctTransfer.hasOwnProperty(i)){
@@ -78,56 +82,65 @@ define(
 				}, tmpctDirect[i]);
 			}
 
+			if(tempGroupsArrTransfer.length>0){
+				tmpLongestTransfer = tempGroupsArrTransfer.sort(function(a, b) {
+					return b.groups.length - a.groups.length;
+				})[0].groups.length;
+			}else{
+				tmpLongestTransfer = 0;
+			}
+
+			if(tempGroupsArrDirect.length>0){
+				tmpLongestDirect = tempGroupsArrDirect.sort(function(a, b) {
+					return b.groups.length - a.groups.length;
+				})[0].groups.length;
+			}else{
+				tmpLongestDirect = 0;
+			}
+
+
+			if(tmpLongestDirect >= tmpLongestTransfer){
+				this.controller.compareTableLongestColumn(new Array(tmpLongestDirect))
+			}else{
+				this.controller.compareTableLongestColumn(new Array(tmpLongestTransfer))
+			}
+
 			if(initialData.direct == true){
 				this.groups = tempGroupsArrDirect;
 			}else if (initialData.direct == false){
 				this.groups = tempGroupsArrTransfer;
 			}
 
-			var tempFlightsLength = 0;
 			for(var i=0;i<this.groups.length;i++){
 				tempFlightsLength += parseInt(this.groups[i].groups.length);
 			}
+
 			this.flightsLength = tempFlightsLength;
 			//pagination
 			this.paginationStep = ko.observable(3);
 			this.paginationShownPages = ko.observable(0);
+
+			this.allGroupsVisible = ko.observable(true);
+
 			this.indexHelper = ko.computed(function(){ //TODO refactor flag counting for ShowMore
 				 return [this.paginationShownPages() + this.paginationStep()-3,this.paginationShownPages() + this.paginationStep()-2, this.paginationShownPages() + this.paginationStep()-1]
 			}, this);
-			this.paginationHasNext = ko.computed(function(){
-				if ((this.paginationShownPages() + this.paginationStep() >= this.groups.length)){
-					return false;
-				}else{
-					return true;
-				}
-			}, this);
-			this.paginationHasPrev = ko.computed(function(){
-				if ((this.paginationShownPages() <= 0)){
-					return false;
-				}else{
-					return true;
-				}
-			}, this);
-			this.paginationNext = function(){
-				if(this.paginationHasNext()){
-					var current = this.paginationShownPages();
-					this.paginationShownPages(current + this.paginationStep());
-					if(this.allGroupsVisible() == true){
-						this.toggleVisibleGroups()
-					}
-				}
-			};
-			this.paginationPrev = function(){
-				if(this.paginationHasPrev()){
-					var current = this.paginationShownPages();
-					this.paginationShownPages(current - this.paginationStep());
-					if(this.allGroupsVisible() == true){
-						this.toggleVisibleGroups()
-					}
-				}
-			};
 
+			this.paginationHasNext = ko.computed(function(){
+				if (this.paginationShownPages() + this.paginationStep() >= this.groups.length){
+					return false;
+				}else{
+					return true;
+				}
+			}, this);
+
+			this.paginationHasPrev = ko.computed(function(){
+				if (this.paginationShownPages() <= 0){
+					return false;
+				}else{
+					return true;
+				}
+			}, this);
 
 			//show more block
 			this.flagToShowMore = ko.computed(function(){
@@ -137,19 +150,60 @@ define(
 					}
 				}
 			},this);
-			this.allGroupsVisible = ko.observable(true);
-			this.toggleVisibleGroups = function(){
-				if(this.allGroupsVisible() == false ){
-					this.allGroupsVisible(true);
-				}else{
-					this.allGroupsVisible(false);
+
+			this.isDisplayable = ko.computed(function () {
+				var count = 0;
+
+				for (var i = 0; i < this.groups.length; i++ ) {
+					if (!this.groups[i].groupsFilteredOut()) {
+						count++;
+					}
 				}
-			};
+
+				return count >= this.columnThreshold;
+			}, this);
+
+
 			BaseModel.apply(this, arguments);
 		}
 
 		// Extending from dictionaryModel
 		helpers.extendModel(CompareTable, [BaseModel]);
 
+		CompareTable.prototype.columnThreshold = 3;
+
+		CompareTable.prototype.paginationNext = function(){
+			if(this.paginationHasNext()){
+				var current = this.paginationShownPages();
+				this.paginationShownPages(current + this.paginationStep());
+			}
+		};
+
+		CompareTable.prototype.paginationPrev = function(){
+			if(this.paginationHasPrev()){
+				var current = this.paginationShownPages();
+				this.paginationShownPages(current - this.paginationStep());
+			}
+		};
+
+		CompareTable.prototype.toggleVisibleGroups = function(){
+			if (this.controller.compareTableLongestColumn().length > 7){
+				if(this.controller.compareTablesOpenGroups() == 2 ){
+					this.controller.compareTablesOpenGroups(7);
+				}else if (this.controller.compareTablesOpenGroups() == 7){
+					this.controller.compareTablesOpenGroups(Infinity);
+				}
+				else{
+					this.controller.compareTablesOpenGroups(2);
+				}
+			}else{
+				if(this.controller.compareTablesOpenGroups() == 2 ){
+					this.controller.compareTablesOpenGroups(Infinity);
+				}
+				else{
+					this.controller.compareTablesOpenGroups(2);
+				}
+			}
+		};
 		return CompareTable;
 	});

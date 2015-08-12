@@ -1,12 +1,12 @@
 /**
  * Button like checkbox or radiobtn
  *
- * @usage: class "new-ui-btnCheck" on element
+ * @usage: class "nemo-ui-btnCheck" on element
  * @tags: label
  * @example:
-    <label class="new-ui-btnCheck">
-        <input type="checkbox" class="new-ui-btnCheck__input">
-        <span class="new-ui-btnCheck__btn">Click</span>
+    <label class="nemo-ui-btnCheck">
+        <input type="checkbox" class="nemo-ui-btnCheck__input">
+        <span class="nemo-ui-btnCheck__btn">Click</span>
     </label>
  */
 
@@ -15,7 +15,7 @@ $c_ui_checkBtn_bg          = #0C91D7;
 $c_ui_checkBtn_hover_bg    = lighten(#0C91D7, 10);
 $c_ui_checkBtn_pressed_bg  = darken(#0C91D7, 10);
 
-.new-ui-btnCheck {
+.nemo-ui-btnCheck {
 
     &__input {
         position: absolute;
@@ -44,8 +44,8 @@ $c_ui_checkBtn_pressed_bg  = darken(#0C91D7, 10);
     }
 
     &__btn {
-        @extend .new-ui-button;
-        @extend .new-ui-button_common;
-		@extend .new-ui-button_small;
+        @extend .nemo-ui-button;
+        @extend .nemo-ui-button_common;
+		@extend .nemo-ui-button_small;
 	}
 }

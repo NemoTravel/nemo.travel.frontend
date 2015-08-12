@@ -3,6 +3,8 @@ define(
 	[/* We require nothing */],
 	function () {
 		return {
+			language: 'en',
+
 			extendModel: function (what, withWhatArray) {
 				for (var i = 0; i < withWhatArray.length; i++) {
 					for (var j in withWhatArray[i].prototype) {
@@ -12,6 +14,7 @@ define(
 
 				what.prototype.constructor = what;
 			},
+
 			cloneObject: function (obj) {
 				var clone;
 
@@ -38,6 +41,7 @@ define(
 
 				return clone;
 			},
+
 			smartJoin: function (arr, conj, lastConj) {
 				var ret = arr.slice(0),
 					tmp = '';
@@ -48,6 +52,7 @@ define(
 
 				return ret.join(conj) + tmp;
 			},
+
 			intersectArrays: function () {
 				var ret;
 
@@ -63,6 +68,7 @@ define(
 
 				return ret;
 			},
+
 			getNumeral: function (count, one, twoToFour, fourPlus) {
 				// General cyrillic languages
 				if (this.language == 'ua' || this.language == 'ru') {
@@ -95,7 +101,86 @@ define(
 					}
 				}
 			},
-			language: 'en'
+
+			/**
+			 * Returns a string - route data encoded in URL
+			 * @param type 'search'|'results'
+			 * @param data
+			 * @returns {string}
+			 */
+			getFlightsRouteURLAdder: function (type, data) {
+				var ret = '',
+					tmp;
+
+				function processDate (date) {
+					return (typeof date == 'object' ? date.getISODate() : date.substr(0, 10))
+						.replace(/-/g, '');
+				}
+
+				if (!data || !data.segments) {
+					return ret;
+				}
+
+				// Segments
+				// RT for results
+				if (
+					type == 'results' &&
+					data.segments.length == 2 &&
+					data.segments[0].arrival.IATA == data.segments[1].departure.IATA &&
+					data.segments[1].arrival.IATA == data.segments[0].departure.IATA &&
+					data.segments[0].arrival.isCity == data.segments[1].departure.isCity &&
+					data.segments[1].arrival.isCity == data.segments[0].departure.isCity
+				) {
+					tmp = data.segments[0].departure;
+					ret += (tmp.isCity ? 'c' : 'a') + tmp.IATA;
+
+					tmp = data.segments[0].arrival;
+					ret += (tmp.isCity ? 'c' : 'a') + tmp.IATA;
+
+					ret += processDate(data.segments[0].departureDate);
+					ret += processDate(data.segments[1].departureDate);
+				}
+				else {
+					for (var i = 0; i < data.segments.length; i++) {
+						tmp = data.segments[i].departure;
+						ret += (type == 'results' ? (tmp.isCity ? 'c' : 'a') : '') + tmp.IATA;
+
+						tmp = data.segments[i].arrival;
+						ret += (type == 'results' ? (tmp.isCity ? 'c' : 'a') : '') + tmp.IATA;
+
+						ret += processDate(data.segments[i].departureDate);
+					}
+				}
+
+				// Passengers
+				if (data.passengers instanceof Array) {
+					for (var i = 0; i < data.passengers.length; i++) {
+						if (data.passengers[i].count > 0) {
+							ret += data.passengers[i].type + data.passengers[i].count;
+						}
+					}
+				}
+				else {
+					for (var i in data.passengers) {
+						if (data.passengers.hasOwnProperty(i) && data.passengers[i] > 0) {
+							ret += i.toUpperCase() + data.passengers[i];
+						}
+					}
+				}
+
+				// Parameters
+				ret += '-class=' + (typeof data.serviceClass != 'undefined' ? data.serviceClass : data.summary.serviceClass);
+
+				if (data.direct) {
+					ret += '-direct';
+				}
+
+				if (data.vicinityDates > 0) {
+					ret += '-vicinityDates' + (type == 'results' ? '=' + data.vicinityDates : '');
+				}
+
+				return ret;
+			}
 		};
 	}
 );

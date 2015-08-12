@@ -1,14 +1,25 @@
 * {
 	box-sizing: border-box;
+	margin: 0;
 }
 
-.nemo-common-appLoader {
-	height: 200px;
-	width: 200px;
-	background: url('images/ui/ui-loader-planes.svg') center center no-repeat;
-	margin: 0 auto;
-	display: none;
+html,body{
+	height: 100%;
 }
+
+body{
+	background-color: $nemo-color-LightPoint;
+	font-family: $nemo-font-main;
+	font-size: 13px;
+}
+
+/*.nemo-common-appLoader {*/
+	/*height: 200px;*/
+	/*width: 200px;*/
+	/*background: url('images/ui/ui-loader-planes.svg') center center no-repeat;*/
+	/*margin: 0 auto;*/
+	/*display: none;*/
+/*}*/
 
 .nemo-common-appError {
 	text-align: center;
@@ -30,4 +41,8 @@ money {
 	* {
 		transition: none!important;
 	}
+}
+
+.nemo-common-contentPageBody {
+	background: $c_content_bg;
 }
