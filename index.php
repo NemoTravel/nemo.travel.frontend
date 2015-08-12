@@ -34,7 +34,7 @@
 </div>
 
 <?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
-
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 <!--[if IE 9]>
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
