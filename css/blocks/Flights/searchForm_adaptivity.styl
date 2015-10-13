@@ -182,12 +182,7 @@ adapt_flights_form_compact() {
 			&__selectWrap, &__select {
 				width: 100%;
 				text-align: left;
-			}
-
-			&__selectWrap {
-				.select2, .selection {
-					display: block;
-				}
+				min-width: 1px!important; // Needed for automatic width of 100%
 			}
 
 			&_buttons {
@@ -247,6 +242,10 @@ adapt_flights_form_compact() {
 
 				&__input {
 					height: 30px;
+
+					&::-webkit-input-placeholder {
+						line-height: 23px;
+					}
 				}
 			}
 
@@ -336,10 +335,6 @@ adapt_flights_form_compact() {
 			text-align: left;
 			z-index: 1;
 
-			.select2, .selection {
-				display: block;
-			}
-
 			&__inner {
 				padding: 0 0 20px;
 
@@ -367,6 +362,8 @@ adapt_flights_form_compact() {
 					.nemo-flights-form__routeOptions__item__selector__button {
 						width: 100%;
 						text-align: left;
+						display: block;
+						min-width: 1px!important; // Needed for automatic width of 100%
 					}
 				}
 

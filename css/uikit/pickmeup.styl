@@ -22,6 +22,9 @@ $instance_width=258px;
 	div {
 		display: inline-block;
 	}
+	&_flat{
+		display: block;
+	}
 }
 
 .nemo-pmu-instance {
@@ -123,15 +126,16 @@ $instance_width=258px;
 	}
 }
 
-.nemo-pmu-notInMonth {
-	color: #BDBDBD;
-}
-
 .nemo-pmu-disabled,
 .nemo-pmu-disabled:hover {
 	color: #BDBDBD;
 	cursor: default;
 	background: inherit;
+}
+
+.nemo-pmu-notInMonth {
+	color: #BDBDBD;
+	//color: rgba(#BDBDBD, 0.5);
 }
 
 .nemo-pmu-selected {

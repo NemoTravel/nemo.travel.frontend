@@ -1,0 +1,467 @@
+.nemo-flights-results__flightsListGroup {
+	//margin: 0px 10px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	padding: 0;
+	position: relative;
+
+	&__buyButtonCnt {
+		padding: 10px 20px;
+		flex-shrink: 0;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			margin-left: -20px;
+			border-left: $i_ui_subContainer_divider_border;
+		}
+	}
+
+	&__carrier {
+		margin: 10px 10px 10px 20px;
+		flex: 0 0 100px;
+		max-width: 100px;
+		align-self: stretch
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			bottom: -10px;
+			right: -10px;
+			border-left: $i_ui_subContainer_divider_border;
+		}
+
+		&__logo {
+			height: auto;
+			max-width: 100%;
+			max-height: 100%;
+			padding: 0;
+			display: inline-block;
+			vertical-align: middle;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&__segments {
+		flex-basis: 100%;
+		min-width: 1px;
+	}
+
+	&__segment {
+		border-top: $i_ui_subContainer_divider_border;
+		padding-right: 20px;
+		display: flex;
+		align-items: center;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		text-overflow: ellipsis;
+
+		@media (max-width: 1280px) {
+
+			flex-wrap: wrap;
+			padding: 0;
+
+
+			.nemo-flights-results__flightsListGroup__segment__selector {
+				border-bottom: 1px solid $nemo-color-container-separator;
+				border-right: none;
+			}
+
+		.nemo-flights-results__flightsListGroup__segment__additionalDetails {
+			padding: 10px 0;
+			justify-content: left;
+		}
+		.nemo-flights-results__flightsListGroup__segment__selector, .nemo-flights-results__flightsListGroup__segment__additionalDetails {
+				width: 100%;
+			}
+		}
+
+		&__selector {
+			min-width: 1px;
+			border-right: $i_ui_subContainer_divider_border;
+			display: inline-block;
+			vertical-align: middle;
+			flex-shrink: 0;
+			flex-grow: 1;
+			flex-basis: 0;
+			max-width: 250px;
+			min-width: 250px;
+
+			@media (max-width: 1280px) {
+				flex-grow: 0;
+				flex-basis: 100%;
+				max-width: 100%;
+			}
+		}
+
+		&__additionalDetails {
+			display: flex;
+			flex-wrap: nowrap;
+			align-items: baseline;
+			justify-content: space-between;
+			flex-grow: 1;
+			flex-basis: 0;
+
+			&>* {
+				flex-basis: 0;
+				flex-grow: 1;
+			}
+
+			&__first {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: baseline;
+				padding: 5px 0;
+				//justify-content: left;
+
+				@media (min-width: 1400px) {
+					flex-wrap: nowrap;
+				}
+			}
+
+			@media (max-width: 1280px) {
+				flex-grow: 0;
+				flex-basis: 100%;
+			}
+		}
+
+		&:first-child {
+			border-top: 0;
+		}
+
+
+
+		&__timeEnRoute, &__transfers, &__seatsAvailable, &__details {
+			min-width: 1px;
+			display: inline-block;
+			vertical-align: middle;
+			//overflow: hidden;
+			//text-overflow: ellipsis;
+			flex-shrink: 0;
+			max-height: 50px;
+			font-size: 95%;
+			padding: 0 0 0 10px;
+
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		&__timeEnRoute {
+			width: 120px;
+			//padding: 0 10px 0 20px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: none;
+
+			@media (min-width: 1280px) and (max-width: 1440px) {
+				display: block;
+			}
+
+			@media (min-width: 1550px) {
+				display: block;
+			}
+		}
+
+		&__timeEnRoute_adaptive {
+			display: block;
+			width: 85px;
+
+			@media (min-width: 1280px) and (max-width: 1440px) {
+					display: none;
+			}
+
+			@media (min-width: 1550px) {
+				display: none;
+			}
+		}
+
+		&__additional {
+			//margin-left: auto;
+		}
+
+		&__details {
+			padding-left: 5px;
+			padding-right: 5px;
+			width: 80px;
+			margin-left: 10px;
+			display: none;
+		}
+
+		&__seatsAvailable {
+			color: $nemo-color-text-secondary;
+			text-align: right;
+			padding-right: 10px;
+			max-width: 80px;
+			//width: 50px;
+
+			&_warning {
+				color: #B23E13;
+			}
+		}
+
+		&__transfers {
+			//flex: 1 1 auto;
+			padding-right: 10px;
+			line-height: 14px;
+			color: $nemo-color-text-secondary;
+			//width: 100px;
+
+			&__details {
+				display: none;
+
+				@media (min-width: 1400px) {
+					display: block;
+				}
+			}
+
+			&__count {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				line-height: 20px;
+			}
+
+			&__notransfers {
+				line-height: normal;
+			}
+
+			&__time, &__places {
+				color: $nemo-color-text-secondary;
+				font-size: 80%;
+			}
+		}
+
+		&__selected {
+			min-width: 250px;
+			border-radius: 0;
+			padding: 15px 10px 15px 10px;
+			height: 50px;
+			line-height: 20px;
+			transition: all $nemo-transition-main;
+			background: transparent;
+
+			&:hover, &:active {
+				padding-top: 15px;
+				background: rgba($nemo-color-main, .1);
+			}
+
+			&_unopenable {
+				cursor: auto;
+
+				&:after {
+					display: none;
+				}
+
+				&:hover, &:active {
+					background: transparent;
+				}
+			}
+
+			&__departure, &__arrival {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			&__arrival {
+				direction: rtl;
+				position: relative;
+
+				&__nextDayWarn {
+					position: absolute;
+					top: 110%;
+					left: 0;
+					font-size: 10px;
+					color: $nemo-color-text-secondary;
+					line-height: 10px;
+					white-space: nowrap;
+				}
+			}
+
+			&__departure {
+				padding-right: 40px;
+				position: relative;
+
+				&:after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					right: 11px;
+					margin-top: -10px;
+					width: 16px;
+					height: 20px;
+					background: url("images/flights_results_sprite.svg") -70px 0 no-repeat;
+				}
+			}
+
+			&__IATA {
+				display: inline-block;
+				vertical-align: middle;
+				min-width: 35px;
+				line-height: 16px;
+				padding: 3px 4px 2px;
+				border-radius: 2px;
+				background: $nemo-color-highlight;
+				text-align: center;
+				font-size: 90%;
+			}
+
+			&__time {
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 16px;
+				min-width: 45px;
+				color: $nemo-color-text-secondary;
+
+				&_departure {
+					text-align: right;
+				}
+
+				&_nextDay {
+					color: #B23E13;
+				}
+			}
+		}
+
+		&__dropdown {
+			&__option {
+				@extend .nemo-flights-results__flightsGroup__leg__selector__dropdown__option;
+				padding: 0 5px;
+
+				&__data {
+					padding: 10px 10px;
+				}
+
+				&__departure, &__arrival {
+					font-weight: 500;
+					font-size: 120%;
+				}
+
+				&__arrival {
+					&__nextDayDate {
+						font-size: 70%;
+					}
+				}
+
+				&__transfers {
+					min-width: 43px;
+
+
+					&__transfer {
+						margin-left: 2px;
+						margin-right: 2px;
+					}
+				}
+			}
+		}
+	}
+
+	&__buyButton {
+		@extend .nemo-flights-results__flightsGroup__buyButton;
+		font-size: 140%;
+		padding: 0 10px 0 45px;
+		min-width: 160px;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+
+		&__checkText {
+			display: none;
+		}
+
+		&_bookingCheck{
+			@extend .nemo-flights-results__flightsGroup__buyButton_bookingCheck;
+			padding: 0 10px;
+			font-size: 120%;
+		}
+
+		&_bookingCheck &__text {
+			display: none;
+		}
+
+		&_bookingCheck &__checkText {
+			display: inline;
+		}
+	}
+
+	&__fullDetails {
+		display: block;
+		//display: none;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		position: relative;
+		z-index: 1;
+	}
+
+	@media (max-width: 700px) {
+		flex-wrap: wrap;
+
+		&__carrier {
+			width: 20%;
+			flex-basis: 0;
+			flex-grow: 1;
+			margin: 0;
+			display: block;
+
+			border-right: 1px solid $nemo-color-container-separator;
+
+			align-self: stretch;
+
+			&::before {
+				content: none;
+			}
+
+			&__logo {
+				height: auto;
+				max-width: 80%;
+				max-height: 80%;
+			}
+
+		}
+
+		&__segments {
+			width: 80%;
+			flex-basis: 0;
+			flex-grow: 1;
+		}
+
+		&__buyButtonCnt {
+			flex-basis: 100%;
+			border-top: 1px solid $nemo-color-container-separator;
+
+			display: flex;
+			flex-direction: row-reverse;
+
+			align-items: baseline;
+
+			&::before {
+				content: none;
+			}
+		}
+
+		&__fullDetails {
+			display: inline-block;
+			height: 100%;
+			//display: none;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			position: relative;
+			z-index: 1;
+			margin-right: 20px;
+		}
+
+		/*&__buyButton {
+			display: block;
+			text-align: left;
+		}*/
+	}
+}

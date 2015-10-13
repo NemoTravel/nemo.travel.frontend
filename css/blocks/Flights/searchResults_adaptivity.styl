@@ -1,7 +1,14 @@
 adapt_flights_results_condensedGroup() {
 	.nemo-flights-results__flightsGroup {
-		&__header__logo {
-			max-width: 100px;
+		.nemo-flights-results__flightsGroup__header__title,
+		&_bestCompanies .nemo-flights-results__flightsGroup__header__title {
+			visibility: hidden;
+		}
+
+		&__header {
+			&__logo {
+				max-width: 100px;
+			}
 		}
 
 		&__rating_inHeader {
@@ -25,7 +32,7 @@ adapt_flights_results_condensedGroup() {
 						display: none;
 					}
 				}
-				
+
 				&__header {
 					font-size: 12px;
 					line-height: 30px;
@@ -84,8 +91,116 @@ adapt_flights_results_2legsAsRow() {
 	}
 }
 
-// Less than 1220 px - no offers sidebar
-@media (max-width: 1220px) {
+adapt_flights_results_list_condensedSegmentInfo() {
+	/*.nemo-flights-results__flightsListGroup__segment {
+		&__timeEnRoute {
+			display: none;
+
+			&_adaptive {
+				display: inline-block;
+				width: 95px;
+
+				//padding-bottom: 20px;
+			}
+		}
+
+		&__transfers {
+			//position: absolute;
+			//margin-left: -85px;
+
+			&__count, &__notransfers {
+				font-size: 90%;
+				line-height: 15px;
+				color: $nemo-color-text-secondary;
+			}
+
+			&__time, &__places {
+				display: none;
+			}
+		}
+	}*/
+}
+
+@media (min-width: 1441px) and (max-width: 1700px) {
+
+adapt_flights_results_list_condensedSegmentInfo();
+}
+
+// Wide showcase - tiled items, if only one - full view with segments as row
+@media (min-width: 1601px) {
+	.nemo-flights-results {
+		&__showcase {
+			flex-wrap: nowrap;
+
+			// If more than 1 item - display groups condensed
+			&:not(&_oneItem) {
+				adapt_flights_results_condensedGroup();
+			}
+
+			// If one item - display full and with 2 legs as row
+			&_oneItem {
+				adapt_flights_results_2legsAsRow();
+			}
+
+			&__item {
+				flex: 0 1 auto;
+			}
+		}
+	}
+}
+
+@media (min-width: 1441px) and (max-width: 1650px) {
+	/*.nemo-flights-results {
+		&__flightsListGroup {
+			&__fullDetails {
+				display: block;
+			}
+
+			&__buyButton {
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+
+				height: 40px;
+				line-height: 40px;
+			}
+
+			&__segment {
+				&__details {
+					display: none;
+				}
+
+				&__selected__departure {
+					padding-right: 25px;
+
+					&:after {
+						right: 3px;
+					}
+				}
+			}
+		}
+
+	}*/
+}
+
+@media (max-width: 1440px) {
+	.nemo-flights-results__content__results__controls {
+		flex-wrap: wrap;
+
+		&__item_displayType {
+			margin: 10px 0 0 0;
+			flex-basis: 100%;
+			text-align: right;
+		}
+	}
+}
+
+@media (min-width: 941px) and (max-width: 1340px) {
+
+adapt_flights_results_list_condensedSegmentInfo();
+}
+
+// Less than 1440 px - no offers sidebar
+@media (max-width: 1440px) {
 	.nemo-flights-results__content {
 		&__results {
 			flex-basis: 82%;
@@ -95,12 +210,10 @@ adapt_flights_results_2legsAsRow() {
 			display: none;
 		}
 	}
-
 }
 
 // PF hidden
 @media (max-width: 940px) {
-
 	.nemo-flights-results {
 		&__flightsGroup__footer {
 			&__couplingButtonContainer {
@@ -135,8 +248,9 @@ adapt_flights_results_2legsAsRow() {
 			}
 		}
 
-		&__formDummy {
+		&__summary {
 			padding-top: 10px;
+
 			&__filterSwitch, &__filters {
 				display: block;
 			}
@@ -163,7 +277,7 @@ adapt_flights_results_2legsAsRow() {
 			}
 		}
 
-		&__content{
+		&__content {
 			&__results {
 				flex-basis: 100%;
 			}
@@ -173,33 +287,11 @@ adapt_flights_results_2legsAsRow() {
 			}
 		}
 	}
-}
 
-// Wide showcase - tiled items, if only one - full view with segments as row
-@media (min-width: 1441px) {
-	.nemo-flights-results {
-		&__showcase {
-			flex-wrap: nowrap;
-
-			// If more than 1 item - display groups condensed
-			&:not(&_oneItem) {
-				adapt_flights_results_condensedGroup();
-			}
-
-			// If one item - display full and with 2 legs as row
-			&_oneItem {
-				adapt_flights_results_2legsAsRow();
-			}
-
-			&__item {
-				flex: 0 1 auto;
-			}
-		}
-	}
 }
 
 // 751px - 1440px - semi-wide showcase, recommended and only item - as full with 2 legs as row, otherwise - condensed
-@media (min-width 751px) and (max-width: 1440px) {
+@media (min-width 751px) and (max-width: 1600px) {
 	.nemo-flights-results__showcase {
 		&__item_recommended,
 		&_oneItem {
@@ -216,26 +308,24 @@ adapt_flights_results_2legsAsRow() {
 
 // 750+ px - tiled results (2 per row)
 @media (min-width: 750px) {
-	adapt_flights_results_condensedGroup();
-
 	.nemo-flights-results__groupList {
-		display: flex;
-		flex-flow: row wrap;
+		padding-top: 10px;
 		margin: 0 -10px;
+
+		&_tile {
+			display: flex;
+			flex-flow: row wrap;
+		}
 
 		&__item {
 			margin: 0;
-			padding: 10px;
+			padding: 10px 10px;
 			min-width: 1px;
 
 			flex: 0 0 50%;
 		}
-	}
-}
 
-@media (min-width: 1440px) {
-	.nemo-flights-results__groupList__item {
-		flex-basis: 33.3%;
+		adapt_flights_results_condensedGroup();
 	}
 }
 
@@ -248,6 +338,11 @@ adapt_flights_results_2legsAsRow() {
 // Width < 750px - showcase in column
 @media (max-width: 750px) {
 	.nemo-flights-results {
+
+		&__content__results__controls {
+			margin-bottom: 10px;
+		}
+
 		&__showcase {
 			display: block;
 
@@ -257,7 +352,7 @@ adapt_flights_results_2legsAsRow() {
 			}
 		}
 
-		&__formDummy {
+		&__summary {
 			position: relative;
 			padding: 0;
 			padding-bottom: 50px;
@@ -316,33 +411,69 @@ adapt_flights_results_2legsAsRow() {
 }
 
 // 601px - 750px - everything as normal with 2 legs as row
-@media (min-width: 601px) and (max-width: 750px)  {
-	adapt_flights_results_2legsAsRow();
+@media (min-width: 601px) and (max-width: 750px) {
+
+adapt_flights_results_2legsAsRow();
 }
 
-@media (max-width: 500px)  {
+@media (max-width: 700px) {
+	/*.nemo-flights-results__flightsListGroup {
+		&__segment {
+			flex-wrap: wrap;
+			padding-right: 0;
+			padding-bottom: 5px;
+
+			&__selector {
+				flex-basis: 100%;
+				max-width: 100%;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				margin-bottom: 5px;
+			}
+
+			&__additional {
+				margin-right: 20px;
+			}
+
+			&__transfers__places {
+				display: none;
+			}
+		}
+	}*/
+}
+
+@media (max-width: 580px) {
 	.nemo-flights-results__content__results__controls {
 		display: block;
+
+		&__item {
+			text-align: left;
+		}
 	}
 }
 
 // Width < 500px - everything - condensed
-@media (max-width: 500px)  {
-	adapt_flights_results_condensedGroup();
+@media (max-width: 500px) {
 
-	.nemo-flights-results__compareTable {
-		display: none;
-	}
+adapt_flights_results_condensedGroup();
+
+.nemo-flights-results__compareTable {
+	display: none;
 }
 
-// < 400px - supercondensed view of wrappers
-@media (max-width: 450px)  {
+}
+
+// < 470px - supercondensed view of wrappers
+@media (max-width: 470px) {
+
+	adapt_flights_results_list_condensedSegmentInfo();
+
 	.nemo-flights-results {
 		&__adaptivePF {
 			overflow: hidden;
 		}
 
-		&__formDummy {
+		&__summary {
 			&__filters {
 				width: auto;
 				max-width: 100vw;
@@ -354,10 +485,10 @@ adapt_flights_results_2legsAsRow() {
 
 				z-index: 1000;
 				opacity: 1;
-				padding: 10px;
+				padding: 45px 10px 55px;
 				white-space: normal;
 
-				background: rgba(#000, 0.75);
+				background: $c_ui_popup_wrapprer_bg;
 				overflow: auto;
 
 				display: block;
@@ -370,9 +501,14 @@ adapt_flights_results_2legsAsRow() {
 				&__filters {
 					opacity: 1;
 					padding: 10px;
-					height: 75vh;
+					max-height: 100%;
 					overflow: auto;
 					margin: 0;
+
+					// Dirty hack that prevents lag on mobile webkit while scrolling
+					> * {
+						-webkit-transform: translate3d(0, 0, 0);
+					}
 				}
 
 				.nemo-common-postFilters__clearAll {
@@ -390,6 +526,7 @@ adapt_flights_results_2legsAsRow() {
 
 		&__content {
 			display: block;
+			margin-bottom: 10px;
 
 			&__results {
 				margin: 0;
@@ -399,13 +536,71 @@ adapt_flights_results_2legsAsRow() {
 				box-shadow: none;
 
 				&__controls {
-					padding: 0 10px 10px;
+					padding: 0 10px;
 
 					&__item {
-						&_count, &__sortTitle {
+						padding: 0;
+						margin-top: 10px;
+
+						&:first-child {
+							margin-top: 0;
+						}
+
+						&_displayType {
+							white-space: normal;
+						}
+
+						&_count {
+							color: $nemo-color-LightPoint;
+						}
+
+						&__sortTitle, &__displayTypeTitle {
+							display: none;
+						}
+
+						&__sort {
+							display: block;
+
+							.nemo-ui-select__toggle {
+								width: 100%;
+							}
+						}
+
+						&__displayTypeSelector {
+							display: block;
+
+							&__option {
+								margin: 0!important;
+								width: 50%;
+
+								&:first-child {
+									padding-right: 5px;
+								}
+
+								&:last-child {
+									padding-left: 5px;
+								}
+
+								&__button {
+									display: block;
+								}
+							}
+						}
+					}
+				}
+
+				&__loadingDummy {
+					padding: 0 10px;
+
+					.nemo-flights-form__searchingInfo {
+						&__header, &__subHeader {
 							color: $nemo-color-LightPoint;
 						}
 					}
+				}
+
+				&__loadingDummyDivider {
+					display: none;
 				}
 			}
 		}
@@ -413,6 +608,14 @@ adapt_flights_results_2legsAsRow() {
 		&__showcase {
 			margin: 0px;
 			padding: 0px;
+
+			&_resultLoadingDummy {
+				margin-top: 20px;
+			}
+
+			&__item:first-child {
+				padding-top: 0;
+			}
 		}
 
 		&__flightsGroup__header {
@@ -432,6 +635,289 @@ adapt_flights_results_2legsAsRow() {
 
 		&__groupList {
 			padding: 0 10px;
+			margin: 0;
 		}
 	}
 }
+
+// Dwalin: here goes list adaptivity
+/*
+
+@media (min-width: 1520px) {
+	.nemo-flights-results__flightsListGroup {
+
+	}
+}
+
+@media (max-width: 1440px) {
+	.nemo-flights-results {
+		&__flightsListGroup {
+			&__fullDetails {
+				display: block;
+			}
+
+			&__buyButton {
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+
+				height: 40px;
+				line-height: 40px;
+			}
+
+			&__segment {
+				&__details {
+					display: none;
+				}
+
+				&__selected__departure {
+					padding-right: 25px;
+
+					&:after {
+						right: 3px;
+					}
+				}
+			}
+		}
+
+	}
+
+}
+
+@media (min-width: 1081px) {
+	*/
+/*.nemo-flights-results__groupList__item {
+		flex-basis: 33.3%;
+	}*//*
+
+
+}
+
+@media (max-width: 1650px) and (min-width: 1440px) {
+	.nemo-flights-results__flightsListGroup {
+		&__segment {
+			flex-wrap: wrap;
+			padding-right: 0;
+			padding-bottom: 5px;
+
+			&__selector {
+				flex-basis: 100%;
+				width: auto;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+			}
+		}
+
+		&__segment__selected {
+			padding-left: 20px;
+		}
+
+	}
+}
+
+@media (max-width: 1280px) and (min-width: 781px) {
+	.nemo-flights-results__flightsListGroup {
+		&__segment {
+			flex-wrap: wrap;
+			padding-right: 0;
+			padding-bottom: 5px;
+
+			&__selector {
+				flex-basis: 100%;
+				width: auto;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+			}
+		}
+
+		&__segment__selected {
+			padding-left: 20px;
+		}
+
+	}
+}
+
+@media (max-width: 1080px) and (min-width: 781px) {
+	.nemo-flights-results__flightsListGroup {
+		//display: block;
+
+		&__buyButtonCnt {
+			//border-top: $i_ui_subContainer_divider_border;
+			text-align: right;
+
+			&::before {
+				display: none;
+			}
+		}
+
+		&__buyButton {
+			//line-height: 40px;
+			//height: 40px;
+			//padding-right: 20px;
+			//min-width: 1px;
+			//font-size: 16px;
+		}
+
+		&__carrier {
+			*/
+/*height: 50px;
+			max-width: 100%;
+			margin: 0;
+
+			border-bottom: $i_ui_subContainer_divider_border;
+
+			&:before {
+				display: none;
+			}
+
+			&__logo {
+				left: 20px;
+				top: 20%;
+				max-width: 200px;
+				max-height: 60%;
+				transform: none;
+			}*//*
+
+		}
+
+	}
+}
+
+@media (max-width: 780px) {
+	.nemo-flights-results {
+
+		&__flightsListGroup {
+			&__buyButtonCnt {
+				width: 100%;
+				display: flex;
+				flex-direction: row-reverse;
+			}
+
+			&__carrier {
+				//height: 50px;
+				width: 40%;
+				flex-basis: 40%;
+				margin: 0;
+				padding: 10px;
+				border-right: 1px solid $nemo-color-container-separator;
+				border-bottom: 1px solid $nemo-color-container-separator;
+
+				max-width: 40%;
+
+				&::before {
+					display: none;
+				}
+
+				*/
+/*height: 50px;
+				width: 20%;
+				margin: 0;
+
+				border-bottom: $i_ui_subContainer_divider_border;
+
+				&:before {
+					display: none;
+				}
+
+				&__logo {
+					left: 20px;
+					top: 20%;
+					max-width: 200px;
+					max-height: 60%;
+					transform: none;
+				}*//*
+
+			}
+
+			&__segments {
+				width: 60%;
+				flex-basis: 60%;
+				border-bottom: 1px solid $nemo-color-container-separator;
+			}
+
+			&__fullDetails {
+				display: inline-block;
+				height: 40px;
+				line-height: 40px;
+				margin-right: 20px;
+			}
+
+			&__buyButton {
+				border-bottom-left-radius: 4px;
+				border-bottom-right-radius: 4px;
+
+				height: 40px;
+				line-height: 40px;
+			}
+
+			&__segment {
+				&__details {
+					display: none;
+				}
+
+				&__selected__departure {
+					padding-right: 25px;
+
+					&:after {
+						right: 3px;
+					}
+				}
+			}
+		}
+
+	}
+
+	.nemo-flights-results__flightsListGroup {
+		//display: block;
+		flex-wrap: wrap;
+
+		&__buyButtonCnt {
+			//border-top: $i_ui_subContainer_divider_border;
+			//text-align: right;
+
+			&::before {
+				display: none;
+			}
+		}
+
+		&__buyButton {
+			//line-height: 40px;
+			//height: 40px;
+			//padding-right: 20px;
+			//min-width: 1px;
+			//font-size: 16px;
+			//display: block;
+
+		}
+
+		&__segment__selected {
+			padding-left: 20px;
+		}
+
+		&__segment {
+			flex-wrap: wrap;
+			padding-right: 0;
+			padding-bottom: 5px;
+
+			&__timeEnRoute {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+
+			&__selector {
+				flex-basis: 100%;
+				width: auto;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+			}
+		}
+	}
+}*/

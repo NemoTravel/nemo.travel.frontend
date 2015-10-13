@@ -1,0 +1,78 @@
+.nemo-flights-results__flightsGroup_dummy {
+	color: $nemo-color-neutral;
+	opacity: 0.7;
+
+	.nemo-ui-pseudoLink {
+		&, &:hover, &_active {
+			color: $nemo-color-neutral;
+			border-color: $nemo-color-neutral;
+			cursor: auto;
+		}
+	}
+
+	.nemo-ui-button {
+		cursor: auto;
+	}
+
+	&.nemo-flights-results__flightsGroup_common,
+	&.nemo-flights-results__flightsGroup_bestCompanies {
+		.nemo-flights-results__flightsGroup__header__title {
+				letter-spacing: -4px;
+		}
+	}
+
+	.nemo-flights-results__flightsGroup {
+		&__header {
+			background: $nemo-color-neutral;
+
+			&__logo {
+				width: 130px;
+				height: 30px;
+				background: rgba($nemo-color-LightPoint, 0.5);
+			}
+		}
+
+		&__leg {
+			&__info__route__departure:after {
+				opacity: 0.2;
+			}
+
+			&__selector {
+				&__header__seatsAvailable {
+					color: inherit;
+					letter-spacing: -3px;
+				}
+
+				&__selected {
+					&__timeEnRoute {
+						color: inherit;
+						letter-spacing: -3px;
+					}
+
+					&__time {
+						letter-spacing: -4px;
+					}
+				}
+
+				&__footer {
+					color: inherit;
+					letter-spacing: -3px;
+				}
+			}
+
+			&__info__date {
+				&, &__dayOfWeek {
+					color: inherit;
+				}
+			}
+		}
+
+		&__couplingButton {
+			letter-spacing: -3px;
+		}
+
+		&__buyButton {
+			letter-spacing: -4px;
+		}
+	}
+}

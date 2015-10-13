@@ -1,0 +1,711 @@
+.nemo-flights-results__flightsGroup {
+	padding: 0;
+
+	&__header {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		padding: 0;
+		margin: 0;
+		background-color: #fff;
+		position: relative;
+		overflow: visible;
+
+		&__showcase {
+			position: absolute;
+			top: 50%;
+			margin: -40px 0 0 5px;
+			direction: rtl;
+
+			&__item {
+				width: 70px;
+				height: 70px;
+				border: 5px solid $nemo-color-LightPoint;
+				display: inline-block;
+				vertical-align: top;
+				background: #FFD83D;
+				background-image: radial-gradient(circle at 100% 100%, #fff, #FFD83D);
+				border-radius: 50%;
+				margin-left: -15px;
+				box-shadow: 2px 2px 2px rgba(#000, 0.25);
+				position: relative;
+				padding: 10px;
+				cursor: pointer;
+
+				&:before {
+					content: '';
+					display: block;
+					width: 40px;
+					height: 40px;
+					background: #000;
+					background: url("images/flights_results_sprite.svg") -102px 5px no-repeat;
+				}
+
+				&_fastest:before {
+					background-position: -102px -88px;
+				}
+
+				&_cheapest:before {
+					background-position: -102px -42px;
+				}
+			}
+		}
+
+		&__title {
+			flex 1 1 auto;
+			padding-left: $d_ui_subContainer_padding;
+			min-width: 1px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+
+			&_showcase {
+				visibility: hidden;
+			}
+		}
+
+		&__additional {
+			flex 0 0 auto;
+			margin-right: auto;
+			padding: 0 $d_ui_subContainer_padding;
+			min-width: 1px;
+		}
+
+		&__logo, &__info {
+			display: inline-block;
+			vertical-align: top;
+			line-height: 30px;
+			margin-left: 20px;
+			padding: 10px 0;
+			min-width: 1px;
+
+			&:first-child {
+				margin: 0;
+			}
+		}
+
+		&__logo {
+			height: auto;
+			vertical-align: middle;
+			max-height: 40px;
+			max-width: 150px;
+			padding: 0;
+			margin-top: -4px;
+		}
+
+		&__info {
+			height: 30px;
+			width: 30px;
+			background: url("images/flights_results_sprite.svg") 5px -47px no-repeat;
+			cursor: pointer;
+			border-radius: 4px;
+			transition: all .2s;
+			margin: 10px -5px 0 10px;
+			padding: 0;
+			position: relative;
+
+			&:hover {
+				background-color: rgba($nemo-color-LightPoint, 0.1);
+			}
+
+			&_multiple {
+				background: transparent;
+				margin-top: 5px;
+				height: 40px;
+				padding-top: 5px;
+
+				&:before, &:after {
+					content: '';
+					width: 13px;
+					height: 13px;
+					display: block;
+					margin: 0 auto;
+					background: url("images/flights_results_sprite.svg") -60px -80px no-repeat;
+				}
+
+				&:after {
+					margin-top: 4px;
+				}
+			}
+		}
+
+		&_luminocity &__title {
+			color: $nemo-color-text-main;
+		}
+
+		&_luminocity &__info {
+			background-position: -65px -47px;
+
+			&:hover {
+				background-color: rgba($nemo-color-DarkPoint, 0.1);
+			}
+
+			&_multiple {
+				&:before, &:after {
+					background-position: -80px -80px;
+				}
+			}
+		}
+	}
+
+	&__rating {
+		display: inline-block;
+		vertical-align: top;
+		line-height: 30px;
+		margin-left: 20px;
+
+		&:first-child {
+			margin: 0;
+		}
+
+		&__item {
+			display: inline-block;
+			vertical-align: top;
+			width: 17px;
+			height: 19px;
+			background: url("images/flights_results_sprite.svg") -1px -80px no-repeat;
+			margin-left: 2px;
+
+			&:first-child {
+				margin: 0;
+			}
+
+			&__inner {
+				display: block;
+				height: 19px;
+				background: url("images/flights_results_sprite.svg") -1px -110px no-repeat;
+			}
+		}
+
+		&_inHeader {
+			padding: 10px 0;
+			line-height: 30px;
+		}
+
+		&_inHeader &__item {
+			margin-top: 7px;
+		}
+
+		&_inSubHeader {
+			line-height: 30px;
+			padding: 2px 0;
+		}
+
+		&_inSubHeader &__item {
+			margin-top: 7px;
+		}
+	}
+
+	&__subHeader {
+		//display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-content: center;
+		display: none;
+
+		border-bottom: $i_ui_subContainer_divider_border;
+
+		&__title {
+			flex 1 1 auto;
+			padding-left: $d_ui_subContainer_padding;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			line-height: 34px;
+			font-size: 13px;
+			color: $nemo-color-text-secondary;
+		}
+
+		&__additional {
+			flex 0 0 auto;
+			margin-right: auto;
+			padding: 0 $d_ui_subContainer_padding;
+		}
+	}
+
+	&__leg {
+		border-bottom: $i_ui_subContainer_divider_border;
+
+		&__info {
+			padding: 10px 20px 10px 20px;
+			position: relative;
+			border-bottom: $i_ui_subContainer_divider_border;
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 20px;
+				width: 20px;
+				height: 20px;
+				margin-top: -10px;
+				//background: url("images/flights_results_sprite.svg") 0px -140px no-repeat;
+			}
+
+			&_direct:before {
+				background-position: 0px -170px;
+			}
+
+			&__date {
+				font-size: 12px;
+				color: $c_common_textColor;
+				opacity: 0.75;
+
+				&__dayOfWeek {
+					color: $nemo-color-text-secondary;
+				}
+			}
+
+			&__route {
+				font-size: 13px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+
+				&__departure, &__arrival {
+					display: inline;
+				}
+
+				&__departure {
+					&:after {
+						content: '';
+						background: url("images/flights_results_sprite.svg") 0 -10px no-repeat;
+						display: inline-block;
+						height: 15px;
+						margin: 0 5px;
+						vertical-align: middle;
+						width: 18px;
+					}
+				}
+			}
+		}
+
+		&__selector {
+			padding: 0 20px;
+
+			&__header {
+				display: flex;
+				flex-flow: row nowrap;
+				font-size: 13px;
+				line-height: 30px;
+				margin-bottom: 2px;
+				margin-top: 3px;
+
+				&__title {
+					min-width: 1px;
+
+					&__text {
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						padding-right: 10px;
+
+						&_dates {
+							display: none;
+						}
+
+						&__dayOfWeek {
+							color: $nemo-color-text-secondary;
+						}
+					}
+
+					&__date {
+						display: none;
+
+						&__dayOfWeek {
+							color: $nemo-color-text-secondary;
+						}
+					}
+				}
+
+				&__seatsAvailable {
+					flex-shrink: 0;
+					min-width: 1px;
+					white-space: nowrap;
+					margin-left: auto;
+					color: $nemo-color-text-secondary;
+					font-size: 95%;
+
+					&_warning {
+						/*background-color: $nemo-color-notification_error;
+						padding: 2px 4px;
+						border-radius: 2px;*/
+						color: $nemo-color-notification_error_text;
+					}
+				}
+			}
+
+			&__footer {
+				display: flex;
+				flex-flow: row nowrap;
+				font-size: 12px;
+				line-height: 30px;
+				color: $nemo-color-text-secondary;
+				margin-top: 2px;
+				margin-bottom: 3px;
+
+				&__detailsLink {
+					min-width: 1px;
+					margin-left: auto;
+				}
+
+				&__transfers {
+					padding-right: 10px;
+					min-width: 1px;
+
+					&__places {
+						line-height: 18px;
+						padding: 6px 0;
+					}
+				}
+			}
+
+			&__selectContainer {
+				//position: relative;
+				display: block;
+			}
+
+			&__selected {
+				padding: 10px 40px 10px 20px;
+				min-height: 60px;
+				height: auto;
+				line-height: normal;
+				position: relative;
+				font-size: 16px;
+
+				&:active {
+					padding-top: 10px;
+					padding-bottom: 10px;
+				}
+
+				&:before {
+					//content: '';
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 20px;
+					height: 20px;
+					border-radius: 10px;
+					box-shadow: 0 1px 3px rgba(#000, 0.3);
+					//background: url('images/flights_results_sprite.svg') -30px -30px no-repeat;
+					left: 15px;
+				}
+
+				&_unopenable {
+					cursor: auto;
+					background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
+
+					&:after {
+						display: none;
+					}
+
+					&:hover {
+						background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
+					}
+				}
+
+				//&.nemo-ui-select__toggle_open {
+				//
+				//	&, &:hover, &:active {
+				//		background: #fff;
+				//	}
+				//}
+
+				&_inDropDown {
+					&:after {
+						background: rgba(0, 0, 0, 0) url("images/ui/ui-select-arrow.svg") no-repeat scroll center center;
+						content: "";
+						height: 9px;
+						margin-top: -4px;
+						position: absolute;
+						right: 14px;
+						top: 50%;
+						width: 12px;
+						transform: rotate(180deg);
+					}
+				}
+
+				&__time {
+					font-size: 100%;
+					height: 23px;
+					display: inline-block;
+					vertical-align: baseline;
+
+					&__arrival {
+						font-size: 80%;
+
+						&_nextDay {
+							color: #B23E13;
+						}
+					}
+
+					&__departure {
+						font-weight: 600;
+					}
+				}
+
+				&__timeEnRoute {
+					font-size: 80%;
+					color: $nemo-color-text-secondary;
+					//opacity: 0.75;
+					height: 17px;
+
+					&__addText {
+						color: $nemo-color-text-secondary;
+					}
+				}
+			}
+
+			&__dropdown {
+				width: 100%;
+				top: 0;
+				margin: 0;
+
+				&__option {
+					padding: 5px 15px;
+
+					&:hover &__transfers__transfer {
+						background: #EAF6FF;
+					}
+
+					//&_selected {
+					//	background: red;//lighten(#EAF6FF, 70%);
+					//}
+
+					&_uncombinable &__data {
+						opacity: 0.5;
+					}
+
+					&__uncombinableWarn {
+						font-size: 95%;
+						color: $nemo-color-notification_error_text;
+						white-space: normal;
+					}
+
+					&__departure, &__arrival {
+						font-size: 95%;
+						font-weight: 600;
+						line-height: 20px;
+						display: inline-block;
+						vertical-align: top;
+						margin-bottom: 0px;
+					}
+
+					&__arrival_nextday {
+						color: $nemo-color-notification_error_text;
+					}
+
+					&__transfers {
+						display: inline-block;
+						vertical-align: top;
+						min-width: 50px;
+						height: 20px;
+						text-align: center;
+						position: relative;
+						padding-right: 4px;
+						transition: all 0.2s;
+
+						&:before {
+							content: '';
+							position: absolute;
+							top: 9px;
+							border-bottom: 1px solid #969599;
+							left: 0;
+							right: 0;
+						}
+
+						&:after {
+							content: '';
+							position: absolute;
+							top: 6px;
+							border: 1px solid #969599;
+							right: 0;
+							width: 6px;
+							height: 6px;
+							transform: rotate(45deg);
+							border-bottom: none;
+							border-left: none;
+						}
+
+						&__transfer {
+							display: inline-block;
+							vertical-align: top;
+							margin: 5px;
+							width: 9px;
+							height: 9px;
+							border-radius: 9px;
+							background: $nemo-color-LightPoint;
+							border: 1px solid #969599;
+							position: relative;
+							z-index: 1;
+						}
+					}
+
+					&__timeEnRoute {
+						font-size: 80%;
+					}
+
+					&__availSeats {
+						color: $nemo-color-text-secondary;
+						font-size: 95%;
+						float: right;
+						//margin-top: -20px;
+
+						&_warning {
+							color: $nemo-color-notification_error_text;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__footer {
+		font-size: 13px;
+		color: $nemo-color-text-secondary;
+		padding: 15px 20px 15px;
+
+		&__controls {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		//&__couplingButtonContainer, &__buyButtonContainer {
+		//display: inline-block;
+		//vertical-align: middle;
+		//width: 50%;
+		//}
+
+		&__buyButtonContainer {
+			text-align: right;
+
+			&__disclaimer {
+				//text-align: right;
+				//padding-top: 10px;
+				color: $nemo-color-text-secondary;
+				align-self: baseline;
+				display: inline-block;
+				margin-right: 10px;
+				font-size: 90%;
+			}
+		}
+
+		&__disclaimer {
+			color: $nemo-color-text-secondary;
+			text-align: right;
+			padding-top: 8px;
+			display: none;
+		}
+	}
+
+	&__couplingButton {
+		height: 40px;
+		font-size: 13px;
+		line-height: 20px;
+		padding: 9px 20px;
+		border: 1px solid alpha($nemo-color-main, 0.15);
+		transition: all $nemo-transition-main ease-in;
+		background: none;
+		border-radius: 5px;
+
+		&:hover {
+			background: none;
+			border: 1px solid alpha($nemo-color-main, 0.5);
+		}
+
+		&:active {
+			padding-top: 8px;
+		}
+	}
+
+	&__flightInfo {
+		padding: 0;
+	}
+
+	&__buyButton {
+		vertical-align: middle;
+		flex-grow: 0;
+		font-size: 16px;
+		padding: 0 20px 0 50px;
+		text-align: right;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		position: relative;
+
+		&:before {
+			content: '';
+			background: url('images/flights_results_sprite.svg') -39px 3px no-repeat;
+			width: 25px;
+			height: 25px;
+
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			margin-top: -12.5px;
+		}
+
+		&_bookingCheck {
+			padding-left: 20px;
+			padding-right: 20px;
+
+			cursor: auto;
+
+			&, &:hover, &:active, &:focus, &:hover:focus {
+				background: #7F7F7F;
+			}
+
+			&:before {
+				content: '';
+				position: absolute;
+				z-index: 0;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				height: auto;
+				width: auto;
+				background: $nemo-color-main;
+				animation: nemo-ui-button__progressAnimation 20s 1 forwards;
+				animation-timing-function: cubic-bezier(.55,.06,.64,1);
+				border-radius: 4px 0 0 4px;
+			}
+		}
+
+		&_bookingCheck &__checkText {
+			display: block;
+		}
+
+		&_bookingCheck &__text {
+			display: none;
+		}
+
+		&__checkText {
+			font-weight: normal;
+			display: none;
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	&__couplingTablePopup {
+		padding: 0;
+		overflow: visible;
+	}
+
+	//&_common {
+	//	margin-top: 20px;
+	//
+	//	&:first-child {
+	//		margin-top: 0;
+	//	}
+	//}
+
+	//&_cheapest &__header__title,
+	//&_cheapest &__header__additional {
+	//background: #B23E13;
+	//}
+
+	&_bestCompanies {
+		margin-bottom: 20px;
+	}
+}

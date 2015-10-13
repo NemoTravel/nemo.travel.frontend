@@ -5,11 +5,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 .nemo-flights-form {
 	position: relative;
     margin-top: 30vh;
-
-	&, & input {
-		font: 13px "Roboto", "Open Sans", sans-serif;
-		//line-height: 40px;
-	}
+	font: 13px $nemo-font-main;
 
 	// Setting initial box-sizing and fonts
 	&, & * {
@@ -61,6 +57,121 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				text-align: right;
 			}
 		}
+
+		&__parameters {
+			&__toggle {
+				display: inline-block;
+			}
+
+			&__dropdown {
+				left: 0;
+				right: auto;
+				max-width: 400px;
+				width: 100%;
+				min-width: 1px;
+				padding: 20px;
+				color: #636467;
+				cursor: auto;
+				white-space: normal;
+			}
+
+			&__header {
+				color: inherit;
+			}
+
+			&__item {
+				margin-bottom: 20px;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__title {
+					display: inline-block;
+					vertical-align: top;
+					width: 33%;
+					padding-right: 10px;
+					line-height: 20px;
+					padding-top: 5px;
+
+					&_transfers {
+						padding-top: 0;
+					}
+				}
+
+				&__content {
+					display: inline-block;
+					vertical-align: top;
+					width: 67%;
+
+					&__maxPriceField {
+						margin: 0;
+					}
+
+					&__maxPriceField {
+						max-width: 90px;
+						padding-right: 25px;
+						display: inline-block;
+						vertical-align: top;
+					}
+
+					&__maxPriceFieldClearer {
+						display: inline-block;
+						vertical-align: top;
+						width: 20px;
+						height: 20px;
+						margin: 5px 5px 0 -25px;
+						opacity: .25;
+						cursor: pointer;
+						transition: all .2s;
+						background: url(images/fsf-sprite.svg) 6px -54px no-repeat;
+						position: relative;
+						z-index: 1;
+
+						&:hover {
+							opacity: 1;
+						}
+					}
+
+					&__maxPriceCurrency {
+						display: inline-block;
+						vertical-align: top;
+						padding: 5px 0 0 10px;
+						line-height: 20px;
+					}
+				}
+			}
+
+			&__checkbox {
+				display: block;
+				padding: 0;
+				margin-bottom: 10px;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__caption {
+					&, &:hover {
+						color: inherit;
+					}
+				}
+			}
+
+			&__carrierLoading {
+				line-height: 20px;
+				padding-top: 5px;
+			}
+
+			&__timeEnRoute {
+				&__subTitle {
+					display: inline-block;
+					vertical-align: top;
+					padding: 5px 10px 0 0;
+					line-height: 20px;
+				}
+			}
+		}
 	}
 
 	&__route, &__passengers, &__buttonContainer {
@@ -75,9 +186,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		text-align: right;
 	}
 
-	&__searchButton {
-		&_searching {
-		}
+	&__searchBlockedError {
+		max-width: 90vw;
+		white-space: normal;
+		z-index: 1;
 	}
 
 	&__route {
@@ -90,11 +202,14 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 			&_returnSegment {
 				width: 20%;
-				//padding-left: 1px;
 			}
 
 			&_CR, &_returnSegment &__item_date {
 				width: 100%;
+			}
+
+			&_returnSegment &__item_date {
+				padding-left: 1px;
 			}
 
 			&_CR &__item {
@@ -114,41 +229,31 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				line-height: 40px;
 				font-size: 105%;
 				color: $nemo-color-text-main;
+				&::-webkit-input-placeholder {
+					line-height: 42px;
+				}
+
+
 
 				&, &:focus {
 					border: 0;
+
+					&::-webkit-input-placeholder {
+						line-height: 40px;
+					}
 				}
 
 				&:hover {
 				}
 
 				&_date {
-					/*background-image: url('images/fsf-sprite.svg');*/
 					background-position: right 11px;
 					background-repeat: no-repeat;
 					padding-right: 36px;
-
-					&_there {
-						//border-radius: 2px 0 0 2px;
-					}
-
-					&_back {
-						//border-radius: 0 2px 2px 0;
-						border-left: 1px solid $nemo-color-main !important;
-						//position: relative;
-						&::before {
-							content: '';
-							position: absolute;
-							height: 100%;
-							left: 0;
-							top: 0;
-
-						}
-					}
 				}
 
 				&::-webkit-input-placeholder {
-					line-height: normal;//20px;
+					line-height: 40px;
 				}
 			}
 
@@ -176,31 +281,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				&__date {
 					&__dummy {
 						padding-right: 36px;
-						font-size: 95%;
-
-						&_there {
-							//border-radius: 2px 0 0 2px;
-						}
-
-						&_back {
-							//border-radius: 0 2px 2px 0;
-							//position: relative;
-							&::before {
-								content: '';
-								position: absolute;
-								height: 100%;
-								left: 0;
-								top: 0;
-								border-left: 1px solid $nemo-color-main;
-							}
-						}
+						font-size: 105%;
 
 						&_short {
 							display: none;
 						}
 					}
-
-
 
 					&__indicator {
 						position: absolute;
@@ -422,7 +508,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				padding: 0;
 
 				&__caption {
-					font-size: 14px;
+					//font-size: 14px;
 					color: $nemo-color-LightPoint;
 					transition: all $nemo-transition-main ease;
 				}
@@ -455,7 +541,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			width: 140px;
 			height: 40px;
 			line-height: 40px;
-			font-size: 13px;
+			font-size: 105%;
 			color: $nemo-color-text-main;
 			background: $nemo-color-LightPoint;
 			padding: 0 40px 0 10px;
@@ -480,6 +566,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 	&__passengersPopUp {
 		margin: 0 -10px;
+		display: none;
 
 		&__item {
 			display: inline-block;
@@ -623,6 +710,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		padding: 0;
 
 		&__content {
+			display: none;
 			width: 80vw;
 			max-width: 700px;
 			padding: 5px 20px 20px;
@@ -699,10 +787,9 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 					&:after {
 						content: '';
 						display: inline-block;
-						margin-left: 4px;
 						height: 10px;
-						width: 20px;
-						background: url('images/fsf-sprite.svg') -30px -84px no-repeat;
+						width: 30px;
+						background: url('images/fsf-sprite.svg') -25px -84px no-repeat;
 					}
 				}
 			}

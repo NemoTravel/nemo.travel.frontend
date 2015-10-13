@@ -3,42 +3,53 @@
 	max-width: 980px;
 
 	&__dummyLoader {
-		border-radius: 4px;
+		border-radius: $nemo-border-radius;
 		margin-bottom: 20px;
 	}
 
 	&__table {
 		width: 100%;
 		table-layout: fixed;
-		border-collapse: collapse;
+		border-collapse: separate;
+		border-radius: $nemo-border-radius;
+		overflow: hidden;
 
 		&__header, &__cell {
-			border: 1px solid rgba(#D7E9F2, 0.5);
-		}
-
-		&__header, &__cell {
+			border-right: 1px solid rgba(#D7E9F2, 0.5);
+			border-bottom: 1px solid rgba(#D7E9F2, 0.5);
 			height: 63px;
 			vertical-align: middle;
 			padding: 0 15px;
 			font-size: 12px;
 			color: #636467;
+			overflow: hidden;
 		}
+
 		&__header{
-			color: #000;
+			color: $nemo-color-text-main;
 		}
+
+		&__row:last-child &__header {
+			border-bottom: 0;
+		}
+
+		&__row:last-child &__cell:last-child {
+			border-radius: 0 0 $nemo-border-radius 0;
+		}
+
+		&__row_header &__header:last-child {
+			border-right: 0;
+		}
+
 		&__corner {
 			&__rowTitle, &__columnTitle {
 				font-size: 13px;
 				text-align: right;
 			}
+
 			&__columnTitle {
 				text-align: left;
 				margin-top: 11px;
-			}
-			&__row{
-				&_header{
-					text-align: center;
-				}
 			}
 		}
 
@@ -54,6 +65,7 @@
 			&_originalDate {
 				background: rgba($nemo-color-main, 0.4);
 			}
+
 			&_forth{
 				text-align: left;
 			}
@@ -63,6 +75,11 @@
 			text-align: center;
 			background: rgba($nemo-color-main, 0.05);
 			cursor: pointer;
+
+			&:first-child {
+				border-left: 1px solid rgba(#D7E9F2, 0.5);
+				border-radius: 0 0 0 $nemo-border-radius;
+			}
 
 			&_empty, &_impossible {
 				background: transparent;
@@ -91,6 +108,7 @@
 				white-space: nowrap;
 				text-overflow: ellipsis;
 			}
+
 			&_possible{
 				&:hover {
 					background: #64b5f6 none repeat scroll 0 0;
@@ -100,6 +118,10 @@
 						color: white;
 					}
 				}
+			}
+
+			&_cheapest {
+				background: rgba($nemo-color-secondary, .15);
 			}
 		}
 	}
@@ -135,7 +157,7 @@
 	}
 
 	&__dummyLoader {
-		border-radius: 4px;
+		border-radius: $nemo-border-radius;
 
 		&_rt {
 			margin-bottom: 20px;

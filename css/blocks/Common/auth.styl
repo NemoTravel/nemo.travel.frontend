@@ -1,0 +1,117 @@
+.nemo-auth {
+	//position: relative;
+
+	&_popup {
+		width: 90vw;
+		max-width: 400px;
+		padding: 10px 20px;
+	}
+
+	&_passRecoveryPopup {
+		max-width: 340px;
+		overflow: visible;
+		padding: 20px;
+	}
+
+	&__stub {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+	}
+
+	&__field {
+		min-width: 200px;
+		max-width: 260px;
+		position: relative;
+
+		margin-top: 10px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&_passrestore {
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.nemo-ui-hint {
+			margin-left: 15%;
+		}
+
+		&__label {
+			&__caption {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0;
+				width: 30%;
+				padding-right: 10px;
+			}
+
+			&__input {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0;
+				width: 70%;
+				height: 40px;
+			}
+		}
+	}
+
+	&__error, &__info {
+		margin: 10px 0 0;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	&__submitButton {
+		//margin-top: 10px;
+		height: 40px;
+		line-height: 40px;
+		vertical-align: middle;
+	}
+
+	&__registrationLink {
+		display: inline-block;
+		margin-left: 20px;
+	}
+
+	&__links {
+		margin-top: 10px;
+	}
+
+	&_separatePage {
+		.nemo-auth {
+			&__field {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0;
+				margin-right: 20px;
+				max-width: 100%;
+
+				&__label {
+					white-space: nowrap;
+
+					&__caption, &__input {
+						width: auto;
+					}
+				}
+
+				//&_newPassword &__label__caption,
+				//&_newPasswordConfirm &__label__caption {
+				//	width: auto;
+				//}
+			}
+		}
+	}
+}
+
+.nemo-authPopup {
+	max-width: 400px;
+	overflow: visible;
+	padding: 0;
+}

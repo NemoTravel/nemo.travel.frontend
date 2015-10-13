@@ -85,8 +85,8 @@
 				document.getElementsByClassName('js-form')[0],
 				{
 					sourceURL: nemoSourceHost,
-					dataURL: 'http://demo.mlsd.ru/api',
-					staticInfoURL: 'http://demo.mlsd.ru',
+					dataURL: 'http://conchita.mlsd.ru/api',
+					staticInfoURL: 'http://conchita.mlsd.ru',
 					root: '/',
 //						    verbose: true,
 					i18nLanguage: 'ru',

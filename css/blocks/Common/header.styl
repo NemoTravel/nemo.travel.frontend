@@ -1,0 +1,387 @@
+$d_pageHeader_padding = 12px 0;
+
+$d_ui_pageHeader_inner_maxWidth = 1140px;
+$d_ui_pageHeader_inner_padding = 0 20px;
+
+$d_ui_pageHeader_tablet_inner_padding = 0 20px 0 10px;
+
+$d_headerLinks_padding = 0 50px;
+$d_headerLinks_tablet_padding = 0 0 0 10px;
+
+.nemo-common-pageHeader {
+	background: $nemo-header-bg;
+	padding: $d_pageHeader_padding;
+	min-height: 56px;
+
+	&__mobileControl {
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+		top: 50%;
+		margin-top: -15px;
+		background-repeat: no-repeat;
+		background-position: center center;
+
+		display: none;
+
+		&_links {
+			left: 15px;
+			background-image: url('../img/menu-icon.svg');
+		}
+
+		&_options {
+			right: 15px;
+			background-image: url('../img/menu-icon-dots.svg');
+		}
+	}
+
+	&__inner {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-content: flex-start;
+		align-items: center;
+		margin: 0 auto;
+		height: 100%;
+		vertical-align: middle;
+		width: 100%;
+		//max-width: $d_ui_pageHeader_inner_maxWidth;
+		padding: $d_ui_pageHeader_inner_padding;
+
+		&__headerLinks {
+			padding: $d_headerLinks_padding;
+			line-height: 15px;
+			//white-space: nowrap;
+
+			&__item {
+				margin-right: 20px;
+				white-space: nowrap;
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 13px;
+			}
+
+		}
+
+		&__headerRight {
+			margin-left: auto;
+			display: flex;
+		}
+	}
+	&__headerMenuControlls {
+		&__menuButton {
+			font-size: 37px;
+			height: 30px;
+			line-height: 30px;
+			margin-right: 10px;
+			color: #626366;
+			cursor: pointer;
+			&__image{
+				width: 22px;
+				&_selects{
+					width: 10px;
+				}
+			}
+		}
+	}
+
+	&__langSelectImage {
+		/*FIXME*/
+		vertical-align: top!important;
+		margin-top: 9px!important;
+	}
+
+	.nemo-root_tablet & {
+		padding: $d_headerLinks_tablet_padding;
+	}
+
+	.nemo-root_mobile & {
+		display: none;
+	}
+
+	&__logo{
+
+		&__image {
+			width: 175px;
+			//max-height: 27px;
+			max-width: 100%;
+		}
+	}
+
+	&__dropMenu{
+		position: relative;
+		margin-left: 20px;
+
+		&__button {
+			//sorry.
+			padding: 1px !important;
+			width: 50px;
+		}
+
+		&_currency .nemo-common-pageHeader__droplist__option__icon {
+			min-width: 25px;
+		}
+	}
+
+	&__droplist{
+		background: $nemo-color-LightPoint;
+		box-shadow: 0 0 8px #ccc;
+		border-radius: 6px;
+		padding: 10px;
+		color: $c_ui_textMain;
+		font-size: 13px;
+		min-width: 240px;
+		display: none;
+		position: absolute;
+		z-index: 1000;
+		right: 0;
+		top: 100%;
+		margin-top: 5px;
+
+		&__header{
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		&__option{
+			border-radius: 6px;
+			border: 1px solid transparent;
+			margin-bottom: 3px;
+			height: 26px;
+			padding: 0 8px;
+			display: block;
+			text-decoration: none;
+			line-height: 18px;
+
+			&:active, &:link, &:visited, &:hover {
+				color: inherit;
+			}
+
+			&__icon{
+				display: inline-block;
+				margin-right: 7px;
+				min-width: 15px;
+				vertical-align: middle;
+			}
+			&__text {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			&_selected{
+				border-color: rgba(100,181,246,.5);
+				opacity: .5;
+			}
+			&:hover{
+				border-color: transparent;
+				background: rgba(100,181,246,.25);
+				cursor: pointer;
+				opacity: 1;
+			}
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+		&_language{
+			.nemo-common-pageHeader__langSelectImage{
+				/* FIXME */
+				margin-top: 5px!important;
+			}
+		}
+	}
+}
+
+.nemo-common-mobileControlOpen {
+	overflow: hidden;
+}
+
+.nemo-common-mobileControl {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 90;
+	overflow: auto;
+	display: none;
+
+	&_open {
+		display: block;
+	}
+
+	//&_links {
+	//	left: 0;
+	//}
+
+	&__pseudoHeader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background: $nemo-header-bg;
+		padding: $d_pageHeader_padding;
+		height: 56px;
+		line-height: 32px;
+
+		&__title {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			padding: 0 60px;
+		}
+
+		&__close {
+			@extend .nemo-common-pageHeader__mobileControl;
+		}
+
+		&__close {
+			@extend .nemo-common-pageHeader__mobileControl;
+			@extend .nemo-common-pageHeader__mobileControl_links;
+			background-image: url('../img/menu-icon-arrow.svg');
+			display: block;
+		}
+
+		&__options {
+			@extend .nemo-common-pageHeader__mobileControl;
+			@extend .nemo-common-pageHeader__mobileControl_options;
+			display: none;
+		}
+	}
+
+	&__sideblock {
+		width: 90vw;
+		height: 100vh;
+		border-radius: 0;
+		padding-top: 72px;
+		overflow: auto;
+
+		&__user {
+			margin-bottom: 20px;
+			
+			&__name {
+				font-size: 13px;
+				margin-bottom: 15px;
+			}
+
+			&__button {
+				margin: 0 20px 20px 0;
+				line-height: 40px;
+				height: 40px;
+
+				&:last-child {
+					margin: 0;
+				}
+			}
+		}
+
+		&__componentLink {
+			display: block;
+			margin: 0 (0 - $d_ui_subContainer_padding);
+
+			border-top: $i_ui_subContainer_divider_border;
+			font-size: 15px;
+			line-height: 20px;
+			padding: 15px $d_ui_subContainer_padding;
+			text-decoration: none;
+
+			&:link, &:hover, &:active, &:visited {
+				color: inherit;
+			}
+
+			&_active {
+				background: lighten(#EAF6FF, 70%);
+			}
+		}
+	}
+
+	&__optionsInner {
+		height: 100%;
+	}
+
+	&_options {
+		background: $c_ui_popup_wrapprer_bg;
+	}
+
+	&__optionsBlock {
+		padding: 50px 10px 60px;
+		height: 100vh;
+
+		&__options {
+			padding: 0;
+			max-height: 100%;
+			overflow: auto;
+
+			// Dirty hack that prevents lag on mobile webkit while scrolling
+			> * {
+				-webkit-transform: translate3d(0,0,0);
+			}
+		}
+
+		&__option {
+			font-size: 15px;
+			border-top: $i_ui_subContainer_divider_border;
+			line-height: 20px;
+			padding: 15px $d_ui_subContainer_padding;
+			cursor: pointer;
+
+			&:first-child {
+				border-top: 0;
+			}
+
+			&__additional {
+				float: right;
+				color: $nemo-color-text-secondary;
+			}
+		}
+
+		&__cancel {
+			line-height: 40px;
+			height: 40px;
+			position: absolute;
+			bottom: 10px;
+		}
+	}
+}
+
+@media (max-width: 980px) {
+	.nemo-common-pageHeader {
+		&__inner {
+			padding-left: 60px;
+
+			&__headerLinks {
+				display: none;
+			}
+		}
+
+		&__mobileControl_links {
+			display: block;
+		}
+	}
+}
+@media (min-width: 1340px) {
+	.nemo-common-pageHeader__inner {
+		max-width: 1600px;
+	}
+}
+
+@media (max-width: 600px) {
+	.nemo-common-pageHeader {
+		&__mobileControl {
+			display: block;
+		}
+
+		&__dropMenu {
+			display: none;
+		}
+
+		&__inner {
+			padding-left: 60px;
+			padding-right: 60px;
+		}
+	}
+
+	.nemo-common-mobileControl__pseudoHeader__options {
+		display: block;
+	}
+}

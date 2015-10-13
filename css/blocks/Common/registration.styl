@@ -1,0 +1,72 @@
+.nemo-registration {
+	position: relative;
+
+	&__stub {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+	}
+
+	&__field {
+		margin-top: 10px;
+		position: relative;
+
+		&:first-child {
+			margin: 0;
+		}
+
+		.nemo-ui-hint {
+			margin-left: 22%;
+		}
+
+		&__caption {
+			display: inline-block;
+			vertical-align: middle;
+			width: 45%;
+		}
+
+		&__input {
+			display: inline-block;
+			vertical-align: middle;
+			width: 50%;
+			margin: 0;
+			height: 40px;
+		}
+
+		&__captcha, &__captchaRefresh, &__captchaField {
+			display: inline-block;
+			vertical-align: middle;
+			position: relative;
+		}
+	}
+
+	&__linkToLegalEntity {
+		display: inline-block;
+		margin-top: 10px;
+	}
+}
+
+.nemo-registrationPopup {
+	width: 90vw;
+	max-width: 400px;
+	padding-top: 10px;
+	padding-bottom: 20px!important;
+	overflow: visible;
+
+	.nemo-registration__field__caption_capture {
+		display: block;
+		width: auto;
+	}
+
+	.nemo-registration__field__captchaField {
+		display: block;
+	}
+
+	.nemo-registration__field__input_capture {
+		width: 100%;
+	}
+}

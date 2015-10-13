@@ -14,6 +14,7 @@ $d_tableColumnPadding = 0 20px ;
 		width: 100%;
 		text-align: center;
 		color:$nemo-color-LightPoint;
+		word-spacing: normal;
 	}
 	&__item{
 		position: relative;
@@ -22,12 +23,14 @@ $d_tableColumnPadding = 0 20px ;
 		box-shadow: 0 2px 16px $nemo-color-container-shadow;
 		z-index: 9;
 		border-radius: 6px;
+		max-width: 450px;
 	}
 	&__wrapper{
-		margin-left: 20px;
+		margin: 0 0px 10px;
 		position: relative;
 		display: inline-block;
 		vertical-align: top;
+		word-spacing: normal;
 	}
 	&__pager{
 		background: #4DB0E4;
@@ -124,230 +127,257 @@ $d_tableColumnPadding = 0 20px ;
 			}
 		}
 	}
-	&__groups{
-		&Item{
+	&__groupsItem{
+		display: block;
+		width:$d_tableColumnWidth;
+		position: absolute;
+		background: $nemo-color-LightPoint;
+		z-index: 10;
+		text-align: left;
+		cursor: pointer;
+		border-bottom: 1px solid $c_tableBorder;
+		&_minimized{
+			height: 60px;
+			position: relative;
+			z-index: 1;
+
+			&:hover {
+				//background-color: #ccc;
+			}
+		}
+		&_minimized &__fullInfo{
+			display: none;
+		}
+		&__price{
+			color: $nemo-color-text-main;
+			font-weight: 500;
+			font-size: 110%;
 			display: block;
-			width:$d_tableColumnWidth;
-			position: absolute;
-			background: $nemo-color-LightPoint;
-			z-index: 10;
-			text-align: left;
-			cursor: pointer;
-			border-bottom: 1px solid $c_tableBorder;
-			&_minimized{
-				height: 60px;
-				position: relative;
-				z-index: 1;
+			padding:4px 20px 0;
+			line-height: 24px;
+		}
+		&__duration, &__transfers{
+			color: $nemo-color-text-secondary;
+			font-size: 85%;
+			//font-weight: 500;
+			padding:$d_tableColumnPadding;
+			line-height: 14px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		&__flightSelectWrap{
+			border-top:1px solid $c_tableBorder;
+			border-bottom:1px solid $c_tableBorder;
+			margin: 10px 0px;
+			padding: 10px;
 
-				&:hover {
-					//background-color: #ccc;
-				}
-			}
-			&_minimized &__fullInfo{
-				display: none;
-			}
-			&__price{
-				color: $nemo-color-text-main;
-				font-weight: 500;
-				font-size: 110%;
-				margin-top: 4px;
-				display: block;
-				padding:$d_tableColumnPadding;
-				line-height: 24px;
-			}
-			&__duration, &__transfers{
-				color: $nemo-color-text-secondary;
+			&__tip{
+				//color:$c_tableMainColor;
 				font-size: 85%;
-				//font-weight: 500;
-				padding:$d_tableColumnPadding;
-				line-height: 14px;
-
-			}
-			&__flightSelectWrap{
-				border-top:1px solid $c_tableBorder;
-				border-bottom:1px solid $c_tableBorder;
-				margin: 10px 0px;
-				padding: 10px;
-
-				&__tip{
-					//color:$c_tableMainColor;
-					font-size: 85%;
-					text-align: center;
-					line-height: 15px;
-					display: block;
-					//font-weight: 500;
-					margin-bottom: 0;
-					margin-top: 10px;
-					opacity: .75;
-
-					&:first-child {
-						margin-top: 0;
-					}
-				}
-			}
-			&__linkToFullTicket{
-				color: $nemo-color-link  ;
-				margin: $d_tableColumnPadding;
-				font-size: 65%;
 				text-align: center;
-			}
-			&__buttonWrap{
-				text-align: center;
-			}
-			&__disclaimer{
-				color: $nemo-color-text-secondary ;
-				font-weight: normal;
-				font-size: 65%;
-				padding:$d_tableColumnPadding;
-				text-align: center;
-				margin: 8px 0;
-				line-height: 12px;
+				line-height: 15px;
 				display: block;
+				//font-weight: 500;
+				margin-bottom: 0;
+				margin-top: 10px;
+				opacity: .75;
 
 				&:first-child {
-					margin-top: 4px;
+					margin-top: 0;
 				}
-
 			}
-			&_hidden{
+		}
+		&__linkToFullTicket{
+			color: $nemo-color-link;
+			margin: $d_tableColumnPadding;
+			font-size: 90%;
+			text-align: center;
+		}
+		&__buttonWrap{
+			text-align: center;
+		}
+		&__disclaimer{
+			color: $nemo-color-text-secondary ;
+			font-weight: normal;
+			font-size: 90%;
+			padding:$d_tableColumnPadding;
+			text-align: center;
+			margin: 8px 0;
+			line-height: 12px;
+			display: block;
+
+			&:first-child {
+				margin-top: 4px;
+			}
+
+		}
+		&_hidden{
+			display: none;
+		}
+		&_visible{
+			display: block;
+			box-shadow: 0 0 16px $nemo-color-container-shadow;
+
+			&:before{
 				display: none;
 			}
-			&_visible{
-				display: block;
-				box-shadow: 0 0 16px $nemo-color-container-shadow;
+		}
+		&__shortInfo{
+			min-height: 60px;
+		}
+		&__selector {
+			padding: 0 20px;
 
-				&:before{
-					display: none;
-				}
-			}
-			&__shortInfo{
-				min-height: 60px;
-			}
-			&__selector {
-				padding: 0 20px;
+			&__header {
+				display: flex;
+				flex-flow: row nowrap;
+				font-size: 13px;
+				line-height: 40px;
 
-				&__header {
-					display: flex;
-					flex-flow: row nowrap;
-					font-size: 13px;
-					line-height: 40px;
+				&__title {
+					min-width: 1px;
 
-					&__title {
-						min-width: 1px;
-
-						&__text {
-							overflow: hidden;
-							text-overflow: ellipsis;
-							padding-right: 10px;
-						}
-
-						&__date {
-							display: none;
-
-							&__dayOfWeek {
-								color: $nemo-color-secondary;
-							}
-						}
-					}
-
-					&__seatsAvailable {
-						flex-shrink: 0;
-						min-width: 1px;
-						white-space: nowrap;
-						margin-left: auto;
-
-						&_warning {
-							color: #FF9731;
-						}
-					}
-				}
-
-				&__footer {
-					display: flex;
-					flex-flow: row nowrap;
-					font-size: 12px;
-					line-height: 30px;
-					color: $nemo-color-secondary;
-
-					&__detailsLink {
-						min-width: 1px;
-						margin-left: auto;
-					}
-
-					&__transfers {
+					&__text {
+						overflow: hidden;
+						text-overflow: ellipsis;
 						padding-right: 10px;
-						min-width: 1px;
+					}
+
+					&__date {
+						display: none;
+
+						&__dayOfWeek {
+							color: $nemo-color-secondary;
+						}
 					}
 				}
 
-				&__selectContainer {
-					position: relative;
-					display: block;
-					padding: 5px 0px;
+				&__seatsAvailable {
+					flex-shrink: 0;
+					min-width: 1px;
+					white-space: nowrap;
+					margin-left: auto;
+
+					&_warning {
+						color: #FF9731;
+					}
+				}
+			}
+
+			&__footer {
+				display: flex;
+				flex-flow: row nowrap;
+				font-size: 12px;
+				line-height: 30px;
+				color: $nemo-color-secondary;
+
+				&__detailsLink {
+					min-width: 1px;
+					margin-left: auto;
 				}
 
-				&__selected {
-					border-radius: 2px;
-					position: relative;
-					color: $nemo-color-text-main;
-					display: block;
-					white-space: normal;
-					height: 50px;
-					line-height: 20px;
-					padding: 0px 10px;
-					font-weight: 500;
+				&__transfers {
+					padding-right: 10px;
+					min-width: 1px;
+				}
+			}
 
-					&_unopenable {
-						cursor: auto;
+			&__selectContainer {
+				position: relative;
+				display: block;
+				padding: 5px 0px;
+			}
+
+			&__selected {
+				border-radius: 2px;
+				position: relative;
+				color: $nemo-color-text-main;
+				display: block;
+				white-space: normal;
+				height: 50px;
+				line-height: 20px;
+				padding: 0px 10px;
+				font-weight: 500;
+
+				&_unopenable {
+					cursor: auto;
+					background:  #f2f2f2;
+
+					&:after {
+						display: none;
+					}
+
+					&:hover {
 						background:  #f2f2f2;
-
-						&:after {
-							display: none;
-						}
-
-						&:hover {
-							background:  #f2f2f2;
-						}
 					}
+				}
 
-					&__time {
-						font-size: 100%;
-						margin-top: 5px;
+				&__time {
+					font-size: 100%;
+					margin-top: 5px;
+					display: inline-block;
+					vertical-align: baseline;
+
+					&__departure, &__arrival {
 						display: inline-block;
-						vertical-align: baseline;
+						vertical-align: top;
+						color: $nemo-color-text-main;
 
-						&__departure, &__arrival {
-							display: inline-block;
-							vertical-align: top;
-							color: $nemo-color-text-main;
-
-							&_nextDay {
-								color: $nemo-color-notification_error;
-							}
+						&_nextDay {
+							color: $nemo-color-notification_error;
 						}
 					}
+				}
+
+				&__timeEnRoute {
+					font-size: 85%;
+					color: $nemo-color-text-secondary;
+				}
+			}
+
+			&__dropdown {
+
+				&__option {
+					//font-weight: 500;
+					padding: 8px 10px;
+					font-size: 90%;
+					line-height: 20px;
 
 					&__timeEnRoute {
 						font-size: 85%;
+						line-height: 10px;
 						color: $nemo-color-text-secondary;
 					}
 				}
+			}
+		}
 
-				&__dropdown {
+		&__buyButton {
+			position: relative;
 
-					&__option {
-						//font-weight: 500;
-						padding: 8px 10px;
-						font-size: 90%;
-						line-height: 20px;
+			&__checkText {
+				font-weight: normal;
+				display: none;
+				position: relative;
+				z-index: 1;
+				font-size: 16px;
+				line-height: 20px;
+				//top: 50%;
+				//width: 100%;
+				//transform: translate(0, -50%);
+			}
 
-						&__timeEnRoute {
-							font-size: 85%;
-							line-height: 10px;
-							color: $nemo-color-text-secondary;
-						}
-					}
-				}
+			&_bookingCheck &__text {
+				display: none;
+			}
+
+			&_bookingCheck &__checkText {
+				display: block;
+			}
+
+			&_bookingCheck {
+				@extend .nemo-flights-results__flightsGroup__buyButton_bookingCheck;
 			}
 		}
 	}
@@ -390,11 +420,12 @@ $d_tableColumnPadding = 0 20px ;
 	}
 	&__root{
 		text-align: center;
-		padding: 20px 0 35px;
+		padding: 20px 0 25px;
 		background: #5A595F;
 		border-top:1px solid #595961;
 		border-bottom:1px solid #595961;
 		position: relative;
+		word-spacing: 20px;
 
 		&__closeSwitch{
 			display: inline-block;
@@ -407,7 +438,7 @@ $d_tableColumnPadding = 0 20px ;
 			font-size: 11px;
 			position: absolute;
 			left: 50%;
-			margin-left: -35px;
+			transform: translate(-50%, 0);
 			bottom:0;
 			&:hover{
 				opacity: 1;

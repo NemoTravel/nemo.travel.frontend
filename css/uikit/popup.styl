@@ -1,8 +1,10 @@
+$c_ui_popup_wrapprer_bg = rgba(#636467, 0.5);
+
 .ui-dialog {
 	overflow: hidden;
 	position: absolute;
 	outline: 0 none;
-	padding: 20px 0;
+	padding: 10px;
 	z-index: 100;
 	border: none;
 
@@ -14,7 +16,7 @@
 		overflow: auto;
 		position: fixed;
 
-		background: rgba(#636467, 0.5);
+		background: $c_ui_popup_wrapprer_bg;
 	}
 
 	&__open {
@@ -71,7 +73,7 @@
 				left: 0;
 				bottom: 0;
 				background: $nemo-color-main;
-				animation: nemo-ui-popup__progressAnimation 200s infinite forwards;
+				animation: nemo-ui-popup__progressAnimation 200s 1 forwards;
 				border-radius: 4px 0 0 4px;
 			}
 		}
@@ -132,5 +134,11 @@
 @keyframes nemo-ui-popup__progressAnimation {
 	0% {width: 0%;}
 	5% {width: 80%;}
+	100% {width: 100%;}
+}
+
+@keyframes nemo-ui-button__progressAnimation {
+	0% {width: 0%;}
+	25% {width: 60%;}
 	100% {width: 100%;}
 }

@@ -18,31 +18,20 @@ $f_ui_stateBtn_checked_color	= $nemo-color-LightPoint;
 // VALUES
 $i_ui_stateBtn_innershadow		= inset 0 0 5px rgba(0,0,0,.1);
 $i_ui_stateBtn_outershadow		= 0 1 2px rgba(0,0,0,.5);
-$i_ui_stateBtn_textShadow       = 0px 1px 0px rgba(0, 0, 0, 0.25);
+$i_ui_stateBtn_textShadow       = none;//0px 1px 0px rgba(0, 0, 0, 0.25);
 
 .nemo-ui-stateGroup {
 	font-size: 0;
 
 	&__label {
 		display: inline-block;
+		vertical-align: top;
 		margin: $d_ui_stateBtn__label_margin;
 
 		&__button {
 			@extend .nemo-ui-button
-			@extend .nemo-ui-button_medium
 			@extend .nemo-ui-button_common;
-			background: linear-gradient(to bottom, $c_ui_stateBtn_top , $c_ui_stateBtn_bottom);
-			color: $f_ui_stateBtn_color;
-			text-shadow: $i_ui_stateBtn_textShadow;
-			transition: background .25s ease-in-out;
-
-			&:hover {
-				background: linear-gradient(to bottom, $c_ui_stateBtn_hover_top , $c_ui_stateBtn_hover_bottom);
-			}
-
-			&:active {
-				padding-top: 0;
-			}
+			font-size: 13px;
 
 			&_border {
 				border-radius: 0;
@@ -67,7 +56,7 @@ $i_ui_stateBtn_textShadow       = 0px 1px 0px rgba(0, 0, 0, 0.25);
 				background: $c_ui_stateBtn_checked_hover;
 			}
 
-			&:active {
+			&:active, &:hover:active {
 				background: $c_ui_stateBtn_checked_active;
 			}
 		}

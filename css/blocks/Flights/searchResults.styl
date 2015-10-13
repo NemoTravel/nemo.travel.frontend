@@ -2,39 +2,38 @@
 	padding: 0;
 	color: $c_common_textColor;
 
-	// TODO: do it with parameters, not css
-
-    //.nemo-flights-form {
-    //
-    //    &__routeOptions, &__additional {
-    //        display: none;
-    //    }
-    //
-		//&__formContainer__inner {
-		//	padding-top: 10px;
-		//}
-    //
-		//&__route__segment {
-		//	padding-bottom: 10px;
-		//}
-    //}
-
-	/*&__loader {*/
-		/*width: 90vw;*/
-		/*max-width: 1540px;*/
-		/*margin: 10px auto;*/
-		/*height: 200px;*/
-		/*background-image: url('images/ui/ui-loader-planes.svg');*/
-		/*background-position: center center;*/
-		/*background-repeat: no-repeat;*/
-	/*}*/
+	&__bookingCheck {
+		display: none;
+	}
 
 	&__error {
-		max-width: 1540px;
-		margin: 0 auto;
+		max-width: 420px;
+		margin: 40px auto;
 		padding: 0 10px;
 
-		&__block {
+		&__header {
+			@extend .ui-dialog-titlebar;
+		}
+
+		&__content {
+			@extend .ui-dialog-content;
+			border-radius: 0;
+		}
+
+		&__footer {
+			@extend .ui-dialog-buttonpane;
+
+			&__button {
+			}
+		}
+	}
+
+	&__globalError {
+		max-width: 1540px;
+		margin: 40px auto;
+		padding: 0 20px;
+
+		&__bock {
 			text-align: center;
 			padding-top: 30px;
 			padding-bottom: 30px;
@@ -44,6 +43,7 @@
 	}
 
 	&__expirePopup {
+		display: none;
 		height: 90px;
 		position: relative;
 		padding-left: 100px;
@@ -77,15 +77,6 @@
 		}
 	}
 
-	//&__formBlocker {
-	//	position: fixed;
-	//	top: 0;
-	//	left: 0;
-	//	right: 0;
-	//	bottom: 0;
-	//	z-index: 50;
-	//}
-
 	&__form {
 		margin: 0;
 		position: relative;
@@ -95,17 +86,16 @@
         }
 	}
 
-	&__formDummy {
+	&__summary {
 		max-width: 1220px;
 		margin: 0 auto 10px;
-		padding: 10px 10px;
+		padding: 10px 10px 0;
 		white-space: nowrap;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: stretch;
 		position: relative;
-        //height: 40px;
 
 		&_formActive {
 			padding-top: 0;
@@ -158,9 +148,12 @@
 
 
 			&__header {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				right: 10px;
 				font-size: 20px;
 				color: $nemo-color-LightPoint;
-				margin-bottom: 10px;
 				text-align: center;
 
 				display: none;
@@ -169,13 +162,14 @@
 			&__filters {
 				opacity: 1;
 				padding: 10px;
-				/*height: 75vh;*/
-				/*overflow: auto;*/
-				/*margin: 10px;*/
 			}
 
 			&__controls {
-				margin: 10px -10px 0;
+				position: absolute;
+				left: 10px;
+				right: 10px;
+				bottom: 10px;
+				margin: 0 -10px;
 				display: none;
 
 				&__item {
@@ -411,7 +405,7 @@
 			&__controls {
 				display: flex;
 				flex-flow: row nowrap;
-				justify-content: space-between;
+				justify-content: flex-end;
 				align-items: flex-start;
 				margin-bottom: 0px;
 
@@ -424,7 +418,7 @@
 				}
 
 				&__item {
-					line-height: 40px;
+					line-height: 30px;
 
 					&_count {
 						flex-grow: 0;
@@ -433,30 +427,82 @@
 						text-overflow: ellipsis;
 						padding-right: 20px;
 						font-size: 120%;
+						margin-right: auto;
 						//font-weight: 500;
 					}
 
 					&_sorting {
 						flex-shrink: 0;
-						margin-left: auto;
 						font-size: 13px;
 					}
 
-					&__sortTitle {
-						display: inline-block;
-						vertical-align: middle;
-						margin-right: 10px;
-						font-size: 95%;
-						opacity: .75;
-						font-weight: 500;
+					&_displayType {
+						margin-left: 40px;
+						white-space: nowrap;
+					}
 
-						&__fakeSort {
-							display: inline-block;
-							vertical-align: middle;
+					&__displayTypeSelector {
+						height: 30px;
+						display: inline-block;
+						vertical-align: top;
+
+						&__option__button {
+							padding-left: 35px;
+							position: relative;
+
+							&:before {
+								content: '';
+								position: absolute;
+								width: 17px;
+								height: 17px;
+								background: url("images/flights_results_sprite.svg") -40px -170px no-repeat;
+								top: 50%;
+								margin-top: -8px;
+								left: 10px;
+							}
+
+							&_active:before {
+								background-position: -40px -140px;
+							}
+
+							&_list:before {
+								background-position: -70px -170px;
+							}
+
+							&_list&_active:before {
+								background-position: -70px -140px;
+							}
+						}
+					}
+
+					&__sortTitle, &__displayTypeTitle {
+						display: inline-block;
+						vertical-align: top;
+						margin-right: 10px;
+						opacity: .75;
+					}
+
+					&__sortTitle {
+						vertical-align: top;
+					}
+
+					&__sort {
+						vertical-align: top;
+					}
+
+					&__fakeSort {
+						vertical-align: top;
+
+						&__toggle {
 							width: 100px;
-							border-radius: 4px;
-							background: $nemo-color-neutral;
-							height: 40px;
+
+							&, &:hover, &:active {
+								background: $nemo-color-neutral;
+							}
+
+							&:after {
+								opacity: 0.5;
+							}
 						}
 					}
 				}
@@ -505,568 +551,6 @@
 		}
 	}
 
-	&__flightsGroup {
-		padding: 0;
-        //box-shadow: 0 1px 16px rgba(0, 0, 0, .25);
-
-		&__header {
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: flex-start;
-			padding: 0;
-			margin: 0;
-
-			&__title {
-				flex 1 1 auto;
-				padding-left: $d_ui_subContainer_padding;
-				min-width: 1px;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-			}
-
-			&__additional {
-				flex 0 0 auto;
-				margin-right: auto;
-				padding: 0 $d_ui_subContainer_padding;
-				min-width: 1px;
-			}
-
-			&__logo, &__info {
-				display: inline-block;
-				vertical-align: top;
-				line-height: 30px;
-				margin-left: 20px;
-				padding: 10px 0;
-				min-width: 1px;
-
-				&:first-child {
-					margin: 0;
-				}
-			}
-
-			&__logo {
-				height: auto;
-				vertical-align: middle;
-				max-height: 40px;
-				max-width: 150px;
-				padding: 0;
-				margin-top: -4px;
-			}
-
-			&__info {
-				height: 30px;
-				width: 30px;
-				margin-top: 10px;
-				background: url("images/flights_results_sprite.svg") 5px -47px no-repeat;
-				//cursor: pointer;
-				border-radius: 4px;
-				transition: all .2s;
-
-				&:hover {
-					background-color: rgba($nemo-color-LightPoint, 0.1);
-				}
-			}
-		}
-
-		&__rating {
-			display: inline-block;
-			vertical-align: top;
-			line-height: 30px;
-			margin-left: 20px;
-
-			&:first-child {
-				margin: 0;
-			}
-
-			&__item {
-				display: inline-block;
-				vertical-align: top;
-				width: 19px;
-				height: 19px;
-				background: url("images/flights_results_sprite.svg") 0 -80px no-repeat;
-
-				&_active {
-					background: url("images/flights_results_sprite.svg") 0 -110px no-repeat;
-				}
-			}
-
-			&_inHeader {
-				padding: 10px 0;
-				line-height: 30px;
-			}
-
-			&_inHeader &__item {
-				margin-top: 7px;
-			}
-
-			&_inSubHeader {
-				line-height: 30px;
-				padding: 2px 0;
-			}
-
-			&_inSubHeader &__item {
-				margin-top: 7px;
-			}
-		}
-
-		&__subHeader {
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: flex-start;
-			align-content: center;
-			display: none;
-
-			border-bottom: $i_ui_subContainer_divider_border;
-
-			&__title {
-				flex 1 1 auto;
-				padding-left: $d_ui_subContainer_padding;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				line-height: 34px;
-				font-size: 13px;
-				color: $nemo-color-text-secondary;
-			}
-
-			&__additional {
-				flex 0 0 auto;
-				margin-right: auto;
-				padding: 0 $d_ui_subContainer_padding;
-			}
-		}
-
-		&__leg {
-			border-bottom: $i_ui_subContainer_divider_border;
-
-			&__info {
-				padding: 10px 20px 10px 60px;
-				position: relative;
-				border-bottom: $i_ui_subContainer_divider_border;
-
-				&:before {
-					content: '';
-					position: absolute;
-					top: 50%;
-					left: 20px;
-					width: 20px;
-					height: 20px;
-					margin-top: -10px;
-					background: url("images/flights_results_sprite.svg") 0px -140px no-repeat;
-				}
-
-				&_direct:before {
-					background-position: 0px -170px;
-				}
-
-				&__date {
-					font-size: 12px;
-					color: $c_common_textColor;
-					opacity: 0.75;
-
-					&__dayOfWeek {
-						color: $nemo-color-text-secondary;
-					}
-				}
-
-				&__route {
-					font-size: 13px;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-
-					&__departure, &__arrival {
-						display: inline;
-					}
-
-					&__departure {
-						&:after {
-							content: '';
-							background: url("images/flights_results_sprite.svg") 0 -10px no-repeat;
-							display: inline-block;
-							height: 15px;
-							margin: 0 5px;
-							vertical-align: middle;
-							width: 18px;
-						}
-					}
-				}
-			}
-
-			&__selector {
-				padding: 0 20px;
-
-				&__header {
-					display: flex;
-					flex-flow: row nowrap;
-					font-size: 13px;
-					line-height: 30px;
-                    margin-bottom: 2px;
-                    margin-top: 3px;
-
-					&__title {
-						min-width: 1px;
-
-						&__text {
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							padding-right: 10px;
-
-							&_dates {
-								display: none;
-							}
-
-							&__dayOfWeek {
-								color: $nemo-color-text-secondary;
-							}
-						}
-
-						&__date {
-							display: none;
-
-							&__dayOfWeek {
-								color: $nemo-color-text-secondary;
-							}
-						}
-					}
-
-					&__seatsAvailable {
-						flex-shrink: 0;
-						min-width: 1px;
-						white-space: nowrap;
-						margin-left: auto;
-                        color: $nemo-color-text-secondary;
-                        font-size: 90%;
-
-						&_warning {
-							color: #FF9731;
-						}
-					}
-				}
-
-				&__footer {
-					display: flex;
-					flex-flow: row nowrap;
-					font-size: 12px;
-					line-height: 30px;
-					color: $nemo-color-text-secondary;
-                    margin-top: 2px;
-                    margin-bottom: 3px;
-
-					&__detailsLink {
-						min-width: 1px;
-						margin-left: auto;
-					}
-
-					&__transfers {
-						padding-right: 10px;
-						min-width: 1px;
-
-						&__places {
-							line-height: 18px;
-							padding: 6px 0;
-						}
-					}
-				}
-
-				&__selectContainer {
-					//position: relative;
-					display: block;
-				}
-
-				&__selected {
-					padding: 10px 40px 10px 50px;
-					height: 60px;
-					line-height: normal;
-					position: relative;
-					font-size: 16px;
-
-					&:active {
-						padding-top: 11px;
-					}
-
-					&:before {
-						content: '';
-						position: absolute;
-						top: 50%;
-						transform: translateY(-50%);
-						width: 20px;
-						height: 20px;
-						border-radius: 10px;
-						box-shadow: 0 1px 3px rgba(#000, 0.3);
-						background: url('images/flights_results_sprite.svg') -30px -30px no-repeat;
-						left: 15px;
-					}
-
-					&_unopenable {
-						cursor: auto;
-						background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
-
-						&:after {
-							display: none;
-						}
-
-						&:hover {
-							background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
-						}
-					}
-
-					//&.nemo-ui-select__toggle_open {
-					//
-					//	&, &:hover, &:active {
-					//		background: #fff;
-					//	}
-					//}
-
-					&_inDropDown {
-						&:after {
-							background: rgba(0, 0, 0, 0) url("images/ui/ui-select-arrow.svg") no-repeat scroll center center;
-							content: "";
-							height: 9px;
-							margin-top: -4px;
-							position: absolute;
-							right: 14px;
-							top: 50%;
-							width: 12px;
-							transform: rotate(180deg);
-						}
-					}
-
-					&__time {
-                        font-size: 100%;
-						height: 23px;
-						display: inline-block;
-						vertical-align: baseline;
-
-						&__arrival {
-                            font-size: 80%;
-
-							&_nextDay {
-								color: #B23E13;
-							}
-						}
-
-						&__departure {
-							font-weight: 600;
-						}
-					}
-
-					&__timeEnRoute {
-						font-size: 80%;
-                        color: $nemo-color-text-secondary;
-						//opacity: 0.75;
-						height: 17px;
-
-						&__addText {
-							color: $nemo-color-text-secondary;
-						}
-					}
-				}
-
-				&__dropdown {
-					width: 100%;
-					top: 0;
-					margin: 0;
-
-					&__option {
-						padding: 5px 15px;
-
-						&:hover &__transfers__transfer {
-							background: #EAF6FF;
-						}
-
-						//&_selected {
-						//	background: red;//lighten(#EAF6FF, 70%);
-						//}
-
-						&_uncombinable &__data {
-							opacity: 0.5;
-						}
-
-						&__uncombinableWarn {
-							font-size: 12px;
-							color: #ff9731;
-							white-space: normal;
-						}
-
-						&__departure, &__arrival {
-							font-size: 95%;
-							font-weight: 600;
-							line-height: 20px;
-							display: inline-block;
-							vertical-align: top;
-                            margin-bottom: 0px;
-						}
-
-						&__arrival_nextday {
-							color: #B23E13;
-						}
-
-						&__transfers {
-							display: inline-block;
-							vertical-align: top;
-							min-width: 50px;
-							height: 20px;
-							text-align: center;
-							position: relative;
-							padding-right: 4px;
-							transition: all 0.2s;
-
-							&:before {
-								content: '';
-								position: absolute;
-								top: 9px;
-								border-bottom: 1px solid #969599;
-								left: 0;
-								right: 0;
-							}
-
-							&:after {
-								content: '';
-								position: absolute;
-								top: 6px;
-								border: 1px solid #969599;
-								right: 0;
-								width: 6px;
-								height: 6px;
-								transform: rotate(45deg);
-								border-bottom: none;
-								border-left: none;
-							}
-
-							&__transfer {
-								display: inline-block;
-								vertical-align: top;
-								margin: 5px;
-								width: 9px;
-								height: 9px;
-								border-radius: 9px;
-								background: $nemo-color-LightPoint;
-								border: 1px solid #969599;
-								position: relative;
-								z-index: 1;
-							}
-						}
-
-						&__timeEnRoute {
-							font-size: 80%;
-						}
-					}
-				}
-			}
-		}
-
-		&__footer {
-			font-size: 13px;
-			color: $nemo-color-text-secondary;
-			padding: 15px 20px 15px;
-
-            &__controls {
-                display: flex;
-                justify-content: space-between;
-            }
-
-			&__couplingButtonContainer, &__buyButtonContainer {
-				//display: inline-block;
-				//vertical-align: middle;
-				//width: 50%;
-			}
-
-			&__buyButtonContainer {
-                text-align: right;
-
-				&__disclaimer {
-					//text-align: right;
-                    //padding-top: 10px;
-                    color: $nemo-color-text-secondary;
-                    align-self: baseline;
-					display: inline-block;
-					margin-right: 10px;
-                    font-size: 90%;
-				}
-			}
-
-			&__disclaimer {
-                color: $nemo-color-text-secondary;
-				text-align: right;
-				padding-top: 8px;
-				display: none;
-			}
-		}
-
-		&__couplingButton {
-			height: 40px;
-			font-size: 13px;
-			line-height: 20px;
-			padding: 9px 20px;
-			border: 1px solid alpha($nemo-color-main, 0.15);
-            transition: all $nemo-transition-main ease-in;
-			background: none;
-            border-radius: 5px;
-
-			&:hover {
-				background: none;
-                border: 1px solid alpha($nemo-color-main, 0.5);
-			}
-
-			&:active {
-				padding-top: 8px;
-			}
-		}
-
-		&__flightInfo {
-			padding: 0;
-		}
-
-		&__buyButton {
-			vertical-align: middle;
-			flex-grow: 0;
-			font-size: 16px;
-			padding: 0 20px 0 50px;
-			white-space: nowrap;
-            text-align: right;
-
-			&, &:hover {
-				background-image: url('images/flights_results_sprite.svg');
-				background-position: -25px 11px;
-				background-repeat: no-repeat;
-		    }
-
-			&:active {
-				background-position: -25px 12px;
-			}
-		}
-
-		&__couplingTablePopup {
-			padding: 0;
-			overflow: visible;
-		}
-
-		//&_common {
-		//	margin-top: 20px;
-		//
-		//	&:first-child {
-		//		margin-top: 0;
-		//	}
-		//}
-
-		//&_cheapest &__header__title,
-		//&_cheapest &__header__additional {
-			//background: #B23E13;
-		//}
-
-		&_bestCompanies {
-			margin-bottom: 20px;
-		}
-	}
-
-	&__commonSelect {
-		line-height: 40px;
-		height: 40px;
-	}
-
 	&__showAll {
 		text-align: center;
 		margin-top: 20px;
@@ -1112,7 +596,7 @@
 					margin-top: -4px;
 					width: 8px;
 					height: 8px;
-					background: url("images/flights_results_sprite.svg") -40px -120px no-repeat;
+					background: url("images/flights_results_sprite.svg") -41px -120px no-repeat;
 				}
 
 				&__additional {

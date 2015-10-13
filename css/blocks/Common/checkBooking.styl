@@ -1,0 +1,52 @@
+.nemo-common-checkOrder {
+	&Popup {
+		max-width: 400px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	&__header {
+		margin-bottom: 10px;
+		padding: 10px 0;
+		display: block;
+	}
+
+	&__field {
+		position: relative;
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin: 0;
+		}
+
+		&__label{
+			&__caption, &__input {
+				display: inline-block;
+				vertical-align: middle;
+				width: 50%;
+				margin: 0;
+			}
+
+			&__caption {
+				padding-right: 10px;
+				white-space: normal;
+			}
+		}
+
+		.nemo-ui-hint {
+			margin-left: 25%;
+		}
+	}
+
+	&_pageForm &__field {
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 20px;
+
+		&__label{
+			&__caption, &__input {
+				width: auto;
+			}
+		}
+	}
+}

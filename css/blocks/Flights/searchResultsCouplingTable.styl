@@ -307,17 +307,22 @@
 		}
 	}
 
+	&__noCombinableFlight {
+		font-weight: bold;
+		color: #ff9731;
+	}
+
 	&__buyButton {
 		min-width: 100px;
 		line-height: normal;
-		height: auto;
+		height: 45px;
 		white-space: normal;
-		padding: 3px 2px;
+		padding: 8px 2px 2px;
 		display: block;
 
 		&__text {
 			font-size: 12px;
-			line-height: 15px;
+			line-height: 10px;
 			color: rgba($nemo-color-LightPoint, 0.5);
 			white-space: nowrap;
 		}
@@ -327,6 +332,33 @@
 			line-height: 25px;
 			display: block;
 			font-weight: 600;
+		}
+
+		&__checkText {
+			font-weight: normal;
+			display: none;
+			position: absolute;
+			z-index: 1;
+			font-size: 16px;
+			line-height: 20px;
+			top: 50%;
+			width: 100%;
+			transform: translate(0, -50%);
+		}
+
+		&_bookingCheck &__text,
+		&_bookingCheck &__price {
+			display: none;
+		}
+
+		&_bookingCheck &__checkText {
+			display: block;
+		}
+
+		&_bookingCheck {
+			@extend .nemo-flights-results__flightsGroup__buyButton_bookingCheck;
+			padding-left: 2px;
+			padding-right: 2px;
 		}
 	}
 
