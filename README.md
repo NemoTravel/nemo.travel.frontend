@@ -2,13 +2,7 @@
 
 Current version: 0.8
 
-## How to setup
-
-### Standalone
-
-Just place the project sources wherever you want the engine to work.
-
-### CMS or other integration
+### How to setup
 
 First of all, you have to place the source code from index.php wherever you want the engine to work.
 Whatever it would be, it should start require.js and require script on the page.
