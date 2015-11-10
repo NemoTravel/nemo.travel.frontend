@@ -15,7 +15,7 @@ Whatever it would be, it should start require.js and require script on the page.
 
 Then you have to configure the host. It is needed for the engine to get to required libraries.
 It could be done automatically with php, like it is done in index.php example:
-```
+```php
 <?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
 ```
 Otherwise, you can configure host manually or any other way you want.
