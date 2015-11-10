@@ -21,10 +21,27 @@ It could be done automatically with php, like it is done in index.php example:
 Otherwise, you can configure host manually or any other way you want.
 
 Then you should check that all needed libraries (they are listed in require.config) are linked correctly.
-You may rewrite this paths the way you want.
+You may rewrite these paths:
+
+```js
+var nemoSourceHost = '<?php echo $host; ?>';
+...
+paths: {
+			domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
+			... ,
+			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min'
+		}
+```
 
 If the engine is started elsewhere from $host, then you have to configure root in requre.js initialization:
-This variable represents engine location from $host.
+This variable represents engine location from $host:
+
+```js
+sourceURL: nemoSourceHost,
+dataURL: 'http://conchita.mlsd.ru/api',
+staticInfoURL: 'http://conchita.mlsd.ru',
+root: '/',
+```
 
 For example, you need to place all libraries on your server in %hostname%/core/js etc.,
 but Nemo should start on pages like %hostname%/avia/search/index.html, then you have to:
