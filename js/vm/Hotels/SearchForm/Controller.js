@@ -31,7 +31,7 @@ define(
 			};
 
 			this.tripType = ko.observable('OW');
-			this.directHotels = ko.observable(false);
+			this.directFlights = ko.observable(false);
 			this.vicinityDates = ko.observable(false);
 			this.serviceClass = ko.observable(this.serviceClasses[0]);
 
@@ -46,7 +46,7 @@ define(
 				segments: [],
 				passengers: {},
 				serviceClass: this.serviceClass(),
-				direct: this.directHotels(),
+				direct: this.directFlights(),
 				vicinityDates: this.vicinityDates(),
 				immediateSearch: false
 			};
@@ -289,7 +289,7 @@ define(
 						segments: [],
 						passengers: {},
 						serviceClass: this.serviceClass(),
-						direct: this.directHotels(),
+						direct: this.directFlights(),
 						vicinityDates: this.vicinityDates()
 					},
 					segments = this.segments(),
@@ -367,7 +367,7 @@ define(
 
 				urlAdder += '-class=' + this.serviceClass();
 
-				if (this.directHotels()) {
+				if (this.directFlights()) {
 					urlAdder += '-direct';
 				}
 
@@ -384,7 +384,7 @@ define(
 					urlAdder += '-PMaxTimeEnRoute=' + this.additionalParameters.maxTimeEnRoute();
 				}
 
-				if (!this.directHotels() && this.additionalParameters.maxTransfersLength()) {
+				if (!this.directFlights() && this.additionalParameters.maxTransfersLength()) {
 					urlAdder += '-PMaxTransfersLength=2';
 				}
 
@@ -579,7 +579,7 @@ define(
 					this.$$componentParameters.route[2] = this.$$componentParameters.route[2].split('-');
 
 					for (var i = 0; i < this.$$componentParameters.route[2].length; i++) {
-						// Direct Hotels flag
+						// Direct flights flag
 						if (this.$$componentParameters.route[2][i] == 'direct') {
 							this.preinittedData.direct = true;
 						}
@@ -711,7 +711,7 @@ define(
 				this.$$controller.options.dataURL.indexOf('/') === 0 ||
 				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) === 0
 			) {
-				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'HotelsResults');
+				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'FlightsResults');
 			}
 			else {
 				document.location = this.$$controller.options.dataURL.split('/').splice(0, 3).join('/') + '/results/' + (id ? id + '/' : '') + urlAdder;
@@ -791,7 +791,7 @@ define(
 						segments: [],
 						passengers: [],
 						parameters: {
-							direct: this.directHotels(),
+							direct: this.directFlights(),
 							aroundDates: this.vicinityDates() ? this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1] : 0,
 							serviceClass: this.serviceClass(),
 							airlines: []/*,
@@ -831,7 +831,7 @@ define(
 
 				this.searchRequest(
 					this.$$controller.loadData(
-						'/Hotels/search/request',
+						'/flights/search/request',
 						{request: JSON.stringify(params)},
 						function (text, request) {
 							var response;
@@ -844,9 +844,9 @@ define(
 									// Empty results check (automatically passed if we have a delayed search)
 									if (
 										self.delayedSearch ||
-										!response.Hotels.search.results.info.errorCode
+										!response.flights.search.results.info.errorCode
 									) {
-										self.goToResults(response.Hotels.search.request.id);
+										self.goToResults(response.flights.search.request.id);
 									}
 									else {
 										searchError('emptyResult');
@@ -930,15 +930,15 @@ define(
 
 			// Processing options
 			// Passengers maximums
-			this.options = this.$$rawdata.Hotels.search.formData.maxLimits;
+			this.options = this.$$rawdata.flights.search.formData.maxLimits;
 			this.options.totalPassengers = parseInt(this.options.totalPassengers);
 
 			// Processing fast and full passengers selection
-			this.passengersUseExtendedSelect = this.$$rawdata.Hotels.search.formData.passengersSelect.extendedPassengersSelect;
-			this.passengersFastSelectOptions = this.$$rawdata.Hotels.search.formData.passengersSelect.fastPassengersSelect;
+			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
+			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
 			// Date options
-			this.options.dateOptions = this.$$rawdata.Hotels.search.formData.dateOptions;
+			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
 			today.setHours(0,0,0,0);
 			this.options.dateOptions.minDate = new Date(today);
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
@@ -954,7 +954,7 @@ define(
 						arrdata = null;
 
 					if (this.preinittedData.segments[i][0]) {
-						depdata = this.$$controller.getModel('Hotels/Common/Geo', {
+						depdata = this.$$controller.getModel('Flights/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][0],
 								isCity: this.preinittedData.segments[i][3],
@@ -965,7 +965,7 @@ define(
 					}
 
 					if (this.preinittedData.segments[i][1]) {
-						arrdata = this.$$controller.getModel('Hotels/Common/Geo', {
+						arrdata = this.$$controller.getModel('Flights/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][1],
 								isCity: this.preinittedData.segments[i][4],
@@ -1008,42 +1008,42 @@ define(
 				}
 
 				// Setting other options
-				this.directHotels(this.preinittedData.direct);
+				this.directFlights(this.preinittedData.direct);
 				this.vicinityDates(this.preinittedData.vicinityDates);
 				this.serviceClass(this.preinittedData.serviceClass);
 			}
 			else {
-				for (var i = 0; i < this.$$rawdata.Hotels.search.request.segments.length; i++) {
-					var data = this.$$rawdata.Hotels.search.request.segments[i];
+				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
+					var data = this.$$rawdata.flights.search.request.segments[i];
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
-						data.departure ? this.$$controller.getModel('Hotels/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
-						data.arrival ? this.$$controller.getModel('Hotels/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
+						data.departure ? this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
+						data.arrival ? this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
 						data.departureDate ? this.$$controller.getModel('Common/Date', data.departureDate) : null
 					);
 				}
 
 				// Processing other options
-				this.directHotels(this.$$rawdata.Hotels.search.request.parameters.direct);
-				this.vicinityDates(this.$$rawdata.Hotels.search.request.parameters.aroundDates != 0);
+				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
+				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
 
-				if (this.serviceClasses.indexOf(this.$$rawdata.Hotels.search.request.parameters.serviceClass) >= 0) {
-					this.serviceClass(this.$$rawdata.Hotels.search.request.parameters.serviceClass);
+				if (this.serviceClasses.indexOf(this.$$rawdata.flights.search.request.parameters.serviceClass) >= 0) {
+					this.serviceClass(this.$$rawdata.flights.search.request.parameters.serviceClass);
 				}
 
 				if (this.forceInitialTripType) {
 					this.tripType(this.forceInitialTripType);
 				}
 				else {
-					this.tripType(this.$$rawdata.Hotels.search.request.parameters.searchType);
+					this.tripType(this.$$rawdata.flights.search.request.parameters.searchType);
 				}
 			}
 
 			// Passengers
 			// Processing passengers counts
 			var usePreInittedPassengers = this.mode == 'preinitted' && Object.keys(this.preinittedData.passengers).length > 0;
-			for (var i = 0; i < this.$$rawdata.Hotels.search.request.passengers.length; i++) {
-				tmpass[this.$$rawdata.Hotels.search.request.passengers[i].type] = this.$$rawdata.Hotels.search.request.passengers[i].count;
+			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
+				tmpass[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
 			}
 
 			for (var i in this.options.passengerCount) {
@@ -1104,7 +1104,7 @@ define(
 												HotelsSearchFormController.prototype.carriers = [];
 											}
 
-											HotelsSearchFormController.prototype.carriers.push(self.$$controller.getModel('Hotels/Common/Airline', tmp.guide.airlines[i]));
+											HotelsSearchFormController.prototype.carriers.push(self.$$controller.getModel('Flights/Common/Airline', tmp.guide.airlines[i]));
 										}
 									}
 
@@ -1129,7 +1129,7 @@ define(
 		HotelsSearchFormController.prototype.addSegment = function (departure, arrival, departureDate) {
 			this.segments.push(
 				this.$$controller.getModel(
-					'Hotels/SearchForm/Segment',
+					'Flights/SearchForm/Segment',
 					{
 						departure: departure,
 						arrival: arrival,
@@ -1144,7 +1144,7 @@ define(
 		HotelsSearchFormController.prototype.continueCR = function () {
 			var segsCount = this.segments().length;
 
-			if (this.tripType() == 'CR' && segsCount < this.options.Hotelsegments) {
+			if (this.tripType() == 'CR' && segsCount < this.options.flightSegments) {
 				this.addSegment(this.segments()[segsCount - 1].items.arrival.value(), null, null);
 			}
 		};
@@ -1158,14 +1158,14 @@ define(
 		};
 
 		HotelsSearchFormController.prototype.$$usedModels = [
-			'Hotels/SearchForm/Segment',
+			'Flights/SearchForm/Segment',
 			'Common/Date',
-			'Hotels/Common/Geo',
-			'Hotels/Common/Airline'
+			'Flights/Common/Geo',
+			'Flights/Common/Airline'
 		];
 
 		HotelsSearchFormController.prototype.dataURL = function () {
-			var ret = '/Hotels/search/formData/';
+			var ret = '/flights/search/formData/';
 
 			if (this.mode == 'tunesearch') {
 				ret += this.tuneSearch;
