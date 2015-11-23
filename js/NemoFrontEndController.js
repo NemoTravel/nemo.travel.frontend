@@ -30,7 +30,8 @@ define (
 				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
 				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
-				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
+                {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'}
 			];
 			this.i18nStorage = {};
 
