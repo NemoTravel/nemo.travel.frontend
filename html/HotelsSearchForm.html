@@ -85,8 +85,49 @@
                         <div class="nemo-hotels-form__route__switchToOW"
                              data-bind="click: function () {$parent.tripType('OW')}"></div>
                         <!-- /ko --></div>
+                    <div class="nemo-hotels-form__route__segment__item nemo-hotels-form__route__segment__item_date"
+                         data-bind="css: {'nemo-hotels-form__route__segment__item_hasError': $parent.validaTERROR() && items.departureDate.error()}">
+                        <label class="nemo-ui-textInput nemo-ui-dummiedInput nemo-hotels-form__route__segment__item__date">
+                            <div class="nemo-hotels-form__route__segment__item__date__indicator"
+                                 data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31"></div>
+                            <!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
+                            <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__route__segment__item__error"
+                                 data-bind="text: $root.i18n('HotelsSearchForm','error_departureDate_'+items.departureDate.error());"></div>
+                            <!-- /ko -->
+                            <div class="nemo-hotels-form__route__segment__item__inputContainer"><input
+                                    class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_date js-autofocus-field js-autofocus-field_date"
+                                    type="text"
+                                    data-bind="attr: {placeholder: $root.i18n('HotelsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))},flightsFormDatepicker: items.departureDate.value,css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-hotels-form__route__segment__input_date_there' : 'nemo-hotels-form__route__segment__input_date_back') : 'nemo-hotels-form__route__segment__input_date_there',hasFocus: items.departureDate.focus">
+
+                                <div class="nemo-ui-dummiedInput__dummy nemo-hotels-form__route__segment__item__dummy nemo-hotels-form__route__segment__item__date__dummy nemo-hotels-form__route__segment__item__date__dummy_full">
+                                    <!-- ko if: !items.departureDate.value() --><span
+                                        class="nemo-ui-dummiedInput__dummy__placeholder"
+                                        data-bind="text: $root.i18n('HotelsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))"></span><!-- /ko -->
+                                    <!-- ko if: items.departureDate.value() --><span
+                                        class="nemo-ui-dummiedInput__dummy__main"
+                                        data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthName()"></span><span
+                                        class="nemo-ui-dummiedInput__dummy__aux"
+                                        data-bind="text: ', '+items.departureDate.value().getDOWName()"></span><!-- /ko -->
+                                </div>
+                                <div class="nemo-ui-dummiedInput__dummy nemo-hotels-form__route__segment__item__dummy nemo-hotels-form__route__segment__item__date__dummy nemo-hotels-form__route__segment__item__date__dummy_short">
+                                    <!-- ko if: !items.departureDate.value() --><span
+                                        class="nemo-ui-dummiedInput__dummy__placeholder"
+                                        data-bind="text: $root.i18n('HotelsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))"></span><!-- /ko -->
+                                    <!-- ko if: items.departureDate.value() --><span
+                                        class="nemo-ui-dummiedInput__dummy__main"
+                                        data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthNameShort()"></span><span
+                                        class="nemo-ui-dummiedInput__dummy__aux"
+                                        data-bind="text: ', '+items.departureDate.value().getDOWNameShort()"></span><!-- /ko -->
+                                </div>
+                            </div>
+                        </label><!-- ko if: $parent.tripType() == 'RT' && $index() == 1 -->
+                        <div class="nemo-hotels-form__route__switchToOW"
+                             data-bind="click: function () {$parent.tripType('OW')}"></div>
+                        <!-- /ko --></div>
+                    
                 </div>
             </div>
+
             <div class="nemo-ui-select nemo-hotels-form__passengers">
                 <!-- ko if: validaTERROR() && passengersError() -->
                 <div data-bind="text: $root.i18n('HotelsSearchForm','error_passengers_'+passengersError());" class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__passengers__error"></div>
