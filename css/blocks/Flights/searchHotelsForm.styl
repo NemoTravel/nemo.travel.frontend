@@ -322,6 +322,45 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
           margin: 0;
         }
       }
+
+      &_autocomplete {
+        &_container {
+          position: absolute;
+          background: #fff;
+          left: 0;
+          top: 45px;
+          padding: 0;
+          margin: 0;
+          border-radius: 4px;
+          z-index: 10;
+          box-shadow: 0 0 5px rgba(#000, 0.2);
+        }
+        &_title {
+          list-style: none;
+          color: rgba(100, 100, 100, 0.75);
+          font-size: 11px;
+          padding: 10px 10px 0;
+          line-height: 15px;
+        }
+        &_item {
+          list-style: none;
+          color: #0A0A0F;
+          padding: 0 10px;
+          line-height: 40px;
+          border-bottom: 1px solid #EFEFEF;
+          &:hover {
+            background: rgba(100, 181, 246, 0.1);
+            cursor: pointer;
+          }
+          &__first {
+            padding: 0 20px 0 0;
+          }
+          &__second {
+            font-size: 11px;
+            color: rgba(100, 100, 100, 0.75);
+          }
+        }
+      }
     }
 
     &__switchToRT {
@@ -405,7 +444,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
 
   &__routeOptions {
     display: table-row;
-
+    height: 45px;
     &__inner {
       display: table-cell;
       padding: 10px 0;
@@ -438,7 +477,14 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       text-align: right;
       position: relative;
       z-index: 1;
-
+      &__title {
+        margin: 0;
+      }
+      &__town {
+        margin: 0 0 0 10px;
+        cursor: pointer;
+        text-decoration: dotted;
+      }
       &_routeType, &_class {
         width: 80% * .379;
       }
