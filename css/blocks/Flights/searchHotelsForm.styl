@@ -197,7 +197,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
 
     &__segment {
       display: inline-block;
-      width: 80%;
+      width: 100%;
       padding-bottom: 20px;
 
       &_returnSegment {
@@ -258,18 +258,18 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       }
 
       &__item {
-        display: inline-block;
+        display: table-cell;
         vertical-align: top;
         padding-right: 20px;
         position: relative;
 
         &_from, &_to {
-          width: 37.9%;
+          width: 52.2%;
         }
 
         &_date {
           width: 24.2%;
-          padding-right: 0;
+          padding-right: 1px;
         }
 
         &__dummy {
@@ -320,6 +320,45 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
 
         &__inputContainer {
           margin: 0;
+        }
+      }
+
+      &_autocomplete {
+        &_container {
+          position: absolute;
+          background: #fff;
+          left: 0;
+          top: 45px;
+          padding: 0;
+          margin: 0;
+          border-radius: 4px;
+          z-index: 10;
+          box-shadow: 0 0 5px rgba(#000, 0.2);
+        }
+        &_title {
+          list-style: none;
+          color: rgba(100, 100, 100, 0.75);
+          font-size: 11px;
+          padding: 10px 10px 0;
+          line-height: 15px;
+        }
+        &_item {
+          list-style: none;
+          color: #0A0A0F;
+          padding: 0 10px;
+          line-height: 40px;
+          border-bottom: 1px solid #EFEFEF;
+          &:hover {
+            background: rgba(100, 181, 246, 0.1);
+            cursor: pointer;
+          }
+          &__first {
+            padding: 0 20px 0 0;
+          }
+          &__second {
+            font-size: 11px;
+            color: rgba(100, 100, 100, 0.75);
+          }
         }
       }
     }
@@ -405,7 +444,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
 
   &__routeOptions {
     display: table-row;
-
+    height: 45px;
     &__inner {
       display: table-cell;
       padding: 10px 0;
@@ -438,7 +477,14 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       text-align: right;
       position: relative;
       z-index: 1;
-
+      &__title {
+        margin: 0;
+      }
+      &__town {
+        margin: 0 0 0 10px;
+        cursor: pointer;
+        text-decoration: dotted;
+      }
       &_routeType, &_class {
         width: 80% * .379;
       }
@@ -521,7 +567,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
   }
 
   &__passengers {
-    width: 11.6%;
+    width: 29.2%;
     white-space: nowrap;
     position: relative;
     padding-left: 20px;
@@ -538,7 +584,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     &__container {
       /*min-width: 120px;*/
       /*max-width: 140px;*/
-      width: 140px;
+      width: auto;
       height: 40px;
       line-height: 40px;
       font-size: 105%;
@@ -546,7 +592,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       background: $nemo-color-LightPoint;
       padding: 0 40px 0 10px;
       box-shadow: $i_hotels_form_segment_input_bsh;
-      border-radius: 2px;
+      border-radius: 0px;
       cursor: pointer;
       overflow: hidden;
       text-overflow: ellipsis;
