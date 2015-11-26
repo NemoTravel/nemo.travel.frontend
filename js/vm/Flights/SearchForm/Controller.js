@@ -299,7 +299,7 @@ define(
 				for (var i = 0; i < segments.length; i++) {
 					ret.segments.push(
 						[
-							segments[i].items.departure.value() ? segments[i].items.departure.value().IATA : null,
+							segments[i].items.departure.value() ? segments[i].items.departure.value().countryz : null,
 							segments[i].items.arrival.value() ? segments[i].items.arrival.value().IATA : null,
 							segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null,
 							segments[i].items.departure.value() ? segments[i].items.departure.value().isCity : null,

@@ -168,24 +168,11 @@ define(
 						segment = ko.dataFor(event.target),//data.segment,
 						$focusField = null;
 
-					if ($target.hasClass('js-autofocus-field_departure')) {
-						$focusField = $segment.find('.js-autofocus-field_arrival');
+					if ($target.hasClass('js-autofocus-field_arrival')) {
+						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
 					}
-					else if ($target.hasClass('js-autofocus-field_arrival')) {
-						$focusField = $segment.find('.js-autofocus-field_date');
-					}
-					else if (
-						viewModel.tripType() == 'CR' &&
-						segment.index < viewModel.segments().length-1
-					) {
-						$focusField = $segment.next().find('.js-autofocus-field').eq(0);
-					}
-					else if(
-						viewModel.tripType() == 'RT' &&
-						segment.index == 0 &&
-						!viewModel.segments()[1].items.departureDate.value()
-					){
-						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
+					else if ($target.hasClass('js-autofocus-field_date_departure')) {
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
 
 					if ($focusField) {
