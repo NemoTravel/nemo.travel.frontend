@@ -46,21 +46,15 @@ define(
                 this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
             },
 			_renderItem: function( ul, item ) {
-				// If item has label - it's something other than geo point that should be in AC
-				var text;
+                var text;
 
-				if (typeof item.n == 'undefined') {
-					text = item.n.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">$1</span>') + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">, ' + item.n + '</span>';
-				}
-				else {
-					text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.n + '</span>'
-                     + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.sc + '</span>';
-				}
+                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.name + '</span>'
+                       + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
 
 				return $("<li>")
 					.addClass('nemo-hotels-form__route__segment_autocomplete_item')
 					.append(text)
-					.attr('data-value', item.id)
+					.attr('data-value', typeof item.label == 'undefined')
 					.appendTo(ul);
 			},
 			_renderMenu: function( ul, items ) {
@@ -69,14 +63,12 @@ define(
 
 				$.each(items, function(index, item) {
                     var li;
-                    if ( item.t != currentCategory ) {
-                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.t + "</li>" );
+
+                    if ( item.category != currentCategory ) {
+                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.category + "</li>" );
                         currentCategory = item.t;
                     }
                     li = that._renderItemData( ul, item );
-                    //if ( item.t ) {
-                    //    li.attr( "aria-label", item.t + " : " + item.n );
-                    //}
 				});
 
 				$(ul).addClass('nemo-hotels-form__route__segment_autocomplete_container');
@@ -93,7 +85,13 @@ define(
 					source:function(request, callback){
                         viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
                         $.getJSON(viewModel.$$controller.options.dataURL + encodeURIComponent(request.term), function(data) {
-                            callback(data.results);
+                            var result = [];
+                            for (var i = 0; i < data.results.length; i++) {
+                                result.push(
+                                    viewModel.$$controller.getModel('Hotels/Common/Geo', {data: data.results[i], guide: data.results})
+                                );
+                            }
+                            callback(result);
                         });
 					},
 					open: function (event, ui) {
@@ -114,8 +112,8 @@ define(
 
 						// If item has label - it's something other than geo point that should be in AC
 						// So we set corresponding stuff only if it's valid
-						if (typeof ui.item == 'undefined') {
-							valueAccessor()(ui.item.n);
+						if (typeof ui.item.label == 'undefined') {
+							valueAccessor()(ui.item);
 
 							// Autofocus stuff
 							$element.trigger('nemo.fsf.segmentPropChanged');
@@ -125,7 +123,7 @@ define(
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$(this).val(ui.item.n)
+						$(this).val(ui.item.name)
 					},
 					close:function(){
 						$(this).val(' ')

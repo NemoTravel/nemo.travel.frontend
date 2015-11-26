@@ -10,81 +10,33 @@ define(
 			// Processing guide
 			this.processGuide(initialData.guide);
 
-			this.city = this.pool.cities[this.cityId] ? this.pool.cities[this.cityId] : null;
-			this.airport = this.pool.airports[this.IATA] ? this.pool.airports[this.IATA] : null;
+            if (this.t == undefined) {
+                return;
+            }
 
-			// Fixing data inconsistencies
-			if (this.isCity && !this.city && this.IATA) {
-				// Looking for a city with this IATA
-				for (var i in this.pool.cities) {
-					if (this.pool.cities.hasOwnProperty(i) && this.pool.cities[i].IATA == this.IATA) {
-						this.city = this.pool.cities[i];
-					}
-				}
+            this.category = this.t;
 
-				// If still no city - it's an airport
-				if (!this.city) {
-					this.isCity = false;
-					this.airport = this.pool.airports[this.IATA] ? this.pool.airports[this.IATA] : null;
-					this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
-				}
-			}
-			else if (!this.isCity && !this.city && this.airport) {
-				this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
-			}
+            var itemFrom = this.pool[this.category][this.id].n.search(',');
+            var itemTo = this.pool[this.category][this.id].n.length;
 
-			this.countryCode = '';
-			if (this.isCity && this.city) {
-				this.countryCode = this.city.countryCode;
-			}
-			else if (!this.isCity && this.airport) {
-				this.countryCode = this.airport.countryCode;
-			}
-
-			this.country = this.pool.countries[this.countryCode] ? this.pool.countries[this.countryCode] : null;
-
-			this.name = '';
-			if (this.isCity && this.city) {
-				this.name = this.city.name;
-			}
-			else if (!this.isCity && this.airport) {
-				this.name = this.airport.name;
-			}
-
-			this.identifier = '';
-			if (this.isCity && this.city) {
-				this.identifier = this.city.id;
-			}
-			else if (!this.isCity && this.airport) {
-				this.identifier = this.airport.IATA;
-			}
-
-			if (!this.city) {
-				this.city = {
-					name: this.name
-				};
-			}
+            this.name = this.pool[this.category][this.id].n.substring(0, itemFrom);
+            this.country = this.pool[this.category][this.id].n.substring(itemFrom + 1, itemTo).trim();
 		}
 
 		// Extending from dictionaryModel
 		helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
 
-        HotelsSearchFormGeo.prototype.pool = {
-			countries: {},
-			cities: {},
-			airports: {}
-		};
+        HotelsSearchFormGeo.prototype.pool = [];
 
         HotelsSearchFormGeo.prototype.processGuide = function (guide) {
 			if (typeof guide == 'object') {
 				for (var i in guide) {
-					if (guide.hasOwnProperty(i) && this.pool.hasOwnProperty(i)) {
-						for (var j in guide[i]) {
-							if (guide[i].hasOwnProperty(j) && !this.pool[i][j]) {
-								this.pool[i][j] = this.$$controller.getModel('BaseStaticModel', guide[i][j]);
-							}
-						}
-					}
+                    if (guide[i].hasOwnProperty('t') && guide[i].hasOwnProperty('id')) {
+                        if (this.pool[guide[i].t] == undefined) {
+                            this.pool[guide[i].t] = [];
+                        }
+                        this.pool[guide[i].t][guide[i].id] = this.$$controller.getModel('BaseStaticModel', guide[i]);
+                    }
 				}
 			}
 		};
