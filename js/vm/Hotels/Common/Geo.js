@@ -2,7 +2,7 @@
 define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
 	function (ko, helpers, BaseModel) {
-		function FlightsSearchFormGeo (initialData, controller) {
+		function HotelsSearchFormGeo (initialData, controller) {
 			// Processing initialData: a pair of guide data and an object telling us what to take
 			// Processing data
 			BaseModel.apply(this, [initialData.data, controller]);
@@ -67,15 +67,15 @@ define(
 		}
 
 		// Extending from dictionaryModel
-		helpers.extendModel(FlightsSearchFormGeo, [BaseModel]);
+		helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
 
-		FlightsSearchFormGeo.prototype.pool = {
+        HotelsSearchFormGeo.prototype.pool = {
 			countries: {},
 			cities: {},
 			airports: {}
 		};
 
-		FlightsSearchFormGeo.prototype.processGuide = function (guide) {
+        HotelsSearchFormGeo.prototype.processGuide = function (guide) {
 			if (typeof guide == 'object') {
 				for (var i in guide) {
 					if (guide.hasOwnProperty(i) && this.pool.hasOwnProperty(i)) {
@@ -89,6 +89,6 @@ define(
 			}
 		};
 
-		return FlightsSearchFormGeo;
+		return HotelsSearchFormGeo;
 	}
 );

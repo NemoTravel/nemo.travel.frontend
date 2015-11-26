@@ -41,28 +41,41 @@ define(
 
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
 		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
+            _create: function() {
+                this._super();
+                this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+            },
 			_renderItem: function( ul, item ) {
 				// If item has label - it's something other than geo point that should be in AC
 				var text;
 
-				if (typeof item.label == 'undefined') {
-					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + '<span class="nemo-flights-form__geoAC__item__country">, ' + item.country.name + '</span>';
+				if (typeof item.n == 'undefined') {
+					text = item.n.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + '<span class="nemo-flights-form__geoAC__item__country">, ' + item.n + '</span>';
 				}
 				else {
-					text = item.label;
+					text = item.n;
 				}
 
 				return $("<li>")
 					.addClass('nemo-flights-form__geoAC__item')
 					.append(text)
-					.attr('data-value', typeof item.label == 'undefined')
+					.attr('data-value', typeof item.n == 'undefined')
 					.appendTo(ul);
 			},
 			_renderMenu: function( ul, items ) {
-				var that = this;
+                var that = this,
+                    currentCategory = "";
 
 				$.each(items, function(index, item) {
-					that._renderItemData(ul, item);
+                    var li;
+                    if ( item.t != currentCategory ) {
+                        $(ul).append( "<li class='ui-autocomplete-category'>" + item.t + "</li>" );
+                        currentCategory = item.t;
+                    }
+                    li = that._renderItemData( ul, item );
+                    if ( item.t ) {
+                        li.attr( "aria-label", item.t + " : " + item.n );
+                    }
 				});
 
 				$(ul).addClass('nemo-ui-autocomplete nemo-flights-form__geoAC');
@@ -72,40 +85,15 @@ define(
 		ko.bindingHandlers.flightsFormGeoAC = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
-					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('FlightsSearchForm', 'autocomplete_noResults')}];
+					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
 					source:function(request, callback){
-						viewModel.$$controller.makeRequest(
-							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
-							'',
-							function (data) {
-								data = JSON.parse(data);
-								var result = [],
-									tmp;
-
-								if (data.system && data.system.error) {
-									callback(noResultsResults);
-									return;
-								}
-
-								// Converting autocomplete data into an array of possibilities
-								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
-									result.push(
-										viewModel.$$controller.getModel('Flights/Common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
-									);
-								}
-
-								if (result.length == 0) {
-									result = noResultsResults;
-								}
-
-								callback(result);
-							},
-							function(){
-								callback(noResultsResults);
-							})
+                        viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
+                        $.getJSON(viewModel.$$controller.options.dataURL + encodeURIComponent(request.term), function(data) {
+                            callback(data.results);
+                        });
 					},
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
@@ -125,8 +113,8 @@ define(
 
 						// If item has label - it's something other than geo point that should be in AC
 						// So we set corresponding stuff only if it's valid
-						if (typeof ui.item.label == 'undefined') {
-							valueAccessor()(ui.item);
+						if (typeof ui.item == 'undefined') {
+							valueAccessor()(ui.item.n);
 
 							// Autofocus stuff
 							$element.trigger('nemo.fsf.segmentPropChanged');

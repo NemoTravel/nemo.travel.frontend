@@ -954,7 +954,7 @@ define(
 						arrdata = null;
 
 					if (this.preinittedData.segments[i][0]) {
-						depdata = this.$$controller.getModel('Flights/Common/Geo', {
+						depdata = this.$$controller.getModel('Hotels/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][0],
 								isCity: this.preinittedData.segments[i][3],
@@ -965,7 +965,7 @@ define(
 					}
 
 					if (this.preinittedData.segments[i][1]) {
-						arrdata = this.$$controller.getModel('Flights/Common/Geo', {
+						arrdata = this.$$controller.getModel('Hotels/Common/Geo', {
 							data: {
 								IATA: this.preinittedData.segments[i][1],
 								isCity: this.preinittedData.segments[i][4],
@@ -1160,7 +1160,7 @@ define(
 		HotelsSearchFormController.prototype.$$usedModels = [
 			'Flights/SearchForm/Segment',
 			'Common/Date',
-			'Flights/Common/Geo',
+			'Hotels/Common/Geo',
 			'Flights/Common/Airline'
 		];
 
