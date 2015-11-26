@@ -50,16 +50,17 @@ define(
 				var text;
 
 				if (typeof item.n == 'undefined') {
-					text = item.n.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + '<span class="nemo-flights-form__geoAC__item__country">, ' + item.n + '</span>';
+					text = item.n.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">$1</span>') + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">, ' + item.n + '</span>';
 				}
 				else {
-					text = item.n;
+					text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.n + '</span>'
+                     + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.sc + '</span>';
 				}
 
 				return $("<li>")
-					.addClass('nemo-flights-form__geoAC__item')
+					.addClass('nemo-hotels-form__route__segment_autocomplete_item')
 					.append(text)
-					.attr('data-value', typeof item.n == 'undefined')
+					.attr('data-value', item.id)
 					.appendTo(ul);
 			},
 			_renderMenu: function( ul, items ) {
@@ -69,16 +70,16 @@ define(
 				$.each(items, function(index, item) {
                     var li;
                     if ( item.t != currentCategory ) {
-                        $(ul).append( "<li class='ui-autocomplete-category'>" + item.t + "</li>" );
+                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.t + "</li>" );
                         currentCategory = item.t;
                     }
                     li = that._renderItemData( ul, item );
-                    if ( item.t ) {
-                        li.attr( "aria-label", item.t + " : " + item.n );
-                    }
+                    //if ( item.t ) {
+                    //    li.attr( "aria-label", item.t + " : " + item.n );
+                    //}
 				});
 
-				$(ul).addClass('nemo-ui-autocomplete nemo-flights-form__geoAC');
+				$(ul).addClass('nemo-hotels-form__route__segment_autocomplete_container');
 			}
 		});
 
@@ -124,7 +125,7 @@ define(
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$(this).val(ui.item.name)
+						$(this).val(ui.item.n)
 					},
 					close:function(){
 						$(this).val(' ')
