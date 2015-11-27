@@ -197,6 +197,10 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       width: 100%;
       padding-bottom: 20px;
 
+      &_RT {
+        font-size: 0px;
+        margin: 0px 0px 20px;
+      }
       &_returnSegment {
         width: 20%;
       }
@@ -264,6 +268,9 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
           width: 52.2%;
         }
 
+        &_to {
+          font-size: 13px;
+        }
         &_date {
           width: 24.2%;
           padding-right: 1px;
@@ -276,6 +283,8 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         }
 
         &__date {
+          font-size: 13px;
+
           &__dummy {
             padding-right: 36px;
             font-size: 105%;
@@ -903,12 +912,15 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
   &__yearsPicker {
     position: relative;
     &_container {
+      display: inline-block;
+      vertical-align: top;
       height: 40px;
       width: 80px;
       border: 1px solid #EFEFEF;
       box-sizing: border-box;
       padding: 5px;
       position: relative;
+      margin: 0 10px 13px 0;
       &:after {
         content: '';
         position: absolute;
@@ -923,6 +935,9 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       &.opened {
         &:after {
           transform: rotate(180deg);
+        }
+        .nemo-hotels-form__yearsPicker_drop {
+          display: block;
         }
       }
     }
@@ -940,6 +955,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       box-shadow: 0 1px 16px rgba(10, 10, 15, 0.25);
       background: #fff;
       width: 150px;
+      display: none;
 
       &_item {
         display: inline-block;
@@ -952,7 +968,95 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       }
     }
   }
+
+  &__popup {
+    &_addRoomButton {
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      outline: medium none;
+      transition: all 0.1s ease-in 0s;
+      height: 35px;
+      border: medium none;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #FFF;
+      line-height: 35px;
+      background: #B1DAFA none repeat scroll 0% 0%;
+      width: 100%;
+    }
+    &__room {
+      margin: 0 -20px;
+      padding: 0 20px;
+      position: relative;
+
+      &_delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 0 30px 0 10px;
+        height: 30px;
+        border-radius: 4px;
+        background: transparent url("images/ui/popup-close.svg") no-repeat scroll 90% center;
+        border: medium none;
+        font-size: 11px;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 2;
+        transition: all 0.2s ease 0s;
+        &:hover {
+          background-color: rgba(0,0,0,0.05);
+        }
+      }
+      &_title {
+        margin: 0 0 10px 0;
+      }
+      &_guests{
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 40px 20px 0;
+
+        &_title {
+          margin: 0 0 10px 0;
+        }
+        &_adults {
+          display: inline-block;
+          vertical-align: top;
+          margin: 0 20px 0 0;
+        }
+        &_children {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+      &_ages {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 280px;
+
+        &_title {
+          margin: 0 0 10px 0;
+        }
+      }
+    }
+
+    &__room_more {
+      border-top: 1px solid #F4F4F4;
+      padding: 20px 20px 0;
+    }
+  }
 }
+
+  .no-overflow {
+    overflow: visible;
+    .ui-dialog-content {
+      overflow: visible;
+    }
+    .nemo-hotels-form__passengersPopUp {
+      margin: 0;
+    }
+  }
 
 @keyframes nemo-flights-form__searchingInfoPopup__headerAnimation {
   0% {transform: rotate(0deg);}
