@@ -593,30 +593,28 @@ define(
 			}
 		};
 
-		HotelsSearchFormController.prototype.getSegmentDateParameters = function (dateObj, index) {
+		HotelsSearchFormController.prototype.getSegmentDateParameters = function (dateObj, index, isArrival) {
 			var ret = {
 					disabled: this.dateRestrictions[index][0] > dateObj || this.dateRestrictions[index][1] < dateObj,
 					segments: [],
-					period: false
-				},
-				segments = this.segments();
+					period: true
+				};
+
+			var segments = ret.segments = this.segments();
 
 			for (var i = 0; i < segments.length; i++) {
-				if (segments[i].items.departureDate.value() && dateObj.getTime() == segments[i].items.departureDate.value().dateObject().getTime()) {
-					ret.segments.push(i);
-				}
-
-				if (
-					i > 0 &&
-					segments[i-1].items.departureDate.value() &&
-					segments[i].items.departureDate.value() &&
-					dateObj.getTime() > segments[i-1].items.departureDate.value().dateObject().getTime() &&
-					dateObj.getTime() < segments[i].items.departureDate.value().dateObject().getTime()
-				) {
-					ret.period = true;
-				}
-
-                ret.period = true;
+                if (segments[i].items.departureDate.value() && segments[i].items.arrivalDate.value()) {
+                    var today = new Date();
+                    if (isArrival && dateObj.getTime() >= today.getTime()) {
+                        ret.disabled = false;
+                    }
+                    
+                    if (isArrival && segments[i].items.departureDate.value().dateObject().getTime() < dateObj.getTime()) {
+                        ret.disabled = true;
+                    } else if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
+                        ret.disabled = false;
+                    }
+                }
 			}
 
 			return ret;
@@ -888,7 +886,7 @@ define(
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
 			this.options.dateOptions.maxDate = new Date(today);
             // TODO: Change offset when will be ready api
-			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + 10);
+			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 
             // TODO: Remove this when will be ready api
             this.$$rawdata.guide = {};
@@ -928,8 +926,8 @@ define(
 			else {
                 this.addSegment(
                     null,
-                    this.$$controller.getModel('Common/Date', this.options.dateOptions.minDate),
-                    this.$$controller.getModel('Common/Date', this.options.dateOptions.maxDate)
+                    null,
+                    null
                 );
 
 				// Processing other options

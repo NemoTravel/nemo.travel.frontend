@@ -84,6 +84,7 @@ define(
                     appendTo: '.js-nemo-hotels-autocomplete',
 					minLength: 2,
 					source:function(request, callback){
+                        // TODO: Remove when will be ready api
                         viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
                         $.getJSON(viewModel.$$controller.options.dataURL + encodeURIComponent(request.term), function(data) {
                             var result = [];
@@ -189,7 +190,7 @@ define(
 		};
 
 		var PMULocale;
-		ko.bindingHandlers.flightsFormDatepicker = {
+		ko.bindingHandlers.hotelsFormDatepicker = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element);
 
@@ -249,16 +250,34 @@ define(
 					hideOnSelect: true,
 					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
 					render: function (dateObj) {
-						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
-						ret.className = '';
-						if (ret.segments.length > 0) {
-							ret.className = 'nemo-pmu-date_hilighted';
-							for (var i = 0; i < ret.segments.length; i++) {
-								ret.className += ' nemo-pmu-date_hilighted_' + ret.segments[i];
-							}
-						}
+						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index, $(this).hasClass('js-autofocus-field_date_arrival'));
+                        ret.className = '';
 
-						ret.className += ' nemo-pmu-date_period';
+                        var $this = viewModel.form.segments()[0];
+
+                        var arrivalTime = $this.items.arrivalDate.value()? $this.items.arrivalDate.value().dateObject().getTime() : null;
+                        var departureTime = $this.items.departureDate.value() ? $this.items.departureDate.value().dateObject().getTime() : null;
+                        var dateObjectTime = dateObj.getTime();
+
+                        if (arrivalTime == null) {
+                            var today = new Date();
+                            today.addDays(bindingContext.$parent.options.dateOptions.minOffset);
+                            today.setHours(0,0,0,0);
+
+                            arrivalTime = (new Date(today)).getTime();
+                        }
+
+                        if (dateObjectTime == arrivalTime) {
+                            ret.className = ' nemo-pmu-start';
+                        }
+
+                        if (dateObjectTime == departureTime) {
+                            ret.className = ' nemo-pmu-stop';
+                        }
+
+                        if (dateObjectTime > arrivalTime && dateObjectTime < departureTime) {
+                            ret.className = ' nemo-pmu-interval';
+                        }
 
 						delete ret.segments;
 						delete ret.period;
@@ -278,11 +297,11 @@ define(
 							maxDate =  bindingContext.$parent.options.dateOptions.maxDate;
 						for(var segment in viewModel.form.segments()){
 							var $this = viewModel.form.segments()[segment];
-                            minDate = $this.items.arrivalDate.value().dateObject();
-                            maxDate = $this.items.departureDate.value().dateObject();
+                            minDate = $this.items.arrivalDate.value() ? $this.items.arrivalDate.value().dateObject() : null;
+                            maxDate = $this.items.departureDate.value() ? $this.items.departureDate.value().dateObject() : null;
 						}
-						$(this).data('pickmeup-options').max = maxDate;
-						$(this).data('pickmeup-options').min = minDate;
+						$(this).data('pickmeup-options').max = null;
+						$(this).data('pickmeup-options').min = null;
 					}
 				});
 			}
