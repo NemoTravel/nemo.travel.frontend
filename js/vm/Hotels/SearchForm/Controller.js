@@ -885,7 +885,8 @@ define(
 			this.options.dateOptions.minDate = new Date(today);
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
 			this.options.dateOptions.maxDate = new Date(today);
-			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
+            // TODO: Change offset when will be ready api
+			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + 10);
 
             // TODO: Remove this when will be ready api
             this.$$rawdata.guide = {};
