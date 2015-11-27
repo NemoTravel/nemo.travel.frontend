@@ -47,11 +47,10 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     max-width: 1280px;
     margin: 20px auto;
     padding: 0 30px;
-
+    text-align: right;
     &__item {
       display: inline-block;
       vertical-align: top;
-      width: 50%;
 
       &_lastSearches {
         text-align: right;
@@ -64,10 +63,8 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       }
 
       &__dropdown {
-        left: 0;
-        right: auto;
+        right: 0;
         max-width: 400px;
-        width: 100%;
         min-width: 1px;
         padding: 20px;
         color: #636467;
@@ -332,7 +329,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
           padding: 0;
           margin: 0;
           border-radius: 4px;
-          z-index: 10;
+          z-index: 20;
           box-shadow: 0 0 5px rgba(#000, 0.2);
         }
         &_title {
@@ -849,6 +846,110 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       display: inline-block;
       width: 50%;
       margin-bottom: 0;
+    }
+  }
+
+  &__spinner {
+    display: inline-block;
+    border-radius: 3px;
+    overflow: hidden;
+
+    .ui-spinner-up {
+      float: right;
+      display: block;
+      width: 30px;
+      height: 40px;
+      line-height: 40px;
+      background: #EFEFEF;
+      text-align: center;
+      cursor: pointer;
+      &:after {
+        content: '+';
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .ui-button-text {
+        display: none;
+      }
+
+    }
+    .ui-spinner-down {
+      float: left;
+      display: block;
+      width: 30px;
+      height: 40px;
+      line-height: 40px;
+      background: #EFEFEF;
+      text-align: center;
+      cursor: pointer;
+      &:after {
+        content: '-';
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .ui-button-text {
+        display: none;
+      }
+    }
+    .ui-spinner-input {
+      height: 40px;
+      width: 40px;
+      border: 1px solid #EFEFEF;
+      text-align: center;
+
+    }
+  }
+
+  &__yearsPicker {
+    position: relative;
+    &_container {
+      height: 40px;
+      width: 80px;
+      border: 1px solid #EFEFEF;
+      box-sizing: border-box;
+      padding: 5px;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 9px;
+        top: 50%;
+        margin-top: -4px;
+        right: 10px;
+        transition: all 0.2s;
+        background: url("images/ui/ui-select-arrow.svg") center center no-repeat;
+      }
+      &.opened {
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    &_input {
+      border: none;
+      height: 100%;
+      width: 60%;
+    }
+
+    &_drop {
+      position: absolute;
+      left: 0;
+      padding: 8px;
+      border-radius: 4px;
+      box-shadow: 0 1px 16px rgba(10, 10, 15, 0.25);
+      background: #fff;
+      width: 150px;
+
+      &_item {
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+      }
     }
   }
 }

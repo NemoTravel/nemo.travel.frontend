@@ -5,6 +5,8 @@ define(
 		function HotelsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
+			this.quantity = ko.observable (0);
+
 			this.name = 'HotelsSearchFormController';
 
 			this.delayedSearch = true;
