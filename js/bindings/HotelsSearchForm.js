@@ -81,6 +81,7 @@ define(
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
 				$element.FlightsFormGeoAC({
+                    appendTo: '.js-nemo-hotels-autocomplete',
 					minLength: 2,
 					source:function(request, callback){
                         viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
@@ -252,6 +253,9 @@ define(
 						ret.className = '';
 						if (ret.segments.length > 0) {
 							ret.className = 'nemo-pmu-date_hilighted';
+							for (var i = 0; i < ret.segments.length; i++) {
+								ret.className += ' nemo-pmu-date_hilighted_' + ret.segments[i];
+							}
 						}
 
 						ret.className += ' nemo-pmu-date_period';

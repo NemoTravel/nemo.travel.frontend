@@ -12,7 +12,7 @@
             <div data-bind="attr: {'class':'nemo-hotels-form__route nemo-hotels-form__route_'+tripType()}, foreach: segments(), flightsFormAutoFocus: null">
                 <div data-bind="attr: {'class': 'nemo-hotels-form__route__segment_RT js-autofocus-segment'}">
                     <!-- ko if: $index() != 1 -->
-                    <div class="nemo-hotels-form__route__segment__item nemo-hotels-form__route__segment__item_to"
+                    <div class="nemo-hotels-form__route__segment__item nemo-hotels-form__route__segment__item_to js-nemo-hotels-autocomplete"
                          data-bind="css: {'nemo-hotels-form__route__segment__item_hasError': $parent.validaTERROR() && items.arrival.error()}">
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput js-autocomplete">
                             <!-- ko if: $parent.validaTERROR() && items.arrival.error() && items.arrival.focus() -->
