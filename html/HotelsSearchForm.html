@@ -240,38 +240,107 @@
 
     </div>
 
-    <div data-block="passengersFullSelect"
-         class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock"
-         data-bind="foreach: {data: passengerTypesOrder, as: 'passType'}"
-            >
-        <!-- ko if: $parent.options.passengerCount[passType] &&  parseInt($parent.options.passengerCount[passType]) -->
-        <div data-bind="attr: {'class': 'nemo-hotels-form__passengersPopUp__item nemo-hotels-form__passengersPopUp__item_' + passType}">
-            <div class="nemo-hotels-form__passengersPopUp__item__header" data-bind="text: $root.i18n('HotelsSearchForm','passengerType_'+passType+'_passSelectorName')"></div>
-            <div class="nemo-hotels-form__passengersPopUp__item__subheader" data-bind="text: $root.i18n('HotelsSearchForm','passengerType_'+passType+'_ageInfo')"></div>
-            <div class="nemo-hotels-form__passengersPopUp__item__counts" data-bind="foreach: $parent.getPassengersCounts(passType)">
-                <div
-                        data-bind="
-						text: $root.i18n('HotelsSearchForm','passengers_count_' + $data),
-						attr: {'class':
-								'nemo-hotels-form__passengersPopUp__item__count nemo-hotels-form__passengersPopUp__item__count_' + $data +
-								(
-									$parents[1].passengers()[passType] && $parents[1].passengers()[passType]() == $data ?
-									' nemo-hotels-form__passengersPopUp__item__count_active' :
-									''
-								) +
-								(
-									$data > $parents[1].passengersRestrictions()[passType].max || $data < $parents[1].passengersRestrictions()[passType].min ?
-									' nemo-hotels-form__passengersPopUp__item__count_disabled':
-									''
-								)
-							},
-						click: function () {$parents[1].setPassengers(passType, parseInt($data));}"
-                        ></div>
+    <!-- ko if: useAdditionalOptions -->
+    <div class="nemo-hotels-form__additional">
+        <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__additional__item nemo-hotels-form__additional__parameters">
+            <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__additional__parameters__toggle"
+                 data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__toggle'),pseudoSelect: {adjustWidth: false},click: function (d, e) {$(e.target).parents('.js-nemoApp__component').eq(0).find('.js-flights-searchForm-hiddenSelect').trigger('chosen:updated');}"></div>
+            <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown nemo-hotels-form__additional__parameters__dropdown"
+                 data-bind="click: function (d,e) {e.stopPropagation();}">
+                <div class="nemo-ui-subSectionHeader nemo-hotels-form__additional__parameters__header"
+                     data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__header')"></div>
+                <div class="nemo-hotels-form__additional__parameters__item nemo-hotels-form__additional__parameters__item_maxPrice">
+                    <div class="nemo-hotels-form__additional__parameters__item__title"
+                         data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__maxPrice__title')"></div>
+                    <div class="nemo-ui-textInput nemo-hotels-form__additional__parameters__item__content"><input
+                            type="text"
+                            class="nemo-ui-textInput__input nemo-hotels-form__additional__parameters__item__content__maxPriceField"
+                            data-bind="attr:{placeholder: $root.i18n('HotelsSearchForm','additionalParameters__maxPrice__placeholder')},textInput: additionalParameters.maxPrice"><!-- ko if: additionalParameters.maxPrice -->
+                        <div class="nemo-hotels-form__additional__parameters__item__content__maxPriceFieldClearer"
+                             data-bind="click: function () {additionalParameters.maxPrice('');}"></div>
+                        <!-- /ko -->
+                        <money class="nemo-hotels-form__additional__parameters__item__content__maxPriceCurrency"
+                               format="$" no-translate=""
+                               data-bind="text: $root.agency.currency,attr: {currency: $root.agency.currency},money: null"></money>
+                    </div>
+                </div>
+                <div class="nemo-hotels-form__additional__parameters__item nemo-hotels-form__additional__parameters__item_carrier">
+                    <div class="nemo-hotels-form__additional__parameters__item__title"
+                         data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__carrier__title')"></div>
+                    <div class="nemo-hotels-form__additional__parameters__item__content">
+                        <!-- ko if: !carriersLoaded() -->
+                        <div class="nemo-hotels-form__additional__parameters__carrierLoading"
+                             data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__carrier__loading')"></div>
+                        <!-- /ko --><!-- ko if: carriersLoaded() --><select multiple
+                                                                            class="js-flights-searchForm-hiddenSelect"
+                                                                            data-bind="options: carriers,optionsText: 'name',selectedOptions: additionalParameters.carriers,flightsFormSelect: {placeholder_text_multiple: $root.i18n('HotelsSearchForm', 'additionalParameters__carrier__placeholder'),no_results_text: $root.i18n('HotelsSearchForm', 'additionalParameters__carrier__searchNotFound')}"></select><!-- /ko -->
+                    </div>
+                </div>
+                <div class="nemo-hotels-form__additional__parameters__item nemo-hotels-form__additional__parameters__item_timeEnRoute">
+                    <div class="nemo-hotels-form__additional__parameters__item__title"
+                         data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__timeEnRoute__title')"></div>
+                    <div class="nemo-ui-textInput nemo-hotels-form__additional__parameters__item__content nemo-hotels-form__additional__parameters__timeEnRoute">
+                        <span class="nemo-hotels-form__additional__parameters__timeEnRoute__subTitle"
+                              data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__timeEnRoute__subTitle')"></span><select
+                            class="js-flights-searchForm-hiddenSelect nemo-hotels-form__additional__parameters__timeEnRoute__select"
+                            data-bind="options: additionalParameters.maxTimeEnRouteOptions,optionsText: function (item) {return $root.i18n('HotelsSearchForm', 'additionalParameters__timeEnRoute__option_' + (item ? item : 'none'))},value: additionalParameters.maxTimeEnRoute,flightsFormSelect: {width: '150px', disable_search: true},event: {'chosen:hiding_dropdown': function (d, e) {setTimeout(function(){$(e.target).trigger('chosen:close');}, 15);}}"></select>
+                    </div>
+                </div>
+                <div class="nemo-hotels-form__additional__parameters__item nemo-hotels-form__additional__parameters__item_transfers">
+                    <div class="nemo-hotels-form__additional__parameters__item__title nemo-hotels-form__additional__parameters__item__title_transfers"
+                         data-bind="text: $root.i18n('HotelsSearchForm','additionalParameters__transfers__title')"></div>
+                    <div class="nemo-ui-textInput nemo-hotels-form__additional__parameters__item__content"><label
+                            class="nemo-ui-checkbox nemo-hotels-form__additional__parameters__checkbox nemo-hotels-form__additional__parameters__checkbox_noTransfers"
+                            data-bind="click: function () {directFlights(!directFlights())}"><input
+                            class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: directFlights"><span
+                            class="nemo-ui-checkbox__caption nemo-hotels-form__additional__parameters__checkbox__caption"
+                            data-bind="html: $root.i18n('HotelsSearchForm','additionalParameters__transfers__noTransfers__caption')"></span></label><!-- ko if: !directFlights() --><label
+                            class="nemo-ui-checkbox nemo-hotels-form__additional__parameters__checkbox nemo-hotels-form__additional__parameters__checkbox_shortTransfers"
+                            data-bind="click: function () {additionalParameters.maxTransfersLength(!additionalParameters.maxTransfersLength())}"><input
+                            class="nemo-ui-checkbox__input" type="checkbox"
+                            data-bind="checked: additionalParameters.maxTransfersLength"><span
+                            class="nemo-ui-checkbox__caption nemo-hotels-form__additional__parameters__checkbox__caption"
+                            data-bind="html: $root.i18n('HotelsSearchForm','additionalParameters__transfers__shortTransfers__caption')"></span></label><!-- /ko -->
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- /ko -->
+        <div class="nemo-hotels-form__additional__item nemo-hotels-form__additional__item_lastSearches">
+            <!-- Last searches component -->
+            <div class="" data-bind="component: {name: 'Flights/LastSearches/Controller', params: {}}"></div>
+        </div>
     </div>
-                                                                        <!-- ko if: isSearching () -->
+    <!-- /ko -->
+
+    <div data-block="passengersFullSelect" class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock">
+        <div class="nemo-hotels-form__spinner">
+            <input data-bind="spinner: quantity, spinnerOptions: { min: 1, numberFormat: 'n' }" />
+        </div>
+
+        <div class="nemo-hotels-form__yearsPicker_container opened">
+            <input type="text" class="nemo-hotels-form__yearsPicker_input">
+            <div class="nemo-hotels-form__yearsPicker_drop">
+                <div class="nemo-hotels-form__yearsPicker_drop_item">1</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">2</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">3</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">4</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">5</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">6</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">7</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">8</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">9</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">10</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">11</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">12</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">13</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">14</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">15</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">16</div>
+                <div class="nemo-hotels-form__yearsPicker_drop_item">17</div>
+            </div>
+        </div>
+    </div>
+    <!-- ko if: isSearching () -->
     <div data-bind="
 			automaticPopup: {
 				title: $root.i18n('HotelsSearchForm','searchingInfo__title'),
