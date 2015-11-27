@@ -91,53 +91,6 @@ define(
 				this.recalcDateRestrictions();
 			},this);
 
-			this.tripType.subscribe(function (newValue) {
-				var segments = this.segments();
-
-				this.$$controller.log('TripType set to', newValue);
-
-				switch (newValue) {
-					case 'OW':
-						this.segments.splice(1);
-						break;
-
-					case 'RT':
-						var tmpdate = null;
-
-						// We process segments only if current segments don't look like an RT
-						if (
-							// Segments count != 2
-							segments.length != 2 ||
-							// First segment departure and no second arrival
-							(segments[0].items.departure.value() && !segments[1].items.arrival.value()) ||
-							// First segment arrival and no second departure
-							(segments[0].items.arrival.value() && !segments[1].items.departure.value()) ||
-							// Second segment departure and no first arrival
-							(segments[1].items.departure.value() && !segments[0].items.arrival.value()) ||
-							// Second segment arrival and no first departure
-							(segments[1].items.arrival.value() && !segments[0].items.departure.value()) ||
-							// Departure and arrival mismatch
-							(segments[0].items.departure.value() && segments[0].items.departure.value().identifier != segments[1].items.arrival.value().identifier) ||
-							(segments[1].items.departure.value() && segments[1].items.departure.value().identifier != segments[0].items.arrival.value().identifier)
-						) {
-							if (segments.length >= 2) {
-								tmpdate = segments[1].items.departureDate.value();
-							}
-
-							if (segments.length > 1) {
-								this.segments.splice(1);
-							}
-
-							this.addSegment(this.segments()[0].items.arrival.value(), this.segments()[0].items.departure.value(), tmpdate);
-						}
-
-						break;
-
-					case 'CR':
-						break;
-				}
-			}, this);
-
 			this.passengersSummary = ko.computed(function () {
 				var ret = '',
 					total = 0,
@@ -301,11 +254,10 @@ define(
 				for (var i = 0; i < segments.length; i++) {
 					ret.segments.push(
 						[
-							segments[i].items.departure.value() ? segments[i].items.departure.value().IATA : null,
-							segments[i].items.arrival.value() ? segments[i].items.arrival.value().IATA : null,
-							segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null,
-							segments[i].items.departure.value() ? segments[i].items.departure.value().isCity : null,
-							segments[i].items.arrival.value() ? segments[i].items.arrival.value().isCity : null
+                            segments[i].items.arrival.value() ? segments[i].items.arrival.value().t : null,
+                            segments[i].items.arrival.value() ? segments[i].items.arrival.value().id : null,
+                            segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null,
+                            segments[i].items.arrivalDate.value() ? segments[i].items.arrivalDate.value().getISODate() : null
 						]
 					);
 				}
@@ -347,16 +299,15 @@ define(
 
 				if (this.tripType() == 'RT') {
 					urlAdder +=
-						(segments[0].items.departure.value() ? (segments[0].items.departure.value().isCity ? 'c' : 'a') + segments[0].items.departure.value().IATA : '###') +
 						(segments[0].items.arrival.value() ? (segments[0].items.arrival.value().isCity ? 'c' : 'a') + segments[0].items.arrival.value().IATA : '###') +
-						(segments[0].items.departureDate.value() ? segments[0].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########') +
+						(segments[0].items.arrivalDate.value() ? segments[0].items.arrivalDate.value().dropTime().getISODate().replace(/-/g, '') : '########') +
 						(segments[1].items.departureDate.value() ? segments[1].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
 				}
 				else {
 					for (var i = 0; i < segments.length; i++) {
 						urlAdder +=
-							(segments[i].items.departure.value() ? (segments[i].items.departure.value().isCity ? 'c' : 'a') + segments[i].items.departure.value().IATA : '###') +
 							(segments[i].items.arrival.value() ? (segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA : '###') +
+							(segments[i].items.arrivalDate.value() ? segments[i].items.arrivalDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
 							(segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
 					}
 				}
@@ -915,11 +866,7 @@ define(
 		};
 
 		HotelsSearchFormController.prototype.buildModels = function () {
-			var geo = {
-					cities: {},
-					countries: {},
-					airports: {}
-				},
+			var geo = [],
 				tmpass = {},
 				today = new Date(),
 				self = this;
@@ -947,66 +894,34 @@ define(
 			this.options.dateOptions.maxDate = new Date(today);
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 
-			// Processing segments
+            // TODO: Remove this when will be ready api
+            this.$$rawdata.guide = {};
+            this.$$rawdata.guide[0] = {"id": "18103","n": "Нью-Йорк, NY, США","cid": "18103","u": "\/hotels\/us\/ny\/new-york","hc": "653","sc": "730600","w": "601932","t": "1"};
+            this.$$rawdata.guide[1] = {"id": "26833", "n": "Ньюпорт-Бич, CA, США", "cid": "26833", "u": "\/hotels\/us\/ca\/newport-beach-26833", "hc": "20", "sc": "30928", "w": "601932", "t": "1"};
+            this.$$rawdata.guide[2] = {"id": "18038", "n": "Нью-Дели, Индия", "cid": "18038", "u": "\/hotels\/india\/new-delhi", "hc": "944", "sc": "22287", "w": "601932", "t": "1"};
+
+    		// Processing segments
 			if (this.mode == 'preinitted') {
 				var tmp;
 
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
-					var depdata = null,
-						arrdata = null;
-
-					if (this.preinittedData.segments[i][0]) {
-						depdata = this.$$controller.getModel('Flights/Common/Geo', {
-							data: {
-								IATA: this.preinittedData.segments[i][0],
-								isCity: this.preinittedData.segments[i][3],
-								cityID: 0
-							},
-							guide: this.$$rawdata.guide
-						});
-					}
+					var arrData = null;
 
 					if (this.preinittedData.segments[i][1]) {
-						arrdata = this.$$controller.getModel('Flights/Common/Geo', {
+						arrData = this.$$controller.getModel('Hotels/Common/Geo', {
 							data: {
-								IATA: this.preinittedData.segments[i][1],
-								isCity: this.preinittedData.segments[i][4],
-								cityID: 0
+								t: this.preinittedData.segments[i][0],
+								id: this.preinittedData.segments[i][1]
 							},
 							guide: this.$$rawdata.guide
 						});
 					}
 
 					this.addSegment(
-						depdata,
-						arrdata,
-						this.preinittedData.segments[i][2] ? this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][2]) : null
+						arrData,
+						this.preinittedData.segments[i][2] ? this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][2]) : null,
+						this.preinittedData.segments[i][3] ? this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][3]) : null
 					);
-				}
-
-				// Detecting tripType
-				if (this.forceInitialTripType) {
-					this.tripType(this.forceInitialTripType);
-				}
-				else if (this.preinittedData.segments.length == 1) {
-					this.tripType('OW');
-				}
-				else if (
-					// Checking segments count
-					this.preinittedData.segments.length == 2 &&
-
-					// Checking IATAs
-					this.preinittedData.segments[0][0] == this.preinittedData.segments[1][1] &&
-					this.preinittedData.segments[0][1] == this.preinittedData.segments[1][0] &&
-
-					// Checking city flags
-					this.preinittedData.segments[0][3] == this.preinittedData.segments[1][4] &&
-					this.preinittedData.segments[0][4] == this.preinittedData.segments[1][3]
-				) {
-					this.tripType('RT');
-				}
-				else {
-					this.tripType('CR');
 				}
 
 				// Setting other options
@@ -1019,8 +934,8 @@ define(
 					var data = this.$$rawdata.flights.search.request.segments[i];
 					// departureDate = 2015-04-11T00:00:00
 					this.addSegment(
-						data.departure ? this.$$controller.getModel('Flights/Common/Geo', {data: data.departure, guide: this.$$rawdata.guide}) : null,
-						data.arrival ? this.$$controller.getModel('Flights/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
+						data.arrival ? this.$$controller.getModel('Hotels/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
+						data.arrivalDate ? this.$$controller.getModel('Common/Date', data.arrivalDate) : null,
 						data.departureDate ? this.$$controller.getModel('Common/Date', data.departureDate) : null
 					);
 				}
@@ -1128,13 +1043,13 @@ define(
 			}
 		};
 
-		HotelsSearchFormController.prototype.addSegment = function (departure, arrival, departureDate) {
+		HotelsSearchFormController.prototype.addSegment = function (arrival, arrivalDate, departureDate) {
 			this.segments.push(
 				this.$$controller.getModel(
-					'Flights/SearchForm/Segment',
+					'Hotels/SearchForm/Segment',
 					{
-						departure: departure,
 						arrival: arrival,
+						arrivalDate: arrivalDate,
 						departureDate: departureDate,
 						index: this.segments().length,
 						form: this
@@ -1160,13 +1075,14 @@ define(
 		};
 
 		HotelsSearchFormController.prototype.$$usedModels = [
-			'Flights/SearchForm/Segment',
+			'Hotels/SearchForm/Segment',
 			'Common/Date',
-			'Flights/Common/Geo',
+			'Hotels/Common/Geo',
 			'Flights/Common/Airline'
 		];
 
 		HotelsSearchFormController.prototype.dataURL = function () {
+            // TODO: Change when will be ready api
 			var ret = '/flights/search/formData/';
 
 			if (this.mode == 'tunesearch') {

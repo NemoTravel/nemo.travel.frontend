@@ -41,71 +41,58 @@ define(
 
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
 		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
+            _create: function() {
+                this._super();
+                this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+            },
 			_renderItem: function( ul, item ) {
-				// If item has label - it's something other than geo point that should be in AC
-				var text;
+                var text;
 
-				if (typeof item.label == 'undefined') {
-					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + '<span class="nemo-flights-form__geoAC__item__country">, ' + item.country.name + '</span>';
-				}
-				else {
-					text = item.label;
-				}
+                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.name + '</span>'
+                       + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
 
 				return $("<li>")
-					.addClass('nemo-flights-form__geoAC__item')
+					.addClass('nemo-hotels-form__route__segment_autocomplete_item')
 					.append(text)
 					.attr('data-value', typeof item.label == 'undefined')
 					.appendTo(ul);
 			},
 			_renderMenu: function( ul, items ) {
-				var that = this;
+                var that = this,
+                    currentCategory = "";
 
 				$.each(items, function(index, item) {
-					that._renderItemData(ul, item);
+                    var li;
+
+                    if ( item.category != currentCategory ) {
+                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.category + "</li>" );
+                        currentCategory = item.t;
+                    }
+                    li = that._renderItemData( ul, item );
 				});
 
-				$(ul).addClass('nemo-ui-autocomplete nemo-flights-form__geoAC');
+				$(ul).addClass('nemo-hotels-form__route__segment_autocomplete_container');
 			}
 		});
 
 		ko.bindingHandlers.flightsFormGeoAC = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
-					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('FlightsSearchForm', 'autocomplete_noResults')}];
+					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
 					source:function(request, callback){
-						viewModel.$$controller.makeRequest(
-							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
-							'',
-							function (data) {
-								data = JSON.parse(data);
-								var result = [],
-									tmp;
-
-								if (data.system && data.system.error) {
-									callback(noResultsResults);
-									return;
-								}
-
-								// Converting autocomplete data into an array of possibilities
-								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
-									result.push(
-										viewModel.$$controller.getModel('Flights/Common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
-									);
-								}
-
-								if (result.length == 0) {
-									result = noResultsResults;
-								}
-
-								callback(result);
-							},
-							function(){
-								callback(noResultsResults);
-							})
+                        viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
+                        $.getJSON(viewModel.$$controller.options.dataURL + encodeURIComponent(request.term), function(data) {
+                            var result = [];
+                            for (var i = 0; i < data.results.length; i++) {
+                                result.push(
+                                    viewModel.$$controller.getModel('Hotels/Common/Geo', {data: data.results[i], guide: data.results})
+                                );
+                            }
+                            callback(result);
+                        });
 					},
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
@@ -181,24 +168,11 @@ define(
 						segment = ko.dataFor(event.target),//data.segment,
 						$focusField = null;
 
-					if ($target.hasClass('js-autofocus-field_departure')) {
-						$focusField = $segment.find('.js-autofocus-field_arrival');
+					if ($target.hasClass('js-autofocus-field_arrival')) {
+						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
 					}
-					else if ($target.hasClass('js-autofocus-field_arrival')) {
-						$focusField = $segment.find('.js-autofocus-field_date');
-					}
-					else if (
-						viewModel.tripType() == 'CR' &&
-						segment.index < viewModel.segments().length-1
-					) {
-						$focusField = $segment.next().find('.js-autofocus-field').eq(0);
-					}
-					else if(
-						viewModel.tripType() == 'RT' &&
-						segment.index == 0 &&
-						!viewModel.segments()[1].items.departureDate.value()
-					){
-						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date').eq(1);
+					else if ($target.hasClass('js-autofocus-field_date_departure')) {
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
 
 					if ($focusField) {

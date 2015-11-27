@@ -15,8 +15,8 @@ define(
 					focus: ko.observable(false),
 					error: ko.observable(null)
 				},
-				departure: {
-					value: ko.observable(initialData.departure),
+				arrivalDate: {
+					value: ko.observable(initialData.arrivalDate),
 					focus: ko.observable(false),
 					error: ko.observable(null)
 				},
@@ -31,15 +31,15 @@ define(
 			this.validate();
 
 			// Watchers for props change
-			this.items.departure.value.subscribe(function (newValue) {
-				this.form.segmentGeoChanged(this, 'departure');
-				this.validate();
-			}, this);
 			this.items.arrival.value.subscribe(function (newValue) {
 				this.form.segmentGeoChanged(this, 'arrival');
 				this.validate();
 			}, this);
 			this.items.departureDate.value.subscribe(function (newValue) {
+				this.form.recalcDateRestrictions();
+				this.validate();
+			}, this);
+			this.items.arrivalDate.value.subscribe(function (newValue) {
 				this.form.recalcDateRestrictions();
 				this.validate();
 			}, this);
@@ -57,15 +57,6 @@ define(
 				else {
 					this.items[i].error(null);
 				}
-			}
-
-			// Checking same geoPoint
-			if (
-				this.items.departure.value() &&
-				this.items.arrival.value() &&
-				this.items.departure.value().identifier == this.items.arrival.value().identifier
-			) {
-				this.items.arrival.error('sameAsDeparture');
 			}
 
 			// Notifying parent
