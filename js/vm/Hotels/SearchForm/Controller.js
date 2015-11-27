@@ -362,6 +362,7 @@ define(
 
 		// Inheritance override
 		HotelsSearchFormController.prototype.cookieName           = 'HotelsSearchForm';
+        // TODO: Fix when will be ready api
 		HotelsSearchFormController.prototype.passengerTypesOrder  = ['ADT', 'CLD', 'INF', 'INS', 'YTH', 'SRC'];
 		HotelsSearchFormController.prototype.passengerAdultTypes  = ['ADT', 'YTH', 'SRC'];
 		HotelsSearchFormController.prototype.passengerInfantTypes = ['INF', 'INS'];
@@ -608,7 +609,7 @@ define(
                     if (isArrival && dateObj.getTime() >= today.getTime()) {
                         ret.disabled = false;
                     }
-                    
+
                     if (isArrival && segments[i].items.departureDate.value().dateObject().getTime() < dateObj.getTime()) {
                         ret.disabled = true;
                     } else if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {

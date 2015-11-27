@@ -241,7 +241,7 @@ define(
 				var calendarsToShow = mobileDetect().deviceType != 'desktop' ? 1 : 2;
 
 				$element.pickmeup({
-					className: 'nemo-flights-form__datePicker',
+					className: 'nemo-flights-form__datePicker nemo-hotels',
 					locale: PMULocale,
 					calendars: calendarsToShow,
 					min: bindingContext.$parent.options.dateOptions.minDate,
