@@ -81,6 +81,7 @@ define(
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
 				$element.FlightsFormGeoAC({
+                    appendTo: '.js-nemo-hotels-autocomplete',
 					minLength: 2,
 					source:function(request, callback){
                         viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
@@ -169,10 +170,10 @@ define(
 						$focusField = null;
 
 					if ($target.hasClass('js-autofocus-field_arrival')) {
-						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
+						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
 					else if ($target.hasClass('js-autofocus-field_date_departure')) {
-                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
 					}
 
 					if ($focusField) {
@@ -257,7 +258,7 @@ define(
 							}
 						}
 
-						ret.className += ret.period ? ' nemo-pmu-date_period' : '';
+						ret.className += ' nemo-pmu-date_period';
 
 						delete ret.segments;
 						delete ret.period;
@@ -277,19 +278,8 @@ define(
 							maxDate =  bindingContext.$parent.options.dateOptions.maxDate;
 						for(var segment in viewModel.form.segments()){
 							var $this = viewModel.form.segments()[segment];
-							if($this.index < viewModel.index
-								&&
-								$this.items.departureDate.value() != null)
-							{
-								minDate = $this.items.departureDate.value().dateObject();
-							}
-							if($this.index > viewModel.index
-								&&
-								$this.items.departureDate.value() != null)
-							{
-								maxDate = $this.items.departureDate.value().dateObject();
-								break;
-							}
+                            minDate = $this.items.arrivalDate.value().dateObject();
+                            maxDate = $this.items.departureDate.value().dateObject();
 						}
 						$(this).data('pickmeup-options').max = maxDate;
 						$(this).data('pickmeup-options').min = minDate;

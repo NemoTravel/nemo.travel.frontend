@@ -256,8 +256,8 @@ define(
 						[
                             segments[i].items.arrival.value() ? segments[i].items.arrival.value().t : null,
                             segments[i].items.arrival.value() ? segments[i].items.arrival.value().id : null,
-                            segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null,
-                            segments[i].items.arrivalDate.value() ? segments[i].items.arrivalDate.value().getISODate() : null
+                            segments[i].items.arrivalDate.value() ? segments[i].items.arrivalDate.value().getISODate() : null,
+                            segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().getISODate() : null
 						]
 					);
 				}
@@ -580,22 +580,14 @@ define(
 
 			for (var i = 0; i < segments.length; i++) {
 				prevdate = this.options.dateOptions.minDate;
-				nextdate = null;
+				nextdate = this.options.dateOptions.maxDate;
 
-				for (var j = 0; j < segments.length; j++) {
-					if (j < i && segments[j].items.departureDate.value()) {
-						if (!prevdate || prevdate < segments[j].items.departureDate.value().dateObject()) {
-							prevdate = segments[j].items.departureDate.value().dateObject();
-						}
-					}
-					else if (j > i && segments[j].items.departureDate.value() && !nextdate) {
-						nextdate = segments[j].items.departureDate.value().dateObject();
-					}
-				}
-
-				if (!nextdate || prevdate > nextdate) {
-					nextdate = this.options.dateOptions.maxDate;
-				}
+                if (segments[i].items.arrivalDate.value()) {
+                    prevdate = segments[i].items.arrivalDate.value().dateObject();
+                }
+                if (segments[i].items.departureDate.value()) {
+                    nextdate = segments[i].items.departureDate.value().dateObject();
+                }
 
 				this.dateRestrictions.push([prevdate, nextdate]);
 			}
@@ -623,6 +615,8 @@ define(
 				) {
 					ret.period = true;
 				}
+
+                ret.period = true;
 			}
 
 			return ret;
@@ -889,10 +883,12 @@ define(
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
 			today.setHours(0,0,0,0);
+
 			this.options.dateOptions.minDate = new Date(today);
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
 			this.options.dateOptions.maxDate = new Date(today);
-			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
+            // TODO: Change offset when will be ready api
+			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + 10);
 
             // TODO: Remove this when will be ready api
             this.$$rawdata.guide = {};
@@ -930,15 +926,11 @@ define(
 				this.serviceClass(this.preinittedData.serviceClass);
 			}
 			else {
-				for (var i = 0; i < this.$$rawdata.flights.search.request.segments.length; i++) {
-					var data = this.$$rawdata.flights.search.request.segments[i];
-					// departureDate = 2015-04-11T00:00:00
-					this.addSegment(
-						data.arrival ? this.$$controller.getModel('Hotels/Common/Geo', {data: data.arrival, guide: this.$$rawdata.guide}) : null,
-						data.arrivalDate ? this.$$controller.getModel('Common/Date', data.arrivalDate) : null,
-						data.departureDate ? this.$$controller.getModel('Common/Date', data.departureDate) : null
-					);
-				}
+                this.addSegment(
+                    null,
+                    this.$$controller.getModel('Common/Date', this.options.dateOptions.minDate),
+                    this.$$controller.getModel('Common/Date', this.options.dateOptions.maxDate)
+                );
 
 				// Processing other options
 				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
