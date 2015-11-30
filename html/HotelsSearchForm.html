@@ -63,7 +63,7 @@
                                 <input
                                     class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_date js-autofocus-field js-autofocus-field_date_arrival"
                                     type="text"
-                                    data-bind="attr: {placeholder: $root.i18n('HotelsSearchForm','segments__date__placeholder_RT_leg_1')},flightsFormDatepicker: items.arrivalDate.value,css: 'nemo-hotels-form__route__segment__input_date_back',hasFocus: items.arrivalDate.focus" />
+                                    data-bind="attr: {placeholder: $root.i18n('HotelsSearchForm','segments__date__placeholder_RT_leg_1')},hotelsFormDatepicker: items.arrivalDate.value,css: 'nemo-hotels-form__route__segment__input_date_back',hasFocus: items.arrivalDate.focus" />
 
                                 <div class="nemo-ui-dummiedInput__dummy nemo-hotels-form__route__segment__item__dummy nemo-hotels-form__route__segment__item__date__dummy nemo-hotels-form__route__segment__item__date__dummy_full">
                                     <!-- ko if: !items.arrivalDate.value() -->
@@ -119,7 +119,7 @@
                                 <input
                                         class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_date js-autofocus-field js-autofocus-field_date_departure"
                                         type="text"
-                                        data-bind="attr: {placeholder: $root.i18n('HotelsSearchForm','segments__date__placeholder_RT_leg_0')},flightsFormDatepicker: items.departureDate.value,css: 'nemo-hotels-form__route__segment__input_date_there',hasFocus: items.departureDate.focus" />
+                                        data-bind="attr: {placeholder: $root.i18n('HotelsSearchForm','segments__date__placeholder_RT_leg_0')},hotelsFormDatepicker: items.departureDate.value,css: 'nemo-hotels-form__route__segment__input_date_there',hasFocus: items.departureDate.focus" />
 
                                 <div class="nemo-ui-dummiedInput__dummy nemo-hotels-form__route__segment__item__dummy nemo-hotels-form__route__segment__item__date__dummy nemo-hotels-form__route__segment__item__date__dummy_full">
                                     <!-- ko if: !items.departureDate.value() -->
@@ -202,7 +202,7 @@
 						text: $root.i18n('HotelsSearchForm','passengers__fullSelect__button__done'),
 						click: function () {$(this).data('ui-popup__close')()}
 					}
-				]
+				],
 			},
 			click: function () {passengersFastSelectorOpen(false);},
 			text: $root.i18n('HotelsSearchForm','passengers__fastSelect__fullSelectOption')
