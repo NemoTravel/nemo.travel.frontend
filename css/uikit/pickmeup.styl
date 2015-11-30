@@ -275,3 +275,39 @@ $instance_width=258px;
 		}
 	}
 }
+
+  .nemo-pmu-start {
+	background: #88C43D;
+	position: relative;
+	&:after {
+	  content: '';
+	  position: absolute;
+	  right: -5px;
+	  top: 0;
+	  width: 0;
+	  height: 0;
+	  border-top: 14px solid transparent;
+	  border-left: 5px solid #88C43D;
+	  border-bottom: 14px solid transparent;
+	}
+  }
+
+.nemo-pmu-stop {
+  background: #88C43D;
+  position: relative;
+  &:after {
+	content: '';
+	position: absolute;
+	left: -5px;
+	top: 0;
+	width: 0;
+	height: 0;
+	border-top: 14px solid transparent;
+	border-right: 5px solid #88C43D;
+	border-bottom: 14px solid transparent;
+  }
+}
+
+  .nemo-pmu-interval {
+	background: #EDF6E3;
+  }
