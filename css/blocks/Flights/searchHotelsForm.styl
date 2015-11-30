@@ -950,12 +950,14 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     &_drop {
       position: absolute;
       left: 0;
+      top: 40px;
       padding: 8px;
       border-radius: 4px;
-      box-shadow: 0 1px 16px rgba(10, 10, 15, 0.25);
+      box-shadow: 0 13px 10px 1px rgba(10, 10, 15, 0.25);
       background: #fff;
-      width: 150px;
+      width: 173px;
       display: none;
+      font-size: 0;
 
       &_item {
         display: inline-block;
@@ -965,7 +967,13 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         height: 40px;
         line-height: 40px;
         cursor: pointer;
+        border: 1px solid #F1F1F1;
+        font-size: 13px;
+        margin: 0 -1px -1px 0;
       }
+    }
+    &_mobile {
+      display: none;
     }
   }
 
@@ -1044,6 +1052,69 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     &__room_more {
       border-top: 1px solid #F4F4F4;
       padding: 20px 20px 0;
+    }
+  }
+  &__previousSearches {
+    padding: 0;
+    max-width: none;
+
+    &_item {
+      text-align: left;
+      color: $c_common_textColor;
+      width: 690px;
+      border-bottom: 1px solid #F4F4F4;
+      padding: 10px 20px;
+      line-height: 30px;
+      position: relative;
+      &:hover {
+        cursor: pointer;
+        background: #EEF7FE;
+        .nemo-hotels-form__previousSearches_item_close {
+          opacity: 1;
+        }
+      }
+      &_close {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: 50%;
+        right: 20px;
+        margin: -6px 0 0 0;
+        opacity: 0.6;
+        cursor: pointer;
+        background: url('images/ui/popup-close.png') 0 0 no-repeat;
+      }
+    }
+    &_title {
+      display: inline-block;
+      vertical-align: middle;
+      width: 330px;
+      line-height: 18px;
+      &_object {
+
+      }
+      &_location {
+        font-size: 11px;
+        color: $c_common_textColor_secondary;
+      }
+    }
+    &_info {
+      display: inline-block;
+      vertical-align: middle;
+      width: 215px;
+      line-height: 18px;
+      &_guests {
+        font-size: 11px;
+      }
+    }
+    &_price {
+      display: inline-block;
+      vertical-align: middle;
+      width: 90px;
+      line-height: 18px;
+      &_details {
+        font-size: 11px;
+      }
     }
   }
 }
