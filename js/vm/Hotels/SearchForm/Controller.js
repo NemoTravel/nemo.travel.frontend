@@ -619,9 +619,11 @@ define(
                         ret.disabled = false;
                     }
 
-                    if (isArrival && segments[i].items.departureDate.value().dateObject().getTime() < dateObj.getTime()) {
-                        ret.disabled = true;
-                    } else if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
+                    if (isArrival && segments[i].items.arrivalDate.value().dateObject().getTime() > segments[i].items.departureDate.value().dateObject().getTime()) {
+                        segments[i].items.departureDate.value(segments[i].items.arrivalDate.value());
+                    }
+
+                    if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
                         ret.disabled = false;
                     }
                 }
