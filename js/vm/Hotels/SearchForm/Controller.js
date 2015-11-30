@@ -22,6 +22,15 @@ define(
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
 
+            this.room = {
+                adults: ko.observable({}),
+                infants: ko.observableArray([])
+            };
+            this.infant = ko.observable({
+                age: 0
+            });
+            this.rooms = ko.observableArray([]);
+
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
 			this.additionalParameters = {
