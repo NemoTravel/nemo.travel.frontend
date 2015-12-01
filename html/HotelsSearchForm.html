@@ -171,27 +171,27 @@
                 <div class="nemo-ui-select__toggle nemo-hotels-form__passengers__container js-hotels-searchForm-passSelect"
                      data-bind="
 	        hotelsFormGuestsSelector: null,
-	        text: passengersSummary,
-	        css: {'nemo-ui-select__toggle_open': passengersFastSelectorOpen()}
+	        text: guestsSummary,
+	        css: {'nemo-ui-select__toggle_open': roomsFastSelectorOpen()}
     "></div>
 
                 <div class="nemo-ui-select__toggle nemo-hotels-form__passengers__containerColumn js-hotels-searchForm-passSelect"
                      data-bind="
 	        hotelsFormGuestsSelector: null,
-	        text: passengersSummary,
-	        css: {'nemo-ui-select__toggle_open': passengersFastSelectorOpen()}
+	        text: guestsSummary,
+	        css: {'nemo-ui-select__toggle_open': roomsFastSelectorOpen()}
     "></div>
 
-                <div class="nemo-ui-select__dropdown nemo-hotels-form__passengers__fastSelect" data-bind="visible: passengersFastSelectorOpen">
-                    <!-- ko foreach: passengersFastSelectOptions -->
+                <div class="nemo-ui-select__dropdown nemo-hotels-form__passengers__fastSelect" data-bind="visible: roomsFastSelectorOpen">
+                    <!-- ko foreach: roomsFastSelectOptions -->
                     <div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item"
                          data-bind="
-		        text: $parent.passengersTextForFastSelect($index()),
-		        click: function () {$parent.passengersFastSelectorOpen(false); $parent.passengersSelectFast($index());}
+		        text: $parent.roomsTextForFastSelect($index()),
+		        click: function () {$parent.roomsFastSelectorOpen(false); $parent.roomsSelectFast($index());}
 "       ></div>
                     <!-- /ko -->
 
-                    <!-- ko if: passengersUseExtendedSelect -->
+                    <!-- ko if: roomsUseExtendedSelect -->
                     <div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item" data-bind="
 			popup: {
 				block: 'passengersFullSelect',
@@ -204,7 +204,7 @@
 					}
 				],
 			},
-			click: function () {passengersFastSelectorOpen(false);},
+			click: function () {roomsFastSelectorOpen(false);},
 			text: $root.i18n('HotelsSearchForm','passengers__fastSelect__fullSelectOption')
 		"></div>
                     <!-- /ko -->

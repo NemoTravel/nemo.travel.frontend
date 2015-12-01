@@ -22,6 +22,8 @@ define(
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
 
+            this.roomsFastSelectOptions = [];
+
             this.room = {
                 adults: ko.observable({}),
                 infants: ko.observableArray([])
@@ -69,7 +71,7 @@ define(
 			this.searchRequest = ko.observable(false);
 			this.searchError = ko.observable(false);
 
-			this.passengersFastSelectorOpen = ko.observable(false);
+			this.roomsFastSelectorOpen = ko.observable(false);
 
 			this.parametersChanged = ko.observable(false);
 
@@ -110,13 +112,11 @@ define(
 
                 for (var i in rooms) {
                     if (rooms.hasOwnProperty(i)) {
-                        var room        = rooms[i]();
+                        var room        = rooms[i];
                         guest.adults    += room.adults;
                         guest.infants   += room.infants.length;
                     }
                 }
-
-                guest.adults = guest.adults == 0 ? 1 : guest.adults == 0;
 
                 result = guest.adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
                          + helpers.getNumeral(guest.adults, 'one', 'twoToFour', 'fourPlus'));
@@ -414,63 +414,79 @@ define(
 		HotelsSearchFormController.prototype.$$i18nSegments       = ['HotelsSearchForm'];
 		HotelsSearchFormController.prototype.$$KOBindings         = ['HotelsSearchForm'];
 
-		HotelsSearchFormController.prototype.openPassengersSelector = function () {
+		HotelsSearchFormController.prototype.openRoomsSelector = function () {
 			if (
-				this.passengersUseExtendedSelect
+				this.roomsUseExtendedSelect
 				||
-				this.passengersFastSelectOptions.length != 0
+				this.roomsFastSelectOptions.length != 0
 			) {
-				this.passengersFastSelectorOpen(!this.passengersFastSelectorOpen());
+				this.roomsFastSelectorOpen(!this.roomsFastSelectorOpen());
 			}
 		};
 
-		HotelsSearchFormController.prototype.passengersTextForFastSelect = function (index) {
-			var source = this.passengersFastSelectOptions[index].set,
-				ret = [],
-				tmp = '';
+		HotelsSearchFormController.prototype.roomsTextForFastSelect = function (index) {
+			var rooms = this.roomsFastSelectOptions[index].rooms,
+                adults = this.roomsFastSelectOptions[index].adults,
+				result = '';
 
-			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-				if (source.hasOwnProperty(this.passengerTypesOrder[i]) && source[this.passengerTypesOrder[i]] > 0) {
-					ret.push(source[this.passengerTypesOrder[i]] + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_' + this.passengerTypesOrder[i] + '_' + helpers.getNumeral(source[this.passengerTypesOrder[i]], 'one', 'twoToFour', 'fourPlus')));
-				}
-			}
+            result = adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
+                                                                              + helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus'));
 
-			return helpers.smartJoin(
-				ret,
-				', ',
-				(this.$$controller.i18n('HotelsSearchForm','passSummary_fastSelect_lastConjunction')[0] == ',' ? '' : ' ') +
-					this.$$controller.i18n('HotelsSearchForm','passSummary_fastSelect_lastConjunction') +
-					' '
-			);
-		};
+            if (rooms) {
+                result += ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in') + ' ' + rooms + ' '
+                + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_' + helpers.getNumeral(rooms, 'one', 'more', 'more'));
+            }
 
-		HotelsSearchFormController.prototype.passengersSelectFast = function (index) {
-			var passengers = this.passengers(),
+            return result;
+        };
+
+		HotelsSearchFormController.prototype.roomsSelectFast = function (index) {
+			var rooms = this.rooms(),
 				tmp = [];
 
 			// Clearing passengers count
-			for (var i in passengers) {
-				if (passengers.hasOwnProperty(i)) {
-					passengers[i](0);
-				}
-			}
+			//for (var i in rooms) {
+			//	if (rooms.hasOwnProperty(i)) {
+			//		rooms[i].adults(0);
+			//		rooms[i].infants([]);
+			//	}
+			//}
 
-			this.passengers(passengers);
+            rooms = [];
 
-			this.fillPreInittedPassengers(this.passengerAdultTypes, this.passengersFastSelectOptions[index].set);
-			this.fillPreInittedPassengers(this.passengerInfantTypes, this.passengersFastSelectOptions[index].set);
+            if (this.roomsFastSelectOptions[index].rooms == 1) {
+                rooms.push({
+                    adults: this.roomsFastSelectOptions[index].adults,
+                    infants: []
+                });
+            } else {
+                var countRooms = this.roomsFastSelectOptions[index].rooms;
+                for (var i = 0; i < countRooms; i++) {
+                    rooms.push(
+                        {
+                            adults: 1,
+                            infants: []
+                        }
+                    );
+                }
+            }
 
-			// Types that are not ADT/INF
-			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-				if (
-					this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-					this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-				) {
-					tmp.push(this.passengerTypesOrder[i]);
-				}
-			}
+            this.rooms(rooms);
 
-			this.fillPreInittedPassengers(tmp, this.passengersFastSelectOptions[index].set);
+			//this.fillPreInittedPassengers(this.passengerAdultTypes, this.passengersFastSelectOptions[index].set);
+			//this.fillPreInittedPassengers(this.passengerInfantTypes, this.passengersFastSelectOptions[index].set);
+            //
+			//// Types that are not ADT/INF
+			//for (var i = 0; i < this.passengerTypesOrder.length; i++) {
+			//	if (
+			//		this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
+			//		this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
+			//	) {
+			//		tmp.push(this.passengerTypesOrder[i]);
+			//	}
+			//}
+            //
+			//this.fillPreInittedPassengers(tmp, this.passengersFastSelectOptions[index].set);
 		};
 
 		// Additional stuff
@@ -926,6 +942,36 @@ define(
 			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
 			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
+            // TODO: Change when will be ready api
+            this.roomsUseExtendedSelect = true;
+            this.roomsFastSelectOptions = [
+                {
+                    rooms: 0,
+                    adults: 1,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 2,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 3,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 4,
+                    infants: []
+                },
+                {
+                    rooms: 2,
+                    adults: 2,
+                    infants: []
+                }
+            ];
+
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
 			today.setHours(0,0,0,0);
@@ -976,6 +1022,13 @@ define(
                     null,
                     null,
                     null
+                );
+
+                this.rooms.push(
+                    {
+                        adults: 1,
+                        infants: []
+                    }
                 );
 
 				// Processing other options

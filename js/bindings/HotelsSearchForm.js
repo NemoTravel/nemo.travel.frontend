@@ -325,13 +325,13 @@ define(
 						var $target = $(e.target);
 
 						if (!$target.is('.js-hotels-searchForm-passSelect') && !$target.parents().is('.js-hotels-searchForm-passSelect')) {
-							viewModel.passengersFastSelectorOpen(false);
+							viewModel.roomsFastSelectorOpen(false);
 						}
 					},
 					$document = $(document);
 
 				$(element).on('click', function () {
-					viewModel.openPassengersSelector();
+					viewModel.openRoomsSelector();
 				});
 
 				$document.on('click', closeSelector);
