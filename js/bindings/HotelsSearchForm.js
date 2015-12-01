@@ -307,18 +307,6 @@ define(
 			}
 		};
 
-		ko.bindingHandlers.flightsFormRTAutoFocus = {
-			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var setFocus = function(){
-					bindingContext.$parent.segments()[1].items.departureDate.focus(true)
-				};
-				$(element).on('click', setFocus);
-				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$(element).off('click', setFocus);
-				})
-			}
-		};
-
 		ko.bindingHandlers.hotelsFormGuestsSelector = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var closeSelector = function (e) {

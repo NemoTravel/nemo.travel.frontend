@@ -24,14 +24,7 @@ define(
 
             this.roomsFastSelectOptions = [];
 
-            this.room = {
-                adults: ko.observable({}),
-                infants: ko.observableArray([])
-            };
-            this.infant = ko.observable({
-                age: 0
-            });
-            this.rooms = ko.observableArray([]);
+            this.rooms = ko.observableArray();
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -110,6 +103,10 @@ define(
                     rooms   = this.rooms(),
                     result  = '';
 
+                if (!rooms.length) {
+                    return result;
+                }
+
                 for (var i in rooms) {
                     if (rooms.hasOwnProperty(i)) {
                         var room        = rooms[i];
@@ -130,92 +127,12 @@ define(
                                                                                + helpers.getNumeral(guest.infants, 'one', 'twoToFour', 'fourPlus'));
                 }
 
-                result += ' ' + rooms.length + ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_'
-                            + helpers.getNumeral(rooms.length, 'one', 'more', 'more'));
+                result += ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in') + ' ' + rooms.length + ' '
+                + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_'
+                                                            + helpers.getNumeral(rooms.length, 'one', 'more', 'more'));
 
                 return result;
             }, this);
-
-			this.passengersSummary = ko.computed(function () {
-				var ret = '',
-					total = 0,
-					passengers = this.passengers(),
-					passTypes = [];
-
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						var t = passengers[i]();
-						if (t > 0) {
-							total += t;
-							passTypes.push(i);
-						}
-					}
-				}
-
-				if (passTypes.length == 0) {
-					ret = this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_noPassengers');
-				}
-				else if (passTypes.length == 1) {
-					ret = total + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_' + passTypes.pop() + '_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
-				}
-				else {
-					ret = total + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_mixed_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
-				}
-
-				return ret;
-			}, this);
-
-			this.passengersRestrictions = ko.computed(function () {
-				var ret = {},
-					passengers = this.passengers(),
-					adtSum = 0,
-					infSum = 0,
-					total = 0;
-
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						ret[i] = {min: 0, max: 0};
-
-						total += passengers[i]();
-
-						if (this.passengerAdultTypes.indexOf(i) >= 0) {
-							adtSum += passengers[i]();
-						}
-
-						if (this.passengerInfantTypes.indexOf(i) >= 0) {
-							infSum += passengers[i]();
-						}
-					}
-				}
-
-				// Setting maximums regarding maximum passenger count
-				for (var i in ret) {
-					if (ret.hasOwnProperty(i)) {
-						ret[i].max = Math.min(passengers[i]() + this.options.totalPassengers - total, parseInt(this.options.passengerCount[i]));
-					}
-				}
-
-				// ADT+YTH+SRC >= INF+INS
-				// Infants: not more than adtSum
-				for (var i = 0; i < this.passengerInfantTypes.length; i++) {
-					if (ret.hasOwnProperty(this.passengerInfantTypes[i])) {
-						ret[this.passengerInfantTypes[i]].max = Math.min(adtSum, ret[this.passengerInfantTypes[i]].max);
-					}
-				}
-
-				// Adults: not less than infSum
-				for (var i = 0; i < this.passengerAdultTypes.length; i++) {
-					if (ret.hasOwnProperty(this.passengerAdultTypes[i])) {
-						ret[this.passengerAdultTypes[i]].min = Math.max(
-							0,
-							passengers[this.passengerAdultTypes[i]]() - adtSum + infSum,
-							ret[this.passengerAdultTypes[i]].min
-						);
-					}
-				}
-
-				return ret;
-			}, this);
 
 			this.isValid = ko.computed(function () {
 				var segments = this.segments(),
@@ -432,7 +349,7 @@ define(
             result = adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
                                                                               + helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus'));
 
-            if (rooms) {
+            if (rooms && adults > 1) {
                 result += ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in') + ' ' + rooms + ' '
                 + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_' + helpers.getNumeral(rooms, 'one', 'more', 'more'));
             }
@@ -443,14 +360,6 @@ define(
 		HotelsSearchFormController.prototype.roomsSelectFast = function (index) {
 			var rooms = this.rooms(),
 				tmp = [];
-
-			// Clearing passengers count
-			//for (var i in rooms) {
-			//	if (rooms.hasOwnProperty(i)) {
-			//		rooms[i].adults(0);
-			//		rooms[i].infants([]);
-			//	}
-			//}
 
             rooms = [];
 
@@ -472,21 +381,6 @@ define(
             }
 
             this.rooms(rooms);
-
-			//this.fillPreInittedPassengers(this.passengerAdultTypes, this.passengersFastSelectOptions[index].set);
-			//this.fillPreInittedPassengers(this.passengerInfantTypes, this.passengersFastSelectOptions[index].set);
-            //
-			//// Types that are not ADT/INF
-			//for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-			//	if (
-			//		this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-			//		this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-			//	) {
-			//		tmp.push(this.passengerTypesOrder[i]);
-			//	}
-			//}
-            //
-			//this.fillPreInittedPassengers(tmp, this.passengersFastSelectOptions[index].set);
 		};
 
 		// Additional stuff
@@ -547,7 +441,6 @@ define(
 				this.useCookies = false;
 				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
 			}
-
 			// Preinitted by controller params
 			else if (this.$$componentParameters.additional && this.$$componentParameters.additional.init) {
 				this.$$controller.log('Initted by component additional parameters', this.$$componentParameters.additional.init);
@@ -884,43 +777,6 @@ define(
 			}
 		};
 
-		HotelsSearchFormController.prototype.setPassengers = function (type, count) {
-			var restrictions = this.passengersRestrictions();
-
-			if (restrictions[type] && count >= restrictions[type].min && count <= restrictions[type].max) {
-				this.passengers()[type](count);
-			}
-		};
-
-		HotelsSearchFormController.prototype.getPassengersCounts = function (passType) {
-			var ret = [];
-
-			// From 0 to maximum count including
-			for (var i = 0; i <= this.options.passengerCount[passType]; i++) {
-				ret.push(i);
-			}
-
-			return ret;
-		};
-
-		HotelsSearchFormController.prototype.fillPreInittedPassengers = function (typesList, source) {
-			var tmp;
-
-			for (var i = 0; i < typesList.length; i++) {
-				tmp = this.passengersRestrictions()[typesList[i]];
-				if (tmp && source[typesList[i]]) {
-					if (source[typesList[i]] > tmp.max) {
-						source[typesList[i]] = tmp.max;
-					}
-					else if (source[typesList[i]] < tmp.min) {
-						source[typesList[i]] = tmp.min;
-					}
-
-					this.setPassengers(typesList[i], source[typesList[i]]);
-				}
-			}
-		};
-
 		HotelsSearchFormController.prototype.buildModels = function () {
 			var geo = [],
 				tmpass = {},
@@ -946,7 +802,7 @@ define(
             this.roomsUseExtendedSelect = true;
             this.roomsFastSelectOptions = [
                 {
-                    rooms: 0,
+                    rooms: 1,
                     adults: 1,
                     infants: []
                 },
@@ -1024,13 +880,6 @@ define(
                     null
                 );
 
-                this.rooms.push(
-                    {
-                        adults: 1,
-                        infants: []
-                    }
-                );
-
 				// Processing other options
 				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
 				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
@@ -1047,42 +896,13 @@ define(
 				}
 			}
 
-			// Passengers
-			// Processing passengers counts
-			var usePreInittedPassengers = this.mode == 'preinitted' && Object.keys(this.preinittedData.passengers).length > 0;
-			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
-				tmpass[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
-			}
-
-			for (var i in this.options.passengerCount) {
-				if (this.options.passengerCount.hasOwnProperty(i)) {
-					// If we use preInitted passengers - we don't need to set innitial couunt
-					tmpass[i] = ko.observable(tmpass[i] && !usePreInittedPassengers ? tmpass[i] : 0);
-				}
-			}
-
-			this.passengers(tmpass);
-
-			// We take preInitted if we have to and there is data regarding that.
-			// If not - standart processing by formData from server
-			if (usePreInittedPassengers) {
-				this.fillPreInittedPassengers(this.passengerAdultTypes, this.preinittedData.passengers);
-				this.fillPreInittedPassengers(this.passengerInfantTypes, this.preinittedData.passengers);
-
-				// Types that are not ADT/INF
-				tmp = [];
-
-				for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-					if (
-						this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-						this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-					) {
-						tmp.push(this.passengerTypesOrder[i]);
-					}
-				}
-
-				this.fillPreInittedPassengers(tmp, this.preinittedData.passengers);
-			}
+			// Rooms
+            this.rooms([
+                {
+                    adults: 1,
+                    infants: []
+                }
+            ]);
 
 			// All changes from now on will go to cookie
 			this.setCookies = true;
