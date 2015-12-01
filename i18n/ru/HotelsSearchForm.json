@@ -115,5 +115,8 @@
   	"segments__date__example__title": "Например:",
   	"segments__date__example__town1": "Москва",
   	"segments__date__example__town2": "Берлин",
-  	"segments__date__example__town3": "Париж"
+  	"segments__date__example__town3": "Париж",
+    "hotels_in_room_one": "номере",
+    "hotels_in_room_more": "номерах",
+    "hotels_in": "в"
 }

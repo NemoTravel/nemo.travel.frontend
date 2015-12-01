@@ -174,7 +174,7 @@ define(
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
 					else if ($target.hasClass('js-autofocus-field_date_departure')) {
-                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-hotels-searchForm-passSelect').eq(0);
 					}
 
 					if ($focusField) {
@@ -319,12 +319,12 @@ define(
 			}
 		};
 
-		ko.bindingHandlers.flightsFormPassengersSelector = {
+		ko.bindingHandlers.hotelsFormGuestsSelector = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var closeSelector = function (e) {
 						var $target = $(e.target);
 
-						if (!$target.is('.js-flights-searchForm-passSelect') && !$target.parents().is('.js-flights-searchForm-passSelect')) {
+						if (!$target.is('.js-hotels-searchForm-passSelect') && !$target.parents().is('.js-hotels-searchForm-passSelect')) {
 							viewModel.passengersFastSelectorOpen(false);
 						}
 					},

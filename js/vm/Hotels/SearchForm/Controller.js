@@ -100,6 +100,42 @@ define(
 				this.recalcDateRestrictions();
 			},this);
 
+            this.guestsSummary = ko.computed(function () {
+                var guest   = {
+                        adults  : 0,
+                        infants : 0
+                    },
+                    rooms   = this.rooms(),
+                    result  = '';
+
+                for (var i in rooms) {
+                    if (rooms.hasOwnProperty(i)) {
+                        var room        = rooms[i]();
+                        guest.adults    += room.adults;
+                        guest.infants   += room.infants.length;
+                    }
+                }
+
+                guest.adults = guest.adults == 0 ? 1 : guest.adults == 0;
+
+                result = guest.adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
+                         + helpers.getNumeral(guest.adults, 'one', 'twoToFour', 'fourPlus'));
+
+                if (guest.infants == 0 && guest.adults == 1) {
+                    return result;
+                }
+
+                if (guest.infants > 0) {
+                    result += ', ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_CLD_'
+                                                                               + helpers.getNumeral(guest.infants, 'one', 'twoToFour', 'fourPlus'));
+                }
+
+                result += ' ' + rooms.length + ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_'
+                            + helpers.getNumeral(rooms.length, 'one', 'more', 'more'));
+
+                return result;
+            }, this);
+
 			this.passengersSummary = ko.computed(function () {
 				var ret = '',
 					total = 0,
