@@ -195,7 +195,7 @@
                     <div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item" data-bind="
 			popup: {
 				block: 'passengersFullSelect',
-				title: $root.i18n('HotelsSearchForm','passengers__fullSelect__title'),
+				title: $root.i18n('HotelsSearchForm','rooms__fullSelect__title'),
 				dialogClass: 'no-overflow',
 				buttons: [
 					{
@@ -205,7 +205,7 @@
 				],
 			},
 			click: function () {roomsFastSelectorOpen(false);},
-			text: $root.i18n('HotelsSearchForm','passengers__fastSelect__fullSelectOption')
+			text: $root.i18n('HotelsSearchForm','rooms__fastSelect__fullSelectOption')
 		"></div>
                     <!-- /ko -->
                 </div>
@@ -303,25 +303,43 @@
     <!-- /ko -->
 
     <div data-block="passengersFullSelect" class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock">
-        <div class="nemo-hotels-form__popup__room">
-            <div class="nemo-hotels-form__popup__room_title">Номер 1</div>
+        <!-- ko foreach: rooms -->
+        <div class="nemo-hotels-form__popup__room"
+             data-bind="css: {'nemo-hotels-form__popup__room_more': $index() > 0}"
+                >
+            <button class="nemo-hotels-form__popup__room_delete"
+                    data-bind="
+                    text: $root.i18n('HotelsSearchForm','rooms_delete'),
+                    visible: $index() > 0,
+                    click: function () { $parent.roomRemove($index()); }
+                    "
+                    ></button>
+            <div class="nemo-hotels-form__popup__room_title"
+                 data-bind="text: $root.i18n('HotelsSearchForm','rooms_room') + ' ' + ($index() + 1)"
+                    ></div>
             <div class="nemo-hotels-form__popup__room_guests">
                 <div class="nemo-hotels-form__popup__room_guests_adults">
-                    <div class="nemo-hotels-form__popup__room_guests_title">Взрослые</div>
+                    <div class="nemo-hotels-form__popup__room_guests_title"
+                         data-bind="text: $root.i18n('HotelsSearchForm','rooms_adults')"
+                            ></div>
                     <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinner: quantity, spinnerOptions: { min: 1, numberFormat: 'n' }" />
+                        <input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, numberFormat: 'n' }, attr:{room: $index()}" />
                     </div>
                 </div>
                 <div class="nemo-hotels-form__popup__room_guests_children">
-                    <div class="nemo-hotels-form__popup__room_guests_title">Дети (до 17 лет)</div>
+                    <div class="nemo-hotels-form__popup__room_guests_title"
+                         data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants')"
+                            ></div>
                     <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinner: quantity, spinnerOptions: { min: 1, numberFormat: 'n' }" />
+                        <input data-bind="spinnerInfants: infants.length, spinnerOptions: { min: 0, numberFormat: 'n' }" />
                     </div>
                 </div>
             </div>
+            <!-- ko foreach: infants -->
             <div class="nemo-hotels-form__popup__room_ages">
-                <div class="nemo-hotels-form__popup__room_ages_title">
-                    Возраст детей
+                <div class="nemo-hotels-form__popup__room_ages_title"
+                     data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants_ages')"
+                        >
                 </div>
                 <div class="nemo-hotels-form__yearsPicker_container">
                     <input type="text" class="nemo-hotels-form__yearsPicker_input">
@@ -391,75 +409,15 @@
                     </div>
                 </div>
             </div>
+            <!-- /ko -->
         </div>
-        <div class="nemo-hotels-form__popup__room nemo-hotels-form__popup__room_more">
-            <button class="nemo-hotels-form__popup__room_delete">Удалить номер</button>
-            <div class="nemo-hotels-form__popup__room_title">Номер 1</div>
-            <div class="nemo-hotels-form__popup__room_guests">
-                <div class="nemo-hotels-form__popup__room_guests_adults">
-                    <div class="nemo-hotels-form__popup__room_guests_title">Взрослые</div>
-                    <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinner: quantity, spinnerOptions: { min: 1, numberFormat: 'n' }" />
-                    </div>
-                </div>
-                <div class="nemo-hotels-form__popup__room_guests_children">
-                    <div class="nemo-hotels-form__popup__room_guests_title">Дети (до 17 лет)</div>
-                    <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinner: quantity, spinnerOptions: { min: 1, numberFormat: 'n' }" />
-                    </div>
-                </div>
-            </div>
-            <div class="nemo-hotels-form__popup__room_ages">
-                <div class="nemo-hotels-form__popup__room_ages_title">
-                    Возраст детей
-                </div>
-                <div class="nemo-hotels-form__yearsPicker_container">
-                    <input type="text" class="nemo-hotels-form__yearsPicker_input">
-                    <div class="nemo-hotels-form__yearsPicker_drop">
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">1</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">2</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">3</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">4</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">5</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">6</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">7</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">8</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">9</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">10</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">11</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">12</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">13</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">14</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">15</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">16</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">17</div>
-                    </div>
-                </div>
-                <div class="nemo-hotels-form__yearsPicker_container">
-                    <input type="text" class="nemo-hotels-form__yearsPicker_input">
-                    <div class="nemo-hotels-form__yearsPicker_drop">
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">1</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">2</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">3</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">4</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">5</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">6</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">7</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">8</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">9</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">10</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">11</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">12</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">13</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">14</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">15</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">16</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">17</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="nemo-hotels-form__popup_addRoomButton">Добавить еще номер</button>
+        <!-- /ko -->
+        <button class="nemo-hotels-form__popup_addRoomButton"
+                data-bind="
+                text: $root.i18n('HotelsSearchForm','rooms_room_add'),
+                click: function () { roomAdd(); }
+                "
+                ></button>
     </div>
     <!-- ko if: isSearching () -->
     <div data-bind="

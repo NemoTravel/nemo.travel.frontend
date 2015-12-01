@@ -5,7 +5,7 @@ define(
 		function HotelsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			this.quantity = ko.observable (0);
+			//this.quantityAdults = ko.observable (0);
 
 			this.name = 'HotelsSearchFormController';
 
@@ -110,8 +110,8 @@ define(
                 for (var i in rooms) {
                     if (rooms.hasOwnProperty(i)) {
                         var room        = rooms[i];
-                        guest.adults    += room.adults;
-                        guest.infants   += room.infants.length;
+                        guest.adults    += room.adults();
+                        guest.infants   += room.infants().length;
                     }
                 }
 
@@ -224,7 +224,12 @@ define(
 				// Rooms
 				for (var i in rooms) {
 					if (rooms.hasOwnProperty(i)) {
-						ret.rooms.push(rooms[i]);
+                        var room = {
+                            adults: rooms[i].adults(),
+                            infants: rooms[i].infants()
+                        };
+
+                        ret.rooms.push(room);
 					}
 				}
 
@@ -362,16 +367,16 @@ define(
 
             if (this.roomsFastSelectOptions[index].rooms == 1) {
                 rooms.push({
-                    adults: this.roomsFastSelectOptions[index].adults,
-                    infants: []
+                    adults: ko.observable(this.roomsFastSelectOptions[index].adults),
+                    infants: ko.observableArray([])
                 });
             } else {
                 var countRooms = this.roomsFastSelectOptions[index].rooms;
                 for (var i = 0; i < countRooms; i++) {
                     rooms.push(
                         {
-                            adults: 1,
-                            infants: []
+                            adults: ko.observable(1),
+                            infants: ko.observableArray([])
                         }
                     );
                 }
@@ -864,7 +869,12 @@ define(
 
                 // Add rooms from cookies
                 for (i = 0; i < this.preinittedData.rooms.length; i++) {
-                    this.rooms.push(this.preinittedData.rooms[i]);
+                    if (this.preinittedData.rooms[i].hasOwnProperty('adults')) {
+                        this.rooms.push({
+                            adults: ko.observable(this.preinittedData.rooms[i].adults),
+                            infants: ko.observableArray(this.preinittedData.rooms[i].infants)
+                        });
+                    }
                 }
 			}
 			else {
@@ -878,8 +888,8 @@ define(
                 // Rooms
                 this.rooms([
                     {
-                        adults: 1,
-                        infants: []
+                        adults: ko.observable(1),
+                        infants: ko.observableArray([])
                     }
                 ]);
 			}
@@ -992,6 +1002,17 @@ define(
 
 			return ret;
 		};
+
+        HotelsSearchFormController.prototype.roomAdd = function () {
+            this.rooms.push({
+                adults: ko.observable(1),
+                infants: ko.observableArray([])
+            });
+        };
+
+        HotelsSearchFormController.prototype.roomRemove = function (index) {
+            this.rooms.splice(index, 1);
+        };
 
 		HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';
 

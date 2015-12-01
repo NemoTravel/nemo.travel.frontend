@@ -330,18 +330,18 @@ define(
 			}
 		};
 
-		ko.bindingHandlers.spinner = {
+		ko.bindingHandlers.spinnerAdults = {
 
-			init: function(element, valueAccessor, allBindingsAccessor) {
-
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				//initialize datepicker with some optional options
 				var options = allBindingsAccessor().spinnerOptions || {};
 				$(element).spinner(options);
 
+                var context = bindingContext;
+
 				//handle the field changing
 				ko.utils.registerEventHandler(element, 'spinstop', function() {
-					var observable = valueAccessor();
-					observable($(element).spinner('value'));
+                    context.$parent.rooms()[$(element).attr('room')].adults($(element).spinner('value'));
 				});
 
 				//handle disposal (if KO removes by the template binding)
@@ -356,8 +356,6 @@ define(
 					current = $(element).spinner('value'),
 					msg = 'You have entered an Invalid Quantity. \n Please enter at least 1 or remove this item if you do not want to include it in the shopping cart.';
 
-
-
 				if (isNaN(parseInt(value))) {
 					alert(msg);
 				}
@@ -367,5 +365,42 @@ define(
 				}
 			}
 		};
+
+        ko.bindingHandlers.spinnerInfants = {
+
+            init: function(element, valueAccessor, allBindingsAccessor) {
+
+                //initialize datepicker with some optional options
+                var options = allBindingsAccessor().spinnerOptions || {};
+                $(element).spinner(options);
+
+                //handle the field changing
+                ko.utils.registerEventHandler(element, 'spinstop', function() {
+                    debugger;
+                    var observable = valueAccessor();
+                    observable($(element).spinner('value'));
+                });
+
+                //handle disposal (if KO removes by the template binding)
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                    $(element).spinner('destroy');
+                });
+
+            },
+
+            update: function(element, valueAccessor) {
+                var value = ko.utils.unwrapObservable(valueAccessor()),
+                    current = $(element).spinner('value'),
+                    msg = 'You have entered an Invalid Quantity. \n Please enter at least 1 or remove this item if you do not want to include it in the shopping cart.';
+
+                if (isNaN(parseInt(value))) {
+                    alert(msg);
+                }
+
+                if (value !== current && !isNaN(parseInt(value))) {
+                    $(element).spinner("value", value);
+                }
+            }
+        };
 	}
 );
