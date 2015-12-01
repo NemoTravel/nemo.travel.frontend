@@ -85,17 +85,15 @@
 	"segments__switchToRT__text": "И обратно",
 	"segments__CR__continueRoute__text": "Продолжить маршрут",
 	"segments__date__placeholder": "Прибытие",
-	"segments__date__placeholder_RT_leg_0": "Прибытие",
-	"segments__date__placeholder_RT_leg_1": "Отъезд",
+
 	"routeOptions__tripType__caption": "Маршрут",
 	"routeOptions__serviceClass__caption": "Класс",
 	"routeOptions__vicinityDates__caption": "Искать &plusmn;3 дня",
-	"routeOptions__direct__caption": "Только прямые",
+
 	"passengers__fullSelect__button__done": "Готово",
-	"passengers__fastSelect__fullSelectOption": "Нужно большо номеров или проживание с детьми",
+
 	"passengers__fullSelect__title": "Номера и гости",
 	"searchButton__text": "Найти",
-	"additionalParameters__toggle": "Еще параметры",
 	"additionalParameters__header": "Дополнительные пожелания",
 	"additionalParameters__carrier__title": "Авиакомпании",
 	"additionalParameters__carrier__placeholder": "Название авиакомпании",
@@ -115,5 +113,10 @@
   	"segments__date__example__title": "Например:",
   	"segments__date__example__town1": "Москва",
   	"segments__date__example__town2": "Берлин",
-  	"segments__date__example__town3": "Париж"
+  	"segments__date__example__town3": "Париж",
+  	"routeOptions__direct__caption": "Даты пока что не изветны",
+  	"passengers__fastSelect__fullSelectOption": "Нужно больше номеров или проживание с детьми",
+  	"segments__date__placeholder_RT_leg_0": "Прибытие",
+  	"segments__date__placeholder_RT_leg_1": "Отъезд",
+  	"additionalParameters__toggle": "Предыдущие поиски"
 }
