@@ -792,10 +792,6 @@ define(
 			this.options = this.$$rawdata.flights.search.formData.maxLimits;
 			this.options.totalPassengers = parseInt(this.options.totalPassengers);
 
-			// Processing fast and full passengers selection
-			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
-			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
-
             // TODO: Change when will be ready api
             this.roomsUseExtendedSelect = true;
             this.roomsFastSelectOptions = [
@@ -866,11 +862,13 @@ define(
 					);
 				}
 
+                // Add rooms from cookies
                 for (i = 0; i < this.preinittedData.rooms.length; i++) {
                     this.rooms.push(this.preinittedData.rooms[i]);
                 }
 			}
 			else {
+                // Segments
                 this.addSegment(
                     null,
                     null,
