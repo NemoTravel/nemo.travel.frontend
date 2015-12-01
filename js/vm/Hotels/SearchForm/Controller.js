@@ -951,27 +951,10 @@ define(
 			);
 		};
 
-		HotelsSearchFormController.prototype.continueCR = function () {
-			var segsCount = this.segments().length;
-
-			if (this.tripType() == 'CR' && segsCount < this.options.flightSegments) {
-				this.addSegment(this.segments()[segsCount - 1].items.arrival.value(), null, null);
-			}
-		};
-
-		HotelsSearchFormController.prototype.removeLastCRSegment = function () {
-			var segsCount = this.segments().length;
-
-			if (this.tripType() == 'CR' && segsCount > 1) {
-				this.segments.pop();
-			}
-		};
-
 		HotelsSearchFormController.prototype.$$usedModels = [
 			'Hotels/SearchForm/Segment',
 			'Common/Date',
-			'Hotels/Common/Geo',
-			'Flights/Common/Airline'
+			'Hotels/Common/Geo'
 		];
 
 		HotelsSearchFormController.prototype.dataURL = function () {
