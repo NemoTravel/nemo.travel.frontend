@@ -204,13 +204,10 @@ define(
 			this.cookieData = ko.computed(function () {
 				var ret = {
 						segments: [],
-						passengers: {},
-						serviceClass: this.serviceClass(),
-						direct: this.directFlights(),
-						vicinityDates: this.vicinityDates()
+						rooms: []
 					},
 					segments = this.segments(),
-					passengers = this.passengers();
+					rooms = this.rooms();
 
 				// Segments
 				for (var i = 0; i < segments.length; i++) {
@@ -224,10 +221,10 @@ define(
 					);
 				}
 
-				// Passengers
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						ret.passengers[i] = passengers[i]();
+				// Rooms
+				for (var i in rooms) {
+					if (rooms.hasOwnProperty(i)) {
+						ret.rooms.push(rooms[i]);
 					}
 				}
 
@@ -518,7 +515,8 @@ define(
 				var cookie = Cookie.getJSON(this.getCookieName());
 
 				// Checking cookie validity and fixing that
-				if (cookie && cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0) {
+				if (cookie && cookie.rooms && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0
+                &&  cookie.rooms instanceof Array && cookie.rooms.length > 0) {
 					this.$$controller.log('Initted by cookie', cookie);
 					this.preinittedData = cookie;
 					this.mode = 'preinitted';
@@ -868,10 +866,9 @@ define(
 					);
 				}
 
-				// Setting other options
-				this.directFlights(this.preinittedData.direct);
-				this.vicinityDates(this.preinittedData.vicinityDates);
-				this.serviceClass(this.preinittedData.serviceClass);
+                for (i = 0; i < this.preinittedData.rooms.length; i++) {
+                    this.rooms.push(this.preinittedData.rooms[i]);
+                }
 			}
 			else {
                 this.addSegment(
@@ -880,29 +877,14 @@ define(
                     null
                 );
 
-				// Processing other options
-				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
-				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
-
-				if (this.serviceClasses.indexOf(this.$$rawdata.flights.search.request.parameters.serviceClass) >= 0) {
-					this.serviceClass(this.$$rawdata.flights.search.request.parameters.serviceClass);
-				}
-
-				if (this.forceInitialTripType) {
-					this.tripType(this.forceInitialTripType);
-				}
-				else {
-					this.tripType(this.$$rawdata.flights.search.request.parameters.searchType);
-				}
+                // Rooms
+                this.rooms([
+                    {
+                        adults: 1,
+                        infants: []
+                    }
+                ]);
 			}
-
-			// Rooms
-            this.rooms([
-                {
-                    adults: 1,
-                    infants: []
-                }
-            ]);
 
 			// All changes from now on will go to cookie
 			this.setCookies = true;
