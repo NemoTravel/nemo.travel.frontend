@@ -3,11 +3,6 @@
                                                                         <!-- ko if: !$$loading() && !$$error() -->
 
     <div class="nemo-hotels-form__formContainer">
-        <!-- ko if: !searchAllowedByParamChange() -->
-        <div
-                class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__searchBlockedError"
-                data-bind="text: $root.i18n('HotelsSearchForm','error_searchBlocked'), click: function (d,e) {$(e.target).hide()}"></div>
-        <!-- /ko -->
         <div class="nemo-hotels-form__formContainer__inner">
             <div class="nemo-hotels-form__route nemo-hotels-form__route_OW" data-bind="foreach: segments(), hotelsFormAutoFocus: null">
                 <div data-bind="attr: {'class': 'nemo-hotels-form__route__segment_RT js-autofocus-segment'}">
@@ -52,11 +47,6 @@
                             <div class="nemo-hotels-form__route__segment__item__date__indicator"
                                  data-bind="text: items.arrivalDate.value() ? items.arrivalDate.value().getDate() : 31">
                             </div>
-                            <!-- ko if: $parent.validaTERROR() && items.arrivalDate.error() && items.arrivalDate.focus() -->
-                            <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__route__segment__item__error"
-                                 data-bind="text: $root.i18n('HotelsSearchForm','error_arrivalDate_'+items.arrivalDate.error());">
-                            </div>
-                            <!-- /ko -->
                             <div class="nemo-hotels-form__route__segment__item__inputContainer">
                                 <input
                                     class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_date js-autofocus-field js-autofocus-field_date_arrival"
@@ -108,11 +98,6 @@
                             <div class="nemo-hotels-form__route__segment__item__date__indicator"
                                  data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31">
                             </div>
-                            <!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
-                            <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__route__segment__item__error"
-                                 data-bind="text: $root.i18n('HotelsSearchForm','error_departureDate_'+items.departureDate.error());">
-                            </div>
-                            <!-- /ko -->
                             <div class="nemo-hotels-form__route__segment__item__inputContainer">
                                 <input
                                         class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_date js-autofocus-field js-autofocus-field_date_departure"
@@ -209,13 +194,11 @@
                         data-bind="
 						click: startSearch,
 						css: {
-							'nemo-ui-button_disabled': !searchEnabled(),
-							'nemo-hotels-form__searchButton_searching': isSearching()
 						},
 						text: $root.i18n('HotelsSearchForm','searchButton__text')"></button>
             </div>
 
-            <div  data-bind="attr: {'class':'nemo-hotels-form__routeOptions nemo-hotels-form__routeOptions_'+tripType()}">
+            <div  data-bind="attr: {'class':'nemo-hotels-form__routeOptions nemo-hotels-form__routeOptions_OW'}">
                 <div class="nemo-hotels-form__routeOptions__inner">
                     <div class="nemo-hotels-form__routeOptions__item nemo-hotels-form__routeOptions__item_example">
                         <span class="nemo-hotels-form__routeOptions__item__title" data-bind="text: $root.i18n('HotelsSearchForm','segments__date__example__title')"></span>
@@ -231,11 +214,11 @@
                     </label>
                 </div>
                 </div>
-            </div>		</div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- ko if: useAdditionalOptions -->
     <div class="nemo-hotels-form__additional">
         <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__additional__item nemo-hotels-form__additional__parameters">
             <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__additional__parameters__toggle"
@@ -294,7 +277,6 @@
             <div class="" data-bind="component: {name: 'Flights/LastSearches/Controller', params: {}}"></div>
         </div>
     </div>
-    <!-- /ko -->
 
     <div data-block="passengersFullSelect" class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock">
         <!-- ko foreach: rooms -->
@@ -392,7 +374,7 @@
             <div class="nemo-hotels-form__searchingInfo__subHeader"
                  data-bind="
 			text: $root.i18n('HotelsSearchForm','searchingInfo__info')
-				.replace('[%-flightType-%]', $root.i18n('HotelsSearchForm', 'searchingInfo__flightType_' + tripType()))
+				.replace('[%-flightType-%]', $root.i18n('HotelsSearchForm', 'searchingInfo__flightType_OW'))
 				.replace('[%-class-%]', $root.i18n('HotelsSearchForm', 'searchingInfo__class_' + serviceClass()))
 		"></div>
 
@@ -400,11 +382,6 @@
         </div>		</div>
                                                                         <!-- /ko -->
 
-                                                                        <!-- ko if: searchError -->
-    <div data-bind="automaticPopup: {title: $root.i18n('HotelsSearchForm','searchingError__title'), close: function () {searchError(false);}}">
-        <div data-bind="text: searchError" style="display: none;"></div>
-    </div>
-                                                                        <!-- /ko -->
                                                                         <!-- /ko -->
 
                                                                         <!-- ko if: $$error() -->

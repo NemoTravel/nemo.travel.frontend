@@ -233,7 +233,14 @@ define(
 
                         var $this = viewModel.form.segments()[0];
 
-                        var arrivalTime = $this.items.arrivalDate.value()? $this.items.arrivalDate.value().dateObject().getTime() : null;
+                        if ($this.items.arrivalDate.value()) {
+                            $this.items.arrivalDate.value().dateObject().setHours(0, 0, 0, 0);
+                        }
+                        if ($this.items.departureDate.value()) {
+                            $this.items.departureDate.value().dateObject().setHours(0, 0, 0, 0);
+                        }
+
+                        var arrivalTime = $this.items.arrivalDate.value() ? $this.items.arrivalDate.value().dateObject().getTime() : null;
                         var departureTime = $this.items.departureDate.value() ? $this.items.departureDate.value().dateObject().getTime() : null;
                         var dateObjectTime = dateObj.getTime();
 
