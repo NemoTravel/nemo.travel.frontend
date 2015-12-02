@@ -387,7 +387,31 @@ define(
 
         ko.bindingHandlers.infantsAgesSelector = {
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                var context = bindingContext;
+
                 $(element).on('click', function () {
+                    if (mobileDetect().deviceType == 'phone') {
+                        $('.nemo-hotels-form__yearsPicker_drop').remove();
+                        var $selectCurrent = $('select', this);
+                        var $select = $('.nemo-hotels-form__yearsPicker_container select');
+                        if ($selectCurrent.attr('size') != undefined && $selectCurrent.attr('size') > 0) {
+                            $select.attr('size', 0);
+                            $select.css({width: '0px', height: '0px', top: '0px'});
+                        } else {
+                            $selectCurrent.attr('size', 18);
+                            $selectCurrent.css({width: '100%', height: 'auto', top: '39px'});
+
+                            var $self = $(this);
+
+                            $selectCurrent.on('change', function() {
+                                var room = $self.attr('room');
+                                var infant = $self.attr('infant');
+
+                                context.$parentContext.$parent.selectInfantAge(room, infant, $(this).val())
+                            });
+                        }
+                    }
+
                     if ($(this).hasClass('opened')) {
                         $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
                     } else {
@@ -397,5 +421,6 @@ define(
                 });
             }
         };
+
 	}
 );
