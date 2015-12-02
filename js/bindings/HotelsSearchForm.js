@@ -10,7 +10,7 @@ define(
 	],
 	function (ko, mobileDetect, $) {
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
-		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
+		$.widget( "nemo.HotelsFormGeoAC", $.ui.autocomplete, {
             _create: function() {
                 this._super();
                 this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
@@ -45,12 +45,12 @@ define(
 			}
 		});
 
-		ko.bindingHandlers.flightsFormGeoAC = {
+		ko.bindingHandlers.hotelsFormGeoAC = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
-				$element.FlightsFormGeoAC({
+				$element.HotelsFormGeoAC({
                     appendTo: '.js-nemo-hotels-autocomplete',
 					minLength: 2,
 					source:function(request, callback){
@@ -67,17 +67,17 @@ define(
                         });
 					},
 					open: function (event, ui) {
-						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
+						var $children = $(this).data('nemo-HotelsFormGeoAC').menu.element.children('[data-value="true"]');
 
 						if ($children.length == 1) {
 							$children.eq(0).mouseenter().click();
 						}
 						else {
-							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
+							$(event.target).data('nemo-HotelsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
 						}
 					},
 					response: function (event, ui) {
-						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
+						$(event.target).data('nemo-HotelsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
 					},
 					select: function( event, ui ) {
 						$element.blur();
@@ -95,7 +95,12 @@ define(
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$(this).val(ui.item.name)
+
+                        if (ui.item != undefined) {
+                            $(this).val(ui.item.name);
+                        } else {
+                            $(this).val(' ');
+                        }
 					},
 					close:function(){
 						$(this).val(' ')
@@ -142,6 +147,9 @@ define(
 
 					if ($target.hasClass('js-autofocus-field_arrival')) {
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
+					}
+					else if ($target.hasClass('js-autofocus-field_date_arrival')) {
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure').eq(0);
 					}
 					else if ($target.hasClass('js-autofocus-field_date_departure')) {
                         $focusField = $segment.parents('.js-autofocus-form').find('.js-hotels-searchForm-passSelect').eq(0);
