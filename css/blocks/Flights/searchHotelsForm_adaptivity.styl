@@ -23,9 +23,9 @@ adapt_hotels_form_noOptsCaptions() {
 
 
   }
-  .nemo-ui-select__dropdown {
-    //left: 0;
-    //right: auto;
+  .nemo-ui-select__dropdown.nemo-hotels-form__passengers__fastSelect {
+    left: 0;
+    right: auto;
   }
 }
 
@@ -398,6 +398,15 @@ adapt_hotels_form_compact() {
         }
       }
     }
+
+    &__previousSearches{
+      &_item {
+        width: auto;
+      }
+      &_title {
+        width: auto;
+      }
+    }
   }
 
   adapt_hotels_form_noOptsCaptions();
@@ -441,7 +450,7 @@ adapt_hotels_form_compact() {
     }
   }
 
-adapt_hotels_form_noOptsCaptions();
+  adapt_hotels_form_noOptsCaptions();
 }
 
 @media (max-width: 1020px) {
@@ -488,7 +497,7 @@ adapt_hotels_form_twoThirds();
       }
 
       &_info {
-        width: 150px;
+        width: 140px;
       }
     }
   }
