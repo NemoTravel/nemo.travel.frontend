@@ -123,7 +123,7 @@ define(
                 }
 
                 if (guest.infants > 0) {
-                    result += ', ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_CLD_'
+                    result += ', ' + guest.infants + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_CLD_'
                                                                                + helpers.getNumeral(guest.infants, 'one', 'twoToFour', 'fourPlus'));
                 }
 

@@ -9,36 +9,6 @@ define(
 		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min'
 	],
 	function (ko, mobileDetect, $) {
-		// FlightsSearchForm Knockout bindings are defined here
-		/*
-		 ko.bindingHandlers.testBinding = {
-		 init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
-		 update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
-		 };
-
-		 // Do not forget to add destroy callbacks
-		 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {});
-		 */
-
-		ko.bindingHandlers.flightsFormSelect = {
-			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var options = $.extend(
-					{
-						width: '100%',
-						display_selected_options: false,
-						display_disabled_options: false,
-						placeholder_text_multiple: '',
-						no_results_text: '',
-						max_selected_options: 5
-					},
-					valueAccessor()
-				);
-
-				$(element).chosen(options);
-			},
-			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
-		};
-
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
 		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
             _create: function() {
@@ -368,17 +338,29 @@ define(
 
         ko.bindingHandlers.spinnerInfants = {
 
-            init: function(element, valueAccessor, allBindingsAccessor) {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                 //initialize datepicker with some optional options
                 var options = allBindingsAccessor().spinnerOptions || {};
                 $(element).spinner(options);
 
+                var context = bindingContext;
+
                 //handle the field changing
                 ko.utils.registerEventHandler(element, 'spinstop', function() {
-                    debugger;
-                    var observable = valueAccessor();
-                    observable($(element).spinner('value'));
+                    var countInfants = $(element).spinner('value'),
+                        isDesktop = mobileDetect() == 'desktop';
+
+                    if (countInfants == 0) {
+                        context.$parent.rooms()[$(element).attr('room')].infants([]);
+
+                    } else {
+                        if (context.$parent.rooms()[$(element).attr('room')].infants().length < countInfants) {
+                            context.$parent.rooms()[$(element).attr('room')].infants.push(0);
+                        } else {
+                            context.$parent.rooms()[$(element).attr('room')].infants.splice(-1, 1);
+                        }
+                    }
                 });
 
                 //handle disposal (if KO removes by the template binding)
