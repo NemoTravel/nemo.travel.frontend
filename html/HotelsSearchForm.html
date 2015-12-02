@@ -9,9 +9,8 @@
                 data-bind="text: $root.i18n('HotelsSearchForm','error_searchBlocked'), click: function (d,e) {$(e.target).hide()}"></div>
         <!-- /ko -->
         <div class="nemo-hotels-form__formContainer__inner">
-            <div data-bind="attr: {'class':'nemo-hotels-form__route nemo-hotels-form__route_'+tripType()}, foreach: segments(), flightsFormAutoFocus: null">
+            <div class="nemo-hotels-form__route nemo-hotels-form__route_OW" data-bind="foreach: segments(), hotelsFormAutoFocus: null">
                 <div data-bind="attr: {'class': 'nemo-hotels-form__route__segment_RT js-autofocus-segment'}">
-                    <!-- ko if: $index() != 1 -->
                     <div class="nemo-hotels-form__route__segment__item nemo-hotels-form__route__segment__item_to js-nemo-hotels-autocomplete"
                          data-bind="css: {'nemo-hotels-form__route__segment__item_hasError': $parent.validaTERROR() && items.arrival.error()}">
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput js-autocomplete">
@@ -47,7 +46,6 @@
                             </div>
                         </label>
                     </div>
-                    <!-- /ko -->
                     <div class="nemo-hotels-form__route__segment__item nemo-hotels-form__route__segment__item_date"
                          data-bind="css: {'nemo-hotels-form__route__segment__item_hasError': $parent.validaTERROR() && items.arrivalDate.error()}">
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput nemo-hotels-form__route__segment__item__date">
@@ -335,12 +333,12 @@
                     </div>
                 </div>
             </div>
-            <!-- ko foreach: infants -->
             <div class="nemo-hotels-form__popup__room_ages">
                 <div class="nemo-hotels-form__popup__room_ages_title"
                      data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants_ages')"
                         >
                 </div>
+                <!-- ko foreach: infants -->
                 <div class="nemo-hotels-form__yearsPicker_container"
                         data-bind="
                         infantsAgesSelector:null,
@@ -365,12 +363,17 @@
                         <div class="nemo-hotels-form__yearsPicker_drop_item"></div>
                     </div>
                     <select name="" class="nemo-hotels-form__yearsPicker_mobile"
-                            data-bind="options: $parentContext.$parent.infantsAges"
+                            data-bind="
+                            options: $parentContext.$parent.infantsAges,
+                            click: function () {
+                                    $parentContext.$parent.selectInfantAge($parentContext.$parentContext.$index(), $parentContext.$index(), $data);
+                                }
+                            "
                             >
                     </select>
                 </div>
+                <!-- /ko -->
             </div>
-            <!-- /ko -->
         </div>
         <!-- /ko -->
         <button class="nemo-hotels-form__popup_addRoomButton"

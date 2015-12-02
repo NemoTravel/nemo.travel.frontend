@@ -130,7 +130,7 @@ define(
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 
-		ko.bindingHandlers.flightsFormAutoFocus = {
+		ko.bindingHandlers.hotelsFormAutoFocus = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element);
 
