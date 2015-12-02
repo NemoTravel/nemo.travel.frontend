@@ -4,6 +4,8 @@ define(
 	function () {
 		return {
 			language: 'en',
+            ageMin: 0,
+            ageMax: 17,
 
 			extendModel: function (what, withWhatArray) {
 				for (var i = 0; i < withWhatArray.length; i++) {
@@ -192,7 +194,17 @@ define(
             },
             highlight: function (word, term) {
                 return word.replace(new RegExp('(' + term + ')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>');
+            },
+            getAges: function () {
+                var result = [];
+                for (var age = this.ageMin; age <= this.ageMax; age++) {
+                    result.push(age);
+                }
+            },
+            getAgesCount: function () {
+                return this.ageMax - this.ageMin + 1 ;
             }
+
 		};
 	}
 );

@@ -410,7 +410,7 @@ define(
                             $select.attr('size', 0);
                             $select.css({width: '0px', height: '0px', top: '0px'});
                         } else {
-                            $selectCurrent.attr('size', 18);
+                            $selectCurrent.attr('size', helpers.getAgesCount());
                             $selectCurrent.css({width: '100%', height: 'auto', top: '39px'});
 
                             var $self = $(this);

@@ -429,9 +429,7 @@ define(
                 ]);
 			}
 
-            for (var age = 0; age < 18; age++) {
-                this.infantsAges.push(age);
-            }
+            this.infantsAges(helpers.getAges());
 
 			// All changes from now on will go to cookie
 			this.setCookies = true;
