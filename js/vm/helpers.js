@@ -189,6 +189,9 @@ define(
                 }
 
                 return null;
+            },
+            highlight: function (word, term) {
+                return word.replace(new RegExp('(' + term + ')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>');
             }
 		};
 	}

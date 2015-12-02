@@ -19,8 +19,10 @@ define(
 			_renderItem: function( ul, item ) {
                 var text;
 
-                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.name + '</span>'
-                       + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
+                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">'
+                        + helpers.highlight(item.name, this.term)
+                        + '</span>'
+                        + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
 
 				return $("<li>")
 					.addClass('nemo-hotels-form__route__segment_autocomplete_item')
