@@ -16,7 +16,7 @@
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput js-autocomplete">
                             <!-- ko if: $parent.validaTERROR() && items.arrival.error() && items.arrival.focus() -->
                             <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__route__segment__item__error"
-                                 data-bind="text: $root.i18n('HotelsSearchForm','error_arrival_'+items.arrival.error())"></div>
+                                 data-bind="text: $root.i18n('HotelsSearchForm','error_hotels_arrival_'+items.arrival.error())"></div>
                             <!-- /ko -->
                             <div class="nemo-hotels-form__route__segment__item__inputContainer"><input
                                     class=" nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-hotels-form__route__segment__input nemo-hotels-form__route__segment__input_autocomplete js-autofocus-field js-autofocus-field_arrival"
@@ -162,10 +162,6 @@
             </div>
 
             <div class="nemo-ui-select nemo-hotels-form__passengers">
-                <!-- ko if: validaTERROR() && passengersError() -->
-                <div data-bind="text: $root.i18n('HotelsSearchForm','error_passengers_'+passengersError());" class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__passengers__error"></div>
-                <!-- /ko -->
-
                 <div class="nemo-ui-select__toggle nemo-hotels-form__passengers__container js-hotels-searchForm-passSelect"
                      data-bind="
 	        hotelsFormGuestsSelector: null,

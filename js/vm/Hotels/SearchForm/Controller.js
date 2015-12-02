@@ -18,13 +18,13 @@ define(
 			this.dateRestrictions = [];
 
 			this.passengers = ko.observable({});
-			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
 
             this.roomsFastSelectOptions = [];
 
             this.rooms = ko.observableArray();
+            this.roomsError =
             this.infantsAges = [];
 
             this.datesUnknown = ko.observable(false);
@@ -154,18 +154,6 @@ define(
 							adtPassengers += passengers[i]();
 						}
 					}
-				}
-
-				if (totalPassengers == 0) {
-					ret = false;
-					this.passengersError('noPassengers');
-				}
-				else if (adtPassengers == 0) {
-					ret = false;
-					this.passengersError('noAdults');
-				}
-				else {
-					this.passengersError(false);
 				}
 
 				if (segments.length) {
