@@ -3,12 +3,13 @@ define(
 	[
 		'knockout',
 		'js/vm/mobileDetect',
+        'js/vm/helpers',
 		'jquery',
 		'jqueryUI',
 		'js/lib/jquery.pickmeup/jquery.pickmeup',
-		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min'
+		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min',
 	],
-	function (ko, mobileDetect, $) {
+	function (ko, mobileDetect, helpers, $) {
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
 		$.widget( "nemo.HotelsFormGeoAC", $.ui.autocomplete, {
             _create: function() {
@@ -233,15 +234,9 @@ define(
 
                         var $this = viewModel.form.segments()[0];
 
-                        if ($this.items.arrivalDate.value()) {
-                            $this.items.arrivalDate.value().dateObject().setHours(0, 0, 0, 0);
-                        }
-                        if ($this.items.departureDate.value()) {
-                            $this.items.departureDate.value().dateObject().setHours(0, 0, 0, 0);
-                        }
+                        var arrivalTime = $this.items ? helpers.getTimeFromCommonDate($this.items.arrivalDate.value()) : null;
+                        var departureTime = $this.items ? helpers.getTimeFromCommonDate($this.items.departureDate.value()) : null;
 
-                        var arrivalTime = $this.items.arrivalDate.value() ? $this.items.arrivalDate.value().dateObject().getTime() : null;
-                        var departureTime = $this.items.departureDate.value() ? $this.items.departureDate.value().dateObject().getTime() : null;
                         var dateObjectTime = dateObj.getTime();
 
                         if (arrivalTime == null) {

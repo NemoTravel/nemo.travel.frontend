@@ -180,7 +180,16 @@ define(
 				}
 
 				return ret;
-			}
+			},
+            getTimeFromCommonDate: function (dateValue) {
+                if (dateValue && dateValue.hasOwnProperty('dateObject')) {
+                    dateValue.dateObject().setHours(0, 0, 0, 0);
+
+                    return dateValue.dateObject().getTime();
+                }
+
+                return null;
+            }
 		};
 	}
 );
