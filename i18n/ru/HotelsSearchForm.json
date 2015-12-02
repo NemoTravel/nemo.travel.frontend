@@ -114,7 +114,7 @@
   	"segments__date__example__town1": "Москва",
   	"segments__date__example__town2": "Берлин",
   	"segments__date__example__town3": "Париж",
-  	"routeOptions__direct__caption": "Даты пока что не изветны",
+  	"routeOptions__direct__caption": "Даты пока что не известны",
   	"rooms__fastSelect__fullSelectOption": "Нужно больше номеров или проживание с детьми",
   	"segments__date__placeholder_RT_leg_0": "Прибытие",
   	"segments__date__placeholder_RT_leg_1": "Отъезд",

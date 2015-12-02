@@ -27,6 +27,8 @@ define(
             this.rooms = ko.observableArray();
             this.infantsAges = [];
 
+            this.datesUnknown = ko.observable(false);
+
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
 			this.additionalParameters = {
@@ -205,7 +207,8 @@ define(
 			this.cookieData = ko.computed(function () {
 				var ret = {
 						segments: [],
-						rooms: []
+						rooms: [],
+                        datesUnknown: this.datesUnknown()
 					},
 					segments = this.segments(),
 					rooms = this.rooms();
@@ -877,6 +880,8 @@ define(
                         });
                     }
                 }
+
+                this.datesUnknown(this.preinittedData.datesUnknown);
 			}
 			else {
                 // Segments
