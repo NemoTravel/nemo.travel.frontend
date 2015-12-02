@@ -25,6 +25,7 @@ define(
             this.roomsFastSelectOptions = [];
 
             this.rooms = ko.observableArray();
+            this.infantsAges = [];
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -894,6 +895,10 @@ define(
                 ]);
 			}
 
+            for (var age = 0; age < 18; age++) {
+                this.infantsAges.push(age);
+            }
+
 			// All changes from now on will go to cookie
 			this.setCookies = true;
 
@@ -1012,6 +1017,21 @@ define(
 
         HotelsSearchFormController.prototype.roomRemove = function (index) {
             this.rooms.splice(index, 1);
+        };
+
+        HotelsSearchFormController.prototype.selectInfantAge = function (room, infant, age) {
+            var infants = this.rooms()[room].infants(),
+                newInfants = [];
+
+            for (var i = 0; i < infants.length; i++) {
+                if (i != infant) {
+                    newInfants.push(infants[i]);
+                } else {
+                    newInfants.push(age)
+                }
+            }
+
+            this.rooms()[room].infants(newInfants);
         };
 
 		HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';

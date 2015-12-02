@@ -384,5 +384,18 @@ define(
                 }
             }
         };
+
+        ko.bindingHandlers.infantsAgesSelector = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element).on('click', function () {
+                    if ($(this).hasClass('opened')) {
+                        $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+                    } else {
+                        $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+                        $(this).addClass('opened');
+                    }
+                });
+            }
+        };
 	}
 );

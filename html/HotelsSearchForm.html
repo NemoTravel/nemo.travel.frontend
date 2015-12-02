@@ -331,7 +331,7 @@
                          data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants')"
                             ></div>
                     <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinnerInfants: infants.length, spinnerOptions: { min: 0, numberFormat: 'n' }, attr:{room: $index()}" />
+                        <input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, numberFormat: 'n' }, attr:{room: $index()}" />
                     </div>
                 </div>
             </div>
@@ -341,51 +341,32 @@
                      data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants_ages')"
                         >
                 </div>
-                <div class="nemo-hotels-form__yearsPicker_container">
+                <div class="nemo-hotels-form__yearsPicker_container"
+                        data-bind="
+                        infantsAgesSelector:null,
+                        attr: {room: $parentContext.$index, infant:$index()}
+                        ">
                     <input type="text" class="nemo-hotels-form__yearsPicker_input" readonly
-                           data-bind="text: $data"
+                           data-bind="value: $data"
                             >
+
                     <div class="nemo-hotels-form__yearsPicker_drop">
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">0</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">1</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">2</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">3</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">4</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">5</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">6</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">7</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">8</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">9</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">10</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">11</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">12</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">13</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">14</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">15</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">16</div>
-                        <div class="nemo-hotels-form__yearsPicker_drop_item">17</div>
+                        <!-- ko foreach: $parentContext.$parent.infantsAges -->
+                        <div class="nemo-hotels-form__yearsPicker_drop_item"
+                             data-bind="
+                                text: $data,
+                                click: function () {
+                                    $parentContext.$parentContext.$parent.selectInfantAge($parentContext.$parentContext.$index(), $parentContext.$index(), $data);
+                                }
+                             "
+                                ></div>
+                        <!-- /ko -->
                         <div class="nemo-hotels-form__yearsPicker_drop_item"></div>
                         <div class="nemo-hotels-form__yearsPicker_drop_item"></div>
                     </div>
-                    <select name="" class="nemo-hotels-form__yearsPicker_mobile">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
+                    <select name="" class="nemo-hotels-form__yearsPicker_mobile"
+                            data-bind="options: $parentContext.$parent.infantsAges"
+                            >
                     </select>
                 </div>
             </div>
