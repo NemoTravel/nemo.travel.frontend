@@ -200,6 +200,8 @@ define(
                 for (var age = this.ageMin; age <= this.ageMax; age++) {
                     result.push(age);
                 }
+
+                return result;
             },
             getAgesCount: function () {
                 return this.ageMax - this.ageMin + 1 ;

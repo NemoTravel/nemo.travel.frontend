@@ -429,7 +429,7 @@ define(
                 ]);
 			}
 
-            this.infantsAges(helpers.getAges());
+            this.infantsAges = helpers.getAges();
 
 			// All changes from now on will go to cookie
 			this.setCookies = true;
