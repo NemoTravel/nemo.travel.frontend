@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Nemo Front-End</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 </head>
 <body>
@@ -39,7 +40,9 @@
 <!--[if IE 9]>
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
+
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
+
 <script>
 	var nemoSourceHost = '<?php echo $host; ?>';
 	require.config({
@@ -81,29 +84,8 @@
 	require (
 		['AppController'],
 		function (AppController) {
-			function getElementsByClassName(className) {// Get a list of all elements in the document
-				// For IE
-				if (document.all) {
-					var allElements = document.all;
-				} else {
-					var allElements = document.getElementsByTagName("*");
-				}
-
-				// Empty placeholder to put in the found elements with the class name
-				var foundElements = [];
-
-				for (var i = 0, ii = allElements.length; i < ii; i++) {
-					if (allElements[i].className == className) {
-						foundElements[foundElements.length] = allElements[i];
-					}
-				}
-
-				return foundElements;
-
-			}
-
 			var controller = new AppController(
-				getElementsByClassName('js-form')[0],
+				document.getElementsByClassName('js-form')[0],
 				{
 					sourceURL: nemoSourceHost,
 					dataURL: 'http://conchita.mlsd.ru/api',
