@@ -81,8 +81,29 @@
 	require (
 		['AppController'],
 		function (AppController) {
+			function getElementsByClassName(className) {// Get a list of all elements in the document
+				// For IE
+				if (document.all) {
+					var allElements = document.all;
+				} else {
+					var allElements = document.getElementsByTagName("*");
+				}
+
+				// Empty placeholder to put in the found elements with the class name
+				var foundElements = [];
+
+				for (var i = 0, ii = allElements.length; i < ii; i++) {
+					if (allElements[i].className == className) {
+						foundElements[foundElements.length] = allElements[i];
+					}
+				}
+
+				return foundElements;
+
+			}
+
 			var controller = new AppController(
-				document.getElementsByClassName('js-form')[0],
+				getElementsByClassName('js-form')[0],
 				{
 					sourceURL: nemoSourceHost,
 					dataURL: 'http://conchita.mlsd.ru/api',
