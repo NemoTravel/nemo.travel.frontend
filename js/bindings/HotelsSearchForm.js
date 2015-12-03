@@ -401,27 +401,25 @@ define(
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
                 var context = bindingContext;
 
+                if (mobileDetect().deviceType != 'phone') {
+                    $('.nemo-hotels-form__yearsPicker_mobile').attr('disabled', 'disabled')
+                } else {
+                    var $selectCurrent = $('.nemo-hotels-form__yearsPicker_mobile', element);
+                    $selectCurrent.on('change', function(e) {
+                        e.preventDefault();
+                        //debugger;
+                        var $self = $(element);
+                        var room = $self.attr('room');
+                        var infant = $self.attr('infant');
+                        var age = $(this).val();
+
+                        context.$parentContext.$parent.selectInfantAge(room, infant, age)
+                    });
+                }
+
                 $(element).on('click', function () {
                     if (mobileDetect().deviceType == 'phone') {
                         $('.nemo-hotels-form__yearsPicker_drop').remove();
-                        var $selectCurrent = $('select', this);
-                        var $select = $('.nemo-hotels-form__yearsPicker_container select');
-                        if ($selectCurrent.attr('size') != undefined && $selectCurrent.attr('size') > 0) {
-                            $select.attr('size', 0);
-                            $select.css({width: '0px', height: '0px', top: '0px'});
-                        } else {
-                            $selectCurrent.attr('size', helpers.getAgesCount());
-                            $selectCurrent.css({width: '100%', height: 'auto', top: '39px'});
-
-                            var $self = $(this);
-
-                            $selectCurrent.on('change', function() {
-                                var room = $self.attr('room');
-                                var infant = $self.attr('infant');
-
-                                context.$parentContext.$parent.selectInfantAge(room, infant, $(this).val())
-                            });
-                        }
                     }
 
                     if ($(this).hasClass('opened')) {
