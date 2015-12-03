@@ -322,9 +322,6 @@
                         infantsAgesSelector:null,
                         attr: {room: $parentContext.$index, infant:$index()}
                         ">
-                    <input type="text" class="nemo-hotels-form__yearsPicker_input" readonly
-                           data-bind="value: $data"
-                            >
 
                     <div class="nemo-hotels-form__yearsPicker_drop">
                         <!-- ko foreach: $parentContext.$parent.infantsAges -->
@@ -343,6 +340,7 @@
                     <select name="" class="nemo-hotels-form__yearsPicker_mobile"
                             data-bind="
                             options: $parentContext.$parent.infantsAges,
+                            value: $data,
                             "
                             >
                     </select>

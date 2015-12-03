@@ -2,6 +2,14 @@ $i_hotels_form_segment_input_bsh = inset 0 0 5px rgba(#000, 0);
 $i_hotels_form_segment_input_bsh_hover = inset 0 0 10px rgba(#0B90D6, 0);
 $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, .2);
 
+/*
+  Возможно придется убрать.
+  Добавление отступа сверху для видимости хинтов на полях ввода
+*/
+.nemo-root {
+  margin: 50px 0 0 0;
+}
+
 .nemo-hotels-form {
   position: relative;
   margin-top: 30vh;
@@ -906,7 +914,8 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       width: 40px;
       border: 1px solid #EFEFEF;
       text-align: center;
-
+      border-radius: none;
+      text-shadow: none;
     }
   }
 
@@ -922,6 +931,17 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       padding: 5px;
       position: relative;
       margin: 0 10px 13px 0;
+      cursor: pointer;
+      &:before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background: #ffffff;
+        z-index: 3;
+      }
       &:after {
         content: '';
         position: absolute;
@@ -932,6 +952,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         right: 10px;
         transition: all 0.2s;
         background: url("images/ui/ui-select-arrow.svg") center center no-repeat;
+        z-index: 4;
       }
       &.opened {
         &:after {
@@ -959,6 +980,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       width: 173px;
       display: none;
       font-size: 0;
+      z-index: 10;
 
       &_item {
         display: inline-block;
@@ -974,7 +996,12 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       }
     }
     &_mobile {
-      display: none;
+      border: none;
+      height: 100%;
+      width: 100%;
+      background: #ffffff
+      position: relative;
+      z-index: 1;
     }
   }
 
@@ -992,7 +1019,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       font-size: 14px;
       color: #FFF;
       line-height: 35px;
-      background: #B1DAFA none repeat scroll 0% 0%;
+      background: #79C4EF none repeat scroll 0% 0%;
       width: 100%;
     }
     &__room {
