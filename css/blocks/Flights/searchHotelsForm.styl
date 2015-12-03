@@ -922,6 +922,17 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       padding: 5px;
       position: relative;
       margin: 0 10px 13px 0;
+      cursor: pointer;
+      &:before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background: #ffffff;
+        z-index: 3;
+      }
       &:after {
         content: '';
         position: absolute;
@@ -932,6 +943,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         right: 10px;
         transition: all 0.2s;
         background: url("images/ui/ui-select-arrow.svg") center center no-repeat;
+        z-index: 4;
       }
       &.opened {
         &:after {
@@ -976,7 +988,10 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     &_mobile {
       border: none;
       height: 100%;
-      width: 60%;
+      width: 100%;
+      background: #ffffff
+      position: relative;
+      z-index: 1;
     }
   }
 
