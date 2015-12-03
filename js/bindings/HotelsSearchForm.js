@@ -38,8 +38,8 @@ define(
                     var li;
 
                     if ( item.category != currentCategory ) {
-                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.category + "</li>" );
-                        currentCategory = item.t;
+                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title ui-autocomplete-category'>" + item.category + "</li>" );
+                        currentCategory = item.category;
                     }
                     li = that._renderItemData( ul, item );
 				});
