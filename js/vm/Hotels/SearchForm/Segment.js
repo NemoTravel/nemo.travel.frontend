@@ -32,7 +32,6 @@ define(
 
 			// Watchers for props change
 			this.items.arrival.value.subscribe(function (newValue) {
-				this.form.segmentGeoChanged(this, 'arrival');
 				this.validate();
 			}, this);
 			this.items.departureDate.value.subscribe(function (newValue) {

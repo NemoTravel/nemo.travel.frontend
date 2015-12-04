@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Nemo Front-End</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 </head>
 <body>
@@ -39,7 +40,9 @@
 <!--[if IE 9]>
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
+
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
+
 <script>
 	var nemoSourceHost = '<?php echo $host; ?>';
 	require.config({

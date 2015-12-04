@@ -310,7 +310,9 @@ define (
 					callback();
 				}
 				else if (requestsCompleted == loadArray.length) {
-					errorCallback();
+					if (errorCallback != undefined) {
+						errorCallback();
+					}
 				}
 			}
 
@@ -400,7 +402,12 @@ define (
 				if (typeof additionalParams == 'object' && additionalParams) {
 					POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
 				}
-				request.open('GET', url+'&'+POSTParams);
+				if (POSTParams) {
+					request.open('GET', url+'&'+POSTParams);
+				} else {
+					request.open('GET', url);
+				}
+
 				request.onload = function(){
 					if(callback){
 						self.processServerData(request.responseText);
@@ -422,8 +429,11 @@ define (
 				var request = new XMLHttpRequest(),
 					POSTParams = '';
 
-				// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
-				request.withCredentials = this.options.CORSWithCredentials;
+				try {
+					// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
+					request.withCredentials = this.options.CORSWithCredentials;
+				} catch (e) {
+				}
 
 				if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
 					POSTParams += this.processPOSTParameters(this.options.postParameters);

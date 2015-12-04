@@ -92,7 +92,7 @@
 
 	"passengers__fullSelect__button__done": "Готово",
 
-	"passengers__fullSelect__title": "Номера и гости",
+	"rooms__fullSelect__title": "Номера и гости",
 	"searchButton__text": "Найти",
 	"additionalParameters__header": "Дополнительные пожелания",
 	"additionalParameters__carrier__title": "Авиакомпании",
@@ -114,9 +114,19 @@
   	"segments__date__example__town1": "Москва",
   	"segments__date__example__town2": "Берлин",
   	"segments__date__example__town3": "Париж",
-  	"routeOptions__direct__caption": "Даты пока что не изветны",
-  	"passengers__fastSelect__fullSelectOption": "Нужно больше номеров или проживание с детьми",
+  	"routeOptions__direct__caption": "Даты пока что не известны",
+  	"rooms__fastSelect__fullSelectOption": "Нужно больше номеров или проживание с детьми",
   	"segments__date__placeholder_RT_leg_0": "Прибытие",
   	"segments__date__placeholder_RT_leg_1": "Отъезд",
-  	"additionalParameters__toggle": "Предыдущие поиски"
+  	"additionalParameters__toggle": "Предыдущие поиски",
+    "hotels_in_room_one": "номере",
+    "hotels_in_room_more": "номерах",
+    "hotels_in": "в",
+    "rooms_room": "Номер",
+    "rooms_delete": "Удалить номер",
+    "rooms_adults": "Взрослые",
+    "rooms_infants": "Дети (до 17 лет)",
+    "rooms_infants_ages": "Возраст детей",
+    "rooms_room_add": "Добавить еще номер",
+    "error_hotels_arrival_noInput": "Укажите город или отель"
 }

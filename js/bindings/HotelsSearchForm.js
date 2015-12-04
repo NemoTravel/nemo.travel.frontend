@@ -3,44 +3,15 @@ define(
 	[
 		'knockout',
 		'js/vm/mobileDetect',
+        'js/vm/helpers',
 		'jquery',
 		'jqueryUI',
 		'js/lib/jquery.pickmeup/jquery.pickmeup',
-		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min'
+		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min',
 	],
-	function (ko, mobileDetect, $) {
-		// FlightsSearchForm Knockout bindings are defined here
-		/*
-		 ko.bindingHandlers.testBinding = {
-		 init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
-		 update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
-		 };
-
-		 // Do not forget to add destroy callbacks
-		 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {});
-		 */
-
-		ko.bindingHandlers.flightsFormSelect = {
-			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var options = $.extend(
-					{
-						width: '100%',
-						display_selected_options: false,
-						display_disabled_options: false,
-						placeholder_text_multiple: '',
-						no_results_text: '',
-						max_selected_options: 5
-					},
-					valueAccessor()
-				);
-
-				$(element).chosen(options);
-			},
-			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
-		};
-
+	function (ko, mobileDetect, helpers, $) {
 		// Extending jQueryUI.autocomplete for Flights Search Form geo autocomplete
-		$.widget( "nemo.FlightsFormGeoAC", $.ui.autocomplete, {
+		$.widget( "nemo.HotelsFormGeoAC", $.ui.autocomplete, {
             _create: function() {
                 this._super();
                 this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
@@ -48,8 +19,10 @@ define(
 			_renderItem: function( ul, item ) {
                 var text;
 
-                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' + item.name + '</span>'
-                       + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
+                text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">'
+                        + helpers.highlight(item.name, this.term)
+                        + '</span>'
+                        + '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' + item.country + '</span>';
 
 				return $("<li>")
 					.addClass('nemo-hotels-form__route__segment_autocomplete_item')
@@ -65,8 +38,8 @@ define(
                     var li;
 
                     if ( item.category != currentCategory ) {
-                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title'>" + item.category + "</li>" );
-                        currentCategory = item.t;
+                        $(ul).append( "<li class='nemo-hotels-form__route__segment_autocomplete_title ui-autocomplete-category'>" + item.category + "</li>" );
+                        currentCategory = item.category;
                     }
                     li = that._renderItemData( ul, item );
 				});
@@ -75,12 +48,12 @@ define(
 			}
 		});
 
-		ko.bindingHandlers.flightsFormGeoAC = {
+		ko.bindingHandlers.hotelsFormGeoAC = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('HotelsSearchForm', 'autocomplete_noResults')}];
 
-				$element.FlightsFormGeoAC({
+				$element.HotelsFormGeoAC({
                     appendTo: '.js-nemo-hotels-autocomplete',
 					minLength: 2,
 					source:function(request, callback){
@@ -97,17 +70,17 @@ define(
                         });
 					},
 					open: function (event, ui) {
-						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
+						var $children = $(this).data('nemo-HotelsFormGeoAC').menu.element.children('[data-value="true"]');
 
 						if ($children.length == 1) {
 							$children.eq(0).mouseenter().click();
 						}
 						else {
-							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
+							$(event.target).data('nemo-HotelsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
 						}
 					},
 					response: function (event, ui) {
-						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
+						$(event.target).data('nemo-HotelsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
 					},
 					select: function( event, ui ) {
 						$element.blur();
@@ -125,7 +98,12 @@ define(
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$(this).val(ui.item.name)
+
+                        if (ui.item != undefined) {
+                            $(this).val(ui.item.name);
+                        } else {
+                            $(this).val(' ');
+                        }
 					},
 					close:function(){
 						$(this).val(' ')
@@ -160,7 +138,7 @@ define(
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 
-		ko.bindingHandlers.flightsFormAutoFocus = {
+		ko.bindingHandlers.hotelsFormAutoFocus = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element);
 
@@ -173,8 +151,11 @@ define(
 					if ($target.hasClass('js-autofocus-field_arrival')) {
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
+					else if ($target.hasClass('js-autofocus-field_date_arrival')) {
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure').eq(0);
+					}
 					else if ($target.hasClass('js-autofocus-field_date_departure')) {
-                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-hotels-searchForm-passSelect').eq(0);
 					}
 
 					if ($focusField) {
@@ -255,8 +236,9 @@ define(
 
                         var $this = viewModel.form.segments()[0];
 
-                        var arrivalTime = $this.items.arrivalDate.value()? $this.items.arrivalDate.value().dateObject().getTime() : null;
-                        var departureTime = $this.items.departureDate.value() ? $this.items.departureDate.value().dateObject().getTime() : null;
+                        var arrivalTime = $this.items ? helpers.getTimeFromCommonDate($this.items.arrivalDate.value()) : null;
+                        var departureTime = $this.items ? helpers.getTimeFromCommonDate($this.items.departureDate.value()) : null;
+
                         var dateObjectTime = dateObj.getTime();
 
                         if (arrivalTime == null) {
@@ -307,31 +289,19 @@ define(
 			}
 		};
 
-		ko.bindingHandlers.flightsFormRTAutoFocus = {
-			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var setFocus = function(){
-					bindingContext.$parent.segments()[1].items.departureDate.focus(true)
-				};
-				$(element).on('click', setFocus);
-				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$(element).off('click', setFocus);
-				})
-			}
-		};
-
-		ko.bindingHandlers.flightsFormPassengersSelector = {
+		ko.bindingHandlers.hotelsFormGuestsSelector = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var closeSelector = function (e) {
 						var $target = $(e.target);
 
-						if (!$target.is('.js-flights-searchForm-passSelect') && !$target.parents().is('.js-flights-searchForm-passSelect')) {
-							viewModel.passengersFastSelectorOpen(false);
+						if (!$target.is('.js-hotels-searchForm-passSelect') && !$target.parents().is('.js-hotels-searchForm-passSelect')) {
+							viewModel.roomsFastSelectorOpen(false);
 						}
 					},
 					$document = $(document);
 
 				$(element).on('click', function () {
-					viewModel.openPassengersSelector();
+					viewModel.openRoomsSelector();
 				});
 
 				$document.on('click', closeSelector);
@@ -342,18 +312,18 @@ define(
 			}
 		};
 
-		ko.bindingHandlers.spinner = {
+		ko.bindingHandlers.spinnerAdults = {
 
-			init: function(element, valueAccessor, allBindingsAccessor) {
-
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				//initialize datepicker with some optional options
 				var options = allBindingsAccessor().spinnerOptions || {};
 				$(element).spinner(options);
 
+                var context = bindingContext;
+
 				//handle the field changing
 				ko.utils.registerEventHandler(element, 'spinstop', function() {
-					var observable = valueAccessor();
-					observable($(element).spinner('value'));
+                    context.$parent.rooms()[$(element).attr('room')].adults($(element).spinner('value'));
 				});
 
 				//handle disposal (if KO removes by the template binding)
@@ -368,8 +338,6 @@ define(
 					current = $(element).spinner('value'),
 					msg = 'You have entered an Invalid Quantity. \n Please enter at least 1 or remove this item if you do not want to include it in the shopping cart.';
 
-
-
 				if (isNaN(parseInt(value))) {
 					alert(msg);
 				}
@@ -379,5 +347,90 @@ define(
 				}
 			}
 		};
+
+        ko.bindingHandlers.spinnerInfants = {
+
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+                //initialize datepicker with some optional options
+                var options = allBindingsAccessor().spinnerOptions || {};
+                $(element).spinner(options);
+
+                var context = bindingContext;
+
+                //handle the field changing
+                ko.utils.registerEventHandler(element, 'spinstop', function() {
+                    var countInfants = $(element).spinner('value'),
+                        isDesktop = mobileDetect() == 'desktop';
+
+                    if (countInfants == 0) {
+                        context.$parent.rooms()[$(element).attr('room')].infants([]);
+
+                    } else {
+                        if (context.$parent.rooms()[$(element).attr('room')].infants().length < countInfants) {
+                            context.$parent.rooms()[$(element).attr('room')].infants.push(0);
+                        } else {
+                            context.$parent.rooms()[$(element).attr('room')].infants.splice(-1, 1);
+                        }
+                    }
+                });
+
+                //handle disposal (if KO removes by the template binding)
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                    $(element).spinner('destroy');
+                });
+
+            },
+
+            update: function(element, valueAccessor) {
+                var value = ko.utils.unwrapObservable(valueAccessor()),
+                    current = $(element).spinner('value'),
+                    msg = 'You have entered an Invalid Quantity. \n Please enter at least 1 or remove this item if you do not want to include it in the shopping cart.';
+
+                if (isNaN(parseInt(value))) {
+                    alert(msg);
+                }
+
+                if (value !== current && !isNaN(parseInt(value))) {
+                    $(element).spinner("value", value);
+                }
+            }
+        };
+
+        ko.bindingHandlers.infantsAgesSelector = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                var context = bindingContext;
+
+                if (mobileDetect().deviceType != 'phone') {
+                    $('.nemo-hotels-form__yearsPicker_mobile').attr('disabled', 'disabled')
+                } else {
+                    var $selectCurrent = $('.nemo-hotels-form__yearsPicker_mobile', element);
+                    $selectCurrent.on('change', function(e) {
+                        e.preventDefault();
+                        //debugger;
+                        var $self = $(element);
+                        var room = $self.attr('room');
+                        var infant = $self.attr('infant');
+                        var age = $(this).val();
+
+                        context.$parentContext.$parent.selectInfantAge(room, infant, age)
+                    });
+                }
+
+                $(element).on('click', function () {
+                    if (mobileDetect().deviceType == 'phone') {
+                        $('.nemo-hotels-form__yearsPicker_drop').remove();
+                    }
+
+                    if ($(this).hasClass('opened')) {
+                        $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+                    } else {
+                        $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+                        $(this).addClass('opened');
+                    }
+                });
+            }
+        };
+
 	}
 );

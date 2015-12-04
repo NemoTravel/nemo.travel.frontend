@@ -5,37 +5,24 @@ define(
 		function HotelsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			this.quantity = ko.observable (0);
+			//this.quantityAdults = ko.observable (0);
 
 			this.name = 'HotelsSearchFormController';
 
 			this.delayedSearch = true;
-
-			this.serviceClasses = ['Economy', 'Business', 'First']; //'All' class removed
-			this.tripTypes = ['OW','RT','CR'];
+            this.searchError = ko.observable(false);
 
 			this.segments = ko.observableArray([]);
-			this.dateRestrictions = [];
 
-			this.passengers = ko.observable({});
-			this.passengersError = ko.observable(false);
-			this.passengersUseExtendedSelect = true;
-			this.passengersFastSelectOptions = [];
+            this.roomsFastSelectOptions = [];
+
+            this.rooms = ko.observableArray();
+            this.roomsError =
+            this.infantsAges = [];
+
+            this.datesUnknown = ko.observable(false);
 
 			this.options = {};
-			this.carriersLoaded = ko.observable(this.carriers !== null);
-			this.additionalParameters = {
-				carriers: ko.observableArray([]),
-				maxPrice: ko.observable(),
-				maxTransfersLength: ko.observable(false),
-				maxTimeEnRoute: ko.observable(null),
-				maxTimeEnRouteOptions: [null, 6, 12, 24]
-			};
-
-			this.tripType = ko.observable('OW');
-			this.directFlights = ko.observable(false);
-			this.vicinityDates = ko.observable(false);
-			this.serviceClass = ko.observable(this.serviceClasses[0]);
 
 			this.validaTERROR = ko.observable(false);
 
@@ -44,211 +31,82 @@ define(
 			this.useCookies = true;
 			this.mode = 'normal'; // tunesearch preinitted cookied
 			this.tuneSearch = 0;
-			this.preinittedData = {
-				segments: [],
-				passengers: {},
-				serviceClass: this.serviceClass(),
-				direct: this.directFlights(),
-				vicinityDates: this.vicinityDates(),
-				immediateSearch: false
-			};
 
 			// Search process type - popupped or immediate transition to results
 			// TODO unpopupped processing - when we don't need results immediately, we just need a search id for redirection
 			this.searchMode = 'popup';
 			this.isSearching = ko.observable(false);
-			this.searchRequest = ko.observable(false);
-			this.searchError = ko.observable(false);
 
-			this.passengersFastSelectorOpen = ko.observable(false);
+			this.roomsFastSelectorOpen = ko.observable(false);
 
 			this.parametersChanged = ko.observable(false);
 
 			this.initialParams = '';
-			this.useAdditionalOptions = true;
-			this.forceSelfHostNavigation = false;
-			this.forceChangeToSearch = false;
-			this.forceInitialTripType = false;
 
 			this.processInitParams();
-
-			this.additionalParameters.maxPrice.subscribe(function (newValue) {
-				var tmp = parseInt(newValue);
-
-				if (isNaN(tmp)) {
-					tmp = '';
-				}
-				else {
-					tmp = Math.min(Math.abs(tmp), 999999);
-				}
-
-				if (tmp != newValue) {
-					this.additionalParameters.maxPrice(tmp);
-				}
-			}, this);
 
 			this.segments.subscribe(function (newValue) {
 				this.recalcDateRestrictions();
 			},this);
 
-			this.passengersSummary = ko.computed(function () {
-				var ret = '',
-					total = 0,
-					passengers = this.passengers(),
-					passTypes = [];
+            this.guestsSummary = ko.computed(function () {
+                var guest   = {
+                        adults  : 0,
+                        infants : 0
+                    },
+                    rooms   = this.rooms(),
+                    result  = '';
 
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						var t = passengers[i]();
-						if (t > 0) {
-							total += t;
-							passTypes.push(i);
-						}
-					}
-				}
+                if (!rooms.length) {
+                    return result;
+                }
 
-				if (passTypes.length == 0) {
-					ret = this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_noPassengers');
-				}
-				else if (passTypes.length == 1) {
-					ret = total + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_' + passTypes.pop() + '_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
-				}
-				else {
-					ret = total + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_mixed_' + helpers.getNumeral(total, 'one', 'twoToFour', 'fourPlus'));
-				}
+                for (var i in rooms) {
+                    if (rooms.hasOwnProperty(i)) {
+                        var room        = rooms[i];
+                        guest.adults    += room.adults();
+                        guest.infants   += room.infants().length;
+                    }
+                }
 
-				return ret;
-			}, this);
+                result = guest.adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
+                         + helpers.getNumeral(guest.adults, 'one', 'twoToFour', 'fourPlus'));
 
-			this.passengersRestrictions = ko.computed(function () {
-				var ret = {},
-					passengers = this.passengers(),
-					adtSum = 0,
-					infSum = 0,
-					total = 0;
+                if (guest.infants == 0 && guest.adults == 1) {
+                    return result;
+                }
 
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						ret[i] = {min: 0, max: 0};
+                if (guest.infants > 0) {
+                    result += ', ' + guest.infants + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_CLD_'
+                                                                               + helpers.getNumeral(guest.infants, 'one', 'twoToFour', 'fourPlus'));
+                }
 
-						total += passengers[i]();
+                result += ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in') + ' ' + rooms.length + ' '
+                + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_'
+                                                            + helpers.getNumeral(rooms.length, 'one', 'more', 'more'));
 
-						if (this.passengerAdultTypes.indexOf(i) >= 0) {
-							adtSum += passengers[i]();
-						}
+                return result;
+            }, this);
 
-						if (this.passengerInfantTypes.indexOf(i) >= 0) {
-							infSum += passengers[i]();
-						}
-					}
-				}
+            this.isValid = ko.computed(function () {
+                var segments = this.segments(),
+                    result = true;
 
-				// Setting maximums regarding maximum passenger count
-				for (var i in ret) {
-					if (ret.hasOwnProperty(i)) {
-						ret[i].max = Math.min(passengers[i]() + this.options.totalPassengers - total, parseInt(this.options.passengerCount[i]));
-					}
-				}
+                if (segments.length) {
+                    result = segments[0].items.arrival.error();
+                }
 
-				// ADT+YTH+SRC >= INF+INS
-				// Infants: not more than adtSum
-				for (var i = 0; i < this.passengerInfantTypes.length; i++) {
-					if (ret.hasOwnProperty(this.passengerInfantTypes[i])) {
-						ret[this.passengerInfantTypes[i]].max = Math.min(adtSum, ret[this.passengerInfantTypes[i]].max);
-					}
-				}
-
-				// Adults: not less than infSum
-				for (var i = 0; i < this.passengerAdultTypes.length; i++) {
-					if (ret.hasOwnProperty(this.passengerAdultTypes[i])) {
-						ret[this.passengerAdultTypes[i]].min = Math.max(
-							0,
-							passengers[this.passengerAdultTypes[i]]() - adtSum + infSum,
-							ret[this.passengerAdultTypes[i]].min
-						);
-					}
-				}
-
-				return ret;
-			}, this);
-
-			this.isValid = ko.computed(function () {
-				var segments = this.segments(),
-					ret = true,
-					prevDate,
-					passengers = this.passengers(),
-					totalPassengers = 0,
-					adtPassengers = 0;
-
-				// Checking passengers
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						totalPassengers += passengers[i]();
-
-						if (this.passengerAdultTypes.indexOf(i) >= 0) {
-							adtPassengers += passengers[i]();
-						}
-					}
-				}
-
-				if (totalPassengers == 0) {
-					ret = false;
-					this.passengersError('noPassengers');
-				}
-				else if (adtPassengers == 0) {
-					ret = false;
-					this.passengersError('noAdults');
-				}
-				else {
-					this.passengersError(false);
-				}
-
-				if (segments.length) {
-					for (var i = 0; i < segments.length; i++) {
-						if (segments[i].items.departureDate.value()) {
-							if (prevDate && segments[i].items.departureDate.value().dateObject() < prevDate) {
-								segments[i].items.departureDate.error('notInOrder');
-								ret = false;
-							}
-							else if (i + 1 == segments.length && segments[i].items.departureDate.value().dateObject() > this.options.dateOptions.maxDate) {
-								segments[i].items.departureDate.error('tooLate');
-								ret = false;
-							}
-							else if (i == 0 && segments[i].items.departureDate.value().dateObject() < this.options.dateOptions.minDate) {
-								segments[i].items.departureDate.error('tooEraly');
-								ret = false;
-							}
-							else {
-								segments[i].items.departureDate.error(null);
-							}
-
-							prevDate = segments[i].items.departureDate.value().dateObject();
-						}
-
-						for (var j in segments[i].items) {
-							if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].error()) {
-								ret = false;
-							}
-						}
-					}
-				}
-				else {
-					ret = false;
-				}
-
-				return ret;
-			}, this);
+                return result ? false : true;
+            }, this);
 
 			this.cookieData = ko.computed(function () {
 				var ret = {
 						segments: [],
-						passengers: {},
-						serviceClass: this.serviceClass(),
-						direct: this.directFlights(),
-						vicinityDates: this.vicinityDates()
+						rooms: [],
+                        datesUnknown: this.datesUnknown()
 					},
 					segments = this.segments(),
-					passengers = this.passengers();
+					rooms = this.rooms();
 
 				// Segments
 				for (var i = 0; i < segments.length; i++) {
@@ -262,22 +120,19 @@ define(
 					);
 				}
 
-				// Passengers
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						ret.passengers[i] = passengers[i]();
+				// Rooms
+				for (var i in rooms) {
+					if (rooms.hasOwnProperty(i)) {
+                        var room = {
+                            adults: rooms[i].adults(),
+                            infants: rooms[i].infants()
+                        };
+
+                        ret.rooms.push(room);
 					}
 				}
 
 				return ret;
-			}, this);
-
-			this.searchAllowedByParamChange = ko.computed (function () {
-				return this.parametersChanged() || !this.forceChangeToSearch;
-			}, this);
-
-			this.searchEnabled = ko.computed (function () {
-				return (!this.validaTERROR() || this.isValid()) && this.searchAllowedByParamChange();
 			}, this);
 
 			this.cookieData.subscribe(function (newValue) {
@@ -290,71 +145,6 @@ define(
 					this.$$controller.log('COOKIE NOT ENABED YET', this.getCookieName(), newValue);
 				}
 			}, this);
-
-			this.URLParams = ko.computed(function () {
-				var urlAdder = '',
-					segments = this.segments(),
-					passengers = this.passengers(),
-					tmp;
-
-				if (this.tripType() == 'RT') {
-					urlAdder +=
-						(segments[0].items.arrival.value() ? (segments[0].items.arrival.value().isCity ? 'c' : 'a') + segments[0].items.arrival.value().IATA : '###') +
-						(segments[0].items.arrivalDate.value() ? segments[0].items.arrivalDate.value().dropTime().getISODate().replace(/-/g, '') : '########') +
-						(segments[1].items.departureDate.value() ? segments[1].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
-				}
-				else {
-					for (var i = 0; i < segments.length; i++) {
-						urlAdder +=
-							(segments[i].items.arrival.value() ? (segments[i].items.arrival.value().isCity ? 'c' : 'a') + segments[i].items.arrival.value().IATA : '###') +
-							(segments[i].items.arrivalDate.value() ? segments[i].items.arrivalDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
-							(segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
-					}
-				}
-
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i) && passengers[i]() > 0) {
-						urlAdder += i+passengers[i]();
-					}
-				}
-
-				urlAdder += '-class=' + this.serviceClass();
-
-				if (this.directFlights()) {
-					urlAdder += '-direct';
-				}
-
-				if (this.vicinityDates() && this.tripType() != 'CR') {
-					urlAdder += '-vicinityDates='+this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1];
-				}
-
-				// Additional parameters
-				if (this.additionalParameters.maxPrice()) {
-					urlAdder += '-PMaxPrice=' + this.additionalParameters.maxPrice() + this.$$controller.viewModel.agency.currency();
-				}
-
-				if (this.additionalParameters.maxTimeEnRoute()) {
-					urlAdder += '-PMaxTimeEnRoute=' + this.additionalParameters.maxTimeEnRoute();
-				}
-
-				if (!this.directFlights() && this.additionalParameters.maxTransfersLength()) {
-					urlAdder += '-PMaxTransfersLength=2';
-				}
-
-
-				tmp = this.additionalParameters.carriers();
-				if (tmp.length) {
-					urlAdder += '-PCarriers=';
-
-					for (var i = 0; i < tmp.length; i++) {
-						urlAdder += tmp[i].IATA;
-					}
-				}
-
-				this.parametersChanged(this.initialParams != urlAdder);
-
-				return urlAdder;
-			}, this);
 		}
 
 		// Extending from dictionaryModel
@@ -363,76 +153,59 @@ define(
 		// Inheritance override
 		HotelsSearchFormController.prototype.cookieName           = 'HotelsSearchForm';
         // TODO: Fix when will be ready api
-		HotelsSearchFormController.prototype.passengerTypesOrder  = ['ADT', 'CLD', 'INF', 'INS', 'YTH', 'SRC'];
-		HotelsSearchFormController.prototype.passengerAdultTypes  = ['ADT', 'YTH', 'SRC'];
-		HotelsSearchFormController.prototype.passengerInfantTypes = ['INF', 'INS'];
 		HotelsSearchFormController.prototype.$$i18nSegments       = ['HotelsSearchForm'];
 		HotelsSearchFormController.prototype.$$KOBindings         = ['HotelsSearchForm'];
 
-		HotelsSearchFormController.prototype.openPassengersSelector = function () {
+		HotelsSearchFormController.prototype.openRoomsSelector = function () {
 			if (
-				this.passengersUseExtendedSelect
+				this.roomsUseExtendedSelect
 				||
-				this.passengersFastSelectOptions.length != 0
+				this.roomsFastSelectOptions.length != 0
 			) {
-				this.passengersFastSelectorOpen(!this.passengersFastSelectorOpen());
+				this.roomsFastSelectorOpen(!this.roomsFastSelectorOpen());
 			}
 		};
 
-		HotelsSearchFormController.prototype.passengersTextForFastSelect = function (index) {
-			var source = this.passengersFastSelectOptions[index].set,
-				ret = [],
-				tmp = '';
+		HotelsSearchFormController.prototype.roomsTextForFastSelect = function (index) {
+			var rooms = this.roomsFastSelectOptions[index].rooms,
+                adults = this.roomsFastSelectOptions[index].adults,
+				result = '';
 
-			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-				if (source.hasOwnProperty(this.passengerTypesOrder[i]) && source[this.passengerTypesOrder[i]] > 0) {
-					ret.push(source[this.passengerTypesOrder[i]] + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_' + this.passengerTypesOrder[i] + '_' + helpers.getNumeral(source[this.passengerTypesOrder[i]], 'one', 'twoToFour', 'fourPlus')));
-				}
-			}
+            result = adults + ' ' + this.$$controller.i18n('HotelsSearchForm','passSummary_numeral_ADT_'
+                                                                              + helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus'));
 
-			return helpers.smartJoin(
-				ret,
-				', ',
-				(this.$$controller.i18n('HotelsSearchForm','passSummary_fastSelect_lastConjunction')[0] == ',' ? '' : ' ') +
-					this.$$controller.i18n('HotelsSearchForm','passSummary_fastSelect_lastConjunction') +
-					' '
-			);
-		};
+            if (rooms && adults > 1) {
+                result += ' ' + this.$$controller.i18n('HotelsSearchForm','hotels_in') + ' ' + rooms + ' '
+                + this.$$controller.i18n('HotelsSearchForm','hotels_in_room_' + helpers.getNumeral(rooms, 'one', 'more', 'more'));
+            }
 
-		HotelsSearchFormController.prototype.passengersSelectFast = function (index) {
-			var passengers = this.passengers(),
+            return result;
+        };
+
+		HotelsSearchFormController.prototype.roomsSelectFast = function (index) {
+			var rooms = this.rooms(),
 				tmp = [];
 
-			// Clearing passengers count
-			for (var i in passengers) {
-				if (passengers.hasOwnProperty(i)) {
-					passengers[i](0);
-				}
-			}
+            rooms = [];
 
-			this.passengers(passengers);
+            if (this.roomsFastSelectOptions[index].rooms == 1) {
+                rooms.push({
+                    adults: ko.observable(this.roomsFastSelectOptions[index].adults),
+                    infants: ko.observableArray([])
+                });
+            } else {
+                var countRooms = this.roomsFastSelectOptions[index].rooms;
+                for (var i = 0; i < countRooms; i++) {
+                    rooms.push(
+                        {
+                            adults: ko.observable(1),
+                            infants: ko.observableArray([])
+                        }
+                    );
+                }
+            }
 
-			this.fillPreInittedPassengers(this.passengerAdultTypes, this.passengersFastSelectOptions[index].set);
-			this.fillPreInittedPassengers(this.passengerInfantTypes, this.passengersFastSelectOptions[index].set);
-
-			// Types that are not ADT/INF
-			for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-				if (
-					this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-					this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-				) {
-					tmp.push(this.passengerTypesOrder[i]);
-				}
-			}
-
-			this.fillPreInittedPassengers(tmp, this.passengersFastSelectOptions[index].set);
-		};
-
-		// Additional stuff
-		// RegExps for params parsing
-		HotelsSearchFormController.prototype.paramsParsers = {
-			segs: /([A-Z]{3})([A-Z]{3})(\d{8})/g,
-			passengers: /([A-Z]{3})(\d+)/g
+            this.rooms(rooms);
 		};
 
 		HotelsSearchFormController.prototype.getCookieName = function () {
@@ -440,136 +213,15 @@ define(
 		};
 
 		HotelsSearchFormController.prototype.processInitParams = function () {
-			if (typeof this.$$componentParameters.additional != 'undefined') {
-				if ('delayed' in this.$$componentParameters.additional) {
-					this.delayedSearch = !!this.$$componentParameters.additional.delayed;
-				}
+            var cookie = Cookie.getJSON(this.getCookieName());
 
-				if ('useAdditionalOptions' in this.$$componentParameters.additional) {
-					this.useAdditionalOptions = !!this.$$componentParameters.additional.useAdditionalOptions;
-				}
-
-				if ('forceSelfHostNavigation' in this.$$componentParameters.additional) {
-					this.forceSelfHostNavigation = !!this.$$componentParameters.additional.forceSelfHostNavigation;
-				}
-
-				if ('forceChangeToSearch' in this.$$componentParameters.additional) {
-					this.forceChangeToSearch = !!this.$$componentParameters.additional.forceChangeToSearch;
-				}
-
-				if ('disableCookies' in this.$$componentParameters.additional) {
-					this.useCookies = !this.$$componentParameters.additional.disableCookies;
-				}
-
-				if (
-					'disableRouteTypes' in this.$$componentParameters.additional &&
-					this.$$componentParameters.additional.disableRouteTypes instanceof Array &&
-					this.$$componentParameters.additional.disableRouteTypes.length > 0
-				) {
-					for (var i = 0; i < this.$$componentParameters.additional.disableRouteTypes.length; i++) {
-						var tmp = this.tripTypes.indexOf(this.$$componentParameters.additional.disableRouteTypes[i]);
-
-						if (tmp >= 0 && this.tripTypes.length > 0) {
-							this.tripTypes.splice(tmp, 1);
-						}
-					}
-				}
-
-				if ('forceInitialTripType' in this.$$componentParameters.additional && this.tripTypes.indexOf(this.$$componentParameters.additional.forceInitialTripType) >= 0) {
-					this.forceInitialTripType = this.$$componentParameters.additional.forceInitialTripType;
-				}
-			}
-
-			// Analyzing parameters
-			// Preinitted by formData
-			if (this.$$componentParameters.formData) {
-				this.useCookies = false;
-				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
-			}
-
-			// Preinitted by controller params
-			else if (this.$$componentParameters.additional && this.$$componentParameters.additional.init) {
-				this.$$controller.log('Initted by component additional parameters', this.$$componentParameters.additional.init);
-				this.$$controller.log('Cookies disabled');
-				this.preinittedData = this.$$componentParameters.additional.init;
-				this.mode = 'preinitted';
-				this.useCookies = false;
-			}
-			// Tunesearch
-			else if (this.$$componentParameters.route.length == 1 && parseInt(this.$$componentParameters.route[0]) > 0) {
-				this.tuneSearch = parseInt(this.$$componentParameters.route[0]);
-
-				if (!isNaN(this.tuneSearch)) {
-					this.mode = 'tunesearch';
-				}
-			}
-			// Preinitted by URL
-			else if (this.$$componentParameters.route.length == 3) {
-				var t;
-
-				// Parsing segments
-				while (t = this.paramsParsers.segs.exec(this.$$componentParameters.route[0])) {
-					t.shift();
-
-					// Processing date
-					t[2] = t[2].substr(0,4) + '-' + t[2].substr(4,2) + '-' + t[2].substr(6);
-
-					// If we're preinitted by URL - IATAs mean cities first
-					t.push(true);
-					t.push(true);
-
-					this.preinittedData.segments.push(t);
-				}
-
-				// Parsing passengers
-				while (t = this.paramsParsers.passengers.exec(this.$$componentParameters.route[1])) {
-					this.preinittedData.passengers[t[1]] = parseInt(t[2]);
-				}
-
-				this.mode = 'preinitted';
-
-				// Other params
-				if (this.$$componentParameters.route[2]) {
-					this.$$componentParameters.route[2] = this.$$componentParameters.route[2].split('-');
-
-					for (var i = 0; i < this.$$componentParameters.route[2].length; i++) {
-						// Direct flights flag
-						if (this.$$componentParameters.route[2][i] == 'direct') {
-							this.preinittedData.direct = true;
-						}
-
-						// Vicinity dates flag
-						if (this.$$componentParameters.route[2][i] == 'vicinityDates') {
-							this.preinittedData.vicinityDates = true;
-						}
-
-						// Immediate search start
-						if (this.$$componentParameters.route[2][i] == 'GO') {
-							this.preinittedData.immediateSearch = true;
-						}
-
-						// Class
-						if (this.$$componentParameters.route[2][i].substr(0, 6) == 'class=') {
-							t = this.$$componentParameters.route[2][i].substr(6);
-
-							if (this.serviceClasses.indexOf(t) >= 0) {
-								this.preinittedData.serviceClass = t;
-							}
-						}
-					}
-				}
-			}
-			// Preinitted by cookie
-			else if (this.useCookies) {
-				var cookie = Cookie.getJSON(this.getCookieName());
-
-				// Checking cookie validity and fixing that
-				if (cookie && cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0) {
-					this.$$controller.log('Initted by cookie', cookie);
-					this.preinittedData = cookie;
-					this.mode = 'preinitted';
-				}
-			}
+            // Checking cookie validity and fixing that
+            if (cookie && cookie.rooms && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0
+            &&  cookie.rooms instanceof Array && cookie.rooms.length > 0) {
+                this.$$controller.log('Initted by cookie', cookie);
+                this.preinittedData = cookie;
+                this.mode = 'preinitted';
+            }
 		};
 
 		HotelsSearchFormController.prototype.recalcDateRestrictions = function () {
@@ -610,9 +262,11 @@ define(
                         ret.disabled = false;
                     }
 
-                    if (isArrival && segments[i].items.departureDate.value().dateObject().getTime() < dateObj.getTime()) {
-                        ret.disabled = true;
-                    } else if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
+                    if (isArrival && segments[i].items.arrivalDate.value().dateObject().getTime() > segments[i].items.departureDate.value().dateObject().getTime()) {
+                        segments[i].items.departureDate.value(segments[i].items.arrivalDate.value());
+                    }
+
+                    if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
                         ret.disabled = false;
                     }
                 }
@@ -621,13 +275,26 @@ define(
 			return ret;
 		};
 
-		HotelsSearchFormController.prototype.segmentGeoChanged = function (segment, geo) {
-			if (this.tripType() == 'RT' && segment.index == 0) {
-				var targetSeg = this.segments()[1];
+        HotelsSearchFormController.prototype.startSearch = function () {
+            function searchError (message, systemData) {
+                if (typeof systemData != 'undefined' && systemData[0] !== 0) {
+                    self.$$controller.error('SEARCH ERROR: '+message, systemData);
+                }
 
-				targetSeg.items[geo == 'arrival' ? 'departure' : 'arrival'].value(segment.items[geo].value());
-			}
-		};
+                if (typeof systemData == 'undefined' || systemData[0] !== 0) {
+                    self.searchError(self.$$controller.i18n('HotelsSearchForm', 'searchError_' + message));
+                }
+
+                self.isSearching(false);
+            }
+
+            this.searchError(false);
+
+            if (!this.isValid()) {
+                this.validaTERROR(true);
+                this.processValidation();
+            }
+        };
 
 		HotelsSearchFormController.prototype.processValidation = function () {
 			var segments;
@@ -649,220 +316,8 @@ define(
 			}
 		};
 
-		HotelsSearchFormController.prototype.goToResults = function (id) {
-			var urlAdder = this.URLParams();
-
-			if (
-				this.forceSelfHostNavigation ||
-				this.$$controller.options.dataURL.indexOf('/') === 0 ||
-				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) === 0
-			) {
-				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'FlightsResults');
-			}
-			else {
-				document.location = this.$$controller.options.dataURL.split('/').splice(0, 3).join('/') + '/results/' + (id ? id + '/' : '') + urlAdder;
-			}
-		};
-
-		HotelsSearchFormController.prototype.startSearch = function () {
-			function searchError (message, systemData) {
-				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
-					self.$$controller.error('SEARCH ERROR: '+message, systemData);
-				}
-
-				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
-					self.searchError(self.$$controller.i18n('HotelsSearchForm', 'searchError_' + message));
-				}
-
-				self.isSearching(false);
-			}
-
-			// @CRUTCH ignoring empty segments in CR
-			var segments = this.segments(),
-				emptySegments = [];
-
-			if (!this.searchAllowedByParamChange()) {
-				this.parametersChanged(true);
-				this.parametersChanged(false);
-				return;
-			}
-
-			if (this.tripType() == 'CR') {
-				for (var i = 0; i < segments.length; i++) {
-					var isEmpty = true;
-
-					for (var j in segments[i].items) {
-						if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].value()) {
-							isEmpty = false;
-							break;
-						}
-					}
-
-					if (isEmpty) {
-						emptySegments.push(i);
-					}
-				}
-
-				if (emptySegments.length < segments.length) {
-					var tmp = [];
-
-					for (var i = 0; i < segments.length; i++) {
-						if (emptySegments.indexOf(i) < 0) {
-							segments[i].index = tmp.length;
-							tmp.push(segments[i]);
-						}
-					}
-
-					this.segments(tmp);
-				}
-			}
-			// @CRUTCH RT with no second segment's date set -> OW
-			else if (this.tripType() == 'RT' && !this.segments()[1].items.departureDate.value()) {
-				this.tripType('OW');
-			}
-
-			this.searchError(false);
-
-			if (!this.isValid()) {
-				this.validaTERROR(true);
-				this.processValidation();
-			}
-			else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
-				this.goToResults();
-			}
-			else {
-				var self = this,
-				passengers = this.passengers(),
-				params = {
-						segments: [],
-						passengers: [],
-						parameters: {
-							direct: this.directFlights(),
-							aroundDates: this.vicinityDates() ? this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1] : 0,
-							serviceClass: this.serviceClass(),
-							airlines: []/*,
-							delayed: this.delayedSearch*/
-						}
-					};
-
-				// Constructing params
-				for (var i = 0; i < segments.length; i++) {
-					params.segments.push({
-						departure: {
-							IATA: segments[i].items.departure.value().IATA,
-							isCity: segments[i].items.departure.value().isCity
-						},
-						arrival: {
-							IATA: segments[i].items.arrival.value().IATA,
-							isCity: segments[i].items.arrival.value().isCity
-						},
-						// @CRUTCH - ignore missing date of second leg on RT
-						departureDate: segments[i].items.departureDate.value() ? segments[i].items.departureDate.value().dropTime().getISODateTime() : null
-					});
-				}
-
-				for (var i in passengers) {
-					if (passengers.hasOwnProperty(i)) {
-						params.passengers.push({
-							type: i,
-							count: passengers[i]()
-						});
-					}
-				}
-
-				this.$$controller.log('STARTING SEARCH');
-				this.isSearching(true);
-
-				self.searchError(false);
-
-				this.searchRequest(
-					this.$$controller.loadData(
-						'/flights/search/request',
-						{request: JSON.stringify(params)},
-						function (text, request) {
-							var response;
-
-							try {
-								response = JSON.parse(text);
-
-								// Checking for errors
-								if (!response.system || !response.system.error) {
-									// Empty results check (automatically passed if we have a delayed search)
-									if (
-										self.delayedSearch ||
-										!response.flights.search.results.info.errorCode
-									) {
-										self.goToResults(response.flights.search.request.id);
-									}
-									else {
-										searchError('emptyResult');
-									}
-								}
-								else {
-									searchError('systemError', response.system.error);
-								}
-							}
-							catch (e) {
-								searchError('brokenJSON', text);
-							}
-						},
-						function (request) {
-							searchError('requestFailed', [request.status, request.statusText]);
-						}
-					)
-				);
-			}
-		};
-
-		HotelsSearchFormController.prototype.abortSearch = function () {
-			if (this.isSearching()) {
-				this.isSearching(false);
-				this.searchRequest().abort();
-			}
-		};
-
-		HotelsSearchFormController.prototype.setPassengers = function (type, count) {
-			var restrictions = this.passengersRestrictions();
-
-			if (restrictions[type] && count >= restrictions[type].min && count <= restrictions[type].max) {
-				this.passengers()[type](count);
-			}
-		};
-
-		HotelsSearchFormController.prototype.getPassengersCounts = function (passType) {
-			var ret = [];
-
-			// From 0 to maximum count including
-			for (var i = 0; i <= this.options.passengerCount[passType]; i++) {
-				ret.push(i);
-			}
-
-			return ret;
-		};
-
-		HotelsSearchFormController.prototype.fillPreInittedPassengers = function (typesList, source) {
-			var tmp;
-
-			for (var i = 0; i < typesList.length; i++) {
-				tmp = this.passengersRestrictions()[typesList[i]];
-				if (tmp && source[typesList[i]]) {
-					if (source[typesList[i]] > tmp.max) {
-						source[typesList[i]] = tmp.max;
-					}
-					else if (source[typesList[i]] < tmp.min) {
-						source[typesList[i]] = tmp.min;
-					}
-
-					this.setPassengers(typesList[i], source[typesList[i]]);
-				}
-			}
-		};
-
 		HotelsSearchFormController.prototype.buildModels = function () {
-			var geo = [],
-				tmpass = {},
-				today = new Date(),
-				self = this;
+			var today = new Date();
 
 			// Checking for errors
 			if (this.$$rawdata.system && this.$$rawdata.system.error) {
@@ -875,9 +330,35 @@ define(
 			this.options = this.$$rawdata.flights.search.formData.maxLimits;
 			this.options.totalPassengers = parseInt(this.options.totalPassengers);
 
-			// Processing fast and full passengers selection
-			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
-			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
+            // TODO: Change when will be ready api
+            this.roomsUseExtendedSelect = true;
+            this.roomsFastSelectOptions = [
+                {
+                    rooms: 1,
+                    adults: 1,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 2,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 3,
+                    infants: []
+                },
+                {
+                    rooms: 1,
+                    adults: 4,
+                    infants: []
+                },
+                {
+                    rooms: 2,
+                    adults: 2,
+                    infants: []
+                }
+            ];
 
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
@@ -919,119 +400,41 @@ define(
 					);
 				}
 
-				// Setting other options
-				this.directFlights(this.preinittedData.direct);
-				this.vicinityDates(this.preinittedData.vicinityDates);
-				this.serviceClass(this.preinittedData.serviceClass);
+                // Add rooms from cookies
+                for (i = 0; i < this.preinittedData.rooms.length; i++) {
+                    if (this.preinittedData.rooms[i].hasOwnProperty('adults')) {
+                        this.rooms.push({
+                            adults: ko.observable(this.preinittedData.rooms[i].adults),
+                            infants: ko.observableArray(this.preinittedData.rooms[i].infants)
+                        });
+                    }
+                }
+
+                this.datesUnknown(this.preinittedData.datesUnknown);
 			}
 			else {
+                // Segments
                 this.addSegment(
                     null,
                     null,
                     null
                 );
 
-				// Processing other options
-				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
-				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
-
-				if (this.serviceClasses.indexOf(this.$$rawdata.flights.search.request.parameters.serviceClass) >= 0) {
-					this.serviceClass(this.$$rawdata.flights.search.request.parameters.serviceClass);
-				}
-
-				if (this.forceInitialTripType) {
-					this.tripType(this.forceInitialTripType);
-				}
-				else {
-					this.tripType(this.$$rawdata.flights.search.request.parameters.searchType);
-				}
+                // Rooms
+                this.rooms([
+                    {
+                        adults: ko.observable(1),
+                        infants: ko.observableArray([])
+                    }
+                ]);
 			}
 
-			// Passengers
-			// Processing passengers counts
-			var usePreInittedPassengers = this.mode == 'preinitted' && Object.keys(this.preinittedData.passengers).length > 0;
-			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
-				tmpass[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
-			}
-
-			for (var i in this.options.passengerCount) {
-				if (this.options.passengerCount.hasOwnProperty(i)) {
-					// If we use preInitted passengers - we don't need to set innitial couunt
-					tmpass[i] = ko.observable(tmpass[i] && !usePreInittedPassengers ? tmpass[i] : 0);
-				}
-			}
-
-			this.passengers(tmpass);
-
-			// We take preInitted if we have to and there is data regarding that.
-			// If not - standart processing by formData from server
-			if (usePreInittedPassengers) {
-				this.fillPreInittedPassengers(this.passengerAdultTypes, this.preinittedData.passengers);
-				this.fillPreInittedPassengers(this.passengerInfantTypes, this.preinittedData.passengers);
-
-				// Types that are not ADT/INF
-				tmp = [];
-
-				for (var i = 0; i < this.passengerTypesOrder.length; i++) {
-					if (
-						this.passengerAdultTypes.indexOf(this.passengerTypesOrder[i]) < 0 &&
-						this.passengerInfantTypes.indexOf(this.passengerTypesOrder[i]) < 0
-					) {
-						tmp.push(this.passengerTypesOrder[i]);
-					}
-				}
-
-				this.fillPreInittedPassengers(tmp, this.preinittedData.passengers);
-			}
+            this.infantsAges = helpers.getAges();
 
 			// All changes from now on will go to cookie
 			this.setCookies = true;
 
-			this.initialParams = this.URLParams();
 			this.parametersChanged(false);
-
-			// All seems OK - starting search if needed
-			if (this.mode == 'preinitted' && this.preinittedData.immediateSearch) {
-				this.$$loading(false);
-				this.startSearch();
-			}
-			else {
-				// Loading airlines
-				if (!this.carriersLoaded()) {
-					this.$$controller.loadData(
-						'/guide/airlines/all',
-						{},
-						function (text, request) {
-							try {
-								var tmp = JSON.parse(text);
-
-								if (tmp.guide && tmp.guide.airlines) {
-									for (var i in tmp.guide.airlines) {
-										if (tmp.guide.airlines.hasOwnProperty(i)) {
-											if (HotelsSearchFormController.prototype.carriers === null) {
-												HotelsSearchFormController.prototype.carriers = [];
-											}
-
-											HotelsSearchFormController.prototype.carriers.push(self.$$controller.getModel('Flights/Common/Airline', tmp.guide.airlines[i]));
-										}
-									}
-
-									self.carriersLoaded(true);
-								}
-								else {
-									self.$$controller.warn('Can not load carriers list, wrong data');
-								}
-							}
-							catch (e) {
-								self.$$controller.warn(e);
-							}
-						},
-						function () {
-							self.$$controller.warn('Can not load carriers list');
-						}
-					);
-				}
-			}
 		};
 
 		HotelsSearchFormController.prototype.addSegment = function (arrival, arrivalDate, departureDate) {
@@ -1049,27 +452,10 @@ define(
 			);
 		};
 
-		HotelsSearchFormController.prototype.continueCR = function () {
-			var segsCount = this.segments().length;
-
-			if (this.tripType() == 'CR' && segsCount < this.options.flightSegments) {
-				this.addSegment(this.segments()[segsCount - 1].items.arrival.value(), null, null);
-			}
-		};
-
-		HotelsSearchFormController.prototype.removeLastCRSegment = function () {
-			var segsCount = this.segments().length;
-
-			if (this.tripType() == 'CR' && segsCount > 1) {
-				this.segments.pop();
-			}
-		};
-
 		HotelsSearchFormController.prototype.$$usedModels = [
 			'Hotels/SearchForm/Segment',
 			'Common/Date',
-			'Hotels/Common/Geo',
-			'Flights/Common/Airline'
+			'Hotels/Common/Geo'
 		];
 
 		HotelsSearchFormController.prototype.dataURL = function () {
@@ -1087,7 +473,9 @@ define(
 			return ret;
 		};
 
-		HotelsSearchFormController.prototype.dataPOSTParameters = function () {
+
+        // TODO: Change when will be api
+        HotelsSearchFormController.prototype.dataPOSTParameters = function () {
 			var ret = {},
 				tmp = {};
 
@@ -1110,9 +498,33 @@ define(
 			return ret;
 		};
 
-		HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';
+        HotelsSearchFormController.prototype.roomAdd = function () {
+            this.rooms.push({
+                adults: ko.observable(1),
+                infants: ko.observableArray([])
+            });
+        };
 
-		HotelsSearchFormController.prototype.carriers = null;
+        HotelsSearchFormController.prototype.roomRemove = function (index) {
+            this.rooms.splice(index, 1);
+        };
+
+        HotelsSearchFormController.prototype.selectInfantAge = function (room, infant, age) {
+            var infants = this.rooms()[room].infants(),
+                newInfants = [];
+
+            for (var i = 0; i < infants.length; i++) {
+                if (i != infant) {
+                    newInfants.push(infants[i]);
+                } else {
+                    newInfants.push(age)
+                }
+            }
+
+            this.rooms()[room].infants(newInfants);
+        };
+
+		HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';
 
 		return HotelsSearchFormController;
 	}
