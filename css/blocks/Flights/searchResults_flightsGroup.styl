@@ -16,6 +16,7 @@
 			top: 50%;
 			margin: -40px 0 0 5px;
 			direction: rtl;
+			display: none;
 
 			&__item {
 				width: 70px;
@@ -60,7 +61,7 @@
 			text-overflow: ellipsis;
 
 			&_showcase {
-				visibility: hidden;
+				//visibility: hidden;
 			}
 		}
 
@@ -692,18 +693,11 @@
 		overflow: visible;
 	}
 
-	//&_common {
-	//	margin-top: 20px;
-	//
-	//	&:first-child {
-	//		margin-top: 0;
-	//	}
-	//}
-
-	//&_cheapest &__header__title,
-	//&_cheapest &__header__additional {
-	//background: #B23E13;
-	//}
+	&__pricingDebugLink {
+		padding: 10px;
+		text-align: right;
+		display: block;
+	}
 
 	&_bestCompanies {
 		margin-bottom: 20px;

@@ -319,6 +319,7 @@ define(
 			this.searchInfo = ko.observable({});
 
 			this.postFilters = ko.observableArray([]);
+			this.postFiltersObject = ko.observable({});
 			this.visiblePostFilters = ko.observableArray([]);
 			this.usePostfilters = false;
 
@@ -370,32 +371,7 @@ define(
 				Cookie.set(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie, newValue, { expires: 365 });
 			}, this);
 
-			this.sort.subscribe(function (newValue) {
-				switch (newValue) {
-					case 'price':
-						this.groups.sort(function (a, b) {
-							return a.getTotalPrice().normalizedAmount() - b.getTotalPrice().normalizedAmount();
-						});
-						break;
-					case 'durationOnLeg':
-						this.groups.sort(function (a, b) {
-							return a.durationOnLeg() - b.durationOnLeg();
-						});
-						break;
-					case 'rating':
-						this.groups.sort(function (a, b) {
-							return b.recommendRating() - a.recommendRating();
-						});
-						break;
-					case 'carrierRating':
-						this.groups.sort(function (a, b) {
-							return b.getValidatingCompany().rating - a.getValidatingCompany().rating;
-						});
-						break;
-				}
-
-				this.buildVisibleGroups();
-			}, this);
+			this.sort.subscribe(function (type) {this.doSort(type);}, this);
 
 			this.postFiltersHaveValue = ko.computed(function () {
 				var postfilters = this.postFilters();
@@ -428,6 +404,33 @@ define(
 			rtseg: /^([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})(\d{8})$/g,
 			segs: /([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})/g,
 			passengers: /([A-Z]{3})(\d+)/g
+		};
+
+		FlightsSearchResultsController.prototype.doSort = function (type) {
+			switch (type) {
+				case 'price':
+					this.groups.sort(function (a, b) {
+						return a.getTotalPrice().normalizedAmount() - b.getTotalPrice().normalizedAmount();
+					});
+					break;
+				case 'durationOnLeg':
+					this.groups.sort(function (a, b) {
+						return a.durationOnLeg() - b.durationOnLeg();
+					});
+					break;
+				case 'rating':
+					this.groups.sort(function (a, b) {
+						return b.recommendRating() - a.recommendRating();
+					});
+					break;
+				case 'carrierRating':
+					this.groups.sort(function (a, b) {
+						return b.getValidatingCompany().rating - a.getValidatingCompany().rating;
+					});
+					break;
+			}
+
+			this.buildVisibleGroups();
 		};
 
 		FlightsSearchResultsController.prototype.processInitParams = function () {
@@ -599,7 +602,7 @@ define(
 								data.system.error.message
 							);
 						}
-						else if (!data.flights.search.flightInfo.isAvail) {
+						else if (self.options.needCheckAvail && !data.flights.search.flightInfo.isAvail) {
 							self.bookingCheckInProgress(false);
 							self.bookingCheckError(self.$$controller.i18n('FlightsSearchResults', 'bookingCheck__error__error_unavailable'));
 						}
@@ -974,10 +977,8 @@ define(
 								this.groups.push(tmp);
 							}
 						}
-						if (this.options.showBlocks.useFlightCompareTable) {
-							this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true, controller:this}));
-							this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false, controller:this}));
-						}
+
+						this.buildCompareTables();
 
 						this.buildPFs();
 
@@ -1016,8 +1017,14 @@ define(
 				}
 			}
 
+			// Extension point
+			this.onSearchResultsBuilt();
+
 			this.resultsLoaded(true);
 		};
+
+		// Extension point - called when search results were processed
+		FlightsSearchResultsController.prototype.onSearchResultsBuilt = function () {/* EXTENSION HERE */};
 
 		FlightsSearchResultsController.prototype.buildModels = function () {
 			var self = this;
@@ -1049,6 +1056,7 @@ define(
 				}
 				// Loading results
 				else {
+                    /*return*/
 					this.$$controller.navigateReplace(
 						'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
 						false,
@@ -1099,7 +1107,13 @@ define(
 		FlightsSearchResultsController.prototype.buildPFs = function () {
 			var self = this,
 				filtersOrderObject = {},
+				filtersObject = {},
 				tmp;
+
+			// Cleaning initial state
+			this.postFilters([]);
+			this.visiblePostFilters([]);
+			this.postFiltersObject({});
 
 			// Creating filters
 			// Preparing filters array - flipping
@@ -1208,14 +1222,37 @@ define(
 			}
 
 			// Sorting
-			this.postFilters.sort(function (a, b) {
+			this.visiblePostFilters.sort(function (a, b) {
 				return filtersOrderObject[a.config.name] - filtersOrderObject[b.config.name] || a.config.legNumber - b.config.legNumber;
 			});
+
+			// Constructing filters object
+			this.postFilters().map(function (item) {
+				if (item.config.isLegged) {
+					if (!(item.config.name in filtersObject)) {
+						filtersObject[item.config.name] = [];
+					}
+
+					filtersObject[item.config.name].push(item);
+				}
+				else {
+					filtersObject[item.config.name] = item;
+				}
+			});
+
+			this.postFiltersObject(filtersObject);
 
 			// Setting postFilters to work
 			this.usePostfilters = true;
 
 			this.PFChanged();
+		};
+
+		FlightsSearchResultsController.prototype.buildCompareTables = function () {
+			if (this.options.showBlocks.useFlightCompareTable) {
+				this.flightsCompareTableDirect(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:true, controller:this}));
+				this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {groups: this.groups(), direct:false, controller:this}));
+			}
 		};
 
 		FlightsSearchResultsController.prototype.buildVisibleGroups = function () {

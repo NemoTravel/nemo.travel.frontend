@@ -64,6 +64,12 @@ define(
 					name: this.name
 				};
 			}
+
+			if (!this.country) {
+				this.country = {
+					name: this.countryCode || ''
+				};
+			}
 		}
 
 		// Extending from dictionaryModel

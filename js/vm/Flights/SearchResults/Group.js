@@ -149,7 +149,7 @@ define(
 
 				if (selectedFlight) {
 					for (var i = 0; i < selectedFlight.timeEnRouteByLeg.length; i++) {
-						if (selectedFlight.timeEnRouteByLeg[i].length() < duration) {
+						if (!duration || selectedFlight.timeEnRouteByLeg[i].length() < duration) {
 							duration = selectedFlight.timeEnRouteByLeg[i].length();
 						}
 					}
@@ -157,6 +157,7 @@ define(
 
 				return duration;
 			}, this);
+
 			this.durationOnLegString = ko.computed(function () {
 				var duration = 0,
 					selectedFlight;
@@ -175,6 +176,7 @@ define(
 
 				return this.$$controller.getModel('Common/Duration', duration);
 			}, this);
+
 			this.recommendRating = ko.computed(function () {
 				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]].recommendRating : 0;
 			}, this);

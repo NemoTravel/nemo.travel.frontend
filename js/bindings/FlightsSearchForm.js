@@ -35,6 +35,16 @@ define(
 				);
 
 				$(element).chosen(options);
+				//preventing strange glitch with "no results" <li> and focus
+				var closeChosen = function(){
+					console.log(element);
+					$(element).trigger('chosen:close')
+				};
+				$(document).on('click', '.no-results', closeChosen);
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(document).off('click', '.no-results', closeChosen);
+				});
+
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
@@ -46,7 +56,7 @@ define(
 				var text;
 
 				if (typeof item.label == 'undefined') {
-					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + '<span class="nemo-flights-form__geoAC__item__country">, ' + item.country.name + '</span>';
+					text = item.name.replace(new RegExp('('+this.term+')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>') + (item.country ? '<span class="nemo-flights-form__geoAC__item__country">, ' + item.country.name + '</span>' : '');
 				}
 				else {
 					text = item.label;
@@ -73,6 +83,8 @@ define(
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('FlightsSearchForm', 'autocomplete_noResults')}];
+
+				$element.on('focus', function (e) {$(this).val('');});
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
@@ -136,10 +148,10 @@ define(
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$(this).val(ui.item.name)
+						$element.val(ui.item.name)
 					},
 					close:function(){
-						$(this).val(' ')
+						$element.val('')
 					}
 
 				});
@@ -147,6 +159,7 @@ define(
 				$element.on('blur', function (e) {
 					$element.val('');
 				});
+
 				$element.on('keyup',function(e){
 					if(
 						e.keyCode == 13
@@ -273,11 +286,14 @@ define(
 					format: 'd.m.Y',
 					hideOnSelect: true,
 					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
-					render: function (dateObj) {
+					render: function (dateObj, month) {
 						var ret = viewModel.form.getSegmentDateParameters(dateObj, viewModel.index);
+
 						ret.className = '';
-						if (ret.segments.length > 0) {
+
+						if (ret.segments.length > 0 && dateObj.getMonth() == month) {
 							ret.className = 'nemo-pmu-date_hilighted';
+
 							for (var i = 0; i < ret.segments.length; i++) {
 								ret.className += ' nemo-pmu-date_hilighted_' + ret.segments[i];
 							}
@@ -299,26 +315,31 @@ define(
 						$element.trigger('nemo.fsf.segmentPropChanged');
 					},
 					beforeShow:function(){
-						var minDate =  bindingContext.$parent.options.dateOptions.minDate,
-							maxDate =  bindingContext.$parent.options.dateOptions.maxDate;
-						for(var segment in viewModel.form.segments()){
-							var $this = viewModel.form.segments()[segment];
-							if($this.index < viewModel.index
-								&&
-								$this.items.departureDate.value() != null)
-							{
-								minDate = $this.items.departureDate.value().dateObject();
-							}
-							if($this.index > viewModel.index
-								&&
-								$this.items.departureDate.value() != null)
-							{
-								maxDate = $this.items.departureDate.value().dateObject();
-								break;
+						var minDate = bindingContext.$parent.options.dateOptions.minDate,
+							maxDate = bindingContext.$parent.options.dateOptions.maxDate,
+							$elt = $(this);
+
+						if (bindingContext.$parent.options.dateOptions.incorrectDatesBlock) {
+							for (var segment in viewModel.form.segments()) {
+								var $this = viewModel.form.segments()[segment];
+								if($this.index < viewModel.index
+									&&
+									$this.items.departureDate.value() != null)
+								{
+									minDate = $this.items.departureDate.value().dateObject();
+								}
+								if($this.index > viewModel.index
+									&&
+									$this.items.departureDate.value() != null)
+								{
+									maxDate = $this.items.departureDate.value().dateObject();
+									break;
+								}
 							}
 						}
-						$(this).data('pickmeup-options').max = maxDate;
-						$(this).data('pickmeup-options').min = minDate;
+
+						$elt.data('pickmeup-options').max = maxDate;
+						$elt.data('pickmeup-options').min = minDate;
 					}
 				});
 			}

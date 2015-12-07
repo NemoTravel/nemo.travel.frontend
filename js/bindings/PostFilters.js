@@ -13,10 +13,11 @@ define(
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					values = viewModel.values(),
-					value = viewModel.value();
+					value = viewModel.value(),
+					type = viewModel.type == 'range' || viewModel.type;
 
-				$element.slider({
-					range: viewModel.type == 'range' || viewModel.type,
+				$element.addClass('nemo-ui-slider_'+type).slider({
+					range: type,
 					min: values.min,
 					max: values.max,
 					values: viewModel.type == 'range' ? [ value.min, value.max ] : (viewModel.type == 'min' ? value.max : value.min),

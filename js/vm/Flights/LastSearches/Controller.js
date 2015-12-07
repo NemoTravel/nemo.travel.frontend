@@ -17,7 +17,11 @@ define(
 			var tmpArr = [],
 				tmp;
 
-			if (this.$$rawdata.flights.search.history) {
+			if (
+				this.$$rawdata.flights &&
+				this.$$rawdata.flights.search &&
+				this.$$rawdata.flights.search.history
+			) {
 				for (var i = 0; i < this.$$rawdata.flights.search.history.length; i++) {
 					if (tmpArr.length >= this.maxCount) {
 						break;

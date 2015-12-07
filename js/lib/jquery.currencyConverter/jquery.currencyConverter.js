@@ -58,6 +58,20 @@ define(
 						},
 
 						/**
+						 * The format of these currencies is static
+						 * @var {Object}
+						 */
+						currencyFixedFormat: {
+							EUR: '0,0.00 $',
+							USD: '0,0.00 $',
+							GBP: '0,0.00 $',
+							AZN: '0,0.00 $',
+							BYR: '0,0 $',
+							KZT: '0,0 $',
+							UZS: '0,0 $'
+						},
+
+						/**
 						 * Object that contains currency names by their codes
 						 * @var {Object}
 						 */
@@ -191,6 +205,14 @@ define(
 						return;
 					}
 
+					if( currency in options.currencyFixedFormat ) {
+						format = options.currencyFixedFormat[currency]; //
+					}
+					var isDynamicConversionMode = currency && originalCurrency && currency !== originalCurrency;
+					if(isDynamicConversionMode){
+						eltRoundType = 'normal';
+					}
+
 					originalCurrency = originalCurrency.toUpperCase();
 
 					log('Processing element', $element, 'conversion to', currency);
@@ -302,6 +324,6 @@ define(
 					}
 				}
 			}
-		})(jQuery);
+		})($);
 	}
 );

@@ -348,7 +348,7 @@ define(
 						(segments[0].items.departure.value() ? (segments[0].items.departure.value().isCity ? 'c' : 'a') + segments[0].items.departure.value().IATA : '###') +
 						(segments[0].items.arrival.value() ? (segments[0].items.arrival.value().isCity ? 'c' : 'a') + segments[0].items.arrival.value().IATA : '###') +
 						(segments[0].items.departureDate.value() ? segments[0].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########') +
-						(segments[1].items.departureDate.value() ? segments[1].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
+						(segments[1] && segments[1].items.departureDate.value() ? segments[1].items.departureDate.value().dropTime().getISODate().replace(/-/g, '') : '########');
 				}
 				else {
 					for (var i = 0; i < segments.length; i++) {
@@ -629,14 +629,16 @@ define(
 				prevdate = this.options.dateOptions.minDate;
 				nextdate = null;
 
-				for (var j = 0; j < segments.length; j++) {
-					if (j < i && segments[j].items.departureDate.value()) {
-						if (!prevdate || prevdate < segments[j].items.departureDate.value().dateObject()) {
-							prevdate = segments[j].items.departureDate.value().dateObject();
+				if (this.options.dateOptions.incorrectDatesBlock) {
+					for (var j = 0; j < segments.length; j++) {
+						if (j < i && segments[j].items.departureDate.value()) {
+							if (!prevdate || prevdate < segments[j].items.departureDate.value().dateObject()) {
+								prevdate = segments[j].items.departureDate.value().dateObject();
+							}
 						}
-					}
-					else if (j > i && segments[j].items.departureDate.value() && !nextdate) {
-						nextdate = segments[j].items.departureDate.value().dateObject();
+						else if (j > i && segments[j].items.departureDate.value() && !nextdate) {
+							nextdate = segments[j].items.departureDate.value().dateObject();
+						}
 					}
 				}
 
@@ -709,7 +711,7 @@ define(
 			if (
 				this.forceSelfHostNavigation ||
 				this.$$controller.options.dataURL.indexOf('/') === 0 ||
-				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) === 0
+				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) < 0
 			) {
 				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'FlightsResults');
 			}
@@ -922,6 +924,8 @@ define(
 				today = new Date(),
 				self = this;
 
+			today.setHours(0,0,0,0);
+
 			// Checking for errors
 			if (this.$$rawdata.system && this.$$rawdata.system.error) {
 				this.$$error(this.$$rawdata.system.error.message);
@@ -939,7 +943,8 @@ define(
 
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
-			today.setHours(0,0,0,0);
+			this.options.dateOptions.incorrectDatesBlock = false;
+
 			this.options.dateOptions.minDate = new Date(today);
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
 			this.options.dateOptions.maxDate = new Date(today);
@@ -1109,6 +1114,10 @@ define(
 									}
 
 									self.carriersLoaded(true);
+
+									FlightsSearchFormController.prototype.carriers.sort(function (a, b) {
+										return a.name.localeCompare(b.name);
+									});
 								}
 								else {
 									self.$$controller.warn('Can not load carriers list, wrong data');

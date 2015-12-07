@@ -114,6 +114,19 @@ define(
 			}
 		};
 
+		PostFilterString.prototype.checkKeyExists = function (key) {
+			var values = this.values() || [],
+				i;
+
+			for (i = 0; i < values.length; i++) {
+				if (values[i].key == key) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 		PostFilterString.prototype.checkValue = function (obj) {
 			return this.checkValueWorker(obj, this.value());
 		};

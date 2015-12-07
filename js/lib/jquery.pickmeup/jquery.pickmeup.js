@@ -53,7 +53,7 @@
 		factory(require('jquery'));
 	} else {
 		// Browser globals
-		factory(jQuery);
+		factory($);
 	}
 }(function ($) {
 
@@ -399,6 +399,7 @@
 					var day = (localDate.getDay() - options.firstDay) % 7;
 					localDate.addDays(-(day + (day < 0 ? 7 : 0)));
 				})();
+
 				for (var j = 0; j < 42; ++j) {
 					day = {
 						text: localDate.getDate(),
@@ -413,7 +414,7 @@
 						day.className.push('nemo-pmu-saturday');
 					}
 					var today = new Date().setHours(0,0,0,0);
-					var from_user = options.render(new Date(localDate)) || {},
+					var from_user = options.render(new Date(localDate), current_month) || {},
 						val = localDate.valueOf(),
 						disabled = (options.min && options.min > localDate) || (options.max && options.max < localDate);
 					//collecting data for data-attributes
@@ -1220,7 +1221,7 @@
 			}else{
 				options = $.extend({}, $.pickmeup, passedArguments);
 			}
-			jQuery(this).pickmeup('destroy');
+			$(this).pickmeup('destroy');
 
 			var i,
 				option;

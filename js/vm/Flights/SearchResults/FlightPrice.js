@@ -27,6 +27,11 @@ define(
 					this.availableSeats[leg] = this.segmentInfo[i].avlSeats;
 				}
 			}
+
+			// Pricing debug
+			if (typeof this.pricingDebug != 'undefined' && this.pricingDebug.link.indexOf('//') < 0 && this.pricingDebug.link[0] != '/') {
+				this.pricingDebug.link = '/' + this.pricingDebug.link;
+			}
 		}
 
 		// Extending from dictionaryModel

@@ -19,7 +19,6 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-
 		background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
 	}
 
@@ -114,4 +113,16 @@
 	max-width: 400px;
 	overflow: visible;
 	padding: 0;
+	&+ .ui-dialog-buttonpane{
+
+	}
+}
+@media (max-device-width: 480px){
+	.nemo-authPopup{
+		&+ .ui-dialog-buttonpane{
+			button:nth-child(2){
+				display: none;
+			}
+		}
+	}
 }

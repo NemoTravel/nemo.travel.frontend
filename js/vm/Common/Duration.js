@@ -68,6 +68,27 @@ define(
 				return res.join(' ');
 			}, this);
 
+			this.readableStringAsTime = ko.computed(function(){
+				var res = [];
+
+				if(this.years() > 0){
+					res.push(this.years());
+				}
+				if(this.months() > 0 || res.length){
+					res.push(this.months());
+				}
+				if(this.days() > 0 || res.length){
+					res.push(this.days());
+				}
+
+				res.push(this.hours());
+				res.push(this.minutes());
+
+				res = res.map(this.prependZero);
+
+				return res.join(':');
+			}, this);
+
 			this.readableStringShortest = ko.computed(function(){
 				var res = [];
 

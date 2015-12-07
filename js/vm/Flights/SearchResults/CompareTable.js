@@ -4,6 +4,7 @@ define(
 	function (ko, helpers, BaseModel) {
 		function CompareTable (initialData) {
 			this.controller = initialData.controller;
+
 			var tempFlightGroups = initialData.groups,
 				tmpct = {},
 				tmpctDirect = {},
@@ -35,8 +36,7 @@ define(
 				}
 			}
 
-
-			for(var i in tmpctTransfer ) {
+			for(var i in tmpctTransfer) {
 				if (tmpctTransfer.hasOwnProperty(i)){
 					if (!isNaN(parseFloat(i)) && isFinite(i)){
 						tempGroupsArrTransfer[i] = tmpctTransfer[i];
@@ -46,7 +46,7 @@ define(
 				}
 			}
 
-			for(var i in tmpctDirect ) {
+			for(var i in tmpctDirect) {
 				if (tmpctDirect.hasOwnProperty(i)){
 					if (!isNaN(parseFloat(i)) && isFinite(i)){
 						tempGroupsArrDirect[i] = tmpctDirect[i];
@@ -55,6 +55,7 @@ define(
 					}
 				}
 			}
+
 
 			for (var i in tempGroupsArrTransfer){
 				tempGroupsArrTransfer[i].groupsFilteredOut = ko.computed(function() {
@@ -69,8 +70,8 @@ define(
 				}, tempGroupsArrTransfer[i]);
 			}
 
-			for (var i in tmpctDirect){
-				tmpctDirect[i].groupsFilteredOut = ko.computed(function() {
+			for (var i in tempGroupsArrDirect){
+				tempGroupsArrDirect[i].groupsFilteredOut = ko.computed(function() {
 					for (var j = 0; j < this.groups.length; j++) {
 						if (this.groups[j].filteredOut() == false) {
 							return false;
@@ -79,8 +80,10 @@ define(
 							return true;
 						}
 					}
-				}, tmpctDirect[i]);
+				}, tempGroupsArrDirect[i]);
 			}
+
+
 
 			if(tempGroupsArrTransfer.length>0){
 				tmpLongestTransfer = tempGroupsArrTransfer.sort(function(a, b) {
@@ -97,6 +100,13 @@ define(
 			}else{
 				tmpLongestDirect = 0;
 			}
+
+			tempGroupsArrTransfer.sort(function(a,b){
+				return a.groups[0].getTotalPrice().amount() - b.groups[0].getTotalPrice().amount()
+			});
+			tempGroupsArrDirect.sort(function(a,b){
+				return a.groups[0].getTotalPrice().amount() - b.groups[0].getTotalPrice().amount()
+			});
 
 
 			if(tmpLongestDirect >= tmpLongestTransfer){

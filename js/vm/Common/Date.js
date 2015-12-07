@@ -36,13 +36,27 @@ define(
 		CommonDate.prototype.update = function (initialData) {
 			var newDate = null;
 
-			// Parsing String from ISO format (YYYY-MM-DDTHH:II:SS)
-			// '2015-00-11T00:00:00'
-			if (typeof initialData == 'string' && this.regexes.fulltime.test(initialData)) {
-				newDate = new Date(initialData);
-			}
-			else if (typeof initialData == 'string' && this.regexes.date.test(initialData)) {
-				newDate = new Date(initialData+'T00:00:00');
+			// Parsing String from ISO format (YYYY-MM-DDTHH:II:SS),
+			// we consider all dates passed as dates in current timezone
+			if (typeof initialData == 'string') {
+				var fulltime = this.regexes.fulltime.test(initialData),
+					dateonly = this.regexes.date.test(initialData);
+
+				if (dateonly) {
+					initialData += 'T00:00:00';
+				}
+
+				if (fulltime || dateonly) {
+					newDate = new Date(initialData);
+					newDate.setFullYear(
+						parseInt(initialData.substr(0, 4), 10),
+						parseInt(initialData.substr(5, 2), 10) - 1,
+						parseInt(initialData.substr(8, 2), 10)
+					);
+					newDate.setHours(parseInt(initialData.substr(11, 2), 10));
+					newDate.setMinutes(parseInt(initialData.substr(14, 2), 10));
+					newDate.setSeconds(parseInt(initialData.substr(17, 2), 10));
+				}
 			}
 			else if (typeof initialData == 'object' && initialData instanceof Date) {
 				newDate = initialData;
