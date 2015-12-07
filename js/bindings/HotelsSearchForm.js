@@ -152,7 +152,7 @@ define(
 						$focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_arrival');
 					}
 					else if ($target.hasClass('js-autofocus-field_date_arrival')) {
-                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure').eq(0);
+                        $focusField = $segment.parents('.js-autofocus-form').find('.js-autofocus-field_date_departure');
 					}
 					else if ($target.hasClass('js-autofocus-field_date_departure')) {
                         $focusField = $segment.parents('.js-autofocus-form').find('.js-hotels-searchForm-passSelect').eq(0);

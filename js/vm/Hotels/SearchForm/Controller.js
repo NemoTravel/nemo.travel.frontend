@@ -240,6 +240,12 @@ define(
                     nextdate = segments[i].items.departureDate.value().dateObject();
                 }
 
+                if (prevdate.getTime() > nextdate.getTime()) {
+                    nextdate = prevdate;
+
+                    segments[i].items.departureDate.value(segments[i].items.arrivalDate.value());
+                }
+
 				this.dateRestrictions.push([prevdate, nextdate]);
 			}
 		};
@@ -258,10 +264,6 @@ define(
                     var today = new Date();
                     if (isArrival && dateObj.getTime() >= today.getTime()) {
                         ret.disabled = false;
-                    }
-
-                    if (isArrival && segments[i].items.arrivalDate.value().dateObject().getTime() > segments[i].items.departureDate.value().dateObject().getTime()) {
-                        segments[i].items.departureDate.value(segments[i].items.arrivalDate.value());
                     }
 
                     if (segments[i].items.arrivalDate.value().dateObject().getTime() <= dateObj.getTime()) {
