@@ -164,7 +164,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         padding-top: 5px;
       }
 
-      &__timeEnRoute {
+      &__timeEnStaying {
         &__subTitle {
           display: inline-block;
           vertical-align: top;
@@ -175,7 +175,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     }
   }
 
-  &__route, &__passengers, &__buttonContainer {
+  &__staying, &__passengers, &__buttonContainer {
     display: table-cell;
     vertical-align: top;
   }
@@ -193,18 +193,16 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     z-index: 1;
   }
 
-  &__route {
+  &__staying {
     padding: 0;
 
     &__segment {
       display: inline-block;
+      vertical-align: top;
       width: 100%;
       padding-bottom: 20px;
+      font-size: 0px;
 
-      &_RT {
-        font-size: 0px;
-        margin: 0px 0px 20px;
-      }
       &_returnSegment {
         width: 20%;
       }
@@ -452,7 +450,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     }
   }
 
-  &__routeOptions {
+  &__stayingOptions {
     display: table-row;
     height: 45px;
     &__inner {
@@ -475,7 +473,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     }
 
     &_CR &__item {
-      &_routeType, &_class {
+      &_stayingType, &_class {
         width: 39.4%;
       }
     }
@@ -483,11 +481,10 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     &__item {
       display: inline-block;
       vertical-align: middle;
-      padding-right: 20px;
       text-align: right;
       position: relative;
       z-index: 1;
-      margin: 0 105px 0 0;
+
       &__title {
         margin: 0;
       }
@@ -496,7 +493,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         cursor: pointer;
         border-bottom: 1px dotted;
       }
-      &_routeType, &_class {
+      &_stayingType, &_class {
         width: 80% * .379;
       }
 
@@ -573,6 +570,11 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         &:hover &__caption {
           color: darken($nemo-color-LightPoint, 1%);
         }
+      }
+      &_example {
+        width: 52%;
+        padding-right: 20px;
+        text-align: left;
       }
     }
   }
@@ -684,7 +686,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     }
   }
 
-  &__routeTypeSelector {
+  &__stayingTypeSelector {
     padding: 20px;
     position: relative;
     display: none;
@@ -835,7 +837,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
         color: $nemo-color-text-secondary;
       }
 
-      &__route {
+      &__staying {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -1002,7 +1004,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
     }
   }
 
-  &__popup {
+  &__RoomsPopup {
     &_addRoomButton {
       display: block;
       text-align: center;
@@ -1024,7 +1026,7 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       padding: 0 20px;
       position: relative;
 
-      &_delete {
+      &__delete {
         position: absolute;
         top: 10px;
         right: 10px;
@@ -1042,33 +1044,33 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
           background-color: rgba(0,0,0,0.05);
         }
       }
-      &_title {
+      &__title {
         margin: 0 0 10px 0;
       }
-      &_guests{
+      &__guests{
         display: inline-block;
         vertical-align: top;
         margin: 0 40px 20px 0;
 
-        &_title {
+        &__title {
           margin: 0 0 10px 0;
         }
-        &_adults {
+        &__adults {
           display: inline-block;
           vertical-align: top;
           margin: 0 20px 0 0;
         }
-        &_children {
+        &__children {
           display: inline-block;
           vertical-align: top;
         }
       }
-      &_ages {
+      &__ages {
         display: inline-block;
         vertical-align: top;
         max-width: 280px;
 
-        &_title {
+        &__title {
           margin: 0 0 10px 0;
         }
       }
