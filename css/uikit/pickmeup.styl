@@ -276,7 +276,7 @@ $instance_width=258px;
 	}
 }
 
-  .nemo-pmu-start {
+.nemo-pmu-start {
 	background: #88C43D;
 	position: relative;
 	color: #EEE;
@@ -290,7 +290,21 @@ $instance_width=258px;
 	  border-top: 15px solid transparent;
 	  border-left: 4px solid #88C43D;
 	  border-bottom: 15px solid transparent;
+	  transition: all $nemo-transition-main ease-in;
 	}
+
+  	&:hover:after {
+	content: '';
+	position: absolute;
+	right: -4px;
+	top: 0;
+	width: 0;
+	height: 0;
+	border-top: 15px solid transparent;
+	border-left: 4px solid $nemo-color-datepicker-highlight;
+	border-bottom: 15px solid transparent;
+	transition: all $nemo-transition-main ease-in;
+  }
   }
 
 .nemo-pmu-stop {
@@ -307,9 +321,22 @@ $instance_width=258px;
 	border-top: 14px solid transparent;
 	border-right: 5px solid #88C43D;
 	border-bottom: 14px solid transparent;
+	transition: all $nemo-transition-main ease-in;
+  }
+
+  &:hover:after {
+	content: '';
+	position: absolute;
+	left: -5px;
+	top: 0;
+	width: 0;
+	height: 0;
+	border-top: 14px solid transparent;
+	border-right: 5px solid $nemo-color-datepicker-highlight;
+	border-bottom: 14px solid transparent;
   }
 }
 
-  .nemo-pmu-interval {
+.nemo-pmu-interval {
 	background: #EDF6E3;
   }
