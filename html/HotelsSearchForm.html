@@ -313,7 +313,7 @@
             </div>
             <div class="nemo-hotels-form__RoomsPopup__room__ages">
                 <div class="nemo-hotels-form__RoomsPopup__room__ages__title"
-                     data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants_ages')"
+                     data-bind="text: infants().length > 0 ? $root.i18n('HotelsSearchForm','rooms_infants_ages') : ''"
                         >
                 </div>
                 <!-- ko foreach: infants -->

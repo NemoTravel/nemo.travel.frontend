@@ -10,7 +10,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 		       },
 		       _renderItem: function (ul, item) {
 			       var text;
-			       text = '<span class="nemo-hotels-form__route__segment_autocomplete_item__first">' +
+			       text = '<span class="nemo-hotels-form__staying__segment_autocomplete_item__first">' +
 			              helpers.highlight(item.name, this.term) +
                           '</span>' +
 			              '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' +
@@ -18,7 +18,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			              '</span>';
 
 			       return $("<li>")
-				       .addClass('nemo-hotels-form__route__segment_autocomplete_item')
+				       .addClass('nemo-hotels-form__staying__segment_autocomplete_item')
 				       .append(text)
 				       .attr('data-value',
                              typeof item.label == 'undefined')
@@ -32,7 +32,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				       var li;
 				       if (item.category != currentCategory) {
 					       $(ul).append(
-						       "<li class='nemo-hotels-form__route__segment_autocomplete_title ui-autocomplete-category'>" +
+						       "<li class='nemo-hotels-form__staying__segment_autocomplete_title ui-autocomplete-category'>" +
 								item.category +
 		                        "</li>");
 
@@ -42,7 +42,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				       li = that._renderItemData(ul, item);
 			       });
 
-			       $(ul).addClass('nemo-hotels-form__route__segment_autocomplete_container');
+			       $(ul).addClass('nemo-hotels-form__staying__segment_autocomplete_container');
 		       }
 	       });
 	       ko.bindingHandlers.hotelsFormGeoAC = {
