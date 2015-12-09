@@ -406,10 +406,10 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			       var context = bindingContext;
 
 			       if (mobileDetect().deviceType != 'phone') {
-				       $('.nemo-hotels-form__yearsPicker_mobile').attr('disabled', 'disabled')
+				       $('.js-nemo-hotels-form__yearsPicker_mobile').attr('disabled', 'disabled')
 			       }
 			       else {
-				       var $selectCurrent = $('.nemo-hotels-form__yearsPicker_mobile', element);
+				       var $selectCurrent = $('.js-nemo-hotels-form__yearsPicker_mobile', element);
 
 				       $selectCurrent.on('change', function (e) {
 					       e.preventDefault();
@@ -425,14 +425,14 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 
 			       $(element).on('click', function () {
 				       if (mobileDetect().deviceType == 'phone') {
-					       $('.nemo-hotels-form__yearsPicker_drop').remove();
+					       $('.js-nemo-hotels-form__yearsPicker_drop').remove();
 				       }
 
 				       if ($(this).hasClass('opened')) {
-					       $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+					       $('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
 				       }
 				       else {
-					       $('.nemo-hotels-form__yearsPicker_container').removeClass('opened');
+					       $('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
 					       $(this).addClass('opened');
 				       }
 			       });

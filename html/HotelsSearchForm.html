@@ -317,13 +317,13 @@
                         >
                 </div>
                 <!-- ko foreach: infants -->
-                <div class="nemo-hotels-form__yearsPicker_container"
+                <div class="nemo-hotels-form__yearsPicker_container js-nemo-hotels-form__yearsPicker_container"
                         data-bind="
                         infantsAgesSelector:null,
                         attr: {room: $parentContext.$index, infant:$index()}
                         ">
 
-                    <div class="nemo-hotels-form__yearsPicker_drop">
+                    <div class="nemo-hotels-form__yearsPicker_drop js-nemo-hotels-form__yearsPicker_drop">
                         <!-- ko foreach: $parentContext.$parent.infantsAges -->
                         <div class="nemo-hotels-form__yearsPicker_drop_item"
                              data-bind="
@@ -337,7 +337,7 @@
                         <div class="nemo-hotels-form__yearsPicker_drop_item"></div>
                         <div class="nemo-hotels-form__yearsPicker_drop_item"></div>
                     </div>
-                    <select name="" class="nemo-hotels-form__yearsPicker_mobile"
+                    <select name="" class="nemo-hotels-form__yearsPicker_mobile js-nemo-hotels-form__yearsPicker_mobile"
                             data-bind="
                             options: $parentContext.$parent.infantsAges,
                             value: $data,

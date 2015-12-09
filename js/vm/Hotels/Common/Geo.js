@@ -71,6 +71,6 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, hel
 			       }
 		       }
 	       };
-	
+
 	       return HotelsSearchFormGeo;
        });
