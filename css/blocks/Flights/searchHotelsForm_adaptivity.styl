@@ -1,6 +1,6 @@
 adapt_hotels_form_noOptsCaptions() {
   .nemo-hotels-form {
-    &__routeOptions {
+    &__stayingOptions {
       &__inner {
         display: block;
         width: 100%;
@@ -37,7 +37,7 @@ adapt_hotels_form_twoThirds() {
       width: 100%;
     }
 
-    &__routeTypeSelector_buttons {
+    &__stayingTypeSelector_buttons {
       display: block;
       text-align: center;
     }
@@ -47,22 +47,22 @@ adapt_hotels_form_twoThirds() {
       padding-left: 20px;
     }
 
-    &__routeOptions__item_routeType {
+    &__stayingOptions__item_stayingType {
       display: none;
     }
 
-    &__route, &__passengers, &__buttonContainer {
+    &__staying, &__passengers, &__buttonContainer {
       display: block;
       width: auto;
       position: relative;
     }
 
-    &__route {
+    &__staying {
       &__segment {
         width: 100%;
         font-size: 0;
         &_CR {
-          .nemo-hotels-form__route__segment__item {
+          .nemo-hotels-form__staying__segment__item {
             padding: 0 20px 0 0;
             width: 40%;
 
@@ -128,7 +128,7 @@ adapt_hotels_form_twoThirds() {
         }
 
         &_returnSegment {
-          .nemo-hotels-form__route__segment__item_date {
+          .nemo-hotels-form__staying__segment__item_date {
             width: 100%;
             padding-right: 0;
             padding-left: 10px;
@@ -152,7 +152,7 @@ adapt_hotels_form_twoThirds() {
       }
     }
 
-    &__routeOptions {
+    &__stayingOptions {
       display: none;
       position: relative;
       margin-top: 20px;
@@ -193,7 +193,7 @@ adapt_hotels_form_compact() {
       display: block;
     }
 
-    &__routeTypeSelector {
+    &__stayingTypeSelector {
       &__selectWrap, &__select {
         width: 100%;
         text-align: left;
@@ -209,12 +209,12 @@ adapt_hotels_form_compact() {
       }
     }
 
-    &__route, &__passengers, &__buttonContainer {
+    &__staying, &__passengers, &__buttonContainer {
       display: block;
       position: relative;
     }
 
-    &__route {
+    &__staying {
       &__switchToRT {
         line-height: 30px;
       }
@@ -272,7 +272,7 @@ adapt_hotels_form_compact() {
           display: inline;
         }
 
-        .nemo-hotels-form__route__segment__item__date__dummy {
+        .nemo-hotels-form__staying__segment__item__date__dummy {
           &_full {
             display: block;
           }
@@ -301,12 +301,12 @@ adapt_hotels_form_compact() {
       }
 
       &_OW, &_RT {
-        .nemo-hotels-form__route__segment__item_to {
+        .nemo-hotels-form__staying__segment__item_to {
           padding-bottom: 20px;
         }
       }
 
-      &_CR .nemo-hotels-form__route__segment {
+      &_CR .nemo-hotels-form__staying__segment {
         padding-bottom: 10px;
 
         &__item {
@@ -347,7 +347,7 @@ adapt_hotels_form_compact() {
       width: 100%;
     }
 
-    &__routeOptions {
+    &__stayingOptions {
       display: none;
       position: relative;
       margin-top: 20px;
@@ -365,7 +365,7 @@ adapt_hotels_form_compact() {
       &__item {
         vertical-align: top;
 
-        &_routeType {
+        &_stayingType {
           display: none
         }
 
@@ -377,8 +377,8 @@ adapt_hotels_form_compact() {
           top: -100px;
           z-index: 2;
 
-          .nemo-hotels-form__routeOptions__item__selector,
-          .nemo-hotels-form__routeOptions__item__selector__button {
+          .nemo-hotels-form__stayingOptions__item__selector,
+          .nemo-hotels-form__stayingOptions__item__selector__button {
             width: 100%;
             text-align: left;
             display: block;
@@ -391,7 +391,7 @@ adapt_hotels_form_compact() {
         }
       }
     }
-    &__route {
+    &__staying {
       &__segment {
         &_RT {
           margin: 0;
@@ -422,15 +422,15 @@ adapt_hotels_form_compact() {
       padding: 20px 30px;
     }
 
-    &__route__segment__item__date__dummy_full {
+    &__staying__segment__item__date__dummy_full {
       display: none;
     }
 
-    &__route__segment__item__date__dummy_short {
+    &__staying__segment__item__date__dummy_short {
       display: block;
     }
 
-    &__route {
+    &__staying {
       display: block;
       width: auto;
       position: relative;
@@ -445,7 +445,7 @@ adapt_hotels_form_compact() {
       padding: 0px 20px 0px 0px;
       z-index: 10;
     }
-    &__routeOptions {
+    &__stayingOptions {
       display: none;
     }
   }
@@ -473,7 +473,7 @@ adapt_hotels_form_twoThirds();
 
 @media (max-width: 700px) {
   .nemo-hotels-form {
-    &__routeTypeSelector {
+    &__stayingTypeSelector {
       &__button {
         padding-right: 10px;
         padding-left: 10px;
@@ -505,7 +505,7 @@ adapt_hotels_form_twoThirds();
 
 @media (max-width: 625px) {
   .nemo-hotels-form {
-    &__route {
+    &__staying {
       &_CR &__segment {
         &__item {
           &__date {
@@ -537,7 +537,7 @@ adapt_hotels_form_twoThirds();
 
 @media (max-width: 500px) {
   .nemo-hotels-form {
-    &__routeTypeSelector {
+    &__stayingTypeSelector {
       &_buttons {
         display: none;
       }
@@ -547,7 +547,7 @@ adapt_hotels_form_twoThirds();
       }
     }
 
-    &__route__segment__item__date__dummy .nemo-ui-dummiedInput__dummy__aux {
+    &__staying__segment__item__date__dummy .nemo-ui-dummiedInput__dummy__aux {
       display: none;
     }
 
