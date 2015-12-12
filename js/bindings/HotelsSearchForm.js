@@ -288,10 +288,6 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 
 								// Autofocus stuff
 								$element.trigger('nemo.fsf.segmentPropChanged');
-							},
-							beforeShow  : function () {
-								$(this).data('pickmeup-options').max = null;
-								$(this).data('pickmeup-options').min = null;
 							}
 				       }
 			       );
