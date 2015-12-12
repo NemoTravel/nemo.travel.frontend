@@ -5,6 +5,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       BaseControllerModel.apply(this, arguments);
 
 		       this.name = 'HotelsSearchFormController';
+
+		       this.maxInfants = 4;
+
 		       this.delayedSearch = true;
 		       this.searchError = ko.observable(false);
 		       this.segments = ko.observableArray([]);

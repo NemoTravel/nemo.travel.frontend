@@ -368,6 +368,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				       'spinstop',
 				       function () {
 					       var countInfants = $(element).spinner('value'), isDesktop = mobileDetect() == 'desktop';
+
 					       if (countInfants == 0) {
 						       context.$parent.rooms()[$(element).attr('room')].infants([]);
 					       }
@@ -375,7 +376,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						       if (context.$parent.rooms()[$(element).attr('room')].infants().length < countInfants) {
 							       context.$parent.rooms()[$(element).attr('room')].infants.push(0);
 							   }
-							   else {
+							   else if (countInfants < context.$parent.maxInfants) {
 							       context.$parent.rooms()[$(element).attr('room')].infants.splice(-1, 1);
 							   }
 							}
