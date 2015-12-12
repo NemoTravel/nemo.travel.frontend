@@ -194,6 +194,7 @@
                         data-bind="
 						click: startSearch,
 						css: {
+						    'nemo-ui-button_disabled': !searchEnabled(),
 						},
 						text: $root.i18n('HotelsSearchForm','searchButton__text')"></button>
             </div>

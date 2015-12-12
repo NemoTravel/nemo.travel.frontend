@@ -29,6 +29,14 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       this.parametersChanged = ko.observable(false);
 		       this.initialParams = '';
 
+		       this.searchAllowedByParamChange = ko.computed (function () {
+			       return this.parametersChanged() || !this.forceChangeToSearch;
+		       }, this);
+
+		       this.searchEnabled = ko.computed (function () {
+			       return (!this.validaTERROR() || this.isValid()) && this.searchAllowedByParamChange();
+		       }, this);
+
 		       this.processInitParams();
 
 		       this.segments.subscribe(function (newValue) {
