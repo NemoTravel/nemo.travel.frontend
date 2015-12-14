@@ -25,24 +25,15 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				       .appendTo(ul);
 		       },
 		       _renderMenu: function (ul, items) {
-			       var that = this,
-			           currentCategory = "";
+			       var that = this;
 
 			       $.each(items, function (index, item) {
-				       var li;
-				       if (item.category != currentCategory) {
-					       $(ul).append(
-						       "<li class='nemo-hotels-form__staying__segment_autocomplete_title ui-autocomplete-category'>" +
-								item.category +
-		                        "</li>");
+				       $.each(items, function(index, item) {
+					       that._renderItemData(ul, item);
+				       });
 
-					       currentCategory = item.category;
-				       }
-
-				       li = that._renderItemData(ul, item);
+				       $(ul).addClass('nemo-hotels-form__staying__segment_autocomplete_container');
 			       });
-
-			       $(ul).addClass('nemo-hotels-form__staying__segment_autocomplete_container');
 		       }
 	       });
 	       ko.bindingHandlers.hotelsFormGeoAC = {
@@ -54,19 +45,18 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 	                        appendTo : '.js-nemo-hotels-autocomplete',
 	                        minLength: 2,
 	                        source   : function (request, callback) {
-	                            // TODO: Remove when will be ready api
-	                            viewModel.$$controller.options.dataURL = 'http://www.booked.net/?page=search_json&langID=20&kw=';
+	                            var url = '/guide/autocomplete/cities/';
 
 	                            $.getJSON(
-		                            viewModel.$$controller.options.dataURL + encodeURIComponent(request.term),
+		                            viewModel.$$controller.options.dataURL + url + encodeURIComponent(request.term),
 		                            function (data) {
 		                                var result = [];
-		                                for (var i = 0; i < data.results.length; i++) {
+		                                for (var i = 0; i < data.guide.autocomplete.cities.length; i++) {
 			                                result.push(viewModel.$$controller.getModel(
 				                                                                    'Hotels/Common/Geo',
 		                                                                            {
-			                                                                            data : data.results[i],
-			                                                                            guide: data.results
+			                                                                            data : data.guide.autocomplete.cities[i],
+			                                                                            guide: data.guide
 		                                                                            }
 			                                            )
 			                                );

@@ -375,10 +375,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       }
 		       // Processing options
 		       // Passengers maximums
-		       this.options = this.$$rawdata.flights.search.formData.maxLimits;
+		       this.options = this.$$rawdata.hotels.search.formData.maxLimits;
 		       this.options.totalPassengers = parseInt(this.options.totalPassengers);
 
-		       // TODO: Change when will be ready api
 		       this.roomsUseExtendedSelect = true;
 		       this.roomsFastSelectOptions = [{
 			       rooms: 1, adults: 1, infants: []
@@ -393,7 +392,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       }];
 
 		       // Date options
-		       this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
+		       this.options.dateOptions = this.$$rawdata.hotels.search.formData.dateOptions;
 
 		       today.setHours(0, 0, 0, 0);
 		       this.options.dateOptions.minDate = new Date(today);
@@ -401,42 +400,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		                                                this.options.dateOptions.minOffset);
 		       this.options.dateOptions.maxDate = new Date(today);
 
-		       // TODO: Change offset when will be ready api
 		       this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() +
 		                                                this.options.dateOptions.maxOffset);
 
-		       // TODO: Remove this when will be ready api
-		       this.$$rawdata.guide = {};
-		       this.$$rawdata.guide[0] = {
-			       "id" : "18103",
-			       "n"  : "Нью-Йорк, NY, США",
-			       "cid": "18103",
-			       "u"  : "\/hotels\/us\/ny\/new-york",
-			       "hc" : "653",
-			       "sc" : "730600",
-			       "w"  : "601932",
-			       "t"  : "1"
-		       };
-		       this.$$rawdata.guide[1] = {
-			       "id" : "26833",
-			       "n"  : "Ньюпорт-Бич, CA, США",
-			       "cid": "26833",
-			       "u"  : "\/hotels\/us\/ca\/newport-beach-26833",
-			       "hc" : "20",
-			       "sc" : "30928",
-			       "w"  : "601932",
-			       "t"  : "1"
-		       };
-		       this.$$rawdata.guide[2] = {
-			       "id" : "18038",
-			       "n"  : "Нью-Дели, Индия",
-			       "cid": "18038",
-			       "u"  : "\/hotels\/india\/new-delhi",
-			       "hc" : "944",
-			       "sc" : "22287",
-			       "w"  : "601932",
-			       "t"  : "1"
-		       };
 
 		       // Processing segments
 		       if (this.mode == 'preinitted') {
@@ -510,8 +476,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 	       };
 	       HotelsSearchFormController.prototype.$$usedModels = ['Hotels/SearchForm/Segment', 'Common/Date', 'Hotels/Common/Geo'];
 	       HotelsSearchFormController.prototype.dataURL = function () {
-		       // TODO: Change when will be ready api
-		       var ret = '/flights/search/formData/';
+		       var ret = '/hotels/search/formData/';
 
 		       if (this.mode == 'tunesearch') {
 			       ret += this.tuneSearch;
@@ -523,7 +488,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 
 		       return ret;
 	       };
-	       // TODO: Change when will be api
+
 	       HotelsSearchFormController.prototype.dataPOSTParameters = function () {
 		       var ret = {},
 		           tmp = {};
@@ -537,7 +502,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			       ret.resources = {};
 
 			       Object.keys(tmp).map(function (n) {
-				       ret.resources["guide/airports/" + n] = {};
+				       ret.resources["guide/hotels/" + n] = {};
 				       ret.resources["guide/cities/" + n] = {};
 			       });
 
