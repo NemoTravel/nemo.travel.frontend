@@ -11,9 +11,9 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 		       _renderItem: function (ul, item) {
 			       var text;
 			       text = '<span class="nemo-hotels-form__staying__segment_autocomplete_item__first">' +
-			              helpers.highlight(item.name, this.term) +
+			              item.name +
                           '</span>' +
-			              '<span class="nemo-hotels-form__route__segment_autocomplete_item__second">' +
+			              '<span class="nemo-hotels-form__staying__segment_autocomplete_item__second">' +
                           item.country +
 			              '</span>';
 
@@ -235,8 +235,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 								var ret = viewModel.form.getSegmentDateParameters(
 									 dateObj,
 									 viewModel.index,
-									 $(this).hasClass('js-autofocus-field_date_arrival'
-								 )
+									 $(this).hasClass('js-autofocus-field_date_arrival')
 								);
 
 								ret.className = '';
