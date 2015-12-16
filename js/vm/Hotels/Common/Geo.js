@@ -13,7 +13,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, hel
 			       countryCode = this.pool.cities[this.id].countryCode;
 		       }
 
-		       this.name = this.pool.cities[this.id].name;
+		       this.name = this.pool.cities[this.id].name.trim();
 		       this.country = this.pool.countries[countryCode].name;
 	       }
 

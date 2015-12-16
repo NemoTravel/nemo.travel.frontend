@@ -29,11 +29,11 @@
                                     <!-- ko with: items.arrival.value() -->
                                     <span
                                         class="nemo-ui-dummiedInput__dummy__main js-autocomplete-dummy__main"
-                                        data-bind="text: name">
+                                        data-bind="text: name + (country != '' ? ', ' : '')">
                                     </span>
                                     <span
                                         class="nemo-ui-dummiedInput__dummy__aux js-autocomplete-dummy__aux"
-                                        data-bind="text: country != '' ? ', ' + country : ''">
+                                        data-bind="text: country">
                                     </span>
                                     <!-- /ko -->
                                     <!-- /ko -->
