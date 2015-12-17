@@ -351,7 +351,11 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			       ko.utils.registerEventHandler(
 				       element,
 				       'spinstop',
-				       function () {
+				       function (event) {
+					       if (event.keyCode != undefined) {
+						        return;
+					       }
+
 					       var countInfants = $(element).spinner('value'), isDesktop = mobileDetect() == 'desktop';
 
 					       if (countInfants == 0) {
@@ -405,21 +409,19 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 					       var infant = $self.attr('infant');
 					       var age = $(this).val();
 
-					       context.$parentContext.$parent.selectInfantAge(room, infant, age)
+					       context.$parentContext.$parent.selectInfantAge(room, infant, age);
 				       });
 			       }
 
-			       $(element).on('click', function () {
+			       $(element).on('click', function (e) {
 				       if (mobileDetect().deviceType == 'phone') {
 					       $('.js-nemo-hotels-form__yearsPicker_drop').remove();
 				       }
 
-				       if ($(this).hasClass('opened')) {
-					       $('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
-				       }
-				       else {
-					       $('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
+				       if (!$(this).hasClass('opened')) {
 					       $(this).addClass('opened');
+				       } else {
+					       $('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
 				       }
 			       });
 		       }

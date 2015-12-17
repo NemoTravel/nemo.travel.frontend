@@ -308,7 +308,7 @@
                          data-bind="text: $root.i18n('HotelsSearchForm','rooms_adults')"
                             ></div>
                     <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, max: 9, numberFormat: 'n' }, attr:{room: $index()}" />
+                        <input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, max: 9, numberFormat: 'n' }, attr:{room: $index()}"  readonly/>
                     </div>
                 </div>
                 <div class="nemo-hotels-form__RoomsPopup__room__guests__children">
@@ -316,7 +316,7 @@
                          data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants')"
                             ></div>
                     <div class="nemo-hotels-form__spinner">
-                        <input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, max: 4, numberFormat: 'n' }, attr:{room: $index()}" />
+                        <input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, max: 4, numberFormat: 'n' }, attr:{room: $index()}" maxlength="1" readonly />
                     </div>
                 </div>
             </div>
