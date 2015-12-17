@@ -44,6 +44,10 @@
                     <div class="nemo-hotels-form__staying__segment__item nemo-hotels-form__staying__segment__item_date nemo-hotels-form__staying__segment__item_date_to"
                          data-bind="css: {'nemo-hotels-form__staying__segment__item_hasError': $parent.validaTERROR() && items.arrivalDate.error()}">
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput nemo-hotels-form__staying__segment__item__date">
+                            <!-- ko if: $parent.validaTERROR() && items.arrivalDate.error() && items.arrivalDate.focus() -->
+                            <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__staying__segment__item__error"
+                                 data-bind="text: $root.i18n('HotelsSearchForm','error_hotels_arrivalDate_'+items.arrivalDate.error())"></div>
+                            <!-- /ko -->
                             <div class="nemo-hotels-form__staying__segment__item__date__indicator"
                                  data-bind="text: items.arrivalDate.value() ? items.arrivalDate.value().getDate() : 31">
                             </div>
@@ -95,6 +99,10 @@
                     <div class="nemo-hotels-form__staying__segment__item nemo-hotels-form__staying__segment__item_date nemo-hotels-form__staying__segment__item_date_from"
                          data-bind="css: {'nemo-hotels-form__staying__segment__item_hasError': $parent.validaTERROR() && items.departureDate.error()}">
                         <label class="nemo-ui-textInput nemo-ui-dummiedInput nemo-hotels-form__staying__segment__item__date">
+                            <!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() -->
+                            <div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__staying__segment__item__error"
+                                 data-bind="text: $root.i18n('HotelsSearchForm','error_hotels_departureDate_'+items.departureDate.error())"></div>
+                            <!-- /ko -->
                             <div class="nemo-hotels-form__staying__segment__item__date__indicator"
                                  data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31">
                             </div>

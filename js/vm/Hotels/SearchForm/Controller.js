@@ -118,7 +118,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			           result = true;
 
 			       if (segments.length) {
-				       result = segments[0].items.arrival.error();
+				       result = segments[0].items.arrival.error() ||
+				                segments[0].items.departureDate.error() ||
+				                segments[0].items.arrivalDate.error();
 			       }
 
 			       return !result;

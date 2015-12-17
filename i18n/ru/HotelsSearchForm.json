@@ -128,5 +128,7 @@
     "rooms_infants": "Дети (до 17 лет)",
     "rooms_infants_ages": "Возраст детей",
     "rooms_room_add": "Добавить еще номер",
-    "error_hotels_arrival_noInput": "Укажите город или отель"
+    "error_hotels_arrival_noInput": "Укажите город или отель",
+    "error_hotels_arrivalDate_noInput": "Укажите дату прибытия",
+    "error_hotels_departureDate_noInput": "Укажите дату отъезда"
 }
