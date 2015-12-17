@@ -525,19 +525,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       this.rooms.splice(index, 1);
 	       };
 	       HotelsSearchFormController.prototype.selectInfantAge = function (room, infant, age) {
-		       var infants = this.rooms()[room].infants(),
-		           newInfants = [];
+		       this.rooms()[room].infants()[infant] = age;
 
-		       for (var i = 0; i < infants.length; i++) {
-			       if (i != infant) {
-				       newInfants.push(infants[i]);
-			       }
-			       else {
-				       newInfants.push(age);
-			       }
-		       }
-
-		       this.rooms()[room].infants(newInfants);
+		       this.rooms.valueHasMutated();
 	       };
 	       HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';
 	       return HotelsSearchFormController;

@@ -426,4 +426,23 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			       });
 		       }
 	       };
+	       ko.bindingHandlers.infantsAgesSelect = {
+		       init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+			       var context = bindingContext;
+
+			       $(element).on('click', function (e) {
+				       e.preventDefault();
+
+				       var $self = $(element);
+				       var room = $self.attr('room');
+				       var infant = $self.attr('infant');
+				       var age = parseInt($(element).text());
+
+				       context.$parentContext.$parentContext.$parent.selectInfantAge(room, infant, age);
+
+				       var $select = $(element).closest('.js-nemo-hotels-form__yearsPicker_container').find('select');
+				       $select.val(age);
+			       });
+		       }
+	       };
        });
