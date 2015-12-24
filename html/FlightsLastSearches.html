@@ -1,7 +1,7 @@
 <!-- ko if: !$$loading() -->
 <div class="nemo-ui-select nemo-flights-lastSearches js-common-pseudoSelect" data-bind="if: history().length">
 	<div class="nemo-ui-select__toggle nemo-flights-lastSearches__toggler js-common-pseudoSelect__toggle"
-		 data-bind="pseudoSelect: {adjustWidth: false}, text: $root.i18n('FlightsLastSearches','select__title')"></div>
+	     data-bind="pseudoSelect: {adjustWidth: false}, text: $root.i18n('FlightsLastSearches','select__title')"></div>
 	<div class="nemo-ui-select__dropdown nemo-flights-lastSearches__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: history">
 		<div data-bind="
 					attr:{'class':'nemo-ui-select__dropdown__item nemo-flights-lastSearches__dropdown__option nemo-flights-lastSearches__dropdown__option_' + parameters.searchType},

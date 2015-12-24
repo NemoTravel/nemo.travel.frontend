@@ -19,6 +19,7 @@ define(
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
+			this.passengersSelectType = 'standart_passengers_select_type';
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -65,6 +66,7 @@ define(
 			this.initialParams = '';
 			this.useAdditionalOptions = true;
 			this.forceSelfHostNavigation = false;
+			this.forceLocationChange = false;
 			this.forceChangeToSearch = false;
 			this.forceInitialTripType = false;
 
@@ -499,6 +501,10 @@ define(
 					this.forceSelfHostNavigation = !!this.$$componentParameters.additional.forceSelfHostNavigation;
 				}
 
+				if ('forceLocationChange' in this.$$componentParameters.additional) {
+					this.forceLocationChange = !!this.$$componentParameters.additional.forceLocationChange;
+				}
+
 				if ('forceChangeToSearch' in this.$$componentParameters.additional) {
 					this.forceChangeToSearch = !!this.$$componentParameters.additional.forceChangeToSearch;
 				}
@@ -685,6 +691,24 @@ define(
 			}
 		};
 
+		FlightsSearchFormController.prototype.segmentDateChanged = function (segment) {
+			var segments = this.segments();
+
+			if (
+				segments.length - 1 > segment.index &&
+				segment.items.departureDate.value()
+			) {
+				for (var i = segment.index + 1; i < segments.length; i++) {
+					if (
+						segments[i].items.departureDate.value() &&
+						segments[i].items.departureDate.value().getTimestamp() < segment.items.departureDate.value().getTimestamp()
+					) {
+						segments[i].items.departureDate.value(null);
+					}
+				}
+			}
+		};
+
 		FlightsSearchFormController.prototype.processValidation = function () {
 			var segments;
 
@@ -709,9 +733,12 @@ define(
 			var urlAdder = this.URLParams();
 
 			if (
-				this.forceSelfHostNavigation ||
-				this.$$controller.options.dataURL.indexOf('/') === 0 ||
-				this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) < 0
+				!this.forceLocationChange &&
+				(
+					this.forceSelfHostNavigation ||
+					this.$$controller.options.dataURL.indexOf('/') === 0 ||
+					this.$$controller.options.dataURL.indexOf(document.location.protocol + '//' + document.location.host) === 0
+				)
 			) {
 				this.$$controller.navigate('results/' + (id ? id + '/' : '') + urlAdder, true, 'FlightsResults');
 			}
@@ -941,6 +968,7 @@ define(
 			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
 			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
+			this.passengersSelectType = this.$$rawdata.flights.search.formData.passengersSelect.passengersSelectType;
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
 			this.options.dateOptions.incorrectDatesBlock = false;

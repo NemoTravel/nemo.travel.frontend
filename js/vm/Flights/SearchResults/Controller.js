@@ -901,6 +901,39 @@ define(
 								);
 
 								setSegmentsGuide = false;
+
+								if (
+									this.segments[i].stopPoints != null &&
+									this.segments[i].stopPoints.length > 0
+								) {
+									// This is needed for not to link models to raw data
+									this.segments[i].stopPoints = helpers.cloneObject(this.segments[i].stopPoints);
+
+									for (var j = 0; j < this.segments[i].stopPoints.length; j++) {
+										this.segments[i].stopPoints[j].airport = this.$$controller.getModel(
+											'Flights/Common/Geo',
+											{
+												data: {
+													IATA: this.segments[i].stopPoints[j].airportCode
+												},
+												guide: null
+											}
+										);
+
+										this.segments[i].stopPoints[j].depDateTime = this.$$controller.getModel('Common/Date', this.segments[i].stopPoints[j].depDateTime);
+										this.segments[i].stopPoints[j].arrDateTime = this.$$controller.getModel('Common/Date', this.segments[i].stopPoints[j].arrDateTime);
+
+										this.segments[i].stopPoints[j].duration = this.$$controller.getModel(
+											'Common/Duration',
+											this.segments[i].stopPoints[j].depDateTime.getTimestamp() - this.segments[i].stopPoints[j].arrDateTime.getTimestamp()
+										);
+
+										this.segments[i].stopPoints[j].passengersLanding = !!this.segments[i].stopPoints[j].passengersLanding;
+									}
+								}
+								else {
+									this.segments[i].stopPoints = [];
+								}
 							}
 						}
 

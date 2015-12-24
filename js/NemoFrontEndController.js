@@ -102,7 +102,7 @@ define (
 
 					for(var i = 0; i < self.routes.length; i++) {
 						var match = fragment.match(self.routes[i].re);
-						console.log(match, fragment, self.routes[i].re);
+
 						if(match) {
 							match.shift();
 							return [self.routes[i].handler, match];
