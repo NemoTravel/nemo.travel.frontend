@@ -44,7 +44,7 @@
 	var nemoSourceHost = '<?php echo $host; ?>';
 	require.config({
 		// This should be deleted
-		urlArgs: "bust=" + (new Date()).getTime(),
+		urlArgs: "version=v1.38.2.1455722074",
 
 		// Common libraries
 		paths: {
@@ -81,61 +81,89 @@
 	require (
 		['AppController'],
 		function (AppController) {
-			var controller = new AppController(
-				document.getElementsByClassName('js-form')[0],
-				{
-					sourceURL: nemoSourceHost,
+			var options = {
+					controllerSourceURL: nemoSourceHost,
 					dataURL: 'http://conchita.mlsd.ru/api',
-					staticInfoURL: 'http://conchita.mlsd.ru',
+					version: 'v1.38.2.1455722074',
+					hostId: document.location.host,
 					root: '/',
-//						    verbose: true,
-					i18nLanguage: 'ru',
 					postParameters: {},
+					i18nLanguage: 'ru'
+				},
+				controller;
 
-					// Passing additional parametes to components
-					componentsAdditionalInfo: {
-						'Flights/SearchForm/Controller': {
-							forceSelfHostNavigation: true
-			                /*delayed: false,
-							init: {
-								direct: true,
-								serviceClass: 'Business',
-								vicinityDates: true,
-								passengers: {
-									ADT: 2,
-									INF: 1,
-									CLD: 2
-								},
-								segments: [
-									[
-										'KBP',
-										'LON',
-										'2015-05-31',
-										false,
-										true
-									],
-									[
-										'DME',
-										'IEV',
-										'2015-06-01',
-										false,
-										true
-									],
-									[
-										'LON',
-										'IEV',
-										'2015-06-07',
-										true,
-										false
-									]
-								]
-							}*/
-						}
+			/* FORM PRE-INIT BY SOME PARAMETERS
+			options.componentsAdditionalInfo = {
+				'Flights/SearchForm/Controller': {
+	                delayed: false,
+					init: {
+						direct: true,
+						serviceClass: 'Business',
+						vicinityDates: true,
+						passengers: {
+							ADT: 2,
+							INF: 1,
+							CLD: 2
+						},
+						segments: [
+							[
+								'KBP',
+								'LON',
+								'2015-05-31',
+								false,
+								true
+							],
+							[
+								'DME',
+								'IEV',
+								'2015-06-01',
+								false,
+								true
+							],
+							[
+								'LON',
+								'IEV',
+								'2015-06-07',
+								true,
+								false
+							]
+						]
 					}
 				}
-			);
+			}
+			*/
+
+//			options.templateSourceURL = '/html/' + options.hostId + '/' + options.version + '/' + options.i18nLanguage + '/';
+//			options.i18nURL           = '/i18n/';
+
+			controller = new AppController(document.getElementsByClassName('js-nemoApp')[0], options);
 		}
 	);
+
+//	require (
+//		['AppController'],
+//		function (AppController) {
+//			var controller = new AppController(
+//				document.getElementsByClassName('js-form')[0],
+//				{
+//					sourceURL: nemoSourceHost,
+//					dataURL: 'http://conchita.mlsd.ru/api',
+//					staticInfoURL: 'http://conchita.mlsd.ru',
+//					root: '/',
+////						    verbose: true,
+//					i18nLanguage: 'ru',
+//					postParameters: {},
+//
+//					// Passing additional parametes to components
+//					componentsAdditionalInfo: {
+//						'Flights/SearchForm/Controller': {
+//							forceSelfHostNavigation: true
+//						}
+//					}
+//				}
+//			);
+//		}
+//	);
 
 	// Extensions example
 	/*require (

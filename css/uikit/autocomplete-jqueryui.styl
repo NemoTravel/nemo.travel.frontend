@@ -12,13 +12,14 @@
 	background: $nemo-color-LightPoint;
 	border-radius: 4px;
 	box-shadow: 0 1px 16px $nemo-color-container-shadow;
+	border: none !important;
 
 	&__match {
 		background: rgba(#FF9731, 0.5);
 	}
 
 	&_open {
-		margin-top: 5px;
+		margin-top: 5px !important;
 	}
 
 	.ui-menu-item {
@@ -41,7 +42,11 @@
 	}
 
 	.ui-state-focus {
-		background: rgba($nemo-color-main, 0.1);
+		background: rgba($nemo-color-main, 0.1) !important;
+		border-left: none !important;
+		border-right: none !important;
+		border-top: none !important;
+		font-weight: normal !important;
 	}
 }
 

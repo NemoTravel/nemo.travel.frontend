@@ -16,5 +16,10 @@
 	"leg__segment__serviceClass__caption": "Класс",
 	"leg__segment__aircraft__caption": "Самолет",
 	"leg__segment__timeEnRoute__caption": "В пути",
-	"leg__timeEnRoute__caption": "В пути"
+	"leg__timeEnRoute__caption": "В пути",
+	"leg__stopover": "Техническая посадка",
+	"leg__stopover__terminal": "Терминал",
+	"leg__stopover__timeArrival": "С",
+	"leg__stopover__timeDeparture": "до",
+	"leg__stopover__passengerLanding": "Ожидание с выходом из самолета"
 }

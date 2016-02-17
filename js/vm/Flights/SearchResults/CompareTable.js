@@ -133,7 +133,7 @@ define(
 			this.allGroupsVisible = ko.observable(true);
 
 			this.indexHelper = ko.computed(function(){ //TODO refactor flag counting for ShowMore
-				 return [this.paginationShownPages() + this.paginationStep()-3,this.paginationShownPages() + this.paginationStep()-2, this.paginationShownPages() + this.paginationStep()-1]
+				return [this.paginationShownPages() + this.paginationStep()-3,this.paginationShownPages() + this.paginationStep()-2, this.paginationShownPages() + this.paginationStep()-1]
 			}, this);
 
 			this.paginationHasNext = ko.computed(function(){

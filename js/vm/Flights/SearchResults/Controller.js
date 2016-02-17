@@ -387,13 +387,13 @@ define(
 
 			this.compareTablesDisplayable = ko.computed(function () {
 				return (
-					this.flightsCompareTableDirect() &&
-					this.flightsCompareTableDirect().isDisplayable()
-				) ||
-				(
-					this.flightsCompareTableTransfer() &&
-					this.flightsCompareTableTransfer().isDisplayable()
-				);
+						this.flightsCompareTableDirect() &&
+						this.flightsCompareTableDirect().isDisplayable()
+					) ||
+					(
+						this.flightsCompareTableTransfer() &&
+						this.flightsCompareTableTransfer().isDisplayable()
+					);
 			}, this);
 		}
 
@@ -826,10 +826,10 @@ define(
 
 						for (var i = 0; i < matrixData.length; i++) {
 							var tmp = {
-									days: [],
-									hasResults: false,
-									minPrice: null
-								};
+								days: [],
+								hasResults: false,
+								minPrice: null
+							};
 
 							for (var j = 0; j < matrixData[i].length; j++) {
 								if (matrixData[i][j].price && (!tmp.minPrice || tmp.minPrice.normalizedAmount() > matrixData[i][j].price.normalizedAmount())) {
@@ -872,7 +872,7 @@ define(
 								this.segments[i].flightTime *= 60;
 								this.segments[i].flightTime = this.$$controller.getModel('Common/Duration', this.segments[i].flightTime);
 
-									// Aircraft
+								// Aircraft
 								this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
 
 								// Companies
@@ -901,6 +901,39 @@ define(
 								);
 
 								setSegmentsGuide = false;
+
+								if (
+									this.segments[i].stopPoints != null &&
+									this.segments[i].stopPoints.length > 0
+								) {
+									// This is needed for not to link models to raw data
+									this.segments[i].stopPoints = helpers.cloneObject(this.segments[i].stopPoints);
+
+									for (var j = 0; j < this.segments[i].stopPoints.length; j++) {
+										this.segments[i].stopPoints[j].airport = this.$$controller.getModel(
+											'Flights/Common/Geo',
+											{
+												data: {
+													IATA: this.segments[i].stopPoints[j].airportCode
+												},
+												guide: null
+											}
+										);
+
+										this.segments[i].stopPoints[j].depDateTime = this.$$controller.getModel('Common/Date', this.segments[i].stopPoints[j].depDateTime);
+										this.segments[i].stopPoints[j].arrDateTime = this.$$controller.getModel('Common/Date', this.segments[i].stopPoints[j].arrDateTime);
+
+										this.segments[i].stopPoints[j].duration = this.$$controller.getModel(
+											'Common/Duration',
+											this.segments[i].stopPoints[j].depDateTime.getTimestamp() - this.segments[i].stopPoints[j].arrDateTime.getTimestamp()
+										);
+
+										this.segments[i].stopPoints[j].passengersLanding = !!this.segments[i].stopPoints[j].passengersLanding;
+									}
+								}
+								else {
+									this.segments[i].stopPoints = [];
+								}
 							}
 						}
 
@@ -1000,8 +1033,8 @@ define(
 						// We haven't shown expiration warning popup and the time has come
 						if (
 							self.expirationPopupWarning.length() < self.expirationPopupExpired.length() &&
-								self.expirationPopupWarning.length() >= 0
-							) {
+							self.expirationPopupWarning.length() >= 0
+						) {
 							self.expirationPopupWarning.decrement();
 						}
 
@@ -1056,7 +1089,7 @@ define(
 				}
 				// Loading results
 				else {
-                    /*return*/
+					/*return*/
 					this.$$controller.navigateReplace(
 						'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
 						false,

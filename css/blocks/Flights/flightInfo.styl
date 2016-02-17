@@ -41,8 +41,9 @@
 
 			&__departue:after {
 				content: '';
-				width: 30px;
+				width: 20px;
 				height: 20px;
+				margin: 0 10px;
 				background: url('images/flights_flightInfo_legHeaderArrow.svg') center center no-repeat;
 
 				display: inline-block;
@@ -57,6 +58,10 @@
 			&__date {
 				white-space: nowrap;
 			}
+		}
+
+		&__segments {
+			border-bottom: 1px solid #B0B0B0;
 		}
 
 		&__segment {
@@ -154,10 +159,6 @@
 				}
 			}
 
-			&:last-child {
-				border-bottom: 1px solid #B0B0B0;
-			}
-
 			&:first-child &__time_departure,
 			&:last-child &__time_arrival {
 				opacity: 1;
@@ -186,6 +187,29 @@
 			&__terminalChange {
 				display: inline-block;
 				margin-left: 15px;
+			}
+		}
+
+		&__stopover {
+			padding: 5px 20px;
+			font-size: 13px;
+			line-height: 20px;
+			border-radius: 4px;
+			background: rgba($nemo-color-main, 0.25);
+			color: $nemo-color-text-secondary;
+			margin-bottom: 10px;
+
+			&__title, &__place, &__time, &__passLanding {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			&__place, &__time {
+				margin-right: 15px;
+			}
+
+			&__place, &__time__start, &__time__end, &__time__duration {
+				color: $nemo-color-text-main;
 			}
 		}
 

@@ -16,7 +16,7 @@ define(
 					value = viewModel.value(),
 					type = viewModel.type == 'range' || viewModel.type;
 
-				$element.addClass('nemo-ui-slider_'+type).slider({
+				$element.addClass('nemo-ui-slider_' + viewModel.type).slider({
 					range: type,
 					min: values.min,
 					max: values.max,

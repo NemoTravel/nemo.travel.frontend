@@ -40,6 +40,7 @@ define(
 				this.validate();
 			}, this);
 			this.items.departureDate.value.subscribe(function (newValue) {
+				this.form.segmentDateChanged(this);
 				this.form.recalcDateRestrictions();
 				this.validate();
 			}, this);

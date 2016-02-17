@@ -11,7 +11,7 @@ define (
 
 			this.routes = [
 				// Form with optional data from existing search
-				{re: /^(?:search\/(\d+)(?:\/.*)?)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^(?:search\/(\d+)(?:\/?.*)?)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				// Form with initialization by URL:
 				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
@@ -21,7 +21,7 @@ define (
 				// vicinityDates - vicinity dates flag
 				// class=Business - class definition
 				// GO - immediate search flag
-				{re: /^search\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^search\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				{re: /^results\/(\d+)(\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
 
@@ -102,7 +102,7 @@ define (
 
 					for(var i = 0; i < self.routes.length; i++) {
 						var match = fragment.match(self.routes[i].re);
-						console.log(match, fragment, self.routes[i].re);
+
 						if(match) {
 							match.shift();
 							return [self.routes[i].handler, match];
@@ -305,6 +305,8 @@ define (
 				requestsCompleted = 0,
 				loadArray = [];
 
+			errorCallback = errorCallback || function () {};
+
 			function checkReadiness () {
 				if (segmentsLoaded == loadArray.length) {
 					callback();
@@ -392,15 +394,20 @@ define (
 
 			// We use vanilla js because we don't know which of the third-party libraries are present on page
 			// TODO - make code more simple
-			if ( typeof XDomainRequest != "undefined" && url.indexOf(window.location.hostname) <= 0) {
+			if ( typeof XDomainRequest != "undefined") {
 				//This pitiful parody on a normal request is written solely for IE9. Kill it with fire when support will no longer be needed
 				var request = new XDomainRequest(),
-				POSTParams = '';
+					POSTParams = '';
 
-				request.open('GET', url+'&'+POSTParams);
 				if (typeof additionalParams == 'object' && additionalParams) {
 					POSTParams += (POSTParams ? '&' : '') + this.processPOSTParameters(additionalParams);
 				}
+
+				if (POSTParams) {
+					POSTParams = '?' + POSTParams;
+				}
+
+				request.open('GET', url + POSTParams);
 				request.onload = function(){
 					if(callback){
 						self.processServerData(request.responseText);
@@ -418,7 +425,8 @@ define (
 					request.send();
 				}, 0);
 				return request
-			}else{
+			}
+			else {
 				var request = new XMLHttpRequest(),
 					POSTParams = '';
 
