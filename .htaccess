@@ -6,6 +6,12 @@ RewriteBase /
 #RewriteRule ^(html/.*\.html)$ delay.php?tpl=$1
 #RewriteRule ^(js/.*\.js)$ delay.php?tpl=$1
 
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+AddCharset UTF-8 .json
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]*/)*[^/.]*$ index.php

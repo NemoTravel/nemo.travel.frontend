@@ -30,7 +30,8 @@ define (
 				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
 				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
-				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
+                {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'}
 			];
 			this.i18nStorage = {};
 
@@ -312,7 +313,9 @@ define (
 					callback();
 				}
 				else if (requestsCompleted == loadArray.length) {
-					errorCallback();
+					if (errorCallback != undefined) {
+						errorCallback();
+					}
 				}
 			}
 
@@ -429,6 +432,12 @@ define (
 			else {
 				var request = new XMLHttpRequest(),
 					POSTParams = '';
+
+				try {
+					// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
+					request.withCredentials = this.options.CORSWithCredentials;
+				} catch (e) {
+				}
 
 				if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
 					POSTParams += this.processPOSTParameters(this.options.postParameters);
