@@ -332,6 +332,10 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 
 		       return ret;
 	       };
+		   HotelsSearchFormController.prototype.goToResults = function (id) {
+                // var urlAdder = this.URLParams();
+                this.$$controller.navigate('hotels/results/' + (id ? id + '/' : ''), true, 'HotelsResults');
+		   };
 	       HotelsSearchFormController.prototype.startSearch = function () {
 		       function searchError (message, systemData) {
 			       if (typeof systemData != 'undefined' && systemData[0] !== 0) {
@@ -349,7 +353,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       if (!this.isValid()) {
 			       this.validaTERROR(true);
 			       this.processValidation();
-		       }
+		       } else {
+				   this.goToResults();
+			   }
 	       };
 	       HotelsSearchFormController.prototype.processValidation = function () {
 		       var segments;
