@@ -1,0 +1,199 @@
+.nemo-hotels-results__wrapper {
+	background: $c_content_bg;
+}
+.nemo-hotels-results {
+	padding: 0;
+
+	&__summary {
+		max-width: 1220px;
+		margin: 0 auto 10px;
+		padding: 10px 10px 0;
+		white-space: nowrap;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+		position: relative;
+
+		&__inner {
+			color: $c_common_textColor;
+
+			background: $nemo-color-LightPoint;
+			border-radius: 4px;
+
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: stretch;
+			flex:  0 1 auto;
+			min-width: 1px;
+			width: 100%;
+
+			cursor: pointer;
+		}
+
+		&__filterSwitch {
+			height: 40px;
+			line-height: 40px;
+			margin-right: 20px;
+			flex: 0 0 auto;
+			display: none;
+
+			&_active {
+				background: $nemo-color-main;
+				color: $nemo-color-LightPoint;
+
+				&:hover, &:active {
+					background: lighten($nemo-color-main, 10%);
+				}
+			}
+		}
+
+		&__area {
+			font-size: 13px;
+			line-height: 20px;
+			padding: 10px;
+			min-width: 1px;
+			flex-grow: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 13px;
+			line-height: 20px;
+			padding: 10px;
+			min-width: 1px;
+
+			&__segment {
+				margin-right: 10px;
+				display: inline;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__geo, &__date, &__guests {
+					display: inline;
+					vertical-align: top;
+				}
+					
+				&__date {
+					color: $nemo-color-text-secondary;
+					padding-left: 20px;
+				}
+
+				&__guests {
+					padding-left: 20px;
+				}
+}
+		}
+
+		&__switch {
+			flex-shrink: 0;
+			margin-left: auto;
+			height: 40px;
+			line-height: 40px;
+			background: $nemo-color-main;
+			font-size: 15px;
+
+			&:hover, &:active {
+				background: lighten($nemo-color-main, 10%);
+			}
+		}
+	}
+
+	&__switch {
+		flex-shrink: 0;
+		margin-left: auto;
+		height: 40px;
+		line-height: 40px;
+		background: $nemo-color-main;
+		font-size: 15px;
+
+		&:hover, &:active {
+			background: lighten($nemo-color-main, 10%);
+		}
+	}
+
+	&__content {
+		max-width: 1700px;
+		min-height: 85vh;
+		margin: 0 auto;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		&__postfilters,
+		&__offers {
+			flex-basis: 18%;
+			min-width: 280px;
+			flex-shrink: 0;
+		}
+
+		&__postfilters,
+		&__offers,
+		&__results {
+			margin: 0 10px;
+			flex-grow: 0;
+			align-self: stretch;
+		}
+
+		&__postfilters {
+			position: relative;
+			transition: all .2s;
+		}
+
+		&__results {
+			border-radius: 8px 8px 0 0;
+			flex: 0 1 64%;
+
+			&__hotelsGroup {
+				padding: 0;
+
+				&__header {
+					display: flex;
+					flex-flow: row nowrap;
+					justify-content: flex-start;
+					padding: 0;
+					margin: 0;
+					background-color: $nemo-color-LightPoint;
+					position: relative;
+					overflow: visible;
+
+					&__title {
+						display: flex;
+						justify-content: flex-start;
+					}
+
+					&__bestPrice {
+						position: absolute;
+						height: 100%;
+						padding: 16px 20px 16px 30px;
+						background: $c_highlight_warning;
+					}
+				}
+
+				&__rating {
+					padding: 10px 0;
+
+					&__item {
+						display: inline-block;
+						vertical-align: top;
+						width: 17px;
+						height: 19px;
+						background: url("images/flights_results_sprite.svg") -1px -80px no-repeat;
+						margin-left: 2px;
+
+						&:first-child {
+							margin: 0;
+						}
+
+						&__inner {
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
