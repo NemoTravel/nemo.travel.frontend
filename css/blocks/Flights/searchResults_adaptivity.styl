@@ -565,8 +565,8 @@ adapt_flights_results_condensedGroup();
 							.nemo-ui-select__toggle {
 								width: 100%;
 
-								max-width: 98vw!important;
-								min-width: 1px!important;
+								max-width: 98vw;
+								min-width: 1px;
 							}
 						}
 
@@ -625,11 +625,31 @@ adapt_flights_results_condensedGroup();
 		&__flightsGroup__header {
 			&__title {
 				display: none;
+
+				&_showcase{
+					display: block;
+					position: relative;
+					overflow: visible;
+					white-space: normal;
+					text-overflow: clip;
+				}
+
+				&__text{
+					display: inline-block;
+					line-height: 15px;
+					position: absolute;
+					top: 50%;
+					transform: translate(0px, -50%);
+				}
 			}
 
 			&__additional {
 				width: 100%;
 				text-align: center;
+
+				&_showcase{
+					width: auto;
+				}
 			}
 
 			&__logo {

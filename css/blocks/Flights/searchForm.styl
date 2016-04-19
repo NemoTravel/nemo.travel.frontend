@@ -47,6 +47,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		max-width: 1260px;
 		margin: 20px auto;
 		padding: 0 30px;
+
 		&__item {
 			display: inline-block;
 			vertical-align: top;
@@ -69,9 +70,8 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			&__dropdown {
 				left: 0;
 				right: auto;
-				max-width: 400px;
-				width: 100%;
 				min-width: 1px;
+				width: 400px;
 				padding: 20px;
 				color: #636467;
 				cursor: auto;
@@ -170,9 +170,38 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			&__timeEnRoute {
 				&__subTitle {
 					display: inline-block;
-					vertical-align: top;
+					vertical-align: middle;
 					padding: 5px 10px 0 0;
 					line-height: 20px;
+				}
+
+				&__select {
+					max-width: 100%;
+					vertical-align: middle;
+					margin-top: 5px;
+					min-height: 30px;
+					padding: 0 5px;
+					background-color: transparent;
+					border: $i_ui_input_border;
+
+					&:focus {
+						outline: none;
+						border: $i_ui_input_border_focus;
+					}
+				}
+			}
+
+			&__carrierSelect {
+				max-width: 100%;
+				vertical-align: middle;
+				min-height: 30px;
+				padding: 0 5px;
+				background-color: transparent;
+				border: $i_ui_input_border;
+
+				&:focus {
+					outline: none;
+					border: $i_ui_input_border_focus;
 				}
 			}
 		}
@@ -627,6 +656,91 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		&__fastSelect {
 			display: block;
 		}
+
+		&__buttonSelect {
+			display: block;
+
+			&__item {
+				padding: 10px 15px;
+				border-bottom: 1px solid #DCDCDC;
+				color: #0072AE;
+				font-size: 14px;
+				display: flex;
+				flex-flow: row nowrap;
+				flex-direction: flex-end;
+				align-items: center;
+				justify-content: flex-end;
+				cursor: auto;
+
+				&__name, &__count, &__desc {
+					display: inline-block;
+					vertical-align: middle;
+				}
+
+				&__count {
+					color: #6B6B6B;
+					padding: 0 20px 0 10px;
+					flex: 0 0 auto;
+
+					&__count {
+						display: inline-block;
+						vertical-align: top;
+						line-height: 30px;
+						width: 25px;
+						text-align: center;
+					}
+
+					&__plus, &__minus {
+						display: inline-block;
+						vertical-align: top;
+						width: 30px;
+						height: 30px;
+						border-radius: 50%;
+						border: 1px solid #CAE0ED;
+						transition: all .2s;
+						cursor: pointer;
+						position: relative;
+
+						&:hover {
+							background-color: #E1F5FF;
+						}
+
+						&_disabled {
+							opacity: 0;
+						}
+
+						&:after {
+							content: '';
+							background: url(images/fsf-sprite.svg);
+							width: 10px;
+							height: 10px;
+							position: absolute;
+							top: 9px;
+							left: 9px;
+						}
+					}
+
+					&__plus:after {
+						background-position: -35px -122px;
+					}
+
+					&__minus:after {
+						background-position: -35px -97px;
+					}
+				}
+
+				&__desc {
+					color: #A6A6A6;
+					width: 85px;
+					flex-shrink: 0;
+				}
+
+				&__name {
+					margin-right: auto;
+					white-space: normal;
+				}
+			}
+		}
 	}
 
 	&__passengersPopUp {
@@ -874,215 +988,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		}
 	}
 }
-.wurst-flights-form {
-	&__dates {
-		display: table-cell;
-		width: 20%;
-		vertical-align: top;
-		position: static;
-		border-radius: 4px;
-
-		&__container {
-			height: 50px;
-			line-height: 50px;
-			display: block;
-			vertical-align: top;
-			border-radius: 0;
-			border-right: 1px solid #DCDCDC;
-			font-size: 16px;
-			font-weight: bold;
-			color: #0072AE;
-
-			&__noDates {
-				color: #939393;
-			}
-
-			&, &:hover, &:active {
-				background: #fff;
-			}
-
-			&:after {
-				content: '';
-				border: 4px solid transparent;
-				border-top-color: #979696;
-				height: 0;
-				width: 0;
-				background: none;
-				border-bottom: 0;
-				margin-top: -2px;
-			}
-		}
-
-		&__dropdown {
-			top: 50px;
-			left: 10px;
-			right: 10px;
-			min-width: 1px;
-			color: #0072AE;
-			padding: 20px 45px 0;
-			cursor: auto;
-
-			.nemo-pmu-wrapper {
-				display: block;
-			}
-		}
-
-		&__datepicker {
-			.nemo-pmu-wrapper {
-				position: relative;
-				left: auto!important;
-				transform: none;
-				box-shadow: none;
-				margin: 0;
-			}
-		}
-	}
-
-	&__classSelect {
-		padding: 20px 15px;
-	}
-
-	&__passSelect {
-		&__item {
-			padding: 10px 15px;
-			border-bottom: 1px solid #DCDCDC;
-			color: #0072AE;
-			font-size: 14px;
-			display: flex;
-			flex-flow: row nowrap;
-			flex-direction: flex-end;
-			align-items: center;
-			justify-content: flex-end;
-			cursor: auto;
-
-			&__name, &__count, &__desc {
-				display: inline-block;
-				vertical-align: middle;
-			}
-
-			&__count {
-				color: #6B6B6B;
-				padding: 0 20px 0 10px;
-				flex: 0 0 auto;
-
-				&__count {
-					display: inline-block;
-					vertical-align: top;
-					line-height: 30px;
-					width: 25px;
-					text-align: center;
-				}
-
-				&__plus, &__minus {
-					display: inline-block;
-					vertical-align: top;
-					width: 30px;
-					height: 30px;
-					border-radius: 50%;
-					border: 1px solid #CAE0ED;
-					background: url(images/sprite_minus.svg);
-					transition: all .2s;
-					cursor: pointer;
-
-					&:hover {
-						background-color: #E1F5FF;
-					}
-
-					&_disabled {
-						opacity: 0;
-					}
-				}
-
-				&__plus {
-					background-position: -251px -111px;
-				}
-
-				&__minus {
-					background-position: -251px -86px;
-				}
-			}
-
-			&__desc {
-				color: #A6A6A6;
-				width: 85px;
-				flex-shrink: 0;
-			}
-
-			&__name {
-				margin-right: auto;
-				white-space: normal;
-			}
-		}
-	}
-
-	&__tripTypeSelect {
-		text-align: center;
-		direction: rtl;
-
-		&__label {
-			&__button {
-				color: #0072AE;
-			}
-
-			&:last-child {
-				margin-right: 5px!important;
-			}
-		}
-	}
-
-	&__vicinityDates {
-		position: absolute;
-		top: 20px;
-		right: 45px;
-		padding: 0;
-
-		&__caption {
-			font-size: 14px;
-			color: #6B6B6B;
-			line-height: 30px;
-
-			&:before {
-				top: 6px;
-			}
-		}
-	}
-
-	&__routeOptions__CRLink {
-		opacity: .6;
-		font-size: 12px;
-		line-height: 15px;
-		font-weight: bold;
-		display: inline-block;
-
-		&:link, &:hover, &:active, &:focus, &:visited {
-			color: #fff;
-			text-decoration: none;
-		}
-
-		&:hover {
-			opacity: 1;
-		}
-
-		&:after {
-			content: '';
-			display: inline-block;
-			vertical-align: middle;
-			width: 15px;
-			height: 15px;
-
-			background: url("img/sprite.svg") -9px -118px;
-		}
-	}
-}
 @keyframes nemo-flights-form__searchingInfoPopup__headerAnimation {
 	0% {transform: rotate(0deg);}
 	100% {transform: rotate(360deg);}
-}
-@media (max-width: 450px){
-	.wurst-flights-form__passSelect__item__desc{
-		width: 65px;
-	}
-	.wurst-flights-form__passSelect__item__count{
-		padding: 0 10px 0 10px;
-	}
 }

@@ -21,6 +21,25 @@
 						width: auto;
 						margin-right: 5px;
 					}
+
+					&_baggage &__value {
+						width: auto;
+						white-space: normal;
+					}
+				}
+
+				&__baggage {
+					display: inline-block;
+					white-space: nowrap;
+
+					&:after {
+						content: ',';
+						padding-right: .5em;
+					}
+
+					&:last-child:after {
+						content: '';
+					}
 				}
 			}
 		}
@@ -86,10 +105,20 @@
 				line-height: normal;
 			}
 
-			&__additional__item {
-				display: block;
-				max-width: 100%;
-				margin: 0;
+			&__additional {
+				&__item {
+					display: block;
+					max-width: 100%;
+					margin: 0;
+				}
+
+				&__baggage {
+					display: block;
+
+					&:after {
+						display: none;
+					}
+				}
 			}
 		}
 	}

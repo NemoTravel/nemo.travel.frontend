@@ -237,7 +237,7 @@ define(
 				},
 
 				_setOptions: function (options) {
-					this._super('_setOptions');
+					this._super(options);
 					this._resizeIframe();
 				},
 

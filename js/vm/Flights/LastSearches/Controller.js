@@ -81,8 +81,6 @@ define(
 
 		FlightsLastSearchesController.prototype.$$i18nSegments = ['FlightsLastSearches', 'FlightsSearchForm'];
 
-		FlightsLastSearchesController.prototype.$$KOBindings = ['FlightsLastSearches'];
-
 		return FlightsLastSearchesController;
 	}
 );

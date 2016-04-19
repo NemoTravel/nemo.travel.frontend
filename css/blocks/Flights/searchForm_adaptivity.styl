@@ -135,6 +135,10 @@ adapt_flights_form_twoThirds() {
 				width: 160px;
 				max-width: 160px;
 			}
+
+			&__fastSelect, &__buttonSelect {
+				right: inherit;
+			}
 		}
 
 		&__routeOptions {
@@ -308,6 +312,7 @@ adapt_flights_form_compact() {
 			padding: 0;
 			margin-bottom: 10px;
 			float: none;
+			z-index: auto;
 
 			&__container {
 				display: none;
@@ -319,6 +324,16 @@ adapt_flights_form_compact() {
 
 			&__fastSelect {
 				min-width: 100%;
+			}
+
+			&__buttonSelect__item {
+				&__desc{
+					width: 65px;
+				}
+
+				&__count{
+					padding: 0 10px 0 10px;
+				}
 			}
 		}
 
@@ -337,7 +352,7 @@ adapt_flights_form_compact() {
 			position: relative;
 			margin-top: 20px;
 			text-align: left;
-			z-index: 1;
+			z-index: auto;
 
 			&__inner {
 				padding: 0 0 20px;
@@ -373,6 +388,28 @@ adapt_flights_form_compact() {
 
 				&_multiDate {
 					margin-bottom: 5px;
+				}
+			}
+		}
+
+		&__additional {
+			&__parameters {
+				&__dropdown {
+					width: 100%;
+					max-width: 100%;
+				}
+
+				&__item {
+					&__title, &__content {
+						padding: 0;
+						display: block;
+						width: auto;
+						max-width: 100%;
+					}
+
+					&__title {
+						margin-bottom: 5px;
+					}
 				}
 			}
 		}

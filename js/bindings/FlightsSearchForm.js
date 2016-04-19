@@ -268,11 +268,11 @@ define(
 				return ko.bindingHandlers.flightsFormDatepicker._PMULocale;
 			},
 			_PMUbeforeShow: function(bindingContext, viewModel){
-				var minDate =  bindingContext.$parent.options.dateOptions.minDate,
-					maxDate =  bindingContext.$parent.options.dateOptions.maxDate,
+				var minDate =  viewModel.form.options.dateOptions.minDate,
+					maxDate =  viewModel.form.options.dateOptions.maxDate,
 					$elt = $(this);
 
-				if (bindingContext.$parent.options.dateOptions.incorrectDatesBlock) {
+				if (viewModel.form.options.dateOptions.incorrectDatesBlock) {
 					for (var i = 0, c = viewModel.form.segments().length; i < c; i++) {
 						var segment = viewModel.form.segments()[i];
 
@@ -330,11 +330,11 @@ define(
 					className: 'nemo-flights-form__datePicker',
 					locale: ko.bindingHandlers.flightsFormDatepicker._getPMULocale(bindingContext),
 					calendars: mobileDetect().deviceType != 'desktop' ? 1 : 2,
-					min: bindingContext.$parent.options.dateOptions.minDate,
-					max: bindingContext.$parent.options.dateOptions.maxDate,
+					min: viewModel.form.options.dateOptions.minDate,
+					max: viewModel.form.options.dateOptions.maxDate,
 					format: 'd.m.Y',
 					hideOnSelect: true,
-					defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
+					//defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
 					render: function (dateObj, month) {
 						return ko.bindingHandlers.flightsFormDatepicker._PMUrender.call(this, dateObj, viewModel, month);
 					},
@@ -372,7 +372,7 @@ define(
 		ko.bindingHandlers.flightsFormRTAutoFocus = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var setFocus = function(){
-					bindingContext.$parent.segments()[1].items.departureDate.focus(true)
+					setTimeout(function () {bindingContext.$parent.segments()[1].items.departureDate.focus(true);}, 10);
 				};
 				$(element).on('click', setFocus);
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {

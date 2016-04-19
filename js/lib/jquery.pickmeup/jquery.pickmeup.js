@@ -152,7 +152,7 @@
 		}
 	});
 	function currentCalendar(){
-		//@DIRTY HACK: in case of 2 calendars left one will be active, not right one
+		//DIRTY HACK: in case of 2 calendars left one will be active, not right one
 		var options = $(this).data('pickmeup-options');
 		if (options.calendars == 2) {
 			return ~~((options.calendars / 2) - 1)
@@ -931,7 +931,7 @@
 					if (left < viewport.l) {
 						left = pos.left + this.offsetWidth
 					}
-					if(instancesWidth + left + instanceCenter >= viewport.w || instanceCenter > left){
+					if(instancesWidth + left - instanceCenter >= viewport.w || instanceCenter > left){
 						instanceCenter = 0;
 					}
 					if (instancesWidth < viewport.w && instancesWidth+left-instanceCenter >= viewport.w + 20) {

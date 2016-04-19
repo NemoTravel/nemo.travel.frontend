@@ -6,7 +6,7 @@ define(
 			BaseModel.apply(this, arguments);
 
 			// Normalizing rating
-			this.rating = parseFloat(this.rating);
+			this.rating = Math.round(parseFloat(this.rating) * 100) / 100;
 			this.rating = !isNaN(this.rating) ? this.rating : 0;
 
 			if (!this.logo) {

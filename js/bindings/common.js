@@ -18,6 +18,18 @@ define(
 		 };
 		 */
 
+		ko.bindingHandlers.console = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var data = valueAccessor();
+
+				if (!(data instanceof Array)) {
+					data = [data];
+				}
+
+				console.log.apply(console, data);
+			}
+		};
+
 		ko.bindingHandlers.clickSelf = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				function doMagic (event) {
@@ -424,16 +436,16 @@ define(
 					var $dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
 						vpHeight = $(window).height(),
 						vpOffset = $(document).scrollTop(), // positive
-						rootOffset = $root.offset().top,
 						rootHeight = $root.outerHeight(),
+						rootOffset,// = $root.offset().top,
 						dropHeight;
 
 					e.preventDefault();
 
 					if (!$dropdown.length) {
+						console.log($root);
 						return;
 					}
-
 
 					$this.addClass('nemo-ui-select__toggle_open');
 
@@ -443,6 +455,7 @@ define(
 
 					if (options.reposition) {
 						// Process positioning
+						rootOffset = $root.offset().top
 						dropHeight = $dropdown.outerHeight();
 
 						if (

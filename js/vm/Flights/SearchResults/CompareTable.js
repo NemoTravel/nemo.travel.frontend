@@ -175,12 +175,17 @@ define(
 
 
 			BaseModel.apply(this, arguments);
+
+			if (this.transfersTypes.indexOf(this.transfersType) < 0) {
+				this.transfersType = this.transfersTypes[0];
+			}
 		}
 
 		// Extending from dictionaryModel
 		helpers.extendModel(CompareTable, [BaseModel]);
 
 		CompareTable.prototype.columnThreshold = 3;
+		CompareTable.prototype.transfersTypes = ['sum', 'min', 'max'];
 
 		CompareTable.prototype.paginationNext = function(){
 			if(this.paginationHasNext()){
@@ -215,5 +220,44 @@ define(
 				}
 			}
 		};
+
+		CompareTable.prototype.getTransfersCountForFlight = function (flight) {
+			var ret = 0,
+				transfers = flight.transfers.map(function (i) {return i.length});
+
+			switch (this.transfersType) {
+				case 'sum':
+					transfers.map(function (i) {ret += i;});
+					break;
+				case 'max':
+					ret = Math.max.apply(Math, transfers);
+					break;
+				case 'min':
+					transfers = transfers
+						.reduce(function(p, c) {
+								if (p.indexOf(c) < 0) p.push(c);
+								return p;
+							}, [])
+						.sort(function (a, b) {return a - b});
+
+					if (transfers[0] == 0 && transfers.length > 1) {
+						ret = transfers[1];
+					}
+					else {
+						ret = transfers[0];
+					}
+
+					break;
+			}
+
+			return ret;
+		};
+
+		CompareTable.prototype.getTransfersCountForFlightFormatted = function (flight) {
+			var ret = this.getTransfersCountForFlight(flight);
+
+			return ret + (flight.transfersCount > ret ? '+' : '');
+		};
+
 		return CompareTable;
 	});

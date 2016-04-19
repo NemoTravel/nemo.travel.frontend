@@ -1,7 +1,15 @@
 'use strict';
 define(
-	['knockout', 'jquery','jsCookie', 'jqueryUI','js/lib/jquery.mousewheel/jquery.mousewheel.min'],
-	function (ko, $, Cookie) {
+	[
+		'knockout',
+		'jquery',
+		'jsCookie',
+		'js/vm/helpers',
+		'jqueryUI',
+		'js/lib/jquery.mousewheel/jquery.mousewheel.min',
+		'js/lib/jquery.ui.popup/jquery.ui.popup'
+	],
+	function (ko, $, Cookie, helpers) {
 		// FlightsResults Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -450,30 +458,178 @@ define(
 		};
 
 		ko.bindingHandlers.flightsResultsBuyButtonFlightCheck = {
+			_worker: function ($element, valueAccessor) {
+				// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
+				var data = valueAccessor();
+
+				if (data.ids.length) {
+					if($element.parents('.js-flights-results__showcase').length > 0){
+						Cookie.set('nemo-showcaseFlight-' + data.ids[0], true, 30);
+					}
+
+					if (data.controller.options.needCheckAvail) {
+						$element.data('nemo-flights-results__bookingCheckInProgress',true);
+					}
+
+					data.controller.bookFlight(data.ids);
+				}
+			},
+			_hintContent: function (flight, i18n, valueAccessor) {
+				var ret = '';
+
+				if (flight) {
+					for (var i = 0; i < flight.warnings.length; i++) {
+						switch (flight.warnings[i].type) {
+							case 'stopovers':
+								ret += '<p class="nemo-flights-results__flightsWarnings__item">';
+								ret += i18n('FlightsSearchResults','flightsGroup__flightWarnings__stopovers')
+									.replace(
+									'[%-count-%]',
+									flight.warnings[i].data.count +
+									' ' +
+									i18n(
+										'FlightsSearchResults',
+										'flightsGroup__flightWarnings__stopovers__stop_' + helpers.getNumeral(flight.warnings[i].data.count, 'one', 'twoToFour', 'fourPlus')
+									)
+								);
+								ret += '</p>';
+								break;
+							default:
+								ret += '<p class="nemo-flights-results__flightsWarnings__item">' + i18n('FlightsSearchResults','') + '</p>';
+								break;
+						}
+					}
+				}
+
+				return '<div class="nemo-flights-results__flightsWarnings">' + ret + '</div>';
+			},
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var $element = $(element);
+				var $element = $(element),
+					touchmoveOccured = false,
+					isClickEmultated = false;
+
+				$element.on('touchstart', function (e) {
+					touchmoveOccured = false;
+				});
+
+				$element.on('touchend', function (e) {
+					if (!touchmoveOccured) {
+						e.stopPropagation();
+						e.preventDefault();
+
+						try {
+							$element.popup('destroy');
+						} catch (e) {/* do nothing */}
+
+						if (valueAccessor().controller.flights[valueAccessor().ids[0]].warnings.length) {
+							if (!$element.data('ui-popup')) {
+								$element.popup({
+									closeOnOverlayClick: false,
+									contentType: 'html',
+									modal: true,
+									draggable: false,
+									closeText: bindingContext.$root.i18n('common', 'popup_closeText'),
+									width: 'auto',
+									height: 'auto',
+									title: bindingContext.$root.i18n('FlightsSearchResults', 'flightsGroup__flightWarningsHeader'),
+									contentData: ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._hintContent(
+										valueAccessor().controller.flights[valueAccessor().ids[0]],
+										bindingContext.$root.i18n,
+										valueAccessor
+									),
+									buttons: [
+										{
+											text: bindingContext.$root.i18n('FlightsSearchResults', 'flightsGroup__flightWarningsReturn'),
+											click: function () {
+												try {
+													$element.popup('close');
+												}
+												catch(e){}
+											},
+											'class': 'ui-button_pseudoLink ui-button_secondary'
+										},
+										{
+											text: bindingContext.$root.i18n('FlightsSearchResults', 'flightsGroup__flightWarningsContinue'),
+											click: function () {
+												try {
+													$element.popup('close');
+												}
+												catch(e){}
+
+												ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._worker ($element, valueAccessor);
+											}
+										}
+									]
+								});
+							}
+							else {
+								$element.popup('open');
+							}
+						}
+						else {
+							ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._worker ($element, valueAccessor);
+						}
+					}
+
+					isClickEmultated = true;
+					setTimeout(function () {isClickEmultated = false;}, 100);
+				});
+
+				$element.on('touchmove', function (e) {
+					touchmoveOccured = true;
+				});
 
 				$element.on('click', function (e) {
-					// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
-					var data = valueAccessor();
-
-					if($element.parents('.js-flights-results__showcase')){
-						Cookie.set('nemo-showcaseFlight-'+data.ids,true,30)
-					}else{
-						Cookie.set('nemo-showcaseFlight-'+data.ids,false,30)
+					if (!isClickEmultated) {
+						ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._worker($element, valueAccessor);
 					}
-					if (data.ids.length) {
-						if (data.controller.options.needCheckAvail) {
-							$element.data('nemo-flights-results__bookingCheckInProgress',true);
-						}
+				});
 
-						data.controller.bookFlight(data.ids);
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					try{
+						$(element).tooltipster('destroy');
 					}
+					catch (e) {/* do nothing */}
+					try{
+						$(element).popup('destroy');
+					}
+					catch (e) {/* do nothing */}
 				});
 			},
 			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var data = valueAccessor(),
 					$element = $(element);
+
+				// Setting tooltip (for desktops)
+				if (data.ids.length && data.controller.flights[data.ids[0]].warnings.length) {
+					var tooltipContent = ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._hintContent(
+						data.ids.length ? data.controller.flights[data.ids[0]] : null,
+						bindingContext.$root.i18n,
+						valueAccessor
+					);
+
+					if ($element.data('tooltipsterNs')) {
+						$element.tooltipster('content', tooltipContent);
+					}
+					else {
+						$element.tooltipster({
+							offsetX: 0,
+							offsetY: 0,
+							contentAsHTML: true,
+							touchDevices: false,
+							content: '<div class="tooltipster-header">' +
+								bindingContext.$root.i18n('FlightsSearchResults', 'flightsGroup__flightWarningsHeader') +
+								'</div>' +
+								tooltipContent
+						});
+					}
+				}
+				else {
+					try{
+						$(element).tooltipster('destroy');
+					}
+					catch (e) {/* do nothing */}
+				}
 
 				if (data.controller.bookingCheckInProgress() && $element.data('nemo-flights-results__bookingCheckInProgress')) {
 					if (data.fixWidth) {

@@ -1,0 +1,172 @@
+@media (max-width: 1665px) {
+	.nemo-flights-results__flightsListGroup {
+		&__segment {
+			display: block;
+			padding-right: 0;
+			padding-left: 140px;
+			position: relative;
+
+			&__carrier {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+			}
+
+			&__selector {
+				display: block;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+			}
+
+			&__selected {
+				&:after {
+					right: 20px;
+				}
+
+				&__moreFlights {
+					display: block;
+				}
+
+				&_unopenable &__moreFlights {
+					display: none;
+				}
+			}
+
+			&:only-child &__selected {
+				padding: 7px 20px;
+				height: 65px;
+			}
+
+			&__additionalDetails {
+				padding: 10px 20px;
+				align-items: flex-start;
+
+				&__info {
+					display: flex;
+					flex-flow: row nowrap;
+				}
+			}
+
+			&__aux {
+				align-self: center;
+			}
+
+			&__timeEnRoute, &__transfers {
+				margin-bottom: 0;
+				flex: 0 0 auto;
+				min-width: 1px;
+			}
+
+			&__transfers {
+				flex-shrink: 1;
+			}
+
+			&__timeEnRoute {
+				width: 185px;
+			}
+		}
+	}
+}
+
+@media (max-width: 1500px) {
+	.nemo-flights-results__flightsListGroup {
+		display: block;
+
+		&__buyButtonCnt {
+			padding: 15px 20px;
+			border-left: 0;
+			border-top: $i_ui_subContainer_divider_border;
+			display: block;
+
+			&__inner {
+				text-align: right;
+				direction: rtl;
+			}
+		}
+
+		&__buyButton {
+			display: inline-block;
+			min-width: 1px;
+			direction: ltr;
+		}
+
+		&__fullDetails {
+			border-radius: $nemo-border-radius;
+			margin-right: 20px;
+		}
+	}
+}
+
+@media (max-width: 670px) {
+	.nemo-flights-results__flightsListGroup {
+		&__segment {
+			padding-left: 0;
+
+			&__carrier {
+				display: none;
+
+				&__logo {
+					max-height: 30px;
+				}
+			}
+				
+			&:first-child &__carrier {
+				display: flex;
+				width: 100%;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				height: 51px;
+				position: static;
+				top: auto;
+				left: auto;
+				right: auto;
+				bottom: auto;
+			}
+		}
+	}
+}
+
+
+@media (max-width: 525px) {
+	.nemo-flights-results__flightsListGroup {
+		&__segment {
+			&__selected {
+				padding-right: 25px;
+
+				&:after {
+					right: 10px;
+				}
+
+				&__moreFlights {
+					display: none;
+				}
+
+				&__departure, &__arrival {
+					width: 50%;
+				}
+
+				&__departure {
+					padding-right: 20px;
+
+					&:after {
+						right: -9px;
+					}
+				}
+
+				&__arrival {
+					padding-left: 20px;
+				}
+			}
+
+			&__timeEnRoute {
+				width: auto;
+				margin-right: 20px;
+			}
+
+			&__additionalDetails__info {
+				flex-direction: column;
+			}
+		}
+	}
+}

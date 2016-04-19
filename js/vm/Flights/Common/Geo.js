@@ -44,11 +44,13 @@ define(
 			this.country = this.pool.countries[this.countryCode] ? this.pool.countries[this.countryCode] : null;
 
 			this.name = '';
+			this.properName = '';
 			if (this.isCity && this.city) {
 				this.name = this.city.name;
 			}
 			else if (!this.isCity && this.airport) {
 				this.name = this.airport.name;
+				this.properName = this.airport.properName || this.airport.name;
 			}
 
 			this.identifier = '';

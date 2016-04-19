@@ -386,6 +386,15 @@ define(
 		Group.prototype.getValidatingCompany = function () {
 			return this.flights[0].getValidatingCompany();
 		};
+		
+		Group.prototype.getPackageCurrency = function () {
+			if(this.$$controller.viewModel.user.isB2B()) {
+				return this.flights[0].price.originalCurrency;
+			}
+			else {
+				return '';
+			}
+		};
 
 		return Group;
 	}

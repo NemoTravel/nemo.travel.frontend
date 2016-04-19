@@ -8,17 +8,23 @@ define(
 
 			BaseModel.apply(this, arguments);
 
+			this.rating = Math.round(parseFloat(this.rating) * 100) / 100;
+			this.ratingItems = [];
+
 			this.filteredOut = ko.observable(false);
 			this.segmentsByLeg = [];
 			this.legs = [];
 			this.totalTimeEnRoute = null;
 			this.timeEnRouteByLeg = [];
+			this.totalStopovers = 0;
 			this.transfers = [];
 			this.transfersCount = 0;
 			this.totalTimeTransfers = 0;
 			this.isDirect = true;
 			this.carriersMismatch = false;
 			this.carriersMismatchData = {};
+
+			this.warnings = [];
 
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
@@ -41,12 +47,23 @@ define(
 			// Calculating total time in flight
 			for (var i = 0; i < this.segmentsByLeg.length; i++) {
 				var timeForLeg = 0,
-					transferTimeForLeg = 0;
+					transferTimeForLeg = 0,
+					stopoversForLeg = 0,
+					stopoversForLegDuration = 0;
 
 				this.transfers.push([]);
 
 				for (var j = 0; j < this.segmentsByLeg[i].length; j++) {
 					timeForLeg += this.segmentsByLeg[i][j].flightTime.length();
+
+					// Stopovers
+					if (this.segmentsByLeg[i][j].stopPoints.length > 0) {
+						stopoversForLeg += this.segmentsByLeg[i][j].stopPoints.length;
+
+						for (var k = 0; k < this.segmentsByLeg[i][j].stopPoints.length; k++) {
+							stopoversForLegDuration += this.segmentsByLeg[i][j].stopPoints[k].duration.length();
+						}
+					}
 
 					// Transfer time
 					if (j > 0) {
@@ -56,7 +73,9 @@ define(
 							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp()),
 							place: this.segmentsByLeg[i][j].depAirp,
 							depTerminal: this.segmentsByLeg[i][j].depTerminal,
-							arrTerminal: this.segmentsByLeg[i][j-1].arrTerminal
+							arrTerminal: this.segmentsByLeg[i][j-1].arrTerminal,
+							depAirp: this.segmentsByLeg[i][j].depAirp,
+							arrAirp: this.segmentsByLeg[i][j-1].arrAirp
 						});
 
 						this.isDirect = false;
@@ -69,6 +88,7 @@ define(
 
 				this.totalTimeEnRoute += timeForLeg;
 				this.timeEnRouteByLeg.push(this.$$controller.getModel('Common/Duration', timeForLeg));
+				this.totalStopovers += stopoversForLeg;
 
 				this.legs.push({
 					depAirp: this.segmentsByLeg[i][0].depAirp,
@@ -79,12 +99,25 @@ define(
 					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg),
 					transfersCount: this.transfers[i].length,
 					classes: tmpClasses[i],
-					availSeats: this.price.availableSeats[i]
+					availSeats: this.price.availableSeats[i],
+					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
+					stopoversCount: stopoversForLeg
+				});
+			}
+
+			if (this.totalStopovers > 0) {
+				this.warnings.push({
+					type: 'stopovers',
+					data: {
+						count: this.totalStopovers
+					}
 				});
 			}
 
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
-			this.recommendRating = 0 - ((this.totalTimeEnRoute.length() * this.getTotalPrice().normalizedAmount()) / ((this.getValidatingCompany().rating || 0) + (this.isDirect ? 1 : 0) + 1));
+			this.recommendRating = !isNaN(this.rating) ? this.rating : 0;
+
+			this.buildRatingItems();
 		}
 
 		// Extending from dictionaryModel
@@ -92,12 +125,34 @@ define(
 
 		Flight.prototype.seatsAvailThreshold = 5;
 
+		Flight.prototype.ratingItemsCount = 5;
+		Flight.prototype.ratingMaximumValue = 10;
+
+		Flight.prototype.buildRatingItems = function () {
+			var rating = (this.recommendRating / this.ratingMaximumValue) * this.ratingItemsCount,
+				fullItems = Math.floor(rating),
+				lastItem = rating - fullItems;
+
+			for (var i = 0; i < this.ratingItemsCount; i++) {
+				this.ratingItems.push(i < fullItems ? 1 : (i == fullItems ? lastItem : 0));
+			}
+		};
+
 		Flight.prototype.clone = function () {
 			return this.$$controller.getModel('Flights/SearchResults/Flight', this.$$originalData);
 		};
 
 		Flight.prototype.getTotalPrice = function () {
 			return this.price.totalPrice;
+		};
+		
+		Flight.prototype.getPackageCurrency = function () {
+			if(this.$$controller.viewModel.user.isB2B()) {
+				return this.price.originalCurrency;
+			}
+			else {
+				return '';
+			}
 		};
 
 		Flight.prototype.getValidatingCompany = function () {

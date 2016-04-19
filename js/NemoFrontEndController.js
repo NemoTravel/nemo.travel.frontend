@@ -15,23 +15,27 @@ define (
 
 				// Form with initialization by URL:
 				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
+				// /IEVPEWd1PEWMOWd10ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
 				// IEV, PEW - IATAs with city priority, 20150718 - YYYY-MM-DD date
+				// d1 & d10 in second URL - relative dates
 				// ADT 3 INS 1 CLD 2 - Passenger types with corresponding counts
 				// direct - direct flights flag
 				// vicinityDates - vicinity dates flag
 				// class=Business - class definition
 				// GO - immediate search flag
-				{re: /^search\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^search\/((?:[A-Z]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
+
+				{re: /^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?$/, handler: 'Flights/ScheduleSearch/Controller'},
+				{re: /^scheduleSearch\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
 
 				{re: /^results\/(\d+)(\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
 
 				// Search by URL params
 				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
 				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
-				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Flights/SearchResults/Controller'},
+				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
-				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
-                {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'}
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
 			this.i18nStorage = {};
 
@@ -81,15 +85,15 @@ define (
 					}
 				},
 				getFragment: function() {
-					var controllerSourceURL = ('/' + this.clearSlashes(decodeURI(location.pathname + location.search))/*.replace(/\?(.*)$/, '')*/ + '/'),
+					var path = ('/' + this.clearSlashes(decodeURI(location.pathname + location.search))/*.replace(/\?(.*)$/, '')*/ + '/'),
 						fragment;
 
-					if (controllerSourceURL == '//') {
-						controllerSourceURL = '/';
+					if (path == '//') {
+						path = '/';
 					}
 
-					if (self.options.root == '/' || controllerSourceURL.indexOf(self.options.root) === 0) {
-						fragment = self.options.root != '/' ? controllerSourceURL.replace(self.options.root, '') : controllerSourceURL;
+					if (self.options.root == '/' || path.indexOf(self.options.root) === 0) {
+						fragment = self.options.root != '/' ? path.replace(self.options.root, '') : path;
 						return this.clearSlashes(fragment);
 					}
 
@@ -157,7 +161,8 @@ define (
 				},
 				user: {
 					id: ko.observable(0),
-					status: ko.observable('guest')
+					status: ko.observable('guest'),
+					isB2B: ko.observable('false')
 				}
 			};
 
@@ -176,11 +181,12 @@ define (
 			this.loadI18n(['common', 'pageTitles'], function () {
 				require (
 					[
-						/*this.options.controllerSourceURL + */'js/vm/BaseDynamicModel',
-						/*this.options.controllerSourceURL + */'js/vm/BaseStaticModel',
-						/*this.options.controllerSourceURL + */'js/vm/BaseI18nizedModel',
-						/*this.options.controllerSourceURL + */'js/vm/BaseControllerModel',
-						/*this.options.controllerSourceURL + */'js/bindings/common',
+						/*this.options.controllerSourceURL + */
+						'js/vm/BaseDynamicModel',
+						'js/vm/BaseStaticModel',
+						'js/vm/BaseI18nizedModel',
+						'js/vm/BaseControllerModel',
+						'js/bindings/common',
 						'domReady'
 					],
 					function (BaseDynamicModel, BaseStaticModel, BaseI18nizedModel, BaseControllerModel) {
@@ -313,9 +319,7 @@ define (
 					callback();
 				}
 				else if (requestsCompleted == loadArray.length) {
-					if (errorCallback != undefined) {
-						errorCallback();
-					}
+					errorCallback();
 				}
 			}
 
@@ -433,12 +437,6 @@ define (
 				var request = new XMLHttpRequest(),
 					POSTParams = '';
 
-				try {
-					// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
-					request.withCredentials = this.options.CORSWithCredentials;
-				} catch (e) {
-				}
-
 				if (typeof this.options.postParameters == 'object' && this.options.postParameters) {
 					POSTParams += this.processPOSTParameters(this.options.postParameters);
 				}
@@ -490,6 +488,7 @@ define (
 				if (data && data.system && data.system.info && data.system.info.user) {
 					this.viewModel.user.id(data.system.info.user.userID);
 					this.viewModel.user.status(data.system.info.user.status);
+					this.viewModel.user.isB2B(data.system.info.user.isB2B);
 
 					this.viewModel.agency.id(data.system.info.user.agencyID);
 					this.viewModel.agency.currency(data.system.info.user.settings.agencyCurrency);
@@ -516,7 +515,7 @@ define (
 			this.log('Detected component', name, callback);
 
 			callback({
-				viewModel: { require: self.options.controllerSourceURL + '/js/vm/' + name + '.js' },
+				viewModel: { require: /*self.options.controllerSourceURL + */'js/vm/' + name/* + '.js'*/ },
 				template: { require: 'text!' + self.options.templateSourceURL + template + '.html' }
 			});
 		};
