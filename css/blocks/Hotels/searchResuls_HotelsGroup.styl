@@ -1,0 +1,77 @@
+.nemo-hotels-results {
+    &__hotelsGroup {
+        padding: 0;
+
+        &__header {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow: visible;
+
+            &__title {
+                display: flex;
+                justify-content: flex-start;
+                padding-left: 20px;
+            }
+
+            &__bestPrice {
+                height: 100%;
+                padding: 0 20px 0 30px;
+                background: $c_highlight_warning;
+                color: $c_common_textColor;
+                position: relative;
+                border-top-right-radius: $nemo-border-radius;
+
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    right: 100%;
+                    content: '';
+                    display: block
+                    width: 0;
+                    height: 0;
+                    border-top: 25px solid transparent;
+                    border-right: 10px solid $c_highlight_warning;
+                    border-bottom: 25px solid transparent;
+                }
+            }
+        }
+        &__rating {
+            padding: 10px 0;
+            margin-left: 60px;
+            cursor: default;
+
+            &__item {
+                display: inline-block;
+                vertical-align: top;
+                width: 17px;
+                height: 19px;
+                background: url("images/flights_results_sprite.svg") -1px -110px no-repeat;
+                margin-top: 7px;
+                margin-left: 2px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &__inner {
+                    display: block
+                    height: 19px;
+                }
+            }
+        }
+
+        &__content {
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            &__mainInfo {
+                display: flex;
+                align-content: stretch;
+            }
+        }
+    }
+}
