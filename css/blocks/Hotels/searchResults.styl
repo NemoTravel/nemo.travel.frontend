@@ -124,14 +124,20 @@
 		align-items: flex-start;
 
 		&__postfilters,
-		&__offers {
+		&__sidebar {
 			flex-basis: 18%;
 			min-width: 280px;
 			flex-shrink: 0;
+			opacity: .75;
+			transition: all .2s;
+
+			&:hover {
+				opacity: 1;
+			}
 		}
 
 		&__postfilters,
-		&__offers,
+		&__sidebar,
 		&__results {
 			margin: 0 10px;
 			flex-grow: 0;
@@ -147,6 +153,10 @@
 			border-radius: 8px 8px 0 0;
 			flex: 0 1 64%;
 		}
+
+		&__sidebar {
+
+		}
 	}
 
 	&__groupList {
@@ -154,5 +164,7 @@
 			margin-bottom: 20px;
 		}
 	}
+
+
 
 }

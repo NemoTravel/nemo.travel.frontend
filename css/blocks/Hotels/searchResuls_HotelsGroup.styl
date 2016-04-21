@@ -78,16 +78,11 @@
 
         &__content {
             padding-top: 10px;
-            padding-bottom: 5px;
+            padding-bottom: 7px;
         }
 
         &__mainInfo {
             overflow: hidden
-
-            & * {
-                font-size: 12px;
-                line-height: 1.4em;
-            }
 
             &__photoWrap {
                 position: relative;
@@ -115,8 +110,15 @@
                 padding: 2px 0 10px 20px;
             }
 
+            &__address {
+                font-size: 12px;
+                line-height: 1.4em;
+            }
+
             &__distances {
                 position: relative;
+                font-size: 12px;
+                line-height: 1.4em;
 
                 &:before {
                     content: '';
@@ -137,6 +139,7 @@
 
             &__mapLink {
                 margin-left: 30px;
+                font-size: 12px;
             }
 
             &__district {
@@ -147,6 +150,7 @@
                 background: $c_highlight_warning;
                 margin-top: 2px;
                 line-height: 1.5em;
+                font-size: 12px;
 
                 &:after {
                     content: '';
@@ -164,6 +168,8 @@
             &__description {
                 position: relative;
                 padding-right: 20px;
+                font-size: 12px;
+                line-height: 1.3em;
 
                 &__link {
                     display: flex;
@@ -220,7 +226,7 @@
         &__rooms {
             border: 1px solid $nemo-color-button-secondary_g2;
             margin-top: 20px;
-            padding-top: 5px;
+            padding-top: 10px;
             border-radius: $nemo-border-radius;
             position: relative
 
@@ -257,7 +263,7 @@
         }
 
         &__room {
-            padding: 10px 20px;
+            padding: 5px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -309,7 +315,7 @@
 
         &__footer {
             text-align: right;
-            padding-top: 10px;
+            padding-top: 11px;
 
             &__orderBtn {
                 height: 60px;
@@ -326,9 +332,9 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: flex-end;
-                width: 115px;
+                width: 110px;
                 height: 100%;
-                padding-right: 20px;
+                padding-right: 17px;
             }
 
             &__price {
