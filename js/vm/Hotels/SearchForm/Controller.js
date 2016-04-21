@@ -333,11 +333,10 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       return ret;
 	       };
 		   HotelsSearchFormController.prototype.goToResults = function (id) {
-                // var urlAdder = this.URLParams();
-                this.$$controller.navigate('hotels/results/' + (id ? id + '/' : ''), true, 'HotelsResults');
+               this.$$controller.navigate('hotels/results/' + (id ? id + '/' : ''), true, 'HotelsResults');
 		   };
 	       HotelsSearchFormController.prototype.startSearch = function () {
-		       function searchError (message, systemData) {
+		       function searchError (message, systemData) { /*TODO: search error in html*/
 			       if (typeof systemData != 'undefined' && systemData[0] !== 0) {
 				       self.$$controller.error('SEARCH ERROR: ' + message, systemData);
 			       }
@@ -353,9 +352,62 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       if (!this.isValid()) {
 			       this.validaTERROR(true);
 			       this.processValidation();
-		       } else {
-				   this.goToResults();
-			   }
+		       }
+               else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
+                   this.goToResults();
+               } else {
+                   var self = this,
+                       params = {    /*TODO: create query*/
+                           cityId: '',
+                           hotelId: '',
+                           checkInDate: '',
+                           checkOutDate: '',
+                           isDelayed: this.delayedSearch,
+                           rooms: []
+                       };
+
+                   this.$$controller.log('STARTING SEARCH');
+                   self.searchError(false);
+                   // Processing other options
+                   // this.directFlights(this.$$rawdata.hotels.search.request.parameters.direct);
+                   
+                   /*this.searchRequest(
+                       this.$$controller.loadData(
+                           '/hotels/search/request',
+                           {request: JSON.stringify(params)},
+                           function (text, request) {
+                               var response;
+                   
+                               try {
+                                   response = JSON.parse(text);
+                   
+                                   // Checking for errors
+                                   if (!response.system || !response.system.error) {
+                                       // Empty results check (automatically passed if we have a delayed search)
+                                       if (
+                                           self.delayedSearch ||
+                                           !response.hotels.search.results.info.errorCode
+                                       ) {
+                                           self.goToResults(response.hotels.search.request.id);
+                                       }
+                                       else {
+                                           searchError('emptyResult');
+                                       }
+                                   }
+                                   else {
+                                       searchError('systemError', response.system.error);
+                                   }
+                               }
+                               catch (e) {
+                                   searchError('brokenJSON', text);
+                               }
+                           },
+                           function (request) {
+                               searchError('requestFailed', [request.status, request.statusText]);
+                           }
+                       )
+                   );*/
+               }
 	       };
 	       HotelsSearchFormController.prototype.processValidation = function () {
 		       var segments;

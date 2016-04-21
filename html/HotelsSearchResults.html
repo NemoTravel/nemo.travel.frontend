@@ -88,6 +88,16 @@
         </div>
     </section>
 
+    <!-- ko if: error -->
+    <div class="nemo-flights-results__error"> <!--TODO: internationalization-->
+        <div class="nemo-flights-results__error__header">Поиск не дал результатов</div>
+        <div class="nemo-flights-results__error__content">К сожалению, на указанные вами даты нет свободных отелей. Воспользуйтесь формой выше или вернитесь на главную страницу.</div>
+        <div class="nemo-flights-results__error__footer">
+            <div class="nemo-ui-button nemo-flights-results__error__footer__button">На главную</div>
+        </div>
+    </div>
+    <!-- /ko -->
+
     <section class="nemo-hotels-results__content">
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable">
             <div class="nemo-common-sticker__inner js-common-sticker__inner">
