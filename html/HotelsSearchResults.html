@@ -110,8 +110,23 @@
         </aside>
         <section class="nemo-ui-subContainer nemo-hotels-results__content__results">
 
+
             <section class="nemo-hotels-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-DatesMatrix_dummy', data: {}}"></section>
             <br><br><br><br><br>
+
+            <!-- ko if: !resultsLoaded() -->
+<!--
+            <div class="nemo-flights-results__content__results__loadingDummy">
+                <div class="ui-dialog-titlebar ui-dialog-titlebar_progress nemo-flights-form__searchingInfoPopup__header nemo-flights-results__content__results__loadingDummy__header">
+					<span class="ui-dialog-title">
+                        <span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText_timed')" style="display: none;"></span>
+						<span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText')"></span>
+					</span>
+                </div>
+            </div>
+            <div class="nemo-ui-subContainer__divider nemo-ui-subContainer__divider_bigMargin nemo-flights-results__content__results__loadingDummyDivider"></div>
+-->
+            <!-- /ko -->
 
             <div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile">
 
@@ -137,7 +152,9 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="nemo-hotels-results__hotelsGroup__header__additional">
+                                Лучшая цена
+                            </div>
                         </div>
 
                         <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content">
