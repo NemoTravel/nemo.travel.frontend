@@ -109,6 +109,10 @@
             </div>
         </aside>
         <section class="nemo-ui-subContainer nemo-hotels-results__content__results">
+
+            <section class="nemo-hotels-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-DatesMatrix_dummy', data: {}}"></section>
+            <br><br><br><br><br>
+
             <div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile">
 
                 <div class="nemo-hotels-results__groupList__item">
@@ -181,7 +185,9 @@
                                                 </span>
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__district">
-                                                Южная Борщаговка
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">
+                                                    Южная Борщаговка
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -215,10 +221,10 @@
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Двуспальная кровать или две односпальных кровати
                                                 </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Завтрак не включен
                                                 </li>
                                             </ul>
@@ -240,10 +246,10 @@
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Двуспальная кровать или две односпальных кровати
                                                 </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Завтрак не включен
                                                 </li>
                                             </ul>
@@ -385,10 +391,10 @@
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Двуспальная кровать или две односпальных кровати
                                                 </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Завтрак не включен
                                                 </li>
                                             </ul>
@@ -410,10 +416,10 @@
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Двуспальная кровать или две односпальных кровати
                                                 </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__reature">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
                                                     Завтрак не включен
                                                 </li>
                                             </ul>
@@ -669,4 +675,271 @@
 
         </aside>
     </section>
+
+    <script id="nemo-koTemplate-HotelsResults-DatesMatrix_dummy" type="text/html">
+        <div class="nemo-hotels-results__content__results__loadingDummy">
+            <div class="ui-dialog-titlebar ui-dialog-titlebar_progress nemo-hotels-form__searchingInfoPopup__header nemo-hotels-results__content__results__loadingDummy__header">
+                <svg class="nemo-loader nemo-loader__2 nemo-hotels-results__content__results__loadingDummy__loader" xmlns="http://www.w3.org/2000/svg" version="1.1" width="50" height="50" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="two_hues_1">
+                            <stop offset="0%" style="stop-color: rgba(255, 255, 255, .5);"></stop>
+                            <stop offset="100%" style="stop-color: rgba(255, 255, 255, 1);"></stop>
+                        </linearGradient>
+
+                        <linearGradient id="two_hues_2">
+                            <stop offset="0%" style="stop-color: rgba(255, 255, 255, .5);"></stop>
+                            <stop offset="100%" style="stop-color: rgba(255, 255, 255, 0);"></stop>
+                        </linearGradient>
+                    </defs>
+                    <g transform="rotate(445.731 50 50)">
+                        <path stroke="url(#two_hues_1)" stroke-linecap="butt" fill="none" stroke-width="12" d="M 20,50 A 30, 30, 45, 0, 1, 80,50">
+                        </path>
+                        <path stroke="url(#two_hues_2)" transform="rotate(0 50 50)" stroke-linecap="butt" fill="none" stroke-width="12" d="M 20,50 A 30, 30, 45, 0, 0, 80,50">
+                        </path>
+                        <animateTransform attributeType="xml" attributeName="transform" repeatCount="indefinite" type="rotate" additive="sum" dur="1.5s" keyTimes="
+                            0;
+                            .05;
+                            .95;
+                            1" calcMode="spline" keySplines="
+                            0 0 1 1;
+                            .5 .2 .5 .8;
+                            0 0 1 1
+                            " values="
+                            -90 50 50;
+                            -70 50 50;
+                            610 50 50;
+                            630 50 50
+                            ">
+                            /&gt;
+                        </animateTransform>
+                    </g>
+                </svg>
+                <span class="ui-dialog-title">
+                    <span>
+                        Отель «Опера»
+                    </span>
+                </span>
+                <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__results__loadingDummy__enoughBtn">
+                    Достаточно
+                </div>
+            </div>
+
+            <div class="nemo-hotels-results__searchingInfo">
+                <div class="nemo-hotels-results__searchingInfo__header" >
+                    Пожалуйста, подождите, мы ищем подходящие отели
+                </div>
+                <div class="nemo-hotels-results__searchingInfo__summary">
+                    <div class="nemo-hotels-results__searchingInfo__summary__inner">
+                        <div class="nemo-hotels-results__searchingInfo__summary__area">
+                            Будапешт, Венгрия
+                        </div>
+                        <div class="nemo-hotels-results__searchingInfo__summary__info">
+                            <span class="nemo-hotels-results__searchingInfo__summary__info__period">
+                                18 февраля — 21 февраля,
+                            </span>
+                            <span class="nemo-hotels-results__searchingInfo__summary__info__rooms">
+                                2 номера для 3 взрослых
+                            </span>
+                        </div>
+                    </div>
+                    <div class="nemo-ui-button nemo-hotels-results__searchingInfo__summary__changeBtn">
+                        Изменить
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="nemo-hotels-results__content__results__loadingDummy__groupList">
+                <div class="nemo-hotels-results__groupList__item">
+                    <div class="nemo-ui-subContainer nemo-hotels-results__hotelsGroup nemo-hotels-results__content__results__loadingDummy__item">
+                        <div class="nemo-ui-subContainer__header nemo-hotels-results__hotelsGroup__header nemo-hotels-results__content__results__loadingDummy__item__header">
+                            <div class="nemo-hotels-results__hotelsGroup__header__title">
+                                <span class="nemo-hotels-results__hotelsGroup__header__title__text nemo-hotels-results__content__results__loadingDummy__textItem nemo-hotels-results__content__results__loadingDummy__item__header__title"></span>
+                                <div class="nemo-hotels-results__hotelsGroup__stars nemo-hotels-results__content__results__loadingDummy__item__stars">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__header__additional">
+                                Лучшая цена
+                            </div>
+                        </div>
+                        <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content">
+                            <div class="nemo-hotels-results__hotelsGroup__mainInfo">
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap nemo-hotels-results__content__results__loadingDummy__item__image"></div>
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating nemo-hotels-results__content__results__loadingDummy__item__rating">
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__number nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__link nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                </div>
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
+                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotels-results__content__results__loadingDummy__item__distances">
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotels-results__content__results__loadingDummy__item__address nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotels-results__content__results__loadingDummy__item__distance nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink nemo-hotels-results__content__results__loadingDummy__item__mapLink nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__district nemo-hotels-results__content__results__loadingDummy__item__district"></div>
+                                        </div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__description nemo-hotels-results__content__sidebar__offer__description">
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__description__text nemo-hotels-results__content__results__loadingDummy__item__description  nemo-hotels-results__content__results__loadingDummy__textItem"></div>
+                                        <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link nemo-hotels-results__content__sidebar__offer__description__link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__rooms nemo-hotels-results__content__results__loadingDummy__rooms">
+                                <div class="nemo-hotels-results__hotelsGroup__rooms__title">
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__title__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                </div>
+                                <ul class="nemo-hotels-results__hotelsGroup__roomsList">
+                                    <li class="nemo-hotels-results__hotelsGroup__room">
+                                        <div class="nemo-hotels-results__hotelsGroup__room__info">
+                                            <div class="nemo-hotels-results__hotelsGroup__room__title">
+                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__count nemo-hotels-results__content__results__loadingDummy__item__rooms__room__count nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap nemo-hotels-results__content__results__loadingDummy__item__rooms__room__iconWrap">
+                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
+                                                    </span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__text nemo-hotels-results__content__results__loadingDummy__item__rooms__room__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                            </div>
+                                            <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
+                                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__room__feature1 nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                </li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
+                                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__room__feature2 nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <span class="nemo-hotels-results__hotelsGroup__room__additional nemo-hotels-results__content__results__loadingDummy__item__rooms__room__additional nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    </li>
+                                </ul>
+                                <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
+                                    <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
+                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
+                                            Все доступные номера
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__footer">
+                                <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__orderBtn nemo-hotels-results__hotelsGroup__room__additional nemo-hotels-results__content__results__loadingDummy__item__orderBtn">
+                                    <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__price nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__period nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__footer__arrow nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-hotels-results__groupList__item">
+                    <div class="nemo-ui-subContainer nemo-hotels-results__hotelsGroup nemo-hotels-results__content__results__loadingDummy__item">
+                        <div class="nemo-ui-subContainer__header nemo-hotels-results__hotelsGroup__header nemo-hotels-results__content__results__loadingDummy__item__header">
+                            <div class="nemo-hotels-results__hotelsGroup__header__title">
+                                <span class="nemo-hotels-results__hotelsGroup__header__title__text nemo-hotels-results__content__results__loadingDummy__textItem nemo-hotels-results__content__results__loadingDummy__item__header__title"></span>
+                                <div class="nemo-hotels-results__hotelsGroup__stars nemo-hotels-results__content__results__loadingDummy__item__stars">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item nemo-hotels-results__content__results__loadingDummy__item__stars__item">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content">
+                            <div class="nemo-hotels-results__hotelsGroup__mainInfo">
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap nemo-hotels-results__content__results__loadingDummy__item__image"></div>
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating nemo-hotels-results__content__results__loadingDummy__item__rating">
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__number nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rating__link nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                </div>
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
+                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotels-results__content__results__loadingDummy__item__distances">
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotels-results__content__results__loadingDummy__item__address nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotels-results__content__results__loadingDummy__item__distance nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink nemo-hotels-results__content__results__loadingDummy__item__mapLink nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__district nemo-hotels-results__content__results__loadingDummy__item__district"></div>
+                                        </div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__description nemo-hotels-results__content__sidebar__offer__description">
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__description__text nemo-hotels-results__content__results__loadingDummy__item__description  nemo-hotels-results__content__results__loadingDummy__textItem"></div>
+                                        <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link nemo-hotels-results__content__sidebar__offer__description__link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__rooms nemo-hotels-results__content__results__loadingDummy__rooms">
+                                <div class="nemo-hotels-results__hotelsGroup__rooms__title">
+                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__title__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                </div>
+                                <ul class="nemo-hotels-results__hotelsGroup__roomsList">
+                                    <li class="nemo-hotels-results__hotelsGroup__room">
+                                        <div class="nemo-hotels-results__hotelsGroup__room__info">
+                                            <div class="nemo-hotels-results__hotelsGroup__room__title">
+                                                <span class="nemo-hotels-results__hotelsGroup__room__title__count nemo-hotels-results__content__results__loadingDummy__item__rooms__room__count nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap nemo-hotels-results__content__results__loadingDummy__item__rooms__room__iconWrap">
+                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
+                                                    </span>
+                                                <span class="nemo-hotels-results__hotelsGroup__room__title__text nemo-hotels-results__content__results__loadingDummy__item__rooms__room__text nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                            </div>
+                                            <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
+                                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__room__feature1 nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                </li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
+                                                    <span class="nemo-hotels-results__content__results__loadingDummy__item__rooms__room__feature2 nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <span class="nemo-hotels-results__hotelsGroup__room__additional nemo-hotels-results__content__results__loadingDummy__item__rooms__room__additional nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    </li>
+                                </ul>
+                                <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
+                                    <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
+                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
+                                            Все доступные номера
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__footer">
+                                <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__orderBtn nemo-hotels-results__hotelsGroup__room__additional nemo-hotels-results__content__results__loadingDummy__item__orderBtn">
+                                    <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__price nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__period nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__footer__arrow nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
 </div>

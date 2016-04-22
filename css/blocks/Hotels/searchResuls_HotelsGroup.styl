@@ -150,7 +150,15 @@
                 background: $c_highlight_warning;
                 margin-top: 2px;
                 line-height: 1.5em;
-                font-size: 12px;
+
+                &__text {
+                    display: inline-block;
+                    width: 100%;
+                    font-size: 12px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
 
                 &:after {
                     content: '';
@@ -199,7 +207,7 @@
                 float: right;
                 display: flex;
                 flex-direction: column;
-                align-item: center;
+                align-items: center;
                 justify-content: center;
 
                 &__number {
@@ -236,7 +244,7 @@
                 position: absolute;
                 height: 15px;
                 line-height: 15px;
-                left: 15px;
+                left: 10px;
                 top: -8px;
                 color: $nemo-color-text-secondary;
             }

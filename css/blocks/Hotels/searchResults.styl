@@ -152,10 +152,199 @@
 		&__results {
 			border-radius: 8px 8px 0 0;
 			flex: 0 1 64%;
-		}
 
-		&__sidebar {
+			&__loadingDummy {
+				&__header {
+					border-radius: $nemo-border-radius;
+					padding-top: 5px;
+					padding-bottom: 5px;
 
+					&:after {
+						content: none;
+					}
+				}
+
+				&__loader {
+					position: absolute;
+					width: 26px;
+					height: 26px;
+					top: 50%;
+					margin-top: -13px;
+					left: 10px;
+					z-index: 1;
+				}
+
+				&__enoughBtn {
+					position: absolute;
+					height: 40px;
+					line-height: 40px;
+					top: 0;
+					right: -1px;
+				}
+
+				&__textItem {
+					display: inline-block;
+					background: $nemo-color-neutral;
+				}
+
+				&__item {
+					&__header {
+						&__title {
+							width: 150px;
+							height: 19px;
+							background: $nemo-color-LightPoint;
+						}
+					}
+
+					&__stars {
+						&__item {
+							background: url(/css/images/hsf-sprite.svg) no-repeat -1px -1px !important;
+						}
+					}
+
+					&__rating {
+
+						&__number,
+						&__text,
+						&__link {
+							background: $nemo-color-LightPoint;
+						}
+
+						&__number {
+							width: 43px;
+							height: 22px;
+							margin-bottom: 6px;
+						}
+
+						&__text {
+							width: 65px;
+							height: 12px;
+							margin-bottom: 8px;
+						}
+
+						&__link {
+							width: 75px;
+							height: 12px;
+						}
+					}
+
+					&__image {
+						background: $nemo-color-neutral;
+						margin-right: 20px;
+					}
+
+					&__distances {
+						background: none;
+
+						&:before {
+							top: auto;
+							bottom: 3px;
+						}
+					}
+
+					&__address {
+						width: 280px;
+						height: 20px;
+					}
+					&__distance {
+						width: 110px;
+						height: 10px;
+					}
+
+					&__mapLink {
+						width: 80px;
+						height: 10px;
+						margin-left: 3px;
+					}
+
+					&__district {
+						width: 130px;
+						opacity: .5;
+					}
+
+					&__description {
+						width: 300px;
+						height: 60px;
+						margin-left: -10px;
+					}
+
+					&__rooms {
+						&__title {
+							&__text {
+								width: 185px;
+								height: 14px;
+								display: block;
+							}
+						}
+
+						&__room {
+							&__count {
+								width: 18px;
+								height: 14px;
+							}
+
+							&__iconWrap {
+								opacity: .35;
+							}
+
+							&__text {
+								width: 245px;
+								height: 14px;
+							}
+
+							&__feature1 {
+								width: 312px;
+								height: 12px;
+							}
+
+							&__feature2 {
+								width: 160px;
+								height: 12px;
+							}
+
+							&__additional {
+								width: 80px;
+								height: 12px;
+							}
+						}
+					}
+
+					&__orderBtn {
+						background: $nemo-color-neutral !important;
+						height: 60px;
+						box-shadow: none;
+						padding-right: 0;
+						overflow: hidden;
+
+						&__price {
+							width: 94px;
+							height: 10px;
+							background: $nemo-color-LightPoint;
+							display: inline-block;
+							margin-bottom: 10px;
+						}
+
+						&__period {
+							width: 68px;
+							height: 10px;
+							background: $nemo-color-LightPoint;
+							display: inline-block;
+						}
+
+						&__arrow {
+							background: darken($nemo-color-neutral, 5);
+
+							&:before {
+								width: 30px;
+								height: 24px;
+								background: url(/css/images/hsf-sprite.svg) no-repeat -1px -22px;
+							}
+						}
+					}
+
+
+				}
+			}
 		}
 	}
 
@@ -165,6 +354,47 @@
 		}
 	}
 
+	&__searchingInfo {
+		margin-bottom: 20px;
 
+		&__header {
+			color: $nemo-color-text-secondary;
+			margin: 16px 0 10px;
+
+		}
+
+		&__summary {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			&__inner {
+				flex-grow: 10;
+			}
+
+			&__area {
+				font-size: 15px;
+				line-height: 1.5em;
+			}
+
+			&__info {
+				color: $nemo-color-text-secondary;
+			}
+
+			&__changeBtn {
+				flex-grow: 0;
+				flex-shrink: 0;
+				font-size: 15px;
+				background: $nemo-color-main;
+				color: $nemo-color-LightPoint;
+				height: 40px;
+				line-height: 40px;
+
+				&:hover, &:active {
+					background: lighten($nemo-color-main, 10%);
+				}
+			}
+		}
+	}
 
 }
