@@ -7,6 +7,7 @@ define(
 
             this.name = 'HotelsSearchResultsController';
 			this.error = ko.observable(false);
+            this.$$loading = ko.observable(false);
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
             this.searchParameters = {
@@ -87,10 +88,10 @@ define(
 
                 // ret.request = JSON.stringify(params);
                 ret.request = JSON.stringify({
-                    "cityId": 4754,
+                    "cityId": 1870586,
                     "hotelId": null,
-                    "checkInDate": "2016-07-30T00:00:00",
-                    "checkOutDate": "2016-08-01T00:00:00",
+                    "checkInDate": "2016-10-01T00:00:00",
+                    "checkOutDate": "2016-10-02T00:00:00",
                     "isDelayed": false,
                     "rooms": [
                         {
@@ -98,8 +99,6 @@ define(
                         }
                     ]
                 });
-
-                console.log(ret.request);
             }
 
             return ret;
@@ -155,7 +154,7 @@ define(
         };
 
         HotelsSearchResultsController.prototype.processSearchResults = function () {
-            //TODO all bindings here
+            var data = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null;
 
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
                 this.$$error(this.$$rawdata.system.error.message);

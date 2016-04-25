@@ -173,7 +173,7 @@ define (
 			this.router.init();
 
 			// Requiring base things: common bindings, base models etc
-			this.loadI18n(['common', 'pageTitles'], function () {
+			this.loadI18n(['common', 'pageTitles',this.router.check()[0].replace(/\//g, '').replace('Controller', '')], function () {
 				require (
 					[
 						/*this.options.controllerSourceURL + */'js/vm/BaseDynamicModel',

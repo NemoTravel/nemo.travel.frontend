@@ -39,6 +39,31 @@ define(
 							break;
 					}
 				}
+
+				if (componentName.indexOf('Hotels') === 0) {
+					this.elements = [
+						{
+							title: 'hotels-step_search',
+							active: true,
+							link: '/hotels',
+							router: true,
+							pageTitle: 'HotelsSearch'
+						},
+						{
+							title: 'hotels-step_results',
+							active: false,
+							link: '/results/',
+							router: true,
+							pageTitle: 'HotelsResults'
+						},
+						{
+							title: 'hotels-step_checkout',
+							active: false,
+							link: '/order/',
+							router: true
+						}
+					];
+				}
 			}
 		}
 		// Extending from dictionaryModel
