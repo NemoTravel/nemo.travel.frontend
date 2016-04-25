@@ -7,6 +7,7 @@ define(
 
             this.name = 'HotelsSearchResultsController';
 			this.error = ko.observable(false);
+            this.$$loading = ko.observable(false);
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
             this.searchParameters = {

@@ -1,73 +1,85 @@
-<div class="nemo-hotels-results__wrapper">
-    <section class="nemo-common-breadCrumbs js-nemoApp__component">
-        <div class="nemo-common-breadCrumbs__inner">
-            <div class="nemo-common-breadCrumbs__crumbs">
-            <span class="nemo-common-breadCrumbs__crumbs__crumb">
-				<a href="/search/1171488347/ODSIEV20160430ADT1-class=Economy" class="nemo-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title">Поиск авиабилетов</a>
-			</span>
-            <span class="nemo-common-breadCrumbs__crumbs__crumb">
-				<span class="nemo-common-breadCrumbs__crumbs__crumb__title">Результаты поиска</span>
-			</span>
-            <span class="nemo-common-breadCrumbs__crumbs__crumb">
-				<span class="nemo-common-breadCrumbs__crumbs__crumb__title">Оформление заказа</span>
-			</span>
-            </div>
-            <div class="nemo-common-breadCrumbs__additional" >
-                <div class="nemo-ui-select nemo-flights-lastSearches js-common-pseudoSelect"></div>
-            </div>
+<!-- ko if: !$$loading() -->
+<div data-bind="component: {name: 'Common/BreadCrumbs/Controller', params: {
+    component: $data,
+    includeComponent: {
+        name: 'Flights/LastSearches/Controller',
+        params: {}
+    }
+}}"></div>
+<!-- /ko -->
 
-            <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__additional__item nemo-hotels-form__additional__parameters">
-                <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__additional__parameters__toggle " >Предыдущие поиски</div>
-                <div class="nemo-hotels-form__previousSearches nemo-ui-select__dropdown js-common-pseudoSelect__dropdown nemo-hotels-form__additional__parameters__dropdown">
-                    <div class="nemo-hotels-form__previousSearches_item">
-                        <div class="nemo-hotels-form__previousSearches_item_close"></div>
-                        <div class="nemo-hotels-form__previousSearches_title">
-                            <div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>
-                            <div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_info">
-                            <div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>
-                            <div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_price">
-                            <div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>
-                            <div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>
-                        </div>
-                    </div>
-                    <div class="nemo-hotels-form__previousSearches_item">
-                        <div class="nemo-hotels-form__previousSearches_item_close"></div>
-                        <div class="nemo-hotels-form__previousSearches_title">
-                            <div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>
-                            <div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_info">
-                            <div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>
-                            <div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_price">
-                            <div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>
-                            <div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>
-                        </div>
-                    </div>
-                    <div class="nemo-hotels-form__previousSearches_item">
-                        <div class="nemo-hotels-form__previousSearches_item_close"></div>
-                        <div class="nemo-hotels-form__previousSearches_title">
-                            <div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>
-                            <div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_info">
-                            <div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>
-                            <div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>
-                        </div>
-                        <div class="nemo-hotels-form__previousSearches_price">
-                            <div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>
-                            <div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="nemo-hotels-results__wrapper">
+    <!--<section class="nemo-common-breadCrumbs js-nemoApp__component">-->
+        <!--<div class="nemo-common-breadCrumbs__inner">-->
+            <!--<div class="nemo-common-breadCrumbs__crumbs">-->
+            <!--<span class="nemo-common-breadCrumbs__crumbs__crumb">-->
+				<!--<a href="/hotels" class="nemo-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title">Поиск отелей</a>-->
+			<!--</span>-->
+            <!--<span class="nemo-common-breadCrumbs__crumbs__crumb">-->
+				<!--<span class="nemo-common-breadCrumbs__crumbs__crumb__title">Результаты поиска</span>-->
+			<!--</span>-->
+            <!--<span class="nemo-common-breadCrumbs__crumbs__crumb">-->
+				<!--<span class="nemo-common-breadCrumbs__crumbs__crumb__title">Оформление заказа</span>-->
+			<!--</span>-->
+            <!--</div>-->
+            <!--<div class="nemo-common-breadCrumbs__additional" >-->
+                <!--<div class="nemo-ui-select nemo-flights-lastSearches js-common-pseudoSelect"></div>-->
+            <!--</div>-->
+
+            <!--<div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__additional__item nemo-hotels-form__additional__parameters">-->
+                <!--<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__additional__parameters__toggle " >Предыдущие поиски</div>-->
+                <!--<div class="nemo-hotels-form__previousSearches nemo-ui-select__dropdown js-common-pseudoSelect__dropdown nemo-hotels-form__additional__parameters__dropdown">-->
+                    <!--<div class="nemo-hotels-form__previousSearches_item">-->
+                        <!--<div class="nemo-hotels-form__previousSearches_item_close"></div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_title">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_info">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_price">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="nemo-hotels-form__previousSearches_item">-->
+                        <!--<div class="nemo-hotels-form__previousSearches_item_close"></div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_title">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_info">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_price">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="nemo-hotels-form__previousSearches_item">-->
+                        <!--<div class="nemo-hotels-form__previousSearches_item_close"></div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_title">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_object">Гостиничный комплекс "Постоялый двор"</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_title_location">Москва, Россия</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_info">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_date">25.08 - 29.08</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_info_guests">5 гостей, 2 номера</div>-->
+                        <!--</div>-->
+                        <!--<div class="nemo-hotels-form__previousSearches_price">-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_value">от 1000 р</div>-->
+                            <!--<div class="nemo-hotels-form__previousSearches_price_details">за 6 ночей</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</section>-->
+
+    <!--ko if: resultsLoaded() -->
     <section class="nemo-hotels-results__summary">
         <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__summary__filterSwitch js-flights-results__adaptiveFiltersNoClose">Фильтрация</div>
         <div class="nemo-hotels-results__summary__inner js-hotels-results__formOpener">
@@ -87,6 +99,7 @@
             <div class="nemo-ui-button nemo-hotels-results__summary__switch">Изменить</div>
         </div>
     </section>
+    <!--/ko -->
 
     <!-- ko if: error -->
     <div class="nemo-flights-results__error"> <!--TODO: internationalization-->
@@ -99,6 +112,22 @@
     <!-- /ko -->
 
     <section class="nemo-hotels-results__content">
+
+        <!--TODO change classes below for hotels-->
+        <!-- ko if: !resultsLoaded() -->
+        <aside class="nemo-common-postFilters nemo-flights-results__content__postfilters nemo-flights-results__content__postfilters_resultLoadingDummy">
+            <div class="nemo-ui-subContainer nemo-flights-results__content__postfilters__loadingDummy">
+                <div class="nemo-flights-results__content__postfilters__loadingDummy__title"
+                     data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__title')"></div>
+
+                <div class="nemo-flights-results__content__postfilters__loadingDummy__text"
+                     data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__text')"></div>
+            </div>
+        </aside>
+        <!-- /ko -->
+        <!--TODOEND-->
+
+        <!-- ko if: resultsLoaded() -->
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable">
             <div class="nemo-common-sticker__inner js-common-sticker__inner">
                 <div class="nemo-common-scrollable__content js-scrollable__content">
@@ -108,26 +137,16 @@
                 </div>
             </div>
         </aside>
+        <!-- /ko -->
+
         <section class="nemo-ui-subContainer nemo-hotels-results__content__results">
-
-
             <!--ko if: !resultsLoaded() -->
-                <div class="nemo-flights-results__content__results__loadingDummy">
-                <div class="ui-dialog-titlebar ui-dialog-titlebar_progress nemo-flights-form__searchingInfoPopup__header nemo-flights-results__content__results__loadingDummy__header">
-                <span class="ui-dialog-title">
-                <span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText_timed')" style="display: none;"></span>
-                <span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText')"></span>
-                </span>
-                </div>
-                </div>
-                <div class="nemo-ui-subContainer__divider nemo-ui-subContainer__divider_bigMargin nemo-flights-results__content__results__loadingDummyDivider"></div>
+                <section class="nemo-hotels-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-DatesMatrix_dummy', data: {}}"></section>
+                <br><br><br><br><br>
             <!--/ko -->
 
-            <!--<section class="nemo-hotels-results__matrixContainer" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-DatesMatrix_dummy', data: {}}"></section>-->
-            <!--<br><br><br><br><br>-->
-
+            <!--ko if: resultsLoaded() -->
             <div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile">
-
                 <div class="nemo-hotels-results__groupList__item">
                     <div class="nemo-ui-subContainer nemo-hotels-results__hotelsGroup">
                         <div class="nemo-ui-subContainer__header nemo-hotels-results__hotelsGroup__header">
@@ -150,9 +169,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="nemo-hotels-results__hotelsGroup__header__additional">
-                                Лучшая цена
-                            </div>
+                            <div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price')"></div>
                         </div>
 
                         <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content">
@@ -276,9 +293,7 @@
                                 </ul>
                                 <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
-                                            Все доступные номера
-                                        </span>
+                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
                                     </span>
                                 </span>
                             </div>
@@ -302,186 +317,14 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="nemo-hotels-results__groupList__item">
-                    <div class="nemo-ui-subContainer nemo-hotels-results__hotelsGroup">
-                        <div class="nemo-ui-subContainer__header nemo-hotels-results__hotelsGroup__header">
-                            <div class="nemo-hotels-results__hotelsGroup__header__title">
-                                <a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#">
-                                    Best Western Braid Hills Hotel
-                                </a>
-                                <div class="nemo-hotels-results__hotelsGroup__stars">
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content">
-                            <div class="nemo-hotels-results__hotelsGroup__mainInfo">
-                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap">
-                                    <img src="/img/hotel_thumb.png" alt="Best Western Braid Hills Hotel" class="nemo-hotels-results__hotelsGroup__mainInfo__photo">
-                                </div>
-                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number">
-                                        9.3
-                                    </span>
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text">
-                                        Отлично
-                                    </span>
-                                    <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__rating__link">
-                                        12 отзывов
-                                    </span>
-                                </div>
-                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
-                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
-                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address">
-                                                yл. Аллы Тарасовой 5, Киев, Украина, 01001
-                                            </div>
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
-                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
-                                                        2 км
-                                                    </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
-                                                         от центра,
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
-                                                        150 км
-                                                    </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
-                                                         от аэропорта
-                                                    </span>
-                                                </span>
-
-                                                <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__mapLink">
-                                                    Карта
-                                                </span>
-                                            </div>
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__district">
-                                                Южная Борщаговка
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__description">
-                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
-                                            Современный дизайн-отель 11 Mirrors находится в центре Киева,
-                                            в 500 метрах от станций метро "Театральная" и "Золотые ворота".
-                                            К услугам гостей бесплатный Wi-Fi и ресторан европейс…
-                                        </p>
-                                        <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="nemo-hotels-results__hotelsGroup__rooms">
-                                <div class="nemo-hotels-results__hotelsGroup__rooms__title">
-                                    Рекомендуемое размещение
-                                </div>
-                                <ul class="nemo-hotels-results__hotelsGroup__roomsList">
-                                    <li class="nemo-hotels-results__hotelsGroup__room">
-                                        <div class="nemo-hotels-results__hotelsGroup__room__info">
-                                            <div class="nemo-hotels-results__hotelsGroup__room__title">
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__count">
-                                                        2 &times;
-                                                    </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap">
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                    </span>
-                                                    <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__room__title__text">
-                                                        1 &times; Классический стандартный двухместный номер
-                                                    </span>
-                                            </div>
-                                            <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Двуспальная кровать или две односпальных кровати
-                                                </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Завтрак не включен
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__room__additional">Только по предоплате</span>
-                                    </li>
-                                    <li class="nemo-hotels-results__hotelsGroup__room">
-                                        <div class="nemo-hotels-results__hotelsGroup__room__info">
-                                            <div class="nemo-hotels-results__hotelsGroup__room__title">
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__count">
-                                                        2 &times;
-                                                    </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap">
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                    </span>
-                                                    <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__room__title__text">
-                                                        1 &times; Классический стандартный двухместный номер
-                                                    </span>
-                                            </div>
-                                            <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Двуспальная кровать или две односпальных кровати
-                                                </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Завтрак не включен
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__room__additional">
-                                            Только по предоплате
-                                        </span>
-                                    </li>
-                                </ul>
-                                <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
-                                    <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
-                                            Все доступные номера
-                                        </span>
-                                    </span>
-                                </span>
-                            </div>
-
-                            <div class="nemo-hotels-results__hotelsGroup__footer">
-                                <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn">
-                                    <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__price">
-                                            48 000
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency">
-                                                R
-                                            </span>
-                                        </span>
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__period">
-                                            за 6 ночей
-                                        </span>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
+            <!--/ko -->
+
         </section>
         <aside class="nemo-hotels-results__content__sidebar">
             <div class="nemo-hotels-results__content__sidebar__showOnMap">
                 <img src="/img/show_on_map.png" alt="Show in map" class="nemo-hotels-results__content__sidebar__showOnMap__image">
-                <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__sidebar__showOnMap__button">
-                    Показать на карте
-                </div>
+                <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__sidebar__showOnMap__button" data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')"></div>
             </div>
 
             <ul class="nemo-hotels-results__content__sidebar__offersList">
@@ -506,9 +349,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="nemo-hotels-results__hotelsGroup__header__additional nemo-hotels-results__content__sidebar__offer__additional">
-                            Самый центр города
-                        </div>
+                        <div class="nemo-hotels-results__hotelsGroup__header__additional nemo-hotels-results__content__sidebar__offer__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-centre')"></div>
                     </div>
 
                     <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content nemo-hotels-results__content__sidebar__offer__content">
@@ -607,9 +448,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="nemo-hotels-results__hotelsGroup__header__additional nemo-hotels-results__content__sidebar__offer__additional">
-                            Самый центр города
-                        </div>
+                        <div class="nemo-hotels-results__hotelsGroup__header__additional nemo-hotels-results__content__sidebar__offer__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-centre')"></div>
                     </div>
 
                     <div class="nemo-ui-subContainer  nemo-hotels-results__hotelsGroup__content nemo-hotels-results__content__sidebar__offer__content">
@@ -730,38 +569,12 @@
                     </g>
                 </svg>
                 <span class="ui-dialog-title">
-                    <span>
-                        Отель «Опера»
-                    </span>
+                    <span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText')"></span>
                 </span>
-                <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__results__loadingDummy__enoughBtn">
-                    Достаточно
-                </div>
             </div>
 
             <div class="nemo-hotels-results__searchingInfo">
-                <div class="nemo-hotels-results__searchingInfo__header" >
-                    Пожалуйста, подождите, мы ищем подходящие отели
-                </div>
-                <div class="nemo-hotels-results__searchingInfo__summary">
-                    <div class="nemo-hotels-results__searchingInfo__summary__inner">
-                        <div class="nemo-hotels-results__searchingInfo__summary__area">
-                            Будапешт, Венгрия
-                        </div>
-                        <div class="nemo-hotels-results__searchingInfo__summary__info">
-                            <span class="nemo-hotels-results__searchingInfo__summary__info__period">
-                                18 февраля — 21 февраля,
-                            </span>
-                            <span class="nemo-hotels-results__searchingInfo__summary__info__rooms">
-                                2 номера для 3 взрослых
-                            </span>
-                        </div>
-                    </div>
-                    <div class="nemo-ui-button nemo-hotels-results__searchingInfo__summary__changeBtn">
-                        Изменить
-                    </div>
-                </div>
-
+                <div class="nemo-hotels-results__searchingInfo__header" data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText_timed')"></div>
             </div>
 
             <div class="nemo-hotels-results__content__results__loadingDummy__groupList">
@@ -842,9 +655,7 @@
                                 </ul>
                                 <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
-                                            Все доступные номера
-                                        </span>
+                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
                                     </span>
                                 </span>
                             </div>
@@ -935,9 +746,7 @@
                                 </ul>
                                 <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
-                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
-                                            Все доступные номера
-                                        </span>
+                                        <span class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__rooms__allRooms__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
                                     </span>
                                 </span>
                             </div>
