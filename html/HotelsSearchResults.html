@@ -1,3 +1,13 @@
+<!-- ko if: !$$loading() -->
+    <div data-bind="component: {name: 'Common/BreadCrumbs/Controller', params: {
+        component: $data,
+        includeComponent: {
+            name: 'Flights/LastSearches/Controller',
+            params: {}
+        }
+    }}"></div>
+<!-- /ko -->
+
 <div class="nemo-hotels-results__wrapper">
     <!--<section class="nemo-common-breadCrumbs js-nemoApp__component">-->
         <!--<div class="nemo-common-breadCrumbs__inner">-->
