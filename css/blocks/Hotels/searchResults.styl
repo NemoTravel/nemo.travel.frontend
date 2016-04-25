@@ -180,6 +180,8 @@
 					line-height: 40px;
 					top: 0;
 					right: -1px;
+
+					display: none;
 				}
 
 				&__textItem {
@@ -247,6 +249,7 @@
 						height: 20px;
 					}
 					&__distance {
+						display: block;
 						width: 110px;
 						height: 10px;
 					}
@@ -343,6 +346,147 @@
 					}
 
 
+				}
+			}
+		}
+
+		&__sidebar {
+			&__loadingDummy {
+
+				&__textItem {
+					display: inline-block;
+					background: $nemo-color-neutral;
+				}
+
+				&__offer {
+					&__title {
+						&__text {
+							width: 120px;
+							height: 19px;
+							background: $nemo-color-LightPoint;
+							opacity: .5;
+						}
+					}
+
+					&__stars {
+						width: 96px;
+						margin-left: 35px !important;
+						text-align: right;
+					}
+
+					&__starItem {
+						width: 16px !important;
+						background-image: url(/css/images/hsf-sprite.svg);
+						background-position: -1px -2px !important;
+					}
+
+					&__photoWrap {
+						background: $nemo-color-neutral;
+					}
+
+					&__rating,
+					&__distances {
+						margin-top: -30px !important;
+						opacity: .5 !important;
+						padding: 5px !important;
+						background: darken($nemo-color-neutral, 10) !important;
+						justify-content: space-around !important;
+						height: 60px !important;
+					}
+
+					&__rating {
+						&__number,
+						&__text,
+						&__link {
+							background: $nemo-color-LightPoint;
+							display: inline-block;
+						}
+
+						&__number {
+							height: 16px;
+							width: 46px;
+						}
+
+						&__text {
+							width: 69px;
+							height: 10px;
+							margin-top: -3px !important;
+						}
+
+						&__link {
+							width: 83px;
+							height: 10px;
+						}
+					}
+
+					&__addressWrap {
+						padding-top: 0;
+					}
+
+					&__distance1,
+					&__distance2,
+					&__mapLink {
+						height: 10px;
+						display: block;
+						background: $nemo-color-LightPoint;
+					}
+
+					&__distance1 {
+						width: 94px;
+					}
+
+					&__distance2 {
+						width: 121px;
+					}
+
+					&__mapLink {
+						width: 83px;
+					}
+
+					&__description {
+						&__text {
+							height: 75px;
+							width: 100%;
+						}
+					}
+
+					&__footer {
+						&__orderBtn {
+							background: $nemo-color-neutral;
+							box-shadow: none;
+							cursor: default !important;
+
+							&:hover {
+								background: $nemo-color-neutral;
+							}
+
+							&__price,
+							&__period {
+								display: block;
+								background: $nemo-color-LightPoint;
+								height: 10px;
+							}
+
+							&__price {
+								width: 95px;
+							}
+
+							&__period {
+								width: 69px;
+								margin-top: 10px;
+							}
+
+							&__arrow {
+								background: darken($nemo-color-neutral, 7);
+
+								&:before {
+									width: 30px;
+									height: 24px;
+									background: url("/css/images/hsf-sprite.svg") no-repeat -1px -22px;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
