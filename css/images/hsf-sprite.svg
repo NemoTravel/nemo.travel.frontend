@@ -3,14 +3,17 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 50 150" width="50" height="150" style="enable-background:new 0 0 50 150;" xml:space="preserve">
 <style type="text/css">
-	.st0{opacity:0.75;fill:#FFFFFF;}
+	.st0{opacity:0.75;fill:#FFFFFF;enable-background:new    ;}
 	.st1{fill:#FFFFFF;}
-	.st2{opacity:0.5;fill:#969599;}
+	.st2{clip-path:url(#SVGID_2_);}
+	.st3{clip-path:url(#SVGID_4_);}
+	.st4{opacity:0.5;fill:#969599;enable-background:new    ;}
+	.st5{opacity:0.75;fill:#FFFFFF;}
 </style>
 <polygon class="st0" points="9.4,1 11.8,6.5 17.8,7.1 13.3,11.1 14.6,17 9.4,13.9 4.2,17 5.4,11.1 0.9,7.1 6.9,6.5 "/>
 <g>
 	<g>
-		<path class="st1" d="M29.7,24.6c-0.3-0.3-0.7-0.6-1.1-0.6H7.8l-6-1.8c-0.7-0.2-1.5,0.2-1.7,0.9c-0.2,0.7,0.2,1.5,0.9,1.7l5.5,1.8
+		<path class="st1" d="M29.7,24.6C29.4,24.3,29,24,28.6,24H7.8l-6-1.8c-0.7-0.2-1.5,0.2-1.7,0.9c-0.2,0.7,0.2,1.5,0.9,1.7l5.5,1.8
 			l3.8,11.5c0.2,0.6,0.7,0.9,1.3,0.9h13c0.6,0,1.1-0.4,1.3-0.9l4-12.2C30.1,25.5,30,25,29.7,24.6z M26.8,27l-1.1,3H10.6l-1.1-3H26.8
 			z M23.6,36h-11l-1.1-3h13.3L23.6,36z"/>
 		<ellipse class="st1" cx="13.8" cy="43.5" rx="2.7" ry="2.7"/>
@@ -20,51 +23,41 @@
 <g>
 	<g>
 		<g>
-			<defs>
-				<path id="SVGID_1_" d="M21,54.5L20.4,54l-0.2-0.1c-0.9-0.7-1-1.9-0.3-2.8c0.7-0.9,1.9-1,2.8-0.3l0.9,0.7L21,54.5z"/>
-			</defs>
-			<clipPath id="SVGID_2_">
-				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
-			</clipPath>
-			<g style="clip-path:url(#SVGID_2_);">
-				
-					<image style="overflow:visible;" width="9.5" height="8.7" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
-GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADFJREFUeNpiYBhJ4P///2CakQiF
-IDWMTEQoAqn5x0TASrAiRkZGBnwmMkIVgXUABBgA1iUQA2k6NsoAAAAASUVORK5CYII=" transform="matrix(1 0 0 1 14.0652 45.8456)"/>
+			<g>
+				<defs>
+					<path id="SVGID_1_" d="M21,54.5L20.4,54l-0.2-0.1c-0.9-0.7-1-1.9-0.3-2.8c0.7-0.9,1.9-1,2.8-0.3l0.9,0.7L21,54.5z"/>
+				</defs>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+				</clipPath>
+				<g class="st2">
+					
+						<image style="overflow:visible;enable-background:new    ;" width="10" height="10" xlink:href="20C283B.png"  transform="matrix(0.95 0 0 0.87 14.0652 45.8456)">
+					</image>
+				</g>
 			</g>
 		</g>
 		
-			<image style="overflow:visible;" width="25" height="22.7" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAYCAYAAAALQIb7AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
-GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAkJJREFUeNqslr9LHFEQx9+83b1L
-IkIsxAQRSaGIYmJnI5gqpDJtquSvsDZNevE/8H8QsUmwuiSFqYNgoYigqIQkQm5/+p3beeec7sq5
-ew++DMfuzufNvJl5Z8yAV5Zlpc+sGfwiAL0iKA04KvbnqSAiIsoKI2uH0ULN9FmlAGoWphGgDzB7
-sGtV06eiYutDT7CJ4M6bgHyH2lAE/awSJRxbaBgagUahZ2x7IoPjJZhZzjEUQ3PQyoNDI0rl+4ak
-MZDo+HcnVF7v5SWGJ9A/aKNiOtviN1BpHYYu3JnNSFSh2M1mI/hd6eDy6Bj4iAsEZdOARnRk0wIi
-0VatFjDmv1Sia62eNCa33k/rNrby3V3+zWYKbZ1ly2CJgmQDgLmm7vHn6IeIOyQybSi0ZJZrzq0x
-qKlaIOnC4LzFEOJZllfSm6qcNE3Z+YtOgTAw15WO7KsqfYY1ozj+WJE3xY0s1egiO+3CgiDYhTnq
-wIhyodEBnH8IJUnScczjOTUbGRRbay9vV8w6IG5cueZeBfB1nyCOiMce7rLu5GfofuF9Bsc88RfV
-jEwp77kf0Lbv+78KIBMwr6Bxtcn8WzLHiKpVBhuC+QxNCCiTBndneSL5T3JnhLOhx/IsVOfOsHPo
-i+fZqPSmFuAnPJiU/nBpDZXTxG2CyOpnkegM2gEo7OtvQZxX49sCWKxguPathrC+AbJXNsPMPUC+
-+N5B81JdLkWpKJbI/kJ8ni2A/tw3MPtaAL+EeS6pfQpdyrkdeJ532I+PawEGAJC0C14hq6GYAAAA
-AElFTkSuQmCC" transform="matrix(1 0 0 1 3 50.7633)"/>
+			<image style="overflow:visible;enable-background:new    ;" width="27" height="24" xlink:href="20C2839.png"  transform="matrix(0.9259 0 0 0.9458 3 50.7633)">
+		</image>
 		<g>
-			<defs>
-				<path id="SVGID_3_" d="M4.6,54.8l0.6-1c0.6-0.9,1.8-1.2,2.8-0.6C9,53.8,9.2,55,8.6,56l-0.1,0.2l-0.4,0.7L4.6,54.8z"/>
-			</defs>
-			<clipPath id="SVGID_4_">
-				<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
-			</clipPath>
-			<g style="clip-path:url(#SVGID_4_);">
-				
-					<image style="overflow:visible;" width="8.1" height="9.7" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAKCAYAAABmBXS+AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
-GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH9JREFUeNpiYEADP3/9FgDi90Dc
-wIALACX7gfg/FO8HYgVGNAUOQGo/mr4L6IrOAykDNEWOyAoakKyB4fUgOUaoAgUgBTJFAMmED0Cs
-yM7G+oEJKjAfTQEIFIIUwKyJA+K/aNbsxxYutUD8Boj/QRUp4AofeSCeC8R16HIAAQYAVr16Br3f
-S5EAAAAASUVORK5CYII=" transform="matrix(1 0 0 1 4.6436 47.0492)"/>
+			<g>
+				<defs>
+					<path id="SVGID_3_" d="M4.6,54.8l0.6-1C5.8,52.9,7,52.6,8,53.2C9,53.8,9.2,55,8.6,56l-0.1,0.2l-0.4,0.7L4.6,54.8z"/>
+				</defs>
+				<clipPath id="SVGID_4_">
+					<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+				</clipPath>
+				<g class="st3">
+					
+						<image style="overflow:visible;enable-background:new    ;" width="9" height="10" xlink:href="20C283F.png"  transform="matrix(0.9 0 0 0.97 4.6436 47.0492)">
+					</image>
+				</g>
 			</g>
 		</g>
 	</g>
 </g>
-<path class="st2" d="M6.1,79c-4.2,0-8.9,5.1,0,14C15,84.1,10.3,79,6.1,79z M6.1,86.5c-1.3,0-2.4-1-2.4-2.3c0-1.3,1.1-2.3,2.4-2.3
-	c1.3,0,2.4,1,2.4,2.3C8.4,85.4,7.4,86.5,6.1,86.5z"/>
+<path class="st4" d="M6.1,79c-4.2,0-8.9,5.1,0,14C15,84.1,10.3,79,6.1,79z M6.1,86.5c-1.3,0-2.4-1-2.4-2.3s1.1-2.3,2.4-2.3
+	s2.4,1,2.4,2.3C8.4,85.4,7.4,86.5,6.1,86.5z"/>
+<polygon class="st5" points="36.4,1 38.8,6.5 44.8,7.1 40.3,11.1 41.6,17 36.4,14 31.2,17 32.5,11.1 28,7.1 34,6.5 "/>
 </svg>

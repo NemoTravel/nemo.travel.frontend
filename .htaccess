@@ -7,7 +7,7 @@ RewriteBase /
 #RewriteRule ^(js/.*\.js)$ delay.php?tpl=$1
 
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "none"
+    Header set Access-Control-Allow-Origin "all"
 </IfModule>
 
 AddCharset UTF-8 .json
