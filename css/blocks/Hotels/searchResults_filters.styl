@@ -1,0 +1,50 @@
+.nemo-hotels-results__content{
+    &__postfilters {
+        padding-top: 0 !important;
+
+        &__loadingDummy {
+
+            &:before {
+                background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
+                animation: none;
+                width: 50px;
+                height: 50px;
+            }
+
+        }
+
+        &__order {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            &__title {
+                color: $nemo-color-LightPoint;
+                line-height: 30px;
+                margin-right: 15px;
+            }
+        }
+
+        &__inlineSlider {
+            &__value {
+                display: flex;
+                padding-right: 20px;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            &__slider {
+                padding-bottom: 0;
+                width: 100%;
+            }
+
+            &__info {
+                &__value {
+                    display: inline-block;
+                    min-width: 15px;
+                }
+            }
+        }
+    }
+}
+
