@@ -139,7 +139,7 @@
         <!-- /ko -->
 
         <!-- ko if: resultsLoaded() -->
-        <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, customScroll, flightsResultsContainerSticky"></aside>
+        <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, flightsResultsContainerSticky"></aside>
         <!-- /ko -->
 
         <section class="nemo-ui-subContainer nemo-hotels-results__content__results">
@@ -234,6 +234,51 @@
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
                                     </div>
                                 </div>
+                                <ul class="nemo-hotels-results__hotelsGroup__services hotels-services">
+                                   <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service" data-bind="css: 'hotels-services__service_active'">
+                                       <span class="hotels-services__service__icon hotels-services__service__icon_pool"></span>
+                                   </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_parking"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_sport"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_electricity"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_wifi"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_laundry"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_transport"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_roundTheClock"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_fridge"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_luggage"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_spa"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_bar"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_resturant"></span>
+                                    </li>
+                                    <li class="nemo-hotels-results__hotelsGroup__services__service hotels-services__service">
+                                        <span class="hotels-services__service__icon hotels-services__service__icon_infinity"></span>
+                                    </li>
+                                </ul>
+
                             </div>
                             <div class="nemo-hotels-results__hotelsGroup__rooms">
                                 <div class="nemo-hotels-results__hotelsGroup__rooms__title">
@@ -414,6 +459,50 @@
                                     </div>
                                 </div>
                             </div>
+                            <ul class="nemo-hotels-results__content__sidebar__offer__services hotels-services">
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service" data-bind="css: 'hotels-services__service_active'">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_pool"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_parking"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_sport"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_electricity"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_wifi"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_laundry"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_transport"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_roundTheClock"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_fridge"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_luggage"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_spa"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_bar"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_resturant"></span>
+                                </li>
+                                <li class="nemo-hotels-results__content__sidebar__offer__services__service hotels-services__service">
+                                    <span class="hotels-services__service__icon hotels-services__service__icon_infinity"></span>
+                                </li>
+                            </ul>
                             <div class="nemo-hotels-results__hotelsGroup__footer nemo-hotels-results__content__sidebar__offer__footer">
                                 <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn nemo-hotels-results__content__sidebar__offer__footer__orderBtn">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
@@ -500,6 +589,22 @@
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link nemo-hotels-results__content__sidebar__offer__description__link"></a>
                                     </div>
                                 </div>
+                                <ul class="nemo-hotels-results__content__results__loadingDummy__item__services hotels-services">
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                    <li class="nemo-hotels-results__content__results__loadingDummy__item__services__service"></li>
+                                </ul>
                             </div>
                             <div class="nemo-hotels-results__hotelsGroup__rooms nemo-hotels-results__content__results__loadingDummy__rooms">
                                 <div class="nemo-hotels-results__hotelsGroup__rooms__title">
@@ -688,6 +793,22 @@
                             </div>
                         </div>
                     </div>
+                    <ul class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services hotels-services">
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                        <li class="nemo-hotels-results__content__sidebar__loadingDummy__offer__services__service"></li>
+                    </ul>
                     <div class="nemo-hotels-results__hotelsGroup__footer nemo-hotels-results__content__sidebar__offer__footer">
                         <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn nemo-hotels-results__content__sidebar__offer__footer__orderBtn nemo-hotels-results__content__sidebar__loadingDummy__offer__footer__orderBtn">
                             <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">

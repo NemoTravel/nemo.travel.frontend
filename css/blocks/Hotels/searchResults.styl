@@ -257,7 +257,7 @@
 					&__mapLink {
 						width: 80px;
 						height: 10px;
-						margin-left: 3px;
+						margin-left: 0;
 					}
 
 					&__district {
@@ -267,8 +267,24 @@
 
 					&__description {
 						width: 300px;
-						height: 60px;
+						height: 43px;
 						margin-left: -10px;
+					}
+
+					&__services {
+						margin: 0;
+						padding: 0;
+						font-size: 0;
+						margin-top: 10px;
+
+						&__service {
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border-radius: $nemo-border-radius;
+							background: $nemo-color-neutral;
+							margin-right: 10px;
+						}
 					}
 
 					&__rooms {
@@ -450,6 +466,20 @@
 						}
 					}
 
+					&__services {
+						margin: 0 -5px 0;
+						padding: 10px 10px 0
+
+						&__service {
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border-radius: $nemo-border-radius;
+							background: $nemo-color-neutral;
+							margin: 0 5px 10px;
+						}
+					}
+
 					&__footer {
 						&__orderBtn {
 							background: $nemo-color-neutral;
@@ -540,5 +570,103 @@
 			}
 		}
 	}
+}
 
+.hotels-services {
+	&__service {
+		opacity: .4;
+
+		&_active {
+			opacity: 1;
+		}
+
+		&__icon {
+			display: block;
+			background: url(/css/images/hotels_results_services_sprite.svg) no-repeat;
+
+			&_pool {
+				width: 20px;
+				height: 16px;
+				background-position: 0 -3px;
+			}
+
+			&_parking {
+				width: 12px;
+				height: 17px;
+				background-position: -33px -2px;
+			}
+
+			&_sport {
+				width: 20px;
+				height: 12px;
+				background-position: -57px -5px;
+			}
+
+			&_electricity {
+				width: 16px;
+				height: 16px;
+				background-position: -89px -3px;
+			}
+
+			&_wifi {
+				width: 20px;
+				height: 15px;
+				background-position: -117px -3px;
+			}
+
+			&_laundry {
+				width: 16px;
+				height: 20px;
+				background-position: -148px 0px;
+			}
+
+			&_transport {
+				width: 18px;
+				height: 20px;
+				background-position: -176px -1px;
+			}
+
+			&_roundTheClock {
+				width: 20px;
+				height: 9px;
+				background-position: -206px -6px;
+			}
+
+			&_fridge {
+				width: 18px;
+				height: 18px;
+				background-position: -238px -2px;
+			}
+
+			&_luggage {
+				width: 20px;
+				height: 16px;
+				background-position: -267px -3px;
+			}
+
+			&_spa {
+				width: 20px;
+				height: 9px;
+				background-position: -299px -6px;
+			}
+
+			&_bar {
+				width: 15px;
+				height: 21px;
+				background-position: -331px -1px;
+			}
+
+			&_resturant {
+				width: 20px;
+				height: 18px;
+				background-position: -358px -1px;
+			}
+
+			&_infinity {
+				width: 20px;
+				height: 19px;
+				background-position: -389px -1px;
+			}
+		}
+	}
 }
