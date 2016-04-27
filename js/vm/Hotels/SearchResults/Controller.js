@@ -32,6 +32,8 @@ define(
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
 
+            this.hotels = ko.observable([]);
+
             this.processInitParams();
 
 		}
@@ -87,17 +89,26 @@ define(
                 }];
 
                 // ret.request = JSON.stringify(params);
+                // ret.request = JSON.stringify({
+                //     "cityId": 1870586,
+                //     "hotelId": null,
+                //     "checkInDate": "2016-09-03T00:00:00",
+                //     "checkOutDate": "2016-09-05T00:00:00",
+                //     "isDelayed": false,
+                //     "rooms": [
+                //         {
+                //             "ADT": 1
+                //         }
+                //     ]
+                // });
+
                 ret.request = JSON.stringify({
-                    "cityId": 1870586,
-                    "hotelId": null,
-                    "checkInDate": "2016-10-01T00:00:00",
-                    "checkOutDate": "2016-10-02T00:00:00",
-                    "isDelayed": false,
-                    "rooms": [
-                        {
-                            "ADT": 1
-                        }
-                    ]
+                    "cityId":1870586,
+                    "hotelId":50294523,
+                    "checkInDate":"2016-09-03T00:00:00",
+                    "checkOutDate":"2016-09-20T00:00:00",
+                    "isDelayed":false,
+                    "rooms":[{"ADT":1}]
                 });
             }
 
@@ -154,7 +165,26 @@ define(
         };
 
         HotelsSearchResultsController.prototype.processSearchResults = function () {
-            var data = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null;
+            var searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
+                staticData = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
+                hotelsArr = [],
+                hotelId;
+
+            //getting hotels and convert them to array
+
+            //adding static data to hotel with identical id
+            for (var index = 0; index < staticData.hotels.length; index++) {
+                if (searchData.results.hotels[staticData.hotels[index].id]) {
+                    searchData.results.hotels[staticData.hotels[index].id].staticDataInfo = staticData.hotels[index];
+                }
+            }
+
+            //create array with hotels and static data with identical id
+            for (hotelId in searchData.results.hotels) {
+                hotelsArr.push(searchData.results.hotels[hotelId]);
+            }
+
+            this.hotels = ko.observable(hotelsArr);
 
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
                 this.$$error(this.$$rawdata.system.error.message);

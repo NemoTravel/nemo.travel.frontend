@@ -11,5 +11,7 @@
 	"header-flag__best_price":"Лучшая цена",
 	"header-flag__city-centre":"Самый центр города",
 	"map__button-show":"Показать на карте",
-	"PH__link_all_rooms":"Все доступные номера"
+	"PH__link_all_rooms":"Все доступные номера",
+	"PH__reviews_link_title":"Отзывов",
+	"PH__map_link": "Карта"
 }
