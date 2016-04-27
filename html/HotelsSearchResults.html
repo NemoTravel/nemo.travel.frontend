@@ -121,8 +121,7 @@
                     Сортировать
                 </span>
                 <div class="nemo-ui-select js-common-pseudoSelect">
-                    <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle">Предыдущие поиски</div>
-
+                    <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                 </div>
             </label>
 
@@ -819,9 +818,14 @@
         <div class="nemo-common-sticker__inner js-common-sticker__inner" style="min-height: 100%;">
             <div class="nemo-common-scrollable__content js-scrollable__content">
 
-                <!-- TODO create filters -->
                 <div class="nemo-common-postFilters__notification">Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
                     <div class="nemo-common-postFilters__notification__close"></div>
+                </div>
+
+                <div class="nemo-hotels-results__content__postfilters__showOnMap">
+                    <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__postfilters__showOnMap__button">
+                        Показать на карте
+                    </div>
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">
@@ -829,23 +833,18 @@
                         Сортировать
                     </span>
                     <div class="nemo-ui-select js-common-pseudoSelect">
-                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle">Предыдущие поиски</div>
-
+                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                     </div>
                 </label>
 
                 <div class="nemo-common-postFilters__filterList">
 
                     <div class="nemo-common-postFilters__clearAll">
-                        <div class="nemo-ui-button nemo-ui-button_common nemo-common-postFilters__clearAll__button">
-                            Сбросить все фильтры
-                        </div>
+                        <div class="nemo-ui-button nemo-ui-button_common nemo-common-postFilters__clearAll__button" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll')"></div>
                     </div>
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
-                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                                Цена за 5 ночей
-                            </h4>
+                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__price')"></h4>
                         </div>
 
                         <div class="nemo-common-postFilters__filterList__filter__valuesBlock nemo-common-postFilters__filterList__filter__valuesBlock_slider">
@@ -872,9 +871,7 @@
 
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
-                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                                Количество звезд
-                            </h4>
+                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__starsCount')"></h4>
                         </div>
 
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
@@ -949,9 +946,7 @@
 
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
-                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                                Тип
-                            </h4>
+                            <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__type')"></h4>
                         </div>
 
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
@@ -999,9 +994,7 @@
 
                 <div class="nemo-common-postFilters__filterList__filter">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
-                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                            Условия бронирования
-                        </h4>
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__bookingCondition')"></h4>
                     </div>
 
                     <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
@@ -1066,9 +1059,7 @@
 
                 <div class="nemo-common-postFilters__filterList__filter">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
-                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                            Услуги и удобства
-                        </h4>
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')"></h4>
                     </div>
 
                     <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
@@ -1133,9 +1124,7 @@
 
                 <div class="nemo-common-postFilters__filterList__filter">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
-                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name">
-                            Оценка гостей
-                        </h4>
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__guestsRating')"></h4>
                     </div>
 
                     <div class="nemo-common-postFilters__filterList__filter__valuesBlock nemo-common-postFilters__filterList__filter__valuesBlock_slider nemo-hotels-results__content__postfilters__inlineSlider">
