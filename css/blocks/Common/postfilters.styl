@@ -317,6 +317,78 @@ $t_postFilters_animationTime = .1s;
                     }
                 }
             }
+
+            &__checkboxesBlock {
+
+                &__checkboxes {
+                    border-radius: 4px;
+                    overflow: hidden;
+
+                    &__checkbox {
+                        background-color: $nemo-color-LightPoint;
+                        box-shadow: none;
+                        padding: 0 10px 0 20px;
+                        height: 40px;
+                        line-height: 40px;
+                        width: 100%;
+                        display: block;
+                        cursor: pointer;
+                        transition: all $t_postFilters_animationTime ease-in;
+                        border-top: 1px $c_postFilters_separatorColor solid;
+                        overflow: hidden;
+
+                        &:first-of-type {
+                            border-top: none;
+                        }
+                        &:before,
+                        &__name,
+                        &__value {
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+
+                        &:before {
+                            content: '';
+                            line-height: 39px;
+                            width: 19px;
+                            height: 19px;
+                            background: $nemo-color-neutral url(/css/images/ui/checkbox_sprite.svg);
+                            border-radius: 5px;
+                            vertical-align: middle;
+                        }
+
+                        &__input {
+                            display: none;
+                        }
+
+                        &__name {
+                            margin-left: 10px;
+                            max-width: 190px;
+                            line-height: 1em;
+
+                            &__stars {
+                                &__star {
+                                    display: inline-block;
+                                    width: 17px;
+                                    height: 17px;
+                                    background: url("/css/images/hotels_results_sprite.svg") -2px -24px no-repeat;
+                                }
+                            }
+                        }
+
+                        &__value {
+                            float: right;
+                            color: $nemo-color-text-secondary;
+                        }
+
+                        &_checked {
+                            &:before {
+                                background-color: $nemo-color-main;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
