@@ -112,7 +112,7 @@
     <!-- /ko -->
 
     <section class="nemo-hotels-results__content">
-        <!-- ko if: resultsLoaded() -->
+        <!-- ko if: !resultsLoaded() -->
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-hotels-results__content__postfilters_resultLoadingDummy">
         <!--TODO change classes below for hotels-->
 
@@ -138,7 +138,7 @@
         </aside>
         <!-- /ko -->
 
-        <!-- ko if: !resultsLoaded() -->
+        <!-- ko if: resultsLoaded() -->
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, flightsResultsContainerSticky"></aside>
         <!-- /ko -->
 
