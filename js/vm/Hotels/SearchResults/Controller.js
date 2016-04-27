@@ -1,7 +1,7 @@
 'use strict';
 define(
-    ['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
-    function (ko, helpers, BaseControllerModel, Cookie) {
+    ['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'dotdotdot'],
+    function (ko, helpers, BaseControllerModel, Cookie, dotdotdot) {
         function HotelsSearchResultsController (componentParameters) {
             BaseControllerModel.apply(this, arguments);
 
@@ -33,6 +33,14 @@ define(
             this.resultsLoaded = ko.observable(false);
 
             this.hotels = ko.observable([]);
+            this.cutDescription = function() {
+                var descriptions = $('.nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot'),
+                    i;
+
+                descriptions.dotdotdot({
+                        watch: 'window'
+                    });
+                };
 
             this.processInitParams();
 
@@ -92,8 +100,8 @@ define(
                 // ret.request = JSON.stringify({
                 //     "cityId": 1870586,
                 //     "hotelId": null,
-                //     "checkInDate": "2016-09-03T00:00:00",
-                //     "checkOutDate": "2016-09-05T00:00:00",
+                //     "checkInDate": "2016-08-05T00:00:00",
+                //     "checkOutDate": "2016-08-07T00:00:00",
                 //     "isDelayed": false,
                 //     "rooms": [
                 //         {
@@ -103,12 +111,14 @@ define(
                 // });
 
                 ret.request = JSON.stringify({
-                    "cityId":1870586,
-                    "hotelId":50294523,
-                    "checkInDate":"2016-09-03T00:00:00",
-                    "checkOutDate":"2016-09-20T00:00:00",
-                    "isDelayed":false,
-                    "rooms":[{"ADT":1}]
+                    "cityId": 6327,
+                    "hotelId": null,
+                    "checkInDate": "2016-08-05T00:00:00",
+                    "checkOutDate": "2016-08-07T00:00:00",
+                    "isDelayed": false,
+                    "rooms": [
+                        { "ADT": 1 }
+                    ]
                 });
             }
 
@@ -171,7 +181,7 @@ define(
                 hotelId;
 
             //getting hotels and convert them to array
-
+            // console.dir(dotdotdot);
             //adding static data to hotel with identical id
             for (var index = 0; index < staticData.hotels.length; index++) {
                 if (searchData.results.hotels[staticData.hotels[index].id]) {
@@ -186,6 +196,9 @@ define(
 
             this.hotels = ko.observable(hotelsArr);
 
+            // console.dir(dotdotdot);
+
+
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
                 this.$$error(this.$$rawdata.system.error.message);
             } else {
@@ -199,6 +212,7 @@ define(
             }
 
             this.resultsLoaded(true);
+            this.cutDescription();
         };
 
 
