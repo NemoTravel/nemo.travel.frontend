@@ -112,7 +112,7 @@
     <!-- /ko -->
 
     <section class="nemo-hotels-results__content">
-        <!-- ko if: !resultsLoaded() -->
+        <!-- ko if: resultsLoaded() -->
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-hotels-results__content__postfilters_resultLoadingDummy">
         <!--TODO change classes below for hotels-->
 
@@ -138,7 +138,7 @@
         </aside>
         <!-- /ko -->
 
-        <!-- ko if: resultsLoaded() -->
+        <!-- ko if: !resultsLoaded() -->
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, flightsResultsContainerSticky"></aside>
         <!-- /ko -->
 
@@ -827,9 +827,14 @@
         <div class="nemo-common-sticker__inner js-common-sticker__inner" style="min-height: 100%;">
             <div class="nemo-common-scrollable__content js-scrollable__content">
 
-                <!-- TODO create filters -->
                 <div class="nemo-common-postFilters__notification">Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
                     <div class="nemo-common-postFilters__notification__close"></div>
+                </div>
+
+                <div class="nemo-hotels-results__content__postfilters__showOnMap">
+                    <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__postfilters__showOnMap__button">
+                        Показать на карте
+                    </div>
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">
@@ -837,8 +842,9 @@
                         Сортировать
                     </span>
                     <div class="nemo-ui-select js-common-pseudoSelect">
-                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle">Предыдущие поиски</div>
-
+                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle">
+                            По популярности
+                        </div>
                     </div>
                 </label>
 
