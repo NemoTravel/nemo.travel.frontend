@@ -146,25 +146,27 @@
             <!--/ko -->
 
             <!--ko if: resultsLoaded() -->
-            <div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile">
+            <div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile" data-bind="foreach: hotels()">
+
                 <div class="nemo-hotels-results__groupList__item">
                     <div class="nemo-ui-subContainer nemo-hotels-results__hotelsGroup">
                         <div class="nemo-ui-subContainer__header nemo-hotels-results__hotelsGroup__header">
                             <div class="nemo-hotels-results__hotelsGroup__header__title">
-                                <a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#">
-                                    Best Western Braid Hills Hotel
-                                </a>
+                                <a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#" data-bind="text: name"></a>
                                 <div class="nemo-hotels-results__hotelsGroup__stars">
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item" data-bind="enable: staticDataInfo.starRating >= 1">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
                                     </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item" data-bind="enable: staticDataInfo.starRating >= 2">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
                                     </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item" data-bind="enable: staticDataInfo.starRating >= 3">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
                                     </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item" data-bind="enable: staticDataInfo.starRating >= 4">
+                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+                                    </div>
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item" data-bind="enable: staticDataInfo.starRating >= 5">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
                                     </div>
                                 </div>
@@ -178,15 +180,11 @@
                                     <img src="/img/hotel_thumb.png" alt="Best Western Braid Hills Hotel" class="nemo-hotels-results__hotelsGroup__mainInfo__photo">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number">
-                                        9.3
-                                    </span>
+                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number" data-bind="text: staticDataInfo.customerRating ? staticDataInfo.customerRating : 0"></span>
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text">
                                         Отлично
                                     </span>
-                                    <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__rating__link">
-                                        12 отзывов
-                                    </span>
+                                    <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__rating__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + usersOpinionInfo.opinionsCount"></span>
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
@@ -212,9 +210,7 @@
                                                     </span>
                                                 </span>
 
-                                                <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__mapLink">
-                                                    Карта
-                                                </span>
+                                                <span href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__mapLink" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')"></span>
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__district">
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">
@@ -224,11 +220,7 @@
                                         </div>
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description">
-                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
-                                            Современный дизайн-отель 11 Mirrors находится в центре Киева,
-                                            в 500 метрах от станций метро "Театральная" и "Золотые ворота".
-                                            К услугам гостей бесплатный Wi-Fi и ресторан европейс…
-                                        </p>
+                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text" data-bind="html: staticDataInfo.description"></p>
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
                                     </div>
                                 </div>
