@@ -502,7 +502,7 @@
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description
                                                 nemo-hotels-results__content__sidebar__offer__description">
-                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text ">
+                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
                                             Современный дизайн-отель 11 Mirrors находится в центре Киева,
                                             в 500 метрах от станций метро "Театральная" и "Золотые ворота".
                                             К услугам гостей бесплатный Wi-Fi и ресторан европейс…
@@ -1144,40 +1144,9 @@
                             <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
                                 <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
                                             nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
-                                    <div class="nemo-ui-slider__info">
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_min" >
-                                            10 000 р
-                                        </span>
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_divider">
-                                            —
-                                        </span>
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_max" >
-                                            100 000 р
-                                        </span>
-                                    </div>
+                                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"
+                                         data-bind="template: { name: 'nemo-koTemplate-HotelsResults-PostFilters-Number', data: {} }"></div>
 
-                                    <div class="nemo-ui-slider__wrapper">
-                                        <div class="nemo-ui-slider
-                                                    nemo-ui-slider_range
-                                                    ui-slider
-                                                    ui-slider-horizontal
-                                                    ui-widget
-                                                    ui-widget-content
-                                                    ui-corner-all">
-                                            <div class="ui-slider-range
-                                                        ui-widget-header
-                                                        ui-corner-all" style="left: 0%; width: 100%;"></div>
-                                            <span class="ui-slider-handle
-                                                         ui-state-default
-                                                         ui-corner-all" tabindex="0" style="left: 0%;"></span>
-                                            <span class="ui-slider-handle
-                                                         ui-state-default
-                                                         ui-corner-all" tabindex="0" style="left: 100%;"></span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1515,6 +1484,43 @@
                     </div>
                 </div>
 
+        </div>
+    </script>
+
+    <script id="nemo-koTemplate-HotelsResults-PostFilters-Number" type="text/html">
+        <div class="nemo-ui-slider__info">
+            <span class="nemo-ui-slider__info__block
+                         nemo-ui-slider__info__block_min" >
+                10 000 р
+            </span>
+            <span class="nemo-ui-slider__info__block
+                         nemo-ui-slider__info__block_divider">
+                —
+            </span>
+            <span class="nemo-ui-slider__info__block
+                         nemo-ui-slider__info__block_max" >
+                100 000 р
+            </span>
+        </div>
+
+        <div class="nemo-ui-slider__wrapper">
+            <div class="nemo-ui-slider
+                        nemo-ui-slider_range
+                        ui-slider
+                        ui-slider-horizontal
+                        ui-widget
+                        ui-widget-content
+                        ui-corner-all">
+                <div class="ui-slider-range
+                            ui-widget-header
+                            ui-corner-all" style="left: 0%; width: 100%;"></div>
+                <span class="ui-slider-handle
+                             ui-state-default
+                             ui-corner-all" tabindex="0" style="left: 0%;"></span>
+                <span class="ui-slider-handle
+                             ui-state-default
+                             ui-corner-all" tabindex="0" style="left: 100%;"></span>
+            </div>
         </div>
     </script>
 
