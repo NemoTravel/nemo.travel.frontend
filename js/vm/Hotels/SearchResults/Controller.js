@@ -102,13 +102,26 @@ define(
                 //     ]
                 // });
 
+                //ret.request = JSON.stringify({
+                //    "cityId":1870586,
+                //    "hotelId":50294523,
+                //    "checkInDate":"2016-09-03T00:00:00",
+                //    "checkOutDate":"2016-09-20T00:00:00",
+                //    "isDelayed":false,
+                //    "rooms":[{"ADT":1}]
+                //});
+
                 ret.request = JSON.stringify({
-                    "cityId":1870586,
-                    "hotelId":50294523,
-                    "checkInDate":"2016-09-03T00:00:00",
-                    "checkOutDate":"2016-09-20T00:00:00",
-                    "isDelayed":false,
-                    "rooms":[{"ADT":1}]
+                    "cityId": 28193,
+                    "hotelId": null,
+                    "checkInDate": "2016-09-05T00:00:00",
+                    "checkOutDate": "2016-09-07T00:00:00",
+                    "isDelayed": false,
+                    "rooms": [
+                        {
+                            "ADT": 1
+                        }
+                    ]
                 });
             }
 
