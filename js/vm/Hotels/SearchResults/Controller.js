@@ -27,11 +27,53 @@ define(
                 uri: ''
             };
 
+            this.postfiltersData = {
+                configs: {
+                    price: {
+                        name: 'price',
+                        type: 'Number',
+                        isLegged: false,
+                        legNumber: 0,
+                        getter: function (obj) {
+                            // We are forced to use Math.ceil here due to a bug in jQueryUI.slider
+                            // which is used for Number postFilters' view
+                            return Math.ceil(obj.getTotalPrice().amount());
+                        },
+                        options: {
+                            /* Filter-specific options here */
+                            onInit: function (initParams) {
+                                var currency = '',
+                                    keys = Object.keys(initParams.items);
+
+                                if (keys.length) {
+                                    currency = initParams.items[keys[0]].getTotalPrice().currency();
+                                }
+                                
+                                this.displayValues.min = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
+                                this.displayValues.max = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
+                            },
+                            onValuesUpdate: function (newValue) {
+                                this.displayValues.min.amount(newValue.min);
+                                this.displayValues.max.amount(newValue.max);
+                            }
+                        }
+                    }
+                },
+                order: ['price'],
+                preInitValues: {
+                    price: null
+                }
+            };
+            this.postFilters = ko.observableArray([]);
+            this.visiblePostFilters = ko.observableArray([]);
+            this.usePostfilters = false;
+
             this.searchInfo = ko.observable({});
 
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
             this.PFActive = ko.observable(false);
+            this.isMapView = ko.observable(false);
 
             this.hotels = ko.observable([]);
             this.cutDescription = function() {
