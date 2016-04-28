@@ -31,6 +31,7 @@ define(
 
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
+            this.PFActive = ko.observable(false);
 
             this.hotels = ko.observable([]);
             this.cutDescription = function() {

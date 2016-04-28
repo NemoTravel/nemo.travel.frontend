@@ -61,6 +61,7 @@
 
 .nemo-hotels-results__summary {
     &__filters {
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
@@ -68,6 +69,35 @@
         opacity: 1;
         width: 320px;
         margin: 10px;
+        padding: 0;
+
+        &__inner {
+            padding: 10px;
+            background: $nemo-color-LightPoint;
+            box-shadow: 0 1px 8px $nemo-color-container-shadow;
+            border-radius: $nemo-border-radius;
+        }
+
+        &__order {
+            &__title {
+                color: $nemo-color-text-main;
+            }
+        }
+
+        &__filter {
+            &__caption {
+                &__name {
+                    color: $nemo-color-text-main;
+                }
+            }
+
+            &__valuesBlock,
+            &__checkboxesBlock
+            &__inlineSlider {
+                border: 1px solid $nemo-color-neutral;
+                border-radius: $nemo-border-radius;
+            }
+        }
     }
 }
 
