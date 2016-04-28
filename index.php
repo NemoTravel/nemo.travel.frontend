@@ -61,7 +61,8 @@
 			tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
 			numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
 			mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min',
-			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min'
+			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min',
+			dotdotdot:     nemoSourceHost+'/js/lib/jquery.dotdotdot-master/jquery.dotdotdot'
 		},
 
 		baseUrl: nemoSourceHost,
@@ -133,6 +134,9 @@
 									]
 								]
 							}*/
+						},
+						'Hotels/SearchForm/Controller': {
+						    forceSelfHostNavigation: true
 						}
 					}
 				}
@@ -173,6 +177,5 @@
 		}
 	);*/
 </script>
-
 </body>
 </html>
