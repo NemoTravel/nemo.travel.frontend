@@ -49,6 +49,8 @@ define(
         // Extending from dictionaryModel
         helpers.extendModel(HotelsSearchResultsController, [BaseControllerModel]);
 
+        HotelsSearchResultsController.prototype.$$KOBindings = ['common','PostFilters', 'HotelsResults'];
+
         HotelsSearchResultsController.prototype.$$usedModels = [
             'Common/Date',
             'Common/Duration',
@@ -111,10 +113,10 @@ define(
                 // });
 
                 ret.request = JSON.stringify({
-                    "cityId": 6327,
+                    "cityId": 28193,
                     "hotelId": null,
-                    "checkInDate": "2016-08-05T00:00:00",
-                    "checkOutDate": "2016-08-07T00:00:00",
+                    "checkInDate": "2016-09-05T00:00:00",
+                    "checkOutDate": "2016-09-07T00:00:00",
                     "isDelayed": false,
                     "rooms": [
                         { "ADT": 1 }
