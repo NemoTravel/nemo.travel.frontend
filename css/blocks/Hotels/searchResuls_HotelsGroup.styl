@@ -18,11 +18,15 @@
                 padding-left: 20px;
 
                 &__text {
-                    display: inline;
+                    display: inline-block;
                     border-bottom: 1px dashed $nemo-color-LightPoint;
                     color: $nemo-color-LightPoint;
                     line-height: initial;
                     text-decoration: none;
+                    max-width: 310px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
 
                     &:hover {
                         color: $nemo-color-LightPoint;
@@ -56,6 +60,7 @@
             margin-left: 60px;
             line-height: initial;
             cursor: default;
+            white-space: nowrap;
 
             &__item {
                 display: inline-block;

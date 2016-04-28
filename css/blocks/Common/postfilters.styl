@@ -347,24 +347,36 @@ $t_postFilters_animationTime = .1s;
                             vertical-align: middle;
                         }
 
-                        &:before {
-                            content: '';
-                            line-height: 39px;
-                            width: 19px;
-                            height: 19px;
-                            background: $nemo-color-neutral url(/css/images/ui/checkbox_sprite.svg);
-                            border-radius: 5px;
-                            vertical-align: middle;
-                        }
-
                         &__input {
                             display: none;
                         }
 
+                        &__input:checked + &__name {
+                            &:before {
+                                background-color: $nemo-color-main;
+                            }
+                        }
+
+
                         &__name {
-                            margin-left: 10px;
-                            max-width: 190px;
+                            max-width: 219px;
                             line-height: 1em;
+                            padding-left: 29px;
+                            position: relative;
+
+                            &:before {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                line-height: 39px;
+                                left: 0;
+                                top: 50%;
+                                margin-top: -10px;
+                                width: 19px;
+                                height: 19px;
+                                background: $nemo-color-neutral url(/css/images/ui/checkbox_sprite.svg);
+                                border-radius: 5px;
+                             }
 
                             &__stars {
                                 &__star {
@@ -379,12 +391,6 @@ $t_postFilters_animationTime = .1s;
                         &__value {
                             float: right;
                             color: $nemo-color-text-secondary;
-                        }
-
-                        &_checked {
-                            &:before {
-                                background-color: $nemo-color-main;
-                            }
                         }
                     }
                 }
