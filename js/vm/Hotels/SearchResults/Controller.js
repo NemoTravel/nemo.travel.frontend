@@ -154,16 +154,30 @@ define(
                 //     ]
                 // });
 
+                // ret.request = JSON.stringify({
+                //     "cityId": 28193,
+                //     "hotelId": null,
+                //     "checkInDate": "2016-09-05T00:00:00",
+                //     "checkOutDate": "2016-09-07T00:00:00",
+                //     "isDelayed": false,
+                //     "rooms": [
+                //         { "ADT": 1 },
+                //         { "ADT": 1 }
+                //     ]
+                // });
+
                 ret.request = JSON.stringify({
-                    "cityId": 28193,
-                    "hotelId": null,
-                    "checkInDate": "2016-09-05T00:00:00",
-                    "checkOutDate": "2016-09-07T00:00:00",
+                    "cityId": 4754,
+                    "hotelId": 163157,
+                    "checkInDate": "2016-08-07T00:00:00",
+                    "checkOutDate": "2016-08-09T00:00:00",
                     "isDelayed": false,
                     "rooms": [
-                        { "ADT": 1 }
-                    ]
-                });
+                    {
+                        "ADT": 2
+                    }
+                ]
+                })
             }
 
             return ret;
@@ -222,25 +236,83 @@ define(
             var searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
                 staticData = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
                 hotelsArr = [],
+                roomsArr = [],
+                roomsDictionary = {},
                 hotelId;
 
-            //getting hotels and convert them to array
-            // console.dir(dotdotdot);
-            //adding static data to hotel with identical id
-            for (var index = 0; index < staticData.hotels.length; index++) {
-                if (searchData.results.hotels[staticData.hotels[index].id]) {
+            //creating roomMeals association
+            for ( var indexMeal = 0; indexMeal < searchData.results.roomMeals.length; indexMeal++ ) {
+                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
+                    if ( searchData.results.roomMeals[indexMeal].id === searchData.results.roomsGroup[indexRG].mealId ) {
+                        searchData.results.roomsGroup[indexRG].meal = searchData.results.roomMeals[indexMeal];
+                    }
+                }
+            }
+
+            //creating roomRates association
+            for ( var indexRate = 0; indexRate < searchData.results.roomRates.length; indexRate++ ) {
+                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
+                    if ( searchData.results.roomRates[indexRate].id === searchData.results.roomsGroup[indexRG].rateId ) {
+                        searchData.results.roomsGroup[indexRG].rate = searchData.results.roomRates[indexRate];
+                    }
+                }
+            }
+
+            //creating roomTypes association
+            for ( var indexType = 0; indexType < searchData.results.roomTypes.length; indexType++ ) {
+                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
+                    if ( searchData.results.roomTypes[indexType].id === searchData.results.roomsGroup[indexRG].typeId ) {
+                        searchData.results.roomsGroup[indexRG].type = searchData.results.roomTypes[indexType];
+                    }
+                }
+            }
+
+            // creating dictionary with properties rooms
+            for ( var indexDictionary = 0; indexDictionary < searchData.results.roomsGroup.length; indexDictionary++ ) {
+                if ( searchData.results.roomsGroup[indexDictionary].id || searchData.results.roomsGroup[indexDictionary].id === 0 ) {
+                    var idPropertie = searchData.results.roomsGroup[indexDictionary].id;
+
+                    roomsDictionary[idPropertie] = searchData.results.roomsGroup[indexDictionary];
+                }
+            }
+
+            console.dir(roomsDictionary);
+
+            // adding static data to hotel with identical id
+            for ( var index = 0; index < staticData.hotels.length; index++ ) {
+                if ( searchData.results.hotels[staticData.hotels[index].id] ) {
                     searchData.results.hotels[staticData.hotels[index].id].staticDataInfo = staticData.hotels[index];
                 }
             }
 
-            //create array with hotels and static data with identical id
-            for (hotelId in searchData.results.hotels) {
+            // running through all hotels in search results
+            for ( hotelId in searchData.results.hotels ) {
+                roomsArr = [];
+
+                // binding rooms data to hotels by index = searchRoomId
+                for ( var indexGroups = 0; indexGroups < searchData.results.hotels[hotelId].roomGroups.length; indexGroups++ ) {
+                    for ( var indexVariants = 0; indexVariants < searchData.results.hotels[hotelId].roomGroups[indexGroups].roomVariants.length; indexVariants++ ) {
+                        var searchRoomId = searchData.results.hotels[hotelId].roomGroups[indexGroups].searchRoomId,
+                            roomVariants = searchData.results.hotels[hotelId].roomGroups[indexGroups].roomVariants[indexVariants];
+
+                        //creating rooms associations
+                        roomVariants = roomsDictionary[roomVariants];
+
+                        if ( !roomsArr[searchRoomId] ) {
+                            roomsArr[searchRoomId] = [];
+                        }
+                        roomsArr[searchRoomId].push(roomVariants);
+                    }
+                }
+
+                //create properties which include data about rooms
+                searchData.results.hotels[hotelId].rooms = roomsArr;
+
+                //create array with hotels,static data and rooms
                 hotelsArr.push(searchData.results.hotels[hotelId]);
             }
 
             this.hotels = ko.observable(hotelsArr);
-
-            // console.dir(dotdotdot);
 
 
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
