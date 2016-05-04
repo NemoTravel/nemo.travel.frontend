@@ -52,23 +52,6 @@
     </section>
     <!--/ko -->
 
-    <!-- ko if: error -->
-    <div class="nemo-flights-results__error"> <!--TODO: internationalization-->
-        <div class="nemo-flights-results__error__header">
-            Поиск не дал результатов
-        </div>
-        <div class="nemo-flights-results__error__content">
-            К сожалению, на указанные вами даты нет свободных отелей. Воспользуйтесь формой выше или вернитесь на главную страницу.
-        </div>
-        <div class="nemo-flights-results__error__footer">
-            <div class="nemo-ui-button
-                        nemo-flights-results__error__footer__button">
-                На главную
-            </div>
-        </div>
-    </div>
-    <!-- /ko -->
-
     <section class="nemo-hotels-results__content">
         <!-- ko if: !resultsLoaded() -->
         <aside class="nemo-common-postFilters
@@ -105,6 +88,7 @@
         <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, customScroll, hotelsResultsContainerSticky"></aside>
         <!-- /ko -->
 
+        <!--ko if: isListView()-->
         <section class="nemo-ui-subContainer
                         nemo-hotels-results__content__results">
             <!--ko if: !resultsLoaded() -->
@@ -125,48 +109,31 @@
                             <div class="nemo-hotels-results__hotelsGroup__header__title">
                                 <a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#"
                                    data-bind="text: name"></a>
-                                <div class="nemo-hotels-results__hotelsGroup__stars">
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item"
-                                         data-bind="enable: staticDataInfo.starRating >= 1">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item"
-                                         data-bind="enable: staticDataInfo.starRating >= 2">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item"
-                                         data-bind="enable: staticDataInfo.starRating >= 3">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item"
-                                         data-bind="enable: staticDataInfo.starRating >= 4">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item"
-                                         data-bind="enable: staticDataInfo.starRating >= 5">
+                                <div class="nemo-hotels-results__hotelsGroup__stars"
+                                     data-bind="foreach: staticDataInfo.starRating">
+                                    <div class="nemo-hotels-results__hotelsGroup__stars__item">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="nemo-hotels-results__hotelsGroup__header__additional"
-                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price')"></div>
+                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $index() < 1"></div>
                         </div>
 
                         <div class="nemo-ui-subContainer
                                     nemo-hotels-results__hotelsGroup__content">
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap">
-                                    <img src="/img/hotel_thumb.png" alt="Best Western Braid Hills Hotel" class="nemo-hotels-results__hotelsGroup__mainInfo__photo">
+                                    <img data-bind="attr: { 'src': staticDataInfo.photos ? staticDataInfo.photos[staticDataInfo.mainPhotoId] : '/img/hotel_thumb.png' }" class="nemo-hotels-results__hotelsGroup__mainInfo__photo" onerror="this.src = '/img/hotel_thumb.png'">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number"
-                                          data-bind="text: staticDataInfo.customerRating ? staticDataInfo.customerRating : 0"></span>
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text">
-                                        Отлично
-                                    </span>
+                                          data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
+                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text"
+                                          data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
                                     <a href="#" class="nemo-ui-pseudoLink
                                                        nemo-hotels-results__hotelsGroup__mainInfo__rating__link"
-                                       data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + usersOpinionInfo.opinionsCount"></a>
+                                       data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + staticDataInfo.usersOpinionInfo.opinionsCount"></a>
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
@@ -196,11 +163,11 @@
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
                                                    data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')"></a>
                                             </div>
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__district">
-                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">
-                                                    Южная Борщаговка
-                                                </span>
-                                            </div>
+                                            <!--<div class="nemo-hotels-results__hotelsGroup__mainInfo__district">-->
+                                                <!--<span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">-->
+                                                    <!--Южная Борщаговка-->
+                                                <!--</span>-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description">
@@ -286,12 +253,14 @@
                                 </ul>
 
                             </div>
+
                             <div class="nemo-hotels-results__hotelsGroup__rooms">
-                                <div class="nemo-hotels-results__hotelsGroup__rooms__title">
-                                    Рекомендуемое размещение
-                                </div>
-                                <ul class="nemo-hotels-results__hotelsGroup__roomsList">
-                                    <li class="nemo-hotels-results__hotelsGroup__room">
+                                <div class="nemo-hotels-results__hotelsGroup__rooms__title" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__recommended_accommodation')"></div>
+                                <!--Rooms-->
+
+                                <ul class="nemo-hotels-results__hotelsGroup__roomsList" data-bind="foreach: rooms[0]">
+
+                                    <li class="nemo-hotels-results__hotelsGroup__room" data-bind="visible: $index() < 2">
                                         <div class="nemo-hotels-results__hotelsGroup__room__info">
                                             <div class="nemo-hotels-results__hotelsGroup__room__title">
                                                     <span class="nemo-hotels-results__hotelsGroup__room__title__count">
@@ -303,53 +272,20 @@
                                                     </span>
                                                     <span class="nemo-ui-pseudoLink
                                                                  nemo-hotels-results__hotelsGroup__room__title__text">
-                                                        1 &times; Классический стандартный двухместный номер
+                                                        1 &times; <span data-bind="text: type.name"></span>
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Двуспальная кровать или две односпальных кровати
-                                                </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Завтрак не включен
-                                                </li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: type.name"></li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: meal.name"></li>
                                             </ul>
                                         </div>
                                         <span class="nemo-ui-pseudoLink
-                                                     nemo-hotels-results__hotelsGroup__room__additional">
-                                            Только по предоплате
-                                        </span>
+                                                     nemo-hotels-results__hotelsGroup__room__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__buy_by_prepayment_link')"></span>
                                     </li>
-                                    <li class="nemo-hotels-results__hotelsGroup__room">
-                                        <div class="nemo-hotels-results__hotelsGroup__room__info">
-                                            <div class="nemo-hotels-results__hotelsGroup__room__title">
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__count">
-                                                        2 &times;
-                                                    </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap">
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                        <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                    </span>
-                                                    <span class="nemo-ui-pseudoLink
-                                                                 nemo-hotels-results__hotelsGroup__room__title__text">
-                                                        1 &times; Классический стандартный двухместный номер
-                                                    </span>
-                                            </div>
-                                            <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Двуспальная кровать или две односпальных кровати
-                                                </li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature">
-                                                    Завтрак не включен
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span class="nemo-ui-pseudoLink
-                                                     nemo-hotels-results__hotelsGroup__room__additional">
-                                            Только по предоплате
-                                        </span>
-                                    </li>
+
                                 </ul>
+
                                 <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
                                         <span class="nemo-ui-pseudoLink
@@ -357,6 +293,7 @@
                                               data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
                                     </span>
                                 </span>
+
                             </div>
 
                             <div class="nemo-hotels-results__hotelsGroup__footer">
@@ -364,19 +301,17 @@
                                             nemo-ui-button_main
                                             nemo-hotels-results__hotelsGroup__footer__orderBtn">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__price">
-                                            48 000
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency">
-                                                R
-                                            </span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (rooms[0][0].rate.price.amount * $parent.countOfNights()).toFixed(0)">
                                         </span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency"></span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
-                                            за 6 ночей
+                                            <span data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
                                         </span>
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -384,14 +319,21 @@
             <!--/ko -->
 
         </section>
+        <!--/ko-->
+
+        <!--ko if: isMapView()-->
+            <div class="nemo-ui-subContainer" style="width:100%; height:500px; background-color: lightseagreen;"></div>
+        <!--/ko-->
+
         <aside class="nemo-hotels-results__content__sidebar">
 
             <div class="nemo-hotels-results__content__sidebar__showOnMap">
-                <img src="/img/show_on_map.png" alt="Show in map" class="nemo-hotels-results__content__sidebar__showOnMap__image">
+                <img data-bind="attr: { 'src': onMapPanelImageSrc() }" alt="Show in map" class="nemo-hotels-results__content__sidebar__showOnMap__image">
                 <div class="nemo-ui-button
-                            nemo-ui-button_common
-                            nemo-hotels-results__content__sidebar__showOnMap__button"
-                     data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')"></div>
+                                nemo-ui-button_common
+                                nemo-hotels-results__content__sidebar__showOnMap__button"
+                     data-bind="click: changeView,
+                                    text: changeViewButtonLabel()"></div>
             </div>
 
             <!-- ko if: !resultsLoaded() -->

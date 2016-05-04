@@ -18,7 +18,17 @@
 	"header-flag__best_price":"Лучшая цена",
 	"header-flag__city-centre":"Самый центр города",
 	"map__button-show":"Показать на карте",
+	"list__button-show":"Показать списком",
 	"PH__link_all_rooms":"Все доступные номера",
 	"PH__reviews_link_title":"Отзывов",
-	"PH__map_link": "Карта"
+	"PH__map_link": "Карта",
+	"PH__buy_by_prepayment_link":"Только по предоплате",
+	"PH__recommended_accommodation":"Рекомендуемое размещение",
+	"PH__label_after_nights_one":"ночь",
+	"PH__label_after_nights_two_to_four":"ночи",
+	"PH__label_after_nights_more_than_five":"ночей",
+	"error_404_header": "Поиск не дал результатов",
+	"error_404": "К сожалению, в отелях нет мест на указанные вами даты. Воспользуйтесь формой выше или вернитесь на главную страницу.",
+	"error_404_buttonText": "На главную",
+	"PH__averageCustomerRating_description_default":"Хорошо"
 }

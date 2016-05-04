@@ -6,7 +6,7 @@ define(
             BaseControllerModel.apply(this, arguments);
 
             this.name = 'HotelsSearchResultsController';
-			this.error = ko.observable(false);
+            this.error = ko.observable(false);
             this.$$loading = ko.observable(false);
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
@@ -25,6 +25,31 @@ define(
                 ],
                 id: 0,
                 uri: ''
+            };
+
+            this.countOfNights = ko.observable(0);
+            this.labelAfterNights = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
+
+            this.isListView = ko.observable(true);
+            this.isMapView = ko.observable(false);
+            this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
+            this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
+            this.changeView = function () {
+                if ( this.resultsLoaded() ) {
+                    if ( this.isListView() ) {
+                        this.isMapView(true);
+                        this.isListView(false);
+                        this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
+                        this.onMapPanelImageSrc('/img/show_on_list.png');
+                    } else {
+                        this.isListView(true);
+                        this.isMapView(false);
+                        this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
+                        this.onMapPanelImageSrc('/img/show_on_map.png');
+
+                        this.cutDescription();
+                    }
+                }
             };
 
             this.postfiltersData = {
@@ -72,7 +97,6 @@ define(
 
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
-            this.isMapView = ko.observable(false);
 
             this.hotels = ko.observable([]);
             this.cutDescription = function() {
@@ -164,20 +188,36 @@ define(
                 //         { "ADT": 1 },
                 //         { "ADT": 1 }
                 //     ]
+                // }); //163157
+
+                // ret.request = JSON.stringify({
+                //     "cityId": 4754,
+                //     "hotelId": null,
+                //     "checkInDate": "2016-08-12T00:00:00",
+                //     "checkOutDate": "2016-08-14T00:00:00",
+                //     "isDelayed": false,
+                //     "rooms": [
+                //         {
+                //             "ADT": 2
+                //         }
+                //     ]
                 // });
 
                 ret.request = JSON.stringify({
-                    "cityId": 4754,
-                    "hotelId": 163157,
-                    "checkInDate": "2016-08-07T00:00:00",
-                    "checkOutDate": "2016-08-09T00:00:00",
+                    "cityId": 1934864,
+                    "checkInDate": "2016-10-12T00:00:00",
+                    "checkOutDate": "2016-10-14T00:00:00",
                     "isDelayed": false,
                     "rooms": [
-                    {
-                        "ADT": 2
-                    }
-                ]
-                })
+                        {
+                            "ADT": 1,
+                            "CLD": 1,
+                            "childAges": [
+                                10
+                            ]
+                        }
+                    ]
+                });
             }
 
             return ret;
@@ -196,6 +236,16 @@ define(
 
         HotelsSearchResultsController.prototype.buildModels = function () {
             var self = this;
+
+            function searchError (message, systemData) {
+                if (typeof systemData != 'undefined' && systemData[0] !== 0) {
+                    self.$$controller.error('SEARCH ERROR: '+message, systemData);
+                }
+
+                if (typeof systemData == 'undefined' || systemData[0] !== 0) {
+                    self.error(message);
+                }
+            }
 
             this.$$controller.loadData(
                 this.dataURL(),
@@ -232,12 +282,29 @@ define(
 
         };
 
+        HotelsSearchResultsController.prototype.addLabelAfterNights = function () {
+            switch(this.countOfNights()) {
+                case 1:
+                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_one'));
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_two_to_four'));
+                    break;
+                default:
+                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
+                    break;
+            }
+        };
+
         HotelsSearchResultsController.prototype.processSearchResults = function () {
             var searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
                 staticData = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
                 hotelsArr = [],
                 roomsArr = [],
                 roomsDictionary = {},
+                starRatingArr = [],
                 hotelId;
 
             //creating roomMeals association
@@ -258,7 +325,7 @@ define(
                 }
             }
 
-            //creating roomTypes association
+            // creating roomTypes association
             for ( var indexType = 0; indexType < searchData.results.roomTypes.length; indexType++ ) {
                 for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
                     if ( searchData.results.roomTypes[indexType].id === searchData.results.roomsGroup[indexRG].typeId ) {
@@ -276,7 +343,7 @@ define(
                 }
             }
 
-            console.dir(roomsDictionary);
+            // console.dir(roomsDictionary);
 
             // adding static data to hotel with identical id
             for ( var index = 0; index < staticData.hotels.length; index++ ) {
@@ -312,8 +379,26 @@ define(
                 hotelsArr.push(searchData.results.hotels[hotelId]);
             }
 
+            for ( var indexHotelArr = 0; indexHotelArr < hotelsArr.length; indexHotelArr++ ) {
+                starRatingArr = [];
+                for ( var indexStar = 0; indexStar < hotelsArr[indexHotelArr].staticDataInfo.starRating; indexStar++ ) {
+                    starRatingArr.push('1');
+                }
+                hotelsArr[indexHotelArr].staticDataInfo.starRating = starRatingArr;
+            }
+
+            console.dir(hotelsArr);
+
             this.hotels = ko.observable(hotelsArr);
 
+            // Counts of nights
+            // text: ((rate.price.amount * countOfNights()).toFixed(0))
+
+            this.countOfNights = ko.observable(
+                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
+            );
+
+            this.addLabelAfterNights();
 
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
                 this.$$error(this.$$rawdata.system.error.message);
@@ -324,7 +409,7 @@ define(
                 // Processing options
                 this.options = this.$$rawdata.hotels.search.resultData;
 
-                // this.processSearchInfo(); //TODO wtf?
+                // this.processSearchInfo();
             }
 
             this.resultsLoaded(true);
