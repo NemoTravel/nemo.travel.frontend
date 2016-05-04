@@ -337,10 +337,14 @@ $t_postFilters_animationTime = .1s;
                         border-top: 1px $c_postFilters_separatorColor solid;
                         overflow: hidden;
 
+                        &:hover {
+                            background: $nemo-header-bg;
+                            transition: all $nemo-transition-main;
+                        }
+
                         &:first-of-type {
                             border-top: none;
                         }
-                        &:before,
                         &__name,
                         &__value {
                             display: inline-block;

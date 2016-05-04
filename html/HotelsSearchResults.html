@@ -16,7 +16,445 @@
                     nemo-ui-button_common
                     nemo-hotels-results__summary__filterSwitch
                     js-flights-results__adaptiveFiltersNoClose"
-             data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption')"></div>
+             data-bind="click: function () {if (resultsLoaded()) {PFActive(!PFActive());}},
+                        css: {'nemo-flights-results__summary__filterSwitch_active': PFActive()},
+                        text: $root.i18n('HotelsSearchResults', 'filter__caption')"></div>
+<!--ko if: PFActive() -->
+        <div class="nemo-common-postFilters
+                    nemo-hotels-results__summary__filters">
+            <div class="nemo-common-postFilters__inner,
+                        nemo-hotels-results__summary__filters__inner">
+                <div class="nemo-hotels-results__content__postfilters__showOnMap">
+                    <div class="nemo-ui-button
+                                nemo-ui-button_common
+                                nemo-hotels-results__content__postfilters__showOnMap__button"
+                         data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')"
+                    ></div>
+                </div>
+
+                <label class="nemo-hotels-results__content__postfilters__order
+                              nemo-hotels-results__summary__filters__order">
+                    <span class="nemo-hotels-results__content__postfilters__order__title
+                                 nemo-hotels-results__summary__filters__order__title">
+                        Сортировать
+                    </span>
+                    <div class="nemo-ui-select
+                                js-common-pseudoSelect">
+                        <div class="nemo-ui-select__toggle
+                                    js-common-pseudoSelect__toggle"
+                             data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
+                    </div>
+                </label>
+
+                <div class="nemo-common-postFilters__clearAll">
+                    <div class="nemo-ui-button
+                                    nemo-ui-button_common
+                                    nemo-common-postFilters__clearAll__button"
+                         data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll')"></div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__price')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock
+                                nemo-hotels-results__summary__filters__filter__valuesBlock
+                                nemo-common-postFilters__filterList__filter__valuesBlock_slider">
+                        <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                            <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
+                                        nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
+                                <div class="nemo-ui-slider__info">
+                                        <span class="nemo-ui-slider__info__block
+                                                     nemo-ui-slider__info__block_min" >
+                                            10 000 р
+                                        </span>
+                                        <span class="nemo-ui-slider__info__block
+                                                     nemo-ui-slider__info__block_divider">
+                                            —
+                                        </span>
+                                        <span class="nemo-ui-slider__info__block
+                                                     nemo-ui-slider__info__block_max" >
+                                            100 000 р
+                                        </span>
+                                </div>
+
+                                <div class="nemo-ui-slider__wrapper">
+                                    <div class="nemo-ui-slider
+                                                    nemo-ui-slider_range
+                                                    ui-slider
+                                                    ui-slider-horizontal
+                                                    ui-widget
+                                                    ui-widget-content
+                                                    ui-corner-all">
+                                        <div class="ui-slider-range
+                                                        ui-widget-header
+                                                        ui-corner-all" style="left: 0%; width: 100%;"></div>
+                                            <span class="ui-slider-handle
+                                                         ui-state-default
+                                                         ui-corner-all" tabindex="0" style="left: 0%;"></span>
+                                            <span class="ui-slider-handle
+                                                         ui-state-default
+                                                         ui-corner-all" tabindex="0" style="left: 100%;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__starsCount')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+                                nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes
+                                nemo-hotels-results__summary__filters__filter__checkboxesBlock">
+                        <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 12 500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 3500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 2500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 1500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
+                                        Без звезд
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 50 руб.
+                                    </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__type')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+                                    nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes
+                                    nemo-hotels-results__summary__filters__filter__checkboxesBlock">
+                        <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        Отель
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 12 500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        Апартаменты
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 3500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        Хостел
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 2500 руб.
+                                    </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                                 nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                        Мини-отель
+                                    </span>
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                        от 1500 руб.
+                                    </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__bookingCondition')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+                                nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes
+                                nemo-hotels-results__summary__filters__filter__checkboxesBlock">
+                        <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Оплата при въезде
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    150
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Бесплатная отмена
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    20
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Оплата сейчас
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    199
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Без банковской карты
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    14
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Акция
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    37
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Фиксированный курс
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    88
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+                                nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes
+                                nemo-hotels-results__summary__filters__filter__checkboxesBlock">
+                        <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Бесплатный доступ в интернет
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    150
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Бесплатный завтрак
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    20
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Парковка
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    199
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Фитнес
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    14
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Бассейн
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    37
+                                </span>
+                            </label>
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                    Трансфер
+                                </span>
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    88
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nemo-common-postFilters__filterList__filter">
+                    <div class="nemo-common-postFilters__filterList__filter__caption">
+                        <h4 class="nemo-common-postFilters__filterList__filter__caption__name
+                                   nemo-hotels-results__summary__filters__filter__caption__name"
+                            data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__guestsRating')"></h4>
+                    </div>
+
+                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock
+                                nemo-common-postFilters__filterList__filter__valuesBlock_slider
+                                nemo-hotels-results__content__postfilters__inlineSlider
+                                nemo-hotels-results__summary__filters__filter__inlineSlider">
+                        <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                            <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
+                                        nemo-hotels-results__content__postfilters__inlineSlider__value">
+                                <div class="nemo-ui-slider__info
+                                            nemo-hotels-results__content__postfilters__inlineSlider__info">
+                                    oт&nbsp;
+                                    <span class="nemo-ui-slider__info__block
+                                                 nemo-ui-slider__info__value
+                                                 nemo-hotels-results__content__postfilters__inlineSlider__info__value" >
+                                        1
+                                    </span>
+                                </div>
+
+                                <div class="nemo-ui-slider__wrapper
+                                            nemo-ui-slider__wrapper__oneHandle
+                                            nemo-hotels-results__content__postfilters__inlineSlider__slider">
+                                    <div class="nemo-ui-slider
+                                                nemo-ui-slider_range
+                                                ui-slider
+                                                ui-slider-horizontal
+                                                ui-widget
+                                                ui-widget-content
+                                                ui-corner-all">
+                                        <div class="ui-slider-range
+                                                    ui-widget-header
+                                                    ui-corner-all" style="left: 0%; width: 100%;"></div>
+                                        <span class="ui-slider-handle
+                                                     ui-state-default
+                                                     ui-corner-all" tabindex="0" style="left: 0%;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    <!-- /ko-->
+
+
+
         <div class="nemo-hotels-results__summary__inner
                     js-hotels-results__formOpener">
             <div class="nemo-hotels-results__summary__area">
@@ -1231,7 +1669,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
 
                 <div class="nemo-common-postFilters__filterList__filter">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
