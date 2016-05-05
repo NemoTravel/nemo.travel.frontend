@@ -28,7 +28,8 @@
                     <div class="nemo-ui-button
                                 nemo-ui-button_common
                                 nemo-hotels-results__content__postfilters__showOnMap__button"
-                         data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')"
+                         data-bind="click: changeView,
+                                    text: changeViewButtonLabel()"
                     ></div>
                 </div>
 
@@ -523,7 +524,10 @@
         <!-- /ko -->
 
         <!-- ko if: resultsLoaded() -->
-        <aside class="nemo-common-postFilters nemo-hotels-results__content__postfilters nemo-common-scrollable" data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, customScroll, hotelsResultsContainerSticky"></aside>
+        <aside class="nemo-common-postFilters
+                      nemo-hotels-results__content__postfilters
+                      nemo-common-scrollable"
+               data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, customScroll, hotelsResultsContainerSticky"></aside>
         <!-- /ko -->
 
         <!--ko if: isListView()-->
@@ -561,8 +565,8 @@
                         <div class="nemo-ui-subContainer
                                     nemo-hotels-results__hotelsGroup__content">
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
-                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap">
-                                    <img data-bind="attr: { 'src': staticDataInfo.photos ? staticDataInfo.photos[staticDataInfo.mainPhotoId] : '/img/hotel_thumb.png' }" class="nemo-hotels-results__hotelsGroup__mainInfo__photo" onerror="this.src = '/img/hotel_thumb.png'">
+                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap"
+                                     data-bind="style: { 'background-image': staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/hotel_thumb.png)' }">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number"
@@ -760,7 +764,43 @@
         <!--/ko-->
 
         <!--ko if: isMapView()-->
+        <section class="nemo-hotels-results__content__results
+                        nemo-hotels-results__map">
+            <div class="nemo-hotels-results__map__controlWrap">
+                <span class="nemo-hotels-results__map__controlTitle">
+                    <span class="nemo-hotels-results__map__controlTitle__text">
+                        Расстояние от центра от
+                    </span>
+                    <span class="nemo-hotels-results__map__controlTitle__distance">
+                        0.5
+                    </span>
+                    <span class="nemo-hotels-results__map__controlTitle__units">
+                        км
+                    </span>
+                </span>
+                <div class="nemo-hotels-results__map__control">
+                    <div class="nemo-ui-slider__wrapper
+                                nemo-ui-slider__wrapper__oneHandle
+                                nemo-hotels-results__content__postfilters__inlineSlider__slider">
+                        <div class="nemo-ui-slider
+                                    nemo-ui-slider_range
+                                    ui-slider
+                                    ui-slider-horizontal
+                                    ui-widget
+                                    ui-widget-content
+                                    ui-corner-all">
+                            <div class="ui-slider-range
+                                        ui-widget-header
+                                        ui-corner-all" style="left: 0%; width: 100%;"></div>
+                                <span class="ui-slider-handle
+                                             ui-state-default
+                                             ui-corner-all" tabindex="0" style="left: 0%;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="nemo-ui-subContainer" style="width:100%; height:500px; background-color: lightseagreen;"></div>
+        </section>
         <!--/ko-->
 
         <aside class="nemo-hotels-results__content__sidebar">
@@ -771,7 +811,7 @@
                                 nemo-ui-button_common
                                 nemo-hotels-results__content__sidebar__showOnMap__button"
                      data-bind="click: changeView,
-                                    text: changeViewButtonLabel()"></div>
+                                text: changeViewButtonLabel()"></div>
             </div>
 
             <!-- ko if: !resultsLoaded() -->
@@ -1488,9 +1528,8 @@
                 <div class="nemo-hotels-results__content__postfilters__showOnMap">
                     <div class="nemo-ui-button
                                 nemo-ui-button_common
-                                nemo-hotels-results__content__postfilters__showOnMap__button">
-                        Показать на карте
-                    </div>
+                                nemo-hotels-results__content__postfilters__showOnMap__button"
+                         ></div>
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">

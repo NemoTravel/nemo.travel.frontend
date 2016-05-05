@@ -30,6 +30,8 @@ define(
             this.countOfNights = ko.observable(0);
             this.labelAfterNights = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
 
+            this.PFActive = ko.observable(false);
+
             this.isListView = ko.observable(true);
             this.isMapView = ko.observable(false);
             this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));

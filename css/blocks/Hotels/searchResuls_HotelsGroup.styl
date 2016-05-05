@@ -95,16 +95,10 @@
                 height: 160px;
                 overflow: hidden;
                 float: left
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: $nemo-border-radius;
-            }
-
-            &__photo {
                 display: block;
-                min-width: 100%;
-                min-height: 100%;
+                border-radius: $nemo-border-radius;
+                background-size: cover;
+                background-position: 50% 50%;
             }
 
             &__infoBlock {
@@ -185,7 +179,12 @@
                 line-height: 1.3em;
 
                 &__text {
-                    height: 60px;
+                    height: 80px;
+
+                    & * {
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
                 }
 
                 &__link {
