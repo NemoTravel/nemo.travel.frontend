@@ -8,6 +8,7 @@ define(
             this.name = 'HotelsSearchResultsController';
             this.error = ko.observable(false);
             this.$$loading = ko.observable(false);
+            this.PFActive = ko.observable(false);
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
             this.searchParameters = {
@@ -109,6 +110,13 @@ define(
                         watch: 'window'
                     });
                 };
+
+            this.isCardHotelView = ko.observable(false);
+            this.showCardHotel = function (hotel, root) {
+                var proto = Object.getPrototypeOf(root.controller);
+
+                proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, true)
+            };
 
             this.processInitParams();
 
@@ -417,7 +425,6 @@ define(
             this.resultsLoaded(true);
             this.cutDescription();
         };
-
 
         //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
         // HotelsSearchResultsController.prototype.$$KOBindings = ['HotelsSearchForm', 'HotelsSearchResults'];

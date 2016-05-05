@@ -33,7 +33,8 @@ define (
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
                 {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'},
 				// {re: /^hotels\/results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d]+)+)$/, handler: 'Hotels/SearchResults/Controller'},
-				{re: /^hotels\/results?$/, handler: 'Hotels/SearchResults/Controller'}
+				{re: /^hotels\/results?$/, handler: 'Hotels/SearchResults/Controller'},
+				{re: /^hotels\/results\/(\d+)$/, handler: 'Hotels/SearchResults/Controller'},
 			];
 			this.i18nStorage = {};
 
@@ -104,6 +105,7 @@ define (
 					var fragment = this.getFragment();
 					for(var i = 0; i < self.routes.length; i++) {
 						var match = fragment.match(self.routes[i].re);
+						console.dir(match);
 						if(match) {
 							match.shift();
 							return [self.routes[i].handler, match];

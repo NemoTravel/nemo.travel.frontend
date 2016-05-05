@@ -496,7 +496,6 @@
         <aside class="nemo-common-postFilters
                       nemo-hotels-results__content__postfilters
                       nemo-hotels-results__content__postfilters_resultLoadingDummy">
-        <!--TODO change classes below for hotels-->
 
             <label class="nemo-hotels-results__content__postfilters__order">
                 <span class="nemo-hotels-results__content__postfilters__order__title">
@@ -572,7 +571,7 @@
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number"
                                           data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text"
-                                          data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
+                                          data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
                                     <a href="#" class="nemo-ui-pseudoLink
                                                        nemo-hotels-results__hotelsGroup__mainInfo__rating__link"
                                        data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + staticDataInfo.usersOpinionInfo.opinionsCount"></a>
@@ -741,7 +740,8 @@
                             <div class="nemo-hotels-results__hotelsGroup__footer">
                                 <div class="nemo-ui-button
                                             nemo-ui-button_main
-                                            nemo-hotels-results__hotelsGroup__footer__orderBtn">
+                                            nemo-hotels-results__hotelsGroup__footer__orderBtn"
+                                     data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                                         <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (rooms[0][0].rate.price.amount * $parent.countOfNights()).toFixed(0)">
                                         </span>
