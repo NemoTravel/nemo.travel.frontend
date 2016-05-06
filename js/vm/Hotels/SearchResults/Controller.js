@@ -102,6 +102,16 @@ define(
             this.resultsLoaded = ko.observable(false);
 
             this.hotels = ko.observable([]);
+
+            this.filters = {
+                starRating0: ko.observable(false),
+                starRating1: ko.observable(false),
+                starRating2: ko.observable(false),
+                starRating3: ko.observable(false),
+                starRating4: ko.observable(false),
+                starRating5: ko.observable(false)
+            };
+
             this.cutDescription = function() {
                 var descriptions = $('.nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot'),
                     i;
@@ -309,6 +319,8 @@ define(
         };
 
         HotelsSearchResultsController.prototype.processSearchResults = function () {
+            var self = this;
+
             var searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
                 staticData = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
                 hotelsArr = [],
@@ -400,6 +412,26 @@ define(
             console.dir(hotelsArr);
 
             this.hotels = ko.observable(hotelsArr);
+
+            self.filteredHotels = ko.computed(function() {
+                var filters = self.filters;
+
+                if (!filters.starRating0() && !filters.starRating1() && !filters.starRating2() &&
+                    !filters.starRating3() && !filters.starRating4() && !filters.starRating5()){
+                    return self.hotels();
+                }
+
+                return ko.utils.arrayFilter(self.hotels(), function(hotel) {
+                    var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
+
+                    return (filters.starRating0() && hotelStars === 0) ||
+                        (filters.starRating1() && hotelStars === 1) ||
+                        (filters.starRating2() && hotelStars === 2) ||
+                        (filters.starRating3() && hotelStars === 3) ||
+                        (filters.starRating4() && hotelStars === 4) ||
+                        (filters.starRating5() && hotelStars === 5);
+                });
+            });
 
             // Counts of nights
             // text: ((rate.price.amount * countOfNights()).toFixed(0))
