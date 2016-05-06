@@ -743,9 +743,10 @@
                                             nemo-hotels-results__hotelsGroup__footer__orderBtn"
                                      data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (rooms[0][0].rate.price.amount * $parent.countOfNights()).toFixed(0)">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (rooms[0][0].rate.price.amount * $parent.countOfNights()).toFixed(0)"></span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency"></span>
                                         </span>
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency"></span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
                                             <span data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
                                         </span>
