@@ -526,7 +526,7 @@
         <aside class="nemo-common-postFilters
                       nemo-hotels-results__content__postfilters
                       nemo-common-scrollable"
-               data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: {}}, customScroll, hotelsResultsContainerSticky"></aside>
+               data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: filters}, customScroll, hotelsResultsContainerSticky"></aside>
         <!-- /ko -->
 
         <!--ko if: isListView()-->
@@ -540,7 +540,7 @@
             <!--ko if: resultsLoaded() -->
             <div class="nemo-hotels-results__groupList
                         nemo-hotels-results__groupList_tile"
-                 data-bind="foreach: hotels()">
+                 data-bind="foreach: filteredHotels()">
 
                 <div class="nemo-hotels-results__groupList__item">
                     <div class="nemo-ui-subContainer
@@ -1582,8 +1582,9 @@
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                       data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                       >
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating5">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -1597,7 +1598,8 @@
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating4">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -1610,7 +1612,8 @@
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating3">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -1622,7 +1625,8 @@
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating2">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -1633,7 +1637,8 @@
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating1">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -1643,7 +1648,8 @@
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
-                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
+                                    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
+                                           data-bind="checked: starRating0">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
@@ -1665,7 +1671,7 @@
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                       data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                       >
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
