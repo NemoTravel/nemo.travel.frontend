@@ -614,7 +614,7 @@
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description">
                                         <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text
                                                   nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot"
-                                           data-bind="html: staticDataInfo.description" ></p>
+                                           data-bind="html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender" ></p>
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
                                     </div>
                                 </div>
@@ -870,9 +870,8 @@
                                     nemo-hotels-results__content__sidebar__offer__content">
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap
-                                            nemo-hotels-results__content__sidebar__offer__photoWrap">
-                                    <img src="/img/hotel_thumb.png" alt="Best Western Braid Hills Hotel" class="nemo-hotels-results__hotelsGroup__mainInfo__photo">
-                                </div>
+                                            nemo-hotels-results__content__sidebar__offer__photoWrap"
+                                    data-bind="style: { 'background-image': 'url(/img/hotel_thumb.png)'}"></div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating
                                             nemo-hotels-results__content__sidebar__offer__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number

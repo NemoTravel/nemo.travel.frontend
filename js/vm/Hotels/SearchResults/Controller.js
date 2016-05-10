@@ -116,8 +116,18 @@ define(
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
 
-            this.hotels = ko.observable([]);
+            ko.bindingHandlers.afterHtmlRender = {
+                update: function(element, valueAccessor, allBindings){
+                    $(element).dotdotdot({
+                        watch: 'window'
+                    });
+                }
+            }
 
+            this.hotels = ko.observableArray([]);
+
+            this.filters = new HotelsFiltersViewModel(ko);
+            
             this.hideShowMoreButton = ko.observable(false);
             this.countsOfHotels = ko.observable(0);
             this.visibleHotels = ko.observable(5);
@@ -131,15 +141,6 @@ define(
                 if ( this.remainderHotels() === 0 ) {
                     this.hideShowMoreButton(true);
                 }
-            };
-
-            this.filters = {
-                starRating0: ko.observable(false),
-                starRating1: ko.observable(false),
-                starRating2: ko.observable(false),
-                starRating3: ko.observable(false),
-                starRating4: ko.observable(false),
-                starRating5: ko.observable(false)
             };
 
             this.cutDescription = function() {
@@ -449,26 +450,22 @@ define(
             //counts of hotels remainder
             this.countsOfHotels(hotelsArr.length);
 
-            this.hotels = ko.observable(hotelsArr);
+            this.hotels = ko.observableArray(hotelsArr);
 
             self.filteredHotels = ko.computed(function() {
                 var filters = self.filters;
 
-                if (!filters.starRating0() && !filters.starRating1() && !filters.starRating2() &&
-                    !filters.starRating3() && !filters.starRating4() && !filters.starRating5()){
+                if (self.filters.isFilterEmpty()){
                     return self.hotels();
                 }
 
                 return ko.utils.arrayFilter(self.hotels(), function(hotel) {
-                    var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
-
-                    return (filters.starRating0() && hotelStars === 0) ||
-                        (filters.starRating1() && hotelStars === 1) ||
-                        (filters.starRating2() && hotelStars === 2) ||
-                        (filters.starRating3() && hotelStars === 3) ||
-                        (filters.starRating4() && hotelStars === 4) ||
-                        (filters.starRating5() && hotelStars === 5);
+                    return self.filters.isMatchFilter(hotel);
                 });
+            });
+
+            self.filteredHotels.subscribe(function(){
+                //TODO work with map
             });
 
             this.countOfNights = ko.observable(
@@ -490,7 +487,7 @@ define(
             }
 
             this.resultsLoaded(true);
-            this.cutDescription();
+            //this.cutDescription();
         };
 
         //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
@@ -499,3 +496,47 @@ define(
         return HotelsSearchResultsController;
     }
 );
+
+var HotelsFiltersViewModel = function(ko){
+    var self = this;
+
+    self.starRating0 = ko.observable(false);
+    self.starRating1 = ko.observable(false);
+    self.starRating2 = ko.observable(false);
+    self.starRating3 = ko.observable(false);
+    self.starRating4 = ko.observable(false);
+    self.starRating5 = ko.observable(false);
+
+    self.isStarFilterEmpty = ko.computed(function(){
+       return !self.starRating0() &&
+           !self.starRating1() &&
+           !self.starRating2() &&
+           !self.starRating3() &&
+           !self.starRating4() &&
+           !self.starRating5();
+    });
+
+
+
+    self.isFilterEmpty = ko.computed(function(){
+       return self.isStarFilterEmpty();
+    });
+
+    self.isMatchStarFilter = function(hotelStars){
+        if (self.isStarFilterEmpty()){
+            return true;
+        }
+
+        return (self.starRating0() && hotelStars === 0) ||
+            (self.starRating1() && hotelStars === 1) ||
+            (self.starRating2() && hotelStars === 2) ||
+            (self.starRating3() && hotelStars === 3) ||
+            (self.starRating4() && hotelStars === 4) ||
+            (self.starRating5() && hotelStars === 5);
+    }
+
+    self.isMatchFilter = function(hotel){
+        var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
+        return self.isMatchStarFilter(hotelStars);
+    }
+}
