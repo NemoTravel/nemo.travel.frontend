@@ -37,6 +37,12 @@ define(
             this.isMapView = ko.observable(false);
             this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
             this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
+
+            // this.map = function (block, position) {
+            //     new google.maps.Map(block, position);
+            // };
+            this.geocoder = new google.maps.Geocoder();
+
             this.changeView = function () {
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
@@ -44,6 +50,15 @@ define(
                         this.isListView(false);
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_list.png');
+
+                        this.map = new google.maps.Map(
+                            document.getElementById('map'),
+                            {
+                                center: {lat: -34.397, lng: 150.644},
+                                zoom: 8
+                            }
+                        );
+
                     } else {
                         this.isListView(true);
                         this.isMapView(false);
@@ -103,6 +118,21 @@ define(
 
             this.hotels = ko.observable([]);
 
+            this.hideShowMoreButton = ko.observable(false);
+            this.countsOfHotels = ko.observable(0);
+            this.visibleHotels = ko.observable(5);
+            this.remainderHotels = ko.observable(25);
+            this.showNext25hotels = function (controller) {
+                this.visibleHotels(this.visibleHotels() + this.remainderHotels());
+                this.remainderHotels(
+                    (this.countsOfHotels() - this.visibleHotels()) > this.remainderHotels() ? this.remainderHotels() : this.countsOfHotels() - this.visibleHotels()
+                );
+                
+                if ( this.remainderHotels() === 0 ) {
+                    this.hideShowMoreButton(true);
+                }
+            };
+
             this.filters = {
                 starRating0: ko.observable(false),
                 starRating1: ko.observable(false),
@@ -121,11 +151,17 @@ define(
                     });
                 };
 
+            this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
             this.showCardHotel = function (hotel, root) {
-                var proto = Object.getPrototypeOf(root.controller);
+                /*var proto = Object.getPrototypeOf(root.controller);
+                 proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
 
-                proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, true)
+                this.$$controller.navigate('/hotels/results/' + hotel.id, false);
+                this.isCardHotelView(true);
+
+                this.$$controller.hotelsSearchCardActivated(true);
+                this.$$controller.hotelsSearchController = this;
             };
 
             this.processInitParams();
@@ -410,6 +446,8 @@ define(
             }
 
             console.dir(hotelsArr);
+            //counts of hotels remainder
+            this.countsOfHotels(hotelsArr.length);
 
             this.hotels = ko.observable(hotelsArr);
 
@@ -432,9 +470,6 @@ define(
                         (filters.starRating5() && hotelStars === 5);
                 });
             });
-
-            // Counts of nights
-            // text: ((rate.price.amount * countOfNights()).toFixed(0))
 
             this.countOfNights = ko.observable(
                 Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)

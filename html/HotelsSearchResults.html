@@ -522,14 +522,14 @@
         </aside>
         <!-- /ko -->
 
-        <!-- ko if: resultsLoaded() -->
+        <!-- ko if: resultsLoaded() && !isCardHotelView() -->
         <aside class="nemo-common-postFilters
                       nemo-hotels-results__content__postfilters
                       nemo-common-scrollable"
                data-bind="template: {name: 'nemo-koTemplate-HotelsResults-Filters', data: filters}, customScroll, hotelsResultsContainerSticky"></aside>
         <!-- /ko -->
 
-        <!--ko if: isListView()-->
+        <!--ko if: isListView() && !isCardHotelView() -->
         <section class="nemo-ui-subContainer
                         nemo-hotels-results__content__results">
             <!--ko if: !resultsLoaded() -->
@@ -542,7 +542,7 @@
                         nemo-hotels-results__groupList_tile"
                  data-bind="foreach: filteredHotels()">
 
-                <div class="nemo-hotels-results__groupList__item">
+                <div class="nemo-hotels-results__groupList__item" data-bind="visible: $index() < $parent.visibleHotels()">
                     <div class="nemo-ui-subContainer
                                 nemo-hotels-results__hotelsGroup">
                         <div class="nemo-ui-subContainer__header
@@ -759,6 +759,8 @@
                     </div>
                 </div>
             </div>
+
+            <div data-bind="click: showNext25hotels, text: 'Показать еще ' + remainderHotels(), visible: !hideShowMoreButton()"></div>
             <!--/ko -->
 
         </section>
@@ -800,10 +802,11 @@
                     </div>
                 </div>
             </div>
-            <div class="nemo-ui-subContainer" style="width:100%; height:500px; background-color: lightseagreen;"></div>
+            <div class="nemo-ui-subContainer" style="width:100%; height:500px;" id="map" ></div>
         </section>
         <!--/ko-->
 
+        <!-- ko if: !isCardHotelView() -->
         <aside class="nemo-hotels-results__content__sidebar">
 
             <div class="nemo-hotels-results__content__sidebar__showOnMap">
@@ -1032,6 +1035,7 @@
             <!-- /ko -->
 
         </aside>
+        <!-- /ko -->
     </section>
 
     <script id="nemo-koTemplate-HotelsResults-DatesMatrix_dummy" type="text/html">

@@ -5,6 +5,7 @@
 	<title>Nemo Front-End</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsf2g7FutyBN93KrM8eEOnBQJVduQGR7g"></script>
 </head>
 <body>
 <!-- Template override example -->

@@ -105,7 +105,6 @@ define (
 					var fragment = this.getFragment();
 					for(var i = 0; i < self.routes.length; i++) {
 						var match = fragment.match(self.routes[i].re);
-						console.dir(match);
 						if(match) {
 							match.shift();
 							return [self.routes[i].handler, match];
@@ -136,6 +135,19 @@ define (
 					} else {
 						window.location = self.options.root + this.clearSlashes(path);
 					}
+					return this;
+				},
+				listen: function() {
+					var self = this;
+					var current = self.getFragment();
+					var fn = function() {
+						if(current !== self.getFragment()) {
+							current = self.getFragment();
+							self.check(current);
+						}
+					}
+					clearInterval(this.interval);
+					this.interval = setInterval(fn, 50);
 					return this;
 				}/*,
 				back: function() {
@@ -202,10 +214,21 @@ define (
 							self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
 							// Setting event listener that will fire on page URL change
+
 							window.addEventListener(
 								"popstate",
 								function () {
-									self.processRoute();
+									if (!self.hotelsSearchCardActivated()) {
+										self.processRoute();
+									} else {
+										var hotelsCntrl = self.hotelsSearchController;
+
+										self.navigate('/hotels/results/', false);
+
+										self.hotelsSearchCardActivated(false);
+										hotelsCntrl.isCardHotelView(false);
+										hotelsCntrl.cutDescription();
+									}
 								}
 								, false);
 
