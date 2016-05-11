@@ -1,0 +1,843 @@
+.nemo-hotel {
+    display: flex;
+
+    &__additional {
+        margin: 15px 10px 0;
+        flex: 0 0 400px;
+
+        &__block {
+            margin-bottom: 15px;
+
+            &__title {
+                font-size: 15px;
+                font-weight: 400;
+                margin-bottom: 15px;
+            }
+        }
+
+        &__info {
+            color: $nemo-color-LightPoint;
+            height: 65px;
+            position: relative;
+
+            &__name,
+            &__address {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &__name {
+                font-size: 20px;
+                max-width: 295px;
+            }
+
+            &__stars {
+                position: absolute;
+                top: 3px;
+                right: 0;
+                white-space: nowrap;
+
+                &__item {
+                    display: inline-block;
+                    width: 17px;
+                    height: 19px;
+                    background: url("/css/images/hotels_results_sprite.svg") -2px -24px no-repeat;
+                }
+            }
+        }
+
+        &__location {
+            padding: 0;
+
+            &__map {
+                overflow: hidden;
+                border-radius: $d_ui_subContainer_borderradius;
+                position: relative;
+                box-shadow: $i_ui_subContainer_outershadow;
+
+                &__button {
+                    background: $nemo-color-main;
+                    font-size: 15px;
+                    width: 150px;
+                    height: 40px;
+                    line-height: 40px;
+                    position: absolute;
+                    bottom: 40px;
+                    right: 0;
+
+                    &:hover, &:active {
+                        background: lighten($nemo-color-main, 10%);
+                    }
+                }
+            }
+
+            &__distances {
+                padding: 10px 20px;
+
+                &__title {
+                    margin-bottom: 10px;
+                }
+
+                &__param {
+                    display: flex;
+                    line-height: 25px;
+
+                    &__name {
+                        display: block;
+                        width: 110px;
+                        color: $nemo-color-text-secondary;
+                        flex-shrink: 0;
+                    }
+
+                    &__values {
+                        &__value {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__booking {
+            &__list {
+                list-style-type: none;
+                padding: 0;
+
+                &__item {
+                    white-space: nowrap;
+                    margin-bottom: 10px;
+
+                    &:before {
+                        content: '';
+                        display: inline-block
+                        width: 11px;
+                        height: 12px;
+                        background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 0 0;
+                        vertifcal-align: middle;
+                        margin-right: 11px;
+                    }
+
+                    &__text {
+                        dsiplay: inline-block;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        &__viewed {
+            &__title {
+                color: $nemo-color-LightPoint;
+                margin-bottom: 20px;
+            }
+
+            &__item {
+                margin-top: 0 !important;
+
+                &__title {
+                    width: 100%;
+                    padding: 0 20px;
+                    justify-content: space-between;
+                }
+
+                &__stars {
+                    margin: 0;
+                }
+
+                &__addressWrap {
+                    padding-top: 0;
+                }
+
+                &__distances {
+                    margin-left: 60px;
+                }
+
+                &__rating {
+                    margin-right: 70px;
+                }
+
+                &__description {
+                    padding-left: 20px;
+                    padding-right: 30px;
+
+                    &__link {
+                        right: 20px;
+                    }
+                }
+
+                &__services {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border-top: 1px solid $nemo-color-neutral;
+                    border-bottom: 1px solid $nemo-color-neutral;
+                    margin: 10px 0 0;
+                }
+
+                &__footer {
+                    padding-right: 20px;
+                    padding-bottom: 6px;
+                    padding-top: 10px;
+
+                    &__button {
+                        width: auto;
+
+                        &__priceContainer {
+                            display: block;
+
+                            &__price {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__content {
+        margin: 15px 10px 0 !important;
+        flex: 0 1 82%;
+
+        &__tabs {
+            height: 65px;
+            padding: 5px 5px 0;
+
+            &__tab {
+                display: inline-block;
+                margin: 0 15px;
+                opacity: .5;
+                height: 35px;
+                border-bottom: 3px solid transparent;
+                cursor: pointer;
+
+                &__text {
+                    color: $nemo-color-LightPoint;
+                    border-bottom: 1px dashed $nemo-color-LightPoint;
+                }
+                    
+                &_active {
+                    border-color: $nemo-color-LightPoint;
+                    opacity: 1;
+
+                    & > * {
+                        border-color: transparent;
+                    }
+                }
+            }
+        }
+
+        &__rooms {
+            &__slider {
+                position: relative;
+                height: 425px;
+                margin-bottom: 15px;
+
+                &__dummy {
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid $nemo-color-DarkPoint;
+                }
+            }
+
+            &__rating {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 110px;
+                height: 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: $nemo-border-radius;
+                background: $nemo-color-neutral;
+
+                &__num,
+                &__text {
+                    color: $c_ui_button;
+                }
+
+                &__num {
+                    font-size: 24px;
+                }
+
+                &__text {
+                    margin-top: -5px;
+                }
+            }
+
+            &__title {
+                font-weight: 400;
+            }
+
+            &__subtitle {
+                display: inline-block;
+                color: $nemo-color-text-secondary;
+                margin-bottom: 15px;
+            }
+
+            &__summary {
+                display: flex;
+                opacity: .5;
+                transition: opacity $nemo-transition-main;
+                margin-bottom: 20px;
+
+                &:hover,
+                &_active {
+                    opacity: 1;
+                }
+
+                &__title {
+                    width: 90px;
+                    display: block;
+                    flex-shrink: 0;
+                    line-height: 20px;
+                }
+
+                &__inner {
+                    flex-basis: 100%;
+                    display: flex;
+                    border: 1px solid $nemo-color-neutral;
+                    border-radius: $nemo-border-radius;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                &__switch {
+                    margin: -1px -1px -1px 0;
+                    height: 40px;
+                    line-height: 40px;
+                    background: $nemo-color-main;
+                    font-size: 15px;
+
+                    &:hover,
+                    &:active {
+                        background: lighten($nemo-color-main, 10);
+                    }
+                }
+
+                &__info {
+                    &__from,
+                    &__to,
+                    &__rooms {
+                        display: inline-block;
+                        margin-left: 20px;
+                    }
+
+                    &__paramName {
+                        color: $nemo-color-text-secondary;
+                    }
+                }
+            }
+
+
+            &__list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+
+                &__item {
+                    padding: 20px 20px 0;
+                    border-top: 1px solid $nemo-color-neutral;
+                    margin: 0 -20px;
+
+                    &:first-child {
+                        padding-top: 0;
+                        border-top: none;
+                    }
+
+                    &__title {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 20px;
+
+                        &__number,
+                        &__roomName,
+                        &__separator,
+                        &__guests {
+                            display: block;
+                            font-size: 15px;
+                        }
+
+                        &__number {
+                            display: block;
+                            width: 30px;
+                            height: 30px;
+                            line-height: 30px;
+                            background: $nemo-color-main;
+                            text-align: center;
+                            border-radius: 50%;
+                            color: $nemo-color-LightPoint;
+                            margin-right: 18px;
+                        }
+
+                        &__separator,
+                        &__guests {
+                            color: $nemo-color-text-secondary;
+                        }
+
+                        &__separator {
+                            padding: 0 5px;
+                        }
+                    }
+                }
+            }
+
+
+            &__footer {
+                border-top: 1px solid $nemo-color-neutral;
+                margin: 0 -20px;
+                padding: 20px 20px 0;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                &__dummy {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    &__text {
+                        text-align: right;
+                        padding-right: 20px;
+                        color: $nemo-color-text-secondary;
+                    }
+
+                    &__button {
+                        cursor: default;
+                    }
+                }
+
+                &__button {
+                    display: flex;
+                    width: 200px;
+                    height: 60px;
+                    justify-content: flex-end;
+                    align-items: center;
+                    border-radius: $nemo-border-radius;
+                    overflow: hidden;
+
+                    &__price {
+                        flex: 0 1 50%;
+                        text-align: right;
+                        line-height: initial;
+                        font-size: 13px;
+                        padding-right: 10px;
+
+                        &__perNight {
+                            display: block;
+                            white-space: nowrap;
+                            margin-top: -5px;
+
+                            &__value {
+                                font-size: 20px;
+                            }
+
+                            &__currentcy {
+                                font-size: 14px;
+                            }
+                        }
+
+                        &__per6Nights {
+                            white-space: nowrap;
+                        }
+                    }
+
+                    &__icon {
+                        background: darken($c_ui_button, 10);
+                        display: flex;
+                        height: 60px;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 0 0 60px;
+                        margin-right: -15px;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            width: 30px;
+                            height: 24px;
+                            background: url("/css/images/hsf-sprite.svg") no-repeat -1px -22px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__about {
+            &__title {
+                font-size: 17px;
+                font-weight: 400;
+                margin-bottom: 10px;
+            }
+            &__subtitle {
+                font-size: 15px;
+                font-weight: 400;
+                margin-bottom: 10px;
+            }
+            &__testimonials {
+                margin-bottom: 15px;
+
+                &__list {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+            &__description {
+                margin-bottom: 15px;
+
+                p {
+                    margin-bottom: 15px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            &__location {
+                margin-bottom: 35px;
+
+                &__distances {
+                    &__list {
+                        list-style-type: none;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    &__distance {
+                        margin-bottom: 5px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        &__name {
+                            display: block;
+                            float: left;
+                            width: 110px;
+                        }
+
+                        &__params {
+                            display: block;
+                            margin-left: 120px;
+                        }
+
+                        &__param {
+                            display: inline-block;
+                        }
+                    }
+                }
+
+                &__map {
+                    width: 100%;
+                    height: 400px;
+                    margin-top: 15px;
+                }
+            }
+
+            &__services {
+                margin-bottom: 15px;
+
+                &__list {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                &__service {
+                    margin-bottom: 10px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &__name {
+                        display: block;
+                        float: left;
+                        width: 190px;
+                    }
+
+                    &__values {
+                        display: block;
+                        margin-left: 200px;
+                    }
+                }
+            }
+            &__rules {
+                margin-bottom: 15px;
+
+                &__list {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                &__rule {
+                    margin-bottom: 15px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &__name {
+                        float: left;
+                        display: block;
+                        width: 190px;
+                    }
+
+                    &__values {
+                        margin-left: 200px;
+
+                        p {
+                            margin-bottom: 10px;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            &__contacts {
+                p {
+                    margin-bottom: 15px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            &__paramName {
+                color: $nemo-color-text-secondary;
+            }
+        }
+        &__title {
+            font-size: 15px;
+        }
+    }
+}
+
+.nemo-hotelRoom {
+    border: 1px solid $nemo-color-neutral;
+    border-radius: $nemo-border-radius;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    &__info,
+    &__tariff {
+        padding: 15px;
+        overflow: hidden;
+    }
+
+    &__info {
+        padding-right: 85px;
+        position: relative;
+        border-bottom: 1px solid $nemo-color-neutral;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 15px;
+            height: 15px;
+            background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 1px -18px;
+            cursor: pointer;
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+
+        &_short {
+            &:before {
+                transform: rotate(180deg);
+            }
+        }
+
+        &__title {
+            font-weight: 400;
+            font-size: 15px;
+            border-bottom: 1px dashed lighten($nemo-color-main, 20);
+            margin-bottom: 5px;
+            display: inline-block;
+            cursor: pointer;
+            transition: $nemo-transition-main;
+
+            &:hover {
+                border-color: $nemo-color-main;
+            }
+        }
+
+        &__description {
+            color: $nemo-color-text-secondary;
+        }
+
+        &__gallery {
+            margin-top: 15px;
+            width: 430px;
+            height: 255px;
+        }
+
+        &__services {
+            margin-top: 15px;
+
+            &__title {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            &__list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                columns: 3 80px;
+                column-gap: 2em;
+            }
+
+            &__service {
+                font-size: 12px;
+                line-height: 1.2em;
+                margin-bottom: 10px;
+                position: relative;
+                padding-left: 10px;
+
+                &:before {
+                    content: '\2022';
+                    position: absolute;
+                    left: 0;
+                    color: $nemo-color-main;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+
+    &__tariffsTail,
+    &__tariff {
+        border-bottom: 1px solid $nemo-color-neutral;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &__tariffs {
+        &__more {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &__tariff {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__features {
+            flex: 1 1 100%;
+        }
+
+        &__feature {
+            display: block;
+        }
+
+        &__price {
+            flex: 0 0 190px;
+            text-align: right;
+
+            &__perNight {
+                display: block;
+                margin-top: -5px;
+
+                &__value {
+                    font-size: 20px;
+                }
+
+                &__currency {
+                    font-size: 14px;
+                }
+
+                &__period {
+                    color: $nemo-color-text-secondary;
+                }
+            }
+
+
+            &__per6Nights {
+                display: block;
+                color: $nemo-color-text-secondary;
+            }
+        }
+
+        &__controlWrap {
+            flex: 0 0 130px;
+            text-align: right;
+            align-self: flex-start;
+
+            &__button {
+                display: inline-block;
+                height: 40px;
+                width: 110px;
+                text-align: center;
+                line-height: 38px;
+                border: 1px solid $c_ui_button;
+                color: $c_ui_button;
+                border-radius: $nemo-border-radius;
+                font-size: 15px;
+                cursor: pointer;
+                transition: $nemo-transition-main;
+                background: $nemo-color-LightPoint;
+
+                &:hover {
+                    background: lighten($c_ui_button, 45);
+                }
+            }
+        }
+
+        &_selected {
+            background: $c_ui_button;
+            border-top-left-radius: $nemo-border-radius;
+            border-top-right-radius: $nemo-border-radius;
+
+            & * {
+                color: $nemo-color-LightPoint;
+            }
+            & .nemo-hotelRoom__tariff__controlWrap {
+                align-self: center;
+                flex-basis: 135px;
+
+                &__button {
+                    background: $c_ui_button !important;
+                    cursor: default;
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        width: 12px;
+                        height: 10px;
+                        background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 0 -44px;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -5px;
+                    }
+                }
+            }
+
+            & .nemo-hotelRoom__tariff__price {
+                &__link {
+                    color: $nemo-color-LightPoint !important;
+                    border-color: $nemo-color-LightPoint !important;
+                }
+            }
+
+        }
+    }
+}
