@@ -41,27 +41,85 @@ define(
             // this.map = function (block, position) {
             //     new google.maps.Map(block, position);
             // };
-            this.geocoder = new google.maps.Geocoder();
+            this.initMap = function () {
+                var infoWindow = new google.maps.InfoWindow(),
+                    marker,
+                    i;
+
+                // Init map and show center
+                this.map = new google.maps.Map(
+                    document.getElementById('map'),
+                    {
+                        center: {lat: 0, lng: 0},
+                        zoom: 10
+                    }
+                );
+
+                // Check center of map
+                this.geocoder = new google.maps.Geocoder();
+
+                this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels) {
+                    var address = this.$$rawdata.hotels.staticDataInfo.cities[0].name;
+
+                    this.geocoder.geocode({'address': address}, function(results, status) {
+                        // If we know location it'll be center otherwise it'll be first hotel
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            resultsMap.setCenter(results[0].geometry.location);
+                        } else {
+                            console.dir('Geocode was not successful for the following reason: ' + status);
+                            resultsMap.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
+                        }
+                    });
+                };
+
+                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels());
+
+                // Add marks on map
+                if (this.filteredHotels()) {
+
+                    for(i = 0; i < this.filteredHotels().length; i++) {
+                        var hotel = this.filteredHotels();
+                        // hotel.staticDataInfo.posLatitude
+                        // hotel.staticDataInfo.posLongitude
+
+                        if (hotel[i].staticDataInfo.posLatitude && hotel[i].staticDataInfo.posLongitude) {
+                            // Add marker on map
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(hotel[i].staticDataInfo.posLatitude, hotel[i].staticDataInfo.posLongitude),
+                                map: this.map
+                            });
+
+                            // Add event on marker
+                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                return function() {
+                                    infoWindow.setContent(hotel[i].name);
+                                    infoWindow.open(this.map, marker);
+                                }
+                            })(marker, i));
+                        }
+                    }
+
+                }
+            };
 
             this.changeView = function () {
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
+                        // Show map with hotels
                         this.isMapView(true);
                         this.isListView(false);
+
+                        // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_list.png');
 
-                        this.map = new google.maps.Map(
-                            document.getElementById('map'),
-                            {
-                                center: {lat: -34.397, lng: 150.644},
-                                zoom: 8
-                            }
-                        );
-
+                        this.initMap();
                     } else {
+                        // Show list with hotels
                         this.isListView(true);
                         this.isMapView(false);
+
+                        // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_map.png');
 
