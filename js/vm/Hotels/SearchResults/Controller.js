@@ -64,8 +64,6 @@ define(
                         this.isMapView(false);
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_map.png');
-
-                        this.cutDescription();
                     }
                 }
             };
@@ -119,15 +117,6 @@ define(
             this.hotels = ko.observableArray([]);
 
             this.filters = new HotelsFiltersViewModel(ko);
-
-            this.cutDescription = function() {
-                var descriptions = $('.nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot'),
-                    i;
-
-                descriptions.dotdotdot({
-                        watch: 'window'
-                    });
-                };
 
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
@@ -435,6 +424,10 @@ define(
                 var filters = self.filters;
                 filters.dummyObservalbe();
 
+                if (!self.isListView()){
+                    return [];
+                }
+
                 if (self.filters.isFilterEmpty()){
                     return self.hotels();
                 }
@@ -498,18 +491,20 @@ define(
             }
 
             this.resultsLoaded(true);
-            //this.cutDescription();
         };
 
         //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
         // HotelsSearchResultsController.prototype.$$KOBindings = ['HotelsSearchForm', 'HotelsSearchResults'];
 
         HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
+
             ko.bindingHandlers.afterHtmlRender = {
                 update: function(element, valueAccessor, allBindings){
-                    $(element).dotdotdot({
-                        watch: 'window'
-                    });
+                    setTimeout(function(){
+                        $(element).dotdotdot({
+                            watch: 'window'
+                        });
+                    }, 1);
                 }
             }
 
