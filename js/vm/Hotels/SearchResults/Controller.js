@@ -119,21 +119,6 @@ define(
             this.hotels = ko.observableArray([]);
 
             this.filters = new HotelsFiltersViewModel(ko);
-            
-            this.hideShowMoreButton = ko.observable(false);
-            this.countsOfHotels = ko.observable(0);
-            this.visibleHotels = ko.observable(5);
-            this.remainderHotels = ko.observable(25);
-            this.showNext25hotels = function (controller) {
-                this.visibleHotels(this.visibleHotels() + this.remainderHotels());
-                this.remainderHotels(
-                    (this.countsOfHotels() - this.visibleHotels()) > this.remainderHotels() ? this.remainderHotels() : this.countsOfHotels() - this.visibleHotels()
-                );
-                
-                if ( this.remainderHotels() === 0 ) {
-                    this.hideShowMoreButton(true);
-                }
-            };
 
             this.cutDescription = function() {
                 var descriptions = $('.nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot'),
@@ -441,14 +426,12 @@ define(
             }
 
             console.dir(hotelsArr);
-            //counts of hotels remainder
-            this.countsOfHotels(hotelsArr.length);
 
             this.hotels = ko.observableArray(hotelsArr);
 
-            self.filteredHotels = ko.computed(function() {
-                console.log('filter...')
-                console.log(self.filters.averageCustomerRating.rangeMin())
+            this.visibleHotelsCount = ko.observable(5);
+
+            this.filteredHotels = ko.computed(function() {
                 var filters = self.filters;
                 filters.dummyObservalbe();
 
@@ -461,9 +444,40 @@ define(
                 });
             });
 
-            self.filteredHotels.subscribe(function(){
+            this.slicedFilteredHotels = ko.computed(function(){
+               return self.filteredHotels().slice(0, self.visibleHotelsCount());
+            });
+
+            this.filteredHotels.subscribe(function(){
                 //TODO work with map
             });
+
+            this.countsOfHotels = ko.computed(function(){
+                return self.filteredHotels().length;
+            });
+
+            this.remainderHotels = ko.computed(function(){
+                var count = self.countsOfHotels() - self.visibleHotelsCount();
+
+                if (count < 0){
+                    return 0;
+                }
+
+                if (count > 25){
+                    return 25;
+                }
+
+                return count;
+            });
+
+            this.hideShowMoreButton = ko.computed(function(){
+                return self.remainderHotels() === 0;
+            });
+
+            this.showNext25hotels = function (controller) {
+                var newVisibleCount = self.visibleHotelsCount() + self.remainderHotels();
+                self.visibleHotelsCount(newVisibleCount);
+            };
 
             this.countOfNights = ko.observable(
                 Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)

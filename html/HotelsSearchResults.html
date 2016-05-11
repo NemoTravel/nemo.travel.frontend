@@ -541,9 +541,9 @@
             <!--ko if: resultsLoaded() -->
             <div class="nemo-hotels-results__groupList
                         nemo-hotels-results__groupList_tile"
-                 data-bind="foreach: filteredHotels()">
+                 data-bind="foreach: slicedFilteredHotels()">
 
-                <div class="nemo-hotels-results__groupList__item" data-bind="visible: $index() < $parent.visibleHotels()">
+                <div class="nemo-hotels-results__groupList__item">
                     <div class="nemo-ui-subContainer
                                 nemo-hotels-results__hotelsGroup">
                         <div class="nemo-ui-subContainer__header
