@@ -492,6 +492,7 @@
     <!--/ko -->
 
     <section class="nemo-hotels-results__content">
+        <!-- ko if: !isCardHotelView() -->
         <!-- ko if: !resultsLoaded() -->
         <aside class="nemo-common-postFilters
                       nemo-hotels-results__content__postfilters
@@ -806,7 +807,7 @@
         </section>
         <!--/ko-->
 
-        <!-- ko if: !isCardHotelView() -->
+
         <aside class="nemo-hotels-results__content__sidebar">
 
             <div class="nemo-hotels-results__content__sidebar__showOnMap">
@@ -1034,6 +1035,1321 @@
             <!-- /ko -->
 
         </aside>
+        <!-- /ko -->
+
+        <!-- ko if: isCardHotelView() -->
+
+
+
+        <div class="nemo-hotels-results__wrapper">
+
+            <section class="nemo-hotel">
+                <aside class="nemo-hotel__additional" >
+                    <div class="nemo-hotel__additional__info">
+                        <span class="nemo-hotel__additional__info__name">
+                            Best Western Braid Hills Hotel
+                        </span>
+                        <span class="nemo-hotel__additional__info__address">
+                            ул. Аллы Тарасовой 5, Киев, Украина, 01001
+                        </span>
+                        <div class="nemo-hotel__additional__info__stars">
+                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                        </div>
+                    </div>
+
+                    <div class="nemo-ui-subContainer
+                        nemo-hotel__additional__location
+                        nemo-hotel__additional__block">
+                        <div class="nemo-hotel__additional__location__map">
+                            <div style="height: 400px; background: #ccc"> Map Dummy </div>
+                            <div class="nemo-ui-button
+                                nemo-hotel__additional__location__map__button">
+                                Большая карта
+                            </div>
+                        </div>
+                        <div class="nemo-hotel__additional__location__distances">
+                            <h4 class="nemo-hotel__additional__location__distances__title
+                                   nemo-hotel__additional__block__title">
+                                Расстояние до
+                            </h4>
+                            <div class="nemo-hotel__additional__location__distances__param">
+                        <span class="nemo-hotel__additional__location__distances__param__name">
+                            Центр города
+                        </span>
+                        <span class="nemo-hotel__additional__location__distances__param__values">
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                500 м
+                            </span>
+                        </span>
+                            </div>
+                            <div class="nemo-hotel__additional__location__distances__param">
+                        <span class="nemo-hotel__additional__location__distances__param__name">
+                            Аэропорт
+                        </span>
+                        <span class="nemo-hotel__additional__location__distances__param__values">
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                Жуляны — 7.6 км,
+                            </span>
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                Борисполь — 29.3 км
+                            </span>
+                        </span>
+                            </div>
+                            <div class="nemo-hotel__additional__location__distances__param">
+                        <span class="nemo-hotel__additional__location__distances__param__name">
+                            Ж\д вокзал
+                        </span>
+                        <span class="nemo-hotel__additional__location__distances__param__values">
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                Kiev Train Station - 2.6 км
+                            </span>
+                        </span>
+                            </div>
+                            <div class="nemo-hotel__additional__location__distances__param">
+                        <span class="nemo-hotel__additional__location__distances__param__name">
+                            Станции метро
+                        </span>
+                        <span class="nemo-hotel__additional__location__distances__param__values">
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                Площадь Независимости - 600 м,
+                            </span>
+                            <span class="nemo-hotel__additional__location__distances__param__values__value">
+                                Золотые ворота - 700 м
+                            </span>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nemo-ui-subContainer
+                        nemo-hotel__additional__booking
+                        nemo-hotel__additional__block">
+                        <h4 class="nemo-hotel__additional__block__title">
+                            Удобное бронирование
+                        </h4>
+                        <ul class="nemo-hotel__additional__booking__list">
+                            <li class="nemo-hotel__additional__booking__list__item">
+                        <span class="nemo-hotel__additional__booking__list__item__text">
+                            Бронирование даже без кредитной карты
+                        </span>
+                            </li>
+                            <li class="nemo-hotel__additional__booking__list__item">
+                        <span class="nemo-hotel__additional__booking__list__item__text">
+                            Моментальное подтверждение заказа
+                        </span>
+                            </li>
+                            <li class="nemo-hotel__additional__booking__list__item">
+                        <span class="nemo-hotel__additional__booking__list__item__text">
+                            Оплата в отеле по приезду
+                        </span>
+                            </li>
+                            <li class="nemo-hotel__additional__booking__list__item">
+                        <span class="nemo-hotel__additional__booking__list__item__text">
+                            Гарантия лучшей цены
+                        </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nemo-hotel__additional__block
+                        nemo-hotel__additional__viewed">
+                        <h4 class="nemo-hotel__additional__block__title
+                           nemo-hotel__additional__viewed__title">
+                            Также вы смотрели
+                        </h4>
+
+                        <ul class="nemo-hotels-results__content__sidebar__offersList">
+                            <li class="nemo-hotels-results__content__sidebar__offer
+                               nemo-ui-subContainer
+                               nemo-hotels-results__hotelsGroup
+                               nemo-hotel__additional__viewed__item">
+                                <div class="nemo-ui-subContainer__header
+                                    nemo-hotels-results__hotelsGroup__header
+                                    nemo-hotels-results__content__sidebar__offer__header">
+                                    <div class="nemo-hotels-results__hotelsGroup__header__title
+                                        nemo-hotels-results__content__sidebar__offer__title
+                                        nemo-hotel__additional__viewed__item__title">
+                                        <a class="nemo-hotels-results__hotelsGroup__header__title__text
+                                          nemo-hotels-results__content__sidebar__offer__title__text" href="#">
+                                            Best Western Braid Hills Hotel
+                                        </a>
+                                        <div class="nemo-hotels-results__hotelsGroup__stars
+                                            nemo-hotels-results__content__sidebar__offer__stars
+                                            nemo-hotel__additional__viewed__item__stars">
+                                            <div class="nemo-hotels-results__hotelsGroup__stars__item
+                                                nemo-hotels-results__content__sidebar__offer__starItem">
+                                                <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
+                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__stars__item
+                                                nemo-hotels-results__content__sidebar__offer__starItem">
+                                                <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
+                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__stars__item
+                                                nemo-hotels-results__content__sidebar__offer__starItem">
+                                                <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
+                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__stars__item
+                                                nemo-hotels-results__content__sidebar__offer__starItem">
+                                                <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
+                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="nemo-ui-subContainer
+                                    nemo-hotels-results__hotelsGroup__content
+                                    nemo-hotels-results__content__sidebar__offer__content">
+                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo">
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap
+                                            nemo-hotels-results__content__sidebar__offer__photoWrap"
+                                             data-bind="style: { 'background-image': 'url(/img/hotel_thumb.png)'}"></div>
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating
+                                            nemo-hotels-results__content__sidebar__offer__rating
+                                            nemo-hotel__additional__viewed__item__rating">
+                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number
+                                                 nemo-hotels-results__content__sidebar__offer__rating__number">
+                                        9.3
+                                    </span>
+                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text">
+                                        Отлично
+                                    </span>
+                                            <a href="#" class="nemo-ui-pseudoLink
+                                                       nemo-hotels-results__hotelsGroup__mainInfo__rating__link
+                                                       nemo-hotels-results__content__sidebar__offer__rating__link">
+                                                12 отзывов
+                                            </a>
+                                        </div>
+                                        <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock
+                                            nemo-hotels-results__content__sidebar__offer__infoBlock">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
+                                                <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap
+                                                    nemo-hotels-results__content__sidebar__offer__addressWrap
+                                                    nemo-hotel__additional__viewed__item__addressWrap">
+                                                    <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances
+                                                        nemo-hotels-results__content__sidebar__offer__distances
+                                                        nemo-hotel__additional__viewed__item__distances">
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
+                                                             nemo-hotels-results__content__sidebar__offer__distance">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                        2 км
+                                                    </span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
+                                                         от центра
+                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma">
+                                                            ,
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
+                                                             nemo-hotels-results__content__sidebar__offer__distance">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                        150 км
+                                                    </span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
+                                                         от аэропорта
+                                                    </span>
+                                                </span>
+
+                                                        <a href="#" class="nemo-ui-pseudoLink
+                                                                   nemo-hotels-results__hotelsGroup__mainInfo__mapLink
+                                                                   nemo-hotels-results__content__sidebar__offer__mapLink">
+                                                            Показать на карте
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__description
+                                                nemo-hotels-results__content__sidebar__offer__description
+                                                nemo-hotel__additional__viewed__item__description">
+                                                <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
+                                                    Современный дизайн-отель 11 Mirrors находится в центре Киева,
+                                                    в 500 метрах от станций метро "Театральная" и "Золотые ворота".
+                                                    К услугам гостей бесплатный Wi-Fi и ресторан европейс…
+                                                </p>
+                                                <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link
+                                                           nemo-hotels-results__content__sidebar__offer__description__link
+                                                           nemo-hotel__additional__viewed__item__description__link"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nemo-hotels-results__content__sidebar__offer__services
+                                       hotels-services
+                                       nemo-hotel__additional__viewed__item__services">
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service" data-bind="css: 'hotels-services__service_active'">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_pool"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_parking"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_sport"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_electricity"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_wifi"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_laundry"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_transport"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_roundTheClock"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_fridge"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_luggage"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_spa"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_bar"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_resturant"></span>
+                                        </li>
+                                        <li class="nemo-hotels-results__content__sidebar__offer__services__service
+                                           hotels-services__service">
+                                    <span class="hotels-services__service__icon
+                                                 hotels-services__service__icon_infinity"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="nemo-hotels-results__hotelsGroup__footer
+                                        nemo-hotels-results__content__sidebar__offer__footer
+                                        nemo-hotel__additional__viewed__item__footer">
+                                        <div class="nemo-ui-button
+                                            nemo-ui-button_main
+                                            nemo-hotels-results__hotelsGroup__footer__orderBtn
+                                            nemo-hotels-results__content__sidebar__offer__footer__orderBtn
+                                            nemo-hotel__additional__viewed__item__footer__button">
+                                            <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer
+                                                     nemo-hotel__additional__viewed__item__footer__button__priceContainer">
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer__price">
+                                                48 000
+                                            </span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency">
+                                                R
+                                            </span>
+                                        </span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__period">
+                                            за 6 ночей
+                                        </span>
+                                            </div>
+                                            <div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <section class="nemo-hotel__content">
+                    <div class="nemo-hotel__content__tabs">
+                        <div class="nemo-hotel__content__tabs__tab
+                            nemo-hotel__content__tabs__tab_active">
+                    <span class="nemo-hotel__content__tabs__tab__text">
+                        Номера
+                    </span>
+                        </div>
+                        <div class="nemo-hotel__content__tabs__tab">
+                    <span class="nemo-hotel__content__tabs__tab__text">
+                        Об отеле
+                    </span>
+                        </div>
+                        <div class="nemo-hotel__content__tabs__tab">
+                    <span class="nemo-hotel__content__tabs__tab__text">
+                        Удобства
+                    </span>
+                        </div>
+                        <div class="nemo-hotel__content__tabs__tab">
+                    <span class="nemo-hotel__content__tabs__tab__text">
+                        Правила отеля
+                    </span>
+                        </div>
+                        <div class="nemo-hotel__content__tabs__tab">
+                    <span class="nemo-hotel__content__tabs__tab__text">
+                        Отзывы (120)
+                    </span>
+                        </div>
+                    </div>
+                    <div class="nemo-ui-subContainer
+                        nemo-hotel__content__tabsContent">
+                        <div class="nemo-hotel__content__rooms">
+                            <div class="nemo-hotel__content__rooms__slider">
+                                <div class="nemo-hotel__content__rooms__slider__dummy"></div>
+                                <div class="nemo-hotel__content__rooms__rating">
+                            <span class="nemo-hotel__content__rooms__rating__num">
+                                9.3
+                            </span>
+                            <span class="nemo-hotel__content__rooms__rating__text">
+                                 Отлично
+                            </span>
+                                    <a href="#" class="nemo-ui-pseudoLink
+                                               nemo-hotel__content__rooms__rating__link">
+                                        12 отзывов
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="nemo-hotel__content__rooms__title">
+                                Выбор номеров
+                            </h3>
+                    <span class="nemo-hotel__content__rooms__subtitle">
+                        Выберите подходящие вам типы номеров
+                    </span>
+                            <div class="nemo-hotel__content__rooms__summary">
+                        <span class="nemo-hotel__content__rooms__summary__title">
+                            Наличие <br>в этом отеле
+                        </span>
+                                <div class="nemo-hotel__content__rooms__summary__inner">
+                                    <div class="nemo-hotel__content__rooms__summary__info">
+                                <span class="nemo-hotel__content__rooms__summary__info__from">
+                                    <span class="nemo-hotel__content__rooms__summary__info__paramName">
+                                        Прибытие
+                                    </span>
+                                    19 декабря, чт.
+                                </span>
+                                <span class="nemo-hotel__content__rooms__summary__info__to">
+                                    <span class="nemo-hotel__content__rooms__summary__info__paramName">
+                                        Выезд
+                                    </span>
+                                    25 декабря, вс.
+                                </span>
+                                <span class="nemo-hotel__content__rooms__summary__info__rooms">
+                                    2 номера (5 гостей)
+                                </span>
+                                    </div>
+                                    <div class="nemo-ui-button
+                                        nemo-hotel__content__rooms__summary__switch">
+                                        Изменить
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <ul class="nemo-hotel__content__rooms__list">
+                                <li class="nemo-hotel__content__rooms__list__item">
+                                    <div class="nemo-hotel__content__rooms__list__item__title">
+                                <span class="nemo-hotel__content__rooms__list__item__title__number">
+                                    1
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
+                                    Номер 1
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__separator">
+                                    —
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__guests">
+                                    2 взрослых
+                                </span>
+                                    </div>
+                                    <div class="nemo-hotelRoom">
+                                        <div class="nemo-hotelRoom__info">
+                                    <span class="nemo-hotelRoom__info__title">
+                                        Классический стандартный двухместный номер
+                                    </span>
+                                            <p class="nemo-hotelRoom__info__description">
+                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить любую потребность клиента, оборудован высокотехнологичными средствами коммуникации и эргономичным рабочим местом. К услугам посетителей предоставляется доступ к высокоскоростному интернету, телефон с двумя линиями и услугами голосовой почты. Приятную работу и отдых помогут обеспечить мини-бар, оборудование для приготовления чая и кофе, индивидуальный сейф, который сможет вместить портативный компьютер стандартного размера. Комфортабельность номеров дополняют роскошные ванные комнаты из мрамора, оборудованные системой подогрева пола.
+                                            </p>
+                                            <div class="nemo-hotelRoom__info__gallery" style="background: #ccc;">
+                                                Gallery here
+                                            </div>
+                                            <div class="nemo-hotelRoom__info__services">
+                                        <span class="nemo-hotelRoom__info__services__title">
+                                            Услуги в номере
+                                        </span>
+                                                <ul class="nemo-hotelRoom__info__services__list">
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Мини-бар
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Кофеварка / Электрический чайник
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Hi-Fi
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Ванна
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Ванна
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Мини-кухня
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Круглосуточное облуживание номеров
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Мини-кухня
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Мини-бар
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Кофеварка / Электрический чайник
+                                                    </li>
+                                                    <li class="nemo-hotelRoom__info__services__service">
+                                                        Hi-Fi
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="nemo-hotelRoom__tariffs">
+                                            <div class="nemo-hotelRoom__tariffsTail">
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    С шикарным видом
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nemo-hotelRoom__tariffs__more">
+                                        <span class="nemo-ui-pseudoLink
+                                                     nemo-hotelRoom__tariffs__more__text">
+                                            <span class="nemo-hotelRoom__tariffs__more__text__more">
+                                                Еще
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__count">
+                                                25
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__tariffs">
+                                                тарифов
+                                            </span>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nemo-hotelRoom">
+                                        <div class="nemo-hotelRoom__info
+                                            nemo-hotelRoom__info_short">
+                                    <span class="nemo-hotelRoom__info__title">
+                                        Классический стандартный двухместный номер
+                                    </span>
+                                            <p class="nemo-hotelRoom__info__description">
+                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
+                                            </p>
+                                        </div>
+                                        <div class="nemo-hotelRoom__tariffs">
+                                            <div class="nemo-hotelRoom__tariffsTail">
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    С шикарным видом
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nemo-hotelRoom__tariffs__more">
+                                        <span class="nemo-ui-pseudoLink
+                                                     nemo-hotelRoom__tariffs__more__text">
+                                            <span class="nemo-hotelRoom__tariffs__more__text__more">
+                                                Еще
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__count">
+                                                25
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__tariffs">
+                                                тарифов
+                                            </span>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="nemo-hotel__content__rooms__list__item">
+                                    <div class="nemo-hotel__content__rooms__list__item__title">
+                                <span class="nemo-hotel__content__rooms__list__item__title__number">
+                                    2
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
+                                    Номер 2
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__separator">
+                                    —
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__guests">
+                                    2 взрослых
+                                </span>
+                                    </div>
+                                    <div class="nemo-hotelRoom">
+                                        <div class="nemo-hotelRoom__info
+                                            nemo-hotelRoom__info_short">
+                                    <span class="nemo-hotelRoom__info__title">
+                                        Классический стандартный двухместный номер
+                                    </span>
+                                            <p class="nemo-hotelRoom__info__description">
+                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
+                                            </p>
+                                        </div>
+                                        <div class="nemo-hotelRoom__tariffs">
+                                            <div class="nemo-hotelRoom__tariffsTail">
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="nemo-hotelRoom__tariff">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    С шикарным видом
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nemo-hotelRoom__tariffs__more">
+                                        <span class="nemo-ui-pseudoLink
+                                                     nemo-hotelRoom__tariffs__more__text">
+                                            <span class="nemo-hotelRoom__tariffs__more__text__more">
+                                                Еще
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__count">
+                                                25
+                                            </span>
+                                            <span class="nemo-hotelRoom__tariffs__more__text__tariffs">
+                                                тарифов
+                                            </span>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="nemo-hotel__content__rooms__list__item">
+                                    <div class="nemo-hotel__content__rooms__list__item__title">
+                                <span class="nemo-hotel__content__rooms__list__item__title__number">
+                                    3
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
+                                    Номер 3
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__separator">
+                                    —
+                                </span>
+                                <span class="nemo-hotel__content__rooms__list__item__title__guests">
+                                    2 взрослых
+                                </span>
+                                    </div>
+                                    <div class="nemo-hotelRoom">
+                                        <div class="nemo-hotelRoom__info
+                                            nemo-hotelRoom__info_short">
+                                    <span class="nemo-hotelRoom__info__title">
+                                        Классический стандартный двухместный номер
+                                    </span>
+                                            <p class="nemo-hotelRoom__info__description">
+                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
+                                            </p>
+                                        </div>
+                                        <div class="nemo-hotelRoom__tariffs">
+                                            <div class="nemo-hotelRoom__tariffsTail">
+                                                <div class="nemo-hotelRoom__tariff
+                                                    nemo-hotelRoom__tariff_selected">
+                                                    <div class="nemo-hotelRoom__tariff__features">
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Двуспальная кровать или Две односпальных кровати
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                    Завтрак не включен
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__price">
+                                                <span class="nemo-hotelRoom__tariff__price__perNight">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                        12 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
+                                                        за ночь
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                        48 000
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                        р
+                                                    </span>
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                        за 6 ночей
+                                                    </span>
+                                                </span>
+                                                <span class="nemo-hotelRoom__tariff__price__link
+                                                             nemo-ui-pseudoLink">
+                                                    Только по предоплате
+                                                </span>
+                                                    </div>
+                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
+                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
+                                                            Выбрать
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <div class="nemo-hotel__content__rooms__footer">
+                                <div class="nemo-hotel__content__rooms__footer__dummy" style="display: none;">
+                            <span class="nemo-hotel__content__rooms__footer__dummy__text">
+                                Чтобы забронировать, вы сначала <br />должны выбрать все номера.
+                            </span>
+                                    <div class="nemo-ui-button
+                                        nemo-ui-button_main
+                                        nemo-hotels-results__hotelsGroup__orderBtn
+                                        nemo-hotels-results__content__results__loadingDummy__item__orderBtn
+                                        nemo-hotel__content__rooms__footer__dummy__button">
+                                        <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__price
+                                                     nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price
+                                                     nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__period
+                                                     nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period
+                                                     nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+                                        </div>
+                                        <div class="nemo-hotels-results__hotelsGroup__footer__arrow
+                                                nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
+                                    </div>
+                                </div>
+                                <div class="nemo-ui-button
+                                        nemo-ui-button_main
+                                        nemo-hotel__content__rooms__footer__button">
+                                    <div class="nemo-hotel__content__rooms__footer__button__price">
+                                <span class="nemo-hotel__content__rooms__footer__button__price__perNight">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__value">
+                                        12000
+                                    </span>
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency">
+                                        р
+                                    </span>
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__period">
+                                        за ночь
+                                    </span>
+                                </span>
+                                <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__value">
+                                        48000
+                                    </span>
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency">
+                                        р
+                                    </span>
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__period">
+                                        за 6 ночей
+                                    </span>
+                                </span>
+                                    </div>
+                                    <div class="nemo-hotel__content__rooms__footer__button__icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nemo-hotel__content__about">
+                            <div class="nemo-hotel__content__about__testimonials">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Проверенные Отзывы
+                                </h3>
+                                <ul class="nemo-hotel__content__about__testimonials__list">
+                                    <li class="nemo-hotel__content__about__testimonials__item">
+                                        Шумный кондиционер - Персонал на ресепшине очень приветливый - Богатый завтрак
+                                    </li>
+                                    <li class="nemo-hotel__content__about__testimonials__item">
+                                        Удобное расположение - Достаточно высокие цены - Хороший номер и ресторан
+                                    </li>
+                                    <li class="nemo-hotel__content__about__testimonials__item">
+                                        Персонал вышколенный - Завтраки выше всяких похвал - Хороший тихий район вокруг
+                                    </li>
+                                    <li class="nemo-hotel__content__about__testimonials__item">
+                                        Вкусная и качественная еда в баре - Очень приятный и уютный отель - Великолепное обслуживание
+                                    </li>
+                                    <li class="nemo-hotel__content__about__testimonials__item">
+                                        Очень удачно расположен - Завтрак был включен - Огромная ванная
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nemo-hotel__content__about__description">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Описание
+                                </h3>
+                                <p>
+                                    Бутик-отель "Опера" удобно расположен в самом сердце Киева на пересечении деловой, культурной и исторической частей города, неподалеку от таких достопримечательностей как Оперный театр, Софиевский и Владимирский соборы. От отеля рукой подать до основных деловых районов и посольств.
+                                </p>
+                                <p>
+                                    На Ваш выбор 140 различных номеров, которые стильно и уютно меблированы. Гостиница "Опера" удивит Вас изумительной роскошью и теплым комфортом. Тематические номера-люкс были оформлены в стиле самых известных оперных произведений мира: Русском, Итальянском, Французском, Египетском, Американском, Марокканском и Японском. Каждый из них представляет богатую культуру этих стран. Современные бизнес - путешественники, по достоинству оценят все предоставленные в отеле удобства, а именно большие столы с портативным телефоном, многоконтактные AV разъемы и 32-дюймовые плазменные телевизоры.
+                                </p>
+                            </div>
+                            <div class="nemo-hotel__content__about__location">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Расположение
+                                </h3>
+                                <div class="nemo-hotel__content__about__location__distances">
+                                    <h4 class="nemo-hotel__content__about__subtitle">
+                                        Расстояние до
+                                    </h4>
+                                    <ul class="nemo-hotel__content__about__location__distances__list">
+                                        <li class="nemo-hotel__content__about__location__distances__distance">
+                                    <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                 nemo-hotel__content__about__paramName">
+                                        Центр города
+                                    </span>
+                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                500
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                м
+                                            </span>
+                                        </span>
+                                    </span>
+                                        </li>
+                                        <li class="nemo-hotel__content__about__location__distances__distance">
+                                    <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                 nemo-hotel__content__about__paramName">
+                                        Аэропорт
+                                    </span>
+                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
+                                                Жуляны -
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                7.6
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                км
+                                            </span>
+                                            ,
+                                        </span>
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
+                                                Борисполь -
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                29.3
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                км
+                                            </span>
+                                        </span>
+                                    </span>
+                                        </li>
+                                        <li class="nemo-hotel__content__about__location__distances__distance">
+                                    <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                 nemo-hotel__content__about__paramName">
+                                        Ж\д вокзал
+                                    </span>
+                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
+                                                Kiev Train Station -
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                2.6
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                км
+                                            </span>
+                                        </span>
+                                    </span>
+                                        </li>
+                                        <li class="nemo-hotel__content__about__location__distances__distance">
+                                    <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                 nemo-hotel__content__about__paramName">
+                                        Станции метро
+                                    </span>
+                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
+                                                Площадь Независимости -
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                600
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                м
+                                            </span>
+                                            ,
+                                        </span>
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
+                                                Золотые ворота -
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
+                                                700
+                                            </span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
+                                                м
+                                            </span>
+                                        </span>
+                                    </span>
+                                        </li>
+                                    </ul>
+                                    <div class="nemo-hotel__content__about__location__map" style="background: #ccc;">
+                                        Map here
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="nemo-hotel__content__about__services">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Услуги и удобства в отеле
+                                </h3>
+                                <ul class="nemo-hotel__content__about__services__list">
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Питание
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Бар, кафе, ресторан
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Интернет
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Бесплатный wi-fi
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Бассейн и пляж
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Джакузи, крытый бассейн, бассейн под открытым небом, пляж на территории отеля
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Развлечения
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Клуб, библиотека
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Красота и здоровье
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Салон красоты, сауна, спа-центр
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Туризм
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Платный трансфер по окрестностям, железнодорожные кассы, трансфер от/до аэропорта, платные экскурсии с экскурсоводом
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Бизнес
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Конференц-зал, бизнес-центр
+                                </span>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__services__service">
+                                <span class="nemo-hotel__content__about__services__service__name
+                                             nemo-hotel__content__about__paramName">
+                                    Общее
+                                </span>
+                                <span class="nemo-hotel__content__about__services__service__values">
+                                    Прачечная, банкомат, круглосуточная стойка регистрации, сувенирный магазин, продуктовый супермаркет, услуги няни
+                                </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nemo-hotel__content__about__rules">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Правила отеля
+                                </h3>
+                                <ul class="nemo-hotel__content__about__rules__list">
+                                    <li class="nemo-hotel__content__about__rules__rule">
+                                <span class="nemo-hotel__content__about__rules__rule__name
+                                             nemo-hotel__content__about__paramName">
+                                    Регистрация заезда
+                                </span>
+                                        <div class="nemo-hotel__content__about__rules__rule__values">
+                                            <p>
+                                                с 15:00
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__rules__rule">
+                                <span class="nemo-hotel__content__about__rules__rule__name
+                                             nemo-hotel__content__about__paramName">
+                                    Регистрация отъезда
+                                </span>
+                                        <div class="nemo-hotel__content__about__rules__rule__values">
+                                            <p>
+                                                до 12:00
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__rules__rule">
+                                <span class="nemo-hotel__content__about__rules__rule__name
+                                             nemo-hotel__content__about__paramName">
+                                    Размещение детей и предоставление дополнительных кроватей
+                                </span>
+                                        <div class="nemo-hotel__content__about__rules__rule__values">
+                                            <p>
+                                                Всем детям младше 12 лет предоставляется бесплатное проживание в отеле при использовании существующих кроватей.
+                                            </p>
+                                            <p>
+                                                Одному ребенку младше 2 лет предоставляется детская кровать за UAH 950 с человека за ночь.
+                                            </p>
+                                            <p>
+                                                Детям старшего возраста/взрослым предоставляется дополнительная кровать за UAH 950 с человека за ночь.
+                                            </p>
+                                            <p>
+                                                Максимальное количество дополнительных кроватей в номере - 1.
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__rules__rule">
+                                <span class="nemo-hotel__content__about__rules__rule__name
+                                             nemo-hotel__content__about__paramName">
+                                    Домашние животные
+                                </span>
+                                        <div class="nemo-hotel__content__about__rules__rule__values">
+                                            <p>
+                                                Размещение с животными по запросу
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="nemo-hotel__content__about__rules__rule">
+                                <span class="nemo-hotel__content__about__rules__rule__name
+                                             nemo-hotel__content__about__paramName">
+                                    Условия аннулирования
+                                </span>
+                                        <div class="nemo-hotel__content__about__rules__rule__values">
+                                            <p>
+                                                В случае отмены или изменения бронирования за 2 суток до дня заезда штраф не взимается.
+                                            </p>
+                                            <p>
+                                                В случае незаезда или отмены бронирования позднее указанного срока взимается полная стоимость первой ночи проживания в отеле.
+                                            </p>
+                                            <p>
+                                                Это общие правила отмены бронирования номеров в отеле. Обязательно проверяйте правила отмены в процессе бронирования, так как они могут отличаться.
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nemo-hotel__content__about__contacts">
+                                <h3 class="nemo-hotel__content__about__title">
+                                    Контактная информация
+                                </h3>
+                                <p>
+                                    Бутик-отель "Опера" удобно расположен в самом сердце Киева на пересечении деловой, культурной и исторической частей города, неподалеку от таких достопримечательностей как Оперный театр, Софиевский и Владимирский соборы. От отеля рукой подать до основных деловых районов и посольств.
+                                </p>
+                                <p>
+                                    На Ваш выбор 140 различных номеров, которые стильно и уютно меблированы. Гостиница "Опера" удивит Вас изумительной роскошью и теплым комфортом. Тематические номера-люкс были оформлены в стиле самых известных оперных произведений мира: Русском, Итальянском, Французском, Египетском, Американском, Марокканском и Японском. Каждый из них представляет богатую культуру этих стран. Современные бизнес - путешественники, по достоинству оценят все предоставленные в отеле удобства, а именно большие столы с портативным телефоном, многоконтактные AV разъемы и 32-дюймовые плазменные телевизоры.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+        </div>
         <!-- /ko -->
     </section>
 
