@@ -116,14 +116,6 @@ define(
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
 
-            ko.bindingHandlers.afterHtmlRender = {
-                update: function(element, valueAccessor, allBindings){
-                    $(element).dotdotdot({
-                        watch: 'window'
-                    });
-                }
-            }
-
             this.hotels = ko.observableArray([]);
 
             this.filters = new HotelsFiltersViewModel(ko);
@@ -164,6 +156,8 @@ define(
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
             };
+
+            this.addCustomBindings(ko);
 
             this.processInitParams();
 
@@ -453,7 +447,10 @@ define(
             this.hotels = ko.observableArray(hotelsArr);
 
             self.filteredHotels = ko.computed(function() {
+                console.log('filter...')
+                console.log(self.filters.averageCustomerRating.rangeMin())
                 var filters = self.filters;
+                filters.dummyObservalbe();
 
                 if (self.filters.isFilterEmpty()){
                     return self.hotels();
@@ -493,12 +490,82 @@ define(
         //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
         // HotelsSearchResultsController.prototype.$$KOBindings = ['HotelsSearchForm', 'HotelsSearchResults'];
 
+        HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
+            ko.bindingHandlers.afterHtmlRender = {
+                update: function(element, valueAccessor, allBindings){
+                    $(element).dotdotdot({
+                        watch: 'window'
+                    });
+                }
+            }
+
+            ko.bindingHandlers.slider = {
+                init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+                    var vm = viewModel;
+                    var $element = $(element);
+
+                    $element.slider({
+                        range: vm.type === 'range' || vm.type,
+                        min: vm.min,
+                        max: vm.max,
+                        values: vm.type == 'range' ? [ vm.min, vm.max ] : vm.max,
+
+                        slide: function( event, ui ) {
+                            if (vm.type === 'range') {
+                                vm.displayRangeMin(ui.values[0]);
+                                vm.displayRangeMax(ui.values[1]);
+                            }
+                            else if (viewModel.type == 'min') {
+                                vm.displayRangeMin(ui.value);
+                            }
+                        },
+
+                        change: function( event, ui ) {
+                            if (event.originalEvent) {
+                                if (vm.type === 'range') {
+                                    vm.rangeMin(ui.values[0]);
+                                    vm.rangeMax(ui.values[1]);
+                                }
+                                else if (vm.type === 'min'){
+                                    vm.rangeMin(ui.value);
+                                }
+
+                                bindingContext.$parent.dummyObservalbe.notifySubscribers();
+                            }
+                        }
+                    });
+
+                    // Do not forget to add destroy callbacks
+                    ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                        try {
+                            $element.slider('destroy');
+                        }
+                        catch (e) {}
+                    });
+                },
+
+                update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                    var vm = viewModel;
+
+                    if (vm.rangeMin() < vm.rangeMax()) {
+                        $(element).slider(
+                            vm.type == 'range' ? 'values' : 'value',
+                            vm.type == 'range' ? [vm.rangeMin(), vm.rangeMax()] : vm.rangeMin()
+                        );
+                    }
+                }
+            };
+        };
+
         return HotelsSearchResultsController;
     }
 );
 
 var HotelsFiltersViewModel = function(ko){
     var self = this;
+
+    self.dummyObservalbe = ko.observable();
 
     self.starRating0 = ko.observable(false);
     self.starRating1 = ko.observable(false);
@@ -516,13 +583,16 @@ var HotelsFiltersViewModel = function(ko){
            !self.starRating5();
     });
 
+    self.fiveNightPrice = new SliderViewModel(ko, 'range', 10000, 100000);
 
+    self.averageCustomerRating = new SliderViewModel(ko, 'min', 1, 10);
 
     self.isFilterEmpty = ko.computed(function(){
-       return self.isStarFilterEmpty();
+       return self.isStarFilterEmpty() && self.fiveNightPrice.isDefault() && self.averageCustomerRating.isDefault();
     });
 
     self.isMatchStarFilter = function(hotelStars){
+
         if (self.isStarFilterEmpty()){
             return true;
         }
@@ -535,8 +605,57 @@ var HotelsFiltersViewModel = function(ko){
             (self.starRating5() && hotelStars === 5);
     }
 
+    self.isMatchFiveNightPriceFilter = function(hotel){
+        return true;
+    }
+
+    self.isMatchAverageCustomerRatingFilter = function(averageCustomerRating){
+        return averageCustomerRating && self.averageCustomerRating.rangeMin() <= averageCustomerRating.value;
+    }
+
     self.isMatchFilter = function(hotel){
         var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
-        return self.isMatchStarFilter(hotelStars);
+
+        return self.isMatchStarFilter(hotelStars) &&
+            self.isMatchFiveNightPriceFilter(hotel) &&
+            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
+    }
+}
+
+var SliderViewModel = function(ko, type, min, max){
+    var self = this;
+
+    self.type = type;
+    self.min = min;
+    self.max = max;
+    self.rangeMin = ko.observable(min);
+    self.rangeMax = ko.observable(max);
+    self.displayRangeMin = ko.observable(min);
+    self.displayRangeMax = ko.observable(max);
+
+    self.isDefault = ko.computed(function(){
+        if (self.type === 'range') {
+            return self.rangeMin() == self.min && self.rangeMax() == max;
+        }
+
+        if (self.type === 'min'){
+            return self.rangeMin() == self.min;
+        }
+
+        return false;
+    });
+
+    self.toRublePrice = function(number){
+        var thou = Math.floor(number/1000);
+        var num = number - thou*1000;
+
+        if (num < 10){
+            num += '00'
+        }
+        else if (num < 100){
+            num += '0'
+        }
+
+        return thou + ' ' + num + ' p';
     }
 }
