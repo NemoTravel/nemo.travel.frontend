@@ -149,8 +149,11 @@ define(
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
                         // Show map with hotels
+                        console.log(this.filteredHotels())
                         this.isMapView(true);
+                        console.log(this.filteredHotels())
                         this.isListView(false);
+                        console.log(this.filteredHotels())
 
                         // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
@@ -527,10 +530,6 @@ define(
             this.filteredHotels = ko.computed(function() {
                 var filters = self.filters;
                 filters.dummyObservalbe();
-
-                if (!self.isListView()){
-                    return [];
-                }
 
                 if (self.filters.isFilterEmpty()){
                     return self.hotels();
