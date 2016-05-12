@@ -28,6 +28,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       this.roomsFastSelectorOpen = ko.observable(false);
 		       this.parametersChanged = ko.observable(false);
 		       this.initialParams = '';
+			   this.showPreviousSearches = true;
 
 		       this.searchAllowedByParamChange = ko.computed (function () {
 			       return this.parametersChanged() || !this.forceChangeToSearch;
@@ -281,6 +282,12 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			       this.preinittedData = cookie;
 			       this.mode = 'preinitted';
 		       }
+
+			   console.log(this.$$componentParameters)
+			   var additional = this.$$componentParameters.additional;
+			   if (additional){
+				   this.showPreviousSearches = !!additional.showPreviousSearches;
+			   }
 	       };
 	       HotelsSearchFormController.prototype.recalcDateRestrictions = function () {
 		       var segments = this.segments(),

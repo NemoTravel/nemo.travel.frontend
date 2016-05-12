@@ -114,6 +114,9 @@ define(
             this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
 
+            this.searchFormActive = ko.observable(false);
+            this.searchFormActive.subscribe(function(){ $('.nemo-hotels-form').css('margin-top', 0)});
+
             this.hotels = ko.observableArray([]);
 
             this.filters = new HotelsFiltersViewModel(ko);
@@ -507,6 +510,28 @@ define(
                     }, 1);
                 }
             }
+
+            ko.bindingHandlers.hotelsResultsSearchFormHider = {
+                init: function (element, valueAccessor) {
+                    function hide (e) {
+                        var $this = $(e.target);
+
+                        var isOnSearchFormClick = $this.hasClass('nemo-hotels-form__formContainer') ||
+                            $this.parents('.nemo-hotels-form__formContainer').length > 0;
+
+                        var isOnFormOpenerClick = $this.hasClass('js-hotels-results__formOpener') ||
+                            $this.parents('.js-hotels-results__formOpener').length > 0;
+
+                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick) {
+                            valueAccessor()(false);
+                        }
+                    }
+
+                    $('body').on('click', hide);
+
+                    ko.utils.domNodeDisposal.addDisposeCallback(element, function() {$('body').off('click', hide)});
+                }
+            };
 
             ko.bindingHandlers.slider = {
                 init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

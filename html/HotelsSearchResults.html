@@ -10,7 +10,22 @@
 
 <div class="nemo-hotels-results__wrapper">
 
-    <!--ko if: resultsLoaded() -->
+    <section class="nemo-flights-results__form js-flights-results__form" data-bind="
+						component: {
+				            name: 'Hotels/SearchForm/Controller',
+							params: {
+								route: [],
+								formData: $data.$$rawdata,
+								additional: {
+									showPreviousSearches: false
+								}
+							}
+						},
+						visible: searchFormActive,
+						hotelsResultsSearchFormHider: searchFormActive
+						"></section>
+
+    <!--ko if: resultsLoaded() && !searchFormActive() -->
     <section class="nemo-hotels-results__summary">
         <div class="nemo-ui-button
                     nemo-ui-button_common
@@ -457,7 +472,7 @@
 
 
         <div class="nemo-hotels-results__summary__inner
-                    js-hotels-results__formOpener">
+                    js-hotels-results__formOpener" data-bind="click: function () {searchFormActive(!searchFormActive())}, visible: !searchFormActive()">
             <div class="nemo-hotels-results__summary__area">
                 <div class="nemo-hotels-results__summary__area__segment">
                     <div class="nemo-hotels-results__summary__area__segment__geo">

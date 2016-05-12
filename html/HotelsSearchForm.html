@@ -228,6 +228,7 @@
 
     </div>
 
+    <!-- ko if: showPreviousSearches -->
     <div class="nemo-hotels-form__additional">
         <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__additional__item nemo-hotels-form__additional__parameters">
             <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__additional__parameters__toggle"
@@ -286,6 +287,7 @@
             <div class="" data-bind="component: {name: 'Flights/LastSearches/Controller', params: {}}"></div>
         </div>
     </div>
+    <!-- /ko -->
 
     <div data-block="passengersFullSelect" class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock">
         <!-- ko foreach: rooms -->
