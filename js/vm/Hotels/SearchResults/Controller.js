@@ -41,27 +41,128 @@ define(
             // this.map = function (block, position) {
             //     new google.maps.Map(block, position);
             // };
-            this.geocoder = new google.maps.Geocoder();
+            this.initMap = function () {
+                var marker,
+                    circle,
+                    i,
+                    iconBase = '/img/',
+                    icons = {
+                        nearByCenter: {
+                            icon: iconBase + 'marker.svg'
+                        }
+                    };
+
+                var hotelCardHtml = function() {
+                        var html  = "<div>";
+                            html += "<div data-bind='text: name'></div>";
+                            html += "</div>";
+
+                        html = $.parseHTML(html)[0];
+                        return html;
+                    };
+
+                // Init map and show center
+                this.map = new google.maps.Map(
+                    document.getElementById('map'),
+                    {
+                        center: {lat: 0, lng: 0},
+                        zoom: 10
+                    }
+                );
+
+                // Check center of map
+                this.geocoder = new google.maps.Geocoder();
+
+                this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels) {
+                    var address = this.$$rawdata.hotels.staticDataInfo.cities[0].name;
+
+                    this.geocoder.geocode({'address': address}, function(results, status) {
+                        // If we know location it'll be center otherwise it'll be first hotel
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            resultsMap.setCenter(results[0].geometry.location);
+                        } else {
+                            console.dir('Geocode was not successful for the following reason: ' + status);
+                            resultsMap.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
+                        }
+                    });
+                };
+
+                this.checkGeocoderLocation(this.geocoder, this.map, this.hotels());
+
+                // Initialize infowindow
+                var infowindow = new google.maps.InfoWindow();
+
+                // Add marks on map
+                if (this.hotels()) {
+                    var hotels = this.hotels(),
+                        showCardHotel = this.showCardHotel;
+
+                    for(i = 0; i < this.hotels().length; i++) {
+                        if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
+                            // Add marker on map
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
+                                map: this.map,
+                                icon: icons.nearByCenter.icon,
+                                content: hotelCardHtml()
+                            });
+
+                            // Add mouseover event on marker
+                            google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                                return function() {
+                                    var hotelCardModel = function() {
+                                        return hotels[i];
+                                    };
+
+                                    // infowindow.setContent(hotels[i].name);
+                                    ko.cleanNode(this.content);
+                                    ko.applyBindings(hotelCardModel, this.content);
+
+                                    infowindow.setContent(this.content);
+                                    infowindow.open(this.map, marker);
+                                }
+                            })(marker, i));
+
+                            // Add click event on marker
+                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                return function() {
+                                    showCardHotel(hotels[i]);
+                                }
+                            })(marker, i));
+                        }
+                    }
+
+                }
+
+                // Add circle overlay and bind to center
+                circle = new google.maps.Circle({
+                    map: this.map,
+                    radius: 3000,    // 3 metres
+                    fillOpacity: 0,
+                    strokeColor: '#0D426D',
+                    strokeWeight: 1
+                });
+                circle.bindTo('center', marker, 'position');
+            };
 
             this.changeView = function () {
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
+                        // Show map with hotels
                         this.isMapView(true);
                         this.isListView(false);
+
+                        // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_list.png');
 
-                        this.map = new google.maps.Map(
-                            document.getElementById('map'),
-                            {
-                                center: {lat: -34.397, lng: 150.644},
-                                zoom: 8
-                            }
-                        );
-
+                        this.initMap();
                     } else {
+                        // Show list with hotels
                         this.isListView(true);
                         this.isMapView(false);
+
+                        // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
                         this.onMapPanelImageSrc('/img/show_on_map.png');
                     }
@@ -123,7 +224,8 @@ define(
 
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
-            this.showCardHotel = function (hotel, root) {
+
+            this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
 
@@ -132,7 +234,7 @@ define(
 
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
-            };
+            }).bind(this);
 
             this.addCustomBindings(ko);
 

@@ -227,7 +227,12 @@ define (
 
 										self.hotelsSearchCardActivated(false);
 										hotelsCntrl.isCardHotelView(false);
-										hotelsCntrl.cutDescription();
+
+										if (hotelsCntrl.isMapView()) {
+											hotelsCntrl.initMap();
+										} else {
+											hotelsCntrl.cutDescription();
+										}
 									}
 								}
 								, false);
