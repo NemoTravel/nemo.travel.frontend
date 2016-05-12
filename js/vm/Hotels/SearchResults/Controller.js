@@ -87,18 +87,17 @@ define(
                     });
                 };
 
-                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels());
+                this.checkGeocoderLocation(this.geocoder, this.map, this.hotels());
 
                 // Initialize infowindow
                 var infowindow = new google.maps.InfoWindow();
 
                 // Add marks on map
-                if (this.filteredHotels()) {
-                    var hotels = this.filteredHotels(),
+                if (this.hotels()) {
+                    var hotels = this.hotels(),
                         showCardHotel = this.showCardHotel;
 
-                    for(i = 0; i < this.filteredHotels().length; i++) {
-
+                    for(i = 0; i < this.hotels().length; i++) {
                         if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
                             // Add marker on map
                             marker = new google.maps.Marker({
@@ -136,14 +135,14 @@ define(
                 }
 
                 // Add circle overlay and bind to center
-                circle = new google.maps.Circle({
-                    map: this.map,
-                    radius: 3000,    // 3 metres
-                    fillOpacity: 0,
-                    strokeColor: '#0D426D',
-                    strokeWeight: 1
-                });
-                circle.bindTo('center', marker, 'position');
+                // circle = new google.maps.Circle({
+                //     map: this.map,
+                //     radius: 3000,    // 3 metres
+                //     fillOpacity: 0,
+                //     strokeColor: '#0D426D',
+                //     strokeWeight: 1
+                // });
+                // circle.bindTo('center', marker, 'position');
             };
 
             this.changeView = function () {
