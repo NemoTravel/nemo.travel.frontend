@@ -42,8 +42,7 @@ define(
             //     new google.maps.Map(block, position);
             // };
             this.initMap = function () {
-                var infoWindow = new google.maps.InfoWindow(),
-                    marker,
+                var marker,
                     circle,
                     i,
                     iconBase = '/img/',
@@ -51,6 +50,12 @@ define(
                         nearByCenter: {
                             icon: iconBase + 'marker.svg'
                         }
+                    };
+
+                var hotelCardHtml = function() {
+                        var html = "<div data-bind='text: name'></div>";
+                        html = $.parseHTML(html)[0];
+                        return html;
                     };
 
                 // Init map and show center
@@ -81,27 +86,36 @@ define(
 
                 this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels());
 
+                // Initialize infowindow
+                var infowindow = new google.maps.InfoWindow();
+
                 // Add marks on map
                 if (this.filteredHotels()) {
 
                     for(i = 0; i < this.filteredHotels().length; i++) {
-                        var hotel = this.filteredHotels();
-                        // hotel.staticDataInfo.posLatitude
-                        // hotel.staticDataInfo.posLongitude
+                        var hotels = this.filteredHotels();
 
-                        if (hotel[i].staticDataInfo.posLatitude && hotel[i].staticDataInfo.posLongitude) {
+                        if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
                             // Add marker on map
                             marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(hotel[i].staticDataInfo.posLatitude, hotel[i].staticDataInfo.posLongitude),
+                                position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
                                 map: this.map,
-                                icon: icons.nearByCenter.icon
+                                icon: icons.nearByCenter.icon,
+                                content: hotelCardHtml()
                             });
 
                             // Add event on marker
                             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                                 return function() {
-                                    infoWindow.setContent(hotel[i].name);
-                                    infoWindow.open(this.map, marker);
+                                    var hotelCardModel = function() {
+                                        return hotels[i];
+                                    };
+
+                                    // infowindow.setContent(hotels[i].name);
+                                    ko.applyBindings(hotelCardModel, this.content);
+
+                                    infowindow.setContent(this.content);
+                                    infowindow.open(this.map, marker);
                                 }
                             })(marker, i));
                         }
