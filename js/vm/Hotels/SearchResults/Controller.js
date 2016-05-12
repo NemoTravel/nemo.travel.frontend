@@ -53,7 +53,10 @@ define(
                     };
 
                 var hotelCardHtml = function() {
-                        var html = "<div data-bind='text: name'></div>";
+                        var html  = "<div>";
+                            html += "<div data-bind='text: name'></div>";
+                            html += "</div>";
+
                         html = $.parseHTML(html)[0];
                         return html;
                     };
@@ -91,9 +94,10 @@ define(
 
                 // Add marks on map
                 if (this.filteredHotels()) {
+                    var hotels = this.filteredHotels(),
+                        showCardHotel = this.showCardHotel;
 
                     for(i = 0; i < this.filteredHotels().length; i++) {
-                        var hotels = this.filteredHotels();
 
                         if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
                             // Add marker on map
@@ -104,18 +108,26 @@ define(
                                 content: hotelCardHtml()
                             });
 
-                            // Add event on marker
-                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            // Add mouseover event on marker
+                            google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
                                 return function() {
                                     var hotelCardModel = function() {
                                         return hotels[i];
                                     };
 
                                     // infowindow.setContent(hotels[i].name);
+                                    ko.cleanNode(this.content);
                                     ko.applyBindings(hotelCardModel, this.content);
 
                                     infowindow.setContent(this.content);
                                     infowindow.open(this.map, marker);
+                                }
+                            })(marker, i));
+
+                            // Add click event on marker
+                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                return function() {
+                                    showCardHotel(hotels[i]);
                                 }
                             })(marker, i));
                         }
@@ -244,7 +256,8 @@ define(
 
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
-            this.showCardHotel = function (hotel, root) {
+
+            this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
 
@@ -253,7 +266,7 @@ define(
 
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
-            };
+            }).bind(this);
 
             this.processInitParams();
 
