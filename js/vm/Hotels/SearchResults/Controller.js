@@ -44,7 +44,14 @@ define(
             this.initMap = function () {
                 var infoWindow = new google.maps.InfoWindow(),
                     marker,
-                    i;
+                    circle,
+                    i,
+                    iconBase = '/img/',
+                    icons = {
+                        nearByCenter: {
+                            icon: iconBase + 'marker.svg'
+                        }
+                    };
 
                 // Init map and show center
                 this.map = new google.maps.Map(
@@ -86,7 +93,8 @@ define(
                             // Add marker on map
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(hotel[i].staticDataInfo.posLatitude, hotel[i].staticDataInfo.posLongitude),
-                                map: this.map
+                                map: this.map,
+                                icon: icons.nearByCenter.icon
                             });
 
                             // Add event on marker
@@ -100,6 +108,16 @@ define(
                     }
 
                 }
+
+                // Add circle overlay and bind to center
+                circle = new google.maps.Circle({
+                    map: this.map,
+                    radius: 3000,    // 3 metres
+                    fillOpacity: 0,
+                    strokeColor: '#0D426D',
+                    strokeWeight: 1
+                });
+                circle.bindTo('center', marker, 'position');
             };
 
             this.changeView = function () {
