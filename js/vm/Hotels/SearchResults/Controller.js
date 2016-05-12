@@ -135,14 +135,14 @@ define(
                 }
 
                 // Add circle overlay and bind to center
-                // circle = new google.maps.Circle({
-                //     map: this.map,
-                //     radius: 3000,    // 3 metres
-                //     fillOpacity: 0,
-                //     strokeColor: '#0D426D',
-                //     strokeWeight: 1
-                // });
-                // circle.bindTo('center', marker, 'position');
+                circle = new google.maps.Circle({
+                    map: this.map,
+                    radius: 3000,    // 3 metres
+                    fillOpacity: 0,
+                    strokeColor: '#0D426D',
+                    strokeWeight: 1
+                });
+                circle.bindTo('center', marker, 'position');
             };
 
             this.changeView = function () {
