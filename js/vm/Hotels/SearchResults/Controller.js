@@ -29,7 +29,7 @@ define(
             };
 
             this.countOfNights = ko.observable(0);
-            this.labelAfterNights = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
+            //this.labelAfterNights = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
 
             this.PFActive = ko.observable(false);
 
@@ -310,19 +310,16 @@ define(
 
         };
 
-        HotelsSearchResultsController.prototype.addLabelAfterNights = function () {
+        HotelsSearchResultsController.prototype.getLabelAfterNights = function () {
             switch(this.countOfNights()) {
                 case 1:
-                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_one'));
-                    break;
+                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_one');
                 case 2:
                 case 3:
                 case 4:
-                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_two_to_four'));
-                    break;
+                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_two_to_four');
                 default:
-                    return this.labelAfterNights(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
-                    break;
+                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five');
             }
         };
 
@@ -419,6 +416,8 @@ define(
 
             console.dir(hotelsArr);
 
+
+
             this.hotels = ko.observableArray(hotelsArr);
 
             this.visibleHotelsCount = ko.observable(5);
@@ -479,7 +478,16 @@ define(
                 Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
             );
 
-            this.addLabelAfterNights();
+            this.labelAfterNights = ko.computed(function(){
+                return self.getLabelAfterNights(self.countOfNights());
+            });
+
+            this.displayCountOfNightsPrice = ko.computed(function(){
+                return self.$$controller.i18n('HotelsSearchResults', 'PF__filter__price_part') +
+                        ' ' + self.countOfNights() + ' ' + self.labelAfterNights();
+            });
+
+            //this.addLabelAfterNights();
 
             if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
                 this.$$error(this.$$rawdata.system.error.message);
