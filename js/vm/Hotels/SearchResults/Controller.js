@@ -560,11 +560,31 @@ define(
                 var filters = self.filters;
                 filters.dummyObservalbe();
 
-                if (self.filters.isFilterEmpty()){
-                    return self.hotels();
+                var sortHotels = function(item1, item2){
+                    if (!item1.staticDataInfo.averageCustomerRating){
+                        return 1;
+                    }
+
+                    if (!item2.staticDataInfo.averageCustomerRating){
+                        return -11;
+                    }
+
+                    return item1.staticDataInfo.averageCustomerRating.value > item2.staticDataInfo.averageCustomerRating.value ? -11 : 1;
                 }
 
-                return ko.utils.arrayFilter(self.hotels(), function(hotel) {
+                if (self.filters.sortType() === 2){
+                    sortHotels = function(item1, item2){
+                        return item1.hotelPrice > item2.hotelPrice ? 1 : -1;
+                    }
+                }
+
+                var hotels = self.hotels().sort(sortHotels);
+
+                if (self.filters.isFilterEmpty()){
+                    return hotels;
+                }
+
+                return ko.utils.arrayFilter(hotels, function(hotel) {
                     return self.filters.isMatchFilter(hotel);
                 });
             });
@@ -739,12 +759,16 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
 
     self.dummyObservalbe = ko.observable();
 
+    self.sortType = ko.observable(1);
+    self.sortTypes = ko.observableArray([1,2]);
+
     self.starRating0 = ko.observable(false);
     self.starRating1 = ko.observable(false);
     self.starRating2 = ko.observable(false);
     self.starRating3 = ko.observable(false);
     self.starRating4 = ko.observable(false);
     self.starRating5 = ko.observable(false);
+
 
     self.isStarFilterEmpty = ko.computed(function(){
        return !self.starRating0() &&

@@ -48,11 +48,12 @@
                     ></div>
                 </div>
 
+                <!--
                 <label class="nemo-hotels-results__content__postfilters__order
                               nemo-hotels-results__summary__filters__order">
                     <span class="nemo-hotels-results__content__postfilters__order__title
                                  nemo-hotels-results__summary__filters__order__title">
-                        Сортировать
+                        Сортировать 55
                     </span>
                     <div class="nemo-ui-select
                                 js-common-pseudoSelect">
@@ -60,7 +61,7 @@
                                     js-common-pseudoSelect__toggle"
                              data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                     </div>
-                </label>
+                </label>-->
 
                 <div class="nemo-common-postFilters__clearAll">
                     <div class="nemo-ui-button
@@ -515,16 +516,17 @@
                       nemo-hotels-results__content__postfilters
                       nemo-hotels-results__content__postfilters_resultLoadingDummy">
 
+            <!--
             <label class="nemo-hotels-results__content__postfilters__order">
                 <span class="nemo-hotels-results__content__postfilters__order__title">
-                    Сортировать
+                    Сортировать520
                 </span>
                 <div class="nemo-ui-select js-common-pseudoSelect">
                     <div class="nemo-ui-select__toggle
                                 js-common-pseudoSelect__toggle"
                          data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                 </div>
-            </label>
+            </label>-->
 
             <div class="nemo-ui-subContainer
                         nemo-flights-results__content__postfilters__loadingDummy
@@ -2873,14 +2875,16 @@
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">
-                    <span class="nemo-hotels-results__content__postfilters__order__title">
-                        Сортировать
+                    <span class="nemo-hotels-results__content__postfilters__order__title" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__caption')">
+                        Сортировать2877
                     </span>
-                    <div class="nemo-ui-select
-                                js-common-pseudoSelect">
-                        <div class="nemo-ui-select__toggle
-                                    js-common-pseudoSelect__toggle"
-                             data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
+                    <div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
+                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button"
+                             data-bind="pseudoSelect: null, text: $root.i18n('HotelsSearchResults','sort__type__' + sortType())"></div>
+                        <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: sortTypes">
+                            <div class="nemo-ui-select__dropdown__item"
+                                 data-bind="click: function () {$parent.sortType($data)}, text: $root.i18n('HotelsSearchResults','sort__type__' + $data)"></div>
+                        </div>
                     </div>
                 </label>
 
