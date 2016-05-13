@@ -3003,13 +3003,13 @@
                         </div>
                     </div>
 
+                <!--
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
                             <h4 class="nemo-common-postFilters__filterList__filter__caption__name"
                                 data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__type')"></h4>
                         </div>
 
-                        <!--
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
@@ -3262,7 +3262,7 @@
         <div class="nemo-ui-slider__info">
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_min"
-                         data-bind="text: toRublePrice(displayRangeMin())">
+                         data-bind="text: displayRangeMin() + ' ' + $root.agency.currency()">
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_divider">
@@ -3270,7 +3270,7 @@
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_max"
-                         data-bind="text: toRublePrice(displayRangeMax())">
+                         data-bind="text: displayRangeMax() + ' ' + $root.agency.currency()">
             </span>
         </div>
 

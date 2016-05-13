@@ -223,8 +223,6 @@ define(
 
             this.hotels = ko.observableArray([]);
 
-            this.filters = new HotelsFiltersViewModel(ko);
-
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
 
@@ -428,6 +426,19 @@ define(
             }
         };
 
+        HotelsSearchResultsController.prototype.getMinRoomPrice = function(hotel){
+            var min = 999999;
+            var rooms = hotel.rooms[0];
+            var roomsLength = rooms.length;
+            for (var i = 0; i < roomsLength; i++){
+                if (min > rooms[i].rate.price.amount){
+                    min = rooms[i].rate.price.amount;
+                }
+            }
+
+            return min;
+        }
+
         HotelsSearchResultsController.prototype.processSearchResults = function () {
             var self = this;
 
@@ -521,9 +532,30 @@ define(
 
             console.dir(hotelsArr);
 
+            this.minHotelPrice = 999999;
+            this.maxHotelPrice = 0;
 
+            var hLength = hotelsArr.length;
+            for (var hIndex = 0; hIndex < hLength; hIndex++){
+                var price = this.getMinRoomPrice(hotelsArr[hIndex]);
+                hotelsArr[hIndex].hotelPrice = price;
+
+                if (this.minHotelPrice > price){
+                    this.minHotelPrice = price;
+                }
+
+                if (this.maxHotelPrice < price){
+                    this.maxHotelPrice = price;
+                }
+            }
 
             this.hotels = ko.observableArray(hotelsArr);
+
+            this.countOfNights = ko.observable(
+                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
+            );
+
+            this.filters = new HotelsFiltersViewModel(ko, this.minHotelPrice, this.maxHotelPrice, this.countOfNights());
 
             this.visibleHotelsCount = ko.observable(5);
 
@@ -574,10 +606,6 @@ define(
                 var newVisibleCount = self.visibleHotelsCount() + self.remainderHotels();
                 self.visibleHotelsCount(newVisibleCount);
             };
-
-            this.countOfNights = ko.observable(
-                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
-            );
 
             this.labelAfterNights = ko.computed(function(){
                 return self.getLabelAfterNights(self.countOfNights());
@@ -705,8 +733,10 @@ define(
     }
 );
 
-var HotelsFiltersViewModel = function(ko){
+var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNights){
     var self = this;
+
+    self.countOfNights = countOfNights;
 
     self.dummyObservalbe = ko.observable();
 
@@ -726,7 +756,9 @@ var HotelsFiltersViewModel = function(ko){
            !self.starRating5();
     });
 
-    self.fiveNightPrice = new SliderViewModel(ko, 'range', 10000, 100000);
+    self.fiveNightPrice = new SliderViewModel(ko, 'range',
+        Math.floor(minRoomPrice * countOfNights),
+        Math.ceil(maxRoomPrice * countOfNights));
 
     self.averageCustomerRating = new SliderViewModel(ko, 'min', 1, 10);
 
@@ -748,11 +780,20 @@ var HotelsFiltersViewModel = function(ko){
             (self.starRating5() && hotelStars === 5);
     }
 
-    self.isMatchFiveNightPriceFilter = function(hotel){
-        return true;
+    self.isMatchFiveNightPriceFilter = function(hotelPrice){
+        if (self.fiveNightPrice.isDefault()){
+            return true;
+        }
+
+        return hotelPrice * self.countOfNights >= self.fiveNightPrice.rangeMin() &&
+            hotelPrice * self.countOfNights <= self.fiveNightPrice.rangeMax();
     }
 
     self.isMatchAverageCustomerRatingFilter = function(averageCustomerRating){
+        if (self.averageCustomerRating.isDefault()){
+            return true;
+        }
+
         return averageCustomerRating && self.averageCustomerRating.rangeMin() <= averageCustomerRating.value;
     }
 
@@ -760,7 +801,7 @@ var HotelsFiltersViewModel = function(ko){
         var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
 
         return self.isMatchStarFilter(hotelStars) &&
-            self.isMatchFiveNightPriceFilter(hotel) &&
+            self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
             self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
     }
 }
