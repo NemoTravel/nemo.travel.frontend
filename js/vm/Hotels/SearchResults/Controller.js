@@ -223,6 +223,8 @@ define(
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
 
+            this.isFilterNotificationVisible = ko.observable(true);
+
             this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
