@@ -149,11 +149,8 @@ define(
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
                         // Show map with hotels
-                        console.log(this.filteredHotels())
                         this.isMapView(true);
-                        console.log(this.filteredHotels())
                         this.isListView(false);
-                        console.log(this.filteredHotels())
 
                         // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
@@ -737,6 +734,8 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
     var self = this;
 
     self.countOfNights = countOfNights;
+    self.minRoomPrice = minRoomPrice;
+    self.maxRoomPrice = maxRoomPrice;
 
     self.dummyObservalbe = ko.observable();
 
@@ -755,6 +754,15 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
            !self.starRating4() &&
            !self.starRating5();
     });
+
+    self.resetStarFilter = function(){
+        self.starRating0(false);
+        self.starRating1(false);
+        self.starRating2(false);
+        self.starRating3(false);
+        self.starRating4(false);
+        self.starRating5(false);
+    };
 
     self.fiveNightPrice = new SliderViewModel(ko, 'range',
         Math.floor(minRoomPrice * countOfNights),
@@ -804,6 +812,12 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
             self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
             self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
     }
+
+    self.resetFilters = function(){
+        self.resetStarFilter();
+        self.fiveNightPrice.reset();
+        self.averageCustomerRating.reset();
+    }
 }
 
 var SliderViewModel = function(ko, type, min, max){
@@ -829,17 +843,10 @@ var SliderViewModel = function(ko, type, min, max){
         return false;
     });
 
-    self.toRublePrice = function(number){
-        var thou = Math.floor(number/1000);
-        var num = number - thou*1000;
-
-        if (num < 10){
-            num += '00'
-        }
-        else if (num < 100){
-            num += '0'
-        }
-
-        return thou + ' ' + num + ' p';
+    self.reset = function(){
+        self.rangeMin(self.min);
+        self.rangeMax(self.max);
+        self.displayRangeMin(self.min);
+        self.displayRangeMax(self.max);
     }
 }
