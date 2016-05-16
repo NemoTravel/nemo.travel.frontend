@@ -36,6 +36,7 @@ define(
 
             this.isListView = ko.observable(true);
             this.isMapView = ko.observable(false);
+            this.oldMarkers = ko.observable([]);
             this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
             this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
 
@@ -44,8 +45,7 @@ define(
             // };
             this.initMap = function () {
                 var marker,
-                    circle,
-                    markersArray;
+                    circle;
 
                 // Init map and show center
                 this.map = new google.maps.Map(
@@ -55,13 +55,6 @@ define(
                         zoom: 10
                     }
                 );
-
-                // google.maps.Map.prototype.clearOverlays = function() {
-                //     for (var i = 0; i < markersArray.length; i++ ) {
-                //         markersArray[i].setMap(null);
-                //     }
-                //     markersArray.length = 0;
-                // };
 
                 // Add circle overlay and bind to center
                 circle = new google.maps.Circle({
@@ -99,7 +92,7 @@ define(
                 if (hotels) {
                     var showCardHotel = this.showCardHotel,
                         infowindow = new google.maps.InfoWindow(),
-                        marker,
+                        markers = [],
                         i,
                         iconBase = '/img/',
                         icons = {
@@ -118,10 +111,18 @@ define(
                         return html;
                     };
 
+                    if (this.oldMarkers()) {
+                        var oldMarkersArr = this.oldMarkers();
+
+                        for (var indexMarker in oldMarkersArr) {
+                            oldMarkersArr[indexMarker].setMap(null);
+                        }
+                    }
+
                     for(i = 0; i < hotels.length; i++) {
                         if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
                             // Add marker on map
-                            marker = new google.maps.Marker({
+                            markers[i] = new google.maps.Marker({
                                 position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
                                 map: this.map,
                                 icon: icons.nearByCenter.icon,
@@ -129,7 +130,7 @@ define(
                             });
 
                             // Add mouseover event on marker
-                            google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                            google.maps.event.addListener(markers[i], 'mouseover', (function(marker, i) {
                                 return function() {
                                     var hotelCardModel = function() {
                                         return hotels[i];
@@ -141,16 +142,18 @@ define(
                                     infowindow.setContent(this.content);
                                     infowindow.open(this.map, marker);
                                 }
-                            })(marker, i));
+                            })(markers[i], i));
 
                             // Add click event on marker
-                            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            google.maps.event.addListener(markers[i], 'click', (function(marker, i) {
                                 return function() {
                                     showCardHotel(hotels[i]);
                                 }
-                            })(marker, i));
+                            })(markers[i], i));
                         }
                     }
+
+                    this.oldMarkers(markers);
                 }
             };
 
