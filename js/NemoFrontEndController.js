@@ -230,8 +230,6 @@ define (
 
 										if (hotelsCntrl.isMapView()) {
 											hotelsCntrl.initMap();
-										} else {
-											hotelsCntrl.cutDescription();
 										}
 									}
 								}

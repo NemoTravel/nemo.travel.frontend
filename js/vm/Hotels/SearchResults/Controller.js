@@ -11,6 +11,7 @@ define(
             this.PFActive = ko.observable(false);
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
+            this.currentCity = ko.observable('');
             this.searchParameters = {
                 cityId: 0,
                 hotelId: 0,
@@ -43,23 +44,7 @@ define(
             // };
             this.initMap = function () {
                 var marker,
-                    circle,
-                    i,
-                    iconBase = '/img/',
-                    icons = {
-                        nearByCenter: {
-                            icon: iconBase + 'marker.svg'
-                        }
-                    };
-
-                var hotelCardHtml = function() {
-                        var html  = "<div>";
-                            html += "<div data-bind='text: name'></div>";
-                            html += "</div>";
-
-                        html = $.parseHTML(html)[0];
-                        return html;
-                    };
+                    markersArray;
 
                 // Init map and show center
                 this.map = new google.maps.Map(
@@ -70,13 +55,20 @@ define(
                     }
                 );
 
+                // google.maps.Map.prototype.clearOverlays = function() {
+                //     for (var i = 0; i < markersArray.length; i++ ) {
+                //         markersArray[i].setMap(null);
+                //     }
+                //     markersArray.length = 0;
+                // };
+
+
+
                 // Check center of map
                 this.geocoder = new google.maps.Geocoder();
 
                 this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels) {
-                    var address = this.$$rawdata.hotels.staticDataInfo.cities[0].name;
-
-                    this.geocoder.geocode({'address': address}, function(results, status) {
+                    this.geocoder.geocode({'address': this.currentCity()}, function(results, status) {
                         // If we know location it'll be center otherwise it'll be first hotel
                         if (status === google.maps.GeocoderStatus.OK) {
                             resultsMap.setCenter(results[0].geometry.location);
@@ -87,17 +79,37 @@ define(
                     });
                 };
 
-                this.checkGeocoderLocation(this.geocoder, this.map, this.hotels());
+                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels());
 
-                // Initialize infowindow
-                var infowindow = new google.maps.InfoWindow();
+                // Add markers on map
+                this.addMarkersOnMap(this.filteredHotels());
+            };
 
-                // Add marks on map
-                if (this.hotels()) {
-                    var hotels = this.hotels(),
-                        showCardHotel = this.showCardHotel;
+            this.addMarkersOnMap = function(hotels) {
+                if (hotels) {
+                    var showCardHotel = this.showCardHotel,
+                        infowindow = new google.maps.InfoWindow(),
+                        marker,
+                        circle,
+                        i,
+                        iconBase = '/img/',
+                        icons = {
+                            nearByCenter: {
+                                icon: iconBase + 'marker.svg'
+                            }
+                        },
+                        hotelCardHtml;
 
-                    for(i = 0; i < this.hotels().length; i++) {
+                    hotelCardHtml = function() {
+                        var html  = "<div>";
+                        html += "<div data-bind='text: name'></div>";
+                        html += "</div>";
+
+                        html = $.parseHTML(html)[0];
+                        return html;
+                    };
+
+                    for(i = 0; i < hotels.length; i++) {
                         if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
                             // Add marker on map
                             marker = new google.maps.Marker({
@@ -114,7 +126,6 @@ define(
                                         return hotels[i];
                                     };
 
-                                    // infowindow.setContent(hotels[i].name);
                                     ko.cleanNode(this.content);
                                     ko.applyBindings(hotelCardModel, this.content);
 
@@ -132,28 +143,25 @@ define(
                         }
                     }
 
-                }
+                    // Add circle overlay and bind to center
+                    circle = new google.maps.Circle({
+                        map: this.map,
+                        radius: 3000,    // 3 metres
+                        fillOpacity: 0,
+                        strokeColor: '#0D426D',
+                        strokeWeight: 1
+                    });
 
-                // Add circle overlay and bind to center
-                circle = new google.maps.Circle({
-                    map: this.map,
-                    radius: 3000,    // 3 metres
-                    fillOpacity: 0,
-                    strokeColor: '#0D426D',
-                    strokeWeight: 1
-                });
-                circle.bindTo('center', marker, 'position');
+                    circle.bindTo('center', marker, 'position');
+                }
             };
 
             this.changeView = function () {
                 if ( this.resultsLoaded() ) {
                     if ( this.isListView() ) {
                         // Show map with hotels
-                        console.log(this.filteredHotels())
                         this.isMapView(true);
-                        console.log(this.filteredHotels())
                         this.isListView(false);
-                        console.log(this.filteredHotels())
 
                         // Change name of button and icon
                         this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
@@ -172,47 +180,6 @@ define(
                 }
             };
 
-            this.postfiltersData = {
-                configs: {
-                    price: {
-                        name: 'price',
-                        type: 'Number',
-                        isLegged: false,
-                        legNumber: 0,
-                        getter: function (obj) {
-                            // We are forced to use Math.ceil here due to a bug in jQueryUI.slider
-                            // which is used for Number postFilters' view
-                            return Math.ceil(obj.getTotalPrice().amount());
-                        },
-                        options: {
-                            /* Filter-specific options here */
-                            onInit: function (initParams) {
-                                var currency = '',
-                                    keys = Object.keys(initParams.items);
-
-                                if (keys.length) {
-                                    currency = initParams.items[keys[0]].getTotalPrice().currency();
-                                }
-                                
-                                this.displayValues.min = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
-                                this.displayValues.max = this.$$controller.getModel('Common/Money', {amount: 0, currency: currency});
-                            },
-                            onValuesUpdate: function (newValue) {
-                                this.displayValues.min.amount(newValue.min);
-                                this.displayValues.max.amount(newValue.max);
-                            }
-                        }
-                    }
-                },
-                order: ['price'],
-                preInitValues: {
-                    price: null
-                }
-            };
-            this.postFilters = ko.observableArray([]);
-            this.visiblePostFilters = ko.observableArray([]);
-            this.usePostfilters = false;
-
             this.searchInfo = ko.observable({});
 
             this.mode = 'id';
@@ -227,6 +194,7 @@ define(
 
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
+            this.hotelCard = ko.observable([]);
 
             this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
@@ -237,6 +205,10 @@ define(
 
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
+
+                hotel.staticDataInfo.currentCity = this.currentCity();
+                this.hotelCard(hotel);
+                console.dir(this.hotelCard());
             }).bind(this);
 
             this.addCustomBindings(ko);
@@ -248,7 +220,7 @@ define(
         // Extending from dictionaryModel
         helpers.extendModel(HotelsSearchResultsController, [BaseControllerModel]);
 
-        HotelsSearchResultsController.prototype.$$KOBindings = ['common','PostFilters', 'HotelsResults'];
+        HotelsSearchResultsController.prototype.$$KOBindings = ['common', 'HotelsResults'];
 
         HotelsSearchResultsController.prototype.$$usedModels = [
             'Common/Date',
@@ -280,7 +252,8 @@ define(
         HotelsSearchResultsController.prototype.dataPOSTParameters = function () {
             var cookie_params = {},
                 params = {},
-                ret = {};
+                ret = {},
+                roomsArr = [];
 
             if (this.mode != 'id') {
                 cookie_params = Cookie.getJSON(this.$$controller.options.cookiesPrefix+this.resultsTypeCookie);
@@ -293,63 +266,48 @@ define(
 
                 params.isDelayed = false;
 
-                params.rooms = [{
-                    ADT: cookie_params.rooms[0].adults
-                }];
+                for (var i = 0; i < cookie_params.rooms.length; i++) {
+                    if (!roomsArr[i]) {
+                        roomsArr[i] = {};
+                    }
 
-                // ret.request = JSON.stringify(params);
+                    roomsArr[i].ADT = cookie_params.rooms[i].adults;
+
+                    if (cookie_params.rooms[i].infants.length) {
+                        roomsArr[i].CLD = cookie_params.rooms[i].infants.length;
+                        for (var indexInfants = 0; indexInfants < cookie_params.rooms[i].infants.length; indexInfants++) {
+                            if (!roomsArr[i].childAges) {
+                                roomsArr[i].childAges = []
+                            }
+                            roomsArr[i].childAges.push(cookie_params.rooms[i].infants[indexInfants]);
+                        }
+                    }
+                }
+
+                params.rooms = roomsArr;
+
                 // ret.request = JSON.stringify({
-                //     "cityId": 1870586,
-                //     "hotelId": null,
-                //     "checkInDate": "2016-08-05T00:00:00",
-                //     "checkOutDate": "2016-08-07T00:00:00",
+                //     "cityId": 1934864,
+                //     "checkInDate": "2016-09-20T00:00:00",
+                //     "checkOutDate": "2016-09-22T00:00:00",
                 //     "isDelayed": false,
                 //     "rooms": [
                 //         {
-                //             "ADT": 1
-                //         }
-                //     ]
-                // });
-
-                // ret.request = JSON.stringify({
-                //     "cityId": 28193,
-                //     "hotelId": null,
-                //     "checkInDate": "2016-09-05T00:00:00",
-                //     "checkOutDate": "2016-09-07T00:00:00",
-                //     "isDelayed": false,
-                //     "rooms": [
-                //         { "ADT": 1 },
-                //         { "ADT": 1 }
-                //     ]
-                // }); //163157
-
-                // ret.request = JSON.stringify({
-                //     "cityId": 4754,
-                //     "hotelId": null,
-                //     "checkInDate": "2016-08-12T00:00:00",
-                //     "checkOutDate": "2016-08-14T00:00:00",
-                //     "isDelayed": false,
-                //     "rooms": [
-                //         {
-                //             "ADT": 2
+                //             "ADT": 1,
+                //             "CLD": 1,
+                //             "childAges": [
+                //                 10
+                //             ]
                 //         }
                 //     ]
                 // });
 
                 ret.request = JSON.stringify({
-                    "cityId": 1934864,
-                    "checkInDate": "2016-10-12T00:00:00",
-                    "checkOutDate": "2016-10-14T00:00:00",
+                    "cityId": params.cityId,
+                    "checkInDate": params.checkInDate,
+                    "checkOutDate": params.checkOutDate,
                     "isDelayed": false,
-                    "rooms": [
-                        {
-                            "ADT": 1,
-                            "CLD": 1,
-                            "childAges": [
-                                10
-                            ]
-                        }
-                    ]
+                    "rooms": params.rooms
                 });
             }
 
@@ -522,7 +480,7 @@ define(
             console.dir(hotelsArr);
 
 
-
+            this.currentCity(this.$$rawdata.hotels.staticDataInfo.cities[0].name);
             this.hotels = ko.observableArray(hotelsArr);
 
             this.visibleHotelsCount = ko.observable(5);
@@ -544,9 +502,10 @@ define(
                return self.filteredHotels().slice(0, self.visibleHotelsCount());
             });
 
-            this.filteredHotels.subscribe(function(){
+            this.filteredHotels.subscribe((function(newVal){
                 //TODO work with map
-            });
+                this.addMarkersOnMap(newVal);
+            }).bind(this));
 
             this.countsOfHotels = ko.computed(function(){
                 return self.filteredHotels().length;

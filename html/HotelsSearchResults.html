@@ -8,6 +8,7 @@
     }}" class=""></div>
 <!-- /ko -->
 
+<!-- ko if: !$$loading() -->
 <div class="nemo-hotels-results__wrapper">
 
     <section class="nemo-flights-results__form js-flights-results__form" data-bind="
@@ -25,7 +26,7 @@
 						hotelsResultsSearchFormHider: searchFormActive
 						"></section>
 
-    <!--ko if: resultsLoaded() && !searchFormActive() -->
+    <!--ko if: resultsLoaded() && !searchFormActive()-->
     <section class="nemo-hotels-results__summary">
         <div class="nemo-ui-button
                     nemo-ui-button_common
@@ -509,8 +510,21 @@
     <!--/ko -->
 
     <section class="nemo-hotels-results__content">
-        <!-- ko if: !isCardHotelView() -->
-        <!-- ko if: !resultsLoaded() -->
+
+        <!-- ko if: error() -->
+        <div class="nemo-flights-results__error">
+            <div class="nemo-flights-results__error__header" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error() + '_header')"></div>
+            <div class="nemo-flights-results__error__content" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error())"></div>
+            <div class="nemo-flights-results__error__footer">
+                <div class="nemo-ui-button nemo-flights-results__error__footer__button" data-bind="
+					text: $root.i18n('HotelsSearchResults', 'error_' + error() + '_buttonText'),
+					click: function () { ;$$controller.navigate('/hotels', true, 'HotelsSearchForm')}"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: !isCardHotelView() && !error()-->
+        <!-- ko if: !resultsLoaded() --> <!--TODO fix this -->
         <aside class="nemo-common-postFilters
                       nemo-hotels-results__content__postfilters
                       nemo-hotels-results__content__postfilters_resultLoadingDummy">
@@ -1058,17 +1072,12 @@
         <!-- /ko -->
 
         <!-- ko if: isCardHotelView() -->
-
-
-
-        <div class="nemo-hotels-results__wrapper">
+        <div class="nemo-hotels-results__wrapper" data-bind="with: hotelCard()">
 
             <section class="nemo-hotel">
                 <aside class="nemo-hotel__additional" >
                     <div class="nemo-hotel__additional__info">
-                        <span class="nemo-hotel__additional__info__name">
-                            Best Western Braid Hills Hotel
-                        </span>
+                        <span class="nemo-hotel__additional__info__name"  data-bind="text: $data.name"></span>
                         <span class="nemo-hotel__additional__info__address">
                             ул. Аллы Тарасовой 5, Киев, Украина, 01001
                         </span>
@@ -3302,3 +3311,4 @@
     </script>
 
 </div>
+<!--/ko-->
