@@ -337,8 +337,6 @@ define(
                 if (typeof systemData == 'undefined' || systemData[0] !== 0) {
                     self.error(message);
                 }
-
-                self.searchFormActive(true);
             }
 
             this.$$controller.loadData(
