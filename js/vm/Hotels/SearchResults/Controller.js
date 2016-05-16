@@ -286,29 +286,30 @@ define(
 
                 params.rooms = roomsArr;
 
-                // ret.request = JSON.stringify({
-                //     "cityId": 1934864,
-                //     "checkInDate": "2016-09-20T00:00:00",
-                //     "checkOutDate": "2016-09-22T00:00:00",
-                //     "isDelayed": false,
-                //     "rooms": [
-                //         {
-                //             "ADT": 1,
-                //             "CLD": 1,
-                //             "childAges": [
-                //                 10
-                //             ]
-                //         }
-                //     ]
-                // });
-
                 ret.request = JSON.stringify({
-                    "cityId": params.cityId,
-                    "checkInDate": params.checkInDate,
-                    "checkOutDate": params.checkOutDate,
+                    "cityId": 1934864,
+                    "hotelId": 34294319,
+                    "checkInDate": "2016-09-23T00:00:00",
+                    "checkOutDate": "2016-09-25T00:00:00",
                     "isDelayed": false,
-                    "rooms": params.rooms
+                    "rooms": [
+                        {
+                            "ADT": 1,
+                            "CLD": 1,
+                            "childAges": [
+                                10
+                            ]
+                        }
+                    ]
                 });
+
+                // ret.request = JSON.stringify({
+                //     "cityId": params.cityId,
+                //     "checkInDate": params.checkInDate,
+                //     "checkOutDate": params.checkOutDate,
+                //     "isDelayed": false,
+                //     "rooms": params.rooms
+                // });
             }
 
             return ret;
