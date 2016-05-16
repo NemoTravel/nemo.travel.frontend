@@ -26,8 +26,9 @@
 						hotelsResultsSearchFormHider: searchFormActive
 						"></section>
 
-    <!--ko if: resultsLoaded() && !searchFormActive()-->
+
     <section class="nemo-hotels-results__summary">
+        <!--ko if: resultsLoaded() && !searchFormActive()-->
         <div class="nemo-ui-button
                     nemo-ui-button_common
                     nemo-hotels-results__summary__filterSwitch
@@ -35,7 +36,8 @@
              data-bind="click: function () {if (resultsLoaded()) {PFActive(!PFActive());}},
                         css: {'nemo-flights-results__summary__filterSwitch_active': PFActive()},
                         text: $root.i18n('HotelsSearchResults', 'filter__caption')"></div>
-<!--ko if: PFActive() -->
+        <!--/ko -->
+<!--ko if: PFActive() && resultsLoaded() && !searchFormActive() -->
         <div class="nemo-common-postFilters
                     nemo-hotels-results__summary__filters">
             <div class="nemo-common-postFilters__inner,
@@ -474,7 +476,7 @@
     <!-- /ko-->
 
 
-
+        <!--ko if: (resultsLoaded() || error()) && !searchFormActive()-->
         <div class="nemo-hotels-results__summary__inner
                     js-hotels-results__formOpener" data-bind="click: function () {searchFormActive(!searchFormActive())}, visible: !searchFormActive()">
             <div class="nemo-hotels-results__summary__area">
@@ -507,8 +509,8 @@
 
 
         </div>
+        <!-- /ko-->
     </section>
-    <!--/ko -->
 
     <section class="nemo-hotels-results__content">
 
