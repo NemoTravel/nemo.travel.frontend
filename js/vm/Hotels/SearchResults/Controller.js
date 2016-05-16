@@ -44,6 +44,7 @@ define(
             // };
             this.initMap = function () {
                 var marker,
+                    circle,
                     markersArray;
 
                 // Init map and show center
@@ -62,24 +63,33 @@ define(
                 //     markersArray.length = 0;
                 // };
 
-
+                // Add circle overlay and bind to center
+                circle = new google.maps.Circle({
+                    map: this.map,
+                    fillOpacity: 0,
+                    strokeColor: '#0D426D',
+                    radius: 3000,    // 3 metres
+                    strokeWeight: 1
+                });
 
                 // Check center of map
                 this.geocoder = new google.maps.Geocoder();
 
-                this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels) {
+                this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels, circle) {
                     this.geocoder.geocode({'address': this.currentCity()}, function(results, status) {
                         // If we know location it'll be center otherwise it'll be first hotel
                         if (status === google.maps.GeocoderStatus.OK) {
                             resultsMap.setCenter(results[0].geometry.location);
+                            circle.setCenter(results[0].geometry.location);
                         } else {
                             console.dir('Geocode was not successful for the following reason: ' + status);
                             resultsMap.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
+                            circle.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
                         }
                     });
                 };
 
-                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels());
+                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels(), circle);
 
                 // Add markers on map
                 this.addMarkersOnMap(this.filteredHotels());
@@ -90,7 +100,6 @@ define(
                     var showCardHotel = this.showCardHotel,
                         infowindow = new google.maps.InfoWindow(),
                         marker,
-                        circle,
                         i,
                         iconBase = '/img/',
                         icons = {
@@ -142,17 +151,6 @@ define(
                             })(marker, i));
                         }
                     }
-
-                    // Add circle overlay and bind to center
-                    circle = new google.maps.Circle({
-                        map: this.map,
-                        radius: 3000,    // 3 metres
-                        fillOpacity: 0,
-                        strokeColor: '#0D426D',
-                        strokeWeight: 1
-                    });
-
-                    circle.bindTo('center', marker, 'position');
                 }
             };
 
@@ -288,7 +286,6 @@ define(
 
                 ret.request = JSON.stringify({
                     "cityId": 1934864,
-                    "hotelId": 34294319,
                     "checkInDate": "2016-09-23T00:00:00",
                     "checkOutDate": "2016-09-25T00:00:00",
                     "isDelayed": false,
