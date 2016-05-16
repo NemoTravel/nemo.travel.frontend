@@ -37,7 +37,8 @@ define(
             this.isListView = ko.observable(true);
             this.isMapView = ko.observable(false);
             this.oldMarkers = ko.observable([]);
-            this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
+            // this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
+            this.changeViewButtonLabel = ko.observable('Показать на карте');
             this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
 
             // this.map = function (block, position) {
