@@ -190,11 +190,11 @@ define(
 
             this.hotels = ko.observableArray([]);
 
-            this.filters = new HotelsFiltersViewModel(ko);
-
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
             this.hotelCard = ko.observable([]);
+
+            this.isFilterNotificationVisible = ko.observable(true);
 
             this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
@@ -386,6 +386,19 @@ define(
             }
         };
 
+        HotelsSearchResultsController.prototype.getMinRoomPrice = function(hotel){
+            var min = 999999;
+            var rooms = hotel.rooms[0];
+            var roomsLength = rooms.length;
+            for (var i = 0; i < roomsLength; i++){
+                if (min > rooms[i].rate.price.amount){
+                    min = rooms[i].rate.price.amount;
+                }
+            }
+
+            return min;
+        }
+
         HotelsSearchResultsController.prototype.processSearchResults = function () {
             var self = this;
 
@@ -479,9 +492,31 @@ define(
 
             console.dir(hotelsArr);
 
+            this.minHotelPrice = 999999;
+            this.maxHotelPrice = 0;
+
+            var hLength = hotelsArr.length;
+            for (var hIndex = 0; hIndex < hLength; hIndex++){
+                var price = this.getMinRoomPrice(hotelsArr[hIndex]);
+                hotelsArr[hIndex].hotelPrice = price;
+
+                if (this.minHotelPrice > price){
+                    this.minHotelPrice = price;
+                }
+
+                if (this.maxHotelPrice < price){
+                    this.maxHotelPrice = price;
+                }
+            }
 
             this.currentCity(this.$$rawdata.hotels.staticDataInfo.cities[0].name);
             this.hotels = ko.observableArray(hotelsArr);
+
+            this.countOfNights = ko.observable(
+                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
+            );
+
+            this.filters = new HotelsFiltersViewModel(ko, this.minHotelPrice, this.maxHotelPrice, this.countOfNights());
 
             this.visibleHotelsCount = ko.observable(5);
 
@@ -489,11 +524,31 @@ define(
                 var filters = self.filters;
                 filters.dummyObservalbe();
 
-                if (self.filters.isFilterEmpty()){
-                    return self.hotels();
+                var sortHotels = function(item1, item2){
+                    if (!item1.staticDataInfo.averageCustomerRating){
+                        return 1;
+                    }
+
+                    if (!item2.staticDataInfo.averageCustomerRating){
+                        return -11;
+                    }
+
+                    return item1.staticDataInfo.averageCustomerRating.value > item2.staticDataInfo.averageCustomerRating.value ? -11 : 1;
                 }
 
-                return ko.utils.arrayFilter(self.hotels(), function(hotel) {
+                if (self.filters.sortType() === 2){
+                    sortHotels = function(item1, item2){
+                        return item1.hotelPrice > item2.hotelPrice ? 1 : -1;
+                    }
+                }
+
+                var hotels = self.hotels().sort(sortHotels);
+
+                if (self.filters.isFilterEmpty()){
+                    return hotels;
+                }
+
+                return ko.utils.arrayFilter(hotels, function(hotel) {
                     return self.filters.isMatchFilter(hotel);
                 });
             });
@@ -533,10 +588,6 @@ define(
                 var newVisibleCount = self.visibleHotelsCount() + self.remainderHotels();
                 self.visibleHotelsCount(newVisibleCount);
             };
-
-            this.countOfNights = ko.observable(
-                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
-            );
 
             this.labelAfterNights = ko.computed(function(){
                 return self.getLabelAfterNights(self.countOfNights());
@@ -664,10 +715,17 @@ define(
     }
 );
 
-var HotelsFiltersViewModel = function(ko){
+var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNights){
     var self = this;
 
+    self.countOfNights = countOfNights;
+    self.minRoomPrice = minRoomPrice;
+    self.maxRoomPrice = maxRoomPrice;
+
     self.dummyObservalbe = ko.observable();
+
+    self.sortType = ko.observable(1);
+    self.sortTypes = ko.observableArray([1,2]);
 
     self.starRating0 = ko.observable(false);
     self.starRating1 = ko.observable(false);
@@ -675,6 +733,7 @@ var HotelsFiltersViewModel = function(ko){
     self.starRating3 = ko.observable(false);
     self.starRating4 = ko.observable(false);
     self.starRating5 = ko.observable(false);
+
 
     self.isStarFilterEmpty = ko.computed(function(){
        return !self.starRating0() &&
@@ -685,7 +744,18 @@ var HotelsFiltersViewModel = function(ko){
            !self.starRating5();
     });
 
-    self.fiveNightPrice = new SliderViewModel(ko, 'range', 10000, 100000);
+    self.resetStarFilter = function(){
+        self.starRating0(false);
+        self.starRating1(false);
+        self.starRating2(false);
+        self.starRating3(false);
+        self.starRating4(false);
+        self.starRating5(false);
+    };
+
+    self.fiveNightPrice = new SliderViewModel(ko, 'range',
+        Math.floor(minRoomPrice * countOfNights),
+        Math.ceil(maxRoomPrice * countOfNights));
 
     self.averageCustomerRating = new SliderViewModel(ko, 'min', 1, 10);
 
@@ -707,11 +777,20 @@ var HotelsFiltersViewModel = function(ko){
             (self.starRating5() && hotelStars === 5);
     }
 
-    self.isMatchFiveNightPriceFilter = function(hotel){
-        return true;
+    self.isMatchFiveNightPriceFilter = function(hotelPrice){
+        if (self.fiveNightPrice.isDefault()){
+            return true;
+        }
+
+        return hotelPrice * self.countOfNights >= self.fiveNightPrice.rangeMin() &&
+            hotelPrice * self.countOfNights <= self.fiveNightPrice.rangeMax();
     }
 
     self.isMatchAverageCustomerRatingFilter = function(averageCustomerRating){
+        if (self.averageCustomerRating.isDefault()){
+            return true;
+        }
+
         return averageCustomerRating && self.averageCustomerRating.rangeMin() <= averageCustomerRating.value;
     }
 
@@ -719,8 +798,14 @@ var HotelsFiltersViewModel = function(ko){
         var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
 
         return self.isMatchStarFilter(hotelStars) &&
-            self.isMatchFiveNightPriceFilter(hotel) &&
+            self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
             self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
+    }
+
+    self.resetFilters = function(){
+        self.resetStarFilter();
+        self.fiveNightPrice.reset();
+        self.averageCustomerRating.reset();
     }
 }
 
@@ -747,17 +832,10 @@ var SliderViewModel = function(ko, type, min, max){
         return false;
     });
 
-    self.toRublePrice = function(number){
-        var thou = Math.floor(number/1000);
-        var num = number - thou*1000;
-
-        if (num < 10){
-            num += '00'
-        }
-        else if (num < 100){
-            num += '0'
-        }
-
-        return thou + ' ' + num + ' p';
+    self.reset = function(){
+        self.rangeMin(self.min);
+        self.rangeMax(self.max);
+        self.displayRangeMin(self.min);
+        self.displayRangeMax(self.max);
     }
 }

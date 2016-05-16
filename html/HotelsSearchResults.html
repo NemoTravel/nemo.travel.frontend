@@ -49,11 +49,12 @@
                     ></div>
                 </div>
 
+                <!--
                 <label class="nemo-hotels-results__content__postfilters__order
                               nemo-hotels-results__summary__filters__order">
                     <span class="nemo-hotels-results__content__postfilters__order__title
                                  nemo-hotels-results__summary__filters__order__title">
-                        Сортировать
+                        Сортировать 55
                     </span>
                     <div class="nemo-ui-select
                                 js-common-pseudoSelect">
@@ -61,7 +62,7 @@
                                     js-common-pseudoSelect__toggle"
                              data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                     </div>
-                </label>
+                </label>-->
 
                 <div class="nemo-common-postFilters__clearAll">
                     <div class="nemo-ui-button
@@ -529,16 +530,17 @@
                       nemo-hotels-results__content__postfilters
                       nemo-hotels-results__content__postfilters_resultLoadingDummy">
 
+            <!--
             <label class="nemo-hotels-results__content__postfilters__order">
                 <span class="nemo-hotels-results__content__postfilters__order__title">
-                    Сортировать
+                    Сортировать520
                 </span>
                 <div class="nemo-ui-select js-common-pseudoSelect">
                     <div class="nemo-ui-select__toggle
                                 js-common-pseudoSelect__toggle"
                          data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
                 </div>
-            </label>
+            </label>-->
 
             <div class="nemo-ui-subContainer
                         nemo-flights-results__content__postfilters__loadingDummy
@@ -2869,9 +2871,9 @@
     <script id="nemo-koTemplate-HotelsResults-Filters" type="text/html">
         <div class="nemo-common-postFilters__inner">
 
-                <div class="nemo-common-postFilters__notification">
+                <div class="nemo-common-postFilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
                     Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
-                    <div class="nemo-common-postFilters__notification__close"></div>
+                    <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.isFilterNotificationVisible(false)}"></div>
                 </div>
 
                 <div class="nemo-hotels-results__content__postfilters__showOnMap">
@@ -2882,14 +2884,16 @@
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">
-                    <span class="nemo-hotels-results__content__postfilters__order__title">
-                        Сортировать
+                    <span class="nemo-hotels-results__content__postfilters__order__title" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__caption')">
+                        Сортировать2877
                     </span>
-                    <div class="nemo-ui-select
-                                js-common-pseudoSelect">
-                        <div class="nemo-ui-select__toggle
-                                    js-common-pseudoSelect__toggle"
-                             data-bind="text: $root.i18n('HotelsSearchResults', 'sort__popularity')"></div>
+                    <div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
+                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button"
+                             data-bind="pseudoSelect: null, text: $root.i18n('HotelsSearchResults','sort__type__' + sortType())"></div>
+                        <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: sortTypes">
+                            <div class="nemo-ui-select__dropdown__item"
+                                 data-bind="click: function () {$parent.sortType($data)}, text: $root.i18n('HotelsSearchResults','sort__type__' + $data)"></div>
+                        </div>
                     </div>
                 </label>
 
@@ -2899,7 +2903,7 @@
                         <div class="nemo-ui-button
                                     nemo-ui-button_common
                                     nemo-common-postFilters__clearAll__button"
-                             data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll')"></div>
+                             data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll'), click: resetFilters()"></div>
                     </div>
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
@@ -3012,13 +3016,13 @@
                         </div>
                     </div>
 
+                <!--
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
                             <h4 class="nemo-common-postFilters__filterList__filter__caption__name"
                                 data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__type')"></h4>
                         </div>
 
-                        <!--
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
@@ -3271,7 +3275,7 @@
         <div class="nemo-ui-slider__info">
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_min"
-                         data-bind="text: toRublePrice(displayRangeMin())">
+                         data-bind="text: displayRangeMin() + ' ' + $root.agency.currency()">
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_divider">
@@ -3279,7 +3283,7 @@
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_max"
-                         data-bind="text: toRublePrice(displayRangeMax())">
+                         data-bind="text: displayRangeMax() + ' ' + $root.agency.currency()">
             </span>
         </div>
 
