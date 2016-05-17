@@ -400,6 +400,27 @@ define(
             return min;
         }
 
+        HotelsSearchResultsController.prototype.getDistances = function(hotel){
+            var distances = hotel.staticDataInfo.distances;
+            var result = ['', ''];
+
+            if (distances.Center && distances.Center.distancesArray && distances.Center.distancesArray.length > 0){
+                var cd = distances.Center.distancesArray[0];
+                if (cd.value){
+                    result[0] = cd.value.distance + ' ' + cd.value.measurement;
+                }
+            }
+
+            if (distances.Airport && distances.Airport.distancesArray && distances.Airport.distancesArray.length > 0){
+                var cd = distances.Airport.distancesArray[0];
+                if (cd.value){
+                    result[1] = cd.value.distance + ' ' + cd.value.measurement;
+                }
+            }
+
+            return result;
+        }
+
         HotelsSearchResultsController.prototype.processSearchResults = function () {
             var self = this;
 

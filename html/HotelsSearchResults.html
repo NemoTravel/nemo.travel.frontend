@@ -585,7 +585,7 @@
                                     nemo-hotels-results__hotelsGroup__header">
                             <div class="nemo-hotels-results__hotelsGroup__header__title">
                                 <a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#"
-                                   data-bind="text: name"></a>
+                                   data-bind="text: name, click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                 <div class="nemo-hotels-results__hotelsGroup__stars"
                                      data-bind="foreach: staticDataInfo.starRating">
                                     <div class="nemo-hotels-results__hotelsGroup__stars__item">
@@ -615,30 +615,32 @@
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
                                         <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address" data-bind="text: staticDataInfo.addresses[0].replace(',','')">
                                                 yл. Аллы Тарасовой 5, Киев, Украина, 01001
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parent.getDistances($data)[0]">
                                                         2 км
                                                     </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
+                                                        data-bind="text: $parent.getDistances($data)[0] ? ($root.i18n('HotelsSearchResults', 'from__center') + ($parent.getDistances($data)[1] ? ',' : '')) : ''">
                                                          от центра,
                                                     </span>
                                                 </span>
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parent.getDistances($data)[1]">
                                                         150 км
                                                     </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
+                                                          data-bind="text: $parent.getDistances($data)[1] ? $root.i18n('HotelsSearchResults', 'from__airport') : ''">
                                                          от аэропорта
                                                     </span>
                                                 </span>
 
                                                 <a href="#" class="nemo-ui-pseudoLink
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
-                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')"></a>
+                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                             </div>
                                             <!--<div class="nemo-hotels-results__hotelsGroup__mainInfo__district">-->
                                                 <!--<span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">-->
@@ -735,26 +737,27 @@
                                 <div class="nemo-hotels-results__hotelsGroup__rooms__title" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__recommended_accommodation')"></div>
                                 <!--Rooms-->
 
-                                <ul class="nemo-hotels-results__hotelsGroup__roomsList" data-bind="foreach: rooms[0]">
+                                <ul class="nemo-hotels-results__hotelsGroup__roomsList" data-bind="foreach: rooms">
 
-                                    <li class="nemo-hotels-results__hotelsGroup__room" data-bind="visible: $index() < 2">
+                                    <li class="nemo-hotels-results__hotelsGroup__room">
                                         <div class="nemo-hotels-results__hotelsGroup__room__info">
                                             <div class="nemo-hotels-results__hotelsGroup__room__title">
-                                                    <span class="nemo-hotels-results__hotelsGroup__room__title__count">
+                                                    <!--<span class="nemo-hotels-results__hotelsGroup__room__title__count">
                                                         2 &times;
                                                     </span>
                                                     <span class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap">
                                                         <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
                                                         <span class="nemo-hotels-results__hotelsGroup__room__title__icon"></span>
-                                                    </span>
+                                                    </span>-->
                                                     <span class="nemo-ui-pseudoLink
                                                                  nemo-hotels-results__hotelsGroup__room__title__text">
-                                                        1 &times; <span data-bind="text: type.name"></span>
+                                                        <!--1 &times;-->
+                                                        <span data-bind="text: $data[0].type.name"></span>
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: type.name"></li>
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: meal.name"></li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $data[0].type.name"></li>
+                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $data[0].meal.name"></li>
                                             </ul>
                                         </div>
                                         <span class="nemo-ui-pseudoLink
@@ -767,7 +770,7 @@
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
                                         <span class="nemo-ui-pseudoLink
                                                      nemo-hotels-results__hotelsGroup__rooms__allRooms__link"
-                                              data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
+                                              data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></span>
                                     </span>
                                 </span>
 
