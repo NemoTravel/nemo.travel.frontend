@@ -1382,35 +1382,42 @@
 
                 <section class="nemo-hotel__content">
                     <div class="nemo-hotel__content__tabs">
-                        <div class="nemo-hotel__content__tabs__tab
-                            nemo-hotel__content__tabs__tab_active">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Номера
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                            data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Rooms' == $parent.currentActiveTab() },
+                                      click: function() { $parent.currentActiveTab('Rooms') }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Номера
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Об отеле
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'About' == $parent.currentActiveTab() },
+                                        click: function() { $parent.currentActiveTab('About') }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Об отеле
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Удобства
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Conveniences' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Удобства
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Правила отеля
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Rules' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Правила отеля
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Отзывы (120)
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Reviews' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Отзывы (120)
+                            </span>
                         </div>
                     </div>
                     <div class="nemo-ui-subContainer
                         nemo-hotel__content__tabsContent">
+                        <!--ko if: $parent.currentActiveTab() == 'Rooms' -->
                         <div class="nemo-hotel__content__rooms">
                             <div class="nemo-hotel__content__rooms__slider">
                                 <div class="nemo-hotel__content__rooms__slider__dummy"
@@ -1431,13 +1438,13 @@
                             <h3 class="nemo-hotel__content__rooms__title">
                                 Выбор номеров
                             </h3>
-                    <span class="nemo-hotel__content__rooms__subtitle">
-                        Выберите подходящие вам типы номеров
-                    </span>
+                            <span class="nemo-hotel__content__rooms__subtitle">
+                                Выберите подходящие вам типы номеров
+                            </span>
                             <div class="nemo-hotel__content__rooms__summary">
-                        <span class="nemo-hotel__content__rooms__summary__title">
-                            Наличие <br>в этом отеле
-                        </span>
+                                <span class="nemo-hotel__content__rooms__summary__title">
+                                    Наличие <br>в этом отеле
+                                </span>
                                 <div class="nemo-hotel__content__rooms__summary__inner">
                                     <div class="nemo-hotel__content__rooms__summary__info">
                                 <span class="nemo-hotel__content__rooms__summary__info__from">
@@ -2026,6 +2033,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!--/ko-->
+
+                        <!--ko if: $parent.currentActiveTab() == 'About' -->
                         <div class="nemo-hotel__content__about">
                             <div class="nemo-hotel__content__about__testimonials">
                                 <h3 class="nemo-hotel__content__about__title">
@@ -2256,6 +2266,7 @@
                                 </p>
                             </div>
                         </div>
+                        <!--/ko-->
                     </div>
                 </section>
             </section>

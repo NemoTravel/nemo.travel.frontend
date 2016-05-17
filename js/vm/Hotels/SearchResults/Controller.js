@@ -12,6 +12,7 @@ define(
             this.mode = 'id'; // 'search'
             this.resultsTypeCookie = 'HotelsSearchForm';
             this.currentCity = ko.observable('');
+            this.currentActiveTab = ko.observable('Rooms');
             this.searchParameters = {
                 cityId: 0,
                 hotelId: 0,
