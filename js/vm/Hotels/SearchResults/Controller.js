@@ -209,7 +209,7 @@ define(
                 this.$$controller.hotelsSearchController = this;
 
                 hotel.staticDataInfo.currentCity = this.currentCity();
-                this.hotelCard(hotel);
+                this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
             }).bind(this);
 
@@ -410,6 +410,7 @@ define(
                 roomsArr = [],
                 roomsDictionary = {},
                 starRatingArr = [],
+                distancesArr = [],
                 hotelId;
 
             //creating roomMeals association
@@ -490,6 +491,14 @@ define(
                     starRatingArr.push('1');
                 }
                 hotelsArr[indexHotelArr].staticDataInfo.starRating = starRatingArr;
+            }
+
+            for ( var indexHotelArr = 0; indexHotelArr < hotelsArr.length; indexHotelArr++ ) {
+                distancesArr = [];
+                for ( var indexDistance in hotelsArr[indexHotelArr].staticDataInfo.distances ) {
+                    distancesArr.push(hotelsArr[indexHotelArr].staticDataInfo.distances[indexDistance]);
+                }
+                hotelsArr[indexHotelArr].staticDataInfo.distances = distancesArr;
             }
 
             console.dir(hotelsArr);
