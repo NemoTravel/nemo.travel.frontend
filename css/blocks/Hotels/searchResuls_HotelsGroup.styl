@@ -13,9 +13,11 @@
 
             &__title {
                 display: flex;
-                justify-content: flex-start;
+                justify-content: space-between;
                 align-items: center;
                 padding-left: 20px;
+                padding-right: 20px;
+                flex: 1 1 100%;
 
                 &__text {
                     display: inline-block;
@@ -41,6 +43,7 @@
                 color: $c_common_textColor;
                 position: relative;
                 border-top-right-radius: $nemo-border-radius;
+                white-space: nowrap;
 
                 &:before {
                     position: absolute;
