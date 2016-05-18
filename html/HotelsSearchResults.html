@@ -1084,15 +1084,9 @@
             <section class="nemo-hotel" data-bind="foreach: hotelCard">
                 <aside class="nemo-hotel__additional" >
                     <div class="nemo-hotel__additional__info">
-                        <span class="nemo-hotel__additional__info__name"  data-bind="text: $data.name"></span>
-                        <span class="nemo-hotel__additional__info__address">
-                            ул. Аллы Тарасовой 5, Киев, Украина, 01001
-                        </span>
-                        <div class="nemo-hotel__additional__info__stars">
-                            <div class="nemo-hotel__additional__info__stars__item"></div>
-                            <div class="nemo-hotel__additional__info__stars__item"></div>
-                            <div class="nemo-hotel__additional__info__stars__item"></div>
-                            <div class="nemo-hotel__additional__info__stars__item"></div>
+                        <span class="nemo-hotel__additional__info__name" data-bind="text: name"></span>
+                        <span class="nemo-hotel__additional__info__address" data-bind="text: staticDataInfo.currentCity + staticDataInfo.addresses[0]"></span>
+                        <div class="nemo-hotel__additional__info__stars" data-bind="foreach: staticDataInfo.starRating">
                             <div class="nemo-hotel__additional__info__stars__item"></div>
                         </div>
                     </div>
@@ -1112,52 +1106,20 @@
                                    nemo-hotel__additional__block__title">
                                 Расстояние до
                             </h4>
-                            <div class="nemo-hotel__additional__location__distances__param">
-                        <span class="nemo-hotel__additional__location__distances__param__name">
-                            Центр города
-                        </span>
-                        <span class="nemo-hotel__additional__location__distances__param__values">
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                500 м
-                            </span>
-                        </span>
-                            </div>
-                            <div class="nemo-hotel__additional__location__distances__param">
-                        <span class="nemo-hotel__additional__location__distances__param__name">
-                            Аэропорт
-                        </span>
-                        <span class="nemo-hotel__additional__location__distances__param__values">
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                Жуляны — 7.6 км,
-                            </span>
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                Борисполь — 29.3 км
-                            </span>
-                        </span>
-                            </div>
-                            <div class="nemo-hotel__additional__location__distances__param">
-                        <span class="nemo-hotel__additional__location__distances__param__name">
-                            Ж\д вокзал
-                        </span>
-                        <span class="nemo-hotel__additional__location__distances__param__values">
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                Kiev Train Station - 2.6 км
-                            </span>
-                        </span>
-                            </div>
-                            <div class="nemo-hotel__additional__location__distances__param">
-                        <span class="nemo-hotel__additional__location__distances__param__name">
-                            Станции метро
-                        </span>
-                        <span class="nemo-hotel__additional__location__distances__param__values">
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                Площадь Независимости - 600 м,
-                            </span>
-                            <span class="nemo-hotel__additional__location__distances__param__values__value">
-                                Золотые ворота - 700 м
-                            </span>
-                        </span>
-                            </div>
+                            <ul class="nemo-hotel__content__about__location__distances__list" data-bind="foreach: staticDataInfo.distances">
+                                <li class="nemo-hotel__content__about__location__distances__distance">
+                                    <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                 nemo-hotel__content__about__paramName" data-bind="text: typeName"></span>
+                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value"
+                                                  data-bind="text: distancesArray[0].value.distance"></span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units"
+                                                  data-bind="text: distancesArray[0].value.measurement"></span>
+                                        </span>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -1423,38 +1385,46 @@
 
                 <section class="nemo-hotel__content">
                     <div class="nemo-hotel__content__tabs">
-                        <div class="nemo-hotel__content__tabs__tab
-                            nemo-hotel__content__tabs__tab_active">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Номера
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Rooms' == $parent.currentActiveTab() },
+                                      click: function() { $parent.currentActiveTab('Rooms') }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Номера
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Об отеле
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'About' == $parent.currentActiveTab() },
+                                        click: function() { $parent.currentActiveTab('About') }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Об отеле
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Удобства
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Conveniences' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Удобства
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Правила отеля
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Rules' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Правила отеля
+                            </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab">
-                    <span class="nemo-hotel__content__tabs__tab__text">
-                        Отзывы (120)
-                    </span>
+                        <div class="nemo-hotel__content__tabs__tab"
+                             data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Reviews' == $parent.currentActiveTab() }">
+                            <span class="nemo-hotel__content__tabs__tab__text">
+                                Отзывы (120)
+                            </span>
                         </div>
                     </div>
                     <div class="nemo-ui-subContainer
                         nemo-hotel__content__tabsContent">
+                        <!--ko if: $parent.currentActiveTab() == 'Rooms' -->
                         <div class="nemo-hotel__content__rooms">
                             <div class="nemo-hotel__content__rooms__slider">
-                                <div class="nemo-hotel__content__rooms__slider__dummy"></div>
+                                <div class="nemo-hotel__content__rooms__slider__dummy"
+                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')'}"></div>
                                 <div class="nemo-hotel__content__rooms__rating">
                             <span class="nemo-hotel__content__rooms__rating__num">
                                 9.3
@@ -1471,13 +1441,13 @@
                             <h3 class="nemo-hotel__content__rooms__title">
                                 Выбор номеров
                             </h3>
-                    <span class="nemo-hotel__content__rooms__subtitle">
-                        Выберите подходящие вам типы номеров
-                    </span>
+                            <span class="nemo-hotel__content__rooms__subtitle">
+                                Выберите подходящие вам типы номеров
+                            </span>
                             <div class="nemo-hotel__content__rooms__summary">
-                        <span class="nemo-hotel__content__rooms__summary__title">
-                            Наличие <br>в этом отеле
-                        </span>
+                                <span class="nemo-hotel__content__rooms__summary__title">
+                                    Наличие <br>в этом отеле
+                                </span>
                                 <div class="nemo-hotel__content__rooms__summary__inner">
                                     <div class="nemo-hotel__content__rooms__summary__info">
                                 <span class="nemo-hotel__content__rooms__summary__info__from">
@@ -2066,6 +2036,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!--/ko-->
+
+                        <!--ko if: $parent.currentActiveTab() == 'About' -->
                         <div class="nemo-hotel__content__about">
                             <div class="nemo-hotel__content__about__testimonials">
                                 <h3 class="nemo-hotel__content__about__title">
@@ -2108,103 +2081,18 @@
                                     <h4 class="nemo-hotel__content__about__subtitle">
                                         Расстояние до
                                     </h4>
-                                    <ul class="nemo-hotel__content__about__location__distances__list">
+                                    <ul class="nemo-hotel__content__about__location__distances__list" data-bind="foreach: staticDataInfo.distances">
                                         <li class="nemo-hotel__content__about__location__distances__distance">
-                                    <span class="nemo-hotel__content__about__location__distances__distance__name
-                                                 nemo-hotel__content__about__paramName">
-                                        Центр города
-                                    </span>
-                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                500
+                                            <span class="nemo-hotel__content__about__location__distances__distance__name
+                                                         nemo-hotel__content__about__paramName" data-bind="text: typeName"></span>
+                                            <span class="nemo-hotel__content__about__location__distances__distance__params">
+                                                <span class="nemo-hotel__content__about__location__distances__distance__param">
+                                                    <span class="nemo-hotel__content__about__location__distances__distance__param__value"
+                                                          data-bind="text: distancesArray[0].value.distance"></span>
+                                                    <span class="nemo-hotel__content__about__location__distances__distance__param__units"
+                                                          data-bind="text: distancesArray[0].value.measurement"></span>
+                                                </span>
                                             </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                м
-                                            </span>
-                                        </span>
-                                    </span>
-                                        </li>
-                                        <li class="nemo-hotel__content__about__location__distances__distance">
-                                    <span class="nemo-hotel__content__about__location__distances__distance__name
-                                                 nemo-hotel__content__about__paramName">
-                                        Аэропорт
-                                    </span>
-                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
-                                                Жуляны -
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                7.6
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                км
-                                            </span>
-                                            ,
-                                        </span>
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
-                                                Борисполь -
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                29.3
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                км
-                                            </span>
-                                        </span>
-                                    </span>
-                                        </li>
-                                        <li class="nemo-hotel__content__about__location__distances__distance">
-                                    <span class="nemo-hotel__content__about__location__distances__distance__name
-                                                 nemo-hotel__content__about__paramName">
-                                        Ж\д вокзал
-                                    </span>
-                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
-                                                Kiev Train Station -
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                2.6
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                км
-                                            </span>
-                                        </span>
-                                    </span>
-                                        </li>
-                                        <li class="nemo-hotel__content__about__location__distances__distance">
-                                    <span class="nemo-hotel__content__about__location__distances__distance__name
-                                                 nemo-hotel__content__about__paramName">
-                                        Станции метро
-                                    </span>
-                                    <span class="nemo-hotel__content__about__location__distances__distance__params">
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
-                                                Площадь Независимости -
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                600
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                м
-                                            </span>
-                                            ,
-                                        </span>
-                                        <span class="nemo-hotel__content__about__location__distances__distance__param">
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__name">
-                                                Золотые ворота -
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__value">
-                                                700
-                                            </span>
-                                            <span class="nemo-hotel__content__about__location__distances__distance__param__units">
-                                                м
-                                            </span>
-                                        </span>
-                                    </span>
                                         </li>
                                     </ul>
                                     <div class="nemo-hotel__content__about__location__map" style="background: #ccc;">
@@ -2381,10 +2269,11 @@
                                 </p>
                             </div>
                         </div>
+                        <!--/ko-->
                     </div>
                 </section>
             </section>
-
+            <!--/ko-->
         </div>
         <!-- /ko -->
     </section>
