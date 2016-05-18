@@ -406,17 +406,21 @@ define(
             var distances = hotel.staticDataInfo.distances;
             var result = ['', ''];
 
-            if (distances.Center && distances.Center.distancesArray && distances.Center.distancesArray.length > 0){
-                var cd = distances.Center.distancesArray[0];
-                if (cd.value){
-                    result[0] = cd.value.distance + ' ' + cd.value.measurement;
+            var length = distances.length;
+            for (var i = 0; i< length; i++){
+                var item = distances[i];
+                if (item.typeName === 'Центр' && item.distancesArray && item.distancesArray.length > 0){
+                    var cd = item.distancesArray[0].value;
+                    if (cd){
+                        result[0] = cd.distance + ' ' + cd.measurement;
+                    }
                 }
-            }
 
-            if (distances.Airport && distances.Airport.distancesArray && distances.Airport.distancesArray.length > 0){
-                var cd = distances.Airport.distancesArray[0];
-                if (cd.value){
-                    result[1] = cd.value.distance + ' ' + cd.value.measurement;
+                if (item.typeName === "Аэропорт" && item.distancesArray && item.distancesArray.length > 0){
+                    var cd = item.distancesArray[0].value;
+                    if (cd){
+                        result[1] = cd.distance + ' ' + cd.measurement;
+                    }
                 }
             }
 
