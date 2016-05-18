@@ -615,7 +615,7 @@
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
                                         <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address" data-bind="text: staticDataInfo.addresses[0].replace(',','')">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address" data-bind="text: $parent.currentCity() + staticDataInfo.addresses[0]">
                                                 yл. Аллы Тарасовой 5, Киев, Украина, 01001
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
@@ -1079,9 +1079,9 @@
         <!-- /ko -->
 
         <!-- ko if: isCardHotelView() -->
-        <div class="nemo-hotels-results__wrapper" data-bind="with: hotelCard()">
-
-            <section class="nemo-hotel">
+        <div class="nemo-hotels-results__wrapper">
+            <!--ko -->
+            <section class="nemo-hotel" data-bind="foreach: hotelCard">
                 <aside class="nemo-hotel__additional" >
                     <div class="nemo-hotel__additional__info">
                         <span class="nemo-hotel__additional__info__name"  data-bind="text: $data.name"></span>
