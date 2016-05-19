@@ -86,7 +86,7 @@
 
                     &__name {
                         display: block;
-                        width: 110px;
+                        width: 210px;
                         color: $nemo-color-text-secondary;
                         flex-shrink: 0;
                     }
@@ -232,6 +232,9 @@
         }
 
         &__rooms {
+            &__mobileHeader {
+                display: none;
+            }
             &__slider {
                 position: relative;
                 height: 425px;
@@ -513,6 +516,7 @@
 
                     &__distance {
                         margin-bottom: 5px;
+                        overflow: hidden;
 
                         &:last-child {
                             margin-bottom: 0;
@@ -521,7 +525,7 @@
                         &__name {
                             display: block;
                             float: left;
-                            width: 110px;
+                            width: 210px;
                         }
 
                         &__params {

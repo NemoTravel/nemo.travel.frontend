@@ -1422,18 +1422,28 @@
                         nemo-hotel__content__tabsContent">
                         <!--ko if: $parent.currentActiveTab() == 'Rooms' -->
                         <div class="nemo-hotel__content__rooms">
+                            <div class="nemo-hotel__content__rooms__mobileHeader">
+                                <span class="nemo-hotel__content__rooms__mobileHeader__title"
+                                      data-bind="text: name">
+                                </span>
+                                <div class="nemo-hotel__content__rooms__mobileHeader__stars"
+                                     data-bind="foreach: staticDataInfo.starRating">
+                                    <div class="nemo-hotel__additional__info__stars__item"></div>
+                                </div>
+                            </div>
                             <div class="nemo-hotel__content__rooms__slider">
                                 <div class="nemo-hotel__content__rooms__slider__dummy"
-                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')'}"></div>
+                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')'}">
+                                </div>
                                 <div class="nemo-hotel__content__rooms__rating">
-                            <span class="nemo-hotel__content__rooms__rating__num">
-                                9.3
-                            </span>
-                            <span class="nemo-hotel__content__rooms__rating__text">
-                                 Отлично
-                            </span>
+                                    <span class="nemo-hotel__content__rooms__rating__num">
+                                        9.3
+                                    </span>
+                                    <span class="nemo-hotel__content__rooms__rating__text">
+                                         Отлично
+                                    </span>
                                     <a href="#" class="nemo-ui-pseudoLink
-                                               nemo-hotel__content__rooms__rating__link">
+                                                       nemo-hotel__content__rooms__rating__link">
                                         12 отзывов
                                     </a>
                                 </div>
