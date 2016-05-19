@@ -395,17 +395,16 @@ define(
             }
         };
 
-        HotelsSearchResultsController.prototype.getMinRoomPrice = function(hotel){
-            var min = 999999;
-            var rooms = hotel.rooms[0];
-            var roomsLength = rooms.length;
-            for (var i = 0; i < roomsLength; i++){
-                if (min > rooms[i].rate.price.amount){
-                    min = rooms[i].rate.price.amount;
-                }
+        HotelsSearchResultsController.prototype.getFirstRoomsPrice = function(hotel){
+
+            var result = 0;
+
+            var rlength = hotel.rooms.length;
+            for (var i = 0; i < rlength; i++){
+                result += hotel.rooms[i][0].rate.price.amount;
             }
 
-            return min;
+            return result;
         }
 
         HotelsSearchResultsController.prototype.getDistances = function(hotel){
@@ -540,7 +539,7 @@ define(
 
             var hLength = hotelsArr.length;
             for (var hIndex = 0; hIndex < hLength; hIndex++){
-                var price = this.getMinRoomPrice(hotelsArr[hIndex]);
+                var price = this.getFirstRoomsPrice(hotelsArr[hIndex]);
                 hotelsArr[hIndex].hotelPrice = price;
 
                 if (this.minHotelPrice > price){
