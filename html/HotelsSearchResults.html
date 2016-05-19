@@ -783,7 +783,7 @@
                                      data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                                         <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (rooms[0][0].rate.price.amount * $parent.countOfNights()).toFixed(0)"></span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0)"></span>
                                             <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency"></span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
@@ -1095,7 +1095,7 @@
                         nemo-hotel__additional__location
                         nemo-hotel__additional__block">
                         <div class="nemo-hotel__additional__location__map">
-                            <div style="height: 400px; background: #ccc"> Map Dummy </div>
+                            <div style="height: 400px; background: #ccc" id="cardHotelMap"> Map Dummy </div>
                             <div class="nemo-ui-button
                                 nemo-hotel__additional__location__map__button">
                                 Большая карта
@@ -1107,15 +1107,15 @@
                                 Расстояние до
                             </h4>
                             <ul class="nemo-hotel__content__about__location__distances__list" data-bind="foreach: staticDataInfo.distances">
-                                <li class="nemo-hotel__content__about__location__distances__distance">
+                                <li class="nemo-hotel__content__about__location__distances__distance" data-bind="visible: distancesArray[0].value">
                                     <span class="nemo-hotel__content__about__location__distances__distance__name
                                                  nemo-hotel__content__about__paramName" data-bind="text: typeName"></span>
                                     <span class="nemo-hotel__content__about__location__distances__distance__params">
                                         <span class="nemo-hotel__content__about__location__distances__distance__param">
                                             <span class="nemo-hotel__content__about__location__distances__distance__param__value"
-                                                  data-bind="text: distancesArray[0].value.distance"></span>
+                                                  data-bind="text: distancesArray[0].value ? distancesArray[0].value.distance : ''"></span>
                                             <span class="nemo-hotel__content__about__location__distances__distance__param__units"
-                                                  data-bind="text: distancesArray[0].value.measurement"></span>
+                                                  data-bind="text: distancesArray[0].value ? distancesArray[0].value.measurement : ''"></span>
                                         </span>
                                     </span>
                                 </li>
