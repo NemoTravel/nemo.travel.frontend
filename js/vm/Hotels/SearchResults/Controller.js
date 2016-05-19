@@ -45,13 +45,15 @@ define(
             // this.map = function (block, position) {
             //     new google.maps.Map(block, position);
             // };
-            this.initMap = function () {
+            this.initMap = function (hotel) {
                 var marker,
                     circle;
 
+                var mapId = hotel ? 'cardHotelMap' : 'map';
+
                 // Init map and show center
                 this.map = new google.maps.Map(
-                    document.getElementById('map'),
+                    document.getElementById(mapId),
                     {
                         center: {lat: 0, lng: 0},
                         zoom: 10
@@ -84,10 +86,12 @@ define(
                     });
                 };
 
-                this.checkGeocoderLocation(this.geocoder, this.map, this.filteredHotels(), circle);
+                var hotels = hotel ? [hotel] : this.filteredHotels();
+
+                this.checkGeocoderLocation(this.geocoder, this.map, hotels, circle);
 
                 // Add markers on map
-                this.addMarkersOnMap(this.filteredHotels());
+                this.addMarkersOnMap(hotels);
             };
 
             this.addMarkersOnMap = function(hotels) {
@@ -105,6 +109,7 @@ define(
                         hotelCardHtml;
 
                     hotelCardHtml = function() {
+
                         var html  = "<div>";
                         html += "<div data-bind='text: name'></div>";
                         html += "</div>";
@@ -212,6 +217,7 @@ define(
                 hotel.staticDataInfo.currentCity = this.currentCity();
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
+                this.initMap(hotel);
             }).bind(this);
 
             this.addCustomBindings(ko);
