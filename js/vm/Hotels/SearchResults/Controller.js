@@ -73,16 +73,20 @@ define(
                 this.geocoder = new google.maps.Geocoder();
 
                 this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels, circle) {
+                    var self = this;
                     this.geocoder.geocode({'address': this.currentCity()}, function(results, status) {
+                        var centerLocation;
                         // If we know location it'll be center otherwise it'll be first hotel
                         if (status === google.maps.GeocoderStatus.OK) {
-                            resultsMap.setCenter(results[0].geometry.location);
-                            circle.setCenter(results[0].geometry.location);
+                            centerLocation = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
                         } else {
                             console.dir('Geocode was not successful for the following reason: ' + status);
-                            resultsMap.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
-                            circle.setCenter({lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude});
+                            centerLocation = {lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude};
                         }
+
+                        resultsMap.setCenter(centerLocation);
+                        circle.setCenter(centerLocation);
+                        self.setDistances(centerLocation);
                     });
                 };
 
@@ -105,18 +109,7 @@ define(
                             nearByCenter: {
                                 icon: iconBase + 'marker.svg'
                             }
-                        },
-                        hotelCardHtml;
-
-                    hotelCardHtml = function() {
-
-                        var html  = "<div>";
-                        html += "<div data-bind='text: name'></div>";
-                        html += "</div>";
-
-                        html = $.parseHTML(html)[0];
-                        return html;
-                    };
+                        };
 
                     if (this.oldMarkers()) {
                         var oldMarkersArr = this.oldMarkers();
@@ -749,6 +742,51 @@ define(
                 }
             };
         };
+
+        HotelsSearchResultsController.prototype.setDistances = function(centerLocation){
+
+            // http://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+            var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
+                var deg2rad = function (deg) {
+                    return deg * (Math.PI/180)
+                }
+                var R = 6371; // Radius of the earth in km
+                var dLat = deg2rad(lat2-lat1);  // deg2rad below
+                var dLon = deg2rad(lon2-lon1);
+                var a =
+                        Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2)
+                    ;
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                var d = R * c; // Distance in km
+                return d;
+            }
+
+            console.log(centerLocation)
+
+            var hotels = this.hotels();
+            var length = hotels.length;
+            var maxDistance = 0;
+            for (var i = 0; i < length; i++){
+                if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
+                    hotels[i].distanceFromCenter = getDistanceFromLatLonInKm(
+                        centerLocation.lat,
+                        centerLocation.lng,
+                        hotels[i].staticDataInfo.posLatitude,
+                        hotels[i].staticDataInfo.posLongitude);
+                }
+                else{
+                    hotels[i].distanceFromCenter = 0;
+                }
+
+                if (hotels[i].distanceFromCenter > maxDistance){
+                    maxDistance = hotels[i].distanceFromCenter;
+                    console.log(maxDistance)
+                    console.log(hotels[i])
+                }
+            }
+        }
 
         HotelsSearchResultsController.prototype.getHotelCardHtml = function(hotel){
 
