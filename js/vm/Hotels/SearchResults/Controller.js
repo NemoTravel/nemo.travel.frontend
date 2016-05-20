@@ -133,22 +133,16 @@ define(
                                 position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
                                 map: this.map,
                                 icon: icons.nearByCenter.icon,
-                                content: hotelCardHtml()
+                                content: this.getHotelCardHtml(hotels[i])
                             });
 
                             if (!withoutMarkerEventListeners) {
                                 // Add mouseover event on marker
                                 google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
                                     return function () {
-                                        var hotelCardModel = function () {
-                                            return hotels[i];
-                                        };
-
-                                        ko.cleanNode(this.content);
-                                        ko.applyBindings(hotelCardModel, this.content);
-
                                         infowindow.setContent(this.content);
                                         infowindow.open(this.map, marker);
+                                        $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
                                     }
                                 })(markers[i], i));
 
@@ -357,6 +351,7 @@ define(
 
                     try {
                         response = JSON.parse(text);
+                        console.log(response)
 
                         // Checking for errors
                         if (!response.system || !response.system.error) {
@@ -754,6 +749,101 @@ define(
                 }
             };
         };
+
+        HotelsSearchResultsController.prototype.getHotelCardHtml = function(hotel){
+
+            var getStarsHtml = function (hotel){
+                var result = '';
+                for (var i = 0; i < hotel.staticDataInfo.starRating.length; i++){
+                    result += '<div class="item"></div>';
+                }
+                return result;
+            }
+
+            var getFeaturesHtml = function(hotel){
+                return  '<li class="service active"><span class="icon icon_pool"></span></li>' +
+                    '<li class="service"><span class="icon icon_parking"></span></li>' +
+                    '<li class="service"><span class="icon icon_sport"></span></li>' +
+                    '<li class="service"><span class="icon icon_electricity"></span></li>' +
+                    '<li class="service"><span class="icon icon_wifi"></span></li>' +
+                    '<li class="service"><span class="icon icon_laundry"></span></li>' +
+                    '<li class="service"><span class="icon icon_transport"></span></li>' +
+                    '<li class="service"><span class="icon icon_roundTheClock"></span></li>' +
+                    '<li class="service"><span class="icon icon_fridge"></span></li>' +
+                    '<li class="service"><span class="icon icon_luggage"></span></li>' +
+                    '<li class="service"><span class="icon icon_spa"></span></li>' +
+                    '<li class="service"><span class="icon icon_bar"></span></li>' +
+                    '<li class="service"><span class="icon icon_resturant"></span></li>' +
+                    '<li class="service"><span class="icon icon_infinity"></span></li>';
+
+            }
+
+            var photoUrl = hotel.staticDataInfo.photos ?
+                'url(' + hotel.staticDataInfo.photos[hotel.staticDataInfo.mainPhotoId] + ')' :
+                'url(/img/hotel_thumb.png)';
+
+            var acRating = 0;
+            var acDescription = this.$$controller.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default');
+            if (hotel.staticDataInfo.averageCustomerRating){
+                acRating = hotel.staticDataInfo.averageCustomerRating.value;
+                if (hotel.staticDataInfo.averageCustomerRating.description){
+                    acDescription = hotel.staticDataInfo.averageCustomerRating.description;
+                }
+            }
+
+            var commentsStr = this.$$controller.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + hotel.staticDataInfo.usersOpinionInfo.opinionsCount;
+            var address = this.currentCity() + hotel.staticDataInfo.addresses[0]
+
+            var result =
+                '<div class="mapItem">' +
+                    '<div class="hotel">' +
+                        '<div class="header">' +
+                            '<div class="title">' +
+                                '<a class="text" href="javascript:void(0);">' + hotel.name + '</a>' +
+                                '<div class="stars">' +
+                                    getStarsHtml(hotel) +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="additional">' + this.$$controller.i18n('HotelsSearchResults', 'header-flag__best_price') + '</div>' +
+                        '</div>' +
+                        '<div class="content">' +
+                            '<div class="mainInfo">' +
+                                '<div class="photoWrap" style="background-image: ' + photoUrl + '"></div>' +
+                                '<div class="rating">' +
+                                    '<span class="number">' + acRating + '</span>' +
+                                    '<span class="text">' + acDescription + '</span>' +
+                                    '<a href="javascript:void(0);" class="link">' + commentsStr + '</a>' +
+                                '</div>' +
+                                '<div class="infoBlock">' +
+                                    '<div class="addressWrap">' +
+                                        '<div>' + address + '</div>' +
+                                        '<div class="distances">' +
+                                            '<span>' +
+                                                '<span>2 км</span>' +
+                                                '<span class="target">от центра,</span>' +
+                                            '</span>' +
+                                            '<span>' +
+                                                '<span>150 км</span>' +
+                                                '<span class="target">от аэропорта</span>' +
+                                            '</span>' +
+                                            //'<a href="#" class="mapLink">Карта</a>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="description">' +
+                                        '<p class="text">' + hotel.staticDataInfo.description + '</p>' +
+                                        //'<a href="#" class="link"></a>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<ul class="services">' +
+                                    getFeaturesHtml(hotel) +
+                                '</ul>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+            return result;
+        }
 
         return HotelsSearchResultsController;
     }
