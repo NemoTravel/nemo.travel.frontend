@@ -792,7 +792,10 @@ define(
             }
 
             var commentsStr = this.$$controller.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + hotel.staticDataInfo.usersOpinionInfo.opinionsCount;
-            var address = this.currentCity() + hotel.staticDataInfo.addresses[0]
+            var address = this.currentCity() + hotel.staticDataInfo.addresses[0];
+            var distances = this.getDistances(hotel);
+            var fromCenterStr = distances[0] ? (this.$$controller.i18n('HotelsSearchResults', 'from__center') + (distances[1] ? ',' : '')) : '';
+            var fromAirportStr = distances[1] ? this.$$controller.i18n('HotelsSearchResults', 'from__airport') : '';
 
             var result =
                 '<div class="mapItem">' +
@@ -819,12 +822,12 @@ define(
                                         '<div>' + address + '</div>' +
                                         '<div class="distances">' +
                                             '<span>' +
-                                                '<span>2 км</span>' +
-                                                '<span class="target">от центра,</span>' +
+                                                '<span>' + distances[0] + '</span>' +
+                                                '<span class="target">' + fromCenterStr + '</span>' +
                                             '</span>' +
                                             '<span>' +
-                                                '<span>150 км</span>' +
-                                                '<span class="target">от аэропорта</span>' +
+                                                '<span>' + distances[1] + '</span>' +
+                                                '<span class="target">' + fromAirportStr + '</span>' +
                                             '</span>' +
                                             //'<a href="#" class="mapLink">Карта</a>' +
                                         '</div>' +
