@@ -91,10 +91,10 @@ define(
                 this.checkGeocoderLocation(this.geocoder, this.map, hotels, circle);
 
                 // Add markers on map
-                this.addMarkersOnMap(hotels);
+                this.addMarkersOnMap(hotels, hotel ? true : false);
             };
 
-            this.addMarkersOnMap = function(hotels) {
+            this.addMarkersOnMap = function(hotels, withoutMarkerEventListeners) {
                 if (hotels) {
                     var showCardHotel = this.showCardHotel,
                         infowindow = new google.maps.InfoWindow(),
@@ -136,27 +136,29 @@ define(
                                 content: hotelCardHtml()
                             });
 
-                            // Add mouseover event on marker
-                            google.maps.event.addListener(markers[i], 'mouseover', (function(marker, i) {
-                                return function() {
-                                    var hotelCardModel = function() {
-                                        return hotels[i];
-                                    };
+                            if (!withoutMarkerEventListeners) {
+                                // Add mouseover event on marker
+                                google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
+                                    return function () {
+                                        var hotelCardModel = function () {
+                                            return hotels[i];
+                                        };
 
-                                    ko.cleanNode(this.content);
-                                    ko.applyBindings(hotelCardModel, this.content);
+                                        ko.cleanNode(this.content);
+                                        ko.applyBindings(hotelCardModel, this.content);
 
-                                    infowindow.setContent(this.content);
-                                    infowindow.open(this.map, marker);
-                                }
-                            })(markers[i], i));
+                                        infowindow.setContent(this.content);
+                                        infowindow.open(this.map, marker);
+                                    }
+                                })(markers[i], i));
 
-                            // Add click event on marker
-                            google.maps.event.addListener(markers[i], 'click', (function(marker, i) {
-                                return function() {
-                                    showCardHotel(hotels[i]);
-                                }
-                            })(markers[i], i));
+                                // Add click event on marker
+                                google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
+                                    return function () {
+                                        showCardHotel(hotels[i]);
+                                    }
+                                })(markers[i], i));
+                            }
                         }
                     }
 
