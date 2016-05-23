@@ -88,11 +88,14 @@ define(
                         }
 
                         resultsMap.setCenter(centerLocation);
-                        self.circle.setCenter(centerLocation);
-                        self.setDistances(centerLocation);
 
-                        self.distanceFromCenter.rangeMin(3);
-                        self.distanceFromCenter.displayRangeMin(3);
+                        if (!hotel) {
+                            self.circle.setCenter(centerLocation);
+                            self.setDistances(centerLocation);
+
+                            self.distanceFromCenter.rangeMin(3);
+                            self.distanceFromCenter.displayRangeMin(3);
+                        }
                     });
                 };
 
@@ -833,7 +836,8 @@ define(
 
             var photoUrl = hotel.staticDataInfo.photos ?
                 'url(' + hotel.staticDataInfo.photos[hotel.staticDataInfo.mainPhotoId] + ')' :
-                'url(/img/hotel_thumb.png)';
+                'url(/img/no%20hotel.svg)';
+            photoUrl += ', url(/img/no%20hotel.svg)'
 
             var acRating = 0;
             var acDescription = this.$$controller.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default');

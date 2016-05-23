@@ -601,7 +601,7 @@
                                     nemo-hotels-results__hotelsGroup__content">
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap"
-                                     data-bind="style: { 'background-image': staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/hotel_thumb.png)' }">
+                                     data-bind="style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number"
@@ -1403,7 +1403,7 @@
                             </div>
                             <div class="nemo-hotel__content__rooms__slider">
                                 <div class="nemo-hotel__content__rooms__slider__dummy"
-                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')'}">
+                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' + ', url(/img/no%20hotel.svg)'}">
                                 </div>
                                 <div class="nemo-hotel__content__rooms__rating">
                                     <span class="nemo-hotel__content__rooms__rating__num">
