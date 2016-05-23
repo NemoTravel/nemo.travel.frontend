@@ -46,10 +46,11 @@ define(
             //     new google.maps.Map(block, position);
             // };
             this.initMap = function (hotel) {
-                var marker,
-                    circle;
+                var marker;
 
                 var mapId = hotel ? 'cardHotelMap' : 'map';
+
+                console.log('hotel ' + (hotel == true))
 
                 // Init map and show center
                 this.map = new google.maps.Map(
@@ -60,14 +61,16 @@ define(
                     }
                 );
 
-                // Add circle overlay and bind to center
-                circle = new google.maps.Circle({
-                    map: this.map,
-                    fillOpacity: 0,
-                    strokeColor: '#0D426D',
-                    radius: 3000,    // 3 metres
-                    strokeWeight: 1
-                });
+                if (!hotel) {
+                    // Add circle overlay and bind to center
+                    this.circle = new google.maps.Circle({
+                        map: this.map,
+                        fillOpacity: 0,
+                        strokeColor: '#0D426D',
+                        radius: 3000,    // 3 metres
+                        strokeWeight: 1
+                    });
+                }
 
                 // Check center of map
                 this.geocoder = new google.maps.Geocoder();
@@ -85,14 +88,17 @@ define(
                         }
 
                         resultsMap.setCenter(centerLocation);
-                        circle.setCenter(centerLocation);
+                        self.circle.setCenter(centerLocation);
                         self.setDistances(centerLocation);
+
+                        self.distanceFromCenter.rangeMin(3);
+                        self.distanceFromCenter.displayRangeMin(3);
                     });
                 };
 
-                var hotels = hotel ? [hotel] : this.filteredHotels();
+                var hotels = hotel ? [hotel] : this.inCircleFilteredHotels();
 
-                this.checkGeocoderLocation(this.geocoder, this.map, hotels, circle);
+                this.checkGeocoderLocation(this.geocoder, this.map, hotels, this.circle);
 
                 // Add markers on map
                 this.addMarkersOnMap(hotels, hotel ? true : false);
@@ -286,8 +292,8 @@ define(
 
                 ret.request = JSON.stringify({
                     "cityId": 1934864,
-                    "checkInDate": "2016-09-23T00:00:00",
-                    "checkOutDate": "2016-09-25T00:00:00",
+                    "checkInDate": "2016-10-28T00:00:00",
+                    "checkOutDate": "2016-10-30T00:00:00",
                     "isDelayed": false,
                     "rooms": [
                         {
@@ -470,8 +476,6 @@ define(
                 }
             }
 
-            // console.dir(roomsDictionary);
-
             // adding static data to hotel with identical id
             for ( var index = 0; index < staticData.hotels.length; index++ ) {
                 if ( searchData.results.hotels[staticData.hotels[index].id] ) {
@@ -589,10 +593,19 @@ define(
                return self.filteredHotels().slice(0, self.visibleHotelsCount());
             });
 
-            this.filteredHotels.subscribe((function(newVal){
-                //TODO work with map
-                this.addMarkersOnMap(newVal);
-            }).bind(this));
+            this.distanceFromCenter = new SliderViewModel(ko, 'min', 1, 30);
+
+            this.inCircleFilteredHotels = ko.computed(function(){
+                self.filters.dummyObservalbe();
+                return ko.utils.arrayFilter(self.filteredHotels(), function(hotel) {
+                    return hotel.distanceFromCenter <= self.distanceFromCenter.rangeMin();
+                });
+            });
+
+            this.inCircleFilteredHotels.subscribe(function(newVal){
+                self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
+                self.addMarkersOnMap(newVal);
+            });
 
             this.countsOfHotels = ko.computed(function(){
                 return self.filteredHotels().length;
@@ -701,7 +714,7 @@ define(
                                 vm.displayRangeMin(ui.values[0]);
                                 vm.displayRangeMax(ui.values[1]);
                             }
-                            else if (viewModel.type == 'min') {
+                            else if (vm.type == 'min') {
                                 vm.displayRangeMin(ui.value);
                             }
                         },
@@ -716,7 +729,13 @@ define(
                                     vm.rangeMin(ui.value);
                                 }
 
-                                bindingContext.$parent.dummyObservalbe.notifySubscribers();
+                                if (bindingContext.$parent.dummyObservalbe) {
+                                    bindingContext.$parent.dummyObservalbe.notifySubscribers();
+                                }
+
+                                if (bindingContext.$parent.filters) {
+                                    bindingContext.$parent.filters.dummyObservalbe.notifySubscribers();
+                                }
                             }
                         }
                     });
@@ -763,8 +782,6 @@ define(
                 return d;
             }
 
-            console.log(centerLocation)
-
             var hotels = this.hotels();
             var length = hotels.length;
             var maxDistance = 0;
@@ -782,8 +799,6 @@ define(
 
                 if (hotels[i].distanceFromCenter > maxDistance){
                     maxDistance = hotels[i].distanceFromCenter;
-                    console.log(maxDistance)
-                    console.log(hotels[i])
                 }
             }
         }

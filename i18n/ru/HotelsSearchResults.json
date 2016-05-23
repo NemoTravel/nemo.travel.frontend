@@ -37,5 +37,7 @@
 	"error_500_buttonText": "На главную",
 	"PH__averageCustomerRating_description_default":"Хорошо",
 	"from__center": "от центра",
-	"from__airport": "от аэропорта"
+	"from__airport": "от аэропорта",
+	"distance__from__center__to": "Расстояние от центра до",
+	"km": "км"
 }
