@@ -807,6 +807,7 @@ define(
         }
 
         HotelsSearchResultsController.prototype.getHotelCardHtml = function(hotel){
+            var self = this;
 
             var getStarsHtml = function (hotel){
                 var result = '';
@@ -853,6 +854,10 @@ define(
             var distances = this.getDistances(hotel);
             var fromCenterStr = distances[0] ? (this.$$controller.i18n('HotelsSearchResults', 'from__center') + (distances[1] ? ',' : '')) : '';
             var fromAirportStr = distances[1] ? this.$$controller.i18n('HotelsSearchResults', 'from__airport') : '';
+
+            //$('body').on('click', 'button[data-hotel-id="' + hotel.id + '"]', function(){
+                //self.showCardHotel(hotel);
+            //});
 
             var result =
                 '<div class="mapItem">' +
@@ -902,7 +907,7 @@ define(
                     '</div>' +
                 '</div>';
 
-            return result;
+            return result;// + '<button class="open-hotel-card-btn" data-hotel-id="' + hotel.id + '">awerwerertert</button>';
         }
 
         return HotelsSearchResultsController;
