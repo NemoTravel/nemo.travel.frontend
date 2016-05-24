@@ -595,6 +595,26 @@
 
 		&__control {
 			flex: 1 1 50%;
+
+			.nemo-ui-slider {
+
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					width: 100%;
+					height: 2px;
+					background: darken($nemo-color-neutral, 20);
+					top: 7px;
+				}
+
+				.ui-slider-range {
+					border-radius: $nemo-border-radius;
+				}
+				.ui-slider-handle {
+					border-radius: $nemo-border-radius;
+				}
+			}
 		}
 	}
 }
