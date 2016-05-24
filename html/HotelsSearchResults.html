@@ -661,75 +661,88 @@
                                 <ul class="nemo-hotels-results__hotelsGroup__services
                                            hotels-services">
                                    <li class="nemo-hotels-results__hotelsGroup__services__service
-                                              hotels-services__service"
-                                       data-bind="css: 'hotels-services__service_active'">
+                                              hotels-services__service hotels-services__service_active"
+                                       data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Pool') > -1">
                                        <span class="hotels-services__service__icon
                                                     hotels-services__service__icon_pool"></span>
                                    </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_parking"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Parking') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_parking"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_sport"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Gym') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_sport"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_electricity"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ConferenceFacilities') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_electricity"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_wifi"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('WiFi') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_wifi"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_laundry"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Laundry') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_laundry"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_transport"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Transfer') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_transport"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_roundTheClock"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ExpressCheckIn') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_roundTheClock"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_fridge"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ClimateControl') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_fridge"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_luggage"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('BusinessCenter') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_luggage"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_spa"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('SPA') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_spa"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_bar"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Bar') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_bar"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_resturant"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Restaurant') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_resturant"></span>
                                     </li>
                                     <li class="nemo-hotels-results__hotelsGroup__services__service
-                                               hotels-services__service">
-                                        <span class="hotels-services__service__icon
-                                                     hotels-services__service__icon_infinity"></span>
+                                              hotels-services__service hotels-services__service_active"
+                                        data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Meal') > -1">
+                                       <span class="hotels-services__service__icon
+                                                    hotels-services__service__icon_infinity"></span>
                                     </li>
                                 </ul>
 
@@ -1095,7 +1108,6 @@
                         </div>
                     </div>
 
-                    <!-- no data
                     <div class="nemo-ui-subContainer
                         nemo-hotel__additional__booking
                         nemo-hotel__additional__block">
@@ -1125,9 +1137,7 @@
                             </li>
                         </ul>
                     </div>
-                    -->
 
-                    <!-- no data
                     <div class="nemo-hotel__additional__block
                         nemo-hotel__additional__viewed">
                         <h4 class="nemo-hotel__additional__block__title
@@ -1356,7 +1366,6 @@
                             </li>
                         </ul>
                     </div>
-                    -->
                 </aside>
 
                 <section class="nemo-hotel__content">
@@ -1430,8 +1439,6 @@
                             <span class="nemo-hotel__content__rooms__subtitle">
                                 Выберите подходящие вам типы номеров
                             </span>
-
-                            <!-- no data
                             <div class="nemo-hotel__content__rooms__summary">
                                 <span class="nemo-hotel__content__rooms__summary__title">
                                     Наличие <br>в этом отеле
@@ -1462,8 +1469,6 @@
 
                                 </div>
                             </div>
-                            -->
-
                             <ul class="nemo-hotel__content__rooms__list">
                                 <li class="nemo-hotel__content__rooms__list__item">
                                     <div class="nemo-hotel__content__rooms__list__item__title">
@@ -1641,7 +1646,6 @@
                                         </div>
                                     </div>
                                     <div class="nemo-hotelRoom">
-
                                         <div class="nemo-hotelRoom__info
                                             nemo-hotelRoom__info_short">
                                     <span class="nemo-hotelRoom__info__title">
@@ -1651,7 +1655,6 @@
                                                 Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
                                             </p>
                                         </div>
-
                                         <div class="nemo-hotelRoom__tariffs">
                                             <div class="nemo-hotelRoom__tariffsTail">
                                                 <div class="nemo-hotelRoom__tariff">
@@ -1778,10 +1781,8 @@
                                 </span>
                                     </div>
                                     <div class="nemo-hotelRoom">
-
                                         <div class="nemo-hotelRoom__info
                                             nemo-hotelRoom__info_short">
-
                                     <span class="nemo-hotelRoom__info__title">
                                         Классический стандартный двухместный номер
                                     </span>
@@ -2099,16 +2100,21 @@
                                 <h3 class="nemo-hotel__content__about__title">
                                     Услуги и удобства в отеле
                                 </h3>
-                                <ul class="nemo-hotel__content__about__services__list">
+                                <ul class="nemo-hotel__content__about__services__list"
+                                    data-bind="foreach: staticDataInfo.popularFeatures">
                                     <li class="nemo-hotel__content__about__services__service">
                                 <span class="nemo-hotel__content__about__services__service__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                    data-bind="text: $parent.staticDataInfo.features[$data] ? $parent.staticDataInfo.features[$data].typeName: ''">
                                     Питание
                                 </span>
-                                <span class="nemo-hotel__content__about__services__service__values">
+                                <span class="nemo-hotel__content__about__services__service__values"
+                                      data-bind="text: $parent.staticDataInfo.features[$data] ? $parent.staticDataInfo.features[$data].featuresArray.join(', '): ''">
                                     Бар, кафе, ресторан
                                 </span>
                                     </li>
+
+                                    <!--
                                     <li class="nemo-hotel__content__about__services__service">
                                 <span class="nemo-hotel__content__about__services__service__name
                                              nemo-hotel__content__about__paramName">
@@ -2172,6 +2178,7 @@
                                     Прачечная, банкомат, круглосуточная стойка регистрации, сувенирный магазин, продуктовый супермаркет, услуги няни
                                 </span>
                                     </li>
+                                    -->
                                 </ul>
                             </div>
                             <div class="nemo-hotel__content__about__rules">
@@ -2181,78 +2188,42 @@
                                 <ul class="nemo-hotel__content__about__rules__list">
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'registration_arrival')">
                                     Регистрация заезда
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: staticDataInfo.checkInTime ? $root.i18n('HotelsSearchResults', 'from') + ' ' + staticDataInfo.checkInTime : ''">
                                                 с 15:00
                                             </p>
                                         </div>
                                     </li>
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                    data-bind="text: $root.i18n('HotelsSearchResults', 'registration_leaving')">
                                     Регистрация отъезда
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: staticDataInfo.checkOutTime ? $root.i18n('HotelsSearchResults', 'to') + ' ' + staticDataInfo.checkOutTime : ''">
                                                 до 12:00
                                             </p>
                                         </div>
                                     </li>
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
-                                    Размещение детей и предоставление дополнительных кроватей
-                                </span>
-                                        <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
-                                                Всем детям младше 12 лет предоставляется бесплатное проживание в отеле при использовании существующих кроватей.
-                                            </p>
-                                            <p>
-                                                Одному ребенку младше 2 лет предоставляется детская кровать за UAH 950 с человека за ночь.
-                                            </p>
-                                            <p>
-                                                Детям старшего возраста/взрослым предоставляется дополнительная кровать за UAH 950 с человека за ночь.
-                                            </p>
-                                            <p>
-                                                Максимальное количество дополнительных кроватей в номере - 1.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="nemo-hotel__content__about__rules__rule">
-                                <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'pets')">
                                     Домашние животные
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: (staticDataInfo.features && staticDataInfo.features.Pets) ? staticDataInfo.features.Pets.featuresArray.join(', ') : ''">
                                                 Размещение с животными по запросу
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="nemo-hotel__content__about__rules__rule">
-                                <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
-                                    Условия аннулирования
-                                </span>
-                                        <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
-                                                В случае отмены или изменения бронирования за 2 суток до дня заезда штраф не взимается.
-                                            </p>
-                                            <p>
-                                                В случае незаезда или отмены бронирования позднее указанного срока взимается полная стоимость первой ночи проживания в отеле.
-                                            </p>
-                                            <p>
-                                                Это общие правила отмены бронирования номеров в отеле. Обязательно проверяйте правила отмены в процессе бронирования, так как они могут отличаться.
                                             </p>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-
-                            <!-- no data
                             <div class="nemo-hotel__content__about__contacts">
                                 <h3 class="nemo-hotel__content__about__title">
                                     Контактная информация
@@ -2264,8 +2235,6 @@
                                     На Ваш выбор 140 различных номеров, которые стильно и уютно меблированы. Гостиница "Опера" удивит Вас изумительной роскошью и теплым комфортом. Тематические номера-люкс были оформлены в стиле самых известных оперных произведений мира: Русском, Итальянском, Французском, Египетском, Американском, Марокканском и Японском. Каждый из них представляет богатую культуру этих стран. Современные бизнес - путешественники, по достоинству оценят все предоставленные в отеле удобства, а именно большие столы с портативным телефоном, многоконтактные AV разъемы и 32-дюймовые плазменные телевизоры.
                                 </p>
                             </div>
-                            -->
-
                         </div>
                         <!--/ko-->
                     </div>

@@ -818,21 +818,41 @@ define(
             }
 
             var getFeaturesHtml = function(hotel){
-                return  '<li class="service active"><span class="icon icon_pool"></span></li>' +
-                    '<li class="service"><span class="icon icon_parking"></span></li>' +
-                    '<li class="service"><span class="icon icon_sport"></span></li>' +
-                    '<li class="service"><span class="icon icon_electricity"></span></li>' +
-                    '<li class="service"><span class="icon icon_wifi"></span></li>' +
-                    '<li class="service"><span class="icon icon_laundry"></span></li>' +
-                    '<li class="service"><span class="icon icon_transport"></span></li>' +
-                    '<li class="service"><span class="icon icon_roundTheClock"></span></li>' +
-                    '<li class="service"><span class="icon icon_fridge"></span></li>' +
-                    '<li class="service"><span class="icon icon_luggage"></span></li>' +
-                    '<li class="service"><span class="icon icon_spa"></span></li>' +
-                    '<li class="service"><span class="icon icon_bar"></span></li>' +
-                    '<li class="service"><span class="icon icon_resturant"></span></li>' +
-                    '<li class="service"><span class="icon icon_infinity"></span></li>';
+                var popularFeatures = hotel.staticDataInfo.popularFeatures;
+                if (!popularFeatures)
+                    return '';
 
+                var getLiHtml = function(popularFeautures, feature, iconClass){
+                    if (popularFeatures.indexOf('Pool') > -1) {
+                        return '<li class="service"><span class="icon ' + iconClass + '"></span></li>';
+                    }
+                    else{
+                        return '';
+                    }
+                }
+
+                var result = '';
+                var template = '<li class="service active"><span class="icon icon_template"></span></li>';
+
+
+                if (popularFeatures.indexOf('Pool') > -1){
+                    result += '<li class="service active"><span class="icon icon_pool"></span></li>';
+                }
+
+                return  getLiHtml(popularFeatures, 'Pool', 'icon_pool') +
+                    getLiHtml(popularFeatures, 'Parking', 'icon_parking') +
+                    getLiHtml(popularFeatures, 'Gym', 'icon_sport') +
+                    getLiHtml(popularFeatures, 'ConferenceFacilities', 'icon_electricity') +
+                    getLiHtml(popularFeatures, 'WiFi', 'icon_wifi') +
+                    getLiHtml(popularFeatures, 'Laundry', 'icon_laundry') +
+                    getLiHtml(popularFeatures, 'Transfer', 'icon_transport') +
+                    getLiHtml(popularFeatures, 'ExpressCheckIn', 'icon_roundTheClock') +
+                    getLiHtml(popularFeatures, 'ClimateControl', 'icon_fridge') +
+                    getLiHtml(popularFeatures, 'BusinessCenter', 'icon_luggage') +
+                    getLiHtml(popularFeatures, 'SPA', 'icon_spa') +
+                    getLiHtml(popularFeatures, 'Bar', 'icon_bar') +
+                    getLiHtml(popularFeatures, 'Restaurant', 'icon_resturant') +
+                    getLiHtml(popularFeatures, 'Meal', 'icon_infinity');
             }
 
             var photoUrl = hotel.staticDataInfo.photos ?
@@ -895,7 +915,7 @@ define(
                                         '</div>' +
                                     '</div>' +
                                     '<div class="description">' +
-                                        '<p class="text">' + hotel.staticDataInfo.description + '</p>' +
+                                        '<p class="text">' + hotel.staticDataInfo.description.replace(/<(?:.|\n)*?>/gm, '') + '</p>' +
                                         //'<a href="#" class="link"></a>' +
                                     '</div>' +
                                 '</div>' +
