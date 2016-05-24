@@ -2093,16 +2093,21 @@
                                 <h3 class="nemo-hotel__content__about__title">
                                     Услуги и удобства в отеле
                                 </h3>
-                                <ul class="nemo-hotel__content__about__services__list">
+                                <ul class="nemo-hotel__content__about__services__list"
+                                    data-bind="foreach: staticDataInfo.popularFeatures">
                                     <li class="nemo-hotel__content__about__services__service">
                                 <span class="nemo-hotel__content__about__services__service__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                    data-bind="text: $parent.staticDataInfo.features[$data] ? $parent.staticDataInfo.features[$data].typeName: ''">
                                     Питание
                                 </span>
-                                <span class="nemo-hotel__content__about__services__service__values">
+                                <span class="nemo-hotel__content__about__services__service__values"
+                                      data-bind="text: $parent.staticDataInfo.features[$data] ? $parent.staticDataInfo.features[$data].featuresArray.join(', '): ''">
                                     Бар, кафе, ресторан
                                 </span>
                                     </li>
+
+                                    <!--
                                     <li class="nemo-hotel__content__about__services__service">
                                 <span class="nemo-hotel__content__about__services__service__name
                                              nemo-hotel__content__about__paramName">
@@ -2166,6 +2171,7 @@
                                     Прачечная, банкомат, круглосуточная стойка регистрации, сувенирный магазин, продуктовый супермаркет, услуги няни
                                 </span>
                                     </li>
+                                    -->
                                 </ul>
                             </div>
                             <div class="nemo-hotel__content__about__rules">
@@ -2175,71 +2181,37 @@
                                 <ul class="nemo-hotel__content__about__rules__list">
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'registration_arrival')">
                                     Регистрация заезда
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: staticDataInfo.checkInTime ? $root.i18n('HotelsSearchResults', 'from') + ' ' + staticDataInfo.checkInTime : ''">
                                                 с 15:00
                                             </p>
                                         </div>
                                     </li>
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                    data-bind="text: $root.i18n('HotelsSearchResults', 'registration_leaving')">
                                     Регистрация отъезда
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: staticDataInfo.checkOutTime ? $root.i18n('HotelsSearchResults', 'to') + ' ' + staticDataInfo.checkOutTime : ''">
                                                 до 12:00
                                             </p>
                                         </div>
                                     </li>
                                     <li class="nemo-hotel__content__about__rules__rule">
                                 <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
-                                    Размещение детей и предоставление дополнительных кроватей
-                                </span>
-                                        <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
-                                                Всем детям младше 12 лет предоставляется бесплатное проживание в отеле при использовании существующих кроватей.
-                                            </p>
-                                            <p>
-                                                Одному ребенку младше 2 лет предоставляется детская кровать за UAH 950 с человека за ночь.
-                                            </p>
-                                            <p>
-                                                Детям старшего возраста/взрослым предоставляется дополнительная кровать за UAH 950 с человека за ночь.
-                                            </p>
-                                            <p>
-                                                Максимальное количество дополнительных кроватей в номере - 1.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="nemo-hotel__content__about__rules__rule">
-                                <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
+                                             nemo-hotel__content__about__paramName"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'pets')">
                                     Домашние животные
                                 </span>
                                         <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
+                                            <p data-bind="text: (staticDataInfo.features && staticDataInfo.features.Pets) ? staticDataInfo.features.Pets.featuresArray.join(', ') : ''">
                                                 Размещение с животными по запросу
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="nemo-hotel__content__about__rules__rule">
-                                <span class="nemo-hotel__content__about__rules__rule__name
-                                             nemo-hotel__content__about__paramName">
-                                    Условия аннулирования
-                                </span>
-                                        <div class="nemo-hotel__content__about__rules__rule__values">
-                                            <p>
-                                                В случае отмены или изменения бронирования за 2 суток до дня заезда штраф не взимается.
-                                            </p>
-                                            <p>
-                                                В случае незаезда или отмены бронирования позднее указанного срока взимается полная стоимость первой ночи проживания в отеле.
-                                            </p>
-                                            <p>
-                                                Это общие правила отмены бронирования номеров в отеле. Обязательно проверяйте правила отмены в процессе бронирования, так как они могут отличаться.
                                             </p>
                                         </div>
                                     </li>

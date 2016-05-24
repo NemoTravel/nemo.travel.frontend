@@ -40,5 +40,10 @@
 	"from__center": "от центра",
 	"from__airport": "от аэропорта",
 	"distance__from__center__to": "Расстояние от центра до",
-	"km": "км"
+	"km": "км",
+	"from": "с",
+	"to": "до",
+	"registration_arrival": "Регистрация заезда",
+	"registration_leaving": "Регистрация отъезда",
+	"pets": "Домашние животные"
 }
