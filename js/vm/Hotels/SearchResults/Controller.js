@@ -895,7 +895,7 @@ define(
                                         '</div>' +
                                     '</div>' +
                                     '<div class="description">' +
-                                        '<p class="text">' + hotel.staticDataInfo.description + '</p>' +
+                                        '<p class="text">' + hotel.staticDataInfo.description.replace(/<(?:.|\n)*?>/gm, '') + '</p>' +
                                         //'<a href="#" class="link"></a>' +
                                     '</div>' +
                                 '</div>' +
