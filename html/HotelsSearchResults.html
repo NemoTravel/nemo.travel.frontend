@@ -34,22 +34,17 @@
                     nemo-hotels-results__summary__filterSwitch
                     js-flights-results__adaptiveFiltersNoClose"
              data-bind="click: function () {if (resultsLoaded()) {PFActive(!PFActive());}},
-                        css: {'nemo-flights-results__summary__filterSwitch_active': PFActive()},
-                        text: $root.i18n('HotelsSearchResults', 'filter__caption')"></div>
+                        css: {'nemo-flights-results__summary__filterSwitch_active': PFActive()}">
+            <span data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption')"></span>
+            <span class="nemo-hotels-results__summary__filterSwitch__mobileText"
+                  data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption__results')"></span>
+        </div>
         <!--/ko -->
 <!--ko if: PFActive() && resultsLoaded() && !searchFormActive() -->
         <div class="nemo-common-postFilters
                     nemo-hotels-results__summary__filters">
             <div class="nemo-common-postFilters__inner,
                         nemo-hotels-results__summary__filters__inner">
-                <div class="nemo-hotels-results__content__postfilters__showOnMap">
-                    <div class="nemo-ui-button
-                                nemo-ui-button_common
-                                nemo-hotels-results__content__postfilters__showOnMap__button"
-                         data-bind="click: changeView,
-                                    text: changeViewButtonLabel()"
-                    ></div>
-                </div>
 
                 <!--
                 <label class="nemo-hotels-results__content__postfilters__order

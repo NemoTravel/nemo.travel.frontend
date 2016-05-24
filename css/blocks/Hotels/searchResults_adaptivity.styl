@@ -42,3 +42,50 @@
     }
 }
 
+@media (max-width: 859px) {
+    .nemo-hotels-results {
+        &__wrapper {
+            background: $nemo-color-LightPoint;
+        }
+
+        &__summary {
+            flex-direction: column-reverse;
+            align-items: center;
+            padding-left: 0;
+            padding-right: 0;
+
+            &__filterSwitch {
+                &__mobileText {
+                    display: inline;
+                }
+            }
+
+            &__inner {
+                background: $nemo-color-main;
+                border-radius: 0;
+                padding: 0;
+            }
+
+            &__area {
+                width: 100%;
+                padding: 10px 20px;
+
+                &__segment {
+                    color: $nemo-color-LightPoint;
+                }
+            }
+
+            &__switch {
+                display: none;
+            }
+        }
+
+        &__content {
+            &__results {
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+    }
+}
+

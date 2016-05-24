@@ -10,13 +10,14 @@
             margin: 0;
             position: relative;
             overflow: visible;
+            height: 50px;
 
             &__title {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding-left: 20px;
-                padding-right: 20px;
+                padding-right: 175px;
                 flex: 1 1 100%;
 
                 &__text {
@@ -38,12 +39,15 @@
 
             &__additional {
                 height: 100%;
+                width: 145px;
                 padding: 0 20px 0 30px;
                 background: $c_highlight_warning;
                 color: $c_common_textColor;
-                position: relative;
+                position: absolute;
                 border-top-right-radius: $nemo-border-radius;
                 white-space: nowrap;
+                top: 0;
+                right: 0;
 
                 &:before {
                     position: absolute;
