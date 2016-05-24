@@ -1,5 +1,5 @@
 .mapItem {
-    width: 660px;
+    width: 100%;
 
     .hotel {
         border-radius: 4px;
@@ -12,7 +12,7 @@
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
-        padding: 0;
+        padding: 0 20px 0 0 ;
         margin: 0;
         position: relative;
         overflow: visible;
@@ -20,6 +20,7 @@
         border-top-right-radius: 4px;
         color: #fff;
         line-height: 50px;
+        height: 50px;
         font-size: 15px;
         background-color: #64b5f6;
 
@@ -28,7 +29,7 @@
             justify-content: space-between;
             align-items: center;
             padding-left: 20px;
-            padding-right: 20px;
+            padding-right: 0;
             flex: 1 1 100%;
 
             .text {
@@ -64,28 +65,7 @@
             }
         }
         .additional {
-            height: 100%;
-            padding: 0 20px 0 30px;
-            background: #ffd321;
-            color: #414042;
-            position: relative;
-            border-top-right-radius: 4px;
-            white-space: nowrap;
-            line-height: 50px;
-            font-size: 15px;
-
-            &:before {
-                position: absolute;
-                top: 0;
-                right: 100%;
-                content: '';
-                display: block;
-                width: 0;
-                height: 0;
-                border-top: 25px solid transparent;
-                border-right: 10px solid #ffd321;
-                border-bottom: 25px solid transparent;
-            }
+            display: none;
         }
     }
 
@@ -164,6 +144,11 @@
                         position: relative;
                         font-size: 12px;
                         line-height: 1.4em;
+
+                        & > span {
+                            display: inline-block;
+                            margin-left: 5px;
+                        }
 
                         .target {
                             color: rgba(100,100,100,0.75);
