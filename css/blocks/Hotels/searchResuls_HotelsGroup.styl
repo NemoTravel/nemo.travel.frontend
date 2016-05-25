@@ -106,6 +106,7 @@
                 border-radius: $nemo-border-radius;
                 background-size: cover;
                 background-position: 50% 50%;
+                background-color: $nemo-color-neutral;
             }
 
             &__infoBlock {
@@ -146,6 +147,10 @@
             &__mapLink {
                 margin-left: 30px;
                 font-size: 12px;
+
+                &__mobile {
+                    display: none;
+                }
             }
 
             &__district {
@@ -339,13 +344,13 @@
         &__services {
             display: block;
             padding: 0;
-            margin: 15px 0 0 180px;
+            margin: 5px 0 0 180px;
             font-size: 0;
 
             &__service {
                 display: inline-block;
                 vertical-align: middle;
-                margin-right: 10px;
+                margin: 5px 10px 5px 0;
             }
 
         }

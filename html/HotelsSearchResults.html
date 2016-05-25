@@ -635,7 +635,14 @@
 
                                                 <a href="#" class="nemo-ui-pseudoLink
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
-                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
+                                                   data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
+                                                          data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
+                                                    </span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile"
+                                                          data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')">
+                                                    </span>
+                                                </a>
                                             </div>
                                             <!--<div class="nemo-hotels-results__hotelsGroup__mainInfo__district">-->
                                                 <!--<span class="nemo-hotels-results__hotelsGroup__mainInfo__district__text">-->
@@ -1924,8 +1931,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="nemo-hotels-results__hotelsGroup__header__additional">
-                                Лучшая цена
+                            <div class="nemo-hotels-results__hotelsGroup__header__additional"
+                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $index() < 1">
                             </div>
                         </div>
                         <div class="nemo-ui-subContainer
@@ -1957,8 +1964,6 @@
                                                              nemo-hotels-results__content__results__loadingDummy__item__mapLink
                                                              nemo-hotels-results__content__results__loadingDummy__textItem"></span>
                                             </div>
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__district
-                                                        nemo-hotels-results__content__results__loadingDummy__item__district"></div>
                                         </div>
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description

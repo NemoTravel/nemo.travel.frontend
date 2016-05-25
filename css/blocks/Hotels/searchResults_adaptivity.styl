@@ -50,11 +50,13 @@
 
         &__summary {
             flex-direction: column-reverse;
-            align-items: center;
-            padding-left: 0;
-            padding-right: 0;
+            align-items: stretch;
+            padding: 0;
 
             &__filterSwitch {
+                margin: 10px;
+                align-self: center;
+
                 &__mobileText {
                     display: inline;
                 }
@@ -72,6 +74,21 @@
 
                 &__segment {
                     color: $nemo-color-LightPoint;
+                    white-space: normal;
+
+                    &__geo {
+                        padding-right: 10px;
+                    }
+
+                    &__date {
+                        color: $nemo-color-LightPoint;
+                    }
+
+                    &__date,
+                    &__guests {
+                        display: inline-block;
+                        padding: 0 10px 0 0;
+                    }
                 }
             }
 
@@ -88,4 +105,16 @@
         }
     }
 }
+
+@media (max-width: 500px) {
+    .nemo-hotels-results {
+        &__summary {
+            &__filterSwitch {
+                align-self: stretch;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
 
