@@ -1462,21 +1462,24 @@
 
                                 </div>
                             </div>
-                            <ul class="nemo-hotel__content__rooms__list">
+                            <ul class="nemo-hotel__content__rooms__list" data-bind="foreach: rooms">
                                 <li class="nemo-hotel__content__rooms__list__item">
                                     <div class="nemo-hotel__content__rooms__list__item__title">
-                                <span class="nemo-hotel__content__rooms__list__item__title__number">
+                                <span class="nemo-hotel__content__rooms__list__item__title__number"
+                                        data-bind="text: $index() + 1">
                                     1
                                 </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
+                                <span class="nemo-hotel__content__rooms__list__item__title__roomName"
+                                    data-bind="text: $root.i18n('HotelsSearchForm', 'rooms_room') + ' ' + ($index() + 1)">
                                     Номер 1
                                 </span>
+                                        <!--
                                 <span class="nemo-hotel__content__rooms__list__item__title__separator">
                                     —
                                 </span>
                                 <span class="nemo-hotel__content__rooms__list__item__title__guests">
                                     2 взрослых
-                                </span>
+                                </span>-->
                                     </div>
                                     <div class="nemo-hotelRoom">
                                         <div class="nemo-hotelRoom__info">
@@ -1531,22 +1534,26 @@
                                             </div>
                                         </div>
                                         <div class="nemo-hotelRoom__tariffs">
-                                            <div class="nemo-hotelRoom__tariffsTail">
+                                            <div class="nemo-hotelRoom__tariffsTail" data-bind="foreach: $data">
                                                 <div class="nemo-hotelRoom__tariff">
                                                     <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                <span class="nemo-hotelRoom__tariff__feature"
+                                                    data-bind="text: type.name">
                                                     Двуспальная кровать или Две односпальных кровати
                                                 </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
+                                                <span class="nemo-hotelRoom__tariff__feature"
+                                                    data-bind="text: meal.name">
                                                     Завтрак не включен
                                                 </span>
                                                     </div>
                                                     <div class="nemo-hotelRoom__tariff__price">
                                                 <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value"
+                                                        data-bind="text: rate.price.amount.toFixed(0)">
                                                         12 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency"
+                                                          data-bind="text: rate.price.currency">
                                                         р
                                                     </span>
                                                     <span class="nemo-hotelRoom__tariff__price__perNight__period">
@@ -1554,59 +1561,16 @@
                                                     </span>
                                                 </span>
                                                 <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value"
+                                                        data-bind="text: ($parents[2].countOfNights() * rate.price.amount).toFixed(0)">
                                                         48 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency"
+                                                          data-bind="text: rate.price.currency">
                                                         р
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nemo-hotelRoom__tariff">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    С шикарным видом
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period"
+                                                          data-bind="text: 'за ' + $parents[2].countOfNights() + ' ' + $parents[2].labelAfterNights()">
                                                         за 6 ночей
                                                     </span>
                                                 </span>
@@ -1622,6 +1586,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--
                                             <div class="nemo-hotelRoom__tariffs__more">
                                         <span class="nemo-ui-pseudoLink
                                                      nemo-hotelRoom__tariffs__more__text">
@@ -1636,340 +1601,10 @@
                                             </span>
                                         </span>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="nemo-hotelRoom">
-                                        <div class="nemo-hotelRoom__info
-                                            nemo-hotelRoom__info_short">
-                                    <span class="nemo-hotelRoom__info__title">
-                                        Классический стандартный двухместный номер
-                                    </span>
-                                            <p class="nemo-hotelRoom__info__description">
-                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
-                                            </p>
-                                        </div>
-                                        <div class="nemo-hotelRoom__tariffs">
-                                            <div class="nemo-hotelRoom__tariffsTail">
-                                                <div class="nemo-hotelRoom__tariff">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nemo-hotelRoom__tariff">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    С шикарным видом
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nemo-hotelRoom__tariffs__more">
-                                        <span class="nemo-ui-pseudoLink
-                                                     nemo-hotelRoom__tariffs__more__text">
-                                            <span class="nemo-hotelRoom__tariffs__more__text__more">
-                                                Еще
-                                            </span>
-                                            <span class="nemo-hotelRoom__tariffs__more__text__count">
-                                                25
-                                            </span>
-                                            <span class="nemo-hotelRoom__tariffs__more__text__tariffs">
-                                                тарифов
-                                            </span>
-                                        </span>
-                                            </div>
+                                            -->
                                         </div>
                                     </div>
                                 </li>
-
-                                <li class="nemo-hotel__content__rooms__list__item">
-                                    <div class="nemo-hotel__content__rooms__list__item__title">
-                                <span class="nemo-hotel__content__rooms__list__item__title__number">
-                                    2
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
-                                    Номер 2
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__separator">
-                                    —
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__guests">
-                                    2 взрослых
-                                </span>
-                                    </div>
-                                    <div class="nemo-hotelRoom">
-                                        <div class="nemo-hotelRoom__info
-                                            nemo-hotelRoom__info_short">
-                                    <span class="nemo-hotelRoom__info__title">
-                                        Классический стандартный двухместный номер
-                                    </span>
-                                            <p class="nemo-hotelRoom__info__description">
-                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
-                                            </p>
-                                        </div>
-                                        <div class="nemo-hotelRoom__tariffs">
-                                            <div class="nemo-hotelRoom__tariffsTail">
-                                                <div class="nemo-hotelRoom__tariff">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nemo-hotelRoom__tariff">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    С шикарным видом
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nemo-hotelRoom__tariffs__more">
-                                        <span class="nemo-ui-pseudoLink
-                                                     nemo-hotelRoom__tariffs__more__text">
-                                            <span class="nemo-hotelRoom__tariffs__more__text__more">
-                                                Еще
-                                            </span>
-                                            <span class="nemo-hotelRoom__tariffs__more__text__count">
-                                                25
-                                            </span>
-                                            <span class="nemo-hotelRoom__tariffs__more__text__tariffs">
-                                                тарифов
-                                            </span>
-                                        </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="nemo-hotel__content__rooms__list__item">
-                                    <div class="nemo-hotel__content__rooms__list__item__title">
-                                <span class="nemo-hotel__content__rooms__list__item__title__number">
-                                    3
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__roomName">
-                                    Номер 3
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__separator">
-                                    —
-                                </span>
-                                <span class="nemo-hotel__content__rooms__list__item__title__guests">
-                                    2 взрослых
-                                </span>
-                                    </div>
-                                    <div class="nemo-hotelRoom">
-                                        <div class="nemo-hotelRoom__info
-                                            nemo-hotelRoom__info_short">
-                                    <span class="nemo-hotelRoom__info__title">
-                                        Классический стандартный двухместный номер
-                                    </span>
-                                            <p class="nemo-hotelRoom__info__description">
-                                                Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью 35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить люб…
-                                            </p>
-                                        </div>
-                                        <div class="nemo-hotelRoom__tariffs">
-                                            <div class="nemo-hotelRoom__tariffsTail">
-                                                <div class="nemo-hotelRoom__tariff
-                                                    nemo-hotelRoom__tariff_selected">
-                                                    <div class="nemo-hotelRoom__tariff__features">
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Двуспальная кровать или Две односпальных кровати
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__feature">
-                                                    Завтрак не включен
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__price">
-                                                <span class="nemo-hotelRoom__tariff__price__perNight">
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__value">
-                                                        12 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__period">
-                                                        за ночь
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__per6Nights">
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__value">
-                                                        48 000
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency">
-                                                        р
-                                                    </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__period">
-                                                        за 6 ночей
-                                                    </span>
-                                                </span>
-                                                <span class="nemo-hotelRoom__tariff__price__link
-                                                             nemo-ui-pseudoLink">
-                                                    Только по предоплате
-                                                </span>
-                                                    </div>
-                                                    <div class="nemo-hotelRoom__tariff__controlWrap">
-                                                        <div class="nemo-hotelRoom__tariff__controlWrap__button">
-                                                            Выбрать
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
                             </ul>
                             <div class="nemo-hotel__content__rooms__footer">
                                 <div class="nemo-hotel__content__rooms__footer__dummy" style="display: none;">
