@@ -213,6 +213,9 @@ define(
                 this.$$controller.hotelsSearchController = this;
 
                 hotel.staticDataInfo.currentCity = this.currentCity();
+
+                this.selectedRooms = new SelectRoomsViewModel(ko, hotel);
+
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
                 this.initMap(hotel);
@@ -1056,5 +1059,65 @@ var SliderViewModel = function(ko, type, min, max){
         self.rangeMax(self.max);
         self.displayRangeMin(self.min);
         self.displayRangeMax(self.max);
+    }
+}
+
+var SelectRoomsViewModel = function(ko, hotel){
+    var self = this;
+
+    self.hotel = hotel;
+
+    self.selectedRooms = ko.observableArray([]);
+
+    self.isRoomSelected = function(room){
+        return $.grep(self.selectedRooms(), function(item){
+           return item == room;
+        }).length === 1;
+    };
+
+    self.isAllRoomsSelected = ko.computed(function(){
+        return self.selectedRooms().length === self.hotel.rooms.length;
+    });
+
+    self.allRoomPrice = ko.computed(function(){
+        if (!self.isAllRoomsSelected()) {
+            return 0;
+        }
+
+        var selectedRooms = self.selectedRooms();
+        var result = 0;
+        for (var i = 0; i < selectedRooms.length; i++){
+            result += selectedRooms[i].rate.price.amount;
+        }
+
+        return result;
+    });
+
+    self.selectRoom = function(room){
+        var selectedRoomsIndex = self.getRoomsIndex(room);
+
+        var selectedRooms = self.selectedRooms();
+
+        var x = $.grep(selectedRooms, function(item){self.getRoomsIndex(item) == selectedRoomsIndex;})
+
+        if (x.length > 0){
+            self.selectedRooms.remove(x[0]);
+            self.selectedRooms.push(room);
+        }
+        else{
+            self.selectedRooms.push(room);
+        }
+    }
+
+    self.getRoomsIndex = function(room){
+        for (var i = 0; i < self.hotel.rooms.length; i++){
+            for (var j = 0; j < self.hotel.rooms[i].length; j++){
+                if (self.hotel.rooms[i][j] == room){
+                    return i;
+                }
+            }
+        }
+
+        return null;
     }
 }
