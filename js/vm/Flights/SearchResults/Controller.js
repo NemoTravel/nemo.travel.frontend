@@ -1028,7 +1028,8 @@ define(
 										id: source.flights[j].id,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
-										segments: segsarr
+										segments: segsarr,
+										isLowCost: source.flights[j].hasOwnProperty('isLowCost') ? source.flights[j].isLowCost : false
 									}
 								);
 
