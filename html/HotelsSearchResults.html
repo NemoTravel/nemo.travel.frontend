@@ -1589,7 +1589,7 @@
                                                     </div>
                                                     <div class="nemo-hotelRoom__tariff__controlWrap">
                                                         <div class="nemo-hotelRoom__tariff__controlWrap__button"
-                                                            data-bind="click: $parents[2].selectedRooms.selectRoom($data)">
+                                                            data-bind="click: function(data, event){$parents[2].selectedRooms.selectRoom($data) }">
                                                             Выбрать
                                                         </div>
                                                     </div>
@@ -1646,10 +1646,11 @@
                                     <div class="nemo-hotel__content__rooms__footer__button__price">
                                 <span class="nemo-hotel__content__rooms__footer__button__price__perNight">
                                     <span class="nemo-hotel__content__rooms__footer__button__price__perNight__value"
-                                        data-bind="text: $parent.selectedRooms.allRoomPrice()">
+                                        data-bind="text: $parent.selectedRooms.allRoomPrice().toFixed(0)">
                                         12000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency"
+                                          data-bind="text: rooms[0][0].rate.price.currency">
                                         р
                                     </span>
                                     <span class="nemo-hotel__content__rooms__footer__button__price__perNight__period">
@@ -1661,10 +1662,12 @@
                                           data-bind="text: ($parent.selectedRooms.allRoomPrice() * $parent.countOfNights()).toFixed(0)">
                                         48000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency"
+                                          data-bind="text: rooms[0][0].rate.price.currency">
                                         р
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__period">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__period"
+                                          data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()">
                                         за 6 ночей
                                     </span>
                                 </span>

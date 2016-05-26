@@ -50,8 +50,6 @@ define(
 
                 var mapId = hotel ? 'cardHotelMap' : 'map';
 
-                console.log('hotel ' + (hotel == true))
-
                 // Init map and show center
                 this.map = new google.maps.Map(
                     document.getElementById(mapId),
@@ -1098,11 +1096,16 @@ var SelectRoomsViewModel = function(ko, hotel){
 
         var selectedRooms = self.selectedRooms();
 
-        var x = $.grep(selectedRooms, function(item){self.getRoomsIndex(item) == selectedRoomsIndex;})
+        var x = $.grep(selectedRooms, function(item){
+            return self.getRoomsIndex(item) == selectedRoomsIndex;
+        })
 
         if (x.length > 0){
-            self.selectedRooms.remove(x[0]);
-            self.selectedRooms.push(room);
+            var selectedRoom = x[0];
+            self.selectedRooms.remove(selectedRoom);
+            if (room != selectedRoom) {
+                self.selectedRooms.push(room);
+            }
         }
         else{
             self.selectedRooms.push(room);
