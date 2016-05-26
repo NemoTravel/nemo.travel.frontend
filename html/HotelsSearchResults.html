@@ -542,11 +542,11 @@
             <div class="nemo-ui-subContainer
                         nemo-flights-results__content__postfilters__loadingDummy
                         nemo-hotels-results__content__postfilters__loadingDummy">
-                <div class="nemo-flights-results__content__postfilters__loadingDummy__title"
-                     data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__title')"></div>
+                <div class="nemo-flights-results__content__postfilters__loadingDummy__title">
+                    <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__title')"-->Загрузка</div>
 
-                <div class="nemo-flights-results__content__postfilters__loadingDummy__text nemo-hotels-results__content__postfilters__loadingDummy__text"
-                     data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__text')"></div>
+                <div class="nemo-flights-results__content__postfilters__loadingDummy__text nemo-hotels-results__content__postfilters__loadingDummy__text">
+                    <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__text')"-->Фильтры будут показаны вскоре после того, как будут найдены подходящие отели</div>
             </div>
 
         <!--TODOEND-->
@@ -640,8 +640,7 @@
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
                                                           data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
                                                     </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile"
-                                                          data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile">
                                                     </span>
                                                 </a>
                                             </div>
@@ -1920,13 +1919,18 @@
                              nemo-loader__2
                              nemo-hotels-results__content__results__loadingDummy__loader" src="/css/images/ui/ui-loader-circle.svg" alt="loading">
                 <span class="ui-dialog-title">
-                    <span data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText')"></span>
+                    <span>
+                        <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText')"-->
+                        Идет поиск
+                    </span>
                 </span>
             </div>
 
             <div class="nemo-hotels-results__searchingInfo">
-                <div class="nemo-hotels-results__searchingInfo__header"
-                     data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText_timed')"></div>
+                <div class="nemo-hotels-results__searchingInfo__header">
+                    <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__results__progressText_timed')"-->
+                    Пожалуйста, подождите, мы ищем подходящие отели
+                </div>
             </div>
 
             <div class="nemo-hotels-results__content__results__loadingDummy__groupList" data-bind="foreach: [0, 1, 2]">
@@ -2063,8 +2067,9 @@
                                 <span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
                                     <span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
                                         <span class="nemo-ui-pseudoLink
-                                                     nemo-hotels-results__hotelsGroup__rooms__allRooms__link"
-                                              data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"></span>
+                                                     nemo-hotels-results__hotelsGroup__rooms__allRooms__link">
+                                            <!--data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms')"--> Все доступные номера
+                                        </span>
                                     </span>
                                 </span>
                             </div>
@@ -2137,8 +2142,10 @@
                         </div>
                     </div>
                     <div class="nemo-hotels-results__hotelsGroup__header__additional
-                                nemo-hotels-results__content__sidebar__offer__additional"
-                         data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-centre')"></div>
+                                nemo-hotels-results__content__sidebar__offer__additional">
+                        <!--data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-centre')"-->
+                        Самый центр города
+                    </div>
                 </div>
 
                 <div class="nemo-ui-subContainer
