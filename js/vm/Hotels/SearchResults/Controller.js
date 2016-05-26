@@ -549,6 +549,13 @@ define(
                 }
             }
 
+            this.promotionalHotels = ko.observableArray([]);
+            var promotionalHotels = this.$$rawdata.hotels.search.resultData.promotionalHotels;
+            if (promotionalHotels){
+                var existingHotels = $.grep(hotelsArr, function(item){return promotionalHotels.indexOf(item.id) > -1;});
+                this.promotionalHotels(existingHotels.slice(0, 2));
+            }
+
             this.currentCity(this.$$rawdata.hotels.staticDataInfo.cities[0].name);
             this.hotels = ko.observableArray(hotelsArr);
 

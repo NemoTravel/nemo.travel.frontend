@@ -603,9 +603,9 @@
                                           data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text"
                                           data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
-                                    <a href="#" class="nemo-ui-pseudoLink
+                                    <a class="nemo-ui-pseudoLink
                                                        nemo-hotels-results__hotelsGroup__mainInfo__rating__link"
-                                       data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + staticDataInfo.usersOpinionInfo.opinionsCount"></a>
+                                       data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + staticDataInfo.usersOpinionInfo.opinionsCount, click: function(hotel){ $parent.showCardHotel(hotel, $root)"></a>
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
@@ -655,7 +655,8 @@
                                         <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text
                                                   nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot"
                                            data-bind="html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender" ></p>
-                                        <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
+                                        <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"
+                                           data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                     </div>
                                 </div>
                                 <ul class="nemo-hotels-results__hotelsGroup__services
@@ -850,7 +851,7 @@
             <!-- /ko -->
 
             <!-- ko if: resultsLoaded() -->
-                <ul class="nemo-hotels-results__content__sidebar__offersList">
+                <ul class="nemo-hotels-results__content__sidebar__offersList" data-bind="foreach: promotionalHotels">
                     <li class="nemo-hotels-results__content__sidebar__offer
                                nemo-ui-subContainer
                                nemo-hotels-results__hotelsGroup">
@@ -860,26 +861,13 @@
                             <div class="nemo-hotels-results__hotelsGroup__header__title
                                         nemo-hotels-results__content__sidebar__offer__title">
                                 <a class="nemo-hotels-results__hotelsGroup__header__title__text
-                                          nemo-hotels-results__content__sidebar__offer__title__text" href="#">
+                                          nemo-hotels-results__content__sidebar__offer__title__text" href="#"
+                                   data-bind="text: name, click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
                                     Best Western Braid Hills Hotel
                                 </a>
                                 <div class="nemo-hotels-results__hotelsGroup__stars
-                                            nemo-hotels-results__content__sidebar__offer__stars">
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item
-                                                nemo-hotels-results__content__sidebar__offer__starItem">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
-                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item
-                                                nemo-hotels-results__content__sidebar__offer__starItem">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
-                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
-                                    </div>
-                                    <div class="nemo-hotels-results__hotelsGroup__stars__item
-                                                nemo-hotels-results__content__sidebar__offer__starItem">
-                                        <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
-                                                    nemo-hotels-results__content__sidebar__offer__starItem__inner"></div>
-                                    </div>
+                                            nemo-hotels-results__content__sidebar__offer__stars"
+                                     data-bind="foreach: staticDataInfo.starRating">
                                     <div class="nemo-hotels-results__hotelsGroup__stars__item
                                                 nemo-hotels-results__content__sidebar__offer__starItem">
                                         <div class="nemo-hotels-results__hotelsGroup__stars__item__inner
@@ -889,7 +877,7 @@
                             </div>
                             <div class="nemo-hotels-results__hotelsGroup__header__additional
                                         nemo-hotels-results__content__sidebar__offer__additional"
-                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-centre')"></div>
+                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__city-hotel')"></div>
                         </div>
 
                         <div class="nemo-ui-subContainer
@@ -898,19 +886,23 @@
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap
                                             nemo-hotels-results__content__sidebar__offer__photoWrap"
-                                    data-bind="style: { 'background-image': 'url(/img/hotel_thumb.png)'}"></div>
+                                     data-bind="style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
+                                </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating
                                             nemo-hotels-results__content__sidebar__offer__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number
-                                                 nemo-hotels-results__content__sidebar__offer__rating__number">
+                                                 nemo-hotels-results__content__sidebar__offer__rating__number"
+                                          data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0">
                                         9.3
                                     </span>
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text">
+                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text"
+                                          data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')">
                                         Отлично
                                     </span>
-                                    <a href="#" class="nemo-ui-pseudoLink
+                                    <a class="nemo-ui-pseudoLink
                                                        nemo-hotels-results__hotelsGroup__mainInfo__rating__link
-                                                       nemo-hotels-results__content__sidebar__offer__rating__link">
+                                                       nemo-hotels-results__content__sidebar__offer__rating__link"
+                                       data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title'), click: function(hotel){ $parent.showCardHotel(hotel, $root)">
                                         12 отзывов
                                     </a>
                                 </div>
@@ -923,22 +915,28 @@
                                                         nemo-hotels-results__content__sidebar__offer__distances">
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
                                                              nemo-hotels-results__content__sidebar__offer__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
+                                                          data-bind="text: $parent.getDistances($data)[0]">
                                                         2 км
                                                     </span>
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
-                                                         от центра
-                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma">
+                                                        <span data-bind="text: $parent.getDistances($data)[0] ? $root.i18n('HotelsSearchResults', 'from__center') : ''">
+                                                            от центра
+                                                        </span>
+                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma"
+                                                              data-bind="visible: $parent.getDistances($data)[0] && $parent.getDistances($data)[1]">
                                                             ,
                                                         </span>
                                                     </span>
                                                 </span>
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
                                                              nemo-hotels-results__content__sidebar__offer__distance">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
+                                                          data-bind="text: $parent.getDistances($data)[1]">
                                                         150 км
                                                     </span>
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
+                                                          data-bind="text: $parent.getDistances($data)[1] ? $root.i18n('HotelsSearchResults', 'from__airport') : ''">
                                                          от аэропорта
                                                     </span>
                                                 </span>
@@ -946,91 +944,107 @@
                                                 <a href="#" class="nemo-ui-pseudoLink
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink
                                                                    nemo-hotels-results__content__sidebar__offer__mapLink"
-                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')"></a>
+                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description
                                                 nemo-hotels-results__content__sidebar__offer__description">
-                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
+                                        <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text"
+                                           data-bind="html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender">
                                             Современный дизайн-отель 11 Mirrors находится в центре Киева,
                                             в 500 метрах от станций метро "Театральная" и "Золотые ворота".
                                             К услугам гостей бесплатный Wi-Fi и ресторан европейс…
                                         </p>
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link
-                                                           nemo-hotels-results__content__sidebar__offer__description__link"></a>
+                                                           nemo-hotels-results__content__sidebar__offer__description__link"
+                                           data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                     </div>
                                 </div>
                             </div>
                             <ul class="nemo-hotels-results__content__sidebar__offer__services
                                        hotels-services">
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service" data-bind="css: 'hotels-services__service_active'">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Pool') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_pool"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Parking') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_parking"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Gym') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_sport"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ConferenceFacilities') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_electricity"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('WiFi') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_wifi"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Laundry') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_laundry"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Transfer') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_transport"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ExpressCheckIn') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_roundTheClock"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('ClimateControl') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_fridge"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('BusinessCenter') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_luggage"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('SPA') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_spa"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Bar') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_bar"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Restaurant') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_resturant"></span>
                                 </li>
                                 <li class="nemo-hotels-results__content__sidebar__offer__services__service
-                                           hotels-services__service">
+                                           hotels-services__service hotels-services__service_active"
+                                    data-bind="visible: staticDataInfo.popularFeatures && staticDataInfo.popularFeatures.indexOf('Meal') > -1">
                                     <span class="hotels-services__service__icon
                                                  hotels-services__service__icon_infinity"></span>
                                 </li>
@@ -1040,15 +1054,20 @@
                                 <div class="nemo-ui-button
                                             nemo-ui-button_main
                                             nemo-hotels-results__hotelsGroup__footer__orderBtn
-                                            nemo-hotels-results__content__sidebar__offer__footer__orderBtn">
+                                            nemo-hotels-results__content__sidebar__offer__footer__orderBtn"
+                                     data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                                         <span class="nemo-hotels-results__hotelsGroup__footer__price">
-                                            48 000
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency">
+                                            <span data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0)">
+                                                48 000
+                                            </span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency"
+                                                  data-bind="text: rooms[0][0].rate.price.currency">
                                                 R
                                             </span>
                                         </span>
-                                        <span class="nemo-hotels-results__hotelsGroup__footer__period">
+                                        <span class="nemo-hotels-results__hotelsGroup__footer__period"
+                                              data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()">
                                             за 6 ночей
                                         </span>
                                     </div>
@@ -1418,7 +1437,7 @@
                             </div>
                             <div class="nemo-hotel__content__rooms__slider">
                                 <div class="nemo-hotel__content__rooms__slider__dummy"
-                                     data-bind="style: { 'background-image': 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' + ', url(/img/no%20hotel.svg)'}">
+                                     data-bind="style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)'}">
                                 </div>
                                 <div class="nemo-hotel__content__rooms__rating">
                                     <span class="nemo-hotel__content__rooms__rating__num">
