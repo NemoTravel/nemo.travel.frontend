@@ -573,7 +573,8 @@
                         nemo-hotels-results__groupList_tile"
                  data-bind="foreach: slicedFilteredHotels()">
 
-                <div class="nemo-hotels-results__groupList__item">
+                <div class="nemo-hotels-results__groupList__item"
+                    data-bind="css: {'has-flag': $data == $parent.cheapestHotel }">
                     <div class="nemo-ui-subContainer
                                 nemo-hotels-results__hotelsGroup">
                         <div class="nemo-ui-subContainer__header
@@ -589,7 +590,7 @@
                                 </div>
                             </div>
                             <div class="nemo-hotels-results__hotelsGroup__header__additional"
-                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $index() < 1"></div>
+                                 data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data == $parent.cheapestHotel"></div>
                         </div>
 
                         <div class="nemo-ui-subContainer

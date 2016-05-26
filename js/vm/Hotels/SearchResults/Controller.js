@@ -532,6 +532,8 @@ define(
 
             console.dir(hotelsArr);
 
+            this.cheapestHotel = null;
+
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
 
@@ -542,6 +544,7 @@ define(
 
                 if (this.minHotelPrice > price){
                     this.minHotelPrice = price;
+                    this.cheapestHotel = hotelsArr[hIndex];
                 }
 
                 if (this.maxHotelPrice < price){
