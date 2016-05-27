@@ -1129,7 +1129,8 @@
 
                     <div class="nemo-ui-subContainer
                         nemo-hotel__additional__booking
-                        nemo-hotel__additional__block">
+                        nemo-hotel__additional__block
+                        set-addititional-booking-hidden">
                         <h4 class="nemo-hotel__additional__block__title">
                             Удобное бронирование
                         </h4>
@@ -1158,7 +1159,8 @@
                     </div>
 
                     <div class="nemo-hotel__additional__block
-                        nemo-hotel__additional__viewed">
+                        nemo-hotel__additional__viewed
+                        set-addititional-viewed-hidden">
                         <h4 class="nemo-hotel__additional__block__title
                            nemo-hotel__additional__viewed__title">
                             Также вы смотрели
@@ -1458,7 +1460,7 @@
                             <span class="nemo-hotel__content__rooms__subtitle">
                                 Выберите подходящие вам типы номеров
                             </span>
-                            <div class="nemo-hotel__content__rooms__summary">
+                            <div class="nemo-hotel__content__rooms__summary set-hotel-rooms-summary-hidden">
                                 <span class="nemo-hotel__content__rooms__summary__title">
                                     Наличие <br>в этом отеле
                                 </span>
@@ -1508,7 +1510,7 @@
                                 </span>-->
                                     </div>
                                     <div class="nemo-hotelRoom">
-                                        <div class="nemo-hotelRoom__info">
+                                        <div class="nemo-hotelRoom__info set-room-info-hidden">
                                     <span class="nemo-hotelRoom__info__title">
                                         Классический стандартный двухместный номер
                                     </span>
@@ -1699,7 +1701,7 @@
 
                         <!--ko if: $parent.currentActiveTab() == 'About' -->
                         <div class="nemo-hotel__content__about">
-                            <div class="nemo-hotel__content__about__testimonials">
+                            <div class="nemo-hotel__content__about__testimonials set-hotel-about-testomonials-hidden">
                                 <h3 class="nemo-hotel__content__about__title">
                                     Проверенные Отзывы
                                 </h3>
@@ -1725,14 +1727,11 @@
                                 <h3 class="nemo-hotel__content__about__title">
                                     Описание
                                 </h3>
-                                <p>
+                                <p data-bind="html: staticDataInfo.description">
                                     Бутик-отель "Опера" удобно расположен в самом сердце Киева на пересечении деловой, культурной и исторической частей города, неподалеку от таких достопримечательностей как Оперный театр, Софиевский и Владимирский соборы. От отеля рукой подать до основных деловых районов и посольств.
                                 </p>
-                                <p>
-                                    На Ваш выбор 140 различных номеров, которые стильно и уютно меблированы. Гостиница "Опера" удивит Вас изумительной роскошью и теплым комфортом. Тематические номера-люкс были оформлены в стиле самых известных оперных произведений мира: Русском, Итальянском, Французском, Египетском, Американском, Марокканском и Японском. Каждый из них представляет богатую культуру этих стран. Современные бизнес - путешественники, по достоинству оценят все предоставленные в отеле удобства, а именно большие столы с портативным телефоном, многоконтактные AV разъемы и 32-дюймовые плазменные телевизоры.
-                                </p>
                             </div>
-                            <div class="nemo-hotel__content__about__location">
+                            <div class="nemo-hotel__content__about__location set-hotel-about-location-hidden">
                                 <h3 class="nemo-hotel__content__about__title">
                                     Расположение
                                 </h3>
@@ -1888,7 +1887,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="nemo-hotel__content__about__contacts">
+                            <div class="nemo-hotel__content__about__contacts set-hotel-about-contacts-hidden">
                                 <h3 class="nemo-hotel__content__about__title">
                                     Контактная информация
                                 </h3>
