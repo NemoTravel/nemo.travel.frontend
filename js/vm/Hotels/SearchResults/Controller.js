@@ -50,8 +50,6 @@ define(
 
                 var mapId = hotel ? 'cardHotelMap' : 'map';
 
-                console.log('hotel ' + (hotel == true))
-
                 // Init map and show center
                 this.map = new google.maps.Map(
                     document.getElementById(mapId),
@@ -213,9 +211,14 @@ define(
                 this.$$controller.hotelsSearchController = this;
 
                 hotel.staticDataInfo.currentCity = this.currentCity();
+
+                this.selectedRooms = new SelectRoomsViewModel(ko, hotel);
+
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
                 this.initMap(hotel);
+
+                $(window).scrollTop(0);
             }).bind(this);
 
             this.addCustomBindings(ko);
@@ -531,6 +534,8 @@ define(
 
             console.dir(hotelsArr);
 
+            this.cheapestHotel = null;
+
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
 
@@ -541,11 +546,19 @@ define(
 
                 if (this.minHotelPrice > price){
                     this.minHotelPrice = price;
+                    this.cheapestHotel = hotelsArr[hIndex];
                 }
 
                 if (this.maxHotelPrice < price){
                     this.maxHotelPrice = price;
                 }
+            }
+
+            this.promotionalHotels = ko.observableArray([]);
+            var promotionalHotels = this.$$rawdata.hotels.search.resultData.promotionalHotels;
+            if (promotionalHotels){
+                var existingHotels = $.grep(hotelsArr, function(item){return promotionalHotels.indexOf(item.id) > -1;});
+                this.promotionalHotels(existingHotels.slice(0, 2));
             }
 
             this.currentCity(this.$$rawdata.hotels.staticDataInfo.cities[0].name);
@@ -606,8 +619,10 @@ define(
             });
 
             this.inCircleFilteredHotels.subscribe(function(newVal){
-                self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
-                self.addMarkersOnMap(newVal);
+                if (self.circle) {
+                    self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
+                    self.addMarkersOnMap(newVal);
+                }
             });
 
             this.countsOfHotels = ko.computed(function(){
@@ -823,20 +838,12 @@ define(
                     return '';
 
                 var getLiHtml = function(popularFeautures, feature, iconClass){
-                    if (popularFeatures.indexOf('Pool') > -1) {
+                    if (popularFeatures.indexOf(feature) > -1) {
                         return '<li class="service"><span class="icon ' + iconClass + '"></span></li>';
                     }
                     else{
                         return '';
                     }
-                }
-
-                var result = '';
-                var template = '<li class="service active"><span class="icon icon_template"></span></li>';
-
-
-                if (popularFeatures.indexOf('Pool') > -1){
-                    result += '<li class="service active"><span class="icon icon_pool"></span></li>';
                 }
 
                 return  getLiHtml(popularFeatures, 'Pool', 'icon_pool') +
@@ -1056,5 +1063,70 @@ var SliderViewModel = function(ko, type, min, max){
         self.rangeMax(self.max);
         self.displayRangeMin(self.min);
         self.displayRangeMax(self.max);
+    }
+}
+
+var SelectRoomsViewModel = function(ko, hotel){
+    var self = this;
+
+    self.hotel = hotel;
+
+    self.selectedRooms = ko.observableArray([]);
+
+    self.isRoomSelected = function(room){
+        return $.grep(self.selectedRooms(), function(item){
+           return item == room;
+        }).length === 1;
+    };
+
+    self.isAllRoomsSelected = ko.computed(function(){
+        return self.selectedRooms().length === self.hotel.rooms.length;
+    });
+
+    self.allRoomPrice = ko.computed(function(){
+        if (!self.isAllRoomsSelected()) {
+            return 0;
+        }
+
+        var selectedRooms = self.selectedRooms();
+        var result = 0;
+        for (var i = 0; i < selectedRooms.length; i++){
+            result += selectedRooms[i].rate.price.amount;
+        }
+
+        return result;
+    });
+
+    self.selectRoom = function(room){
+        var selectedRoomsIndex = self.getRoomsIndex(room);
+
+        var selectedRooms = self.selectedRooms();
+
+        var x = $.grep(selectedRooms, function(item){
+            return self.getRoomsIndex(item) == selectedRoomsIndex;
+        })
+
+        if (x.length > 0){
+            var selectedRoom = x[0];
+            self.selectedRooms.remove(selectedRoom);
+            if (room != selectedRoom) {
+                self.selectedRooms.push(room);
+            }
+        }
+        else{
+            self.selectedRooms.push(room);
+        }
+    }
+
+    self.getRoomsIndex = function(room){
+        for (var i = 0; i < self.hotel.rooms.length; i++){
+            for (var j = 0; j < self.hotel.rooms[i].length; j++){
+                if (self.hotel.rooms[i][j] == room){
+                    return i;
+                }
+            }
+        }
+
+        return null;
     }
 }
