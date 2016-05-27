@@ -217,6 +217,8 @@ define(
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
                 this.initMap(hotel);
+
+                $(window).scrollTop(0);
             }).bind(this);
 
             this.addCustomBindings(ko);
