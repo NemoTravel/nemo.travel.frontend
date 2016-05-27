@@ -619,8 +619,10 @@ define(
             });
 
             this.inCircleFilteredHotels.subscribe(function(newVal){
-                self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
-                self.addMarkersOnMap(newVal);
+                if (self.circle) {
+                    self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
+                    self.addMarkersOnMap(newVal);
+                }
             });
 
             this.countsOfHotels = ko.computed(function(){
