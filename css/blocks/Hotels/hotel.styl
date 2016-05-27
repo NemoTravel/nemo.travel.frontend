@@ -200,7 +200,7 @@
     }
 
     &__content {
-        margin: 15px 10px 0 !important;
+        margin: 15px 10px 0;
         flex: 0 1 82%;
 
         &__tabs {
@@ -232,7 +232,8 @@
         }
 
         &__rooms {
-            &__mobileHeader {
+            &__mobileHeader,
+            &__mobileDistances {
                 display: none;
             }
             &__slider {
@@ -692,7 +693,8 @@
 
         &__gallery {
             margin-top: 15px;
-            width: 430px;
+            width: 100%;
+            max-width: 430px;
             height: 255px;
         }
 
