@@ -838,20 +838,12 @@ define(
                     return '';
 
                 var getLiHtml = function(popularFeautures, feature, iconClass){
-                    if (popularFeatures.indexOf('Pool') > -1) {
+                    if (popularFeatures.indexOf(feature) > -1) {
                         return '<li class="service"><span class="icon ' + iconClass + '"></span></li>';
                     }
                     else{
                         return '';
                     }
-                }
-
-                var result = '';
-                var template = '<li class="service active"><span class="icon icon_template"></span></li>';
-
-
-                if (popularFeatures.indexOf('Pool') > -1){
-                    result += '<li class="service active"><span class="icon icon_pool"></span></li>';
                 }
 
                 return  getLiHtml(popularFeatures, 'Pool', 'icon_pool') +
