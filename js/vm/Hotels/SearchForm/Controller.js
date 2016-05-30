@@ -287,11 +287,11 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			   if (additional){
 				   this.showPreviousSearches = !!additional.showPreviousSearches;
 			   }
+
 			   console.log('this.$$componentParameters.formData');
 			   console.log(this.$$componentParameters.formData);
 			   if (this.$$componentParameters.formData) {
-				   console.log(this.$$componentParameters.formData);
-				   this.useCookies = false;
+				   //this.useCookies = false;
 				   //this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
 			   }
 

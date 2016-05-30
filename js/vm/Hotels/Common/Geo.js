@@ -8,10 +8,6 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, hel
 		       // Processing guide
 		       this.processGuide(initialData.guide);
 
-			   console.log(this.pool.cities)
-			   console.log(this.id)
-			   console.log(this)
-			   console.log(this.pool.cities[this.id])
 		       var countryCode = this.country_code;
 		       if (countryCode == undefined && this.pool.cities[this.id].countryCode != undefined) {
 			       countryCode = this.pool.cities[this.id].countryCode;
