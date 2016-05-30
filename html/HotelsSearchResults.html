@@ -11,6 +11,7 @@
 <!-- ko if: !$$loading() -->
 <div class="nemo-hotels-results__wrapper"  data-bind="setBodyClass: 'nemo-common-contentPageBody'">
 
+    <!--ko if: resultsLoaded()-->
     <section class="nemo-flights-results__form js-flights-results__form" data-bind="
 						component: {
 				            name: 'Hotels/SearchForm/Controller',
@@ -25,6 +26,7 @@
 						visible: searchFormActive,
 						hotelsResultsSearchFormHider: searchFormActive
 						"></section>
+    <!-- /ko -->
 
 
     <section class="nemo-hotels-results__summary">

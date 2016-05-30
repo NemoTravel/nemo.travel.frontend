@@ -283,12 +283,19 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			       this.mode = 'preinitted';
 		       }
 
-			   console.log(this.$$componentParameters)
 			   var additional = this.$$componentParameters.additional;
 			   if (additional){
 				   this.showPreviousSearches = !!additional.showPreviousSearches;
 			   }
-	       };
+			   console.log('this.$$componentParameters.formData');
+			   console.log(this.$$componentParameters.formData);
+			   if (this.$$componentParameters.formData) {
+				   console.log(this.$$componentParameters.formData);
+				   this.useCookies = false;
+				   //this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
+			   }
+
+		   };
 	       HotelsSearchFormController.prototype.recalcDateRestrictions = function () {
 		       var segments = this.segments(),
 		           prevdate,
@@ -432,6 +439,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       }
 	       };
 	       HotelsSearchFormController.prototype.buildModels = function () {
+
+
+
 		       var today = new Date();
 
 		       // Checking for errors
