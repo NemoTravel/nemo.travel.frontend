@@ -296,29 +296,30 @@ define(
 
                 params.rooms = roomsArr;
 
-                ret.request = JSON.stringify({
-                    "cityId": 1934864,
-                    "checkInDate": "2016-10-28T00:00:00",
-                    "checkOutDate": "2016-10-30T00:00:00",
-                    "isDelayed": false,
-                    "rooms": [
-                        {
-                            "ADT": 1,
-                            "CLD": 1,
-                            "childAges": [
-                                10
-                            ]
-                        }
-                    ]
-                });
+                //ret.request = JSON.stringify({
+                //    "cityId": 1934864,
+                //    "checkInDate": "2016-10-28T00:00:00",
+                //    "checkOutDate": "2016-10-30T00:00:00",
+                //    "isDelayed": false,
+                //    "rooms": [
+                //        {
+                //           "ADT": 1,
+                //            "CLD": 1,
+                //            "childAges": [
+                //               10
+                //            ]
+                //        }
+                //    ]
+                //});
 
-                // ret.request = JSON.stringify({
-                //     "cityId": params.cityId,
-                //     "checkInDate": params.checkInDate,
-                //     "checkOutDate": params.checkOutDate,
-                //     "isDelayed": false,
-                //     "rooms": params.rooms
-                // });
+                ret.request = JSON.stringify({
+                     //"cityId": params.cityId,
+                     "cityId": 1934864, //TODO hardcode
+                     "checkInDate": params.checkInDate,
+                     "checkOutDate": params.checkOutDate,
+                     "isDelayed": false,
+                     "rooms": params.rooms
+                });
             }
 
             return ret;
@@ -675,11 +676,24 @@ define(
                 // this.processSearchInfo();
             }
 
+            var searchInfo = Cookie.getJSON('nemo-HotelsSearchForm');
+            var guide = this.$$rawdata.guide;
+
+            //TODO hardcode
+            searchInfo.segments[0][1] = this.hotels()[0].staticDataInfo.cityId;
+            guide.cities[searchInfo.segments[0][1]].name = 'Санкт-Петербург';
+            guide.cities[searchInfo.segments[0][1]].countryCode = 'RU';
+            guide.countries = {'RU': {
+                code: "RU",
+                name: "Россия",
+                nameEn: "Russia"
+            }};
+            //TODO hardcode
+
+            this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, guide);
+
             this.resultsLoaded(true);
         };
-
-        //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
-        // HotelsSearchResultsController.prototype.$$KOBindings = ['HotelsSearchForm', 'HotelsSearchResults'];
 
         HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
 
@@ -1129,4 +1143,52 @@ var SelectRoomsViewModel = function(ko, hotel){
 
         return null;
     }
+}
+
+var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
+
+    var self = this;
+
+    var segment = searchInfo.segments[0];
+
+    self.city = controller.getModel('Hotels/Common/Geo', {
+        data: {
+            t: segment[0],
+            id: segment[1]
+        },
+        guide: guide
+    });
+
+    self.arrivalDate = controller.getModel('Common/Date', segment[2]);
+    self.departureDate = controller.getModel('Common/Date', segment[3]);
+
+    self.getGuestsSummary = function(rooms){
+        var adults = 0;
+        var infants = 0;
+
+        for (var i = 0; i< rooms.length; i++){
+            var acount = rooms[i].adults ? rooms[i].adults : 0;
+            var icount = rooms[i].infants ? rooms[i].infants.length : 0;
+            adults += acount;
+            infants += icount;
+        }
+
+        var result = [];
+
+        if (adults > 0){
+            var adultStrKey = adults == 1 ? 'passSummary_numeral_ADT_one' : 'passSummary_numeral_ADT_twoToFour';
+            var adultStr = adults + ' ' + controller.i18n('HotelsSearchForm', adultStrKey);
+            result.push(adultStr);
+        }
+
+        if (infants > 0){
+            var infantStrKey = infants == 1 ? 'passSummary_numeral_CLD_one' : 'passSummary_numeral_CLD_twoToFour';
+            var infantStr = infants + ' ' + controller.i18n('HotelsSearchForm', infantStrKey);
+            result.push(infantStr);
+        }
+
+        return result.join(', ');
+    }
+
+    self.guestsSummary = self.getGuestsSummary(searchInfo.rooms);
 }

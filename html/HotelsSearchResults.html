@@ -479,22 +479,27 @@
             <div class="nemo-hotels-results__summary__area">
                 <div class="nemo-hotels-results__summary__area__segment">
                     <div class="nemo-hotels-results__summary__area__segment__geo">
-                        <span class="nemo-hotels-results__summary__route__segment__geo__main">
+                        <span class="nemo-hotels-results__summary__route__segment__geo__main"
+                            data-bind="text: breadcrumbs.city.name">
                             Будапешт
                         </span>
-                        <span class="nemo-hotels-results__summary__route__segment__geo__aux">
+                        <span class="nemo-hotels-results__summary__route__segment__geo__aux"
+                              data-bind="text: ', ' + breadcrumbs.city.country">
                             , Венгрия
                         </span>
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
-                                nemo-hotels-results__summary__area__segment__date__from">
+                                nemo-hotels-results__summary__area__segment__date__from"
+                        data-bind="text: breadcrumbs.arrivalDate.getDate() + ' ' + breadcrumbs.arrivalDate.getMonthName() + ', ' + breadcrumbs.arrivalDate.getDOWName()">
                         30 апреля, суббота
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
-                                nemo-hotels-results__summary__area__segment__date__to">
+                                nemo-hotels-results__summary__area__segment__date__to"
+                         data-bind="text: breadcrumbs.departureDate.getDate() + ' ' + breadcrumbs.departureDate.getMonthName() + ', ' + breadcrumbs.departureDate.getDOWName()">
                         30 апреля, суббота
                     </div>
-                    <div class="nemo-hotels-results__summary__area__segment__guests">
+                    <div class="nemo-hotels-results__summary__area__segment__guests"
+                         data-bind="text: breadcrumbs.guestsSummary">
                         2 взрослых, 2 ребенка
                     </div>
                 </div>
