@@ -487,16 +487,22 @@
                               data-bind="text: ', ' + breadcrumbs.city.country">
                             , Венгрия
                         </span>
+                        <!-- One line to prevent space adding -->
+                        <span class="nemo-hotels-results__summary__route__segment__geo__main">Будапешт</span><span class="nemo-hotels-results__summary__route__segment__geo__aux">, Венгрия</span>
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
                                 nemo-hotels-results__summary__area__segment__date__from"
                         data-bind="text: breadcrumbs.arrivalDate.getDate() + ' ' + breadcrumbs.arrivalDate.getMonthName() + ', ' + breadcrumbs.arrivalDate.getDOWName()">
                         30 апреля, суббота
+                                nemo-hotels-results__summary__area__segment__date__from">
+                        Прибытие 30 апреля, сб.
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
                                 nemo-hotels-results__summary__area__segment__date__to"
                          data-bind="text: breadcrumbs.departureDate.getDate() + ' ' + breadcrumbs.departureDate.getMonthName() + ', ' + breadcrumbs.departureDate.getDOWName()">
                         30 апреля, суббота
+                                nemo-hotels-results__summary__area__segment__date__to">
+                        Выезд 30 апреля, сб.
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__guests"
                          data-bind="text: breadcrumbs.guestsSummary">
@@ -618,7 +624,7 @@
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
                                         <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap">
-                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address" data-bind="text: $parent.currentCity() + staticDataInfo.addresses[0]">
+                                            <div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address" data-bind="text: $parent.currentCity() + ', ' + staticDataInfo.addresses[0]">
                                                 yл. Аллы Тарасовой 5, Киев, Украина, 01001
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
@@ -824,7 +830,7 @@
 
             <div class="nemo-hotels-results__showMoreWrap">
                 <div class="nemo-ul-showMoreBtn"
-                     data-bind="click: showNext25hotels, text: 'Показать еще ' + remainderHotels(), visible: !hideShowMoreButton()"></div>
+                     data-bind="click: showNext25hotels, text: 'Показать еще', visible: !hideShowMoreButton()"></div>
             </div>
             <!--/ko -->
 
@@ -1506,7 +1512,7 @@
                             </span>
                             <div class="nemo-hotel__content__rooms__summary set-hotel-rooms-summary-hidden">
                                 <span class="nemo-hotel__content__rooms__summary__title">
-                                    Наличие <br>в этом отеле
+                                    Наличие
                                 </span>
                                 <div class="nemo-hotel__content__rooms__summary__inner">
                                     <div class="nemo-hotel__content__rooms__summary__info">
@@ -2286,8 +2292,9 @@
     <script id="nemo-koTemplate-HotelsResults-Filters" type="text/html">
         <div class="nemo-common-postFilters__inner">
 
-                <div class="nemo-common-postFilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
-                    Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
+                <div class="nemo-common-postFilters__notification
+                            nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
+                    Найти нужный билет — быстро и просто. Пользуйтесь фильтрами!
                     <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.isFilterNotificationVisible(false)}"></div>
                 </div>
 

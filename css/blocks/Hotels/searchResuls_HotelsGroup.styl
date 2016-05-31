@@ -3,9 +3,7 @@
         padding: 0;
 
         &__header {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
+            display: block;
             padding: 0;
             margin: 0;
             position: relative;
@@ -13,18 +11,16 @@
             height: 50px;
 
             &__title {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-left: 20px;
-                padding-right: 175px;
-                flex: 1 1 100%;
+                display: block;
+                padding: 15px 175px 15px 20px;
+                width: 100%;
 
                 &__text {
-                    display: inline-block;
+                    display: block;
+                    float: left;
                     border-bottom: 1px dashed $nemo-color-LightPoint;
                     color: $nemo-color-LightPoint;
-                    line-height: initial;
+                    line-height: 20px;
                     text-decoration: none;
                     max-width: 310px;
                     overflow: hidden;
@@ -61,20 +57,42 @@
                     border-right: 10px solid $c_highlight_warning;
                     border-bottom: 25px solid transparent;
                 }
+                /* FOR IE */
+                &:after {
+                    position: absolute;
+                    top: 1px;
+                    right: 100%;
+                    margin-right: -2px;
+                    content: '';
+                    display: block
+                    background: $c_highlight_warning;
+                    width 3px;
+                    height: 46px;
+                    z-index: 1;
+                }
             }
         }
         &__stars {
             margin-left: 60px;
-            line-height: initial;
+            line-height: 1.5em;
             cursor: default;
             white-space: nowrap;
+            float: right;
+
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 1px;
+                height: 100%;
+                vertical-align: middle;
+            }
 
             &__item {
                 display: inline-block;
-                vertical-align: top;
+                vertical-align: middle;
                 width: 17px;
-                height: 19px;
-                background: url("/css/images/hotels_results_sprite.svg") -2px -24px no-repeat;
+                height: 20px;
+                background: url("/css/images/hotels_results_sprite.svg") -2px -26px no-repeat;
                 margin-left: 2px;
 
                 &:first-child {

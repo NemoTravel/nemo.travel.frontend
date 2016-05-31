@@ -2,11 +2,11 @@
     display: flex;
 
     &__additional {
-        margin: 15px 10px 0;
+        margin: 15px 10px 0 20px;
         flex: 0 0 400px;
 
         &__block {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
 
             &__title {
                 font-size: 15px;
@@ -142,7 +142,7 @@
                 &__title {
                     width: 100%;
                     padding: 0 20px;
-                    justify-content: space-between;
+                    padding-top: 14px;
                 }
 
                 &__stars {
@@ -151,6 +151,7 @@
 
                 &__addressWrap {
                     padding-top: 0;
+                    margin-top: -20px;
                 }
 
                 &__distances {
@@ -176,6 +177,10 @@
                     border-top: 1px solid $nemo-color-neutral;
                     border-bottom: 1px solid $nemo-color-neutral;
                     margin: 10px 0 0;
+
+                    li {
+                        margin-right: 4px;
+                    }
                 }
 
                 &__footer {
@@ -200,7 +205,7 @@
     }
 
     &__content {
-        margin: 15px 10px 0;
+        margin: 15px 20px 0 10px;
         flex: 0 1 82%;
 
         &__tabs {
@@ -301,7 +306,7 @@
                     width: 90px;
                     display: block;
                     flex-shrink: 0;
-                    line-height: 20px;
+                    line-height: 40px;
                 }
 
                 &__inner {
@@ -710,7 +715,8 @@
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
-                columns: 3 80px;
+                column-count: 3;
+                -moz-column-count: 3;
                 column-gap: 2em;
             }
 

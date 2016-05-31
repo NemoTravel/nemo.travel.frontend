@@ -8,7 +8,7 @@
 	&__summary {
 		max-width: 1220px;
 		margin: 0 auto;
-		padding: 10px 10px 0;
+		padding: 0 10px;
 		white-space: nowrap;
 		display: flex;
 		flex-flow: row nowrap;
@@ -18,10 +18,9 @@
 
 		&__inner {
 			color: $c_common_textColor;
-
 			background: $nemo-color-LightPoint;
 			border-radius: 4px;
-
+			margin-top: 10px;
 			display: flex;
 			flex-flow: row nowrap;
 			justify-content: space-between;
@@ -144,7 +143,7 @@
 		&__postfilters,
 		&__sidebar,
 		&__results {
-			margin: 15px 10px 0;
+			margin: 20px 10px 0;
 			flex-grow: 0;
 			align-self: stretch;
 		}
@@ -152,6 +151,8 @@
 		&__postfilters {
 			position: relative;
 			transition: all .2s;
+			margin-top: 0;
+			margin-left: 20px;
 		}
 
 		&__results {
@@ -373,6 +374,8 @@
 		}
 
 		&__sidebar {
+			margin-right: 20px;
+
 			&__loadingDummy {
 
 				&__textItem {
@@ -408,7 +411,7 @@
 
 					&__rating,
 					&__distances {
-						margin-top: -30px !important;
+						margin-top: -20px !important;
 						opacity: .5 !important;
 						padding: 5px !important;
 						background: darken($nemo-color-neutral, 10) !important;
@@ -443,6 +446,7 @@
 
 					&__addressWrap {
 						padding-top: 0;
+						margin-top: -30px;
 					}
 
 					&__distance1,

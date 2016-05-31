@@ -3,6 +3,7 @@
         padding-top: 0 !important;
 
         &__loadingDummy {
+            margin-top: 20px;
 
             &:before {
                 background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
@@ -11,6 +12,10 @@
                 height: 50px;
             }
 
+        }
+
+        &__notification {
+            padding-right: 40px;
         }
 
         &__order {
@@ -55,6 +60,18 @@
                     min-width: 15px;
                 }
             }
+        }
+
+        .nemo-common-scrollable__content {
+            padding-right: 0;
+        }
+
+        .nemo-common-sticker__inner {
+            overflow: visible;
+        }
+
+        .nemo-common-scrollable__scroller {
+            right: -14px;
         }
     }
 }

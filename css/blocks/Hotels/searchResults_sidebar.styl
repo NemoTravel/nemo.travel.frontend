@@ -37,20 +37,19 @@
                 display: block;
                 position: absolute;
                 width: 90%;
-                height: 5px;
+                height: 10px;
                 right: 0;
                 top: 0;
-                z-index: 1;
+                z-index: 2;
                 background: $nemo-color-main;
             }
         }
 
         &__title {
-            padding-left: 10px;
-            padding-right: 10px;
+            padding: 15px 10px;
 
             &__text {
-                width: 150px;
+                max-width: 155px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -59,10 +58,12 @@
 
         &__additional {
             position: absolute;
-            bottom: 95%;
+            bottom: 100%;
+            margin-bottom: -10px;
             right: 0;
             width: auto;
             top: auto;
+            line-height: 40px;
         }
 
         &__content {
@@ -71,7 +72,7 @@
 
         &__rating,
         &__distances {
-            margin-top: -10px;
+            margin-top: -20px;
             height: 60px;
             background: $c_ui_button_common;
             position: relative;
@@ -108,18 +109,23 @@
 
         &__addressWrap {
             padding-left: 10px;
+            padding-top: 0;
+            margin-top: -20px;
         }
 
         &__stars {
             width: 90px;
             white-space: nowrap;
-            margin-left: 50px;
+            margin-left: 20px;
+            text-align: right;
+            position: relative;
+
         }
 
         &__starItem {
-            background-position: -4px -138px;
+            background-position: -4px -140px;
             width: 13px;
-            height: 15px;
+            height: 18px;
             margin-left: 0;
 
             &__inner {
