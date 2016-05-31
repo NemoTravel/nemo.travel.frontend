@@ -2279,7 +2279,8 @@
     <script id="nemo-koTemplate-HotelsResults-Filters" type="text/html">
         <div class="nemo-common-postFilters__inner">
 
-                <div class="nemo-common-postFilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
+                <div class="nemo-common-postFilters__notification
+                            nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
                     Найти нужный билет — быстро и просто. Пользуйтесь постфильтрами!
                     <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.isFilterNotificationVisible(false)}"></div>
                 </div>
