@@ -42,33 +42,45 @@ define(
             this.changeViewButtonLabel = ko.observable('Показать на карте');
             this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
 
-            // this.map = function (block, position) {
-            //     new google.maps.Map(block, position);
-            // };
-            this.initMap = function (hotel) {
-                var marker;
+            this.initHotelCardMap = function(hotel, mapId){
 
-                var mapId = hotel ? 'cardHotelMap' : 'map';
+                var map = new google.maps.Map(
+                    document.getElementById(mapId),
+                    {
+                        center: {lat: hotel.staticDataInfo.posLatitude, lng: hotel.staticDataInfo.posLongitude},
+                        zoom: 12
+                    }
+                );
+
+                if (hotel.staticDataInfo.posLatitude && hotel.staticDataInfo.posLongitude){
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(hotel.staticDataInfo.posLatitude, hotel.staticDataInfo.posLongitude),
+                        map: map,
+                        icon: '/img/marker.svg'
+                    });
+                }
+            }
+
+            this.initMap = function () {
+                var marker;
 
                 // Init map and show center
                 this.map = new google.maps.Map(
-                    document.getElementById(mapId),
+                    document.getElementById('map'),
                     {
                         center: {lat: 0, lng: 0},
                         zoom: 10
                     }
                 );
 
-                if (!hotel) {
-                    // Add circle overlay and bind to center
-                    this.circle = new google.maps.Circle({
-                        map: this.map,
-                        fillOpacity: 0,
-                        strokeColor: '#0D426D',
-                        radius: 3000,    // 3 metres
-                        strokeWeight: 1
-                    });
-                }
+                // Add circle overlay and bind to center
+                this.circle = new google.maps.Circle({
+                    map: this.map,
+                    fillOpacity: 0,
+                    strokeColor: '#0D426D',
+                    radius: 3000,    // 3 metres
+                    strokeWeight: 1
+                });
 
                 // Check center of map
                 this.geocoder = new google.maps.Geocoder();
@@ -87,25 +99,21 @@ define(
 
                         resultsMap.setCenter(centerLocation);
 
-                        if (!hotel) {
-                            self.circle.setCenter(centerLocation);
-                            self.setDistances(centerLocation);
+                        self.circle.setCenter(centerLocation);
+                        self.setDistances(centerLocation);
 
-                            self.distanceFromCenter.rangeMin(3);
-                            self.distanceFromCenter.displayRangeMin(3);
-                        }
+                        self.distanceFromCenter.rangeMin(3);
+                        self.distanceFromCenter.displayRangeMin(3);
                     });
                 };
 
-                var hotels = hotel ? [hotel] : this.inCircleFilteredHotels();
-
-                this.checkGeocoderLocation(this.geocoder, this.map, hotels, this.circle);
+                this.checkGeocoderLocation(this.geocoder, this.map, this.inCircleFilteredHotels(), this.circle);
 
                 // Add markers on map
-                this.addMarkersOnMap(hotels, hotel ? true : false);
+                this.addMarkersOnMap(this.inCircleFilteredHotels());
             };
 
-            this.addMarkersOnMap = function(hotels, withoutMarkerEventListeners) {
+            this.addMarkersOnMap = function(hotels) {
                 if (hotels) {
                     var showCardHotel = this.showCardHotel,
                         infowindow = new google.maps.InfoWindow(),
@@ -136,23 +144,21 @@ define(
                                 content: this.getHotelCardHtml(hotels[i])
                             });
 
-                            if (!withoutMarkerEventListeners) {
-                                // Add mouseover event on marker
-                                google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
-                                    return function () {
-                                        infowindow.setContent(this.content);
-                                        infowindow.open(this.map, marker);
-                                        $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
-                                    }
-                                })(markers[i], i));
+                            // Add mouseover event on marker
+                            google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
+                                return function () {
+                                    infowindow.setContent(this.content);
+                                    infowindow.open(this.map, marker);
+                                    $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
+                                }
+                            })(markers[i], i));
 
-                                // Add click event on marker
-                                google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
-                                    return function () {
-                                        showCardHotel(hotels[i]);
-                                    }
-                                })(markers[i], i));
-                            }
+                            // Add click event on marker
+                            google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
+                                return function () {
+                                    showCardHotel(hotels[i]);
+                                }
+                            })(markers[i], i));
                         }
                     }
 
@@ -216,7 +222,7 @@ define(
 
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
-                this.initMap(hotel);
+                this.initHotelCardMap(hotel, 'cardHotelMap');
 
                 $(window).scrollTop(0);
             }).bind(this);
@@ -296,29 +302,30 @@ define(
 
                 params.rooms = roomsArr;
 
-                ret.request = JSON.stringify({
-                    "cityId": 1934864,
-                    "checkInDate": "2016-10-28T00:00:00",
-                    "checkOutDate": "2016-10-30T00:00:00",
-                    "isDelayed": false,
-                    "rooms": [
-                        {
-                            "ADT": 1,
-                            "CLD": 1,
-                            "childAges": [
-                                10
-                            ]
-                        }
-                    ]
-                });
+                //ret.request = JSON.stringify({
+                //    "cityId": 1934864,
+                //    "checkInDate": "2016-10-28T00:00:00",
+                //    "checkOutDate": "2016-10-30T00:00:00",
+                //    "isDelayed": false,
+                //    "rooms": [
+                //        {
+                //           "ADT": 1,
+                //            "CLD": 1,
+                //            "childAges": [
+                //               10
+                //            ]
+                //        }
+                //    ]
+                //});
 
-                // ret.request = JSON.stringify({
-                //     "cityId": params.cityId,
-                //     "checkInDate": params.checkInDate,
-                //     "checkOutDate": params.checkOutDate,
-                //     "isDelayed": false,
-                //     "rooms": params.rooms
-                // });
+                ret.request = JSON.stringify({
+                     //"cityId": params.cityId,
+                     "cityId": 1934864, //TODO hardcode
+                     "checkInDate": params.checkInDate,
+                     "checkOutDate": params.checkOutDate,
+                     "isDelayed": false,
+                     "rooms": params.rooms
+                });
             }
 
             return ret;
@@ -339,6 +346,8 @@ define(
             var self = this;
 
             function searchError (message, systemData) {
+                self.createBreadcrumbs();
+
                 if (typeof systemData != 'undefined' && systemData[0] !== 0) {
                     self.$$controller.error('SEARCH ERROR: '+message, systemData);
                 }
@@ -675,11 +684,28 @@ define(
                 // this.processSearchInfo();
             }
 
+            this.createBreadcrumbs();
+
             this.resultsLoaded(true);
         };
 
-        //HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
-        // HotelsSearchResultsController.prototype.$$KOBindings = ['HotelsSearchForm', 'HotelsSearchResults'];
+        HotelsSearchResultsController.prototype.createBreadcrumbs = function(){
+            var searchInfo = Cookie.getJSON('nemo-HotelsSearchForm');
+            var guide = this.$$rawdata.guide;
+
+            //TODO hardcode
+            searchInfo.segments[0][1] = 1934864;
+            guide.cities[1934864].name = 'Санкт-Петербург';
+            guide.cities[1934864].countryCode = 'RU';
+            guide.countries = {'RU': {
+                code: "RU",
+                name: "Россия",
+                nameEn: "Russia"
+            }};
+            //TODO hardcode
+
+            this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, guide);
+        };
 
         HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
 
@@ -1129,4 +1155,78 @@ var SelectRoomsViewModel = function(ko, hotel){
 
         return null;
     }
+}
+
+var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
+
+    var self = this;
+    var segment = searchInfo.segments[0];
+
+    self.createCity = function(segment, guide){
+        var city = {
+            id: segment[1],
+            name: '',
+            country: ''
+        }
+
+        if (guide.cities){
+            var currentCity = guide.cities[city.id];
+            if (currentCity){
+                city.name = currentCity.name;
+                if (currentCity.countryCode){
+                    var country = guide.countries[currentCity.countryCode];
+                    if (country){
+                        city.country = country.name;
+                    }
+                    else{
+                        console.log('country not found in guide.countries countryCode = ' + currentCity.countryCode);
+                    }
+                }
+                else{
+                    console.log('country code is not set for city id = ' + city.id);
+                }
+            }
+            else{
+                console.log('city id = ' + city.id + ' not found in guide.cities');
+            }
+        }
+        else{
+            console.log('cities not found in guide');
+        }
+
+        return city;
+    }
+
+    self.getGuestsSummary = function(rooms){
+        var adults = 0;
+        var infants = 0;
+
+        for (var i = 0; i< rooms.length; i++){
+            var acount = rooms[i].adults ? rooms[i].adults : 0;
+            var icount = rooms[i].infants ? rooms[i].infants.length : 0;
+            adults += acount;
+            infants += icount;
+        }
+
+        var result = [];
+
+        if (adults > 0){
+            var adultStrKey = adults == 1 ? 'passSummary_numeral_ADT_one' : 'passSummary_numeral_ADT_twoToFour';
+            var adultStr = adults + ' ' + controller.i18n('HotelsSearchForm', adultStrKey);
+            result.push(adultStr);
+        }
+
+        if (infants > 0){
+            var infantStrKey = infants == 1 ? 'passSummary_numeral_CLD_one' : 'passSummary_numeral_CLD_twoToFour';
+            var infantStr = infants + ' ' + controller.i18n('HotelsSearchForm', infantStrKey);
+            result.push(infantStr);
+        }
+
+        return result.join(', ');
+    }
+
+    self.city = self.createCity(segment, guide);
+    self.arrivalDate = controller.getModel('Common/Date', segment[2]);
+    self.departureDate = controller.getModel('Common/Date', segment[3]);
+    self.guestsSummary = self.getGuestsSummary(searchInfo.rooms);
 }

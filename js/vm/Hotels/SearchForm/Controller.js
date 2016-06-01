@@ -267,6 +267,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       return this.$$controller.options.cookiesPrefix + this.cookieName;
 	       };
 	       HotelsSearchFormController.prototype.processInitParams = function () {
+
 		       var cookie = Cookie.getJSON(this.getCookieName());
 
 		       // Checking cookie validity and fixing that
@@ -283,12 +284,11 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 			       this.mode = 'preinitted';
 		       }
 
-			   console.log(this.$$componentParameters)
 			   var additional = this.$$componentParameters.additional;
 			   if (additional){
 				   this.showPreviousSearches = !!additional.showPreviousSearches;
 			   }
-	       };
+		   };
 	       HotelsSearchFormController.prototype.recalcDateRestrictions = function () {
 		       var segments = this.segments(),
 		           prevdate,
@@ -432,6 +432,9 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
 		       }
 	       };
 	       HotelsSearchFormController.prototype.buildModels = function () {
+
+
+
 		       var today = new Date();
 
 		       // Checking for errors

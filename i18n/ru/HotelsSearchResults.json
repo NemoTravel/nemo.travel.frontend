@@ -46,5 +46,7 @@
 	"to": "до",
 	"registration_arrival": "Регистрация заезда",
 	"registration_leaving": "Регистрация отъезда",
-	"pets": "Домашние животные"
+	"pets": "Домашние животные",
+	"arrival": "Прибытие",
+	"departure": "Выезд"
 }
