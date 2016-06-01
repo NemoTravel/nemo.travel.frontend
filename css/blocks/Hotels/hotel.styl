@@ -511,11 +511,20 @@
             &__description {
                 margin-bottom: 15px;
 
-                p {
+                &__text {
                     margin-bottom: 15px;
 
-                    &:last-child {
-                        margin-bottom: 0;
+                    br {
+                        display: none;
+                    }
+
+                    h2 {
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+
+                    p, ul {
+                        margin-bottom: 15px;
                     }
                 }
             }
