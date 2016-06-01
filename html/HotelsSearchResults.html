@@ -479,29 +479,17 @@
             <div class="nemo-hotels-results__summary__area">
                 <div class="nemo-hotels-results__summary__area__segment">
                     <div class="nemo-hotels-results__summary__area__segment__geo">
-                        <span class="nemo-hotels-results__summary__route__segment__geo__main"
-                            data-bind="text: breadcrumbs.city.name">
-                            Будапешт
-                        </span>
-                        <span class="nemo-hotels-results__summary__route__segment__geo__aux"
-                              data-bind="text: ', ' + breadcrumbs.city.country">
-                            , Венгрия
-                        </span>
                         <!-- One line to prevent space adding -->
-                        <span class="nemo-hotels-results__summary__route__segment__geo__main">Будапешт</span><span class="nemo-hotels-results__summary__route__segment__geo__aux">, Венгрия</span>
+                        <span class="nemo-hotels-results__summary__route__segment__geo__main" data-bind="text: breadcrumbs.city.name">Будапешт</span><span class="nemo-hotels-results__summary__route__segment__geo__aux" data-bind="text: ', ' + breadcrumbs.city.country">, Венгрия</span>
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
                                 nemo-hotels-results__summary__area__segment__date__from"
-                        data-bind="text: breadcrumbs.arrivalDate.getDate() + ' ' + breadcrumbs.arrivalDate.getMonthName() + ', ' + breadcrumbs.arrivalDate.getDOWName()">
-                        30 апреля, суббота
-                                nemo-hotels-results__summary__area__segment__date__from">
+                        data-bind="text: $root.i18n('HotelsSearchResults', 'arrival') + ' ' + breadcrumbs.arrivalDate.getDate() + ' ' + breadcrumbs.arrivalDate.getMonthName() + ', ' + breadcrumbs.arrivalDate.getDOWNameShort()">
                         Прибытие 30 апреля, сб.
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__date
                                 nemo-hotels-results__summary__area__segment__date__to"
-                         data-bind="text: breadcrumbs.departureDate.getDate() + ' ' + breadcrumbs.departureDate.getMonthName() + ', ' + breadcrumbs.departureDate.getDOWName()">
-                        30 апреля, суббота
-                                nemo-hotels-results__summary__area__segment__date__to">
+                         data-bind="text: $root.i18n('HotelsSearchResults', 'departure') + ' ' + breadcrumbs.departureDate.getDate() + ' ' + breadcrumbs.departureDate.getMonthName() + ', ' + breadcrumbs.departureDate.getDOWNameShort()">
                         Выезд 30 апреля, сб.
                     </div>
                     <div class="nemo-hotels-results__summary__area__segment__guests"
@@ -1413,7 +1401,7 @@
                         </div>
                         <div class="nemo-hotel__content__tabs__tab"
                              data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'About' == $parent.currentActiveTab() },
-                                        click: function() { $parent.currentActiveTab('About') }">
+                                        click: function() { $parent.currentActiveTab('About'); $parent.initHotelCardMap($data, 'aboutLocationMap'); }">
                             <span class="nemo-hotel__content__tabs__tab__text">
                                 Об отеле
                             </span>
@@ -1803,7 +1791,7 @@
                                         </li>
                                          <!--/ko-->
                                     </ul>
-                                    <div class="nemo-hotel__content__about__location__map" style="background: #ccc;">
+                                    <div class="nemo-hotel__content__about__location__map" id="aboutLocationMap" style="background: #ccc;">
                                         Map here
                                     </div>
                                 </div>
