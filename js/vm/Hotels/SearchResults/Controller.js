@@ -346,6 +346,8 @@ define(
             var self = this;
 
             function searchError (message, systemData) {
+                self.createBreadcrumbs();
+
                 if (typeof systemData != 'undefined' && systemData[0] !== 0) {
                     self.$$controller.error('SEARCH ERROR: '+message, systemData);
                 }
@@ -682,13 +684,19 @@ define(
                 // this.processSearchInfo();
             }
 
+            this.createBreadcrumbs();
+
+            this.resultsLoaded(true);
+        };
+
+        HotelsSearchResultsController.prototype.createBreadcrumbs = function(){
             var searchInfo = Cookie.getJSON('nemo-HotelsSearchForm');
             var guide = this.$$rawdata.guide;
 
             //TODO hardcode
-            searchInfo.segments[0][1] = this.hotels()[0].staticDataInfo.cityId;
-            guide.cities[searchInfo.segments[0][1]].name = 'Санкт-Петербург';
-            guide.cities[searchInfo.segments[0][1]].countryCode = 'RU';
+            searchInfo.segments[0][1] = 1934864;
+            guide.cities[1934864].name = 'Санкт-Петербург';
+            guide.cities[1934864].countryCode = 'RU';
             guide.countries = {'RU': {
                 code: "RU",
                 name: "Россия",
@@ -697,8 +705,6 @@ define(
             //TODO hardcode
 
             this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, guide);
-
-            this.resultsLoaded(true);
         };
 
         HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
@@ -1154,19 +1160,42 @@ var SelectRoomsViewModel = function(ko, hotel){
 var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
 
     var self = this;
-
     var segment = searchInfo.segments[0];
 
-    self.city = controller.getModel('Hotels/Common/Geo', {
-        data: {
-            t: segment[0],
-            id: segment[1]
-        },
-        guide: guide
-    });
+    self.createCity = function(segment, guide){
+        var city = {
+            id: segment[1],
+            name: '',
+            country: ''
+        }
 
-    self.arrivalDate = controller.getModel('Common/Date', segment[2]);
-    self.departureDate = controller.getModel('Common/Date', segment[3]);
+        if (guide.cities){
+            var currentCity = guide.cities[city.id];
+            if (currentCity){
+                city.name = currentCity.name;
+                if (currentCity.countryCode){
+                    var country = guide.countries[currentCity.countryCode];
+                    if (country){
+                        city.country = country.name;
+                    }
+                    else{
+                        console.log('country not found in guide.countries countryCode = ' + currentCity.countryCode);
+                    }
+                }
+                else{
+                    console.log('country code is not set for city id = ' + city.id);
+                }
+            }
+            else{
+                console.log('city id = ' + city.id + ' not found in guide.cities');
+            }
+        }
+        else{
+            console.log('cities not found in guide');
+        }
+
+        return city;
+    }
 
     self.getGuestsSummary = function(rooms){
         var adults = 0;
@@ -1196,5 +1225,8 @@ var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
         return result.join(', ');
     }
 
+    self.city = self.createCity(segment, guide);
+    self.arrivalDate = controller.getModel('Common/Date', segment[2]);
+    self.departureDate = controller.getModel('Common/Date', segment[3]);
     self.guestsSummary = self.getGuestsSummary(searchInfo.rooms);
 }
