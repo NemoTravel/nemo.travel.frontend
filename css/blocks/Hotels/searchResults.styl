@@ -245,20 +245,21 @@
 
 					&__distances {
 						background: none;
-						overflow: hidden;
 
 						&:before {
 							top: auto;
-							bottom: 3px;
+							bottom: 23px;
+							background-position: -2px -4px;
 						}
 					}
 
 					&__address {
 						width: 280px;
 						height: 20px;
+						display: block;
 					}
 					&__distance {
-						display: block;
+						display: inline-block;
 						width: 110px;
 						height: 10px;
 					}
@@ -266,12 +267,14 @@
 					&__mapLink {
 						width: 80px;
 						height: 10px;
-						margin-left: 0;
+						margin-left: 5px;
 					}
 
 					&__district {
 						width: 130px;
 						opacity: .5;
+						background: $c_highlight_warning;
+						display: block;
 					}
 
 					&__description {
