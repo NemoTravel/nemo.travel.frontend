@@ -56,7 +56,8 @@ define(
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(hotel.staticDataInfo.posLatitude, hotel.staticDataInfo.posLongitude),
                         map: map,
-                        icon: '/img/marker.svg'
+                        icon: {url: '/img/marker.svg', scaledSize: new google.maps.Size(40,35)},
+                        optimized: false
                     });
                 }
             }
@@ -122,7 +123,7 @@ define(
                         iconBase = '/img/',
                         icons = {
                             nearByCenter: {
-                                icon: iconBase + 'marker.svg'
+                                icon: {url: iconBase + 'marker.svg', scaledSize: new google.maps.Size(40,35)}
                             }
                         };
 
@@ -141,6 +142,7 @@ define(
                                 position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
                                 map: this.map,
                                 icon: icons.nearByCenter.icon,
+                                optimized: false,
                                 content: this.getHotelCardHtml(hotels[i])
                             });
 
