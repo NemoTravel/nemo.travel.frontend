@@ -924,7 +924,8 @@
                                                         <span data-bind="text: $parent.getDistances($data)[0] ? $root.i18n('HotelsSearchResults', 'from__center') : ''">
                                                             от центра
                                                         </span>
-                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma"
+                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma
+                                                                     nemo-hotels-results__content__sidebar__offer__distance__comma"
                                                               data-bind="visible: $parent.getDistances($data)[0] && $parent.getDistances($data)[1]">
                                                             ,
                                                         </span>
@@ -1248,9 +1249,10 @@
                                                     </span>
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target">
                                                          от центра
-                                                        <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma">
+                                                        <!--<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma
+                                                                     nemo-hotel__additional__viewed__item__distance__comma">
                                                             ,
-                                                        </span>
+                                                        </span>-->
                                                     </span>
                                                 </span>
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
@@ -1467,10 +1469,10 @@
                                         <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target
                                                      nemo-hotel__content__rooms__mobileDistances__distance__target">
                                              от центра
-                                            <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma
+                                            <!--<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target__comma
                                                          nemo-hotel__content__rooms__mobileDistances__distance__target__comma">
                                                 ,
-                                            </span>
+                                            </span>-->
                                         </span>
                                     </span>
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
@@ -2286,7 +2288,7 @@
 
                 <div class="nemo-common-postFilters__notification
                             nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
-                    Найти нужный билет — быстро и просто. Пользуйтесь фильтрами!
+                    Найти нужный билет — быстро<br /> и просто. Пользуйтесь фильтрами!
                     <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.isFilterNotificationVisible(false)}"></div>
                 </div>
 
