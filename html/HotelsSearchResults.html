@@ -1803,7 +1803,8 @@
                                 </h3>
                                 <ul class="nemo-hotel__content__about__services__list"
                                     data-bind="foreach: staticDataInfo.popularFeatures">
-                                    <li class="nemo-hotel__content__about__services__service">
+                                    <li class="nemo-hotel__content__about__services__service"
+                                        data-bind="visible: $parent.staticDataInfo.features[$data] && $parent.staticDataInfo.features[$data].featuresArray && $parent.staticDataInfo.features[$data].featuresArray.length > 0">
                                 <span class="nemo-hotel__content__about__services__service__name
                                              nemo-hotel__content__about__paramName"
                                     data-bind="text: $parent.staticDataInfo.features[$data] ? $parent.staticDataInfo.features[$data].typeName: ''">
