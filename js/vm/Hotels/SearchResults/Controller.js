@@ -212,7 +212,7 @@ define(
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
 
-                this.$$controller.navigate('/hotels/results/' + hotel.id, false);
+                this.$$controller.navigate('/hotels/results/' + hotel.id, false, 'HotelCard');
                 this.isCardHotelView(true);
 
                 this.$$controller.hotelsSearchCardActivated(true);
@@ -732,7 +732,10 @@ define(
                         var isOnFormOpenerClick = $this.hasClass('js-hotels-results__formOpener') ||
                             $this.parents('.js-hotels-results__formOpener').length > 0;
 
-                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick) {
+                        var isOnCalendarPopupClick = $this.hasClass(' nemo-pmu-wrapper') ||
+                            $this.parents('. nemo-pmu-wrapper').length > 0;
+
+                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick && !isOnCalendarPopupClick) {
                             valueAccessor()(false);
                         }
                     }
