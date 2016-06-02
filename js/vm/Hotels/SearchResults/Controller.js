@@ -208,9 +208,13 @@ define(
 
             this.isFilterNotificationVisible = ko.observable(true);
 
+            this.selectedRooms = new SelectRoomsViewModel(ko, null);
+
             this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
+
+                this.selectedRooms.setHotel(hotel);
 
                 this.$$controller.navigate('/hotels/results/' + hotel.id, false, 'HotelCard');
                 this.isCardHotelView(true);
@@ -219,8 +223,6 @@ define(
                 this.$$controller.hotelsSearchController = this;
 
                 hotel.staticDataInfo.currentCity = this.currentCity();
-
-                this.selectedRooms = new SelectRoomsViewModel(ko, hotel);
 
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
@@ -1100,7 +1102,15 @@ var SliderViewModel = function(ko, type, min, max){
 var SelectRoomsViewModel = function(ko, hotel){
     var self = this;
 
-    self.hotel = hotel;
+    self.hotel = ko.observable(null);
+
+    if (hotel){
+        self.setHotel(hotel)
+    }
+
+    self.setHotel = function(hotel){
+        self.hotel(hotel);
+    }
 
     self.selectedRooms = ko.observableArray([]);
 
@@ -1111,6 +1121,10 @@ var SelectRoomsViewModel = function(ko, hotel){
     };
 
     self.isAllRoomsSelected = ko.computed(function(){
+        if (!self.hotel || !self.hotel.rooms){
+            return false;
+        }
+
         return self.selectedRooms().length === self.hotel.rooms.length;
     });
 
@@ -1150,6 +1164,10 @@ var SelectRoomsViewModel = function(ko, hotel){
     }
 
     self.getRoomsIndex = function(room){
+        if (!self.hotel || !self.hotel.rooms){
+            return null;
+        }
+
         for (var i = 0; i < self.hotel.rooms.length; i++){
             for (var j = 0; j < self.hotel.rooms[i].length; j++){
                 if (self.hotel.rooms[i][j] == room){
