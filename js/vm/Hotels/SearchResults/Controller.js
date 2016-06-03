@@ -56,7 +56,8 @@ define(
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(hotel.staticDataInfo.posLatitude, hotel.staticDataInfo.posLongitude),
                         map: map,
-                        icon: '/img/marker.svg'
+                        icon: {url: '/img/marker.svg', scaledSize: new google.maps.Size(40,35)},
+                        optimized: false
                     });
                 }
             }
@@ -122,7 +123,7 @@ define(
                         iconBase = '/img/',
                         icons = {
                             nearByCenter: {
-                                icon: iconBase + 'marker.svg'
+                                icon: {url: iconBase + 'marker.svg', scaledSize: new google.maps.Size(40,35)}
                             }
                         };
 
@@ -141,6 +142,7 @@ define(
                                 position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
                                 map: this.map,
                                 icon: icons.nearByCenter.icon,
+                                optimized: false,
                                 content: this.getHotelCardHtml(hotels[i])
                             });
 
@@ -206,19 +208,21 @@ define(
 
             this.isFilterNotificationVisible = ko.observable(true);
 
+            this.selectedRooms = new SelectRoomsViewModel(ko, null);
+
             this.showCardHotel = (function (hotel, root) {
                 /*var proto = Object.getPrototypeOf(root.controller);
                  proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
 
-                this.$$controller.navigate('/hotels/results/' + hotel.id, false);
+                this.selectedRooms.setHotel(hotel);
+
+                this.$$controller.navigate('/hotels/results/' + hotel.id, false, 'HotelCard');
                 this.isCardHotelView(true);
 
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
 
                 hotel.staticDataInfo.currentCity = this.currentCity();
-
-                this.selectedRooms = new SelectRoomsViewModel(ko, hotel);
 
                 this.hotelCard([hotel]);
                 console.dir(this.hotelCard());
@@ -730,7 +734,10 @@ define(
                         var isOnFormOpenerClick = $this.hasClass('js-hotels-results__formOpener') ||
                             $this.parents('.js-hotels-results__formOpener').length > 0;
 
-                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick) {
+                        var isOnCalendarPopupClick = $this.hasClass(' nemo-pmu-wrapper') ||
+                            $this.parents('. nemo-pmu-wrapper').length > 0;
+
+                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick && !isOnCalendarPopupClick) {
                             valueAccessor()(false);
                         }
                     }
@@ -1095,7 +1102,15 @@ var SliderViewModel = function(ko, type, min, max){
 var SelectRoomsViewModel = function(ko, hotel){
     var self = this;
 
-    self.hotel = hotel;
+    self.hotel = ko.observable(null);
+
+    if (hotel){
+        self.setHotel(hotel)
+    }
+
+    self.setHotel = function(hotel){
+        self.hotel(hotel);
+    }
 
     self.selectedRooms = ko.observableArray([]);
 
@@ -1106,6 +1121,10 @@ var SelectRoomsViewModel = function(ko, hotel){
     };
 
     self.isAllRoomsSelected = ko.computed(function(){
+        if (!self.hotel || !self.hotel.rooms){
+            return false;
+        }
+
         return self.selectedRooms().length === self.hotel.rooms.length;
     });
 
@@ -1145,6 +1164,10 @@ var SelectRoomsViewModel = function(ko, hotel){
     }
 
     self.getRoomsIndex = function(room){
+        if (!self.hotel || !self.hotel.rooms){
+            return null;
+        }
+
         for (var i = 0; i < self.hotel.rooms.length; i++){
             for (var j = 0; j < self.hotel.rooms[i].length; j++){
                 if (self.hotel.rooms[i][j] == room){
