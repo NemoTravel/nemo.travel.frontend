@@ -723,7 +723,8 @@
                                             </ul>
                                         </div>
                                         <span class="nemo-ui-pseudoLink
-                                                     nemo-hotels-results__hotelsGroup__room__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__buy_by_prepayment_link')"></span>
+                                                     nemo-hotels-results__hotelsGroup__room__additional
+                                                     set-results-room-additional-hidden" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__buy_by_prepayment_link')"></span>
                                     </li>
 
                                 </ul>
@@ -1222,11 +1223,13 @@
                                             </div>
                                             <div class="nemo-hotels-results__hotelsGroup__mainInfo__description
                                                 nemo-hotels-results__content__sidebar__offer__description
-                                                nemo-hotel__additional__viewed__item__description">
-                                                <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text">
+                                                nemo-hotel__additional__viewed__item__description
+                                                nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot">
+                                                <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text
+                                                          nemo-hotel__additional__viewed__item__description__text">
                                                     Современный дизайн-отель 11 Mirrors находится в центре Киева,
                                                     в 500 метрах от станций метро "Театральная" и "Золотые ворота".
-                                                    К услугам гостей бесплатный Wi-Fi и ресторан европейс…
+                                                    К услугам гостей бесплатный Wi-Fi и …
                                                 </p>
                                                 <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link
                                                            nemo-hotels-results__content__sidebar__offer__description__link
@@ -1355,19 +1358,22 @@
                                 Об отеле
                             </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab"
+                        <div class="nemo-hotel__content__tabs__tab
+                                    set-tab-conveniences-hidden"
                              data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Conveniences' == $parent.currentActiveTab() }">
                             <span class="nemo-hotel__content__tabs__tab__text">
                                 Удобства
                             </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab"
+                        <div class="nemo-hotel__content__tabs__tab
+                                    set-tab-rules-hidden"
                              data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Rules' == $parent.currentActiveTab() }">
                             <span class="nemo-hotel__content__tabs__tab__text">
                                 Правила отеля
                             </span>
                         </div>
-                        <div class="nemo-hotel__content__tabs__tab"
+                        <div class="nemo-hotel__content__tabs__tab
+                                    set-tab-reviews-hidden"
                              data-bind="css: { 'nemo-hotel__content__tabs__tab_active': 'Reviews' == $parent.currentActiveTab() }">
                             <span class="nemo-hotel__content__tabs__tab__text">
                                 Отзывы (120)
@@ -1921,7 +1927,7 @@
             </div>
 
             <div class="nemo-hotels-results__content__results__loadingDummy__groupList" data-bind="foreach: [0, 1, 2]">
-                <div class="nemo-hotels-results__groupList__item">
+                <div class="nemo-hotels-results__groupList__item has-flag">
                     <div class="nemo-ui-subContainer
                                 nemo-hotels-results__hotelsGroup
                                 nemo-hotels-results__content__results__loadingDummy__item">
