@@ -59,6 +59,10 @@
                 position: relative;
                 box-shadow: $i_ui_subContainer_outershadow;
 
+                #cardHotelMap {
+                    border-radius: $nemo-border-radius $nemo-border-radius 0 0 !important;
+                }
+
                 &__button {
                     background: $nemo-color-main;
                     font-size: 15px;
@@ -140,6 +144,12 @@
 
             &__item {
                 margin-top: 0 !important;
+
+                &__header {
+                    &:before {
+                        content: none;
+                    }
+                }
 
                 &__title {
                     width: 100%;
@@ -272,7 +282,7 @@
                 justify-content: center;
                 align-items: center;
                 border-radius: $nemo-border-radius;
-                background: $nemo-color-neutral;
+                background: lighten($nemo-color-neutral, 9);
 
                 &__num,
                 &__text {
