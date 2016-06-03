@@ -551,6 +551,8 @@ define(
 
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
+            this.featuresCount = [];
+            this.minStarPrices = [];
 
             var hLength = hotelsArr.length;
             for (var hIndex = 0; hIndex < hLength; hIndex++){
@@ -564,6 +566,26 @@ define(
 
                 if (this.maxHotelPrice < price){
                     this.maxHotelPrice = price;
+                }
+
+                if (hotelsArr[hIndex].staticDataInfo.popularFeatures){
+                    for (var j = 0; j < hotelsArr[hIndex].staticDataInfo.popularFeatures.length; j++){
+                        var feature = hotelsArr[hIndex].staticDataInfo.popularFeatures[j];
+                        if (this.featuresCount[feature]){
+                            this.featuresCount[feature] ++;
+                        }
+                        else{
+                            this.featuresCount[feature] = 1;
+                        }
+                    }
+                }
+
+                var hotelStar = hotelsArr[hIndex].staticDataInfo.starRating ?
+                    hotelsArr[hIndex].staticDataInfo.starRating.length :
+                    0;
+
+                if (!this.minStarPrices[hotelStar] || this.minStarPrices[hotelStar] > price){
+                    this.minStarPrices[hotelStar] = price;
                 }
             }
 

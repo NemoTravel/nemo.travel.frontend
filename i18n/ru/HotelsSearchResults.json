@@ -43,10 +43,17 @@
 	"distance__from__center__to": "Расстояние от центра до",
 	"km": "км",
 	"from": "с",
+	"from2": "от",
 	"to": "до",
 	"registration_arrival": "Регистрация заезда",
 	"registration_leaving": "Регистрация отъезда",
 	"pets": "Домашние животные",
 	"arrival": "Прибытие",
-	"departure": "Выезд"
+	"departure": "Выезд",
+	"featureWifi": "Бесплатный доступ в интернет",
+	"featureMeal": "Бесплатный завтрак",
+	"featureParking": "Парковка",
+	"featureGym": "Фитнес",
+	"featurePool": "Бассейн",
+	"featureTransfer": "Трансфер"
 }

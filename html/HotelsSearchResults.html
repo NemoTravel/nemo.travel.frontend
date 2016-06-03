@@ -111,7 +111,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[5] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[5] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 12 500 руб.
                                     </span>
                             </label>
@@ -125,7 +126,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[4] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[4] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 3500 руб.
                                     </span>
                             </label>
@@ -138,7 +140,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[3] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[3] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 2500 руб.
                                     </span>
                             </label>
@@ -150,7 +153,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[2] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[2] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 1500 руб.
                                     </span>
                             </label>
@@ -161,7 +165,8 @@
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[1] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[1] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 500 руб.
                                     </span>
                             </label>
@@ -171,7 +176,8 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: minStarPrices[0] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[0] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 50 руб.
                                     </span>
                             </label>
@@ -329,10 +335,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featureWifi">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureWifi')">
                                     Бесплатный доступ в интернет
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['WiFi'] ? featuresCount['WiFi'] : 0">
                                     150
                                 </span>
                             </label>
@@ -340,10 +348,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featureMeal">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureMeal')">
                                     Бесплатный завтрак
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['Meal'] ? featuresCount['Meal'] : 0">
                                     20
                                 </span>
                             </label>
@@ -351,10 +361,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featureParking">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars">
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureParking')">
                                     Парковка
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['Parking'] ? featuresCount['Parking'] : 0">
                                     199
                                 </span>
                             </label>
@@ -362,10 +374,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featureGym">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars">
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureGym')">
                                     Фитнес
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['Gym'] ? featuresCount['Gym'] : 0">
                                     14
                                 </span>
                             </label>
@@ -373,10 +387,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featurePool">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featurePool')">
                                     Бассейн
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['Pool'] ? featuresCount['Pool'] : 0">
                                     37
                                 </span>
                             </label>
@@ -384,10 +400,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: filters.featureTransfer">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureTransfer')">
                                     Трансфер
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: featuresCount['Transfer'] ? featuresCount['Transfer'] : 0">
                                     88
                                 </span>
                             </label>
@@ -2324,7 +2342,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                        data-bind="text: $parent.minStarPrices[5] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[5] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 12 500 руб.
                                     </span>
                                 </label>
@@ -2338,7 +2357,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: $parent.minStarPrices[4] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[4] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 3500 руб.
                                     </span>
                                 </label>
@@ -2351,7 +2371,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: $parent.minStarPrices[3] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[3] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 2500 руб.
                                     </span>
                                 </label>
@@ -2363,7 +2384,8 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: $parent.minStarPrices[2] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[2] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 1500 руб.
                                     </span>
                                 </label>
@@ -2374,7 +2396,8 @@
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: $parent.minStarPrices[1] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[1] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 500 руб.
                                     </span>
                                 </label>
@@ -2384,7 +2407,8 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                          data-bind="text: $parent.minStarPrices[0] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[0] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
                                         от 50 руб.
                                     </span>
                                 </label>
@@ -2538,10 +2562,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                     data-bind="checked: featureWifi">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureWifi')">
                                     Бесплатный доступ в интернет
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: $parent.featuresCount['WiFi'] ? $parent.featuresCount['WiFi'] : 0">
                                     150
                                 </span>
                             </label>
@@ -2549,10 +2575,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: featureMeal">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureMeal')">
                                     Бесплатный завтрак
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: $parent.featuresCount['Meal'] ? $parent.featuresCount['Meal'] : 0">
                                     20
                                 </span>
                             </label>
@@ -2560,10 +2588,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: featureParking">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureParking')">
                                     Парковка
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: $parent.featuresCount['Parking'] ? $parent.featuresCount['Parking'] : 0">
                                     199
                                 </span>
                             </label>
@@ -2571,10 +2601,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: featureGym">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureGym')">
                                     Фитнес
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: $parent.featuresCount['Gym'] ? $parent.featuresCount['Gym'] : 0">
                                     14
                                 </span>
                             </label>
@@ -2582,10 +2614,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: featurePool">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featurePool')">
                                     Бассейн
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                      data-bind="text: $parent.featuresCount['Pool'] ? $parent.featuresCount['Pool'] : 0">
                                     37
                                 </span>
                             </label>
@@ -2593,10 +2627,12 @@
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
                                        data-bind="checked: featureTransfer">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
-                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
+                                             nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
+                                      data-bind="text: $root.i18n('HotelsSearchResults', 'featureTransfer')">
                                     Трансфер
                                 </span>
-                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value" >
+                                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
+                                    data-bind="text: $parent.featuresCount['Transfer'] ? $parent.featuresCount['Transfer'] : 0">
                                     88
                                 </span>
                             </label>
