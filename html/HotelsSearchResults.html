@@ -432,7 +432,8 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="nemo-hotels-results__summary__filters__overlay
+                            js-filter-popup-overlay"></div>
 
 
 
@@ -1062,7 +1063,7 @@
                 <aside class="nemo-hotel__additional" >
                     <div class="nemo-hotel__additional__info">
                         <span class="nemo-hotel__additional__info__name" data-bind="text: name"></span>
-                        <span class="nemo-hotel__additional__info__address" data-bind="text: staticDataInfo.currentCity + staticDataInfo.addresses[0]"></span>
+                        <span class="nemo-hotel__additional__info__address" data-bind="text: staticDataInfo.currentCity + ', ' + staticDataInfo.addresses[0]"></span>
                         <div class="nemo-hotel__additional__info__stars" data-bind="foreach: staticDataInfo.starRating">
                             <div class="nemo-hotel__additional__info__stars__item"></div>
                         </div>
@@ -1146,7 +1147,8 @@
                                nemo-hotel__additional__viewed__item">
                                 <div class="nemo-ui-subContainer__header
                                     nemo-hotels-results__hotelsGroup__header
-                                    nemo-hotels-results__content__sidebar__offer__header">
+                                    nemo-hotels-results__content__sidebar__offer__header
+                                    nemo-hotel__additional__viewed__item__header">
                                     <div class="nemo-hotels-results__hotelsGroup__header__title
                                         nemo-hotels-results__content__sidebar__offer__title
                                         nemo-hotel__additional__viewed__item__title">
