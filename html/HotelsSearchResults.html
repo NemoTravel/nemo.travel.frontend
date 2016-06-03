@@ -714,11 +714,11 @@
                                                     <span class="nemo-ui-pseudoLink
                                                                  nemo-hotels-results__hotelsGroup__room__title__text">
                                                         <!--1 &times;-->
-                                                        <span data-bind="text: $data[0].type.name"></span>
+                                                        <span data-bind="text: $data[0].type.name, click: function(hotel){ $parents[1].showCardHotel($parent, $root) }"></span>
                                                     </span>
                                             </div>
                                             <ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-                                                <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $data[0].type.name"></li>
+                                                <!--<li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $data[0].type.name"></li>-->
                                                 <li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $data[0].meal.name"></li>
                                             </ul>
                                         </div>

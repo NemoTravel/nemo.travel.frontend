@@ -218,12 +218,12 @@ define (
 							window.addEventListener(
 								"popstate",
 								function () {
-									if (!self.hotelsSearchCardActivated()) {
+									if (!self.hotelsSearchCardActivated || !self.hotelsSearchCardActivated()) {
 										self.processRoute();
 									} else {
 										var hotelsCntrl = self.hotelsSearchController;
 
-										self.navigate('/hotels/results/', false);
+										self.navigate('/hotels/results/', false, 'HotelsResults');
 
 										self.hotelsSearchCardActivated(false);
 										hotelsCntrl.isCardHotelView(false);
