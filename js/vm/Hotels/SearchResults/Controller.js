@@ -734,8 +734,8 @@ define(
                         var isOnFormOpenerClick = $this.hasClass('js-hotels-results__formOpener') ||
                             $this.parents('.js-hotels-results__formOpener').length > 0;
 
-                        var isOnCalendarPopupClick = $this.hasClass(' nemo-pmu-wrapper') ||
-                            $this.parents('. nemo-pmu-wrapper').length > 0;
+                        var isOnCalendarPopupClick = $this.hasClass('nemo-pmu-wrapper') ||
+                            $this.parents('.nemo-pmu-wrapper').length > 0;
 
                         if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick && !isOnCalendarPopupClick) {
                             valueAccessor()(false);
@@ -1110,6 +1110,7 @@ var SelectRoomsViewModel = function(ko, hotel){
 
     self.setHotel = function(hotel){
         self.hotel(hotel);
+        self.selectedRooms([]);
     }
 
     self.selectedRooms = ko.observableArray([]);
@@ -1121,11 +1122,11 @@ var SelectRoomsViewModel = function(ko, hotel){
     };
 
     self.isAllRoomsSelected = ko.computed(function(){
-        if (!self.hotel || !self.hotel.rooms){
+        if (!self.hotel()){
             return false;
         }
 
-        return self.selectedRooms().length === self.hotel.rooms.length;
+        return self.selectedRooms().length === self.hotel().rooms.length;
     });
 
     self.allRoomPrice = ko.computed(function(){
@@ -1164,13 +1165,13 @@ var SelectRoomsViewModel = function(ko, hotel){
     }
 
     self.getRoomsIndex = function(room){
-        if (!self.hotel || !self.hotel.rooms){
+        if (!self.hotel()){
             return null;
         }
 
-        for (var i = 0; i < self.hotel.rooms.length; i++){
-            for (var j = 0; j < self.hotel.rooms[i].length; j++){
-                if (self.hotel.rooms[i][j] == room){
+        for (var i = 0; i < self.hotel().rooms.length; i++){
+            for (var j = 0; j < self.hotel().rooms[i].length; j++){
+                if (self.hotel().rooms[i][j] == room){
                     return i;
                 }
             }
