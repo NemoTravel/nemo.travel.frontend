@@ -1093,12 +1093,29 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
             return true;
         }
 
-        return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
-            (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
-            (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
-            (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
-            (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
-            (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
+        //return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
+        //    (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
+        //    (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
+        //    (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
+        //    (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
+        //    (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
+
+        var features = [];
+
+        if (self.featureWifi()) features.push('WiFi');
+        if (self.featureMeal()) features.push('Meal');
+        if (self.featureParking()) features.push('Parking');
+        if (self.featureGym()) features.push('Gym');
+        if (self.featurePool()) features.push('Pool');
+        if (self.featureTransfer()) features.push('Transfer');
+
+        for (var i = 0; i< features.length; i++){
+            if (popularFeatures.indexOf(features[i]) < 0){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     self.isMatchFiveNightPriceFilter = function(hotelPrice){
