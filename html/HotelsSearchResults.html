@@ -573,7 +573,7 @@
                                           data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
                                     <a class="nemo-ui-pseudoLink
                                                        nemo-hotels-results__hotelsGroup__mainInfo__rating__link"
-                                       data-bind="text: $root.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + staticDataInfo.usersOpinionInfo.opinionsCount, click: function(hotel){ $parent.showCardHotel(hotel, $root)"></a>
+                                       data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title'), click: function(hotel){ $parent.showCardHotel(hotel, $root)"></a>
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
