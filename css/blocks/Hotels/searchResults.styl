@@ -641,7 +641,7 @@
 
 		&__icon {
 			display: block;
-			background: url(/css/images/hotels_results_services_sprite.svg) no-repeat;
+			background: url(/css/images/hotels_results_services_sprite.svg);
 
 			&_pool {
 				width: 20px;
@@ -698,7 +698,7 @@
 			}
 
 			&_luggage {
-				width: 20px;
+				width: 21px;
 				height: 16px;
 				background-position: -267px -3px;
 			}
@@ -711,7 +711,7 @@
 
 			&_bar {
 				width: 17px;
-				height: 21px;
+				height: 20px;
 				background-position: -331px -1px;
 			}
 
@@ -722,9 +722,21 @@
 			}
 
 			&_infinity {
-				width: 22px;
+				width: 23px;
 				height: 19px;
-				background-position: -391px -1px;
+				background-position: -389px -1px;
+				position: relative;
+
+				&:after {
+					content: '';
+					display: block;
+					width: 3px;
+					height: 6px;
+					background: $nemo-color-LightPoint;
+					position: absolute;
+					bottom: 0;
+					right: 0;
+				}
 			}
 		}
 	}
