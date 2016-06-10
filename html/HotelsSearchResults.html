@@ -11,7 +11,7 @@
 <!-- ko if: !$$loading() -->
 <div class="nemo-hotels-results__wrapper"  data-bind="setBodyClass: 'nemo-common-contentPageBody'">
 
-    <!--ko if: resultsLoaded()-->
+    <!--ko if: resultsLoaded() || error()-->
     <section class="nemo-flights-results__form
                     nemo-hotels-results__form
                     js-flights-results__form" data-bind="
