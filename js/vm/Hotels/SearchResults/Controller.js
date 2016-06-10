@@ -323,8 +323,8 @@ define(
                 //});
 
                 ret.request = JSON.stringify({
-                     //"cityId": params.cityId,
-                     "cityId": 1934864, //TODO hardcode
+                     "cityId": params.cityId,
+                     //"cityId": 1934864, //TODO hardcode
                      "checkInDate": params.checkInDate,
                      "checkOutDate": params.checkOutDate,
                      "isDelayed": false,
@@ -720,14 +720,14 @@ define(
             var guide = this.$$rawdata.guide;
 
             //TODO hardcode
-            searchInfo.segments[0][1] = 1934864;
-            guide.cities[1934864].name = 'Санкт-Петербург';
-            guide.cities[1934864].countryCode = 'RU';
-            guide.countries = {'RU': {
-                code: "RU",
-                name: "Россия",
-                nameEn: "Russia"
-            }};
+            //searchInfo.segments[0][1] = 1934864;
+            //guide.cities[1934864].name = 'Санкт-Петербург';
+            //guide.cities[1934864].countryCode = 'RU';
+            //guide.countries = {'RU': {
+            //    code: "RU",
+            //    name: "Россия",
+            //    nameEn: "Russia"
+            //}};
             //TODO hardcode
 
             this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, guide);
