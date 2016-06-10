@@ -147,18 +147,23 @@ define(
                             });
 
                             // Add mouseover event on marker
-                            google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
+                            //google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
+                            //    return function () {
+                            //        infowindow.setContent(this.content);
+                            //        infowindow.open(this.map, marker);
+                            //        $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
+                            //    }
+                            //})(markers[i], i));
+
+                            // Add click event on marker
+                            google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
+                                //return function () {
+                                //    showCardHotel(hotels[i]);
+                                //}
                                 return function () {
                                     infowindow.setContent(this.content);
                                     infowindow.open(this.map, marker);
                                     $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
-                                }
-                            })(markers[i], i));
-
-                            // Add click event on marker
-                            google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
-                                return function () {
-                                    showCardHotel(hotels[i]);
                                 }
                             })(markers[i], i));
                         }
@@ -937,16 +942,17 @@ define(
             var fromCenterStr = distances[0] ? (this.$$controller.i18n('HotelsSearchResults', 'from__center') + (distances[1] ? ',' : '')) : '';
             var fromAirportStr = distances[1] ? this.$$controller.i18n('HotelsSearchResults', 'from__airport') : '';
 
-            //$('body').on('click', 'button[data-hotel-id="' + hotel.id + '"]', function(){
-                //self.showCardHotel(hotel);
-            //});
+            $('body').on('click', 'a[data-hotel-id="' + hotel.id + '"]', function(){
+                self.showCardHotel(hotel);
+                return false;
+            });
 
             var result =
                 '<div class="mapItem">' +
                     '<div class="hotel">' +
                         '<div class="header">' +
                             '<div class="title">' +
-                                '<a class="text" href="javascript:void(0);">' + hotel.name + '</a>' +
+                                '<a class="text" data-hotel-id="' + hotel.id + '" href="#">' + hotel.name + '</a>' +
                                 '<div class="stars">' +
                                     getStarsHtml(hotel) +
                                 '</div>' +
