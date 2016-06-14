@@ -1906,7 +1906,8 @@
                                             </p>
                                         </div>
                                     </li>
-                                    <li class="nemo-hotel__content__about__rules__rule">
+                                    <li class="nemo-hotel__content__about__rules__rule"
+                                        data-bind="visible: staticDataInfo.features && staticDataInfo.features.Pets && staticDataInfo.features.Pets.featuresArray && staticDataInfo.features.Pets.featuresArray.length > 0">
                                 <span class="nemo-hotel__content__about__rules__rule__name
                                              nemo-hotel__content__about__paramName"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'pets')">
