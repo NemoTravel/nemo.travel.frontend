@@ -735,7 +735,7 @@ define(
             //}};
             //TODO hardcode
 
-            this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, guide);
+            this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, this.$$rawdata.hotels.staticDataInfo);
         };
 
         HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
@@ -1271,29 +1271,30 @@ var SelectRoomsViewModel = function(ko, hotel){
     }
 }
 
-var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
+var BreadcrumbViewModel = function(ko, searchInfo, controller, staticDataInfo) {
 
     var self = this;
     var segment = searchInfo.segments[0];
 
-    self.createCity = function(segment, guide){
+    self.createCity = function(segment, staticDataInfo){
         var city = {
             id: segment[1],
             name: '',
             country: ''
         }
 
-        if (guide.cities){
-            var currentCity = guide.cities[city.id];
-            if (currentCity){
+        if (staticDataInfo.cities){
+            var currentCities = $.grep(staticDataInfo.cities, function(item){return item.id == city.id;});
+            if (currentCities.length > 0){
+                var currentCity = currentCities[0];
                 city.name = currentCity.name;
-                if (currentCity.countryCode){
-                    var country = guide.countries[currentCity.countryCode];
-                    if (country){
-                        city.country = country.name;
+                if (currentCity.countryId){
+                    var countries = $.grep(staticDataInfo.countries, function(item){ return item.id == currentCity.countryId;});
+                    if (countries.length > 0){
+                        city.country = countries[0].name;
                     }
                     else{
-                        console.log('country not found in guide.countries countryCode = ' + currentCity.countryCode);
+                        console.log('country not found in staticDataInfo.countries countryId = ' + currentCity.countryId);
                     }
                 }
                 else{
@@ -1301,11 +1302,11 @@ var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
                 }
             }
             else{
-                console.log('city id = ' + city.id + ' not found in guide.cities');
+                console.log('city id = ' + city.id + ' not found in staticDataInfo.cities');
             }
         }
         else{
-            console.log('cities not found in guide');
+            console.log('cities not found in staticDataInfo');
         }
 
         return city;
@@ -1339,7 +1340,7 @@ var BreadcrumbViewModel = function(ko, searchInfo, controller, guide) {
         return result.join(', ');
     }
 
-    self.city = self.createCity(segment, guide);
+    self.city = self.createCity(segment, staticDataInfo);
     self.arrivalDate = controller.getModel('Common/Date', segment[2]);
     self.departureDate = controller.getModel('Common/Date', segment[3]);
     self.guestsSummary = self.getGuestsSummary(searchInfo.rooms);

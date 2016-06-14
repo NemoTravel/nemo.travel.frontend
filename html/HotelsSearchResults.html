@@ -603,7 +603,7 @@
 
                                                 <a href="#" class="nemo-ui-pseudoLink
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
-                                                   data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }">
+                                                   data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }, css: {'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1] }">
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
                                                           data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
                                                     </span>
@@ -915,7 +915,7 @@
                                                 <a href="#" class="nemo-ui-pseudoLink
                                                                    nemo-hotels-results__hotelsGroup__mainInfo__mapLink
                                                                    nemo-hotels-results__content__sidebar__offer__mapLink"
-                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
+                                                   data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show'), click: function(hotel){ $parent.showCardHotel(hotel, $root) }, css: {'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1]}"></a>
                                             </div>
                                         </div>
                                     </div>
