@@ -111,9 +111,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[5] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[5] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 12 500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[5] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[5] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -126,9 +129,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[4] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[4] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 3500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[4] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[4] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -140,9 +146,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[3] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[3] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 2500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[3] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[3] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -153,9 +162,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[2] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[2] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 1500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[2] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[2] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -165,9 +177,12 @@
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[1] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[1] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[1] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[1] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -176,9 +191,12 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: minStarPrices[0] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + (minStarPrices[0] * countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 50 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: minStarPrices[0] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: ((minStarPrices[0] * countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                             </label>
                         </div>
@@ -769,7 +787,7 @@
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                                         <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
                                             <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0)"></span>
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency"></span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency rub" data-bind="text: rooms[0][0].rate.price.currency"></span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
                                             <span data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
@@ -1032,9 +1050,8 @@
                                             <span data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0)">
                                                 48 000
                                             </span>
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency"
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency rub"
                                                   data-bind="text: rooms[0][0].rate.price.currency">
-                                                R
                                             </span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period"
@@ -1348,8 +1365,7 @@
                                             <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer__price">
                                                 48 000
                                             </span>
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency">
-                                                R
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency rub">
                                             </span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
@@ -1597,7 +1613,7 @@
                                                         data-bind="text: rate.price.amount.toFixed(0)">
                                                         12 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency"
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency rub"
                                                           data-bind="text: rate.price.currency">
                                                         р
                                                     </span>
@@ -1610,7 +1626,7 @@
                                                         data-bind="text: ($parents[2].countOfNights() * rate.price.amount).toFixed(0)">
                                                         48 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency"
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency rub"
                                                           data-bind="text: rate.price.currency">
                                                         р
                                                     </span>
@@ -1684,7 +1700,7 @@
                                         data-bind="text: $parent.selectedRooms.allRoomPrice().toFixed(0)">
                                         12000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency"
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency rub"
                                           data-bind="text: rooms[0][0].rate.price.currency">
                                         р
                                     </span>
@@ -1697,7 +1713,7 @@
                                           data-bind="text: ($parent.selectedRooms.allRoomPrice() * $parent.countOfNights()).toFixed(0)">
                                         48000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency"
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency rub"
                                           data-bind="text: rooms[0][0].rate.price.currency">
                                         р
                                     </span>
@@ -2341,9 +2357,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                        data-bind="text: $parent.minStarPrices[5] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[5] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 12 500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[5] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[5] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2356,9 +2375,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: $parent.minStarPrices[4] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[4] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 3500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[4] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[4] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2370,9 +2392,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: $parent.minStarPrices[3] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[3] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 2500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[3] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[3] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2383,9 +2408,12 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: $parent.minStarPrices[2] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[2] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 1500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[2] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[2] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2395,9 +2423,12 @@
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: $parent.minStarPrices[1] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[1] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 500 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[1] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[1] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2406,9 +2437,12 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
-                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                          data-bind="text: $parent.minStarPrices[0] ? ($root.i18n('HotelsSearchResults', 'from2') + ' ' + ($parent.minStarPrices[0] * $parent.countOfNights()).toFixed(0) + ' ' + $root.agency.currency()) : ''">
-                                        от 50 руб.
+                                    <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                                        <!--ko if: $parent.minStarPrices[0] -->
+                                        <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices[0] * $parent.countOfNights()).toFixed(0))"></span>
+                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <!-- /ko-->
                                     </span>
                                 </label>
                             </div>
@@ -2745,16 +2779,18 @@
 
         <div class="nemo-ui-slider__info">
             <span class="nemo-ui-slider__info__block
-                         nemo-ui-slider__info__block_min"
-                         data-bind="text: displayRangeMin() + ' ' + $root.agency.currency()">
+                         nemo-ui-slider__info__block_min">
+                <span data-bind="text: displayRangeMin()"></span>&nbsp
+                <span class="rub" data-bind="text: $root.agency.currency()"></span>
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_divider">
                 —
             </span>
             <span class="nemo-ui-slider__info__block
-                         nemo-ui-slider__info__block_max"
-                         data-bind="text: displayRangeMax() + ' ' + $root.agency.currency()">
+                         nemo-ui-slider__info__block_max">
+                <span data-bind="text: displayRangeMax()"></span>&nbsp
+                <span class="rub" data-bind="text: $root.agency.currency()"></span>
             </span>
         </div>
 
@@ -2769,18 +2805,18 @@
                                         nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
             <div class="nemo-ui-slider__info">
                                         <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_min"
-                                              data-bind="text: displayRangeMin() + ' ' + $root.agency.currency()">
-                                            10 000 р
+                                                     nemo-ui-slider__info__block_min">
+                                            <span data-bind="text: displayRangeMin()"></span>&nbsp;
+                                            <span data-bind="text: $root.agency.currency()" class="rub"></span>
                                         </span>
                                         <span class="nemo-ui-slider__info__block
                                                      nemo-ui-slider__info__block_divider">
                                             —
                                         </span>
                                         <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_max"
-                                              data-bind="text: displayRangeMax() + ' ' + $root.agency.currency()">
-                                            100 000 р
+                                                     nemo-ui-slider__info__block_max">
+                                            <span data-bind="text: displayRangeMax()"></span>&nbsp;
+                                            <span data-bind="text: $root.agency.currency()" class="rub"></span>
                                         </span>
             </div>
 
