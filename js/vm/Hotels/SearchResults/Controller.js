@@ -211,7 +211,12 @@ define(
             this.isCardHotelView = ko.observable(false);
             this.hotelCard = ko.observable([]);
 
-            this.isFilterNotificationVisible = ko.observable(true);
+            this.isFilterNotificationVisible = ko.observable(Cookie.get('filter-notification-visible') !== 'false');
+
+            this.hideFilterNotification = function(){
+                Cookie.set('filter-notification-visible', 'false');
+                this.isFilterNotificationVisible(false);
+            }
 
             this.selectedRooms = new SelectRoomsViewModel(ko, null);
 
