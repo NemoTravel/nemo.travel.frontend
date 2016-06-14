@@ -2295,7 +2295,7 @@
                         <div class="nemo-ui-button
                                     nemo-ui-button_common
                                     nemo-common-postFilters__clearAll__button"
-                             data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll'), click: resetFilters()"></div>
+                             data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll'), click: resetFilters(), visible: !isFilterEmpty()"></div>
                     </div>
                     <div class="nemo-common-postFilters__filterList__filter">
                         <div class="nemo-common-postFilters__filterList__filter__caption">
