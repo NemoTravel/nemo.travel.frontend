@@ -564,7 +564,7 @@
                                     nemo-hotels-results__hotelsGroup__content">
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap"
-                                     data-bind="style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
+                                     data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }, style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number"
@@ -622,7 +622,7 @@
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description">
                                         <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text
                                                   nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot"
-                                           data-bind="html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender" ></p>
+                                           data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }, html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender" ></p>
                                         <a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"
                                            data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }"></a>
                                     </div>
@@ -855,7 +855,7 @@
                             <div class="nemo-hotels-results__hotelsGroup__mainInfo">
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap
                                             nemo-hotels-results__content__sidebar__offer__photoWrap"
-                                     data-bind="style: { 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
+                                     data-bind="style: { click: function(hotel){ $parent.showCardHotel(hotel, $root) }, 'background-image': (staticDataInfo.photos ? 'url(' + staticDataInfo.photos[staticDataInfo.mainPhotoId] + ')' : 'url(/img/no%20hotel.svg)') + ', url(/img/no%20hotel.svg)' }">
                                 </div>
                                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating
                                             nemo-hotels-results__content__sidebar__offer__rating">
@@ -922,7 +922,7 @@
                                     <div class="nemo-hotels-results__hotelsGroup__mainInfo__description
                                                 nemo-hotels-results__content__sidebar__offer__description">
                                         <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text"
-                                           data-bind="html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender">
+                                           data-bind="click: function(hotel){ $parent.showCardHotel(hotel, $root) }, html: staticDataInfo.description, afterHtmlRender: afterHotelDescriptionRender">
                                             Современный дизайн-отель 11 Mirrors находится в центре Киева,
                                             в 500 метрах от станций метро "Театральная" и "Золотые ворота".
                                             К услугам гостей бесплатный Wi-Fi и ресторан европейс…
@@ -2266,7 +2266,7 @@
                 <div class="nemo-common-postFilters__notification
                             nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
                     Найти нужный билет — быстро<br /> и просто. Пользуйтесь фильтрами!
-                    <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.isFilterNotificationVisible(false)}"></div>
+                    <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.hideFilterNotification()}"></div>
                 </div>
 
                 <div class="nemo-hotels-results__content__postfilters__showOnMap">
