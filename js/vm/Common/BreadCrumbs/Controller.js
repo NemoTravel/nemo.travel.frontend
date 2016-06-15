@@ -51,8 +51,8 @@ define(
 						},
 						{
 							title: 'hotels-step_results',
-							active: false,
-							link: '/results/',
+							active: true,
+							link: '/hotels/results/',
 							router: true,
 							pageTitle: 'HotelsResults'
 						},
