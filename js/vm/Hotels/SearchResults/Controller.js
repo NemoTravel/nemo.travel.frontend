@@ -110,11 +110,22 @@ define(
 
                 this.checkGeocoderLocation(this.geocoder, this.map, this.inCircleFilteredHotels(), this.circle);
 
+                this.isMapZoomSet = false;
+
                 // Add markers on map
-                this.addMarkersOnMap(this.inCircleFilteredHotels());
+                var bounds =  this.addMarkersOnMap(this.inCircleFilteredHotels());
+
+                if (bounds && !this.isMapZoomSet){
+                    this.map.fitBounds(bounds);
+                    this.map.panToBounds(bounds);
+                    this.isMapZoomSet = true;
+                }
             };
 
             this.addMarkersOnMap = function(hotels) {
+                var bounds = new google.maps.LatLngBounds();
+                var isBounded = false;
+
                 if (hotels) {
                     var showCardHotel = this.showCardHotel,
                         infowindow = new google.maps.InfoWindow(),
@@ -146,6 +157,9 @@ define(
                                 content: this.getHotelCardHtml(hotels[i])
                             });
 
+                            bounds.extend(new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude));
+                            isBounded = true;
+
                             // Add mouseover event on marker
                             //google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
                             //    return function () {
@@ -171,6 +185,8 @@ define(
 
                     this.oldMarkers(markers);
                 }
+
+                return isBounded ? bounds : null;
             };
 
             this.changeView = function () {
@@ -666,7 +682,13 @@ define(
             this.inCircleFilteredHotels.subscribe(function(newVal){
                 if (self.circle) {
                     self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
-                    self.addMarkersOnMap(newVal);
+                    var bounds = self.addMarkersOnMap(newVal);
+
+                    if (bounds && !self.isMapZoomSet){
+                        self.map.fitBounds(bounds);
+                        self.map.panToBounds(bounds);
+                        self.isMapZoomSet = true;
+                    }
                 }
             });
 
