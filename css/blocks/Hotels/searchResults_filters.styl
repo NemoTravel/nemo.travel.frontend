@@ -133,7 +133,14 @@
         &__filter {
             &__checkboxesBlock {
                 &__checkboxes {
+                    background: $nemo-color-LightPoint;
+
                     &__checkbox {
+                        &_disabled {
+                            opacity: .4;
+                            cursor: default;
+                        }
+                        
                         &__name {
                             &__stars {
                                 &__star {
