@@ -577,7 +577,6 @@ define(
 
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
-            this.featuresCount = [];
 
             var hLength = hotelsArr.length;
             for (var hIndex = 0; hIndex < hLength; hIndex++){
@@ -592,22 +591,6 @@ define(
                 if (this.maxHotelPrice < price){
                     this.maxHotelPrice = price;
                 }
-
-                if (hotelsArr[hIndex].staticDataInfo.popularFeatures){
-                    for (var j = 0; j < hotelsArr[hIndex].staticDataInfo.popularFeatures.length; j++){
-                        var feature = hotelsArr[hIndex].staticDataInfo.popularFeatures[j];
-                        if (this.featuresCount[feature]){
-                            this.featuresCount[feature] ++;
-                        }
-                        else{
-                            this.featuresCount[feature] = 1;
-                        }
-                    }
-                }
-
-                var hotelStar = hotelsArr[hIndex].staticDataInfo.starRating ?
-                    hotelsArr[hIndex].staticDataInfo.starRating.length :
-                    0;
             }
 
             this.promotionalHotels = ko.observableArray([]);
@@ -707,6 +690,31 @@ define(
                 }
 
                 return minStarPrices;
+            });
+
+            this.featuresCount = ko.computed(function(){
+
+                var featuresCount = [];
+                var hotels = self.filteredHotels();
+                var length = hotels.length;
+
+                for (var i = 0; i < length; i++){
+                    if (hotels[i].staticDataInfo.popularFeatures){
+                        for (var j = 0; j < hotels[i].staticDataInfo.popularFeatures.length; j++){
+                            var feature = hotels[i].staticDataInfo.popularFeatures[j];
+                            if (featuresCount[feature]){
+                                featuresCount[feature] ++;
+                            }
+                            else{
+                                featuresCount[feature] = 1;
+                            }
+                        }
+                    }
+                }
+
+                //featuresCount['WiFi'] = featuresCount['WiFi'] || 0;
+
+                return featuresCount;
             });
 
             this.countsOfHotels = ko.computed(function(){
@@ -1143,29 +1151,29 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
             return true;
         }
 
-        //return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
-        //    (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
-        //    (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
-        //    (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
-        //    (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
-        //    (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
+        return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
+            (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
+            (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
+            (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
+            (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
+            (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
 
-        var features = [];
+        //var features = [];
 
-        if (self.featureWifi()) features.push('WiFi');
-        if (self.featureMeal()) features.push('Meal');
-        if (self.featureParking()) features.push('Parking');
-        if (self.featureGym()) features.push('Gym');
-        if (self.featurePool()) features.push('Pool');
-        if (self.featureTransfer()) features.push('Transfer');
+        //if (self.featureWifi()) features.push('WiFi');
+        //if (self.featureMeal()) features.push('Meal');
+        //if (self.featureParking()) features.push('Parking');
+        //if (self.featureGym()) features.push('Gym');
+        //if (self.featurePool()) features.push('Pool');
+        //if (self.featureTransfer()) features.push('Transfer');
 
-        for (var i = 0; i< features.length; i++){
-            if (popularFeatures.indexOf(features[i]) < 0){
-                return false;
-            }
-        }
+        //for (var i = 0; i< features.length; i++){
+        //    if (popularFeatures.indexOf(features[i]) < 0){
+        //        return false;
+        //    }
+        //}
 
-        return true;
+        //return true;
     }
 
     self.isMatchFiveNightPriceFilter = function(hotelPrice){
