@@ -820,13 +820,13 @@
 
         <aside class="nemo-hotels-results__content__sidebar">
 
-            <div class="nemo-hotels-results__content__sidebar__showOnMap">
+            <div class="nemo-hotels-results__content__sidebar__showOnMap"
+                    data-bind="click: changeView">
                 <img data-bind="attr: { 'src': onMapPanelImageSrc() }" alt="Show in map" class="nemo-hotels-results__content__sidebar__showOnMap__image">
                 <div class="nemo-ui-button
                                 nemo-ui-button_common
                                 nemo-hotels-results__content__sidebar__showOnMap__button"
-                     data-bind="click: changeView,
-                                text: changeViewButtonLabel()"></div>
+                     data-bind="text: changeViewButtonLabel()"></div>
             </div>
 
             <!-- ko if: !resultsLoaded() -->
