@@ -578,7 +578,6 @@ define(
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
             this.featuresCount = [];
-            this.minStarPrices = [];
 
             var hLength = hotelsArr.length;
             for (var hIndex = 0; hIndex < hLength; hIndex++){
@@ -609,10 +608,6 @@ define(
                 var hotelStar = hotelsArr[hIndex].staticDataInfo.starRating ?
                     hotelsArr[hIndex].staticDataInfo.starRating.length :
                     0;
-
-                if (!this.minStarPrices[hotelStar] || this.minStarPrices[hotelStar] > price){
-                    this.minStarPrices[hotelStar] = price;
-                }
             }
 
             this.promotionalHotels = ko.observableArray([]);
@@ -690,6 +685,28 @@ define(
                         self.isMapZoomSet = true;
                     }
                 }
+            });
+
+            this.minStarPrices = ko.computed(function(){
+                var minStarPrices = [];
+                var hotels = self.filteredHotels();
+                var length = hotels.length;
+
+                for (var i = 0; i < length; i++){
+                    var hotelStar = hotels[i].staticDataInfo.starRating ? hotels[i].staticDataInfo.starRating.length : 0;
+                    var price = hotels[i].hotelPrice;
+                    if (!minStarPrices[hotelStar] || minStarPrices[hotelStar] > price){
+                        minStarPrices[hotelStar] = price;
+                    }
+                }
+
+                for (var j = 0; j < 4; j++){
+                    if (!minStarPrices[j]){
+                        minStarPrices[j] = 0;
+                    }
+                }
+
+                return minStarPrices;
             });
 
             this.countsOfHotels = ko.computed(function(){

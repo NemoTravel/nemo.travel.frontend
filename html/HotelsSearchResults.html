@@ -108,11 +108,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[5] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[5] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[5] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -126,11 +124,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[4] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[4] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[4] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -143,11 +139,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[3] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[3] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[3] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -159,11 +153,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[2] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[2] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[2] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -174,11 +166,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[1] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[1] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[1] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -188,11 +178,9 @@
                                         Без звезд
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[0] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[0] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[0] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                         </div>
@@ -2356,11 +2344,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[5] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[5] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[5] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2374,11 +2360,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[4] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[4] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[4] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2391,11 +2375,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[3] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[3] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[3] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2407,11 +2389,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[2] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[2] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[2] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2422,11 +2402,9 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[1] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[1] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[1] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
@@ -2436,11 +2414,9 @@
                                         Без звезд
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[0] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[0] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[0] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                             </div>
