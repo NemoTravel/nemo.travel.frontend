@@ -705,12 +705,6 @@ define(
                     }
                 }
 
-                console.log(minStarPrices)
-                console.log(self.sortedHotels().length)
-                console.log(self.filteredHotels().length)
-                console.log(self.exceptStarFilteredHotels().length)
-                console.log(self.exceptFeaturesFilteredHotels().length)
-
                 for (var j = 0; j <= 5; j++){
                     if (!minStarPrices[j]){
                         minStarPrices[j] = 0;
@@ -746,9 +740,8 @@ define(
                 return featuresCount;
             });
 
-            this.disabledFilter = ko.observableArray([]);
-
             this.initialMinStarPrices = this.minStarPrices();
+            this.initialFeaturesCount = this.featuresCount();
 
             this.countsOfHotels = ko.computed(function(){
                 return self.filteredHotels().length;
