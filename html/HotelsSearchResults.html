@@ -808,13 +808,13 @@
 
         <aside class="nemo-hotels-results__content__sidebar">
 
-            <div class="nemo-hotels-results__content__sidebar__showOnMap">
+            <div class="nemo-hotels-results__content__sidebar__showOnMap"
+                    data-bind="click: changeView">
                 <img data-bind="attr: { 'src': onMapPanelImageSrc() }" alt="Show in map" class="nemo-hotels-results__content__sidebar__showOnMap__image">
                 <div class="nemo-ui-button
                                 nemo-ui-button_common
                                 nemo-hotels-results__content__sidebar__showOnMap__button"
-                     data-bind="click: changeView,
-                                text: changeViewButtonLabel()"></div>
+                     data-bind="text: changeViewButtonLabel()"></div>
             </div>
 
             <!-- ko if: !resultsLoaded() -->
@@ -1077,6 +1077,7 @@
                                 Большая карта
                             </div>
                         </div>
+                        <!-- ko if: staticDataInfo.distances.length -->
                         <div class="nemo-hotel__additional__location__distances">
                             <h4 class="nemo-hotel__additional__location__distances__title
                                    nemo-hotel__additional__block__title">
@@ -1097,6 +1098,7 @@
                                 </li>
                             </ul>
                         </div>
+                        <!-- /ko -->
                     </div>
 
                     <div class="nemo-ui-subContainer
@@ -2267,7 +2269,7 @@
 
                 <div class="nemo-common-postFilters__notification
                             nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
-                    Найти нужный билет — быстро<br /> и просто. Пользуйтесь фильтрами!
+                    Найти нужный отель — быстро<br /> и просто. Пользуйтесь фильтрами!
                     <div class="nemo-common-postFilters__notification__close" data-bind="click: function(){$parent.hideFilterNotification()}"></div>
                 </div>
 
