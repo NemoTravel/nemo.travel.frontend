@@ -96,9 +96,9 @@
                                 nemo-hotels-results__summary__filters__filter__checkboxesBlock">
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                   data-bind="visible: initialMinStarPrices[5], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[5] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating5">
+                                       data-bind="checked: filters.starRating5, enable: minStarPrices()[5]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -108,16 +108,15 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[5] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[5] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[5] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialMinStarPrices[4], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[4] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating4">
+                                       data-bind="checked: filters.starRating4, enable: minStarPrices()[4]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -126,16 +125,15 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[4] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[4] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[4] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialMinStarPrices[3], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[3] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating3">
+                                       data-bind="checked: filters.starRating3, enable: minStarPrices()[3]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -143,56 +141,51 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[3] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[3] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[3] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialMinStarPrices[2], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[2] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating2">
+                                       data-bind="checked: filters.starRating2, enable: minStarPrices()[2]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[2] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[2] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[2] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialMinStarPrices[1], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[1] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating1">
+                                       data-bind="checked: filters.starRating1, enable: minStarPrices()[1]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[1] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[1] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[1] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialMinStarPrices[0], css: { 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !minStarPrices()[0] }">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.starRating0">
+                                       data-bind="checked: filters.starRating0, enable: minStarPrices()[0]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: minStarPrices[0] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: ((minStarPrices[0] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: ((minStarPrices()[0] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                             </label>
                         </div>
@@ -333,7 +326,7 @@
                 </div>
                 -->
 
-                <div class="nemo-common-postFilters__filterList__filter">
+                <div class="nemo-common-postFilters__filterList__filter" data-bind="visible: initialFeaturesCount.length > 0">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
                         <h4 class="nemo-common-postFilters__filterList__filter__caption__name
                                    nemo-hotels-results__summary__filters__filter__caption__name"
@@ -345,81 +338,86 @@
                                 nemo-hotels-results__summary__filters__filter__checkboxesBlock">
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                   data-bind="visible: initialFeaturesCount['WiFi'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['WiFi']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featureWifi">
+                                       data-bind="checked: filters.featureWifi, enable: featuresCount()['WiFi']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureWifi')">
                                     Бесплатный доступ в интернет
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['WiFi'] ? featuresCount['WiFi'] : 0">
+                                      data-bind="text: featuresCount()['WiFi'] ? featuresCount()['WiFi'] : 0">
                                     150
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialFeaturesCount['Meal'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['Meal']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featureMeal">
+                                       data-bind="checked: filters.featureMeal, enable: featuresCount()['Meal']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureMeal')">
                                     Бесплатный завтрак
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['Meal'] ? featuresCount['Meal'] : 0">
+                                      data-bind="text: featuresCount()['Meal'] ? featuresCount()['Meal'] : 0">
                                     20
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialFeaturesCount['Parking'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['Parking']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featureParking">
+                                       data-bind="checked: filters.featureParking, enable: featuresCount()['Parking']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureParking')">
                                     Парковка
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['Parking'] ? featuresCount['Parking'] : 0">
+                                      data-bind="text: featuresCount()['Parking'] ? featuresCount()['Parking'] : 0">
                                     199
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialFeaturesCount['Gym'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['Gym']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featureGym">
+                                       data-bind="checked: filters.featureGym, enable: featuresCount()['Gym']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureGym')">
                                     Фитнес
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['Gym'] ? featuresCount['Gym'] : 0">
+                                      data-bind="text: featuresCount()['Gym'] ? featuresCount()['Gym'] : 0">
                                     14
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialFeaturesCount['Pool'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['Pool']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featurePool">
+                                       data-bind="checked: filters.featurePool, enable: featuresCount()['Pool']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featurePool')">
                                     Бассейн
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['Pool'] ? featuresCount['Pool'] : 0">
+                                      data-bind="text: featuresCount()['Pool'] ? featuresCount()['Pool'] : 0">
                                     37
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: initialFeaturesCount['Transfer'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !featuresCount()['Transfer']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: filters.featureTransfer">
+                                       data-bind="checked: filters.featureTransfer, enable: featuresCount()['Transfer']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureTransfer')">
                                     Трансфер
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: featuresCount['Transfer'] ? featuresCount['Transfer'] : 0">
+                                      data-bind="text: featuresCount()['Transfer'] ? featuresCount()['Transfer'] : 0">
                                     88
                                 </span>
                             </label>
@@ -2348,9 +2346,9 @@
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                       >
+                                    data-bind="visible: $parent.initialMinStarPrices[5], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[5]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating5">
+                                           data-bind="checked: starRating5, enable: $parent.minStarPrices()[5]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2360,16 +2358,15 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[5] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[5] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[5] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[4], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[4]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating4">
+                                           data-bind="checked: starRating4, enable: $parent.minStarPrices()[4]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2378,16 +2375,15 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[4] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[4] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[4] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[3], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[3]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating3">
+                                           data-bind="checked: starRating3, enable: $parent.minStarPrices()[3]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2395,56 +2391,51 @@
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[3] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[3] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[3] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[2], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[2]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating2">
+                                           data-bind="checked: starRating2, enable: $parent.minStarPrices()[2]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[2] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[2] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[2] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[1], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[1]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating1">
+                                           data-bind="checked: starRating1, enable: $parent.minStarPrices()[1]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[1] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[1] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[1] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[0], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[0]}">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating0">
+                                           data-bind="checked: starRating0, enable: $parent.minStarPrices()[0]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
-                                        <!--ko if: $parent.minStarPrices[0] -->
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                                        <span data-bind="text: (($parent.minStarPrices[0] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
+                                        <span data-bind="text: (($parent.minStarPrices()[0] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
-                                        <!-- /ko-->
                                     </span>
                                 </label>
                             </div>
@@ -2583,7 +2574,7 @@
                 </div>
                 -->
 
-                <div class="nemo-common-postFilters__filterList__filter">
+                <div class="nemo-common-postFilters__filterList__filter" data-bind="visible: $parent.initialFeaturesCount.length > 0">
                     <div class="nemo-common-postFilters__filterList__filter__caption">
                         <h4 class="nemo-common-postFilters__filterList__filter__caption__name"
                             data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')"></h4>
@@ -2593,81 +2584,86 @@
                                 nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                         <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                   data-bind="css: 'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_checked'">
+                                   data-bind="visible: $parent.initialFeaturesCount['WiFi'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['WiFi']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                    data-bind="checked: featureWifi">
+                                    data-bind="checked: featureWifi, enable: $parent.featuresCount()['WiFi']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureWifi')">
                                     Бесплатный доступ в интернет
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: $parent.featuresCount['WiFi'] ? $parent.featuresCount['WiFi'] : 0">
+                                      data-bind="text: $parent.featuresCount()['WiFi'] ? $parent.featuresCount()['WiFi'] : 0">
                                     150
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: $parent.initialFeaturesCount['Meal'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['Meal']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: featureMeal">
+                                       data-bind="checked: featureMeal, enable: $parent.featuresCount()['Meal']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureMeal')">
                                     Бесплатный завтрак
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: $parent.featuresCount['Meal'] ? $parent.featuresCount['Meal'] : 0">
+                                      data-bind="text: $parent.featuresCount()['Meal'] ? $parent.featuresCount()['Meal'] : 0">
                                     20
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: $parent.initialFeaturesCount['Parking'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['Parking']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: featureParking">
+                                       data-bind="checked: featureParking, enable: $parent.featuresCount()['Parking']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureParking')">
                                     Парковка
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: $parent.featuresCount['Parking'] ? $parent.featuresCount['Parking'] : 0">
+                                      data-bind="text: $parent.featuresCount()['Parking'] ? $parent.featuresCount()['Parking'] : 0">
                                     199
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: $parent.initialFeaturesCount['Gym'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['Gym']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: featureGym">
+                                       data-bind="checked: featureGym, enable: $parent.featuresCount()['Gym']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureGym')">
                                     Фитнес
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: $parent.featuresCount['Gym'] ? $parent.featuresCount['Gym'] : 0">
+                                      data-bind="text: $parent.featuresCount()['Gym'] ? $parent.featuresCount()['Gym'] : 0">
                                     14
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: $parent.initialFeaturesCount['Pool'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['Pool']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: featurePool">
+                                       data-bind="checked: featurePool, enable: $parent.featuresCount()['Pool']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featurePool')">
                                     Бассейн
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                      data-bind="text: $parent.featuresCount['Pool'] ? $parent.featuresCount['Pool'] : 0">
+                                      data-bind="text: $parent.featuresCount()['Pool'] ? $parent.featuresCount()['Pool'] : 0">
                                     37
                                 </span>
                             </label>
-                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                            <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                   data-bind="visible: $parent.initialFeaturesCount['Transfer'], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.featuresCount()['Transfer']}">
                                 <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                       data-bind="checked: featureTransfer">
+                                       data-bind="checked: featureTransfer, enable: $parent.featuresCount()['Transfer']">
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                              nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars"
                                       data-bind="text: $root.i18n('HotelsSearchResults', 'featureTransfer')">
                                     Трансфер
                                 </span>
                                 <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value"
-                                    data-bind="text: $parent.featuresCount['Transfer'] ? $parent.featuresCount['Transfer'] : 0">
+                                    data-bind="text: $parent.featuresCount()['Transfer'] ? $parent.featuresCount()['Transfer'] : 0">
                                     88
                                 </span>
                             </label>

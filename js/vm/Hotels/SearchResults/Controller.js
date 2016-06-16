@@ -577,8 +577,6 @@ define(
 
             this.minHotelPrice = 999999;
             this.maxHotelPrice = 0;
-            this.featuresCount = [];
-            this.minStarPrices = [];
 
             var hLength = hotelsArr.length;
             for (var hIndex = 0; hIndex < hLength; hIndex++){
@@ -592,26 +590,6 @@ define(
 
                 if (this.maxHotelPrice < price){
                     this.maxHotelPrice = price;
-                }
-
-                if (hotelsArr[hIndex].staticDataInfo.popularFeatures){
-                    for (var j = 0; j < hotelsArr[hIndex].staticDataInfo.popularFeatures.length; j++){
-                        var feature = hotelsArr[hIndex].staticDataInfo.popularFeatures[j];
-                        if (this.featuresCount[feature]){
-                            this.featuresCount[feature] ++;
-                        }
-                        else{
-                            this.featuresCount[feature] = 1;
-                        }
-                    }
-                }
-
-                var hotelStar = hotelsArr[hIndex].staticDataInfo.starRating ?
-                    hotelsArr[hIndex].staticDataInfo.starRating.length :
-                    0;
-
-                if (!this.minStarPrices[hotelStar] || this.minStarPrices[hotelStar] > price){
-                    this.minStarPrices[hotelStar] = price;
                 }
             }
 
@@ -633,9 +611,8 @@ define(
 
             this.visibleHotelsCount = ko.observable(5);
 
-            this.filteredHotels = ko.computed(function() {
-                var filters = self.filters;
-                filters.dummyObservalbe();
+            this.sortedHotels = ko.computed(function(){
+                self.filters.dummyObservalbe();
 
                 var sortHotels = function(item1, item2){
                     if (!item1.staticDataInfo.averageCustomerRating){
@@ -655,14 +632,36 @@ define(
                     }
                 }
 
-                var hotels = self.hotels().sort(sortHotels);
+                return self.hotels().sort(sortHotels);
+            });
 
+            this.filteredHotels = ko.computed(function() {
                 if (self.filters.isFilterEmpty()){
-                    return hotels;
+                    return self.sortedHotels();
                 }
 
-                return ko.utils.arrayFilter(hotels, function(hotel) {
+                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
                     return self.filters.isMatchFilter(hotel);
+                });
+            });
+
+            this.exceptStarFilteredHotels = ko.computed(function(){
+                if (self.filters.isFilterEmpty()){
+                    return self.sortedHotels();
+                }
+
+                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
+                    return self.filters.isMatchExceptStarFilter(hotel);
+                });
+            });
+
+            this.exceptFeaturesFilteredHotels = ko.computed(function(){
+                if (self.filters.isFilterEmpty()){
+                    return self.sortedHotels();
+                }
+
+                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
+                    return self.filters.isMatchExceptFeatureFilter(hotel);
                 });
             });
 
@@ -691,6 +690,58 @@ define(
                     }
                 }
             });
+
+            this.minStarPrices = ko.computed(function(){
+                var minStarPrices = [];
+                //var hotels = self.filteredHotels();
+                var hotels = self.exceptStarFilteredHotels();
+                var length = hotels.length;
+
+                for (var i = 0; i < length; i++){
+                    var hotelStar = hotels[i].staticDataInfo.starRating ? hotels[i].staticDataInfo.starRating.length : 0;
+                    var price = hotels[i].hotelPrice;
+                    if (!minStarPrices[hotelStar] || minStarPrices[hotelStar] > price){
+                        minStarPrices[hotelStar] = price;
+                    }
+                }
+
+                for (var j = 0; j <= 5; j++){
+                    if (!minStarPrices[j]){
+                        minStarPrices[j] = 0;
+                    }
+                }
+
+                return minStarPrices;
+            });
+
+            this.featuresCount = ko.computed(function(){
+
+                var featuresCount = [];
+                //var hotels = self.filteredHotels();
+                var hotels = self.exceptFeaturesFilteredHotels();
+                var length = hotels.length;
+
+                for (var i = 0; i < length; i++){
+                    if (hotels[i].staticDataInfo.popularFeatures){
+                        for (var j = 0; j < hotels[i].staticDataInfo.popularFeatures.length; j++){
+                            var feature = hotels[i].staticDataInfo.popularFeatures[j];
+                            if (featuresCount[feature]){
+                                featuresCount[feature] ++;
+                            }
+                            else{
+                                featuresCount[feature] = 1;
+                            }
+                        }
+                    }
+                }
+
+                //featuresCount['WiFi'] = featuresCount['WiFi'] || 0;
+
+                return featuresCount;
+            });
+
+            this.initialMinStarPrices = this.minStarPrices();
+            this.initialFeaturesCount = this.featuresCount();
 
             this.countsOfHotels = ko.computed(function(){
                 return self.filteredHotels().length;
@@ -1118,37 +1169,38 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
     }
 
     self.isMatchFeatureFilter = function(popularFeatures){
-        if (!popularFeatures){
-            return false;
-        }
 
         if (self.isFeatureFilterEmpty()){
             return true;
         }
 
-        //return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
-        //    (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
-        //    (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
-        //    (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
-        //    (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
-        //    (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
-
-        var features = [];
-
-        if (self.featureWifi()) features.push('WiFi');
-        if (self.featureMeal()) features.push('Meal');
-        if (self.featureParking()) features.push('Parking');
-        if (self.featureGym()) features.push('Gym');
-        if (self.featurePool()) features.push('Pool');
-        if (self.featureTransfer()) features.push('Transfer');
-
-        for (var i = 0; i< features.length; i++){
-            if (popularFeatures.indexOf(features[i]) < 0){
-                return false;
-            }
+        if (!popularFeatures){
+            return false;
         }
 
-        return true;
+        return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
+            (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
+            (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
+            (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
+            (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
+            (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
+
+        //var features = [];
+
+        //if (self.featureWifi()) features.push('WiFi');
+        //if (self.featureMeal()) features.push('Meal');
+        //if (self.featureParking()) features.push('Parking');
+        //if (self.featureGym()) features.push('Gym');
+        //if (self.featurePool()) features.push('Pool');
+        //if (self.featureTransfer()) features.push('Transfer');
+
+        //for (var i = 0; i< features.length; i++){
+        //    if (popularFeatures.indexOf(features[i]) < 0){
+        //        return false;
+        //    }
+        //}
+
+        //return true;
     }
 
     self.isMatchFiveNightPriceFilter = function(hotelPrice){
@@ -1175,6 +1227,20 @@ var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNig
             self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
             self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating) &&
             self.isMatchFeatureFilter(hotel.staticDataInfo.popularFeatures);
+    }
+
+    self.isMatchExceptStarFilter = function(hotel){
+        return self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
+            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating) &&
+            self.isMatchFeatureFilter(hotel.staticDataInfo.popularFeatures);
+    }
+
+    self.isMatchExceptFeatureFilter = function(hotel){
+        var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
+
+        return self.isMatchStarFilter(hotelStars) &&
+            self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
+            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
     }
 
     self.resetFilters = function(){
