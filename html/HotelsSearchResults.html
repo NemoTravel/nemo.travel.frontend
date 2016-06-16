@@ -1765,11 +1765,12 @@
                                     Расположение
                                 </h3>
                                 <div class="nemo-hotel__content__about__location__distances">
+                                    <!--ko if: staticDataInfo.distances.length -->
                                     <h4 class="nemo-hotel__content__about__subtitle">
                                         Расстояние до
                                     </h4>
                                     <ul class="nemo-hotel__content__about__location__distances__list" data-bind="foreach: staticDataInfo.distances">
-                                        <!--ko if: distancesArray[0].value -->
+
                                         <li class="nemo-hotel__content__about__location__distances__distance">
                                             <span class="nemo-hotel__content__about__location__distances__distance__name
                                                          nemo-hotel__content__about__paramName" data-bind="text: typeName"></span>
@@ -1782,8 +1783,8 @@
                                                 </span>
                                             </span>
                                         </li>
-                                         <!--/ko-->
                                     </ul>
+                                    <!--/ko-->
                                     <div class="nemo-hotel__content__about__location__map" id="aboutLocationMap" style="background: #ccc;">
                                         Map here
                                     </div>
