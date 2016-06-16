@@ -1967,7 +1967,8 @@
             </div>
 
             <div class="nemo-hotels-results__content__results__loadingDummy__groupList" data-bind="foreach: [0, 1, 2]">
-                <div class="nemo-hotels-results__groupList__item has-flag">
+                <div class="nemo-hotels-results__groupList__item"
+                    data-bind="css: {'has-flag': $index() < 1}">
                     <div class="nemo-ui-subContainer
                                 nemo-hotels-results__hotelsGroup
                                 nemo-hotels-results__content__results__loadingDummy__item">
