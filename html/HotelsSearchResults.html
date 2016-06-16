@@ -2332,9 +2332,9 @@
                                     nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
                             <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
-                                       >
+                                    data-bind="visible: $parent.initialMinStarPrices[5]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating5">
+                                           data-bind="checked: starRating5, enable: $parent.minStarPrices()[5]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2349,9 +2349,10 @@
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[4]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating4">
+                                           data-bind="checked: starRating4, enable: $parent.minStarPrices()[4]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2365,9 +2366,10 @@
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[3]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating3">
+                                           data-bind="checked: starRating3, enable: $parent.minStarPrices()[3]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2380,9 +2382,10 @@
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[2]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating2">
+                                           data-bind="checked: starRating2, enable: $parent.minStarPrices()[2]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2394,9 +2397,10 @@
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[1]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating1">
+                                           data-bind="checked: starRating1, enable: $parent.minStarPrices()[1]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name
                                                  nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars" >
                                         <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
@@ -2407,9 +2411,10 @@
                                         <span data-bind="text: ($root.agency.currency())" class="rub"></span>
                                     </span>
                                 </label>
-                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox">
+                                <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+                                       data-bind="visible: $parent.initialMinStarPrices[0]">
                                     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input"
-                                           data-bind="checked: starRating0">
+                                           data-bind="checked: starRating0, enable: $parent.minStarPrices()[0]">
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name" >
                                         Без звезд
                                     </span>
