@@ -671,6 +671,10 @@ define(
 
             this.distanceFromCenter = new SliderViewModel(ko, 'min', 1, 30);
 
+            this.isEmptyResultsVisible = ko.computed(function(){
+                return !self.filters.isFilterEmpty() && self.filteredHotels().length === 0;
+            });
+
             this.inCircleFilteredHotels = ko.computed(function(){
                 self.filters.dummyObservalbe();
                 return ko.utils.arrayFilter(self.filteredHotels(), function(hotel) {
@@ -1263,6 +1267,7 @@ var SliderViewModel = function(ko, type, min, max){
     self.displayRangeMax = ko.observable(max);
 
     self.isDefault = ko.computed(function(){
+
         if (self.type === 'range') {
             return self.rangeMin() == self.min && self.rangeMax() == max;
         }

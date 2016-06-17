@@ -547,24 +547,49 @@
                          data-bind="template: {name: 'nemo-koTemplate-HotelsResults-DatesMatrix_dummy', data: {}}"></section>
             <!--/ko -->
 
-
-<!-- TODO add functionality to static template -->
+            <!-- ko if: resultsLoaded() && !isCardHotelView() && isEmptyResultsVisible() -->
             <div class="nemo-hotels-results__emptyFilterResults">
                 <h2 class="nemo-ui-subSectionHeader
-                    nemo-flights-results__emptyFilterResults__header">
+                    nemo-flights-results__emptyFilterResults__header"
+                    data-bind="text: $root.i18n('HotelsSearchResults', 'no_filtered_results')">
                     К сожалению, доступных вариантов нет
                 </h2>
 
-                <div class="nemo-flights-results__emptyFilterResults__text">
+                <div class="nemo-flights-results__emptyFilterResults__text"
+                     data-bind="text: $root.i18n('HotelsSearchResults', 'you_can_reset_filters')">
                     Вы можете сбросить следующие фильтры:
                 </div>
 
                 <div class="nemo-flights-results__emptyFilterResults__filterList">
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name">
+                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                        data-bind="visible: !filters.fiveNightPrice.isDefault(), click: function(){ filters.fiveNightPrice.reset()}">
+                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                              data-bind="text: displayCountOfNightsPrice">
                             Время в пути
                         </span>&nbsp;
                     </div>
+                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                        data-bind="visible: !filters.isStarFilterEmpty(), click: function(){ filters.resetStarFilter() }">
+                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                              data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__starsCount')">
+                            Время в пути
+                        </span>&nbsp;
+                    </div>
+                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                         data-bind="visible: !filters.isFeatureFilterEmpty(), click: function() { filters.resetFeatureFilter() }">
+                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                              data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')">
+                            Время в пути
+                        </span>&nbsp;
+                    </div>
+                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                         data-bind="visible: !filters.averageCustomerRating.isDefault(), click: function() { filters.averageCustomerRating.reset() }">
+                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                              data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__guestsRating')">
+                            wer
+                        </span>&nbsp;
+                    </div>
+                    <!--
                     <div class="nemo-flights-results__emptyFilterResults__filterList__item">
                         <span class="nemo-flights-results__emptyFilterResults__filterList__item__name">
                             Аэропорт вылета
@@ -573,9 +598,10 @@
                             Киев — Москва 20 июля
                         </span>
                     </div>
+                    -->
                 </div>
             </div>
-<!-- /TODO -->
+            <!--/ko -->
 
             <!--ko if: resultsLoaded() -->
             <div class="nemo-hotels-results__groupList

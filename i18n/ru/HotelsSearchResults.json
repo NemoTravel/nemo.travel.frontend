@@ -55,5 +55,7 @@
 	"featureParking": "Парковка",
 	"featureGym": "Фитнес",
 	"featurePool": "Бассейн",
-	"featureTransfer": "Трансфер"
+	"featureTransfer": "Трансфер",
+	"no_filtered_results": "К сожалению, доступных вариантов нет",
+	"you_can_reset_filters": "Вы можете сбросить следующие фильтры:"
 }
