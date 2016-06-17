@@ -2289,7 +2289,8 @@
                     <div class="nemo-ui-button
                                 nemo-ui-button_common
                                 nemo-hotels-results__content__postfilters__showOnMap__button"
-                         ></div>
+                         data-bind="click: function(){$parent.changeView();}, text: $parent.changeViewButtonLabel()">
+                    </div>
                 </div>
 
                 <label class="nemo-hotels-results__content__postfilters__order">
