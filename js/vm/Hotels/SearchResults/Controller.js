@@ -65,6 +65,17 @@ define(
             this.initMap = function () {
                 var marker;
 
+                var setMapDivSize = function(){
+                    var newHeight = $('.nemo-hotels-results__map').height() - $('.nemo-hotels-results__map__controlWrap').outerHeight();
+                    $('#map').height(newHeight - 80);
+                }
+
+                $(window).resize(function(){
+                    setMapDivSize();
+                })
+
+                setMapDivSize();
+
                 // Init map and show center
                 this.map = new google.maps.Map(
                     document.getElementById('map'),
