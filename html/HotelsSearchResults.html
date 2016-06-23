@@ -110,7 +110,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[5] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -127,7 +127,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[4] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}" ></span>
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -143,7 +143,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[3] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -158,7 +158,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[2] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -172,7 +172,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[1] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                             </label>
                             <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -185,7 +185,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: ((minStarPrices()[0] * countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                             </label>
                         </div>
@@ -837,7 +837,7 @@
                                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                                         <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
                                             <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')"></span>
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency rub" data-bind="text: rooms[0][0].rate.price.currency"></span>
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="text: rooms[0][0].rate.price.currency, css: {'rub': rooms[0][0].rate.price.currency.toUpperCase() == 'RUB'}"></span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
                                             <span data-bind="text: 'за ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
@@ -1100,8 +1100,8 @@
                                             <span data-bind="text: (hotelPrice * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')">
                                                 48 000
                                             </span>
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency rub"
-                                                  data-bind="text: rooms[0][0].rate.price.currency">
+                                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency"
+                                                  data-bind="text: rooms[0][0].rate.price.currency, css: {'rub': rooms[0][0].rate.price.currency.toUpperCase() == 'RUB'}">
                                             </span>
                                         </span>
                                         <span class="nemo-hotels-results__hotelsGroup__footer__period"
@@ -1666,8 +1666,8 @@
                                                         data-bind="text: rate.price.amount.toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')">
                                                         12 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency rub"
-                                                          data-bind="text: rate.price.currency">
+                                                    <span class="nemo-hotelRoom__tariff__price__perNight__currency"
+                                                          data-bind="text: rate.price.currency, css: {'rub': rate.price.currency.toUpperCase() == 'RUB'">
                                                         р
                                                     </span>
                                                     <span class="nemo-hotelRoom__tariff__price__perNight__period">
@@ -1679,8 +1679,8 @@
                                                         data-bind="text: ($parents[2].countOfNights() * rate.price.amount).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')">
                                                         48 000
                                                     </span>
-                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency rub"
-                                                          data-bind="text: rate.price.currency">
+                                                    <span class="nemo-hotelRoom__tariff__price__per6Nights__currency"
+                                                          data-bind="text: rate.price.currency, , css: {'rub': rate.price.currency.toUpperCase() == 'RUB'">
                                                         р
                                                     </span>
                                                     <span class="nemo-hotelRoom__tariff__price__per6Nights__period"
@@ -1753,8 +1753,8 @@
                                         data-bind="text: $parent.selectedRooms.allRoomPrice().toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')">
                                         12000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency rub"
-                                          data-bind="text: rooms[0][0].rate.price.currency">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__perNight__currency"
+                                          data-bind="text: rooms[0][0].rate.price.currency, css: {'rub': rooms[0][0].rate.price.currency.toUpperCase() == 'RUB'">
                                         р
                                     </span>
                                     <span class="nemo-hotel__content__rooms__footer__button__price__perNight__period">
@@ -1766,8 +1766,8 @@
                                           data-bind="text: ($parent.selectedRooms.allRoomPrice() * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')">
                                         48000
                                     </span>
-                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency rub"
-                                          data-bind="text: rooms[0][0].rate.price.currency">
+                                    <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__currency"
+                                          data-bind="text: rooms[0][0].rate.price.currency, css: {'rub': rooms[0][0].rate.price.currency.toUpperCase() == 'RUB'">
                                         р
                                     </span>
                                     <span class="nemo-hotel__content__rooms__footer__button__price__per6Nights__period"
@@ -2417,7 +2417,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[5] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}" ></span>
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -2434,7 +2434,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[4] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}" ></span>
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -2450,7 +2450,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[3] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}" ></span>
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -2465,7 +2465,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[2] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}" ></span>
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -2479,7 +2479,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[1] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                                 </label>
                                 <label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
@@ -2492,7 +2492,7 @@
                                     <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                                         <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
                                         <span data-bind="text: (($parent.minStarPrices()[0] * $parent.countOfNights()).toFixed(0).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '))"></span>
-                                        <span data-bind="text: ($root.agency.currency())" class="rub"></span>
+                                        <span data-bind="text: ($root.agency.currency()), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                     </span>
                                 </label>
                             </div>
@@ -2836,7 +2836,7 @@
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_min">
                 <span data-bind="text: displayRangeMin().toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')"></span>&nbsp
-                <span class="rub" data-bind="text: $root.agency.currency()"></span>
+                <span data-bind="text: $root.agency.currency(), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_divider">
@@ -2845,7 +2845,7 @@
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_max">
                 <span data-bind="text: displayRangeMax().toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')"></span>&nbsp
-                <span class="rub" data-bind="text: $root.agency.currency()"></span>
+                <span data-bind="text: $root.agency.currency(), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
             </span>
         </div>
 
@@ -2862,7 +2862,7 @@
                                         <span class="nemo-ui-slider__info__block
                                                      nemo-ui-slider__info__block_min">
                                             <span data-bind="text: displayRangeMin().toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')"></span>&nbsp;
-                                            <span data-bind="text: $root.agency.currency()" class="rub"></span>
+                                            <span data-bind="text: $root.agency.currency(), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                         </span>
                                         <span class="nemo-ui-slider__info__block
                                                      nemo-ui-slider__info__block_divider">
@@ -2871,7 +2871,7 @@
                                         <span class="nemo-ui-slider__info__block
                                                      nemo-ui-slider__info__block_max">
                                             <span data-bind="text: displayRangeMax().toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')"></span>&nbsp;
-                                            <span data-bind="text: $root.agency.currency()" class="rub"></span>
+                                            <span data-bind="text: $root.agency.currency(), css: {'rub': $root.agency.currency().toUpperCase() == 'RUB'}"></span>
                                         </span>
             </div>
 
