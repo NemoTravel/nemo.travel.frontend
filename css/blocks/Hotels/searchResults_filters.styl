@@ -1,156 +1,156 @@
 .nemo-hotels-results__content {
-    &__postfilters {
-        padding-top: 0 !important;
+	&__postfilters {
+		padding-top: 0 !important;
 
-        &__loadingDummy {
-            margin-top: 20px;
+		&__loadingDummy {
+			margin-top: 20px;
 
-            &:before {
-                background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
-                animation: none;
-                width: 50px;
-                height: 50px;
-            }
+			&:before {
+				background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
+				animation: none;
+				width: 50px;
+				height: 50px;
+			}
 
-        }
+		}
 
-        &__notification {
-            padding-right: 40px;
-        }
+		&__notification {
+			padding-right: 40px;
+		}
 
-        &__order {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
+		&__order {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 15px;
 
-            &__title {
-                color: $nemo-color-LightPoint;
-                line-height: 30px;
-                margin-right: 9px;
-            }
-        }
+			&__title {
+				color: $nemo-color-LightPoint;
+				line-height: 30px;
+				margin-right: 9px;
+			}
+		}
 
+		&__showOnMap {
+			margin-bottom: 15px;
+			display: none;
 
-        &__showOnMap{
-            margin-bottom: 15px;
-            display: none;
+			&__button {
+				width: 100%;
+				font-size: 14px;
+			}
+		}
 
-            &__button {
-                width: 100%;
-                font-size: 14px;
-            }
-        }
+		&__inlineSlider {
+			&__value {
+				display: flex;
+				padding-right: 20px;
+				align-items: center;
+				justify-content: space-between;
+			}
 
-        &__inlineSlider {
-            &__value {
-                display: flex;
-                padding-right: 20px;
-                align-items: center;
-                justify-content: space-between;
-            }
+			&__slider {
+				padding-bottom: 0;
+				width: 100%;
+			}
 
-            &__slider {
-                padding-bottom: 0;
-                width: 100%;
-            }
+			&__info {
+				&__value {
+					display: inline-block;
+					min-width: 15px;
+				}
+			}
+		}
 
-            &__info {
-                &__value {
-                    display: inline-block;
-                    min-width: 15px;
-                }
-            }
-        }
+		.nemo-common-scrollable__content {
+			padding-right: 0;
+		}
 
-        .nemo-common-scrollable__content {
-            padding-right: 0;
-        }
+		.nemo-common-sticker__inner {
+			overflow: visible;
+		}
 
-        .nemo-common-sticker__inner {
-            overflow: visible;
-        }
-
-        .nemo-common-scrollable__scroller {
-            right: -14px;
-        }
-    }
+		.nemo-common-scrollable__scroller {
+			right: -14px;
+		}
+	}
 }
 
 .nemo-hotels-results__summary {
-    &__filters {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 100;
-        opacity: 1;
-        width: 320px;
-        margin: 10px;
-        padding: 0;
+	&__filters {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 100;
+		opacity: 1;
+		width: 320px;
+		margin: 10px;
+		padding: 0;
 
-        &__inner {
-            padding: 10px;
-            background: $nemo-color-LightPoint;
-            box-shadow: 0 1px 8px $nemo-color-container-shadow;
-            border-radius: $nemo-border-radius;
-            position: relative;
-            z-index: 100;
-        }
+		&__inner {
+			padding: 10px;
+			background: $nemo-color-LightPoint;
+			box-shadow: 0 1px 8px $nemo-color-container-shadow;
+			border-radius: $nemo-border-radius;
+			position: relative;
+			z-index: 100;
+		}
 
-        &__overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 99;
-        }
+		&__overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 99;
+		}
 
-        &__order {
-            &__title {
-                color: $nemo-color-text-main;
-            }
-        }
+		&__order {
+			&__title {
+				color: $nemo-color-text-main;
+			}
+		}
 
-        &__filter {
-            &__caption {
-                &__name {
-                    color: $nemo-color-text-main;
-                }
-            }
+		&__filter {
+			&__caption {
+				&__name {
+					color: $nemo-color-text-main;
+				}
+			}
 
-            &__valuesBlock,
-            &__checkboxesBlock
-            &__inlineSlider {
-                border: 1px solid $nemo-color-neutral;
-                border-radius: $nemo-border-radius;
-            }
-        }
-    }
+			&__valuesBlock,
+			&__checkboxesBlock
+			&__inlineSlider {
+				border: 1px solid $nemo-color-neutral;
+				border-radius: $nemo-border-radius;
+			}
+		}
+	}
 }
-.nemo-common-postFilters{
-    &__filterList {
-        &__filter {
-            &__checkboxesBlock {
-                &__checkboxes {
-                    background: $nemo-color-LightPoint;
 
-                    &__checkbox {
-                        &_disabled {
-                            opacity: .4;
-                            cursor: default;
-                        }
-                        
-                        &__name {
-                            &__stars {
-                                &__star {
-                                    height: 21px !important;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+.nemo-common-postFilters {
+	&__filterList {
+		&__filter {
+			&__checkboxesBlock {
+				&__checkboxes {
+					background: $nemo-color-LightPoint;
+
+					&__checkbox {
+						&_disabled {
+							opacity: .4;
+							cursor: default;
+						}
+
+						&__name {
+							&__stars {
+								&__star {
+									height: 21px !important;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -1,172 +1,172 @@
 @media (max-width: 635px) {
-    .nemo-hotels-results {
-        &__groupList {
-            &__item {
-                &.has-flag {
-                    padding-top: 50px;
-                }
-            }
-        }
+	.nemo-hotels-results {
+		&__groupList {
+			&__item {
+				&.has-flag {
+					padding-top: 50px;
+				}
+			}
+		}
 
-        &__content {
-            display: block;
-            padding: 0 10px;
+		&__content {
+			display: block;
+			padding: 0 10px;
 
-            &__results {
-                margin: 0 !important;
-            }
-        }
-        &__hotelsGroup {
-            &__header {
-                display: block;
+			&__results {
+				margin: 0 !important;
+			}
+		}
+		&__hotelsGroup {
+			&__header {
+				display: block;
 
-                &__title {
-                    height: 50px;
-                    background: $nemo-color-main;
-                    padding-right: 20px;
-                    position: relative;
-                    z-index: 1;
-                    border-radius: $nemo-border-radius $nemo-border-radius 0 0;
-                }
+				&__title {
+					height: 50px;
+					background: $nemo-color-main;
+					padding-right: 20px;
+					position: relative;
+					z-index: 1;
+					border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+				}
 
-                &__additional {
-                    top: auto;
-                    bottom: 95%;
-                }
-            }
+				&__additional {
+					top: auto;
+					bottom: 95%;
+				}
+			}
 
-            &__content {
-                padding: 0 10px 10px;
-            }
+			&__content {
+				padding: 0 10px 10px;
+			}
 
-            &__mainInfo {
-                overflow: visible;
-                position: relative;
+			&__mainInfo {
+				overflow: visible;
+				position: relative;
 
-                &__photoWrap {
-                    float: none
-                    border-radius: 0;
-                    width: auto;
-                    height: 0;
-                    padding-bottom: 51.62%;
-                    margin: 0 -10px 55px ;
-                }
+				&__photoWrap {
+					float: none
+					border-radius: 0;
+					width: auto;
+					height: 0;
+					padding-bottom: 51.62%;
+					margin: 0 -10px 55px;
+				}
 
-                &__rating,
-                &__addressWrap {
-                    position: absolute;
-                    margin-top: -75px;
-                    background: $nemo-color-neutral;
-                    border-radius: $nemo-border-radius;
-                    padding: 10px;
-                    height: 60px;
-                }
+				&__rating,
+				&__addressWrap {
+					position: absolute;
+					margin-top: -75px;
+					background: $nemo-color-neutral;
+					border-radius: $nemo-border-radius;
+					padding: 10px;
+					height: 60px;
+				}
 
-                &__rating {
-                    float: none;
-                    left: 50%;
-                    margin-left: 40px;
+				&__rating {
+					float: none;
+					left: 50%;
+					margin-left: 40px;
 
-                    &__number {
-                        font-size: 20px;
-                        margin-top: -7px;
-                    }
+					&__number {
+						font-size: 20px;
+						margin-top: -7px;
+					}
 
-                    &__link,
-                    &__text {
-                        font-size: 11px;
-                    }
+					&__link,
+					&__text {
+						font-size: 11px;
+					}
 
-                    &__link {
-                        margin-top: 0;
-                    }
-                }
+					&__link {
+						margin-top: 0;
+					}
+				}
 
-                &__addressWrap {
-                    width: 170px;
-                    margin-right: -30px;
-                    right: 50%;
-                    display: flex;
-                    align-items: center;
+				&__addressWrap {
+					width: 170px;
+					margin-right: -30px;
+					right: 50%;
+					display: flex;
+					align-items: center;
 
-                    &__address {
-                        display: none;
-                    }
-                }
+					&__address {
+						display: none;
+					}
+				}
 
-                &__distances {
-                    &:before {
-                        content: none;
-                    }
-                }
+				&__distances {
+					&:before {
+						content: none;
+					}
+				}
 
-                &__distance {
-                    display: block;
-                }
+				&__distance {
+					display: block;
+				}
 
-                &__mapLink {
-                    margin-left: 0;
+				&__mapLink {
+					margin-left: 0;
 
-                    &__desctop {
-                        display: none;
-                    }
+					&__desctop {
+						display: none;
+					}
 
-                    &__mobile {
-                        display: block;
-                    }
-                }
+					&__mobile {
+						display: block;
+					}
+				}
 
-                &__infoBlock {
-                    margin: 0 15px 0 0;
-                }
-            }
+				&__infoBlock {
+					margin: 0 15px 0 0;
+				}
+			}
 
-            &__services {
-                margin-left: 0;
-            }
+			&__services {
+				margin-left: 0;
+			}
 
-            &__rooms {
-                display: none;
-            }
-        }
-    }
+			&__rooms {
+				display: none;
+			}
+		}
+	}
 }
 
 @media (max-width: 500px) {
-    .nemo-hotels-results {
-        &__hotelsGroup {
-            &__stars {
-                margin: 0;
-                position: absolute;
-                left: 10px;
-                top: 100%;
-                margin-top: 10px;
+	.nemo-hotels-results {
+		&__hotelsGroup {
+			&__stars {
+				margin: 0;
+				position: absolute;
+				left: 10px;
+				top: 100%;
+				margin-top: 10px;
 
-                &__item {
-                    background-position: -4px -184px;
-                }
-            }
+				&__item {
+					background-position: -4px -184px;
+				}
+			}
 
-            &__mainInfo {
-                &__distance,
-                &__mapLink {
-                    font-size: 11px;
-                }
-            }
+			&__mainInfo {
+				&__distance,
+				&__mapLink {
+					font-size: 11px;
+				}
+			}
 
-            &__footer {
-                &__orderBtn {
-                    width: 100%;
-                    text-align: right;
-                }
-            }
-        }
+			&__footer {
+				&__orderBtn {
+					width: 100%;
+					text-align: right;
+				}
+			}
+		}
 
-        &__showMoreWrap {
-            .nemo-ul-showMoreBtn {
-                width: 100%;
-            }
-        }
-    }
+		&__showMoreWrap {
+			.nemo-ul-showMoreBtn {
+				width: 100%;
+			}
+		}
+	}
 
 }
