@@ -1268,7 +1268,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button,
 .nemo-ui-systemSelect__button,
 .nemo-ui-select__toggle,
-.nemo-common-postFilters__filterList__filter__partSelector__part {
+.nemo-common-postFilters__filterList__filter__partSelector__part,
+.nemo-hotels-results__error__footer .ui-button,
+.nemo-hotels-results__emptyFilterResults__filterList__item {
   display: inline-block;
   vertical-align: baseline;
   text-align: center;
@@ -1292,7 +1294,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button:link,
 .nemo-ui-systemSelect__button:link,
 .nemo-ui-select__toggle:link,
-.nemo-common-postFilters__filterList__filter__partSelector__part:link {
+.nemo-common-postFilters__filterList__filter__partSelector__part:link,
+.nemo-hotels-results__error__footer .ui-button:link,
+.nemo-hotels-results__emptyFilterResults__filterList__item:link {
   color: #fff;
 }
 .nemo-ui-button:visited,
@@ -1301,7 +1305,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button:visited,
 .nemo-ui-systemSelect__button:visited,
 .nemo-ui-select__toggle:visited,
-.nemo-common-postFilters__filterList__filter__partSelector__part:visited {
+.nemo-common-postFilters__filterList__filter__partSelector__part:visited,
+.nemo-hotels-results__error__footer .ui-button:visited,
+.nemo-hotels-results__emptyFilterResults__filterList__item:visited {
   color: #fff;
 }
 .nemo-ui-button:hover,
@@ -1310,7 +1316,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button:hover,
 .nemo-ui-systemSelect__button:hover,
 .nemo-ui-select__toggle:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part:hover,
+.nemo-hotels-results__error__footer .ui-button:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:hover {
   background: #94ca51;
 }
 .nemo-ui-button:focus,
@@ -1319,7 +1327,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button:focus,
 .nemo-ui-systemSelect__button:focus,
 .nemo-ui-select__toggle:focus,
-.nemo-common-postFilters__filterList__filter__partSelector__part:focus {
+.nemo-common-postFilters__filterList__filter__partSelector__part:focus,
+.nemo-hotels-results__error__footer .ui-button:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item:focus {
   background: #88c43d;
   box-shadow: 0 0 8px #edbe00;
 /*text-shadow: $f_ui_button_shadow;*/
@@ -1330,7 +1340,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button:focus:hover,
 .nemo-ui-systemSelect__button:focus:hover,
 .nemo-ui-select__toggle:focus:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part:focus:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part:focus:hover,
+.nemo-hotels-results__error__footer .ui-button:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:focus:hover {
   background: #94ca51;
 }
 .nemo-ui-button_common,
@@ -1340,11 +1352,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common,
 .nemo-ui-select__toggle_common,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common,
+.nemo-hotels-results__error__footer .ui-button_common,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common,
 .nemo-ui-btnCheck__btn,
 .nemo-ui-stateGroup__label__button,
 .nemo-ui-systemSelect__button,
 .nemo-ui-select__toggle,
-.nemo-common-postFilters__filterList__filter__partSelector__part {
+.nemo-common-postFilters__filterList__filter__partSelector__part,
+.nemo-hotels-results__emptyFilterResults__filterList__item {
   height: 30px;
   line-height: 30px;
   font-size: 100%;
@@ -1359,11 +1374,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:link,
 .nemo-ui-select__toggle_common:link,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:link,
+.nemo-hotels-results__error__footer .ui-button_common:link,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:link,
 .nemo-ui-btnCheck__btn:link,
 .nemo-ui-stateGroup__label__button:link,
 .nemo-ui-systemSelect__button:link,
 .nemo-ui-select__toggle:link,
-.nemo-common-postFilters__filterList__filter__partSelector__part:link {
+.nemo-common-postFilters__filterList__filter__partSelector__part:link,
+.nemo-hotels-results__emptyFilterResults__filterList__item:link {
   color: #1e1e2e;
 }
 .nemo-ui-button_common:visited,
@@ -1373,11 +1391,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:visited,
 .nemo-ui-select__toggle_common:visited,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:visited,
+.nemo-hotels-results__error__footer .ui-button_common:visited,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:visited,
 .nemo-ui-btnCheck__btn:visited,
 .nemo-ui-stateGroup__label__button:visited,
 .nemo-ui-systemSelect__button:visited,
 .nemo-ui-select__toggle:visited,
-.nemo-common-postFilters__filterList__filter__partSelector__part:visited {
+.nemo-common-postFilters__filterList__filter__partSelector__part:visited,
+.nemo-hotels-results__emptyFilterResults__filterList__item:visited {
   color: #1e1e2e;
 }
 .nemo-ui-button_common:hover,
@@ -1387,11 +1408,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:hover,
 .nemo-ui-select__toggle_common:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:hover,
+.nemo-hotels-results__error__footer .ui-button_common:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:hover,
 .nemo-ui-btnCheck__btn:hover,
 .nemo-ui-stateGroup__label__button:hover,
 .nemo-ui-systemSelect__button:hover,
 .nemo-ui-select__toggle:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:hover {
   background: #1e1e2e;
 }
 .nemo-ui-button_common:hover,
@@ -1401,11 +1425,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:hover,
 .nemo-ui-select__toggle_common:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:hover,
+.nemo-hotels-results__error__footer .ui-button_common:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:hover,
 .nemo-ui-btnCheck__btn:hover,
 .nemo-ui-stateGroup__label__button:hover,
 .nemo-ui-systemSelect__button:hover,
 .nemo-ui-select__toggle:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:hover {
   background-color: #ebebeb;
   background-image: linear-gradient(to bottom, rgba(250,250,250,0.75), rgba(235,235,235,0.75));
 }
@@ -1416,11 +1443,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:focus,
 .nemo-ui-select__toggle_common:focus,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:focus,
+.nemo-hotels-results__error__footer .ui-button_common:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:focus,
 .nemo-ui-btnCheck__btn:focus,
 .nemo-ui-stateGroup__label__button:focus,
 .nemo-ui-systemSelect__button:focus,
 .nemo-ui-select__toggle:focus,
 .nemo-common-postFilters__filterList__filter__partSelector__part:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item:focus,
 .nemo-ui-button_common:focus:hover,
 .nemo-ui-btnCheck__btn_common:focus:hover,
 .ui-dialog-buttonpane .ui-button_common:focus:hover,
@@ -1428,11 +1458,14 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_common:focus:hover,
 .nemo-ui-select__toggle_common:focus:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part_common:focus:hover,
+.nemo-hotels-results__error__footer .ui-button_common:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_common:focus:hover,
 .nemo-ui-btnCheck__btn:focus:hover,
 .nemo-ui-stateGroup__label__button:focus:hover,
 .nemo-ui-systemSelect__button:focus:hover,
 .nemo-ui-select__toggle:focus:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part:focus:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:focus:hover {
   background-color: #ebebeb;
   background-image: linear-gradient(to bottom, rgba(250,250,250,0.75), rgba(235,235,235,0.75));
 }
@@ -1443,13 +1476,17 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled,
 .nemo-ui-select__toggle:disabled,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled,
+.nemo-hotels-results__error__footer .ui-button:disabled,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled,
 .nemo-ui-button_disabled,
 .nemo-ui-btnCheck__btn_disabled,
 .ui-dialog-buttonpane .ui-button_disabled,
 .nemo-ui-stateGroup__label__button_disabled,
 .nemo-ui-systemSelect__button_disabled,
 .nemo-ui-select__toggle_disabled,
-.nemo-common-postFilters__filterList__filter__partSelector__part_disabled {
+.nemo-common-postFilters__filterList__filter__partSelector__part_disabled,
+.nemo-hotels-results__error__footer .ui-button_disabled,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled {
   background: #cdcdcd;
   cursor: default;
   overflow: hidden;
@@ -1462,6 +1499,8 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled:hover,
 .nemo-ui-select__toggle:disabled:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled:hover,
+.nemo-hotels-results__error__footer .ui-button:disabled:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled:hover,
 .nemo-ui-button_disabled:hover,
 .nemo-ui-btnCheck__btn_disabled:hover,
 .ui-dialog-buttonpane .ui-button_disabled:hover,
@@ -1469,6 +1508,8 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_disabled:hover,
 .nemo-ui-select__toggle_disabled:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part_disabled:hover,
+.nemo-hotels-results__error__footer .ui-button_disabled:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled:hover,
 .nemo-ui-button:disabled:active,
 .nemo-ui-btnCheck__btn:disabled:active,
 .ui-dialog-buttonpane .ui-button:disabled:active,
@@ -1476,6 +1517,8 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled:active,
 .nemo-ui-select__toggle:disabled:active,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled:active,
+.nemo-hotels-results__error__footer .ui-button:disabled:active,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled:active,
 .nemo-ui-button_disabled:active,
 .nemo-ui-btnCheck__btn_disabled:active,
 .ui-dialog-buttonpane .ui-button_disabled:active,
@@ -1483,6 +1526,8 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_disabled:active,
 .nemo-ui-select__toggle_disabled:active,
 .nemo-common-postFilters__filterList__filter__partSelector__part_disabled:active,
+.nemo-hotels-results__error__footer .ui-button_disabled:active,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled:active,
 .nemo-ui-button:disabled:focus,
 .nemo-ui-btnCheck__btn:disabled:focus,
 .ui-dialog-buttonpane .ui-button:disabled:focus,
@@ -1490,13 +1535,17 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled:focus,
 .nemo-ui-select__toggle:disabled:focus,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled:focus,
+.nemo-hotels-results__error__footer .ui-button:disabled:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled:focus,
 .nemo-ui-button_disabled:focus,
 .nemo-ui-btnCheck__btn_disabled:focus,
 .ui-dialog-buttonpane .ui-button_disabled:focus,
 .nemo-ui-stateGroup__label__button_disabled:focus,
 .nemo-ui-systemSelect__button_disabled:focus,
 .nemo-ui-select__toggle_disabled:focus,
-.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:focus {
+.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:focus,
+.nemo-hotels-results__error__footer .ui-button_disabled:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled:focus {
   background: #cdcdcd;
   box-shadow: none;
   text-shadow: none;
@@ -1508,13 +1557,17 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled:focus:hover,
 .nemo-ui-select__toggle:disabled:focus:hover,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled:focus:hover,
+.nemo-hotels-results__error__footer .ui-button:disabled:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled:focus:hover,
 .nemo-ui-button_disabled:focus:hover,
 .nemo-ui-btnCheck__btn_disabled:focus:hover,
 .ui-dialog-buttonpane .ui-button_disabled:focus:hover,
 .nemo-ui-stateGroup__label__button_disabled:focus:hover,
 .nemo-ui-systemSelect__button_disabled:focus:hover,
 .nemo-ui-select__toggle_disabled:focus:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:focus:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:focus:hover,
+.nemo-hotels-results__error__footer .ui-button_disabled:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled:focus:hover {
   background: #cdcdcd;
   box-shadow: none;
 }
@@ -1525,13 +1578,17 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button:disabled:active,
 .nemo-ui-select__toggle:disabled:active,
 .nemo-common-postFilters__filterList__filter__partSelector__part:disabled:active,
+.nemo-hotels-results__error__footer .ui-button:disabled:active,
+.nemo-hotels-results__emptyFilterResults__filterList__item:disabled:active,
 .nemo-ui-button_disabled:active,
 .nemo-ui-btnCheck__btn_disabled:active,
 .ui-dialog-buttonpane .ui-button_disabled:active,
 .nemo-ui-stateGroup__label__button_disabled:active,
 .nemo-ui-systemSelect__button_disabled:active,
 .nemo-ui-select__toggle_disabled:active,
-.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:active {
+.nemo-common-postFilters__filterList__filter__partSelector__part_disabled:active,
+.nemo-hotels-results__error__footer .ui-button_disabled:active,
+.nemo-hotels-results__emptyFilterResults__filterList__item_disabled:active {
   padding-top: 0;
   animation: shakes 0.75s 1;
 }
@@ -1542,6 +1599,8 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_small,
 .nemo-ui-select__toggle_small,
 .nemo-common-postFilters__filterList__filter__partSelector__part_small,
+.nemo-hotels-results__error__footer .ui-button_small,
+.nemo-hotels-results__emptyFilterResults__filterList__item_small,
 .nemo-ui-btnCheck__btn {
   min-width: 66px;
   height: 24px;
@@ -1555,7 +1614,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_medium,
 .nemo-ui-systemSelect__button_medium,
 .nemo-ui-select__toggle_medium,
-.nemo-common-postFilters__filterList__filter__partSelector__part_medium {
+.nemo-common-postFilters__filterList__filter__partSelector__part_medium,
+.nemo-hotels-results__error__footer .ui-button_medium,
+.nemo-hotels-results__emptyFilterResults__filterList__item_medium {
   min-width: 60px;
   height: 30px;
   padding: 0px 12px;
@@ -1568,7 +1629,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_main,
 .nemo-ui-systemSelect__button_main,
 .nemo-ui-select__toggle_main,
-.nemo-common-postFilters__filterList__filter__partSelector__part_main {
+.nemo-common-postFilters__filterList__filter__partSelector__part_main,
+.nemo-hotels-results__error__footer .ui-button_main,
+.nemo-hotels-results__emptyFilterResults__filterList__item_main {
   height: 40px;
   padding: 0px 15px;
   box-shadow: 0 4px 8px 0 rgba(93,134,41,0.25), inset 0 1px 2px 0 #b8dc8b;
@@ -1581,7 +1644,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_main_form,
 .nemo-ui-systemSelect__button_main_form,
 .nemo-ui-select__toggle_main_form,
-.nemo-common-postFilters__filterList__filter__partSelector__part_main_form {
+.nemo-common-postFilters__filterList__filter__partSelector__part_main_form,
+.nemo-hotels-results__error__footer .ui-button_main_form,
+.nemo-hotels-results__emptyFilterResults__filterList__item_main_form {
   box-shadow: 0 4px 8px 0 rgba(93,134,41,0.5), inset 0 1px 2px 0 #b8dc8b;
 }
 .nemo-ui-button_danger,
@@ -1590,7 +1655,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_danger,
 .nemo-ui-systemSelect__button_danger,
 .nemo-ui-select__toggle_danger,
-.nemo-common-postFilters__filterList__filter__partSelector__part_danger {
+.nemo-common-postFilters__filterList__filter__partSelector__part_danger,
+.nemo-hotels-results__error__footer .ui-button_danger,
+.nemo-hotels-results__emptyFilterResults__filterList__item_danger {
   background: #7f2c0d;
   background-image: linear-gradient(to bottom, #b23e13, #7f2c0d);
 }
@@ -1600,7 +1667,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_danger:hover,
 .nemo-ui-systemSelect__button_danger:hover,
 .nemo-ui-select__toggle_danger:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part_danger:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part_danger:hover,
+.nemo-hotels-results__error__footer .ui-button_danger:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_danger:hover {
   background: #ad3c12;
   background-image: linear-gradient(to bottom, #e04e18, #ad3c12);
 }
@@ -1610,7 +1679,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_danger:active,
 .nemo-ui-systemSelect__button_danger:active,
 .nemo-ui-select__toggle_danger:active,
-.nemo-common-postFilters__filterList__filter__partSelector__part_danger:active {
+.nemo-common-postFilters__filterList__filter__partSelector__part_danger:active,
+.nemo-hotels-results__error__footer .ui-button_danger:active,
+.nemo-hotels-results__emptyFilterResults__filterList__item_danger:active {
   background: #511c08;
   background-image: linear-gradient(to bottom, #842e0e, #511c08);
 }
@@ -1621,13 +1692,17 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-systemSelect__button_danger:focus,
 .nemo-ui-select__toggle_danger:focus,
 .nemo-common-postFilters__filterList__filter__partSelector__part_danger:focus,
+.nemo-hotels-results__error__footer .ui-button_danger:focus,
+.nemo-hotels-results__emptyFilterResults__filterList__item_danger:focus,
 .nemo-ui-button_danger:focus:hover,
 .nemo-ui-btnCheck__btn_danger:focus:hover,
 .ui-dialog-buttonpane .ui-button_danger:focus:hover,
 .nemo-ui-stateGroup__label__button_danger:focus:hover,
 .nemo-ui-systemSelect__button_danger:focus:hover,
 .nemo-ui-select__toggle_danger:focus:hover,
-.nemo-common-postFilters__filterList__filter__partSelector__part_danger:focus:hover {
+.nemo-common-postFilters__filterList__filter__partSelector__part_danger:focus:hover,
+.nemo-hotels-results__error__footer .ui-button_danger:focus:hover,
+.nemo-hotels-results__emptyFilterResults__filterList__item_danger:focus:hover {
   background-image: linear-gradient(to bottom, #842e0e, #511c08);
 }
 .nemo-ui-button_direction_down,
@@ -1636,7 +1711,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_down,
 .nemo-ui-systemSelect__button_direction_down,
 .nemo-ui-select__toggle_direction_down,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_down {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_down,
+.nemo-hotels-results__error__footer .ui-button_direction_down,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_down {
   position: relative;
   padding-right: 33px;
 }
@@ -1646,7 +1723,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_down:after,
 .nemo-ui-systemSelect__button_direction_down:after,
 .nemo-ui-select__toggle_direction_down:after,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_down:after {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_down:after,
+.nemo-hotels-results__error__footer .ui-button_direction_down:after,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_down:after {
   content: '';
   display: block;
   position: absolute;
@@ -1665,7 +1744,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_up,
 .nemo-ui-systemSelect__button_direction_up,
 .nemo-ui-select__toggle_direction_up,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_up {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_up,
+.nemo-hotels-results__error__footer .ui-button_direction_up,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_up {
   position: relative;
   padding-right: 33px;
 }
@@ -1675,7 +1756,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_up:after,
 .nemo-ui-systemSelect__button_direction_up:after,
 .nemo-ui-select__toggle_direction_up:after,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_up:after {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_up:after,
+.nemo-hotels-results__error__footer .ui-button_direction_up:after,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_up:after {
   content: '';
   display: block;
   position: absolute;
@@ -1694,7 +1777,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_left,
 .nemo-ui-systemSelect__button_direction_left,
 .nemo-ui-select__toggle_direction_left,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_left {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_left,
+.nemo-hotels-results__error__footer .ui-button_direction_left,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_left {
   position: relative;
   padding-left: 24px;
 }
@@ -1704,7 +1789,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_left:before,
 .nemo-ui-systemSelect__button_direction_left:before,
 .nemo-ui-select__toggle_direction_left:before,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_left:before {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_left:before,
+.nemo-hotels-results__error__footer .ui-button_direction_left:before,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_left:before {
   content: '';
   display: block;
   position: absolute;
@@ -1722,7 +1809,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_right,
 .nemo-ui-systemSelect__button_direction_right,
 .nemo-ui-select__toggle_direction_right,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_right {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_right,
+.nemo-hotels-results__error__footer .ui-button_direction_right,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_right {
   position: relative;
   padding-right: 33px;
 }
@@ -1732,7 +1821,9 @@ money currency[currency="RUB"][type="name"] {
 .nemo-ui-stateGroup__label__button_direction_right:after,
 .nemo-ui-systemSelect__button_direction_right:after,
 .nemo-ui-select__toggle_direction_right:after,
-.nemo-common-postFilters__filterList__filter__partSelector__part_direction_right:after {
+.nemo-common-postFilters__filterList__filter__partSelector__part_direction_right:after,
+.nemo-hotels-results__error__footer .ui-button_direction_right:after,
+.nemo-hotels-results__emptyFilterResults__filterList__item_direction_right:after {
   content: '';
   display: block;
   position: absolute;
@@ -2324,7 +2415,8 @@ a:hover {
 }
 .nemo-ui-link,
 .nemo-ui-pseudoLink,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text {
   cursor: pointer;
   color: #64b5f6;
   text-decoration: none;
@@ -2333,29 +2425,34 @@ a:hover {
 }
 .nemo-ui-link:hover,
 .nemo-ui-pseudoLink:hover,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text:hover {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text:hover,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text:hover {
   color: #349ef3;
   border-bottom: 1px solid rgba(52,158,243,0.75);
 }
 .nemo-ui-link_rollup,
 .nemo-ui-pseudoLink_rollup,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text_rollup {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text_rollup,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text_rollup {
   position: relative;
   margin-left: 20px;
 }
 .nemo-ui-link_rollup:before,
 .nemo-ui-pseudoLink_rollup:before,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text_rollup:before {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text_rollup:before,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text_rollup:before {
   content: '↓';
   position: absolute;
   left: -20px;
 }
 .nemo-ui-pseudoLink,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text {
   border-bottom: 1px dashed rgba(100,181,246,0.25);
 }
 .nemo-ui-pseudoLink:hover,
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text:hover {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text:hover,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text:hover {
   border-bottom: 1px dashed rgba(14,134,230,0.75);
 }
 .nemo-ui-sectionHeader {
@@ -2555,7 +2652,8 @@ a:hover {
   position: relative;
   z-index: 2;
 }
-.ui-dialog-titlebar {
+.ui-dialog-titlebar,
+.nemo-hotels-results__error__header {
   position: relative;
   background: #eee;
   border: none;
@@ -2567,7 +2665,8 @@ a:hover {
   text-overflow: ellipsis;
   border-radius: 4px 4px 0 0;
 }
-.ui-dialog-titlebar-close {
+.ui-dialog-titlebar-close,
+.nemo-hotels-results__error__header-close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -2582,14 +2681,17 @@ a:hover {
   z-index: 2;
   transition: all 0.2s;
 }
-.ui-dialog-titlebar-close:hover {
+.ui-dialog-titlebar-close:hover,
+.nemo-hotels-results__error__header-close:hover {
   background-color: rgba(0,0,0,0.05);
 }
-.ui-dialog-titlebar_progress {
+.ui-dialog-titlebar_progress,
+.nemo-hotels-results__error__header_progress {
   color: #fff;
   background: #7f7f7f;
 }
-.ui-dialog-titlebar_progress:before {
+.ui-dialog-titlebar_progress:before,
+.nemo-hotels-results__error__header_progress:before {
   content: '';
   position: absolute;
   z-index: 0;
@@ -2600,7 +2702,8 @@ a:hover {
   animation: nemo-ui-popup__progressAnimation 200s 1 forwards;
   border-radius: 4px 0 0 4px;
 }
-.ui-dialog-content {
+.ui-dialog-content,
+.nemo-hotels-results__error__content {
   background: #fff;
   border: 0 none;
   overflow: auto;
@@ -2611,33 +2714,42 @@ a:hover {
 .ui-dialog-buttons .ui-dialog-content {
   border-radius: 0;
 }
-.ui-dialog-buttonpane {
+.ui-dialog-buttonpane,
+.nemo-hotels-results__error__footer {
   padding: 10px 20px;
   text-align: right;
   background: #eee;
   overflow: hidden;
   border-radius: 0 0 4px 4px;
 }
-.ui-dialog-buttonpane .ui-button {
+.ui-dialog-buttonpane .ui-button,
+.nemo-hotels-results__error__footer .ui-button {
   margin: 0 15px 0 0;
 }
-.ui-dialog-buttonpane .ui-button:last-child {
+.ui-dialog-buttonpane .ui-button:last-child,
+.nemo-hotels-results__error__footer .ui-button:last-child {
   margin: 0;
 }
-.ui-dialog-buttonpane .ui-button_secondary {
+.ui-dialog-buttonpane .ui-button_secondary,
+.nemo-hotels-results__error__footer .ui-button_secondary {
   float: left;
   font-size: 13px;
 }
 .ui-dialog-buttonpane .ui-button_pseudoLink,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink,
 .ui-dialog-buttonpane .ui-button_pseudoLink:hover,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink:hover,
 .ui-dialog-buttonpane .ui-button_pseudoLink:active,
-.ui-dialog-buttonpane .ui-button_pseudoLink:focus {
+.nemo-hotels-results__error__footer .ui-button_pseudoLink:active,
+.ui-dialog-buttonpane .ui-button_pseudoLink:focus,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink:focus {
   line-height: normal !important;
   padding: 0 !important;
   box-shadow: none !important;
   background: transparent !important;
 }
-.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text {
+.ui-dialog-buttonpane .ui-button_pseudoLink .ui-button-text,
+.nemo-hotels-results__error__footer .ui-button_pseudoLink .ui-button-text {
   line-height: normal;
 }
 @-moz-keyframes nemo-ui-popup__progressAnimation {
@@ -5267,6 +5379,45 @@ This file is generated by `grunt build`, do not edit it by hand.
 .nemo-hotels-results {
   padding: 0;
 }
+.nemo-hotels-results__error {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+.nemo-hotels-results__error__content {
+  border-radius: 0;
+}
+.nemo-hotels-results__emptyFilterResults {
+  font-size: 15px;
+}
+.nemo-hotels-results__emptyFilterResults__header {
+  font-weight: normal;
+  font-size: 20px;
+}
+.nemo-hotels-results__emptyFilterResults__filterList__item {
+/*display: inline-block;*/
+  padding-right: 28px;
+  margin: 20px 10px 0 0;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+.nemo-hotels-results__emptyFilterResults__filterList__item:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -4px;
+  width: 8px;
+  height: 8px;
+  background: url("images/flights_results_sprite.svg") -41px -120px no-repeat;
+}
+.nemo-hotels-results__emptyFilterResults__filterList__item__additional {
+  font-size: 13px;
+  color: rgba(100,100,100,0.75);
+}
 .nemo-hotels-results__summary {
   max-width: 1220px;
   margin: 0 auto;
@@ -6021,13 +6172,29 @@ This file is generated by `grunt build`, do not edit it by hand.
   padding-top: 0 !important;
 }
 .nemo-hotels-results__content__postfilters__loadingDummy {
+  text-align: center;
+  padding: 135px 40px 40px;
+  position: relative;
   margin-top: 20px;
 }
 .nemo-hotels-results__content__postfilters__loadingDummy:before {
-  background: url("/css/images/ui/ui-loader-circle-blue.svg") no-repeat;
+  content: "";
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  top: 70px;
+  margin: -20px 0 0 -20px;
   animation: none;
-  width: 50px;
-  height: 50px;
+  position: absolute;
+  background: url("/css/images/ui/ui-loader-circle-blue.svg") no-repeat;
+  background-size: 100%;
+}
+.nemo-hotels-results__content__postfilters__loadingDummy__title {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.nemo-hotels-results__content__postfilters__loadingDummy__text {
+  font-size: 13px;
 }
 .nemo-hotels-results__content__postfilters__notification {
   padding-right: 40px;

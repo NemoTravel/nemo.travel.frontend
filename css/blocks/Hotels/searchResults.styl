@@ -6,6 +6,68 @@
 .nemo-hotels-results {
 	padding: 0;
 
+	&__error {
+		max-width: 420px;
+		margin: 40px auto;
+		padding: 0 10px;
+
+		&__header {
+			@extend .ui-dialog-titlebar;
+		}
+
+		&__content {
+			@extend .ui-dialog-content;
+			border-radius: 0;
+		}
+
+		&__footer {
+			@extend .ui-dialog-buttonpane;
+
+			&__button {
+			}
+		}
+	}
+
+	&__emptyFilterResults {
+		font-size: 15px;
+
+		&__header {
+			font-weight: normal;
+			font-size: 20px;
+		}
+
+		&__filterList {
+			&__item {
+				/*display: inline-block;*/
+				@extend .nemo-ui-button;
+				@extend .nemo-ui-button_common;
+				padding-right: 28px;
+				margin: 20px 10px 0 0;
+				max-width: 80%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				position: relative;
+
+				&:after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					right: 10px;
+					margin-top: -4px;
+					width: 8px;
+					height: 8px;
+					background: url("images/flights_results_sprite.svg") -41px -120px no-repeat;
+				}
+
+				&__additional {
+					font-size: 13px;
+					color: $nemo-color-text-secondary;
+				}
+			}
+		}
+	}
+
 	&__summary {
 		max-width: 1220px;
 		margin: 0 auto;

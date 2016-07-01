@@ -34,7 +34,7 @@
                     nemo-hotels-results__summary__filterSwitch
                     js-flights-results__adaptiveFiltersNoClose"
              data-bind="click: function () {if (resultsLoaded()) {PFActive(!PFActive());}},
-                        css: {'nemo-flights-results__summary__filterSwitch_active': PFActive()}">
+                        css: {'nemo-hotels-results__summary__filterSwitch_active': PFActive()}">
             <span data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption')"></span>
             <span class="nemo-hotels-results__summary__filterSwitch__mobileText"
                   data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption__results')"></span>
@@ -489,11 +489,11 @@
     <section class="nemo-hotels-results__content">
 
         <!-- ko if: error() -->
-        <div class="nemo-flights-results__error">
-            <div class="nemo-flights-results__error__header" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error() + '_header')"></div>
-            <div class="nemo-flights-results__error__content" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error())"></div>
-            <div class="nemo-flights-results__error__footer">
-                <div class="nemo-ui-button nemo-flights-results__error__footer__button" data-bind="
+        <div class="nemo-hotels-results__error">
+            <div class="nemo-hotels-results__error__header" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error() + '_header')"></div>
+            <div class="nemo-hotels-results__error__content" data-bind="text: $root.i18n('HotelsSearchResults', 'error_' + error())"></div>
+            <div class="nemo-hotels-results__error__footer">
+                <div class="nemo-ui-button nemo-hotels-results__error__footer__button" data-bind="
 					text: $root.i18n('HotelsSearchResults', 'error_' + error() + '_buttonText'),
 					click: function () { ;$$controller.navigate('/hotels', true, 'HotelsSearchForm')}"></div>
             </div>
@@ -519,12 +519,11 @@
             </label>-->
 
             <div class="nemo-ui-subContainer
-                        nemo-flights-results__content__postfilters__loadingDummy
                         nemo-hotels-results__content__postfilters__loadingDummy">
-                <div class="nemo-flights-results__content__postfilters__loadingDummy__title">
+                <div class="nemo-hotels-results__content__postfilters__loadingDummy__title">
                     <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__title')"-->Загрузка</div>
 
-                <div class="nemo-flights-results__content__postfilters__loadingDummy__text nemo-hotels-results__content__postfilters__loadingDummy__text">
+                <div class="nemo-hotels-results__content__postfilters__loadingDummy__text nemo-hotels-results__content__postfilters__loadingDummy__text">
                     <!--data-bind="text: $root.i18n('HotelsSearchResults', 'loadingDummy__filters__text')"-->Фильтры будут показаны вскоре после того, как будут найдены подходящие отели</div>
             </div>
 
@@ -550,51 +549,51 @@
             <!-- ko if: resultsLoaded() && !isCardHotelView() && isEmptyResultsVisible() -->
             <div class="nemo-hotels-results__emptyFilterResults">
                 <h2 class="nemo-ui-subSectionHeader
-                    nemo-flights-results__emptyFilterResults__header"
+                    nemo-hotels-results__emptyFilterResults__header"
                     data-bind="text: $root.i18n('HotelsSearchResults', 'no_filtered_results')">
                     К сожалению, доступных вариантов нет
                 </h2>
 
-                <div class="nemo-flights-results__emptyFilterResults__text"
+                <div class="nemo-hotels-results__emptyFilterResults__text"
                      data-bind="text: $root.i18n('HotelsSearchResults', 'you_can_reset_filters')">
                     Вы можете сбросить следующие фильтры:
                 </div>
 
-                <div class="nemo-flights-results__emptyFilterResults__filterList">
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                <div class="nemo-hotels-results__emptyFilterResults__filterList">
+                    <div class="nemo-hotels-results__emptyFilterResults__filterList__item"
                         data-bind="visible: !filters.fiveNightPrice.isDefault(), click: function(){ filters.fiveNightPrice.reset()}">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__name"
                               data-bind="text: displayCountOfNightsPrice">
                             Время в пути
                         </span>&nbsp;
                     </div>
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                    <div class="nemo-hotels-results__emptyFilterResults__filterList__item"
                         data-bind="visible: !filters.isStarFilterEmpty(), click: function(){ filters.resetStarFilter() }">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__name"
                               data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__starsCount')">
                             Время в пути
                         </span>&nbsp;
                     </div>
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                    <div class="nemo-hotels-results__emptyFilterResults__filterList__item"
                          data-bind="visible: !filters.isFeatureFilterEmpty(), click: function() { filters.resetFeatureFilter() }">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__name"
                               data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')">
                             Время в пути
                         </span>&nbsp;
                     </div>
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item"
+                    <div class="nemo-hotels-results__emptyFilterResults__filterList__item"
                          data-bind="visible: !filters.averageCustomerRating.isDefault(), click: function() { filters.averageCustomerRating.reset() }">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name"
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__name"
                               data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__guestsRating')">
                             wer
                         </span>&nbsp;
                     </div>
                     <!--
-                    <div class="nemo-flights-results__emptyFilterResults__filterList__item">
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__name">
+                    <div class="nemo-hotels-results__emptyFilterResults__filterList__item">
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__name">
                             Аэропорт вылета
                         </span>&nbsp;
-                        <span class="nemo-flights-results__emptyFilterResults__filterList__item__additional">
+                        <span class="nemo-hotels-results__emptyFilterResults__filterList__item__additional">
                             Киев — Москва 20 июля
                         </span>
                     </div>

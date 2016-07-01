@@ -3,15 +3,33 @@
 		padding-top: 0 !important;
 
 		&__loadingDummy {
+			text-align: center;
+			padding: 135px 40px 40px;
+			position: relative;
 			margin-top: 20px;
 
 			&:before {
-				background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
+				content: "";
+				width: 40px;
+				height: 40px;
+				left: 50%;
+				top: 70px;
+
+				margin: -20px 0 0 -20px;
 				animation: none;
-				width: 50px;
-				height: 50px;
+				position: absolute;
+				background: url(/css/images/ui/ui-loader-circle-blue.svg) no-repeat;
+				background-size: 100%;
 			}
 
+			&__title {
+				font-size: 15px;
+				margin-bottom: 10px;
+			}
+
+			&__text {
+				font-size: 13px;
+			}
 		}
 
 		&__notification {
