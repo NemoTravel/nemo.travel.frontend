@@ -8,9 +8,8 @@
 <div data-bind="setBodyClass: 'nemo-common-contentPageBody'">
 
     <!--ko if: resultsLoaded() || error()-->
-    <section class="nemo-flights-results__form
-                    nemo-hotels-results__form
-                    js-flights-results__form" data-bind="
+    <section class="nemo-hotels-results__form
+                    js-hotels-results__form" data-bind="
 						component: {
 				            name: 'Hotels/SearchForm/Controller',
 							params: {
@@ -32,7 +31,7 @@
         <div class="nemo-ui-button
                     nemo-ui-button_common
                     nemo-hotels-results__summary__filterSwitch
-                    js-flights-results__adaptiveFiltersNoClose"
+                    js-hotels-results__adaptiveFiltersNoClose"
              data-bind="click: function () {if (resultsLoaded()) {PFActive(!PFActive());}},
                         css: {'nemo-hotels-results__summary__filterSwitch_active': PFActive()}">
             <span data-bind="text: $root.i18n('HotelsSearchResults', 'filter__caption')"></span>
@@ -2352,8 +2351,8 @@
                     <span class="nemo-hotels-results__content__postfilters__order__title" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__caption')">
                         Сортировать2877
                     </span>
-                    <div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
-                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button"
+                    <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__routeOptions__item__selector">
+                        <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__routeOptions__item__selector__button"
                              data-bind="pseudoSelect: null, text: $root.i18n('HotelsSearchResults','sort__type__' + sortType())"></div>
                         <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: sortTypes">
                             <div class="nemo-ui-select__dropdown__item"
@@ -2744,7 +2743,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
         </div>
     </script>
 
