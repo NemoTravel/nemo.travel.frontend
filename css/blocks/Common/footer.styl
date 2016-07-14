@@ -22,31 +22,6 @@
 			}
 		}
 
-		&__left{
-			display: inline-block;
-			width: 49%;
-			vertical-align: middle;
-
-			.nemo-root_mobile &{
-				display: block;
-				width: 100%;
-			}
-		}
-
-		&__right{
-			display: none;
-			width: 50%;
-			text-align: right;
-			vertical-align: middle;
-
-			.nemo-root_mobile &{
-				display: block;
-				width: 100%;
-				text-align: left;
-				padding: 10px 0 0;
-			}
-		}
-
 		.nemo-root_mobile &{
 			padding: 25px 20px 15px;
 		}
@@ -86,18 +61,7 @@
 @media (max-width: 400px){
 	.nemo-common{
 		&-pageWrapper{
-			padding-bottom: 175px;
-		}
-
-		&-footer {
-			height: 175px;
-			margin-top: -175px;
-
-			&__right, &__left{
-				display: block;
-				width: 100%;
-				text-align: left;
-			}
+			padding-bottom: 60px;
 		}
 	}
 }
@@ -108,27 +72,6 @@
 			margin: 0 auto;
 			min-height: 100%;
 			padding-bottom: 100px;
-		}
-
-		&-footer {
-			height: 100px;
-			margin-top:-100px;
-
-			&__right, &__left{
-				display: block;
-				width: 100%;
-				text-align: left;
-			}
-
-			&__copyRight{
-				padding-bottom: 20px;
-				padding-top: 0;
-			}
-
-			&__companyLogo{
-				margin: 0 6px;
-				width: 160px;
-			}
 		}
 	}
 }
@@ -142,12 +85,5 @@
 			}
 
 		}
-	}
-}
-
-@media (max-width: 600px) {
-	.nemo-common-footer__copyRight {
-		padding-top: 0;
-		padding-bottom: 20px;
 	}
 }

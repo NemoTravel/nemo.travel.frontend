@@ -23,17 +23,17 @@ define (
 				// vicinityDates - vicinity dates flag
 				// class=Business - class definition
 				// GO - immediate search flag
-				{re: /^search\/((?:[A-Z]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
+				{re: /^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
 
 				{re: /^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?$/, handler: 'Flights/ScheduleSearch/Controller'},
-				{re: /^scheduleSearch\/((?:[A-Z]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
+				{re: /^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
 
 				{re: /^results\/(\d+)(\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
 
 				// Search by URL params
 				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
 				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
-				{re: /^results\/((?:[ac][A-Z]{3}[ac][A-Z]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
+				{re: /^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
@@ -382,7 +382,7 @@ define (
 		 * @returns {*}
 		 */
 		NemoFrontEndController.prototype.loadData = function (url, additionalParams, callback, errorCallback) {
-			return this.makeRequest(this.options.dataURL + url /*FIXME*/ + '?user_language_get_change=' + this.options.i18nLanguage /*ENDFIXME*/, additionalParams, callback, errorCallback);
+			return this.makeRequest(this.options.dataURL + url /*FIXME*/ + ((url.indexOf('?') < 0) ? '?' : '&') + 'user_language_get_change=' + this.options.i18nLanguage /*ENDFIXME*/, additionalParams, callback, errorCallback);
 		};
 
 		/**

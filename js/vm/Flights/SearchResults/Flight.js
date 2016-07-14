@@ -101,7 +101,8 @@ define(
 					classes: tmpClasses[i],
 					availSeats: this.price.availableSeats[i],
 					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
-					stopoversCount: stopoversForLeg
+					stopoversCount: stopoversForLeg,
+					isCharter: this.segmentsByLeg[i][0].isCharter
 				});
 			}
 

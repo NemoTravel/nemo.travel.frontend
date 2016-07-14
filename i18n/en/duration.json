@@ -1,38 +1,30 @@
 {
-	"second_one" : "секунда",
-	"second_twoToFour" : "секунды",
-	"second_fourPlus" : "секунд",
-
-	"minute_one" : "минута",
-	"minute_twoToFour" : "минуты",
-	"minute_fourPlus" : "минут",
-
-	"hour_one" : "час",
-	"hour_twoToFour" : "часа",
-	"hour_fourPlus" : "часов",
-
-	"day_one" : "день",
-	"day_twoToFour" : "дня",
-	"day_fourPlus" : "дней",
-
-	"week_one" : "неделя",
-	"week_twoToFour" : "недели",
-	"week_fourPlus" : "недель",
-
-	"month_one" : "месяц",
-	"month_twoToFour" : "месяца",
-	"month_fourPlus" : "месяцев",
-
-	"year_one" : "год",
-	"year_twoToFour" : "года",
-	"year_fourPlus" : "лет",
-
-	"second_short" : "сек",
-	"minute_short" : "мин",
-	"hour_short"   : "ч",
-	"day_short"    : "дн",
-	"week_short"   : "нед",
-	"month_short"  : "мес",
-	"year_short"   : "лет"
-
+    "hour_one": "hour",
+    "hour_twoToFour": "hours",
+    "hour_fourPlus": "hours",
+    "day_one": "day",
+    "day_twoToFour": "days",
+    "day_fourPlus": "days",
+    "week_one": "week",
+    "week_twoToFour": "weeks",
+    "week_fourPlus": "weeks",
+    "month_one": "month",
+    "month_twoToFour": "months",
+    "month_fourPlus": "months",
+    "year_one": "year",
+    "year_twoToFour": "years",
+    "year_fourPlus": "years",
+    "second_short": "s",
+    "minute_short": "m",
+    "hour_short": "h",
+    "day_short": "day(s)",
+    "week_short": "week(s)",
+    "month_short": "month(s)",
+    "year_short": "year(s)",
+    "second_one": "second",
+    "second_twoToFour": "seconds",
+    "second_fourPlus": "seconds",
+    "minute_one": "minute",
+    "minute_twoToFour": "minutes",
+    "minute_fourPlus": "minutes"
 }

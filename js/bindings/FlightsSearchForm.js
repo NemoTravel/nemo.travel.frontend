@@ -268,35 +268,39 @@ define(
 				return ko.bindingHandlers.flightsFormDatepicker._PMULocale;
 			},
 			_PMUbeforeShow: function(bindingContext, viewModel){
-				var minDate =  viewModel.form.options.dateOptions.minDate,
-					maxDate =  viewModel.form.options.dateOptions.maxDate,
-					$elt = $(this);
+				var minDate = viewModel.form.options.dateOptions.minDate,
+					maxDate = viewModel.form.options.dateOptions.maxDate,
+					$elt = $(this),
+					segments = viewModel.form.segments();
 
-				if (viewModel.form.options.dateOptions.incorrectDatesBlock) {
-					for (var i = 0, c = viewModel.form.segments().length; i < c; i++) {
-						var segment = viewModel.form.segments()[i];
+				for (var i = 0, c = segments.length; i < c; i++) {
+					var segment = segments[i];
 
-						if(
-							segment.index < viewModel.index
-							&&
-							segment.items.departureDate.value() != null
-						) {
-							minDate = segment.items.departureDate.value().dateObject();
-						}
+					if(
+						segment.index < viewModel.index
+						&&
+						segment.items.departureDate.value() != null
+					) {
+						minDate = segment.items.departureDate.value().dateObject();
+					}
 
-						if(
-							segment.index > viewModel.index
-							&&
-							segment.items.departureDate.value() != null
-						) {
-							maxDate = segment.items.departureDate.value().dateObject();
-							break;
-						}
+					if(
+						segment.index > viewModel.index
+						&&
+						segment.items.departureDate.value() != null
+					) {
+						maxDate = segment.items.departureDate.value().dateObject();
+						break;
 					}
 				}
 
-				$elt.data('pickmeup-options').max = maxDate;
-				$elt.data('pickmeup-options').min = minDate;
+				// Setting shown date (current segment selected or minimal valid)
+				$elt.data('pickmeup-options').defaultDate = viewModel.items.departureDate.value() ? viewModel.items.departureDate.value().dateObject() : minDate;
+
+				if (viewModel.form.options.dateOptions.incorrectDatesBlock) {
+					$elt.data('pickmeup-options').max = maxDate;
+					$elt.data('pickmeup-options').min = minDate;
+				}
 			},
 			_PMUonSetDate: function ($element, valueAccessor, viewModel) {
 				$element.blur();
@@ -326,6 +330,21 @@ define(
 				return ret;
 			},
 			_getPMUOptions: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var date = viewModel.form.options.dateOptions.minDate,
+					segments = viewModel.form.segments();
+
+				for (var i = 0, c = segments.length; i < c; i++) {
+					var segment = segments[i];
+
+					if(
+						segment.index < viewModel.index
+						&&
+						segment.items.departureDate.value() != null
+					) {
+						date = segment.items.departureDate.value().dateObject();
+					}
+				}
+
 				return {
 					className: 'nemo-flights-form__datePicker',
 					locale: ko.bindingHandlers.flightsFormDatepicker._getPMULocale(bindingContext),
@@ -334,7 +353,7 @@ define(
 					max: viewModel.form.options.dateOptions.maxDate,
 					format: 'd.m.Y',
 					hideOnSelect: true,
-					//defaultDate: valueAccessor()() ? valueAccessor()().dateObject() : viewModel.form.dateRestrictions[viewModel.index][0],
+					defaultDate: date,
 					render: function (dateObj, month) {
 						return ko.bindingHandlers.flightsFormDatepicker._PMUrender.call(this, dateObj, viewModel, month);
 					},

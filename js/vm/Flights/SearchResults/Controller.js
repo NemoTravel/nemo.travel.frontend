@@ -411,8 +411,8 @@ define(
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
 		FlightsSearchResultsController.prototype.paramsParsers = {
-			rtseg: /^([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})(\d{8})$/g,
-			segs: /([ac][A-Z]{3})([ac][A-Z]{3})(\d{8})/g,
+			rtseg: /^([ac][A-ZА-Я]{3})([ac][A-ZА-Я]{3})(\d{8})(\d{8})$/g,
+			segs: /([ac][A-ZА-Я]{3})([ac][A-ZА-Я]{3})(\d{8})/g,
 			passengers: /([A-Z]{3})(\d+)/g
 		};
 
@@ -744,6 +744,8 @@ define(
 				self = this,
 				tmpGroups = {},
 				displayResults = true,
+				sort = this.sort(),
+				newsort,
 				tmp;
 
 			this.clearResults();
@@ -1028,7 +1030,8 @@ define(
 										id: source.flights[j].id,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
-										segments: segsarr
+										segments: segsarr,
+										createOrderLink: source.flights[j].createOrderLink
 									}
 								);
 
@@ -1084,7 +1087,15 @@ define(
 
 						this.buildPFs();
 
-						this.sort(this.possibleSorts.indexOf(this.options.defaultSort) >= 0 ? this.options.defaultSort : this.possibleSorts[0]);
+						// We force sorting whether sort has changed or not
+						newsort = this.possibleSorts.indexOf(this.options.defaultSort) >= 0 ? this.options.defaultSort : this.possibleSorts[0];
+
+						if (sort != newsort) {
+							this.sort(newsort);
+						}
+						else {
+							this.sort.valueHasMutated();
+						}
 
 						this.setShowcase();
 					}
@@ -1123,10 +1134,7 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.flightsGetGrouppingKey = function (flight) {
-			return flight.getTotalPrice().normalizedAmount() + '-' + flight.getTotalPrice().currency() + '-' + flight.getValidatingCompany();
-		};
-		// Extension point - called when search results were processed
-		FlightsSearchResultsController.prototype.onSearchResultsBuilt = function () {/* EXTENSION HERE */
+			return flight.getTotalPrice().normalizedAmount() + '-' + flight.getTotalPrice().currency() + '-' + flight.getValidatingCompany().IATA;
 		};
 
 		FlightsSearchResultsController.prototype.buildModels = function () {
@@ -1148,61 +1156,67 @@ define(
 			}
 			// We were performin search - process response and load results
 			else {
-				this.processSearchInfo();
-
-				this.id = this.$$rawdata.flights.search.results.id;
-
-				// Processing error
-				if (this.$$rawdata.flights.search.results.info && this.$$rawdata.flights.search.results.info.errorCode) {
-					this.error(this.$$rawdata.flights.search.results.info.errorCode);
-					this.resultsLoaded(true);
+				if (this.$$rawdata.system && this.$$rawdata.system.error) {
+					searchError('systemError', this.$$rawdata.system.error);
 				}
-				// Loading results
 				else {
-					//return
-					this.$$controller.navigateReplace(
-						'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
-						false,
-						'FlightsResults'
-					);
+					this.processSearchInfo();
 
-					this.mode = 'id';
+					this.id = this.$$rawdata.flights.search.results.id;
 
-					// Loading search results
-					this.$$controller.loadData(
-						this.dataURL(),
-						this.dataPOSTParameters(),
-						function (text, request) {
-							var response;
+					// Processing error
+					if (this.$$rawdata.flights.search.results.info && this.$$rawdata.flights.search.results.info.errorCode) {
+						this.error(this.$$rawdata.flights.search.results.info.errorCode);
+						this.resultsLoaded(true);
+					}
+					// Loading results
+					else {
+						//return
+						this.$$controller.navigateReplace(
+							'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
+							false,
+							'FlightsResults'
+						);
 
-							try {
-								response = JSON.parse(text);
+						this.mode = 'id';
 
-								// Checking for errors
-								if (!response.system || !response.system.error) {
-									self.$$rawdata = response;
+						// Loading search results
+						this.$$controller.loadData(
+							this.dataURL(),
+							this.dataPOSTParameters(),
+							function (text, request) {
+								var response;
 
-									self.processSearchResults();
-									//if (!response.flights.search.results.info.errorCode) {
-									//}
-									//else {
-									//	searchError(response.flights.search.results.info.errorCode);
-									//}
+								try {
+									response = JSON.parse(text);
+
+									// Checking for errors
+									if (!response.system || !response.system.error) {
+										self.$$rawdata = response;
+
+										self.processSearchResults();
+										//if (!response.flights.search.results.info.errorCode) {
+										//}
+										//else {
+										//	searchError(response.flights.search.results.info.errorCode);
+										//}
+									}
+									else {
+										searchError('systemError', response.system.error);
+									}
 								}
-								else {
-									searchError('systemError', response.system.error);
+								catch (e) {
+									console.error(e);
+									searchError('brokenJSON', text);
 								}
-							}
-							catch (e) {
-								console.error(e);
-								searchError('brokenJSON', text);
-							}
-						},
-						function (request) {
+							},
+							function (request) {
 
-						}
-					)
+							}
+						)
+					}
 				}
+
 			}
 		};
 

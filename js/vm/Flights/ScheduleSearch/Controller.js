@@ -279,6 +279,7 @@ define(
 										visibleFlights = [],
 										dates = [],
 										visibleDates = [],
+										todayTimestamp = Math.floor((new Date()).setHours(0,0,0) / 1000),
 										tmp;
 
 									// Constructing flights
@@ -300,9 +301,11 @@ define(
 									// Processing days
 									for (var i in results.dates) {
 										if (results.dates.hasOwnProperty(i)) {
+											var dayTimestamp = i.split("-");
+											dayTimestamp = Math.floor((new Date(dayTimestamp[0], dayTimestamp[1]-1, dayTimestamp[2], 0, 0, 0)).getTime() / 1000);
 											tmp = {
 												date: self.$$controller.getModel('Common/Date', i),
-												flights: results.dates[i] || []
+												flights: todayTimestamp <= dayTimestamp ? results.dates[i] || [] : []
 											};
 
 											// Setting fly dates
@@ -345,8 +348,11 @@ define(
 			);
 		};
 
-		FlightsScheduleSearchFormController.prototype.startActualSearch = function () {
+		FlightsScheduleSearchFormController.prototype.startActualSearch = function (date, flightNumbers) {
 			this.searchError(false);
+
+			this.segments()[0].items.departureDate.value(date);
+			this.flightNumbers(flightNumbers);
 
 			if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
 				this.goToResults();

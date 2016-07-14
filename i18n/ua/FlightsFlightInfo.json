@@ -1,9 +1,17 @@
 {
-	"leg__header" : "Перелет предоставлен компанией<br>[%-carrier-%]",
-
-	"serviceClass_Economy" : "Эконом",
-	"serviceClass_PremiumEconomy" : "Эконом-премиум",
-	"serviceClass_Business" : "Бизнес",
-	"serviceClass_First" : "Первый",
-	"serviceClass_All" : "Неизвестно"
+    "leg__header": "Переліт наданий компанією  [% -carrier-%]",
+    "serviceClass_PremiumEconomy": "Економ-преміум",
+    "serviceClass_All": "Будь-який",
+    "leg__transfer": "Пересадка",
+    "leg__terminalChange": "Зміна терміналу",
+    "leg__segment__departure__caption": "Аеропорт",
+    "leg__segment__departure__terminal__caption": "Термінал",
+    "leg__segment__arrival__terminal__caption": "Термінал",
+    "leg__segment__arrival__caption": "Аеропорт",
+    "leg__segment__carrier__caption": "Виконує",
+    "leg__segment__flightNumber__caption": "Рейс",
+    "leg__segment__serviceClass__caption": "Клас",
+    "leg__segment__aircraft__caption": "Літак",
+    "leg__segment__timeEnRoute__caption": "В дорозі",
+    "leg__timeEnRoute__caption": "В дорозі"
 }

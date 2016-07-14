@@ -300,6 +300,7 @@
 						overflow: hidden;
 						text-overflow: ellipsis;
 						padding-right: 10px;
+						display: inline-block;
 
 						&_dates {
 							display: none;
@@ -307,6 +308,11 @@
 
 						&__dayOfWeek {
 							color: $nemo-color-text-secondary;
+						}
+
+						&__charter {
+							border-left: 1px solid $nemo-color-notification_error_text;
+							padding-left: 5px;
 						}
 					}
 

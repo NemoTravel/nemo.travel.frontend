@@ -1,4 +1,5 @@
 {
-  "FlightsSearch": "Поиск авиабилетов",
-  "FlightsResults": "Результаты поиска"
+    "FlightsSearch": "Поиск авиабилетов",
+    "FlightsResults": "Результаты поиска",
+    "FlightsScheduleSearch": "Поиск по расписанию"
 }

@@ -1,38 +1,30 @@
 {
-	"second_one" : "секунда",
-	"second_twoToFour" : "секунды",
-	"second_fourPlus" : "секунд",
-
-	"minute_one" : "минута",
-	"minute_twoToFour" : "минуты",
-	"minute_fourPlus" : "минут",
-
-	"hour_one" : "час",
-	"hour_twoToFour" : "часа",
-	"hour_fourPlus" : "часов",
-
-	"day_one" : "день",
-	"day_twoToFour" : "дня",
-	"day_fourPlus" : "дней",
-
-	"week_one" : "неделя",
-	"week_twoToFour" : "недели",
-	"week_fourPlus" : "недель",
-
-	"month_one" : "месяц",
-	"month_twoToFour" : "месяца",
-	"month_fourPlus" : "месяцев",
-
-	"year_one" : "год",
-	"year_twoToFour" : "года",
-	"year_fourPlus" : "лет",
-
-	"second_short" : "сек",
-	"minute_short" : "мин",
-	"hour_short"   : "ч",
-	"day_short"    : "дн",
-	"week_short"   : "нед",
-	"month_short"  : "мес",
-	"year_short"   : "лет"
-
+    "second_one": "секунда",
+    "second_twoToFour": "секунди",
+    "second_fourPlus": "секунд",
+    "minute_one": "хвилина",
+    "minute_twoToFour": "хвилини",
+    "minute_fourPlus": "хвилин",
+    "hour_one": "година",
+    "hour_twoToFour": "години",
+    "hour_fourPlus": "годин",
+    "day_one": "день",
+    "day_twoToFour": "дня",
+    "day_fourPlus": "днів",
+    "week_one": "тиждень",
+    "week_twoToFour": "тижні",
+    "week_fourPlus": "тижнів",
+    "month_one": "місяць",
+    "month_twoToFour": "місяці",
+    "month_fourPlus": "місяців",
+    "year_one": "рік",
+    "year_twoToFour": "року",
+    "year_fourPlus": "років",
+    "second_short": "сек",
+    "minute_short": "хв",
+    "hour_short": "г",
+    "day_short": "хв",
+    "week_short": "тижнів",
+    "month_short": "міс",
+    "year_short": "років"
 }

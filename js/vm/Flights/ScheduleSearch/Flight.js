@@ -20,6 +20,8 @@ define(
 			this.depTime = null;
 			this.arrTime = null;
 
+			this.arrivalDateShift = 0;
+
 			this.depTimeSeconds = 0;
 			this.arrTimeSeconds = 0;
 
@@ -101,6 +103,9 @@ define(
 						((this.segments[i].depDateShift - prevseg.arrDateShift) * 86400) - // Days difference
 						(prevseg.arrTimeSeconds - this.segments[i].depTimeSeconds);        // Time difference
 				}
+
+				// Setting arrival date shift
+				this.arrivalDateShift = this.segments[i].arrDateShift;
 
 				prevseg = this.segments[i];
 			}

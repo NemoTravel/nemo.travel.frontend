@@ -91,7 +91,7 @@
 					hostId: document.location.host,
 					root: '/',
 					postParameters: {},
-					i18nLanguage: 'ru'
+					i18nLanguage: 'ua'
 				},
 				controller;
 

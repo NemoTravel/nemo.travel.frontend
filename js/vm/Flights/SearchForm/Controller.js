@@ -175,6 +175,7 @@ define(
 					passengers = this.passengers(),
 					adtSum = 0,
 					infSum = 0,
+					insSum = 0,
 					total = 0;
 
 				for (var i in passengers) {
@@ -187,8 +188,12 @@ define(
 							adtSum += passengers[i]();
 						}
 
-						if (this.passengerInfantTypes.indexOf(i) >= 0) {
+						if (i == 'INF') {
 							infSum += passengers[i]();
+						}
+
+						if (i == 'INS'){
+							insSum += passengers[i]();
 						}
 					}
 				}
@@ -200,12 +205,15 @@ define(
 					}
 				}
 
-				// ADT+YTH+SRC >= INF+INS
-				// Infants: not more than adtSum
-				for (var i = 0; i < this.passengerInfantTypes.length; i++) {
-					if (ret.hasOwnProperty(this.passengerInfantTypes[i])) {
-						ret[this.passengerInfantTypes[i]].max = Math.min(adtSum, ret[this.passengerInfantTypes[i]].max);
-					}
+				// ADT+YTH+SRC >= INF
+				// Infants without seat: not more than adtSum
+				if (ret.hasOwnProperty('INF')) {
+					ret['INF'].max = Math.min(adtSum, ret['INF'].max);
+				}
+
+				// Infants with seat only if at least 1 adult
+				if (ret.hasOwnProperty('INS') && adtSum == 0){
+					ret['INS'].max = 0;
 				}
 
 				// Adults: not less than infSum
@@ -213,7 +221,7 @@ define(
 					if (ret.hasOwnProperty(this.passengerAdultTypes[i])) {
 						ret[this.passengerAdultTypes[i]].min = Math.max(
 							0,
-							passengers[this.passengerAdultTypes[i]]() - adtSum + infSum,
+							passengers[this.passengerAdultTypes[i]]() - adtSum +  Math.max(infSum, insSum > 0 ? 1 : 0),
 							ret[this.passengerAdultTypes[i]].min
 						);
 					}
@@ -245,7 +253,7 @@ define(
 					ret = false;
 					this.passengersError('noPassengers');
 				}
-				else if (adtPassengers == 0) {
+				else if (adtPassengers == 0 && !this.searchWithoutAdults) {
 					ret = false;
 					this.passengersError('noAdults');
 				}
@@ -1022,7 +1030,8 @@ define(
 			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
 			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
-			this.passengersSelectAlt = this.$$rawdata.flights.search.formData.passengersSelect.passengersSelectAlt;
+			this.passengersAltSelect = this.$$rawdata.flights.search.formData.passengersSelect.passengersSelectAlt;
+
 			// Date options
 			this.options.dateOptions = this.$$rawdata.flights.search.formData.dateOptions;
 			this.options.dateOptions.incorrectDatesBlock = false;
@@ -1033,6 +1042,8 @@ define(
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
+			
+			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};
 
 		FlightsSearchFormController.prototype.buildInitialSegments = function () {
@@ -1042,7 +1053,12 @@ define(
 
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
 					var depdata = null,
-						arrdata = null;
+						arrdata = null,
+						todayTimestamp = new Date();
+
+					todayTimestamp.setHours(0,0,0);
+
+					todayTimestamp = Math.floor(todayTimestamp.getTime() / 1000);
 
 					if (this.preinittedData.segments[i][0]) {
 						depdata = this.$$controller.getModel('Flights/Common/Geo', {
@@ -1066,10 +1082,22 @@ define(
 						});
 					}
 
+					// Checking date for validity
+					if (this.preinittedData.segments[i][2]) {
+						tmp = this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][2]);
+
+						if (tmp.getTimestamp() < todayTimestamp) {
+							tmp = null;
+						}
+					}
+					else {
+						tmp = null;
+					}
+
 					this.addSegment(
 						depdata,
 						arrdata,
-						this.preinittedData.segments[i][2] ? this.$$controller.getModel('Common/Date', this.preinittedData.segments[i][2]) : null
+						tmp
 					);
 				}
 
@@ -1185,18 +1213,29 @@ define(
 						try {
 							var tmp = JSON.parse(text);
 
+							// Checking for set data (to not double-fill it)
+							if (FlightsSearchFormController.prototype.carriers instanceof Array) {
+								self.carriersLoaded(true);
+								return;
+							}
+
+							if (FlightsSearchFormController.prototype.carriers === null) {
+								FlightsSearchFormController.prototype.carriers = [];
+							}
+
 							if (tmp.guide && tmp.guide.airlines) {
 								for (var i in tmp.guide.airlines) {
-									if (tmp.guide.airlines.hasOwnProperty(i)) {
-										if (FlightsSearchFormController.prototype.carriers === null) {
-											FlightsSearchFormController.prototype.carriers = [];
-										}
+									if (tmp.guide.airlines.hasOwnProperty(i) && i) {
 
 										FlightsSearchFormController.prototype.carriers.push(self.$$controller.getModel('Flights/Common/Airline', tmp.guide.airlines[i]));
 									}
 								}
 
 								FlightsSearchFormController.prototype.carriers.sort(function (a, b) {
+									if (!a.name || !b.name) {
+										return 0;
+									}
+
 									return a.name.localeCompare(b.name);
 								});
 

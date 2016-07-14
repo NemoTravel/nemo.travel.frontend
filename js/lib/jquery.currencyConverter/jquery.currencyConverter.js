@@ -154,6 +154,8 @@ define(
 						processElement($(e.target), currentCurrency);
 					})
 					.on('cc:changeCurrency',function (e, eventData) {
+						console.log(eventData);
+
 						currentCurrency = null;
 
 						if (typeof eventData != 'undefined' && typeof eventData.currency != 'undefined') {
