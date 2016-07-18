@@ -32,8 +32,8 @@ This variable represents engine location from $host:
 
 ```js
 sourceURL: nemoSourceHost,
-dataURL: 'http://conchita.mlsd.ru/api',
-staticInfoURL: 'http://conchita.mlsd.ru',
+dataURL: 'http://demo.nemo.travel/api',
+staticInfoURL: 'http://demo.nemo.travel',
 root: '/',
 ```
 

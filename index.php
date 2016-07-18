@@ -47,7 +47,7 @@
 	var nemoSourceHost = '<?php echo $host; ?>';
 	require.config({
 		// This should be deleted
-		urlArgs: "version=v1.38.2.1455722074",
+		urlArgs: "",
 
 		// Common libraries
 		paths: {
@@ -86,19 +86,26 @@
 		function (AppController) {
 			var options = {
 					controllerSourceURL: nemoSourceHost,
-					dataURL: 'http://conchita.mlsd.ru/api',
-					version: 'v1.38.2.1455722074',
+					dataURL: 'http://demo.nemo.travel/api',
+					staticInfoURL: '//demo.nemo.travel',
+					version: 'v0',
 					hostId: document.location.host,
 					root: '/',
 					postParameters: {},
-					i18nLanguage: 'ua'
+					CORSWithCredentials: true,
+					i18nLanguage: 'en',
+					componentsAdditionalInfo: {
+						'Flights/SearchForm/Controller': {
+							forceSelfHostNavigation: true
+						}
+					}
 				},
 				controller;
 
 			/* FORM PRE-INIT BY SOME PARAMETERS
 			options.componentsAdditionalInfo = {
 				'Flights/SearchForm/Controller': {
-	                delayed: false,
+					delayed: false,
 					init: {
 						direct: true,
 						serviceClass: 'Business',
@@ -150,8 +157,8 @@
 //				document.getElementsByClassName('js-form')[0],
 //				{
 //					sourceURL: nemoSourceHost,
-//					dataURL: 'http://conchita.mlsd.ru/api',
-//					staticInfoURL: 'http://conchita.mlsd.ru',
+//					dataURL: 'http://demo.nemo.travel/api',
+//					staticInfoURL: 'http://demo.nemo.travel',
 //					root: '/',
 ////						    verbose: true,
 //					i18nLanguage: 'ru',
