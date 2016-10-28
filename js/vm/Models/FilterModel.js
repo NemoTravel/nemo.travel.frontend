@@ -26,18 +26,23 @@ define(['knockout', 'js/vm/helpers'], function (ko, helpers) {
             return helpers.sortArrayOfObjectsByProperty(filtersAsArray, 'count', 'DESC');
         }, self);
 
-        self.setFilterValues = function (filters) {
+        self.setFilterValues = function (availableFilters) {
+            
+            var temp = self.values();
 
-            var temp = {};
+            helpers.iterateObject(availableFilters, function (filter, id) {
 
-            helpers.iterateObject(filters, function (filter, id) {
-
-                // if new filter value
-                if (!self.values()[id]) {
+                if (!temp[id]) {
+                    // add new filter value
                     temp[id] = new FeatureFilter(filter);
                 } else {
-                    temp[id] = self.values()[id];
                     temp[id].count(filter.count);
+                }
+            });
+
+            helpers.iterateObject(temp, function (value, id) {
+                if (!availableFilters[id]) {
+                    value.count(0);
                 }
             });
 

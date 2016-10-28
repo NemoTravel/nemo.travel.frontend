@@ -27,11 +27,13 @@ define([
         };
     };
 
-    function makeMap(id, coords, scrollOnWheel) {
+    function makeMap(id, coords, scrollOnWheel, disableZoomAndStreetViewControl) {
         return new google.maps.Map(document.getElementById(id), {
             center: {lat: coords[0], lng: coords[1]},
             zoom: GoogleMapModel.DEFAULT_ZOOM,
-            scrollwheel: typeof scrollOnWheel === 'undefined' ? true : scrollOnWheel
+            scrollwheel: typeof scrollOnWheel === 'undefined' ? true : scrollOnWheel,
+            zoomControl: !disableZoomAndStreetViewControl,
+            streetViewControl: !disableZoomAndStreetViewControl
         });
     }
 
@@ -81,15 +83,35 @@ define([
     };
 
     // map with one hotel
-    GoogleMapModel.prototype.initHotelCardMap = function (hotel, mapId, clickOnBound, scrollOnWheel) {
+    GoogleMapModel.prototype.initHotelCardMap = function (hotel, mapId) {
 
-        clickOnBound = typeof clickOnBound === 'undefined' ? false : clickOnBound;
+        var scrollOnWheel = false,
+            disableZoomAndStreetViewControl = false;
+
+        switch (mapId) {
+            // map on tab "About hotel"
+            case 'aboutLocationMap':{
+                break;
+            }
+            // full screen map
+            case 'hotelBigMap':{
+                scrollOnWheel = true;
+                break;
+            }
+            // mini map on hotel card
+            case 'cardHotelMap':{
+                scrollOnWheel = true;
+                disableZoomAndStreetViewControl = true;
+                break;
+            }
+        }
 
         var lat = hotel.staticDataInfo.posLatitude || 0,
             lon = hotel.staticDataInfo.posLongitude || 0;
 
-        this.maps[mapId] = makeMap(mapId, [lat, lon], scrollOnWheel);
-        this.makeMarker(this.maps[mapId], {hotel: hotel, addClickListener: clickOnBound, iconColor: GoogleMapModel.ICON_TYPE_DEFAULT});
+        this.maps[mapId] = makeMap(mapId, [lat, lon], scrollOnWheel, disableZoomAndStreetViewControl);
+
+        this.makeMarker(this.maps[mapId], {hotel: hotel, addClickListener: false, iconColor: GoogleMapModel.ICON_TYPE_DEFAULT});
     };
 
     // Check center of map
@@ -114,7 +136,7 @@ define([
             hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [];
 
         // Init map and show center
-        this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], true);
+        this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], true, false);
 
         // Add circle overlay and bind to center
         this.circle = new google.maps.Circle({

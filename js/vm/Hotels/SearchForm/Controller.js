@@ -40,9 +40,7 @@ define([
             this.setCookies = false;
             this.useCookies = true;
 
-            // tunesearch preinitted cookied
             this.mode = HotelsBaseModel.MODE_NORMAL;
-            //this.tuneSearch = 0;
             this.roomsFastSelectorOpen = ko.observable(false);
             this.parametersChanged = ko.observable(false);
             this.showPreviousSearches = true;
@@ -153,8 +151,6 @@ define([
 
                 if (this.useCookies && this.setCookies) {
                     LocalStorage.set('searchFormData', newValue);
-                    // this.$$controller.log('WRITING COOKIE', this.getCookieName(), newValue);
-                    // Cookie.set(this.getCookieName(), newValue, {expires: 365});
                 } else {
                     this.$$controller.log('COOKIE NOT ENABED YET', this.getCookieName(), newValue);
                 }

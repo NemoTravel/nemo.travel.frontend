@@ -71,10 +71,10 @@ define(
 
             this.bigMapIsVisible = ko.observable(false);
 
-            this.showBigMap = function (hotel, clickOnBound) {
-                clickOnBound = typeof clickOnBound === 'undefined' ? false : clickOnBound;
+            // big map on full screen
+            this.showBigMap = function (hotel) {
                 self.bigMapIsVisible(true);
-                this.initHotelCardMap(hotel, 'hotelBigMap', clickOnBound, true);
+                this.initHotelCardMap(hotel, 'hotelBigMap');
             };
 
             /** Hotels count displayed to user */
@@ -251,7 +251,7 @@ define(
                 this.hotelCard(hotel);
 
                 setTimeout(function () {
-                    self.initHotelCardMap(hotel, 'cardHotelMap', false, true);
+                    self.initHotelCardMap(hotel, 'cardHotelMap');
                 }, 1000);
 
                 $(window).scrollTop(0);
