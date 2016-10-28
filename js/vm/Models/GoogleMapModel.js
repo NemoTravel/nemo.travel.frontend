@@ -114,7 +114,7 @@ define([
             hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [];
 
         // Init map and show center
-        this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], false);
+        this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], true);
 
         // Add circle overlay and bind to center
         this.circle = new google.maps.Circle({
