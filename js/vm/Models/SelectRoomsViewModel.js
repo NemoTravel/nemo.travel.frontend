@@ -29,15 +29,16 @@ define(['js/vm/Models/RoomTariffsModel', 'js/vm/helpers'], function (RoomTariffs
 
         self.isAllRoomsSelected = ko.computed(function () {
 
-            var count = 0;
+            var tariffs = self.selectedRoomsTariffs(),
+                count = 0;
 
-            helpers.iterateObject(self.selectedRoomsTariffs(), function (selectedRoomsTariff) {
+            helpers.iterateObject(tariffs, function (selectedRoomsTariff) {
                 if (selectedRoomsTariff()) {
                     count++;
                 }
             });
 
-            return count > 0;
+            return count === helpers.toArray(tariffs).length;
         });
 
         self.totalRoomsPrice = ko.computed(function () {
