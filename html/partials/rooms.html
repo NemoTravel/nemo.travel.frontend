@@ -12,7 +12,7 @@
 
             <div class="nemo-hotelRoom__info set-room-info-hidden">
 
-                <span class="nemo-hotelRoom__info__title">Классический стандартный двухместный номер</span>
+                <span class="nemo-hotelRoom__info__title" data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }">Классический стандартный двухместный номер</span>
 
                 <button data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }, css: $parents[2].blocks.isVisible()('hotelRoomInfo' + $index()) ? 'collapse' : 'expand'" class="nemo-hotelRoom__info__toggle collapse"></button>
 
