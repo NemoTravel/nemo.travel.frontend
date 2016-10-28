@@ -487,7 +487,7 @@
                                             <span class="nemo-ui-pseudoLink
                                                          nemo-hotels-results__hotelsGroup__room__additional
                                                          set-results-room-additional-hidden"
-                                                  data-bind="text: $root.i18n('HotelsSearchResults', 'PH__buy_by_prepayment_link')"></span>
+                                                  data-bind="click: function(hotel) { $parents[1].showCardHotel($parent) }, text: $root.i18n('HotelsSearchResults', 'PH__buy_by_prepayment_link')"></span>
                                     </li>
 
                                 </ul>
