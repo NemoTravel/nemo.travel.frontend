@@ -1,0 +1,26 @@
+<!-- Range money filter in "" -->
+
+<div class="nemo-ui-slider__info nemo-hotels-results__content__postfilters__inlineSlider__info">
+    <span data-bind="text: $root.i18n('HotelsSearchResults', 'from2') + '&nbsp;'"></span>
+    <span class="nemo-ui-slider__info__block
+                 nemo-ui-slider__info__value
+                 nemo-hotels-results__content__postfilters__inlineSlider__info__value"
+          data-bind="text: displayRangeMin">
+    </span>
+</div>
+
+<div class="nemo-ui-slider__wrapper
+            nemo-ui-slider__wrapper__oneHandle
+            nemo-hotels-results__content__postfilters__inlineSlider__slider">
+
+    <div class="nemo-ui-slider
+                nemo-ui-slider_range
+                ui-slider
+                ui-slider-horizontal
+                ui-widget
+                ui-widget-content
+                ui-corner-all"
+         data-bind="slider: value">
+    </div>
+
+</div>

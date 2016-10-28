@@ -1,281 +1,286 @@
-'use strict';
 define(
-    ['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'dotdotdot'],
-    function (ko, helpers, BaseControllerModel, Cookie, dotdotdot) {
-        function HotelsSearchResultsController (componentParameters) {
+    [
+        'knockout',
+        'js/vm/helpers',
+        'js/vm/BaseControllerModel',
+        'jsCookie',
+        'dotdotdot',
+        'js/vm/Models/SelectRoomsViewModel',
+        'js/vm/Models/HotelSearchResultsModel',
+        'js/vm/Models/HotelsBaseModel',
+        'js/vm/Models/RecentSearchModel',
+        'js/vm/Models/RecentHotelsModel'
+    ], function (ko,
+                 helpers,
+                 BaseControllerModel,
+                 Cookie,
+                 dotdotdot,
+                 SelectRoomsViewModel,
+                 HotelSearchResultsModel,
+                 HotelsBaseModel,
+                 RecentSearchModel,
+                 RecentHotelsModel) {
+
+        function changePhotos(photos) {
+            var arrayInfoPhotos = [];
+
+            photos.forEach(function (url) {
+                arrayInfoPhotos.push({
+                    img: url,
+                    thumb: url
+                });
+            });
+
+            return arrayInfoPhotos;
+        }
+
+        function HotelsSearchResultsController(componentParameters) {
+            
+            var self = this;
+
             BaseControllerModel.apply(this, arguments);
+            HotelSearchResultsModel.apply(this, arguments);
+
+            var getSearchId = function () {
+                return self.$$controller.router.current.getParameterValue('search_id');
+            };
+
+            this.searchId = ko.observable(null);
+
+            this.roomServicesList = HotelsBaseModel.ROOM_SERVICES;
 
             this.name = 'HotelsSearchResultsController';
-            this.error = ko.observable(false);
+            this.errorCode = ko.observable(false);
             this.$$loading = ko.observable(false);
             this.PFActive = ko.observable(false);
-            this.mode = 'id'; // 'search'
+            this.mode = HotelsBaseModel.MODE_ID;
             this.resultsTypeCookie = 'HotelsSearchForm';
             this.currentCity = ko.observable('');
-            this.currentActiveTab = ko.observable('Rooms');
-            this.searchParameters = {
-                cityId: 0,
-                hotelId: 0,
-                checkInDate: '',
-                checkOutDate: '',
-                isDelayed: false,
-                rooms: [
-                    {
-                        ADT: 0,
-                        CLD: 0,
-                        childAges: []
-                    }
-                ],
-                id: 0,
-                uri: ''
+            this.currentActiveTab = ko.observable(HotelsBaseModel.DEFAULT_TAB);
+            this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
+
+            this.isTabActive = ko.computed(function () {
+                return function (tab) {
+                    return self.currentActiveTab() === tab;
+                };
+            });
+
+            this.setActiveTab = function (tab) {
+                self.currentActiveTab(tab);
             };
+
+            this.bigMapIsVisible = ko.observable(false);
+
+            this.showBigMap = function (hotel, clickOnBound) {
+                clickOnBound = typeof clickOnBound === 'undefined' ? false : clickOnBound;
+                self.bigMapIsVisible(true);
+                this.initHotelCardMap(hotel, 'hotelBigMap', clickOnBound, true);
+            };
+
+            /** Hotels count displayed to user */
+            this.visibleHotelsCount = ko.observable(HotelsBaseModel.DEFAULT_VISIBLE_HOTELS_COUNT);
 
             this.countOfNights = ko.observable(0);
-            //this.labelAfterNights = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five'));
-
-            this.PFActive = ko.observable(false);
 
             this.isListView = ko.observable(true);
-            this.isMapView = ko.observable(false);
             this.oldMarkers = ko.observable([]);
-            // this.changeViewButtonLabel = ko.observable(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
-            this.changeViewButtonLabel = ko.observable('Показать на карте');
-            this.onMapPanelImageSrc = ko.observable('/img/show_on_map.png');
-
-            this.initHotelCardMap = function(hotel, mapId){
-
-                var map = new google.maps.Map(
-                    document.getElementById(mapId),
-                    {
-                        center: {lat: hotel.staticDataInfo.posLatitude, lng: hotel.staticDataInfo.posLongitude},
-                        zoom: 12
-                    }
-                );
-
-                if (hotel.staticDataInfo.posLatitude && hotel.staticDataInfo.posLongitude){
-                    var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(hotel.staticDataInfo.posLatitude, hotel.staticDataInfo.posLongitude),
-                        map: map,
-                        icon: {url: '/img/marker.svg', scaledSize: new google.maps.Size(40,35)},
-                        optimized: false
-                    });
-                }
-            }
-
-            this.initMap = function () {
-                var marker;
-
-                var setMapDivSize = function(){
-                    var newHeight = $('.nemo-hotels-results__map').height() - $('.nemo-hotels-results__map__controlWrap').outerHeight();
-                    $('#map').height(newHeight - 80);
-                }
-
-                $(window).resize(function(){
-                    setMapDivSize();
-                })
-
-                setMapDivSize();
-
-                // Init map and show center
-                this.map = new google.maps.Map(
-                    document.getElementById('map'),
-                    {
-                        center: {lat: 0, lng: 0},
-                        zoom: 10
-                    }
-                );
-
-                // Add circle overlay and bind to center
-                this.circle = new google.maps.Circle({
-                    map: this.map,
-                    fillOpacity: 0,
-                    strokeColor: '#0D426D',
-                    radius: 3000,    // 3 metres
-                    strokeWeight: 1
-                });
-
-                // Check center of map
-                this.geocoder = new google.maps.Geocoder();
-
-                this.checkGeocoderLocation = function geocodeAddress(geocoder, resultsMap, hotels, circle) {
-                    var self = this;
-                    this.geocoder.geocode({'address': this.currentCity()}, function(results, status) {
-                        var centerLocation;
-                        // If we know location it'll be center otherwise it'll be first hotel
-                        if (status === google.maps.GeocoderStatus.OK) {
-                            centerLocation = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
-                        } else {
-                            console.dir('Geocode was not successful for the following reason: ' + status);
-                            centerLocation = {lat: hotels[0].staticDataInfo.posLatitude , lng: hotels[0].staticDataInfo.posLongitude};
-                        }
-
-                        resultsMap.setCenter(centerLocation);
-
-                        self.circle.setCenter(centerLocation);
-                        self.setDistances(centerLocation);
-
-                        self.distanceFromCenter.rangeMin(3);
-                        self.distanceFromCenter.displayRangeMin(3);
-                    });
-                };
-
-                this.checkGeocoderLocation(this.geocoder, this.map, this.inCircleFilteredHotels(), this.circle);
-
-                this.isMapZoomSet = false;
-
-                // Add markers on map
-                var bounds =  this.addMarkersOnMap(this.inCircleFilteredHotels());
-
-                if (bounds && !this.isMapZoomSet){
-                    this.map.fitBounds(bounds);
-                    this.map.panToBounds(bounds);
-                    this.isMapZoomSet = true;
-                }
-            };
-
-            this.addMarkersOnMap = function(hotels) {
-                var bounds = new google.maps.LatLngBounds();
-                var isBounded = false;
-
-                if (hotels) {
-                    var showCardHotel = this.showCardHotel,
-                        infowindow = new google.maps.InfoWindow(),
-                        markers = [],
-                        i,
-                        iconBase = '/img/',
-                        icons = {
-                            nearByCenter: {
-                                icon: {url: iconBase + 'marker.svg', scaledSize: new google.maps.Size(40,35)}
-                            }
-                        };
-
-                    if (this.oldMarkers()) {
-                        var oldMarkersArr = this.oldMarkers();
-
-                        for (var indexMarker in oldMarkersArr) {
-                            oldMarkersArr[indexMarker].setMap(null);
-                        }
-                    }
-
-                    for(i = 0; i < hotels.length; i++) {
-                        if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
-                            // Add marker on map
-                            markers[i] = new google.maps.Marker({
-                                position: new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude),
-                                map: this.map,
-                                icon: icons.nearByCenter.icon,
-                                optimized: false,
-                                content: this.getHotelCardHtml(hotels[i])
-                            });
-
-                            bounds.extend(new google.maps.LatLng(hotels[i].staticDataInfo.posLatitude, hotels[i].staticDataInfo.posLongitude));
-                            isBounded = true;
-
-                            // Add mouseover event on marker
-                            //google.maps.event.addListener(markers[i], 'mouseover', (function (marker, i) {
-                            //    return function () {
-                            //        infowindow.setContent(this.content);
-                            //        infowindow.open(this.map, marker);
-                            //        $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
-                            //    }
-                            //})(markers[i], i));
-
-                            // Add click event on marker
-                            google.maps.event.addListener(markers[i], 'click', (function (marker, i) {
-                                //return function () {
-                                //    showCardHotel(hotels[i]);
-                                //}
-                                return function () {
-                                    infowindow.setContent(this.content);
-                                    infowindow.open(this.map, marker);
-                                    $('.mapItem').find('p.text').dotdotdot({ watch: 'window'});
-                                }
-                            })(markers[i], i));
-                        }
-                    }
-
-                    this.oldMarkers(markers);
-                }
-
-                return isBounded ? bounds : null;
-            };
-
-            this.changeView = function () {
-                if ( this.resultsLoaded() ) {
-                    if ( this.isListView() ) {
-                        // Show map with hotels
-                        this.isMapView(true);
-                        this.isListView(false);
-
-                        // Change name of button and icon
-                        this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'list__button-show'));
-                        this.onMapPanelImageSrc('/img/show_on_list.png');
-
-                        this.initMap();
-                    } else {
-                        // Show list with hotels
-                        this.isListView(true);
-                        this.isMapView(false);
-
-                        // Change name of button and icon
-                        this.changeViewButtonLabel(this.$$controller.i18n('HotelsSearchResults', 'map__button-show'));
-                        this.onMapPanelImageSrc('/img/show_on_map.png');
-                    }
-                }
-            };
 
             this.searchInfo = ko.observable({});
 
-            this.mode = 'id';
             this.resultsLoaded = ko.observable(false);
 
+            this.blocks = {
+
+                // key is block id, value is Boolean value (visible or hidden)
+                list: ko.observable({}),
+
+                isVisible: ko.computed(function () {
+                    return function (blockId) {
+                        return self.blocks.list()[blockId] !== false;
+                    };
+                }, this),
+
+                toggleVisibility: function (blockId) {
+                    var data = self.blocks.list();
+
+                    if (typeof data[blockId] === 'undefined') {
+                        data[blockId] = true;
+                    }
+
+                    data[blockId] = !data[blockId];
+
+                    self.blocks.list(data);
+                }
+            };
+
+            this.mobileMenu = {
+
+                opened: ko.observable(false),
+
+                openedMain: ko.observable(false),
+                openedCurrency: ko.observable(false),
+                openedLanguage: ko.observable(false),
+
+                openMain: function () {
+                    this.openedMain(true);
+                    this.openedLanguage(false);
+                    this.openedCurrency(false);
+                },
+
+                openCurrency: function () {
+                    this.openedMain(false);
+                    this.openedLanguage(false);
+                    this.openedCurrency(true);
+                },
+
+                openLanguage: function () {
+                    this.openedMain(false);
+                    this.openedCurrency(false);
+                    this.openedLanguage(true);
+                },
+
+                clickHandler: function () {
+                    $('body').addClass('nemo-common-mobileControlOpen');
+                    this.opened(true);
+                    this.openedMain(true);
+                },
+
+                close: function () {
+                    $('body').removeClass('nemo-common-mobileControlOpen');
+                    this.opened(false);
+                    this.openedMain(false);
+                },
+
+                changeCurrency: function (currency) {
+                    self.$$controller.viewModel.agency.onCurrencyChange(currency);
+                    this.openMain();
+                },
+
+                changeLanguage: function (language) {
+                    self.$$controller.viewModel.agency.changeLanguage(language);
+                },
+            };
+
+            /**
+             * Switch between map and list view
+             */
+            this.toggleView = function () {
+
+                this.isListView(!this.isListView());
+
+                if (!this.isListView()) {
+                    // Show map with hotels
+                    this.initMap();
+                }
+            };
+
+            this.togglePFActive = function () {
+                this.PFActive(!this.PFActive());
+            };
+
+            this.isShowResultIsEmpty = ko.computed(function () {
+                return this.resultsLoaded() && !this.isCardHotelView() && this.isResultEmpty();
+            }, this);
+
             this.searchFormActive = ko.observable(false);
-            this.searchFormActive.subscribe(function(){ $('.nemo-hotels-form').css('margin-top', 0)});
+            this.searchFormActive.subscribe(function () {
+                $('.nemo-hotels-form').css('margin-top', 0);
+            });
 
             this.hotels = ko.observableArray([]);
 
             this.$$controller.hotelsSearchCardActivated = ko.observable(false);
             this.isCardHotelView = ko.observable(false);
-            this.hotelCard = ko.observable([]);
+            this.hotelCard = ko.observable(null);
+
+            this.breadCrumbsVariants = ko.computed(function () {
+
+                var baseItems = [
+                    {
+                        title: 'hotels-step_search',
+                        active: true,
+                        link: '/hotels',
+                        pageTitle: 'HotelsSearch'
+                    },
+                    {
+                        title: 'hotels-step_results',
+                        active: true,
+                        link: '/hotels/results/' + (this.searchId() || ''),
+                        pageTitle: 'HotelsResults'
+                    }
+                ];
+
+                if (this.hotelCard()) {
+                    baseItems.push({i18n: this.searchForm.city.country, active: false, pageTitle: 'HotelsSearch'});
+                    baseItems.push({i18n: this.searchForm.city.name, active: false, pageTitle: 'HotelsSearch'});
+                    baseItems.push({i18n: this.hotelCard().name, active: false, pageTitle: 'HotelsSearch'});
+                } else {
+                    baseItems.push({title: 'hotels-step_checkout', active: false});
+                }
+
+                return baseItems;
+
+            }, this);
 
             this.isFilterNotificationVisible = ko.observable(Cookie.get('filter-notification-visible') !== 'false');
 
-            this.hideFilterNotification = function(){
+            this.hideFilterNotification = function () {
                 Cookie.set('filter-notification-visible', 'false');
                 this.isFilterNotificationVisible(false);
-            }
+            };
 
-            this.selectedRooms = new SelectRoomsViewModel(ko, null);
+            this.selectedRooms = new SelectRoomsViewModel(ko);
 
-            this.showCardHotel = (function (hotel, root) {
-                /*var proto = Object.getPrototypeOf(root.controller);
-                 proto.navigate.call(root.controller, '/hotels/results/' + hotel.id, false);*/
+            this.showCardHotel = (function (hotel) {
 
+                this.currentActiveTab(HotelsBaseModel.DEFAULT_TAB);
                 this.selectedRooms.setHotel(hotel);
+                this.recentViewedHotels(RecentHotelsModel.getLastThreeHotels());
+                RecentHotelsModel.add(hotel);
 
-                this.$$controller.navigate('/hotels/results/' + hotel.id, false, 'HotelCard');
+                this.$$controller.navigate('/hotels/results/' + getSearchId() + '/' + hotel.id, false, 'HotelCard');
                 this.isCardHotelView(true);
 
                 this.$$controller.hotelsSearchCardActivated(true);
                 this.$$controller.hotelsSearchController = this;
 
+                this.hotelPhotos = changePhotos(hotel.staticDataInfo.photos || []);
+
                 hotel.staticDataInfo.currentCity = this.currentCity();
 
-                this.hotelCard([hotel]);
-                console.dir(this.hotelCard());
-                this.initHotelCardMap(hotel, 'cardHotelMap');
+                this.hotelCard(hotel);
+
+                setTimeout(function () {
+                    self.initHotelCardMap(hotel, 'cardHotelMap', false, true);
+                }, 1000);
 
                 $(window).scrollTop(0);
             }).bind(this);
 
-            this.addCustomBindings(ko);
+            this.makeHotelLink = function (hotel) {
+                return '/hotels/results/' + getSearchId() + '/' + hotel.id;
+            };
+
+            this.getHotelMainImage = function (hotel, defaultImage) {
+
+                var photos = hotel.staticDataInfo.photos || [],
+                    mainPhotoId = hotel.staticDataInfo.mainPhotoId,
+                    url = 'url(' + (photos[mainPhotoId] ? photos[mainPhotoId] : '/img/no_hotel.png') + ')';
+
+                if (defaultImage === 1) {
+                    url += ', url(/img/no_hotel.svg)';
+                } else if (defaultImage === 2) {
+                    url += ', url(/img/hotel_thumb.svg)';
+                }
+
+                return url;
+            };
 
             this.processInitParams();
-
-		}
+        }
 
         // Extending from dictionaryModel
-        helpers.extendModel(HotelsSearchResultsController, [BaseControllerModel]);
+        helpers.extendModel(HotelsSearchResultsController, [BaseControllerModel, HotelSearchResultsModel]);
 
         HotelsSearchResultsController.prototype.$$KOBindings = ['common', 'HotelsResults'];
 
@@ -284,1173 +289,13 @@ define(
             'Common/Duration',
             'Common/Money',
             'Common/PostFilter/Abstract',
-            'Common/PostFilter/String',
-            'Common/PostFilter/Number',
             'Hotels/Common/Geo'
         ];
 
-        HotelsSearchResultsController.prototype.$$i18nSegments = ['HotelsSearchForm', 'HotelsSearchResults'];
+        HotelsSearchResultsController.prototype.$$i18nSegments = ['HotelsSearchForm', 'HotelsSearchResults', 'currencyNames'];
 
-        HotelsSearchResultsController.prototype.processInitParams = function () {
-            this.mode = 'search';
-
-            this.searchInfo(Cookie.getJSON(this.$$controller.options.cookiesPrefix+this.resultsTypeCookie));
-        };
-
-        HotelsSearchResultsController.prototype.dataURL = function () {
-            if (this.mode == 'id') {
-                return '/hotels/search/results/' + this.id;
-            }
-            else {
-                return '/hotels/search/request';
-            }
-        };
-
-        HotelsSearchResultsController.prototype.dataPOSTParameters = function () {
-            var cookie_params = {},
-                params = {},
-                ret = {},
-                roomsArr = [];
-
-            if (this.mode != 'id') {
-                cookie_params = Cookie.getJSON(this.$$controller.options.cookiesPrefix+this.resultsTypeCookie);
-
-                params.cityId = cookie_params.segments[0][1];
-                params.hotelId = null;
-
-                params.checkInDate = ISODateString(new Date(cookie_params.segments[0][2]));
-                params.checkOutDate = ISODateString(new Date(cookie_params.segments[0][3]));
-
-                params.isDelayed = false;
-
-                for (var i = 0; i < cookie_params.rooms.length; i++) {
-                    if (!roomsArr[i]) {
-                        roomsArr[i] = {};
-                    }
-
-                    roomsArr[i].ADT = cookie_params.rooms[i].adults;
-
-                    if (cookie_params.rooms[i].infants.length) {
-                        roomsArr[i].CLD = cookie_params.rooms[i].infants.length;
-                        for (var indexInfants = 0; indexInfants < cookie_params.rooms[i].infants.length; indexInfants++) {
-                            if (!roomsArr[i].childAges) {
-                                roomsArr[i].childAges = []
-                            }
-                            roomsArr[i].childAges.push(cookie_params.rooms[i].infants[indexInfants]);
-                        }
-                    }
-                }
-
-                params.rooms = roomsArr;
-
-                //ret.request = JSON.stringify({
-                //    "cityId": 1934864,
-                //    "checkInDate": "2016-10-28T00:00:00",
-                //    "checkOutDate": "2016-10-30T00:00:00",
-                //    "isDelayed": false,
-                //    "rooms": [
-                //        {
-                //           "ADT": 1,
-                //            "CLD": 1,
-                //            "childAges": [
-                //               10
-                //            ]
-                //        }
-                //    ]
-                //});
-
-                ret.request = JSON.stringify({
-                     "cityId": params.cityId,
-                     //"cityId": 1934864, //TODO hardcode
-                     "checkInDate": params.checkInDate,
-                     "checkOutDate": params.checkOutDate,
-                     "isDelayed": false,
-                     "rooms": params.rooms
-                });
-            }
-
-            return ret;
-
-            function ISODateString(d){
-                function pad(n){return n<10 ? '0'+n : n}
-                return d.getUTCFullYear()+'-'
-                    + pad(d.getUTCMonth()+1)+'-'
-                    + pad(d.getUTCDate())+'T'
-                    + pad(d.getUTCHours())+':'
-                    + pad(d.getUTCMinutes())+':'
-                    + pad(d.getUTCSeconds())}
-        };
-
-        HotelsSearchResultsController.prototype.pageTitle = 'HotelsResults';
-
-        HotelsSearchResultsController.prototype.buildModels = function () {
-            var self = this;
-
-            function searchError (message, systemData) {
-                self.createBreadcrumbs();
-
-                if (typeof systemData != 'undefined' && systemData[0] !== 0) {
-                    self.$$controller.error('SEARCH ERROR: '+message, systemData);
-                }
-
-                if (typeof systemData == 'undefined' || systemData[0] !== 0) {
-                    self.error(message);
-                }
-            }
-
-            this.$$controller.loadData(
-                this.dataURL(),
-                this.dataPOSTParameters(),
-                function (text, request) {
-                    var response;
-
-                    try {
-                        response = JSON.parse(text);
-                        console.log(response)
-
-                        // Checking for errors
-                        if (!response.system || !response.system.error) {
-                            if (!response.hotels.search.results.info.errorCode) {
-                                self.$$rawdata = response;
-                                
-                                self.processSearchResults();
-                            }
-                            else {
-                                searchError(response.hotels.search.results.info.errorCode);
-                            }
-                        }
-                        else {
-                            searchError('systemError', response.system.error);
-                        }
-                    }
-                    catch (e) {
-                        console.error(e);
-                    }
-                },
-                function (request) {
-
-                }
-            );
-
-        };
-
-        HotelsSearchResultsController.prototype.getLabelAfterNights = function () {
-            switch(this.countOfNights()) {
-                case 1:
-                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_one');
-                case 2:
-                case 3:
-                case 4:
-                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_two_to_four');
-                default:
-                    return this.$$controller.i18n('HotelsSearchResults', 'PH__label_after_nights_more_than_five');
-            }
-        };
-
-        HotelsSearchResultsController.prototype.getFirstRoomsPrice = function(hotel){
-
-            var result = 0;
-
-            var rlength = hotel.rooms.length;
-            for (var i = 0; i < rlength; i++){
-                result += hotel.rooms[i][0].rate.price.amount;
-            }
-
-            return result;
-        }
-
-        HotelsSearchResultsController.prototype.getDistances = function(hotel){
-            var distances = hotel.staticDataInfo.distances;
-            var result = ['', ''];
-
-            var length = distances.length;
-            for (var i = 0; i< length; i++){
-                var item = distances[i];
-                if (item.typeName === 'Центр' && item.distancesArray && item.distancesArray.length > 0){
-                    var cd = item.distancesArray[0].value;
-                    if (cd){
-                        result[0] = cd.distance + ' ' + cd.measurement;
-                    }
-                }
-
-                if (item.typeName === "Аэропорт" && item.distancesArray && item.distancesArray.length > 0){
-                    var cd = item.distancesArray[0].value;
-                    if (cd){
-                        result[1] = cd.distance + ' ' + cd.measurement;
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        HotelsSearchResultsController.prototype.processSearchResults = function () {
-            var self = this;
-
-            var searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
-                staticData = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
-                hotelsArr = [],
-                roomsArr = [],
-                roomsDictionary = {},
-                starRatingArr = [],
-                distancesArr = [],
-                hotelId;
-
-            //creating roomMeals association
-            for ( var indexMeal = 0; indexMeal < searchData.results.roomMeals.length; indexMeal++ ) {
-                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
-                    if ( searchData.results.roomMeals[indexMeal].id === searchData.results.roomsGroup[indexRG].mealId ) {
-                        searchData.results.roomsGroup[indexRG].meal = searchData.results.roomMeals[indexMeal];
-                    }
-                }
-            }
-
-            //creating roomRates association
-            for ( var indexRate = 0; indexRate < searchData.results.roomRates.length; indexRate++ ) {
-                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
-                    if ( searchData.results.roomRates[indexRate].id === searchData.results.roomsGroup[indexRG].rateId ) {
-                        searchData.results.roomsGroup[indexRG].rate = searchData.results.roomRates[indexRate];
-                    }
-                }
-            }
-
-            // creating roomTypes association
-            for ( var indexType = 0; indexType < searchData.results.roomTypes.length; indexType++ ) {
-                for ( var indexRG = 0; indexRG < searchData.results.roomsGroup.length; indexRG++ ) {
-                    if ( searchData.results.roomTypes[indexType].id === searchData.results.roomsGroup[indexRG].typeId ) {
-                        searchData.results.roomsGroup[indexRG].type = searchData.results.roomTypes[indexType];
-                    }
-                }
-            }
-
-            // creating dictionary with properties rooms
-            for ( var indexDictionary = 0; indexDictionary < searchData.results.roomsGroup.length; indexDictionary++ ) {
-                if ( searchData.results.roomsGroup[indexDictionary].id || searchData.results.roomsGroup[indexDictionary].id === 0 ) {
-                    var idPropertie = searchData.results.roomsGroup[indexDictionary].id;
-
-                    roomsDictionary[idPropertie] = searchData.results.roomsGroup[indexDictionary];
-                }
-            }
-
-            // adding static data to hotel with identical id
-            for ( var index = 0; index < staticData.hotels.length; index++ ) {
-                if ( searchData.results.hotels[staticData.hotels[index].id] ) {
-                    searchData.results.hotels[staticData.hotels[index].id].staticDataInfo = staticData.hotels[index];
-                }
-            }
-
-            // running through all hotels in search results
-            for ( hotelId in searchData.results.hotels ) {
-                roomsArr = [];
-
-                // binding rooms data to hotels by index = searchRoomId
-                for ( var indexGroups = 0; indexGroups < searchData.results.hotels[hotelId].roomGroups.length; indexGroups++ ) {
-                    for ( var indexVariants = 0; indexVariants < searchData.results.hotels[hotelId].roomGroups[indexGroups].roomVariants.length; indexVariants++ ) {
-                        var searchRoomId = searchData.results.hotels[hotelId].roomGroups[indexGroups].searchRoomId,
-                            roomVariants = searchData.results.hotels[hotelId].roomGroups[indexGroups].roomVariants[indexVariants];
-
-                        //creating rooms associations
-                        roomVariants = roomsDictionary[roomVariants];
-
-                        if ( !roomsArr[searchRoomId] ) {
-                            roomsArr[searchRoomId] = [];
-                        }
-                        roomsArr[searchRoomId].push(roomVariants);
-                    }
-                }
-
-                //create properties which include data about rooms
-                searchData.results.hotels[hotelId].rooms = roomsArr;
-
-                //create array with hotels,static data and rooms
-                hotelsArr.push(searchData.results.hotels[hotelId]);
-            }
-
-            for ( var indexHotelArr = 0; indexHotelArr < hotelsArr.length; indexHotelArr++ ) {
-                starRatingArr = [];
-                for ( var indexStar = 0; indexStar < hotelsArr[indexHotelArr].staticDataInfo.starRating; indexStar++ ) {
-                    starRatingArr.push('1');
-                }
-                hotelsArr[indexHotelArr].staticDataInfo.starRating = starRatingArr;
-            }
-
-            for ( var indexHotelArr = 0; indexHotelArr < hotelsArr.length; indexHotelArr++ ) {
-                distancesArr = [];
-                for ( var indexDistance in hotelsArr[indexHotelArr].staticDataInfo.distances ) {
-                    distancesArr.push(hotelsArr[indexHotelArr].staticDataInfo.distances[indexDistance]);
-                }
-                hotelsArr[indexHotelArr].staticDataInfo.distances = distancesArr;
-            }
-
-            console.dir(hotelsArr);
-
-            this.cheapestHotel = null;
-
-            this.minHotelPrice = 999999;
-            this.maxHotelPrice = 0;
-
-            var hLength = hotelsArr.length;
-            for (var hIndex = 0; hIndex < hLength; hIndex++){
-                var price = this.getFirstRoomsPrice(hotelsArr[hIndex]);
-                hotelsArr[hIndex].hotelPrice = price;
-
-                if (this.minHotelPrice > price){
-                    this.minHotelPrice = price;
-                    this.cheapestHotel = hotelsArr[hIndex];
-                }
-
-                if (this.maxHotelPrice < price){
-                    this.maxHotelPrice = price;
-                }
-            }
-
-            this.promotionalHotels = ko.observableArray([]);
-            var promotionalHotels = this.$$rawdata.hotels.search.resultData.promotionalHotels;
-            if (promotionalHotels){
-                var existingHotels = $.grep(hotelsArr, function(item){return promotionalHotels.indexOf(item.id) > -1;});
-                this.promotionalHotels(existingHotels.slice(0, 2));
-            }
-
-            this.currentCity(this.$$rawdata.hotels.staticDataInfo.cities[0].name);
-            this.hotels = ko.observableArray(hotelsArr);
-
-            this.countOfNights = ko.observable(
-                Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / 24 / 60 / 60 / 1000)
-            );
-
-            this.filters = new HotelsFiltersViewModel(ko, this.minHotelPrice, this.maxHotelPrice, this.countOfNights());
-
-            this.visibleHotelsCount = ko.observable(5);
-
-            this.sortedHotels = ko.computed(function(){
-                self.filters.dummyObservalbe();
-
-                var sortHotels = function(item1, item2){
-                    if (!item1.staticDataInfo.averageCustomerRating){
-                        return 1;
-                    }
-
-                    if (!item2.staticDataInfo.averageCustomerRating){
-                        return -11;
-                    }
-
-                    return item1.staticDataInfo.averageCustomerRating.value > item2.staticDataInfo.averageCustomerRating.value ? -11 : 1;
-                }
-
-                if (self.filters.sortType() === 2){
-                    sortHotels = function(item1, item2){
-                        return item1.hotelPrice > item2.hotelPrice ? 1 : -1;
-                    }
-                }
-
-                return self.hotels().sort(sortHotels);
-            });
-
-            this.filteredHotels = ko.computed(function() {
-                if (self.filters.isFilterEmpty()){
-                    return self.sortedHotels();
-                }
-
-                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
-                    return self.filters.isMatchFilter(hotel);
-                });
-            });
-
-            this.exceptStarFilteredHotels = ko.computed(function(){
-                if (self.filters.isFilterEmpty()){
-                    return self.sortedHotels();
-                }
-
-                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
-                    return self.filters.isMatchExceptStarFilter(hotel);
-                });
-            });
-
-            this.exceptFeaturesFilteredHotels = ko.computed(function(){
-                if (self.filters.isFilterEmpty()){
-                    return self.sortedHotels();
-                }
-
-                return ko.utils.arrayFilter(self.sortedHotels(), function(hotel) {
-                    return self.filters.isMatchExceptFeatureFilter(hotel);
-                });
-            });
-
-            this.slicedFilteredHotels = ko.computed(function(){
-               return self.filteredHotels().slice(0, self.visibleHotelsCount());
-            });
-
-            this.distanceFromCenter = new SliderViewModel(ko, 'min', 1, 30);
-
-            this.isEmptyResultsVisible = ko.computed(function(){
-                return !self.filters.isFilterEmpty() && self.filteredHotels().length === 0;
-            });
-
-            this.inCircleFilteredHotels = ko.computed(function(){
-                self.filters.dummyObservalbe();
-                return ko.utils.arrayFilter(self.filteredHotels(), function(hotel) {
-                    return hotel.distanceFromCenter <= self.distanceFromCenter.rangeMin();
-                });
-            });
-
-            this.inCircleFilteredHotels.subscribe(function(newVal){
-                if (self.circle) {
-                    self.circle.setRadius(self.distanceFromCenter.rangeMin() * 1000);
-                    var bounds = self.addMarkersOnMap(newVal);
-
-                    if (bounds && !self.isMapZoomSet){
-                        self.map.fitBounds(bounds);
-                        self.map.panToBounds(bounds);
-                        self.isMapZoomSet = true;
-                    }
-                }
-            });
-
-            this.minStarPrices = ko.computed(function(){
-                var minStarPrices = [];
-                //var hotels = self.filteredHotels();
-                var hotels = self.exceptStarFilteredHotels();
-                var length = hotels.length;
-
-                for (var i = 0; i < length; i++){
-                    var hotelStar = hotels[i].staticDataInfo.starRating ? hotels[i].staticDataInfo.starRating.length : 0;
-                    var price = hotels[i].hotelPrice;
-                    if (!minStarPrices[hotelStar] || minStarPrices[hotelStar] > price){
-                        minStarPrices[hotelStar] = price;
-                    }
-                }
-
-                for (var j = 0; j <= 5; j++){
-                    if (!minStarPrices[j]){
-                        minStarPrices[j] = 0;
-                    }
-                }
-
-                return minStarPrices;
-            });
-
-            this.featuresCount = ko.computed(function(){
-
-                var featuresCount = [];
-                //var hotels = self.filteredHotels();
-                var hotels = self.exceptFeaturesFilteredHotels();
-                var length = hotels.length;
-
-                for (var i = 0; i < length; i++){
-                    if (hotels[i].staticDataInfo.popularFeatures){
-                        for (var j = 0; j < hotels[i].staticDataInfo.popularFeatures.length; j++){
-                            var feature = hotels[i].staticDataInfo.popularFeatures[j];
-                            if (featuresCount[feature]){
-                                featuresCount[feature] ++;
-                            }
-                            else{
-                                featuresCount[feature] = 1;
-                            }
-                        }
-                    }
-                }
-
-                //featuresCount['WiFi'] = featuresCount['WiFi'] || 0;
-
-                return featuresCount;
-            });
-
-            this.initialMinStarPrices = this.minStarPrices();
-            this.initialFeaturesCount = this.featuresCount();
-
-            this.countsOfHotels = ko.computed(function(){
-                return self.filteredHotels().length;
-            });
-
-            this.remainderHotels = ko.computed(function(){
-                var count = self.countsOfHotels() - self.visibleHotelsCount();
-
-                if (count < 0){
-                    return 0;
-                }
-
-                if (count > 25){
-                    return 25;
-                }
-
-                return count;
-            });
-
-            this.hideShowMoreButton = ko.computed(function(){
-                return self.remainderHotels() === 0;
-            });
-
-            this.showNext25hotels = function (controller) {
-                var newVisibleCount = self.visibleHotelsCount() + self.remainderHotels();
-                self.visibleHotelsCount(newVisibleCount);
-            };
-
-            this.labelAfterNights = ko.computed(function(){
-                return self.getLabelAfterNights(self.countOfNights());
-            });
-
-            this.displayCountOfNightsPrice = ko.computed(function(){
-                return self.$$controller.i18n('HotelsSearchResults', 'PF__filter__price_part') +
-                        ' ' + self.countOfNights() + ' ' + self.labelAfterNights();
-            });
-
-            //this.addLabelAfterNights();
-
-            if (typeof this.$$rawdata.system != 'undefined' && typeof this.$$rawdata.system.error != 'undefined') {
-                this.$$error(this.$$rawdata.system.error.message);
-            } else {
-                // Ids
-                this.id = this.$$rawdata.hotels.search.results.id;
-
-                // Processing options
-                this.options = this.$$rawdata.hotels.search.resultData;
-
-                // this.processSearchInfo();
-            }
-
-            this.createBreadcrumbs();
-
-            this.resultsLoaded(true);
-        };
-
-        HotelsSearchResultsController.prototype.createBreadcrumbs = function(){
-            var searchInfo = Cookie.getJSON('nemo-HotelsSearchForm');
-            var guide = this.$$rawdata.guide;
-
-            //TODO hardcode
-            //searchInfo.segments[0][1] = 1934864;
-            //guide.cities[1934864].name = 'Санкт-Петербург';
-            //guide.cities[1934864].countryCode = 'RU';
-            //guide.countries = {'RU': {
-            //    code: "RU",
-            //    name: "Россия",
-            //    nameEn: "Russia"
-            //}};
-            //TODO hardcode
-
-            this.breadcrumbs = new BreadcrumbViewModel(ko, searchInfo, this.$$controller, this.$$rawdata.hotels.staticDataInfo);
-        };
-
-        HotelsSearchResultsController.prototype.addCustomBindings = function(ko){
-
-            ko.bindingHandlers.afterHtmlRender = {
-                update: function(element, valueAccessor, allBindings){
-                    setTimeout(function(){
-                        $(element).dotdotdot({
-                            watch: 'window'
-                        });
-                    }, 1);
-                }
-            }
-
-            ko.bindingHandlers.hotelsResultsSearchFormHider = {
-                init: function (element, valueAccessor) {
-                    function hide (e) {
-                        var $this = $(e.target);
-
-                        var isOnSearchFormClick = $this.hasClass('nemo-hotels-form__formContainer') ||
-                            $this.parents('.nemo-hotels-form__formContainer').length > 0;
-
-                        var isOnFormOpenerClick = $this.hasClass('js-hotels-results__formOpener') ||
-                            $this.parents('.js-hotels-results__formOpener').length > 0;
-
-                        var isOnCalendarPopupClick = $this.hasClass('nemo-pmu-wrapper') ||
-                            $this.parents('.nemo-pmu-wrapper').length > 0;
-
-                        if (valueAccessor()() && !isOnSearchFormClick &&!isOnFormOpenerClick && !isOnCalendarPopupClick) {
-                            valueAccessor()(false);
-                        }
-                    }
-
-                    $('body').on('click', hide);
-
-                    ko.utils.domNodeDisposal.addDisposeCallback(element, function() {$('body').off('click', hide)});
-                }
-            };
-
-            ko.bindingHandlers.slider = {
-                init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
-                    var vm = viewModel;
-                    var $element = $(element);
-
-                    $element.slider({
-                        range: vm.type === 'range' || vm.type,
-                        min: vm.min,
-                        max: vm.max,
-                        values: vm.type == 'range' ? [ vm.min, vm.max ] : vm.max,
-
-                        slide: function( event, ui ) {
-                            if (vm.type === 'range') {
-                                vm.displayRangeMin(ui.values[0]);
-                                vm.displayRangeMax(ui.values[1]);
-                            }
-                            else if (vm.type == 'min') {
-                                vm.displayRangeMin(ui.value);
-                            }
-                        },
-
-                        change: function( event, ui ) {
-                            if (event.originalEvent) {
-                                if (vm.type === 'range') {
-                                    vm.rangeMin(ui.values[0]);
-                                    vm.rangeMax(ui.values[1]);
-                                }
-                                else if (vm.type === 'min'){
-                                    vm.rangeMin(ui.value);
-                                }
-
-                                if (bindingContext.$parent.dummyObservalbe) {
-                                    bindingContext.$parent.dummyObservalbe.notifySubscribers();
-                                }
-
-                                if (bindingContext.$parent.filters) {
-                                    bindingContext.$parent.filters.dummyObservalbe.notifySubscribers();
-                                }
-                            }
-                        }
-                    });
-
-                    // Do not forget to add destroy callbacks
-                    ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                        try {
-                            $element.slider('destroy');
-                        }
-                        catch (e) {}
-                    });
-                },
-
-                update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                    var vm = viewModel;
-
-                    if (vm.rangeMin() < vm.rangeMax()) {
-                        $(element).slider(
-                            vm.type == 'range' ? 'values' : 'value',
-                            vm.type == 'range' ? [vm.rangeMin(), vm.rangeMax()] : vm.rangeMin()
-                        );
-                    }
-                }
-            };
-        };
-
-        HotelsSearchResultsController.prototype.setDistances = function(centerLocation){
-
-            // http://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
-            var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
-                var deg2rad = function (deg) {
-                    return deg * (Math.PI/180)
-                }
-                var R = 6371; // Radius of the earth in km
-                var dLat = deg2rad(lat2-lat1);  // deg2rad below
-                var dLon = deg2rad(lon2-lon1);
-                var a =
-                        Math.sin(dLat/2) * Math.sin(dLat/2) +
-                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                        Math.sin(dLon/2) * Math.sin(dLon/2)
-                    ;
-                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                var d = R * c; // Distance in km
-                return d;
-            }
-
-            var hotels = this.hotels();
-            var length = hotels.length;
-            var maxDistance = 0;
-            for (var i = 0; i < length; i++){
-                if (hotels[i].staticDataInfo.posLatitude && hotels[i].staticDataInfo.posLongitude) {
-                    hotels[i].distanceFromCenter = getDistanceFromLatLonInKm(
-                        centerLocation.lat,
-                        centerLocation.lng,
-                        hotels[i].staticDataInfo.posLatitude,
-                        hotels[i].staticDataInfo.posLongitude);
-                }
-                else{
-                    hotels[i].distanceFromCenter = 0;
-                }
-
-                if (hotels[i].distanceFromCenter > maxDistance){
-                    maxDistance = hotels[i].distanceFromCenter;
-                }
-            }
-        }
-
-        HotelsSearchResultsController.prototype.getHotelCardHtml = function(hotel){
-            var self = this;
-
-            var getStarsHtml = function (hotel){
-                var result = '';
-                for (var i = 0; i < hotel.staticDataInfo.starRating.length; i++){
-                    result += '<div class="item"></div>';
-                }
-                return result;
-            }
-
-            var getFeaturesHtml = function(hotel){
-                var popularFeatures = hotel.staticDataInfo.popularFeatures;
-                if (!popularFeatures)
-                    return '';
-
-                var getLiHtml = function(popularFeautures, feature, iconClass){
-                    if (popularFeatures.indexOf(feature) > -1) {
-                        return '<li class="service"><span class="icon ' + iconClass + '"></span></li>';
-                    }
-                    else{
-                        return '';
-                    }
-                }
-
-                return  getLiHtml(popularFeatures, 'Pool', 'icon_pool') +
-                    getLiHtml(popularFeatures, 'Parking', 'icon_parking') +
-                    getLiHtml(popularFeatures, 'Gym', 'icon_sport') +
-                    getLiHtml(popularFeatures, 'ConferenceFacilities', 'icon_electricity') +
-                    getLiHtml(popularFeatures, 'WiFi', 'icon_wifi') +
-                    getLiHtml(popularFeatures, 'Laundry', 'icon_laundry') +
-                    getLiHtml(popularFeatures, 'Transfer', 'icon_transport') +
-                    getLiHtml(popularFeatures, 'ExpressCheckIn', 'icon_roundTheClock') +
-                    getLiHtml(popularFeatures, 'ClimateControl', 'icon_fridge') +
-                    getLiHtml(popularFeatures, 'BusinessCenter', 'icon_luggage') +
-                    getLiHtml(popularFeatures, 'SPA', 'icon_spa') +
-                    getLiHtml(popularFeatures, 'Bar', 'icon_bar') +
-                    getLiHtml(popularFeatures, 'Restaurant', 'icon_resturant') +
-                    getLiHtml(popularFeatures, 'Meal', 'icon_infinity');
-            }
-
-            var photoUrl = hotel.staticDataInfo.photos ?
-                'url(' + hotel.staticDataInfo.photos[hotel.staticDataInfo.mainPhotoId] + ')' :
-                'url(/img/no%20hotel.svg)';
-            photoUrl += ', url(/img/no%20hotel.svg)'
-
-            var acRating = 0;
-            var acDescription = this.$$controller.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default');
-            if (hotel.staticDataInfo.averageCustomerRating){
-                acRating = hotel.staticDataInfo.averageCustomerRating.value;
-                if (hotel.staticDataInfo.averageCustomerRating.description){
-                    acDescription = hotel.staticDataInfo.averageCustomerRating.description;
-                }
-            }
-
-            var commentsStr = this.$$controller.i18n('HotelsSearchResults', 'PH__reviews_link_title') + ': ' + hotel.staticDataInfo.usersOpinionInfo.opinionsCount;
-            var address = this.currentCity() + hotel.staticDataInfo.addresses[0];
-            var distances = this.getDistances(hotel);
-            var fromCenterStr = distances[0] ? (this.$$controller.i18n('HotelsSearchResults', 'from__center') + (distances[1] ? ',' : '')) : '';
-            var fromAirportStr = distances[1] ? this.$$controller.i18n('HotelsSearchResults', 'from__airport') : '';
-
-            $('body').on('click', 'a[data-hotel-id="' + hotel.id + '"]', function(){
-                self.showCardHotel(hotel);
-                return false;
-            });
-
-            var result =
-                '<div class="mapItem">' +
-                    '<div class="hotel">' +
-                        '<div class="header">' +
-                            '<div class="title">' +
-                                '<a class="text" data-hotel-id="' + hotel.id + '" href="#">' + hotel.name + '</a>' +
-                                '<div class="stars">' +
-                                    getStarsHtml(hotel) +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="additional">' + this.$$controller.i18n('HotelsSearchResults', 'header-flag__best_price') + '</div>' +
-                        '</div>' +
-                        '<div class="content">' +
-                            '<div class="mainInfo">' +
-                                '<div class="photoWrap" style="background-image: ' + photoUrl + '"></div>' +
-                                '<div class="rating">' +
-                                    '<span class="number">' + acRating + '</span>' +
-                                    '<span class="text">' + acDescription + '</span>' +
-                                    '<a href="javascript:void(0);" class="link">' + commentsStr + '</a>' +
-                                '</div>' +
-                                '<div class="infoBlock">' +
-                                    '<div class="addressWrap">' +
-                                        '<div>' + address + '</div>' +
-                                        '<div class="distances">' +
-                                            '<span>' +
-                                                '<span>' + distances[0] + '</span>' +
-                                                '<span class="target">' + fromCenterStr + '</span>' +
-                                            '</span>' +
-                                            '<span>' +
-                                                '<span>' + distances[1] + '</span>' +
-                                                '<span class="target">' + fromAirportStr + '</span>' +
-                                            '</span>' +
-                                            //'<a href="#" class="mapLink">Карта</a>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="description">' +
-                                        '<p class="text">' + hotel.staticDataInfo.description.replace(/<(?:.|\n)*?>/gm, '') + '</p>' +
-                                        //'<a href="#" class="link"></a>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<ul class="services">' +
-                                    getFeaturesHtml(hotel) +
-                                '</ul>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-
-            return result;// + '<button class="open-hotel-card-btn" data-hotel-id="' + hotel.id + '">awerwerertert</button>';
-        }
+        HotelsSearchResultsController.prototype.pageTitle = null;
 
         return HotelsSearchResultsController;
     }
 );
-
-var HotelsFiltersViewModel = function(ko, minRoomPrice, maxRoomPrice, countOfNights){
-    var self = this;
-
-    self.countOfNights = countOfNights;
-    self.minRoomPrice = minRoomPrice;
-    self.maxRoomPrice = maxRoomPrice;
-
-    self.dummyObservalbe = ko.observable();
-
-    self.sortType = ko.observable(1);
-    self.sortTypes = ko.observableArray([1,2]);
-
-    self.starRating0 = ko.observable(false);
-    self.starRating1 = ko.observable(false);
-    self.starRating2 = ko.observable(false);
-    self.starRating3 = ko.observable(false);
-    self.starRating4 = ko.observable(false);
-    self.starRating5 = ko.observable(false);
-
-    self.featureWifi = ko.observable(false);
-    self.featureMeal = ko.observable(false);
-    self.featureParking = ko.observable(false);
-    self.featureGym = ko.observable(false);
-    self.featurePool = ko.observable(false);
-    self.featureTransfer = ko.observable(false);
-
-
-    self.isStarFilterEmpty = ko.computed(function(){
-       return !self.starRating0() &&
-           !self.starRating1() &&
-           !self.starRating2() &&
-           !self.starRating3() &&
-           !self.starRating4() &&
-           !self.starRating5();
-    });
-
-    self.isFeatureFilterEmpty = ko.computed(function(){
-        return !self.featureWifi() &&
-            !self.featureMeal() &&
-            !self.featureParking() &&
-            !self.featureGym() &&
-            !self.featurePool() &&
-            !self.featureTransfer();
-    });
-
-    self.resetStarFilter = function(){
-        self.starRating0(false);
-        self.starRating1(false);
-        self.starRating2(false);
-        self.starRating3(false);
-        self.starRating4(false);
-        self.starRating5(false);
-    };
-
-    self.resetFeatureFilter = function(){
-        self.featureWifi(false);
-        self.featureMeal(false);
-        self.featureParking(false);
-        self.featureGym(false);
-        self.featurePool(false);
-        self.featureTransfer(false);
-    };
-
-    self.fiveNightPrice = new SliderViewModel(ko, 'range',
-        Math.floor(minRoomPrice * countOfNights),
-        Math.ceil(maxRoomPrice * countOfNights));
-
-    self.averageCustomerRating = new SliderViewModel(ko, 'min', 1, 10);
-
-    self.isFilterEmpty = ko.computed(function(){
-       return self.isStarFilterEmpty() && self.fiveNightPrice.isDefault() &&
-           self.averageCustomerRating.isDefault() && self.isFeatureFilterEmpty();
-    });
-
-    self.isMatchStarFilter = function(hotelStars){
-
-        if (self.isStarFilterEmpty()){
-            return true;
-        }
-
-        return (self.starRating0() && hotelStars === 0) ||
-            (self.starRating1() && hotelStars === 1) ||
-            (self.starRating2() && hotelStars === 2) ||
-            (self.starRating3() && hotelStars === 3) ||
-            (self.starRating4() && hotelStars === 4) ||
-            (self.starRating5() && hotelStars === 5);
-    }
-
-    self.isMatchFeatureFilter = function(popularFeatures){
-
-        if (self.isFeatureFilterEmpty()){
-            return true;
-        }
-
-        if (!popularFeatures){
-            return false;
-        }
-
-        return (self.featureWifi() && popularFeatures.indexOf('WiFi') > -1) ||
-            (self.featureMeal() && popularFeatures.indexOf('Meal') > -1) ||
-            (self.featureParking() && popularFeatures.indexOf('Parking') > -1) ||
-            (self.featureGym() && popularFeatures.indexOf('Gym') > -1) ||
-            (self.featurePool() && popularFeatures.indexOf('Pool') > -1) ||
-            (self.featureTransfer() && popularFeatures.indexOf('Transfer') > -1);
-
-        //var features = [];
-
-        //if (self.featureWifi()) features.push('WiFi');
-        //if (self.featureMeal()) features.push('Meal');
-        //if (self.featureParking()) features.push('Parking');
-        //if (self.featureGym()) features.push('Gym');
-        //if (self.featurePool()) features.push('Pool');
-        //if (self.featureTransfer()) features.push('Transfer');
-
-        //for (var i = 0; i< features.length; i++){
-        //    if (popularFeatures.indexOf(features[i]) < 0){
-        //        return false;
-        //    }
-        //}
-
-        //return true;
-    }
-
-    self.isMatchFiveNightPriceFilter = function(hotelPrice){
-        if (self.fiveNightPrice.isDefault()){
-            return true;
-        }
-
-        return hotelPrice * self.countOfNights >= self.fiveNightPrice.rangeMin() &&
-            hotelPrice * self.countOfNights <= self.fiveNightPrice.rangeMax();
-    }
-
-    self.isMatchAverageCustomerRatingFilter = function(averageCustomerRating){
-        if (self.averageCustomerRating.isDefault()){
-            return true;
-        }
-
-        return averageCustomerRating && self.averageCustomerRating.rangeMin() <= averageCustomerRating.value;
-    }
-
-    self.isMatchFilter = function(hotel){
-        var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
-
-        return self.isMatchStarFilter(hotelStars) &&
-            self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
-            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating) &&
-            self.isMatchFeatureFilter(hotel.staticDataInfo.popularFeatures);
-    }
-
-    self.isMatchExceptStarFilter = function(hotel){
-        return self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
-            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating) &&
-            self.isMatchFeatureFilter(hotel.staticDataInfo.popularFeatures);
-    }
-
-    self.isMatchExceptFeatureFilter = function(hotel){
-        var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
-
-        return self.isMatchStarFilter(hotelStars) &&
-            self.isMatchFiveNightPriceFilter(hotel.hotelPrice) &&
-            self.isMatchAverageCustomerRatingFilter(hotel.staticDataInfo.averageCustomerRating);
-    }
-
-    self.resetFilters = function(){
-        self.resetStarFilter();
-        self.fiveNightPrice.reset();
-        self.averageCustomerRating.reset();
-        self.resetFeatureFilter();
-    }
-}
-
-var SliderViewModel = function(ko, type, min, max){
-    var self = this;
-
-    self.type = type;
-    self.min = min;
-    self.max = max;
-    self.rangeMin = ko.observable(min);
-    self.rangeMax = ko.observable(max);
-    self.displayRangeMin = ko.observable(min);
-    self.displayRangeMax = ko.observable(max);
-
-    self.isDefault = ko.computed(function(){
-
-        if (self.type === 'range') {
-            return self.rangeMin() == self.min && self.rangeMax() == max;
-        }
-
-        if (self.type === 'min'){
-            return self.rangeMin() == self.min;
-        }
-
-        return false;
-    });
-
-    self.reset = function(){
-        self.rangeMin(self.min);
-        self.rangeMax(self.max);
-        self.displayRangeMin(self.min);
-        self.displayRangeMax(self.max);
-    }
-}
-
-var SelectRoomsViewModel = function(ko, hotel){
-    var self = this;
-
-    self.hotel = ko.observable(null);
-
-    if (hotel){
-        self.setHotel(hotel)
-    }
-
-    self.setHotel = function(hotel){
-        self.hotel(hotel);
-        self.selectedRooms([]);
-    }
-
-    self.selectedRooms = ko.observableArray([]);
-
-    self.isRoomSelected = function(room){
-        return $.grep(self.selectedRooms(), function(item){
-           return item == room;
-        }).length === 1;
-    };
-
-    self.isAllRoomsSelected = ko.computed(function(){
-        if (!self.hotel()){
-            return false;
-        }
-
-        return self.selectedRooms().length === self.hotel().rooms.length;
-    });
-
-    self.allRoomPrice = ko.computed(function(){
-        if (!self.isAllRoomsSelected()) {
-            return 0;
-        }
-
-        var selectedRooms = self.selectedRooms();
-        var result = 0;
-        for (var i = 0; i < selectedRooms.length; i++){
-            result += selectedRooms[i].rate.price.amount;
-        }
-
-        return result;
-    });
-
-    self.selectRoom = function(room){
-        var selectedRoomsIndex = self.getRoomsIndex(room);
-
-        var selectedRooms = self.selectedRooms();
-
-        var x = $.grep(selectedRooms, function(item){
-            return self.getRoomsIndex(item) == selectedRoomsIndex;
-        })
-
-        if (x.length > 0){
-            var selectedRoom = x[0];
-            self.selectedRooms.remove(selectedRoom);
-            if (room != selectedRoom) {
-                self.selectedRooms.push(room);
-            }
-        }
-        else{
-            self.selectedRooms.push(room);
-        }
-    }
-
-    self.getRoomsIndex = function(room){
-        if (!self.hotel()){
-            return null;
-        }
-
-        for (var i = 0; i < self.hotel().rooms.length; i++){
-            for (var j = 0; j < self.hotel().rooms[i].length; j++){
-                if (self.hotel().rooms[i][j] == room){
-                    return i;
-                }
-            }
-        }
-
-        return null;
-    }
-}
-
-var BreadcrumbViewModel = function(ko, searchInfo, controller, staticDataInfo) {
-
-    var self = this;
-    var segment = searchInfo.segments[0];
-
-    self.createCity = function(segment, staticDataInfo){
-        var city = {
-            id: segment[1],
-            name: '',
-            country: ''
-        }
-
-        if (staticDataInfo.cities){
-            var currentCities = $.grep(staticDataInfo.cities, function(item){return item.id == city.id;});
-            if (currentCities.length > 0){
-                var currentCity = currentCities[0];
-                city.name = currentCity.name;
-                if (currentCity.countryId){
-                    var countries = $.grep(staticDataInfo.countries, function(item){ return item.id == currentCity.countryId;});
-                    if (countries.length > 0){
-                        city.country = countries[0].name;
-                    }
-                    else{
-                        console.log('country not found in staticDataInfo.countries countryId = ' + currentCity.countryId);
-                    }
-                }
-                else{
-                    console.log('country code is not set for city id = ' + city.id);
-                }
-            }
-            else{
-                console.log('city id = ' + city.id + ' not found in staticDataInfo.cities');
-            }
-        }
-        else{
-            console.log('cities not found in staticDataInfo');
-        }
-
-        return city;
-    }
-
-    self.getGuestsSummary = function(rooms){
-        var adults = 0;
-        var infants = 0;
-
-        for (var i = 0; i< rooms.length; i++){
-            var acount = rooms[i].adults ? rooms[i].adults : 0;
-            var icount = rooms[i].infants ? rooms[i].infants.length : 0;
-            adults += acount;
-            infants += icount;
-        }
-
-        var result = [];
-
-        if (adults > 0){
-            var adultStrKey = adults == 1 ? 'passSummary_numeral_ADT_one' : 'passSummary_numeral_ADT_twoToFour';
-            var adultStr = adults + ' ' + controller.i18n('HotelsSearchForm', adultStrKey);
-            result.push(adultStr);
-        }
-
-        if (infants > 0){
-            var infantStrKey = infants == 1 ? 'passSummary_numeral_CLD_one' : 'passSummary_numeral_CLD_twoToFour';
-            var infantStr = infants + ' ' + controller.i18n('HotelsSearchForm', infantStrKey);
-            result.push(infantStr);
-        }
-
-        return result.join(', ');
-    }
-
-    self.city = self.createCity(segment, staticDataInfo);
-    self.arrivalDate = controller.getModel('Common/Date', segment[2]);
-    self.departureDate = controller.getModel('Common/Date', segment[3]);
-    self.guestsSummary = self.getGuestsSummary(searchInfo.rooms);
-}

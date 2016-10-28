@@ -1,3 +1,14 @@
+@media (max-width: 1500px) {
+
+	.nemo-hotel__content__rooms__slider {
+		ol {
+			li {
+				width: 12.285% !important;
+			}
+		}
+	}
+}
+
 @media (max-width: 1199px) {
 	.nemo-hotel {
 		&__additional {
@@ -18,11 +29,15 @@
 					&__title {
 						font-size: 20px;
 					}
+
+					&__stars {
+						display: none;
+					}
 				}
 
 				&__rating {
 					top: 100%;
-					margin: -30px 0 0 40px;
+					margin: 0 0 0 40px;
 					left: 50%;
 					background: $nemo-color-neutral;
 
@@ -40,7 +55,7 @@
 					height: 80px;
 					position: absolute;
 					top: 100%;
-					margin: -30px -20px 0 0;
+					margin: 0 -20px 0 0;
 					padding: 0 10px;
 					right: 50%;
 					background: $nemo-color-neutral;
@@ -96,6 +111,17 @@
 				overflow: hidden;
 				padding: 0;
 				opacity: 1;
+				background: $nemo-color-LightPoint;
+
+				&Content {
+					margin-top: 0;
+					padding-top: 0;
+
+					&:before,
+					&:after {
+						display: none;
+					}
+				}
 
 				&__tab {
 					display: none;
@@ -155,6 +181,7 @@
 					}
 
 					&__stars {
+						opacity: 0;
 						position: absolute;
 						top: 100%;
 						left: 12px;
@@ -241,12 +268,12 @@
 					line-height: 30px;
 					border: none;
 					border-radius: $nemo-border-radius;
-					trasnition: $nemo-transition-main;
+					trasition: $nemo-transition-main;
 					font-size: 15px;
 					text-align: center;
 
 					span {
-						trasnition: all $nemo-transition-main;
+						trasition: all $nemo-transition-main;
 					}
 
 					&:hover {
@@ -259,6 +286,12 @@
 		}
 	}
 
+
+	.fotorama {
+		&__stage {
+			height: 380px !important;
+		}
+	}
 }
 
 @media (max-width: 635px) {
@@ -268,15 +301,22 @@
 			margin-left: 0;
 			margin-right: 0;
 
+			&__tabs,
+			&__tabsContent {
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+
 			&__rooms {
 				&__slider {
-					margin-bottom: 55px;
+					padding-bottom: 10px;
+					min-height: 375px;
 				}
 
 				&__rating,
 				&__mobileDistances {
 					height: 60px;
-					margin-top: -20px;
+					margin-top: 0;
 				}
 				&__rating {
 
@@ -322,6 +362,25 @@
 					}
 				}
 			}
+
+			&__about {
+				&__location {
+					&__map {
+						width: auto;
+						margin-left: -10px;
+						margin-right: -10px;
+					}
+
+					&__distances {
+						&__distance {
+							&__name {
+								width: auto;
+
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -338,26 +397,13 @@
 				border: none;
 				padding: 15px 40px 15px 15px;
 				display: block;
-				widht: 100%;
+				width: 100%;
 				position: relative;
 				margin: 0 -15px 10px;
 				border-bottom: 1px solid $nemo-color-neutral;
 
 				&:hover {
 					border-color: $nemo-color-neutral;
-				}
-
-				&:after {
-					content: '';
-					display: block;
-					width: 15px;
-					height: 15px;
-					background: url("/css/images/hotels_hotel_sprite.svg") no-repeat 1px -18px;
-					cursor: pointer;
-					position: absolute;
-					top: 50%;
-					margin-top: -7px;
-					right: 15px;
 				}
 			}
 
@@ -389,12 +435,28 @@
 			}
 		}
 	}
+
+	.fotorama {
+		&__stage {
+			height: 295px !important;
+		}
+	}
 }
 
 @media (max-width: 500px) {
 	.nemo-hotel {
 		&__content {
+			&__tabs,
+			&__tabsContent{
+				margin-left: -10px;
+				margin-right: -10px;
+			}
+
 			&__rooms {
+				&__slider {
+					min-height: 180px;
+					margin-bottom: 40px;
+				}
 				&__mobileHeader {
 					padding: 14px 10px;
 
@@ -404,12 +466,20 @@
 					}
 				}
 
+
+				&__rating,
+				&__mobileDistances {
+					margin-top: -31px;
+				}
+
 				&__rating {
 					margin-left: 35px;
+					width: 105px
 				}
 
 				&__mobileDistances {
-					margin-right: -25px;
+					margin-right: -15px;
+					width: 165px;
 				}
 
 				&__list {
@@ -469,6 +539,16 @@
 
 		&__tariff {
 			padding: 10px;
+		}
+	}
+
+	.fotorama {
+		&__stage {
+			height: 184px !important;
+		}
+
+		&__nav-wrap {
+			display: none;
 		}
 	}
 }

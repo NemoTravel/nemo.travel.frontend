@@ -602,9 +602,9 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       line-height: 40px;
       font-size: 105%;
       color: $nemo-color-text-main;
-      background: $nemo-color-LightPoint;
+      background: $nemo-color-LightPoint !important;
       padding: 0 40px 0 10px;
-      box-shadow: $i_hotels_form_segment_input_bsh;
+      box-shadow: none !important;
       border-radius: 0px;
       cursor: pointer;
       overflow: hidden;
@@ -613,7 +613,6 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       position: relative;
 
       &:hover {
-        box-shadow: $i_hotels_form_segment_input_bsh_hover;
         background: $nemo-color-LightPoint;
       }
     }
@@ -1162,4 +1161,9 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
 @keyframes nemo-flights-form__searchingInfoPopup__headerAnimation {
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
+}
+
+
+#map.nemo-ui-subContainer{
+  min-height: 724px;
 }

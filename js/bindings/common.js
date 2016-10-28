@@ -3,13 +3,14 @@ define(
 	[
 		'knockout',
 		'jquery',
+		'js/vm/Common/Cache/Cache',
 		'numeralJS',
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'touchpunch'
 	],
-	function (ko, $) {
+	function (ko, $, Cache) {
 		// Common Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -499,6 +500,64 @@ define(
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					clearTimeout(timeout);
 				});
+			}
+		};
+
+		ko.bindingHandlers.debugger = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				debugger;
+			}
+		};
+
+		ko.bindingHandlers.log = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				console.debug({
+					'log': valueAccessor()
+				});
+			}
+		};
+
+		ko.bindingHandlers.loadTemplate = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+				var cache = Cache.storage(),
+					templateId = $(element).prop('id'),
+					templateUrl = '/html/partials/' + templateId + '.html';
+
+				if (cache.has(templateUrl)) {
+
+					var html = cache.get(templateUrl);
+
+					$(element).html(html);
+				} else {
+					$.get(templateUrl).then(function (res) {
+						$(element).html(res);
+					}, function () {
+						console.error('Template "%s" not found!', templateUrl);
+					});
+				}
+			}
+		};
+
+		ko.bindingHandlers.fotorama = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				$(element).fotorama({
+					nav: 'thumbs',
+                    loop: true,
+					data: valueAccessor()
+				});
+			}
+		};
+
+		ko.bindingHandlers.i18n = {
+			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+				var i18nTranslationKey = valueAccessor();
+				var i18n = bindingContext.$root.i18n;
+				var keys = i18nTranslationKey.split('.');
+				var text = i18n(keys[0], keys[1]);
+
+				$(element).text(text);
 			}
 		};
 	}

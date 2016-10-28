@@ -1,5 +1,8 @@
 {
 	"flights-step_search" : "Поиск авиабилетов",
 	"flights-step_results" : "Результаты поиска",
-	"flights-step_checkout" : "Оформление заказа"
+	"flights-step_checkout" : "Оформление заказа",
+	"hotels-step_search" : "Пошук готелiв",
+	"hotels-step_results" : "Результати пошуку",
+	"hotels-step_checkout" : "Оформлення заказу"
 }

@@ -5,7 +5,7 @@
 	<title>Nemo Front-End</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsf2g7FutyBN93KrM8eEOnBQJVduQGR7g"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsf2g7FutyBN93KrM8eEOnBQJVduQGR7g&language=ru"></script>
 </head>
 <body>
 <!-- Template override example -->
@@ -41,6 +41,8 @@
 <!--[if IE 9]>
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
+
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 
@@ -84,8 +86,8 @@
 	});
 
 	require (
-		['AppController'],
-		function (AppController) {
+		['AppController', 'js/vm/Models/LocalStorage'],
+		function (AppController, LocalStorage) {
 			var controller = new AppController(
 				document.getElementsByClassName('js-form')[0],
 				{
@@ -93,8 +95,8 @@
 					dataURL: 'https://hotels.tst.nemo.travel/api', //http://conchita.mlsd.ru/api
 					staticInfoURL: 'http://conchita.mlsd.ru',
 					root: '/',
-//						    verbose: true,
-					i18nLanguage: 'ru',
+					verbose: false,
+					i18nLanguage: LocalStorage.get('language', null) || 'ru',
 					postParameters: {},
 
 					// Passing additional parametes to components
@@ -178,5 +180,7 @@
 		}
 	);*/
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
 </body>
 </html>

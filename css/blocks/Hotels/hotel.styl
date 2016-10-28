@@ -1,6 +1,60 @@
 .nemo-hotel {
 	display: flex;
 
+	&__big-map {
+		position: relative;
+		width: calc(100% - 40px);
+		height: calc(100% - 40px);
+		background: #fff;
+		-webkit-border-radius: $nemo-border-radius;
+
+		&-holder {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: $nemo-color-container-shadow;
+			padding: 20px 0 0 20px;
+			z-index: 999
+		}
+
+		&__btn {
+			position: absolute;
+			z-index: 999;
+			width: 20px;
+			height: 20px;
+			background: darken($nemo-color-LightPoint, 5);
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+
+			&:hover {
+				background: darken($nemo-color-LightPoint, 10);
+			}
+
+			&:before,
+			&:after {
+				display: block;
+				content: '';
+				position: absolute;
+				width: 1px;
+				height: 13px;
+				background: $nemo-color-MiddlePoint;
+				top: 4px;
+				left: 9px;
+			}
+
+			&:before {
+				transform: rotate(45deg);
+			}
+
+			&:after {
+				transform: rotate(-45deg);
+			}
+		}
+	}
+
 	&__additional {
 		margin: 15px 10px 0 20px;
 		flex: 0 0 400px;
@@ -61,7 +115,9 @@
 				box-shadow: $i_ui_subContainer_outershadow;
 
 				#cardHotelMap {
-					border-radius: $nemo-border-radius $nemo-border-radius 0 0 !important;
+					& > div {
+						border-radius: $nemo-border-radius $nemo-border-radius 0 0 !important;
+					}
 				}
 
 				&__button {
@@ -124,12 +180,12 @@
 						width: 11px;
 						height: 12px;
 						background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 0 0;
-						vertifcal-align: middle;
+						vertical-align: middle;
 						margin-right: 11px;
 					}
 
 					&__text {
-						dsiplay: inline-block;
+						display: inline-block;
 					}
 
 					&:last-child {
@@ -147,6 +203,11 @@
 
 			&__item {
 				margin-top: 0 !important;
+				margin-bottom: 20px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
 
 				&__header {
 					&:before {
@@ -196,6 +257,7 @@
 					border-top: 1px solid $nemo-color-neutral;
 					border-bottom: 1px solid $nemo-color-neutral;
 					margin: 10px 0 0;
+					font-size: 0;
 
 					li {
 						margin-right: 4px;
@@ -203,9 +265,7 @@
 				}
 
 				&__footer {
-					padding-right: 20px;
-					padding-bottom: 6px;
-					padding-top: 10px;
+					padding: 10px 20px 10px 0;
 
 					&__button {
 						width: auto;
@@ -226,10 +286,14 @@
 	&__content {
 		margin: 15px 20px 0 10px;
 		flex: 0 1 82%;
+		overflow: hidden;
 
 		&__tabs {
 			height: 75px;
 			padding: 5px 5px 0;
+			background: $c_content_bg;
+			position: relative;
+			z-index: 1;
 
 			&__tab {
 				display: inline-block;
@@ -257,6 +321,39 @@
 			}
 		}
 
+		&__tabsContent {
+			min-height: 100%;
+			margin-top: -95px;
+			padding-top: 115px;
+			position: relative;
+
+			&:before {
+				content: '';
+				display: block;
+				position: absolute;
+				width: 100%;
+				height: 20px;
+				background: $c_content_bg;
+				left: 0;
+				top: 95px;
+			}
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				width: 100%;
+				height: 20px;
+				background: $nemo-color-LightPoint;
+				left: 0;
+				top: 95px;
+				-webkit-border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+				-moz-border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+				border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+
+			}
+		}
+
 		&__rooms {
 			&__mobileHeader,
 			&__mobileDistances {
@@ -264,8 +361,88 @@
 			}
 			&__slider {
 				position: relative;
-				height: 425px;
+				min-height: 425px;
 				margin-bottom: 15px;
+
+				.carousel-inner {
+					height: 427px;
+					position: relative;
+
+					.item {
+						height: 100%;
+					}
+
+					img {
+						position: absolute;
+						width: 100%;
+						height: auto;
+						top: 50%;
+						left: 50%;
+						-webkit-transform: translate(-50%, -50%);
+						-moz-transform: translate(-50%, -50%);
+						-ms-transform: translate(-50%, -50%);
+						-o-transform: translate(-50%, -50%);
+						transform: translate(-50%, -50%);
+
+					}
+				}
+
+				ol {
+					position: relative;
+					margin: 0 -1%;
+					width: 102%;
+					left: 0;
+					overflow: hidden;
+					bottom: auto !important;
+
+					li {
+						width: 8% !important;
+						height: 80px !important;
+						text-indent: 0;
+						position: relative;
+						display: block;
+						float: left;
+						border: none !important;
+						margin: 5px 1% !important;
+						-webkit-box-shadow: 1px 1px 4px #777;
+						-moz-box-shadow: 1px 1px 4px #777;
+						box-shadow: 1px 1px 4px #777;
+
+						/*img {
+							display: block;
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							-webkit-transform: translate(-50%, -50%);
+							-moz-transform: translate(-50%, -50%);
+							-ms-transform: translate(-50%, -50%);
+							-o-transform: translate(-50%, -50%);
+							transform: translate(-50%, -50%);
+						}*/
+
+						span {
+							display: block;
+							width: 100%;
+							height: 100%;
+							background-position: 50% 50%;
+							-webkit-background-size: cover;
+							background-size: cover;
+							-webkit-border-radius: 6px;
+							-moz-border-radius: 6px;
+							border-radius: 6px;
+						}
+
+						&.active {
+							-webkit-box-shadow: -1px -1px 2px #aaa;
+							-moz-box-shadow: -1px -1px 2px #aaa;
+							box-shadow: -1px -1px 2px #aaa;
+
+							span {
+								opacity: .3;
+							}
+						}
+					}
+				}
 
 				&__dummy {
 					width: 100%;
@@ -586,6 +763,9 @@
 							display: block;
 							float: left;
 							width: 210px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							padding-right: 5px;
 						}
 
 						&__params {
@@ -718,18 +898,23 @@
 	&__info {
 		padding-right: 85px;
 		position: relative;
-		border-bottom: 1px solid $nemo-color-neutral;
 
-		&:before {
+		&__toggle {
 			content: '';
 			display: block;
 			width: 15px;
 			height: 15px;
 			background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 1px -18px;
+			border: none;
+			outline: none;
 			cursor: pointer;
 			position: absolute;
-			top: 40px;
+			top: 20px;
 			right: 30px;
+
+			&.expand {
+				transform: rotate(180deg);
+			}
 		}
 
 		&_short {
@@ -778,6 +963,7 @@
 				margin: 0;
 				column-count: 3;
 				-moz-column-count: 3;
+				-webkit-column-count: 3;
 				column-gap: 2em;
 			}
 
@@ -789,19 +975,25 @@
 				padding-left: 10px;
 
 				&:before {
-					content: '\2022';
+					content: '';
 					position: absolute;
 					left: 0;
-					color: $nemo-color-main;
-					font-size: 20px;
+					background: $nemo-color-main;
+					-webkit-border-radius: 50%;
+					-moz-border-radius: 50%;
+					border-radius: 50%;
+					display: block;
+					height: 4px;
+					width: 4px;
+					top: 6px;
+					left: 2px;
 				}
 			}
 		}
 	}
 
-	&__tariffsTail,
 	&__tariff {
-		border-bottom: 1px solid $nemo-color-neutral;
+		border-top: 1px solid $nemo-color-neutral;
 
 		&:last-child {
 			border-bottom: none;
@@ -892,8 +1084,7 @@
 
 		&_selected {
 			background: $c_ui_button;
-			border-top-left-radius: $nemo-border-radius;
-			border-top-right-radius: $nemo-border-radius;
+			border-radius: $nemo-border-radius;
 
 			& * {
 				color: $nemo-color-LightPoint;
@@ -929,5 +1120,41 @@
 			}
 
 		}
+	}
+
+
+	&__tariffs-buttons {
+		padding: 15px 0;
+		border-top: 1px solid $nemo-color-neutral;
+	}
+
+	&__more-tarifs {
+		background: none;
+		outline: none;
+		padding: 0;
+		margin: 0 auto;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		display: block;
+	}
+}
+
+.fotorama {
+	&__stage {
+		height: 510px !important;
+
+		&__frame {
+			background: $nemo-color-neutral;
+		}
+	}
+
+	&__img {
+		top: 50% !important;
+		transform: translate(0, -50%) !important;
+	}
+
+	&__arr {
+		display: none !important;
 	}
 }

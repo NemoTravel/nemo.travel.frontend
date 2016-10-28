@@ -1,43 +1,63 @@
 'use strict';
 define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, helpers, BaseModel) {
-	       function HotelsSearchFormGeo (initialData, controller) {
-		       // Processing initialData: a pair of guide data and an object telling us what to take
-		       // Processing data
-		       BaseModel.apply(this, [initialData.data, controller]);
 
-		       // Processing guide
-		       this.processGuide(initialData.guide);
+    function HotelsSearchFormGeo(initialData, controller) {
 
-		       var countryCode = this.country_code;
-		       if (countryCode == undefined && this.pool.cities[this.id].countryCode != undefined) {
-			       countryCode = this.pool.cities[this.id].countryCode;
-		       }
+        // Processing initialData: a pair of guide data and an object telling us what to take
+        // Processing data
+        BaseModel.apply(this, [initialData.data, controller]);
 
-		       this.name = this.pool.cities[this.id].name.trim();
-		       this.country = this.pool.countries[countryCode].name;
-	       }
+        // Processing guide
+        this.processGuide(initialData.guide);
 
-	       // Extending from dictionaryModel
-	       helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
+        var countryCode = this.country_code;
 
-	       HotelsSearchFormGeo.prototype.pool = {
-		       countries: {},
-		       cities: {}
-	       };
+        if (!countryCode && this.pool.cities[this.id].countryCode) {
+            countryCode = this.pool.cities[this.id].countryCode;
+        }
 
-	       HotelsSearchFormGeo.prototype.processGuide = function (guide) {
-		       if (typeof guide == 'object') {
-			       for (var i in guide) {
-				       if (guide.hasOwnProperty(i) && this.pool.hasOwnProperty(i)) {
-					       for (var j in guide[i]) {
-						       if (guide[i].hasOwnProperty(j) && !this.pool[i][j]) {
-							       this.pool[i][j] = this.$$controller.getModel('BaseStaticModel', guide[i][j]);
-						       }
-					       }
-				       }
-			       }
-		       }
-	       };
+        this.name = this.pool.cities[this.id].name.trim() || this.name || ''; // city name
+        this.country = this.pool.countries[countryCode] ? this.pool.countries[countryCode].name : '';
+    }
 
-	       return HotelsSearchFormGeo;
-       });
+    // Extending from dictionaryModel
+    helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
+
+    HotelsSearchFormGeo.prototype.pool = {
+        countries: {},
+        cities: {}
+    };
+
+    /**
+     *
+     * @param {Object} guide
+     * @param {Object} guide.cities
+     * @param {Object} guide.countries
+     * @param {Object} guide.hotels
+     */
+    HotelsSearchFormGeo.prototype.processGuide = function (guide) {
+
+        var self = this;
+
+        if (typeof guide === 'object') {
+
+            helpers.iterateObject(guide, function (guideItem, guideItemKey) {
+
+                if (self.pool.hasOwnProperty(guideItemKey)) {
+
+                    helpers.iterateObject(guideItem, function (guideItemValue, guideItemValueKey) {
+                        if (!self.pool[guideItemKey][guideItemValueKey]) {
+                            self.pool[guideItemKey][guideItemValueKey] = self.$$controller.getModel(
+                                'BaseStaticModel',
+                                guideItemValue
+                            );
+                        }
+                    });
+
+                }
+            });
+        }
+    };
+
+    return HotelsSearchFormGeo;
+});

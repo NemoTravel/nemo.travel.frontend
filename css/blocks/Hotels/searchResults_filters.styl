@@ -90,6 +90,10 @@
 		.nemo-common-scrollable__scroller {
 			right: -14px;
 		}
+
+		.nemo-hotels-form__routeOptions__item__selector__button {
+			min-width: 190px !important;
+		}
 	}
 }
 
@@ -162,8 +166,37 @@
 						&__name {
 							&__stars {
 								&__star {
-									height: 21px !important;
+									height: 17px !important;
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.nemo-common-postFilters{
+	&__filterList{
+		&__filter{
+			&__checkboxesBlock{
+				&__checkboxes{
+					&__checkbox {
+						height: auto;
+						display: flex;
+						-webkit-justify-content: space-between;
+						justify-content: space-between;
+						-webkit-align-items: center;
+						align-items: center;
+
+						&__name {
+							padding-top: 5px;
+							padding-bottom: 5px;
+							line-height: 20px;
+
+							&__stars {
+								white-space: normal;
 							}
 						}
 					}

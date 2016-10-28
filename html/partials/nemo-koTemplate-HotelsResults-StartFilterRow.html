@@ -1,0 +1,20 @@
+<!-- ko foreach: Object.keys(filterValues).reverse() -->
+<label class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox"
+       data-bind="visible: $parent.initialMinStarPrices[$data], css: {'nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox_disabled': !$parent.minStarPrices()[$data]}">
+
+    <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input" data-bind="checked: $parent.filterValues[$data], enable: $parent.minStarPrices()[$data]">
+
+            <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars">
+                <!-- ko foreach: new Array(parseInt($data)) -->
+                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                <!-- /ko -->
+            </span>
+
+            <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
+                <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
+                <money data-bind="money: $parent.minStarPrices()[$data], currency: 'EUR'"></money>
+                <span data-bind="userCurrency"></span>
+            </span>
+
+</label>
+<!-- /ko -->

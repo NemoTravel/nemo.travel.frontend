@@ -24,17 +24,15 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
                              typeof item.label == 'undefined')
 				       .appendTo(ul);
 		       },
-		       _renderMenu: function (ul, items) {
-			       var that = this;
+               _renderMenu: function (ul, items) {
+                   var that = this;
 
-			       $.each(items, function (index, item) {
-				       $.each(items, function(index, item) {
-					       that._renderItemData(ul, item);
-				       });
+                   $.each(items, function (index, item) {
+                       that._renderItemData(ul, item);
+                   });
 
-				       $(ul).addClass('nemo-hotels-form__staying__segment_autocomplete_container');
-			       });
-		       }
+                   $(ul).addClass('nemo-hotels-form__staying__segment_autocomplete_container');
+               }
 	       });
 	       ko.bindingHandlers.hotelsFormGeoAC = {
 		       init     : function (element, valueAccessor, allBindingsAccessor, viewModel) {

@@ -1,0 +1,84 @@
+<header class="nemo-common-pageHeader nemo-hotels-header">
+    <div class="nemo-common-pageHeader__inner">
+
+        <div class="nemo-common-pageHeader__mobileControl nemo-common-pageHeader__mobileControl_links js-nemo-mobileControl__toggler"></div>
+
+        <div class="nemo-common-pageHeader__mobileControl nemo-common-pageHeader__mobileControl_options js-nemo-mobileControl__toggler" data-bind="click: function () { mobileMenu.clickHandler() }"></div>
+
+        <a href="/hotels" class="nemo-common-pageHeader__logo">
+            <img class="nemo-common-pageHeader__logo__image" src="http://hotels.tst.nemo.travel/templates/wurst/f2.0/img/nemo.travel.svg" alt="">
+        </a>
+
+        <div class="nemo-common-pageHeader__inner__headerRight nemo-hotels__headerRight">
+
+            <!-- Change language -->
+            <div class="nemo-ui-dropMenu js-nemo-header-dropmenu nemo-common-pageHeader__dropMenu nemo-common-pageHeader__dropMenu_currency">
+
+                <div class="nemo-ui-dropMenu__main">
+                    <label class="nemo-hotels-results__content__postfilters__order">
+
+                        <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__routeOptions__item__selector">
+
+                            <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__routeOptions__item__selector__button  nemo-hotels__langSelect" data-bind="pseudoSelect: null">
+                                <div class="nemo-common-pageHeader__droplist__option__icon">
+                                    <span class="nemo-common-pageHeader__langSelectImage flag" data-bind="css: 'flag-' + $root.getLanguageById($data.$$controller.options.i18nLanguage).icon.toUpperCase()"></span>
+                                </div>
+                            </div>
+
+                            <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown">
+                                <span class="nemo-hotels__droplist__header" data-bind="i18n: 'HotelsSearchResults.language'"></span>
+                                <!-- ko foreach: $root.languages -->
+                                <!-- ko if: id !== $parent.$$controller.options.i18nLanguage -->
+                                <div class="nemo-common-pageHeader__droplist__option js-nemo-header-dropmenu__drop__option js-nemo-header-dropmenu__drop__language" data-bind="click: function () { $root.agency.changeLanguage(id) }">
+                                    <div class="nemo-common-pageHeader__droplist__option__icon">
+                                        <span class="nemo-common-pageHeader__langSelectImage flag" data-bind="css: 'flag-' + icon.toUpperCase()"></span>
+                                    </div>
+                                    <span class="nemo-common-pageHeader__droplist__option__text" data-bind="text: title"></span>
+                                </div>
+                                <!-- /ko -->
+                                <!-- /ko -->
+
+                            </div>
+
+                        </div>
+
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- dropdown "change currency" -->
+            <div class="nemo-ui-dropMenu js-nemo-header-dropmenu nemo-common-pageHeader__dropMenu nemo-common-pageHeader__dropMenu_currency" data-bind="visible: $root.agency.userCurrency()">
+
+                <div class="nemo-ui-dropMenu__main">
+                    <label class="nemo-hotels-results__content__postfilters__order">
+
+                        <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__routeOptions__item__selector">
+
+                            <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__routeOptions__item__selector__button nemo-hotels__currencySelect"
+                                 data-bind="pseudoSelect: null, text: $root.i18n('currencyNames', 'currency_' + $root.agency.userCurrency() + '_s'), attr: {'data-currency': $root.agency.userCurrency().toLowerCase()}"></div>
+                            <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown">
+
+                                <span class="nemo-hotels__droplist__header" data-bind="i18n: 'HotelsSearchResults.currencyDropDownCaption'"></span>
+
+                                <!-- ko foreach: $root.agency.list -->
+                                <div class="nemo-ui-select__dropdown__item" data-bind="click: function () { $root.agency.onCurrencyChange($data) }">
+                                    <div class="nemo-common-pageHeader__droplist__option__icon">
+                                        <span data-bind="text: $root.i18n('currencyNames', 'currency_' + $data + '_s'), attr: {'data-currency': $data.toLowerCase()}"></span>
+                                    </div>
+                                    <span class="nemo-common-pageHeader__droplist__option__text" data-bind="text: $root.i18n('currencyNames', 'currency_' + $data + '_n')"></span>
+                                </div>
+                                <!-- /ko -->
+
+                            </div>
+
+                        </div>
+
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>

@@ -2,15 +2,20 @@
 define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel'],
 	function (ko, helpers, BaseControllerModel) {
-		function CommonBreadCrumbsController (componentParameters) {
+		function CommonBreadCrumbsController(componentParameters, variants) {
+
 			BaseControllerModel.apply(this, arguments);
 
-			this.elements = [];
+			this.elements = ko.observableArray([]);
 			this.additionalComponent = componentParameters.includeComponent;
-			var componentName = componentParameters.component.name;
-			if(typeof componentName != 'null' && typeof componentName != 'undefined'){
+
+			var component = componentParameters.component, // controller
+				componentName = component.name; // controller's name
+
+			if (typeof componentName !== 'undefined') {
+
 				if (componentName.indexOf('Flights') === 0) {
-					this.elements = [
+					this.elements([
 						{
 							title: 'flights-step_search',
 							active: true,
@@ -31,45 +36,24 @@ define(
 							link: '/order/',
 							router: true
 						}
-					];
+					]);
 
-					switch (componentName) {
-						case 'FlightsSearchResultsController':
-							this.elements[0].link += componentParameters.component.id + '/' + helpers.getFlightsRouteURLAdder('search', componentParameters.component.searchInfo());
-							break;
+					if (componentName === 'FlightsSearchResultsController') {
+						this.elements()[0].link += component.id + '/' + helpers.getFlightsRouteURLAdder('search', component.searchInfo());
 					}
 				}
 
 				if (componentName.indexOf('Hotels') === 0) {
-					this.elements = [
-						{
-							title: 'hotels-step_search',
-							active: true,
-							link: '/hotels',
-							router: true,
-							pageTitle: 'HotelsSearch'
-						},
-						{
-							title: 'hotels-step_results',
-							active: true,
-							link: '/hotels/results/',
-							router: true,
-							pageTitle: 'HotelsResults'
-						},
-						{
-							title: 'hotels-step_checkout',
-							active: false,
-							link: '/order/',
-							router: true
-						}
-					];
+					this.elements(componentParameters.variants);
 				}
 			}
 		}
+
 		// Extending from dictionaryModel
 		helpers.extendModel(CommonBreadCrumbsController, [BaseControllerModel]);
 
-		CommonBreadCrumbsController.prototype.buildModels = function () {};
+		CommonBreadCrumbsController.prototype.buildModels = function () {
+		};
 
 		CommonBreadCrumbsController.prototype.dataURL = function () {
 			return null;

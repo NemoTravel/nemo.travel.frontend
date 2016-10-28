@@ -1,3 +1,8 @@
+.nemo-hotels-header {
+	position: absolute;
+	width: 100%;
+}
+
 .nemo-hotels-results__wrapper {
 	background: $c_content_bg;
 	width: 100%;
@@ -103,13 +108,11 @@
 			flex: 0 0 auto;
 			display: none;
 
-			&_active {
-				background: $nemo-color-main;
-				color: $nemo-color-LightPoint;
+			background: $nemo-color-main !important;
+			color: $nemo-color-LightPoint !important;
 
-				&:hover, &:active {
-					background: lighten($nemo-color-main, 10%);
-				}
+			&:hover, &:active {
+				background: lighten($nemo-color-main, 10%);
 			}
 
 			&__mobileText {
@@ -222,6 +225,21 @@
 		&__results {
 			border-radius: 8px 8px 0 0;
 			flex: 0 1 64%;
+			padding-bottom: 40px !important;
+			position: relative;
+			min-height: 85vh;
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: calc(100% + 10px);
+				margin: 0 -5px;
+				height: 20px;
+				background: $c_content_bg;
+			}
 
 			&__loadingDummy {
 				&__header {
@@ -230,7 +248,7 @@
 					padding-bottom: 5px;
 
 					&:after {
-						content: none;
+						content: none !important;
 					}
 				}
 
@@ -360,7 +378,8 @@
 							height: 20px;
 							border-radius: $nemo-border-radius;
 							background: $nemo-color-neutral;
-							margin: 5px 10px 5px 0;
+							margin: 5px 0;
+							margin-right: 5px !important;
 						}
 					}
 
@@ -556,7 +575,7 @@
 							height: 20px;
 							border-radius: $nemo-border-radius;
 							background: $nemo-color-neutral;
-							margin: 0 5px 10px;
+							margin: 0 3px 10px !important;
 						}
 					}
 
@@ -609,7 +628,7 @@
 	}
 
 	&__showMoreWrap {
-		padding: 20px 0 20px;
+		padding: 20px 0 0;
 		text-align: center;
 	}
 	&__searchingInfo {
@@ -686,7 +705,21 @@
 				}
 				.ui-slider-handle {
 					border-radius: $nemo-border-radius;
+
+					&.ui-state-focus {
+						outline: none;
+					}
 				}
+			}
+		}
+
+		&__wrap {
+			padding: 0;
+			border-radius: 8px !important;
+
+			& > div,
+			.gm-style {
+				border-radius: 8px !important;
 			}
 		}
 	}
@@ -695,6 +728,8 @@
 .nemo-hotels-services {
 	&__service {
 		opacity: .4;
+		margin-right: 0 !important;
+		font-size: 0;
 
 		&_active {
 			opacity: 1;
@@ -704,89 +739,103 @@
 			display: block;
 			background: url(/css/images/hotels_results_services_sprite.svg);
 
-			&_pool {
+			&_Pool {
 				width: 20px;
 				height: 16px;
 				background-position: 0 -3px;
+				margin-right: 10px;
 			}
 
-			&_parking {
+			&_Parking {
 				width: 12px;
 				height: 17px;
 				background-position: -33px -2px;
+				margin-right: 10px;
 			}
 
-			&_sport {
+			&_Gym {
 				width: 22px;
 				height: 12px;
 				background-position: -55px -5px;
+				margin-right: 10px;
 			}
 
-			&_electricity {
+			&_ConferenceFacilities {
 				width: 16px;
 				height: 16px;
 				background-position: -89px -3px;
+				margin-right: 10px;
 			}
 
-			&_wifi {
+			&_WiFi {
 				width: 20px;
 				height: 15px;
 				background-position: -117px -3px;
+				margin-right: 10px;
 			}
 
-			&_laundry {
+			&_Laundry {
 				width: 16px;
 				height: 20px;
 				background-position: -148px 0px;
+				margin-right: 10px;
 			}
 
-			&_transport {
+			&_Transfer {
 				width: 18px;
 				height: 20px;
 				background-position: -176px -1px;
+				margin-right: 10px;
 			}
 
-			&_roundTheClock {
+			&_ExpressCheckIn {
 				width: 20px;
 				height: 9px;
 				background-position: -206px -6px;
+				margin-right: 10px;
 			}
 
-			&_fridge {
+			&_ClimateControl {
 				width: 18px;
 				height: 18px;
 				background-position: -238px -2px;
+				margin-right: 10px;
 			}
 
-			&_luggage {
+			&_BusinessCenter {
 				width: 22px;
 				height: 16px;
 				background-position: -267px -3px;
+				margin-right: 10px;
 			}
 
-			&_spa {
+			&_SPA {
 				width: 21px;
 				height: 9px;
 				background-position: -299px -6px;
+				margin-right: 10px;
 			}
 
-			&_bar {
+			&_Bar {
 				width: 17px;
 				height: 20px;
 				background-position: -331px -1px;
+				margin-right: 10px;
 			}
 
-			&_resturant {
+			&_Resturant {
 				width: 21px;
 				height: 18px;
 				background-position: -358px -1px;
+				margin-right: 10px;
 			}
 
-			&_infinity {
+			&_Meal {
 				width: 23px;
 				height: 19px;
 				background-position: -389px -1px;
 				position: relative;
+				margin-right: 10px;
 
 				&:after {
 					content: '';
@@ -804,6 +853,121 @@
 }
 
 .rub {
+	font-family: 'RubleFont';
+}
+
+.nemo-hotels__langSelect {
+	min-width: 40px !important;
+	padding: 0 15px !important;
+
+}
+
+.nemo-hotels__langSelect {
+	padding: 0 17px !important;
+
+	&.nemo-ui-select__toggle_open {
+		box-shadow: 0 0 8px #edbe00;
+	}
+
+	.nemo-common-pageHeader__droplist__option__icon {
+		margin: 0 !important;
+		min-width: 0;
+	}
+
+	&:after {
+		display: none !important;
+	}
+
+	& + .nemo-ui-select__dropdown {
+		width: 240px;
+		padding: 10px;
+
+		.nemo-common-pageHeader__droplist__option__icon {
+			margin: 0 !important;
+		}
+
+		.nemo-common-pageHeader__langSelectImage {
+			margin-top: 5px !important;
+		}
+	}
+}
+
+.nemo-hotels__droplist__header {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.nemo-hotels__currencySelect {
+	width: 50px;
+	min-width: 0 !important;
+	padding: 0 15px;
+	text-align: center;
+
+	&.nemo-ui-select__toggle_open {
+		box-shadow: 0 0 8px #edbe00;
+	}
+
+	&:after {
+		display: none;
+	}
+
+	& + .nemo-ui-select__dropdown {
+		width: 240px;
+		padding: 10px;
+
+		.nemo-ui-select__dropdown__item {
+			height: 26px;
+			line-height: 26px;
+			border: none !important;
+			padding: 0 8px;
+			border-radius: 6px;
+		}
+	}
+}
+
+.nemo-hotels-bread-crumbs-component {
+	padding-top: 65px !important;
+}
+
+.nemo-common-breadCrumbs {
+	.nemo-hotels-results__content__postfilters__order {
+		margin-bottom: 0 !important;
+	}
+}
+
+.nemo-common-breadCrumbs {
+	.nemo-hotels-results__content__postfilters__order {
+		.nemo-ui-select__toggle {
+			min-width: 180px !important;
+			white-space: nowrap;
+
+			&.nemo-ui-select__toggle_open {
+				box-shadow: 0 0 8px #edbe00;
+			}
+		}
+
+		.nemo-ui-select__dropdown {
+			width: 370px;
+
+			.nemo-ui-select__dropdown__item {
+				padding: 0;
+
+				a {
+					display: block;
+					padding: 10px;
+					text-decoration: none;
+					color: $nemo-color-DarkPoint;
+				}
+			}
+		}
+	}
+}
+
+.nemo-hotels__headerRight {
+	margin-bottom: -12px;
+}
+
+[data-currency="rub"] {
 	font-family: 'RubleFont';
 }
 

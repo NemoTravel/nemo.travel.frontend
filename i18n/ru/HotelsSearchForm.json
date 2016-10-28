@@ -117,7 +117,7 @@
   	"routeOptions__direct__caption": "Даты пока что не известны",
   	"rooms__fastSelect__fullSelectOption": "Нужно больше номеров или проживание с детьми",
   	"segments__date__placeholder_RT_leg_0": "Прибытие",
-  	"segments__date__placeholder_RT_leg_1": "Отъезд",
+  	"segments__date__placeholder_RT_leg_1": "Выезд",
   	"additionalParameters__toggle": "Предыдущие поиски",
     "hotels_in_room_one": "номере",
     "hotels_in_room_more": "номерах",

@@ -11,7 +11,7 @@
 	"currency_UAH_s" : "₴",
 	"currency_UAH_c" : "UAH",
 
-	"currency_RUB_n" : "Рубль",
-	"currency_RUB_s" : "руб.",
+	"currency_RUB_n" : "Российский Рубль",
+	"currency_RUB_s" : "RUB",
 	"currency_RUB_c" : "RUB"
 }

@@ -21,6 +21,8 @@ define(
 			this.getDOWName        = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_f'); }, this);
 			this.getDOWNameShort   = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_'+(this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay()) + '_s'); }, this);
 
+			this.getFullDate = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
+
 			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getZeroedDate() }, this);
 			this.getISOTime     = ko.computed(function () { return this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds() }, this);
 			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getISOTime() }, this);
