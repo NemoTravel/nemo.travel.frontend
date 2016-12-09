@@ -24,8 +24,7 @@ define(
 		 * Method that loads everything that is commonly needed
 		 */
 		BaseControllerModel.prototype.run = function () {
-			var self = this,
-				dataURL = this.dataURL();
+			var self = this;
 
 			/**
 			 * We set here how many loading steps do we take
@@ -64,6 +63,26 @@ define(
 			});
 
 			// Loading data
+			this.loadInitialData();
+
+			// Loading needed ko bindings
+			this.$$controller.loadKOBindings(
+				this.getKOBindings(),
+				function () {
+					self.$$loadingItems--;
+					self.checkInitialLoadCompletion();
+				},
+				function () {
+					self.$$error('Could not load KO bindings.');
+					self.$$controller.error(arguments);
+				}
+			);
+		};
+
+		BaseControllerModel.prototype.loadInitialData = function () {
+			var self = this,
+				dataURL = this.dataURL();
+			
 			if (dataURL) {
 				this.$$loadingItems++;
 
@@ -89,19 +108,6 @@ define(
 					}
 				);
 			}
-
-			// Loading needed ko bindings
-			this.$$controller.loadKOBindings(
-				this.getKOBindings(),
-				function () {
-					self.$$loadingItems--;
-					self.checkInitialLoadCompletion();
-				},
-				function () {
-					self.$$error('Could not load KO bindings.');
-					self.$$controller.error(arguments);
-				}
-			);
 		};
 
 		/**

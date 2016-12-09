@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146.49" height="104.553" viewBox="0 0 146.49 104.553"><defs>
+<filter id="a" filterUnits="userSpaceOnUse" x="0" y="0" width="146.49" height="104.553">
+<feFlood result="back" flood-color="#eeeeee" flood-opacity="1"/>
+<feBlend in="SourceGraphic" in2="back"/></filter></defs>
+<path mask="url(#b)" fill="#eeeeee" d="M129.746 48.389c.519-1.665.796-3.435.796-5.269 0-9.787-7.933-17.721-17.72-17.721-.479 0-.951.024-1.42.063-5.688-14.886-20.093-25.462-36.976-25.462-19.851 0-36.285 14.616-39.137 33.673-19.502.083-35.289 15.915-35.289 35.437 0 19.574 15.867 35.442 35.44 35.442h80.926l.005-.015.585.015c16.313 0 29.534-13.224 29.534-29.535 0-11.729-6.838-21.861-16.744-26.628z"/><circle fill="#FFFFFF" cx="98.395" cy="42.761" r="1.5"/><circle fill="#FFFFFF" cx="54.634" cy="42.761" r="1.5"/><path stroke="#FFFFFF" stroke-miterlimit="10" d="M49.8 61.683s25.006-22.506 53.347-.417" fill="none"/></svg>

@@ -1,4 +1,4 @@
-use('../node_modules/stylobuild', {
+use('../../../../node_modules/stylobuild', {
 	autoprefixer: { browsers: "last 2 version, Explorer >=8"},
 	csso: true,
 	pixrem: false
@@ -30,12 +30,13 @@ use('../node_modules/stylobuild', {
 
 // Flights form and adaptivity
 @import 'blocks/Flights/searchForm.styl';
-@import 'blocks/Flights/searchHotelsForm.styl';
 @import 'blocks/Flights/searchForm_adaptivity.styl';
-@import 'blocks/Flights/searchHotelsForm_adaptivity.styl';
 
 // Flights results and adaptivity
+@import 'blocks/Flights/fareRules.styl';
 @import 'blocks/Flights/searchResults.styl';
+@import 'blocks/Flights/searchResults_fareFamilies.styl';
+@import 'blocks/Flights/searchResults_fareVariations.styl';
 @import 'blocks/Flights/searchResults_flightsGroup.styl';
 @import 'blocks/Flights/searchResults_flightsGroup_dummy.styl';
 @import 'blocks/Flights/searchResults_flightsListGroup.styl';

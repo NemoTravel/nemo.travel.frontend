@@ -30,7 +30,7 @@ define(
 						isLegged: false,
 						legNumber: 0,
 						getter: function (obj) {
-							var tmp = Math.min.apply(Math, obj.legs.map(function (item, i) {
+							var tmp = Math.max.apply(Math, obj.legs.map(function (item, i) {
 								return item.transfersCount;
 							}));
 
@@ -88,8 +88,8 @@ define(
 							var ret = [];
 
 							ret.push([
-								item.getValidatingCompany().IATA,
-								item.getValidatingCompany()
+								item.getFirstSegmentMarketingCompany().IATA,
+								item.getFirstSegmentMarketingCompany()
 							]);
 
 							return ret;
@@ -273,8 +273,8 @@ define(
 			this.aircrafts = {};
 			this.airlines = {};
 			this.airlinesByRating = [];
-			this.validatingAirlines = {};
-			this.validatingAirlinesByRating = [];
+			this.marketingAirlines = {};
+			this.marketingAirlinesByRating = [];
 
 			this.groups = ko.observableArray([]);
 			this.visibleGroups = ko.observableArray([]);
@@ -374,6 +374,16 @@ define(
 			this.formReloader = ko.observable(1);
 
 			this.processInitParams();
+			
+			if (this.$$controller.viewModel.user.isB2B() && this.possibleSorts.indexOf('agentProfit') === -1) {
+				this.possibleSorts.push('agentProfit');
+			}
+
+			this.$$controller.viewModel.user.isB2B.subscribe(function (newValue) {
+				if (newValue === true && this.possibleSorts.indexOf('agentProfit') === -1) {
+					this.possibleSorts.push('agentProfit');
+				}
+			}, this);
 
 			this.displayType.subscribe(function (newValue) {
 				Cookie.set(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie, newValue, {expires: 365});
@@ -425,11 +435,13 @@ define(
 						return a.getTotalPrice().normalizedAmount() - b.getTotalPrice().normalizedAmount();
 					});
 					break;
+				
 				case 'durationOnLeg':
 					this.groups.sort(function (a, b) {
 						return a.durationOnLeg() - b.durationOnLeg();
 					});
 					break;
+				
 				case 'rating':
 					this.groups.sort(function (a, b) {
 						var ret = b.recommendRating() - a.recommendRating();
@@ -439,6 +451,12 @@ define(
 						}
 
 						return ret;
+					});
+					break;
+				
+				case 'agentProfit':
+					this.groups.sort(function (a, b) {
+						return b.getAgentProfit().normalizedAmount() - a.getAgentProfit().normalizedAmount();
 					});
 					break;
 			}
@@ -519,7 +537,7 @@ define(
 					if (tmp[i].substr(0, 6) == 'class=') {
 						this.searchParameters.parameters.serviceClass = tmp[i].substr(6);
 					}
-					
+
 					// flight numbers
 					if (tmp[i].substr(0, 14) == 'flightNumbers=') {
 						this.searchParameters.parameters.flightNumbers = tmp[i].substr(14).split('+');
@@ -585,7 +603,7 @@ define(
 			}
 		];
 
-		FlightsSearchResultsController.prototype.bookFlight = function (flids) {
+		FlightsSearchResultsController.prototype.bookFlight = function (flids, data) {
 			var self = this;
 
 			this.bookingCheckError(null);
@@ -597,24 +615,28 @@ define(
 				flids.length > 0
 			) {
 				this.bookingCheckInProgress(true);
+				
+				if (typeof data !== 'object') {
+					data = {};
+				}
 
 				// Checking flight
 				this.$$controller.loadData(
 					'/flights/search/flightInfo/' + flids[0],
-					{},
+					data,
 					function (data, request) {
-						self.bookingCheckInProgress(false);
-
 						try {
 							data = JSON.parse(data);
 						}
 						catch (e) {
+							self.bookingCheckInProgress(false);
 							self.resultsLoaded(true);
 							self.bookingCheckError(self.$$controller.i18n('FlightsSearchResults', 'bookingCheck__error__error_wrongResponse'));
 							return;
 						}
 
 						if (data.system.error && data.system.error.message) {
+							self.bookingCheckInProgress(false);
 							self.resultsLoaded(true);
 							self.bookingCheckError(
 								self.$$controller.i18n('FlightsSearchResults', 'bookingCheck__error__error_serverError') + ' ' +
@@ -622,11 +644,14 @@ define(
 							);
 						}
 						else if (self.options.needCheckAvail && !data.flights.search.flightInfo.isAvail) {
+							self.bookingCheckInProgress(false);
 							self.resultsLoaded(true);
 							self.bookingCheckError(self.$$controller.i18n('FlightsSearchResults', 'bookingCheck__error__error_unavailable'));
 						}
 						else {
 							var url;
+
+							self.bookingCheckInProgress(false);
 
 							// FIXME
 							if (self.$$controller.options.dataURL.indexOf('http://') === 0 || self.$$controller.options.dataURL.indexOf('https://') === 0) {
@@ -641,10 +666,15 @@ define(
 								self.bookingCheckPriceChangeData({
 									url: url,
 									oldPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.oldValue),
-									newPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.newValue)
+									newPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.newValue),
+									proceed: function() {
+										$(document).trigger("analyticsSelectFlight");
+										document.location = url;
+									}
 								});
 							}
 							else {
+								$(document).trigger("analyticsSelectFlight");
 								document.location = url;
 							}
 						}
@@ -683,7 +713,8 @@ define(
 				flightNumbers: '',
 				passengers: {},
 				direct: false,
-				vicinityDates: 0
+				vicinityDates: 0,
+				totalPassengers: 0
 			};
 
 			// Segments
@@ -707,6 +738,7 @@ define(
 			// Processing passengers
 			for (var i = 0; i < this.$$rawdata.flights.search.request.passengers.length; i++) {
 				searchInfo.passengers[this.$$rawdata.flights.search.request.passengers[i].type] = this.$$rawdata.flights.search.request.passengers[i].count;
+				searchInfo.totalPassengers += this.$$rawdata.flights.search.request.passengers[i].count;
 			}
 
 			// Processing other options
@@ -726,8 +758,8 @@ define(
 			this.aircrafts = {};
 			this.airlines = {};
 			this.airlinesByRating = [];
-			this.validatingAirlines = {};
-			this.validatingAirlinesByRating = [];
+			this.marketingAirlines = {};
+			this.marketingAirlinesByRating = [];
 			this.matrixData(null);
 			this.matrixMinPrice(null);
 			this.matrixDataIndexSelected(null);
@@ -939,9 +971,9 @@ define(
 
 								// Aircraft
 								this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
-								
+
 								// Companies
-								this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany];
+								this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany || this.segments[i].operatingCompany];
 								this.segments[i].operatingCompany = this.airlines[this.segments[i].operatingCompany];
 
 								this.segments[i].depAirp = this.$$controller.getModel(
@@ -1035,8 +1067,8 @@ define(
 									}
 								);
 
-								// Getting validating company
-								this.validatingAirlines[this.flights[source.flights[j].id].getValidatingCompany().IATA] = this.flights[source.flights[j].id].getValidatingCompany();
+								// Getting marketing company
+								this.marketingAirlines[this.flights[source.flights[j].id].getFirstSegmentMarketingCompany().IATA] = this.flights[source.flights[j].id].getFirstSegmentMarketingCompany();
 
 								tmp++;
 							}
@@ -1045,8 +1077,8 @@ define(
 						this.visibleResultsCount(tmp);
 						this.totalResultsCount = tmp;
 
-						// Constructing validating carriers by rating
-						this.validatingAirlinesByRating = Object.keys(this.validatingAirlines)
+						// Constructing marketing carriers by rating
+						this.marketingAirlinesByRating = Object.keys(this.marketingAirlines)
 							.map(function (key) {
 								return self.airlines[key]
 							})
@@ -1054,12 +1086,12 @@ define(
 								return parseFloat(b.rating) - parseFloat(a.rating);
 							});
 
-						// Creating flight groups (we group by same price and validating company)
+						// Creating flight groups (we group by same price and marketing company)
 						// Also - post-processing flights for them to calculate their "recommended" rating
 						// that relies on maximum/minimum values for all flights
 						for (var i in this.flights) {
 							if (this.flights.hasOwnProperty(i)) {
-								tmp = this.flightsGetGrouppingKey(this.flights[i]);//this.flights[i].getTotalPrice().normalizedAmount() + '-' + this.flights[i].getTotalPrice().currency() + '-' + this.flights[i].getValidatingCompany();
+								tmp = this.flightsGetGrouppingKey(this.flights[i]);
 
 								if (!tmpGroups[tmp]) {
 									tmpGroups[tmp] = [];
@@ -1134,7 +1166,7 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.flightsGetGrouppingKey = function (flight) {
-			return flight.getTotalPrice().normalizedAmount() + '-' + flight.getTotalPrice().currency() + '-' + flight.getValidatingCompany().IATA;
+			return flight.getTotalPrice().normalizedAmount() + '-' + flight.getTotalPrice().currency() + '-' + flight.getFirstSegmentMarketingCompany().IATA;
 		};
 
 		FlightsSearchResultsController.prototype.buildModels = function () {
@@ -1647,13 +1679,13 @@ define(
 			}
 
 			if (this.options.showBlocks.showBestOffers && !this.showcase.bestCompanies()) {
-				for (var i = 0; i < this.validatingAirlinesByRating.length; i++) {
+				for (var i = 0; i < this.marketingAirlinesByRating.length; i++) {
 					var showcaseBC = null;
 
 					for (var j in this.flights) {
 						if (this.flights.hasOwnProperty(j)) {
 							if (
-								this.flights[j].getValidatingCompany().IATA == this.validatingAirlinesByRating[i].IATA &&
+								this.flights[j].getFirstSegmentMarketingCompany().IATA == this.marketingAirlinesByRating[i].IATA &&
 								(
 									showcaseBC == null ||
 									showcaseBC.recommendRating < this.flights[j].recommendRating ||
@@ -1685,8 +1717,8 @@ define(
 					}
 				}
 
-				// If there's less or equal validating companies than items in best companies - clear it
-				if (this.validatingAirlinesByRating.length > bestCompanies.length) {
+				// If there's less or equal marketing companies than items in best companies - clear it
+				if (this.marketingAirlinesByRating.length > bestCompanies.length) {
 					// Sorting by price
 					bestCompanies.sort(function (a, b) {
 						return a.getTotalPrice().normalizedAmount() - b.getTotalPrice().normalizedAmount();
@@ -1859,6 +1891,7 @@ define(
 			'Flights/SearchResults/CouplingTable',
 			'Flights/SearchResults/StringPFGroup',
 			'Flights/SearchResults/CompareTable',
+			'Flights/SearchResults/FareFeatures',
 			'Flights/Common/Airline',
 			'Common/Date',
 			'Common/Duration',

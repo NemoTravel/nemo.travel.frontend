@@ -322,8 +322,7 @@ adapt_flights_results_list_condensedSegmentInfo();
 			margin: 0;
 			padding: 10px 10px;
 			min-width: 1px;
-
-			flex: 0 0 50%;
+			flex: 1 1 45%; // IE flex-basis affected by padding, 50% => 2 per row fail
 		}
 
 		adapt_flights_results_condensedGroup();

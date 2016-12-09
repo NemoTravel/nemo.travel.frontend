@@ -36,7 +36,7 @@ define(
 
 				this.segmentsByLeg[this.segmentsByLeg.length - 1].push(this.segments[i]);
 
-				if (this.getValidatingCompany().IATA != this.segments[i].operatingCompany.IATA) {
+				if (this.getFirstSegmentMarketingCompany().IATA != this.segments[i].operatingCompany.IATA) {
 					this.carriersMismatch = true;
 					this.carriersMismatchData[this.segments[i].operatingCompany.IATA] = this.segments[i].operatingCompany;
 				}
@@ -118,6 +118,13 @@ define(
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
 			this.recommendRating = !isNaN(this.rating) ? this.rating : 0;
 
+			/**
+			 * Fare Families features.
+			 *
+			 * @type {FlightsSearchResultsFareFeatures}
+			 */
+			this.fareFeatures = this.$$controller.getModel('Flights/SearchResults/FareFeatures', this.price.passengerFares);
+			
 			this.buildRatingItems();
 		}
 
@@ -146,6 +153,10 @@ define(
 		Flight.prototype.getTotalPrice = function () {
 			return this.price.totalPrice;
 		};
+
+		Flight.prototype.getAgentProfit = function () {
+			return this.price.agentProfit !== 'undefined' ? this.price.agentProfit : false;
+		};
 		
 		Flight.prototype.getPackageCurrency = function () {
 			if(this.$$controller.viewModel.user.isB2B()) {
@@ -160,7 +171,11 @@ define(
 			/**
 			 * @CRUTCH in rare cases we don't have a validating company in price so we just crutch it
 			 */
-			return this.price.validatingCompany || this.segments[0].marketingCompany;
+			return this.price.validatingCompany || this.segments[0].marketingCompany || this.segments[0].operatingCompany;
+		};
+		
+		Flight.prototype.getFirstSegmentMarketingCompany = function () {
+			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
 
 		return Flight;

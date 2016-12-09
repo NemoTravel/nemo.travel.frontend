@@ -1,0 +1,169 @@
+.nemo-flights-farerules {
+	width: 800px !important;
+
+	.ui-dialog-titlebar {
+		font-size: 15px;
+	}
+
+	.ui-dialog-content {
+		padding-bottom: 0;
+		padding-top: 0;
+	}
+
+	&__content {
+		height: auto;
+		margin: 0 -20px;
+
+		&__translators {
+			border-bottom: 1px solid #d7d7d7;
+			padding: 15px 20px;
+
+			&__link {
+				margin-right: 15px;
+
+				&:not(.nemo-ui-pseudoLink),
+				&:not(.nemo-ui-pseudoLink):hover,
+				&:not(.nemo-ui-pseudoLink):focus {
+					cursor: default;
+				}
+			}
+		}
+
+		&__segments {
+			padding: 20px 20px 0;
+
+			&__segment {
+				width: 50%;
+				float: left;
+				margin-bottom: 10px;
+
+				&:nth-child(odd) {
+					padding-right: 10px;
+				}
+
+				&:nth-child(even) {
+					padding-left: 10px;
+				}
+
+				&__button {
+					&, &.nemo-ui-button {
+						width: 100%;
+						padding: 0 20px;
+						line-height: 35px;
+						height: 34px;
+						text-align: left;
+						font-size: 12px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+
+					&.nemo-ui-button.nemo-ui-button_medium {
+						&, &:hover, &:focus, &:active {
+							background: $c_ui_button;
+						}
+					}
+
+					&.nemo-ui-button.nemo-ui-button_common {
+						&, &:hover, &:focus, &:active {
+							background: #ddd;
+						}
+					}
+
+					&_disabled {
+						color: #ccc;
+
+						&, &:hover, &:focus, &:active {
+							cursor: default;
+						}
+					}
+				}
+
+				&_disabled {
+					&, &:hover, &:focus, &:active {
+						cursor: default;
+					}
+				}
+			}
+		}
+
+		&__rules {
+			height: 560px;
+			max-height: @height;
+			overflow: auto;
+			padding: 0 20px;
+
+			&__list {
+				&__header {
+					margin-bottom: 1px;
+					margin-top: 5px;
+				}
+
+				&__body {
+					&__code {
+					}
+
+					&__category {
+						font-family: $regular;
+						font-size: 13px;
+						padding-bottom: 15px;
+
+						&__name, &__text {
+							font-family: @font-family;
+						}
+
+						&__name {
+							margin-top: 20px;
+							font-weight: bold;
+							margin-bottom: 5px;
+							font-size: 1.1em;
+						}
+
+						&__text {
+						}
+					}
+				}
+			}
+		}
+
+		&__coverage {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(255, 255, 255, 0.7);
+
+			&__loader {
+				background-image: url('/templates/wurst/f2.0/css/images/loader.svg');
+				background-size: 40px;
+				width: 40px;
+				height: 40px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -20px;
+				margin-top: -20px;
+			}
+		}
+	}
+
+	&__disclaimer {
+		border-top: 1px solid #d7d7d7;
+		margin: 0 -20px;
+		padding: 15px 20px;
+		position: relative;
+		background: rgba(238, 238, 238, 1);
+
+		&__star {
+			position: absolute;
+			margin-left: -8px;
+			margin-top: 5px;
+			font-size: 1.1em;
+			top: auto;
+		}
+
+		a {
+			outline: none;
+		}
+	}
+}

@@ -1,0 +1,375 @@
+$fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
+
+.nemo-flights-results__fareFamilies {
+	border: $fareFamiliesLightBorder;
+	border-radius: 4px;
+	padding: 12px 10px;
+	margin: 15px 20px 5px;
+	
+	&__header {
+		margin-bottom: 10px;
+		
+		&__title {
+			font-size: 13px;
+			color: #64b5f6;
+		}
+			
+		&__chooseTariff {
+			font-size: 12px;
+			float: right;
+			
+			a {
+				&, &:active, &:focus, &:active:focus {
+					outline: none !important;
+				}
+			}
+		}
+	}
+	
+	&__features {
+		font-size: 11px;
+		color: rgba(100, 100, 100, .75);
+		
+		&__baggage, &__refunds, &__misc {
+			width: 50%;
+			float: left;
+			padding-right: 20px;
+			
+			ul {
+				padding-left: 0;
+				list-style-type: none;
+			}
+				
+			&__feature {
+				padding-left: 18px;
+				cursor: default;
+				margin-bottom: 10px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+					
+				&__hint {
+					z-index: 1005;
+					.tooltipster-content {
+						padding: 10px 15px;
+						max-width: 300px;
+					}
+				}
+					
+				&__icon {
+					background-position: left center;
+					background-repeat: no-repeat;
+					width: 15px;
+					height: 12px;
+					display: inline;
+					position: absolute;
+					margin-left: -18px;
+
+					&_free {
+						background-image: url('images/fare-feature-free-1.png');
+					}
+
+					&_charge {
+						background-image: url('images/fare-feature-charged-1.png');
+					}
+
+					&_notavailable {
+						background-image: url('images/fare-feature-unavailable-1.png');
+					}
+				}
+			}
+		}
+	}
+		
+	&_full {
+		margin: 15px -20px 15px;
+		padding: 20px 40px;
+		border: none;
+		background-color: #f7f7f7;
+		
+		&:last-of-type {
+			margin-bottom: -1px;
+		}
+		
+		.nemo-flights-results__fareFamilies__header {
+			margin-bottom: 15px;
+		}
+
+		.nemo-flights-results__fareFamilies__features__baggage,
+		.nemo-flights-results__fareFamilies__features__refunds,
+		.nemo-flights-results__fareFamilies__features__misc {
+			width: 33.33%;
+			font-size: 12px;
+			
+			ul {
+				margin-top: 10px;
+			}
+		}
+			
+		.nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list {
+			margin-bottom: 0;
+			padding-bottom: 0;
+			
+			&:last-child {
+				padding-bottom: 0;
+			}
+		}
+	}
+		
+	&__popup {
+		width: 720px !important;
+		height: auto;
+		overflow: visible;
+		top: 70px !important;
+		padding: 0 !important;
+		font-family: $nemo-font-main;
+
+		&__header {
+			margin: 10px 0 20px;
+			font-size: 1.1em;
+		}
+		
+		&__wrapper {
+			min-height: 400px;
+		}
+		
+		&__tariffs {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			margin-bottom: -20px;
+			
+			&__error {
+				width: 400px;
+				text-align: center;
+				margin: 0 auto;
+				padding-top: 140px;
+
+				&__text {
+					font-size: 30px;
+					font-weight: bold;
+					color: #bbb;
+					text-align: center;
+					cursor: default;
+				}
+			}
+
+			&__tariff {
+				background-color: #f7f7f7;
+				box-shadow: none !important;
+				width: 330px;
+				max-width: @width;
+				position: relative;
+				padding: 20px 30px;
+				margin-bottom: 20px;
+				border-radius: 4px;
+
+				&__header {
+					background-color: #64b5f6;
+					margin: -20px -30px 20px !important;
+
+					&__title {
+						font-weight: bold;
+						font-size: 1.2em;
+					}
+				}
+					
+				&__features {
+					margin-bottom: 60px;
+
+					&__list {
+						padding-left: 0;
+						list-style-type: none;
+						margin: 15px 0;
+						padding-bottom: 15px;
+						border-bottom: 1px solid #eeeeee;
+
+						&:last-child {
+							border-bottom: none;
+							padding-bottom: 15px;
+						}
+
+						&__title {
+							color: #999;
+							font-size: 11px;
+						}
+
+						&__feature {
+							padding-left: 18px;
+							margin-bottom: 12px;
+							color: #626467;
+							cursor: default;
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+
+							&__hint {
+								z-index: 1005 !important;
+								
+								.tooltipster-content {
+									padding: 10px 15px !important;
+									max-width: 300px !important;
+								}
+							}
+
+							&__icon {
+								background-position: left center;
+								background-repeat: no-repeat;
+								width: 15px;
+								height: 15px;
+								display: inline;
+								position: absolute;
+								margin-left: -18px;
+
+								&_free {
+									background-image: url('images/fare-feature-free-1.png');
+								}
+
+								&_charge {
+									background-image: url('images/fare-feature-charged-1.png');
+								}
+
+								&_notavailable {
+									background-image: url('images/fare-feature-unavailable-1.png');
+								}
+							}
+
+							money {
+								margin-right: 4px;
+							}
+						}
+					}
+				}
+					
+				&__price {
+					height: 40px;
+					line-height: 41px;
+					padding: 0 20px;
+					position: absolute;
+					left: 20px;
+					bottom: 20px;
+					border-radius: 4px;
+					font-size: 16px;
+					font-weight: bold;
+					color: #636469;
+					background: #fae58c;
+				}
+					
+				&__buy {
+					position: absolute;
+					right: 20px;
+					bottom: 20px;
+
+					&__button {
+						font-weight: bold;
+						padding-right: 45px;
+					}
+				}
+			}
+		}
+		
+		&__coverage {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(255, 255, 255, 0.7);
+			
+			&__global {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 9999;
+				background: transparent;
+			}
+
+			&__loader {
+				background-image: url('images/loader.svg');
+				background-size: 40px;
+				width: 40px;
+				height: 40px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -20px;
+				margin-top: -20px;
+			}
+		}
+	}
+		
+	&_checkout&_full {
+		margin: 15px -40px;
+		border-radius: 0;
+	}
+
+	&_slim {
+	   position: relative;
+		
+		.nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list {
+			margin: 10px 0 0;
+			padding-bottom: 0;
+			font-size: 12px;
+			
+			&__feature__icon {
+				height: 14px;
+			}
+		}
+	}
+		
+	&_slim &__header {
+		border-bottom: $fareFamiliesLightBorder;
+		margin: 0 -10px;
+		padding: 0 10px 10px;
+
+		&__chooseTariff {
+			display: block;
+			border-top: $fareFamiliesLightBorder;
+			padding: 0 10px;
+			float: none;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 35px;
+			line-height: 35px;
+			overflow: hidden;
+		}
+	}
+		
+	&_slim &__features {
+		padding-bottom: 35px;
+
+		&__baggage,
+		&__refunds,
+		&__misc {
+			width: auto;
+			margin-top: 10px;
+			float: none;
+		}
+
+		&__refunds,
+		&__misc {
+			border-top: $fareFamiliesLightBorder;
+			margin: 10px -10px 0 -10px;
+			padding: 10px 10px 0;
+		}
+	}
+		
+	&_noMargin {
+		margin: 10px 0 0;
+	}
+
+	&_noMargin &__features {
+		padding-bottom: 0;
+	}
+		
+	&__subClasses {
+		display: block;
+		margin: 15px 20px 5px;
+	}
+}

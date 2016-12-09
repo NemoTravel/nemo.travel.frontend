@@ -201,6 +201,21 @@
 					line-height: 16px;
 				}
 
+				&__fareVariations {
+					position: absolute;
+					right: 60px;
+					bottom: 4px;
+					width: 200px;
+					
+					.nemo-ui-pseudoLink:first-of-type {
+						font-size: 11px;
+						line-height: 16px;
+						position: absolute;
+						bottom: 0;
+						right: 0;
+					}
+				}
+
 				&__route {
 					font-size: 11px;
 				}
@@ -213,6 +228,15 @@
 					&, &:hover, &:active {
 						color: #fff;
 						border-bottom-color: #fff;
+					}
+				}
+
+				&__button_selected &__fareVariations {
+					.nemo-ui-pseudoLink:first-of-type {
+						&, &:hover, &:active {
+							color: #fff;
+							border-bottom-color: @color;
+						}
 					}
 				}
 			}

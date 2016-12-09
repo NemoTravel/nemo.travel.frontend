@@ -104,6 +104,11 @@ define(
 			return this.$$controller.getModel('Common/Date', dobj);
 		};
 
+		CommonDate.prototype.setHours = function (h, m, s) {
+			this.dateObject().setHours(h, m, s);
+			this.dateObject.valueHasMutated();
+		};
+
 		return CommonDate;
 	}
 );

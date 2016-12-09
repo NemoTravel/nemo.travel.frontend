@@ -5,9 +5,33 @@
 	padding: 0;
 	position: relative;
 
-	&__segments {
+	&__wrapper {
 		flex-basis: 100%;
 		min-width: 1px;
+	}
+
+	.nemo-flights-results__fareFamilies {
+		margin: 0;
+		border: 0;
+		border-top: 1px solid rgba(230, 230, 230, .75);
+		background-color: #f7f7f7;
+
+		&__features__baggage, &__features__refunds, &__features__misc {
+			width: auto;
+			padding-right: 0px;
+
+			&__feature {
+				display: inline-block;
+				padding-right: 10px;
+			}
+		}
+	}
+		
+	&__fareVariations {
+		margin: 0;
+		border: 0;
+		border-top: 1px solid rgba(230, 230, 230, .75);
+		background-color: #f7f7f7;
 	}
 
 	&__segment {
@@ -331,5 +355,23 @@
 	&__pricingDebugLink {
 		text-align: right;
 		display: block;
+		padding-top: 4px;
+	}
+
+	&__gds-comission-block {
+		padding: 0px 0px 10px 20px;
+		text-align: right;
+
+		&__gds {
+			padding-right: 5px;
+		}
+	}
+		
+	&__fareVariations {
+		padding-bottom: 10px;
+		
+		.nemo-flights-results__fareVariations {
+			text-align: center;
+		}
 	}
 }

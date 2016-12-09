@@ -7,6 +7,7 @@ define(
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
+		'js/lib/jquery.tablesorter/v.2.0.5/jquery.tablesorter.min',
 		'touchpunch'
 	],
 	function (ko, $) {
@@ -164,6 +165,20 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.doubleFade = {
+			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var isVisible = ko.utils.unwrapObservable(valueAccessor()),
+					$element = $(element);
+
+				if (isVisible) {
+					$element.fadeIn(150);
+				}
+				else {
+					$element.fadeOut(150);
+				}
+			}
+		};
+
 		ko.bindingHandlers.popup = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var defaults = {
@@ -176,6 +191,7 @@ define(
 						height: 'auto',
 						title: '',
 						parentClass: 'js-nemoApp__component',
+						onlyFirstBlock: false,
 						beforeOpen: null,
 						close: function () {}
 					},
@@ -201,6 +217,10 @@ define(
 						}
 
 						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
+						
+						if (params.onlyFirstBlock === true && $target.length > 1) {
+							$target = $target.first();
+						}
 
 						delete popupParams.block;
 						delete popupParams.beforeOpen;
@@ -511,6 +531,30 @@ define(
 
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					clearTimeout(timeout);
+				});
+			}
+		};
+
+		ko.bindingHandlers.tableSorter = {
+			
+			/**
+			 * Init tablesort plugin on table.
+			 * setTimeout 200ms is a small hack to let knockout to complete table render.
+			 * 
+			 * @param element
+			 * @param valueAccessor
+			 * @param allBindingsAccessor
+			 * @param viewModel
+			 * @param bindingContext
+			 */
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					options = ko.utils.unwrapObservable(valueAccessor);
+
+				$element.ready(function () {
+					setTimeout(function () { 
+						$element.tablesorter(options); 
+					}, 200);
 				});
 			}
 		};

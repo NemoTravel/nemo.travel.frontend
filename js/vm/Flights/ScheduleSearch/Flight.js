@@ -62,8 +62,8 @@ define(
 					}
 				);
 
+				tmp.marketingCompany = guide.airlines[tmp.marketingCompany || tmp.operatingCompany];
 				tmp.operatingCompany = guide.airlines[tmp.operatingCompany];
-				tmp.marketingCompany = guide.airlines[tmp.marketingCompany];
 				tmp.aircraftType = guide.aircrafts[tmp.aircraftType];
 
 				tmp.flightTime = this.$$controller.getModel('Common/Duration', tmp.flightTime * 60);
@@ -124,7 +124,7 @@ define(
 		};
 
 		ScheduleSearchFlight.prototype.getMarketingCompany = function () {
-			return this.segments[0].marketingCompany;
+			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
 
 		ScheduleSearchFlight.prototype.getFlightNumber = function () {

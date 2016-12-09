@@ -1,13 +1,15 @@
 'use strict';
 define (
-	['knockout', 'js/vm/helpers'],
-	function (ko, helpers) {
+	['knockout', 'js/vm/helpers', 'js/lib/stacktrace/v.1.3.1/stacktrace.min'],
+	function (ko, helpers, StackTrace) {
 		var NemoFrontEndController = function (scope, options) {
 			var self = this;
 
 			this.scope = scope;
 			this.options = {};
 			this.ko = ko;
+			
+			this.initErrorHandler();
 
 			this.routes = [
 				// Form with optional data from existing search
@@ -25,7 +27,7 @@ define (
 				// GO - immediate search flag
 				{re: /^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
 
-				{re: /^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?$/, handler: 'Flights/ScheduleSearch/Controller'},
+				{re: /^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
 				{re: /^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
 
 				{re: /^results\/(\d+)(\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
@@ -162,7 +164,7 @@ define (
 				user: {
 					id: ko.observable(0),
 					status: ko.observable('guest'),
-					isB2B: ko.observable('false')
+					isB2B: ko.observable(false)
 				}
 			};
 
@@ -193,7 +195,7 @@ define (
 						// We must always require a domready event.
 						// domready is triggered after popstate event and we don't need our listener catch the first one due
 						// to different browsers triggering popstate differently
-						require (['domReady!'], function () {
+						require (self.options.waitForDOMReady ? ['domReady!'] : [], function () {
 							// Adding base models to storage
 							self.processLoadedModel('BaseDynamicModel', BaseDynamicModel);
 							self.processLoadedModel('BaseStaticModel', BaseStaticModel);
@@ -303,72 +305,83 @@ define (
 		 * Load i18n segments data
 		 *
 		 * @param segmentsArray array of i18n segments names
-		 * @param callback executed when everything is loaded and parsed successfully
+		 * @param successCallback executed when everything is loaded and parsed successfully
 		 * @param errorCallback executed when something could not be loaded or some segments were not parsed
 		 */
-		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, callback, errorCallback) {
+		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, successCallback, errorCallback) {
 			var self = this,
-				segmentsLoaded = 0,
-				requestsCompleted = 0,
-				loadArray = [];
+				loadByRequire = [],
+				loadByAjax = [];
 
 			errorCallback = errorCallback || function () {};
+			successCallback = successCallback || function () {};
 
-			function checkReadiness () {
-				if (segmentsLoaded == loadArray.length) {
-					callback();
+			segmentsArray.map(function (segmentName) {
+				var moduleName = 'i18n/' + segmentName;
+				
+				if (require.specified(moduleName)) {
+					// Find out if we can load i18n module by requirejs.
+					loadByRequire.push(segmentName);
 				}
-				else if (requestsCompleted == loadArray.length) {
-					errorCallback();
+				else if (!self.i18nStorage[segmentName]) {
+					// Otherwise, we need to load file via AJAX.
+					loadByAjax.push(segmentName);
 				}
+			});
+			
+			if (loadByAjax.length === 0 && loadByRequire.length === 0) {
+				// There are nothing to load.
+				successCallback();
 			}
+			else {
+				var needToLoad = loadByAjax.length + loadByRequire.length;
+				
+				loadByRequire.map(function (segmentName, index, array) {
+					var moduleName = 'i18n/' + segmentName;
+					
+					require (
+						[ moduleName ],
+						function (module) {
+							self.i18nStorage[segmentName] = module;
 
-			// Filtering out loaded segments
-			for (var i = 0; i < segmentsArray.length; i++) {
-				if (!self.i18nStorage[segmentsArray[i]]) {
-					loadArray.push(segmentsArray[i]);
-				}
-			}
-
-			if (loadArray.length == 0) {
-				checkReadiness();
-			}
-
-			for (var i = 0; i < loadArray.length; i++) {
-				if (!self.i18nStorage[loadArray[i]]) {
-					// Need a closure here
-					(function (index) {
-						self.makeRequest(
-							self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + loadArray[index] + '.json',
-							null,
-							function (text, request) {
-								requestsCompleted++;
-
-								try {
-									if (!self.i18nStorage[loadArray[index]]) {
-										self.log('Setting i18n segmeent', loadArray[index]);
-										self.i18nStorage[loadArray[index]] = JSON.parse(text);
-									}
-
-									segmentsLoaded++;
-								}
-								catch (e) {
-									self.error(e);
-								}
-
-								checkReadiness();
-							},
-							function () {
-								requestsCompleted++;
-								checkReadiness();
+							needToLoad--;
+							
+							if (needToLoad === 0) {
+								successCallback();
 							}
-						);
-					})(i);
-				}
-				else {
-					requestsCompleted++;
-					segmentsLoaded++;
-				}
+						},
+						function () {
+							errorCallback();
+							needToLoad--;
+						}
+					);
+				});
+				
+				loadByAjax.map(function (segmentName, index, array) {
+					self.makeRequest(
+						self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json',
+						null,
+						function (text, request) {
+							try {
+								self.log('Setting i18n segmeent', segmentName);
+								self.i18nStorage[segmentName] = JSON.parse(text);
+							}
+							catch (e) {
+								self.error(e);
+							}
+
+							needToLoad--;
+
+							if (needToLoad === 0) {
+								successCallback();
+							}
+						},
+						function () {
+							errorCallback();
+							needToLoad--;
+						}
+					);
+				});
 			}
 		};
 
@@ -507,16 +520,20 @@ define (
 		 */
 		NemoFrontEndController.prototype.compLoaderGetConfig = function (name, callback) {
 			var self = this,
-				template = name.replace('Controller', '').split('/');
+				template = name.replace('Controller', '').split('/'),
+				bundledName;
 
 			template.pop();
 			template = template.join('');
 
 			this.log('Detected component', name, callback);
 
+			// Used for packaged app
+			bundledName = 'html/' + template;
+
 			callback({
-				viewModel: { require: /*self.options.controllerSourceURL + */'js/vm/' + name/* + '.js'*/ },
-				template: { require: 'text!' + self.options.templateSourceURL + template + '.html' }
+				viewModel: { require: 'js/vm/' + name },
+				template: { require: require.specified(bundledName) ? bundledName : 'text!' + self.options.templateSourceURL + template + '.html' }
 			});
 		};
 
@@ -736,6 +753,95 @@ define (
 			return result.join("&").replace(/%20/g,"+");
 		};
 
+		NemoFrontEndController.prototype.initErrorHandler = function () {
+			var self = this;
+
+			/**
+			 * @param {String} message
+			 * @param {String} filename
+			 * @param {String} line
+			 * @param {String} column
+			 * @param {Error} error
+			 * @returns {boolean}
+			 */
+			window.onerror = function (message, filename, line, column, error) {
+				/** @see https://www.stacktracejs.com/#!/docs/stacktrace-js */
+				StackTrace.fromError(error).then(function (frames) {
+					var stack = [],
+						overlay = document.createElement('div'),
+						errorTitle = self.i18n('common', 'nemoApp__globalError__uncaughtError__title'),
+						errorMessage = self.i18n('common', 'nemoApp__globalError__uncaughtError__message'),
+						errorCode = self.i18n('common', 'nemoApp__globalError__uncaughtError__errorCode'),
+						searchId,
+						matchResults;
+
+					// We generate inline error page overlay intentionally, 
+					// to provide bulletproof reliability.
+					document.body.style.overflow = 'hidden';
+					overlay.style.zIndex = 99999;
+					overlay.style.position = 'fixed';
+					overlay.style.top = 0;
+					overlay.style.left = 0;
+					overlay.style.right = 0;
+					overlay.style.bottom = 0;
+					overlay.style.paddingTop = '150px';
+					overlay.style.paddingLeft = '20px';
+					overlay.style.paddingRight = '20px';
+					overlay.style.background = '#ffffff';
+					overlay.style.textAlign = 'center';
+					overlay.innerHTML = '' +
+						'<img style="width: 45vmin; height: auto; display: inline !important;" src="/templates/wurst/f2.0/img/404-cloud.svg">' +
+						'<h1 style="margin-top: 5vmin; color: #999999; font-size: 5.5vmin; font-weight: normal;">' + errorTitle +'</h1>' +
+						'<h3 style="color: #999999; font-size: 3vmin; font-weight: normal; padding-top: 0 !important;">' + errorMessage + '</h3>';
+					
+					//document.body.appendChild(overlay);
+
+					// Generating backtrace
+					frames.map(function (frame) {
+						stack.push({
+							line: frame.lineNumber ? frame.lineNumber : 0,
+							column: frame.columnNumber ? frame.columnNumber : 0,
+							path: frame.fileName ? frame.fileName : '',
+							method: frame.functionName ? frame.functionName : ''
+						});
+					});
+
+					matchResults = window.location.pathname.match(/\/results\/(\d+)\/.*/i);
+
+					// Trying to find out search id.
+					if (matchResults instanceof Object && 1 in matchResults) {
+						searchId = matchResults[1];
+					}
+					
+					self.loadData(
+						'/system/logger/error',
+						{
+							searchId: searchId,
+							error: {
+								name: error.name,
+								message: error.message,
+								stack: stack
+							}
+						},
+						function (data) {
+							data = JSON.parse(data);
+							
+							if (data.error.code) {
+								overlay.innerHTML += '' +
+									'<h3 style="color: #999999; font-size: 3vmin; font-weight: normal; padding-top: 5px !important;">'
+									+ errorCode + ': ' + data.error.code
+									+ '</h3>';
+							}
+						},
+						function () {
+						}
+					);
+				});
+				
+				return false;
+			};
+		};
+
 		/**
 		 * Default options object
 		 *
@@ -754,7 +860,8 @@ define (
 			i18nLanguage: 'en',
 			i18nURL: '',
 			CORSWithCredentials: false,
-			cookiesPrefix: 'nemo-'
+			cookiesPrefix: 'nemo-',
+			waitForDOMReady: true
 		};
 
 		/**

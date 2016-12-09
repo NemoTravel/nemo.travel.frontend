@@ -302,42 +302,46 @@ define(
 					setTimeout(function(){
 						var $selectable = $groupsList.find('.js-flights-couplingTable__group__item:not(.js-flights-couplingTable__group__item_inactive)'),
 							$visibleSelectable = $selectable.filter(':visible'),
-							firstGroupOffset = $groupsList.find('.js-flights-couplingTable__group').eq(1).position().left,
+							firstGroupOffset,
 							tmp;
+						
+						if ($groupsList.find('.js-flights-couplingTable__group').eq(1).position()) {
+							firstGroupOffset = $groupsList.find('.js-flights-couplingTable__group').eq(1).position().left;
+							
+							$groupsList.find('.js-flights-couplingTable__connector').remove();
 
-						$groupsList.find('.js-flights-couplingTable__connector').remove();
+							tmp = defineMinMaxTopOffset($visibleSelectable);
 
-						tmp = defineMinMaxTopOffset($visibleSelectable);
+							if ($visibleSelectable.length != $selectable.length) {
+								tmp.max += $visibleSelectable.eq(0).outerHeight() / 2;
+							}
 
-						if ($visibleSelectable.length != $selectable.length) {
-							tmp.max += $visibleSelectable.eq(0).outerHeight() / 2;
-						}
+							$groupsList.append(
+								$('<div></div>')
+									.addClass('js-flights-couplingTable__connector nemo-flights-results__couplingTable__groups__connector  nemo-flights-results__couplingTable__groups__connector_selectable')
+									.css({
+										top: tmp.min + 'px',
+										left: firstGroupOffset + 'px',
+										height: (tmp.max - tmp.min + 1.5) + 'px' // FIXME add correct number based on width
+									})
+							);
 
-						$groupsList.append(
-							$('<div></div>')
-								.addClass('js-flights-couplingTable__connector nemo-flights-results__couplingTable__groups__connector  nemo-flights-results__couplingTable__groups__connector_selectable')
-								.css({
-									top: tmp.min + 'px',
-									left: firstGroupOffset + 'px',
-									height: (tmp.max - tmp.min + 1.5) + 'px' // FIXME add correct number based on width
-								})
-						);
+							tmp = defineMinMaxTopOffset($groupsList.find('.js-flights-couplingTable__group__item_selected'));
 
-						tmp = defineMinMaxTopOffset($groupsList.find('.js-flights-couplingTable__group__item_selected'));
+							$groupsList.append(
+								$('<div></div>')
+									.addClass('js-flights-couplingTable__connector nemo-flights-results__couplingTable__groups__connector  nemo-flights-results__couplingTable__groups__connector_selected')
+									.css({
+										top: tmp.min + 'px',
+										left: firstGroupOffset + 'px',
+										height: (tmp.max - tmp.min + 2) + 'px'
+									})
+							);
 
-						$groupsList.append(
-							$('<div></div>')
-								.addClass('js-flights-couplingTable__connector nemo-flights-results__couplingTable__groups__connector  nemo-flights-results__couplingTable__groups__connector_selected')
-								.css({
-									top: tmp.min + 'px',
-									left: firstGroupOffset + 'px',
-									height: (tmp.max - tmp.min + 2) + 'px'
-								})
-						);
-
-						if ($groupsList.find('.js-flights-couplingTable__group__item_selected:not(:visible)').length) {
-							viewModel.shownFlights(Infinity);
-							$groupsList.trigger('resize');
+							if ($groupsList.find('.js-flights-couplingTable__group__item_selected:not(:visible)').length) {
+								viewModel.shownFlights(Infinity);
+								$groupsList.trigger('resize');
+							}
 						}
 					}, 1);
 				}
@@ -461,7 +465,7 @@ define(
 			_worker: function ($element, valueAccessor) {
 				// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
 				var data = valueAccessor();
-
+				
 				if (data.ids.length) {
 					if($element.parents('.js-flights-results__showcase').length > 0){
 						Cookie.set('nemo-showcaseFlight-' + data.ids[0], true, 30);
@@ -470,7 +474,7 @@ define(
 					if (data.controller.options.needCheckAvail) {
 						$element.data('nemo-flights-results__bookingCheckInProgress',true);
 					}
-
+					
 					data.controller.bookFlight(data.ids);
 				}
 			},
@@ -599,7 +603,7 @@ define(
 			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var data = valueAccessor(),
 					$element = $(element);
-
+				
 				// Setting tooltip (for desktops)
 				if (data.ids.length && data.controller.flights[data.ids[0]].warnings.length) {
 					var tooltipContent = ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._hintContent(

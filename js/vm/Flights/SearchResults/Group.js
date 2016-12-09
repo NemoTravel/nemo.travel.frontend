@@ -96,15 +96,7 @@ define(
 
 				// Add sorting
 				addObj.options.sort(function (a, b) {
-					var af = self.flightsById[a.flights[0]],
-						bf = self.flightsById[b.flights[0]];
-
-					if (af.legs[siter].depDateTime.getTimestamp() != bf.legs[siter].depDateTime.getTimestamp()) {
-						return af.legs[siter].depDateTime.getTimestamp() - bf.legs[siter].depDateTime.getTimestamp();
-					}
-					else {
-						return af.legs[siter].arrDateTime.getTimestamp() - bf.legs[siter].arrDateTime.getTimestamp();
-					}
+					return self.legOptionsSorter.apply(self, [a, b, siter]);
 				});
 
 				addObj.selected(addObj.options[0]);
@@ -188,11 +180,27 @@ define(
 			this.selectedFlight = ko.computed(function () {
 				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : this.flights[0];
 			}, this);
+
+			this.fareVariationsVisible = this.resultsController.options.showBlocks.showFareVariations && 
+				!this.selectedFlight().fareFeatures.getFirstFamily() &&
+				this.selectedFlight().price.service === 'SIRENA2000';
 		}
 		// Extending from dictionaryModel
 		helpers.extendModel(Group, [BaseModel]);
 
 		Group.prototype.globalIdIterator = 0;
+
+		Group.prototype.legOptionsSorter = function (a, b, siter) {
+			var af = this.flightsById[a.flights[0]],
+				bf = this.flightsById[b.flights[0]];
+
+			if (af.legs[siter].depDateTime.getTimestamp() != bf.legs[siter].depDateTime.getTimestamp()) {
+				return af.legs[siter].depDateTime.getTimestamp() - bf.legs[siter].depDateTime.getTimestamp();
+			}
+			else {
+				return af.legs[siter].arrDateTime.getTimestamp() - bf.legs[siter].arrDateTime.getTimestamp();
+			}
+		};
 
 		Group.prototype.getGroupingKey = function (flight, legNumber) {
 			return flight.legs[legNumber].depAirp.IATA + '-' +
@@ -213,7 +221,7 @@ define(
 			for (var i in flights) {
 				if (flights.hasOwnProperty(i)) {
 					if (
-						flights[i].getValidatingCompany().IATA == this.getValidatingCompany().IATA &&
+						flights[i].getFirstSegmentMarketingCompany().IATA == this.getFirstSegmentMarketingCompany().IATA &&
 						flights[i].getTotalPrice().normalizedAmount() > minprice &&
 						flights[i].getTotalPrice().normalizedAmount() < maxprice
 					) {
@@ -383,10 +391,22 @@ define(
 			return this.flights[0].price.totalPrice;
 		};
 
+		Group.prototype.getSubagentProfit = function () {
+			return typeof this.flights[0].price.subagentProfit !== 'undefined' ? this.flights[0].price.subagentProfit : false;
+		};
+
+		Group.prototype.getAgentProfit = function () {
+			return typeof this.flights[0].price.agentProfit !== 'undefined' ? this.flights[0].price.agentProfit : false;
+		};
+
 		Group.prototype.getValidatingCompany = function () {
 			return this.flights[0].getValidatingCompany();
 		};
-		
+
+		Group.prototype.getFirstSegmentMarketingCompany = function () {
+			return this.flights[0].getFirstSegmentMarketingCompany();
+		};
+
 		Group.prototype.getPackageCurrency = function () {
 			if(this.$$controller.viewModel.user.isB2B()) {
 				return this.flights[0].price.originalCurrency;
@@ -394,6 +414,10 @@ define(
 			else {
 				return '';
 			}
+		};
+		
+		Group.prototype.isRefundable = function () {
+			return this.flights[0].price.refundable;
 		};
 
 		return Group;

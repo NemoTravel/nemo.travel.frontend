@@ -19,7 +19,6 @@ define(
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
-			this.passengersSelectAlt = false;
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -42,6 +41,7 @@ define(
 			// Set cookies is not an observable for when it changes it won't trigger cookie setting via this.cookieData
 			this.setCookies = false;
 			this.useCookies = true;
+			this.forceUseCookies = true;
 			this.mode = 'normal'; // tunesearch preinitted cookied
 			this.tuneSearch = 0;
 			this.preinittedData = {
@@ -72,6 +72,20 @@ define(
 			this.forceLocationChange = false;
 			this.forceChangeToSearch = false;
 			this.forceInitialTripType = false;
+
+			this.$$loading.subscribe(function (newValue) {
+				if (!newValue) {
+					try {
+						document.dispatchEvent(new CustomEvent("loadSearchForm"));
+					}
+					catch (e) {
+						//IF IE 9+
+						var evt = document.createEvent("Event");
+						evt.initEvent("loadSearchForm", true, false);
+						document.dispatchEvent(evt);
+					}
+				}
+			}, this);
 
 			this.processInitParams();
 
@@ -340,7 +354,7 @@ define(
 			}, this);
 
 			this.cookieData.subscribe(function (newValue) {
-				if (this.useCookies && this.setCookies) {
+				if ((this.useCookies || this.forceUseCookies) && this.setCookies) {
 					this.$$controller.log('WRITING COOKIE', this.getCookieName(), newValue);
 
 					Cookie.set(this.getCookieName(), newValue, { expires: 365 });
@@ -379,7 +393,7 @@ define(
 				}
 
 				urlAdder += '-class=' + this.serviceClass();
-				
+
 				if( this.flightNumbers().length ){
 					urlAdder += '-flightNumbers=' + this.flightNumbers();
 				}
@@ -515,7 +529,7 @@ define(
 				if ('forceSelfHostNavigation' in this.$$componentParameters.additional) {
 					this.forceSelfHostNavigation = !!this.$$componentParameters.additional.forceSelfHostNavigation;
 				}
-				
+
 				if ('addLanguageToResultsURL' in this.$$componentParameters.additional) {
 					this.addLanguageToResultsURL = !!this.$$componentParameters.additional.addLanguageToResultsURL;
 				}
@@ -553,11 +567,10 @@ define(
 
 			// Analyzing parameters
 			// Preinitted by formData
-			if (this.$$componentParameters.formData) {
+			if (this.$$componentParameters.formData || this.$$componentParameters.additional.formData) {
 				this.useCookies = false;
-				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData);
+				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData || this.$$componentParameters.additional.formData);
 			}
-
 			// Preinitted by controller params
 			else if (this.$$componentParameters.additional && this.$$componentParameters.additional.init) {
 				this.$$controller.log('Initted by component additional parameters', this.$$componentParameters.additional.init);
@@ -638,7 +651,7 @@ define(
 								this.preinittedData.serviceClass = t;
 							}
 						}
-						
+
 						// Flight numbers
 						if (this.$$componentParameters.route[2][i].substr(0, 14) == 'flightNumbers=') {
 							this.preinittedData.flightNumbers = this.$$componentParameters.route[2][i].substr(14).split('+');
@@ -653,13 +666,49 @@ define(
 				var cookie = Cookie.getJSON(this.getCookieName());
 
 				// Checking cookie validity and fixing that
-				if (cookie && cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0) {
+				if (cookie && cookie.passengers && cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0 && cookie.segments[0].length > 2 && cookie.segments[0][0] !== null && cookie.segments[0][1] !== null && cookie.segments[0][2] !== null) {
 					this.$$controller.log('Initted by cookie', cookie);
 					this.preinittedData = cookie;
 					this.mode = 'preinitted';
 				}
 			}
 		};
+
+		/**
+		 * @returns {boolean}
+		 */
+		// FlightsSearchFormController.prototype.formDataIsValidForInit = function () {
+		// 	var result = false;
+		//	
+		// 	if (this.$$componentParameters.formData) {
+		// 		result = true;
+		// 	}
+		// 	else if (this.$$componentParameters.additional.formData) {
+		// 		var formData = this.$$componentParameters.additional.formData;
+		//		
+		// 		if (
+		// 			'flights' in formData &&
+		// 			'search' in formData.flights &&
+		// 			'request' in formData.flights.search &&
+		// 			'segments' in formData.flights.search.request &&
+		// 			formData.flights.search.request.segments instanceof Array &&
+		// 			formData.flights.search.request.segments.length
+		// 		) {
+		// 			if (formData.flights.search.request.segments.length > 1) {
+		// 				result = true;
+		// 			}
+		// 			else {
+		// 				var segment = formData.flights.search.request.segments[0];
+		//				
+		// 				if ('departureDate' in segment) {
+		// 					result = true;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		//	
+		// 	return result;
+		// };
 
 		FlightsSearchFormController.prototype.recalcDateRestrictions = function () {
 			var segments = this.segments(),
@@ -837,9 +886,11 @@ define(
 				this.processValidation();
 			}
 			else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
+				$(document).trigger("analyticsStartSearch");
 				this.goToResults();
 			}
 			else {
+				$(document).trigger("analyticsStartSearch");
 				this.makeSynchronousSeach();
 			}
 		};
@@ -1042,11 +1093,25 @@ define(
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
-			
+			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
+
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};
 
 		FlightsSearchFormController.prototype.buildInitialSegments = function () {
+			// Checking whether we can build a route (API has all needed guide entries)
+			if (this.mode == 'preinitted') {
+				for (var i = 0; i < this.preinittedData.segments.length; i++) {
+					if (
+						typeof this.$$rawdata.guide.airports[this.preinittedData.segments[i][0]] == 'undefined' ||
+						typeof this.$$rawdata.guide.airports[this.preinittedData.segments[i][1]] == 'undefined'
+					) {
+						this.mode = 'normal';
+						break;
+					}
+				}
+			}
+
 			// Processing segments
 			if (this.mode == 'preinitted') {
 				var tmp;
@@ -1069,6 +1134,10 @@ define(
 							},
 							guide: this.$$rawdata.guide
 						});
+
+						if (!depdata.identifier) {
+							depdata = null;
+						}
 					}
 
 					if (this.preinittedData.segments[i][1]) {
@@ -1080,6 +1149,10 @@ define(
 							},
 							guide: this.$$rawdata.guide
 						});
+
+						if (!arrdata.identifier) {
+							arrdata = null;
+						}
 					}
 
 					// Checking date for validity
@@ -1146,6 +1219,10 @@ define(
 				// Processing other options
 				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
 				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
+				
+				if (this.$$rawdata.flights.search.request.parameters.useCookies === true) {
+					this.forceUseCookies = true;
+				}
 
 				if (this.serviceClasses.indexOf(this.$$rawdata.flights.search.request.parameters.serviceClass) >= 0) {
 					this.serviceClass(this.$$rawdata.flights.search.request.parameters.serviceClass);

@@ -611,6 +611,25 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		}
 	}
 
+	&__geoAC {
+		&_withScroll{
+			height: 409px; 
+			overflow-y: scroll; 
+			overflow-x: hidden;
+		}
+		&__item {
+			&_noGoodMatching {
+
+			}
+			&_noRoute {
+				color: #a9a9a9!important; /* .nemo-ui-autocomplete .ui-menu-item conflict */
+			}
+			&_directFlight {
+				font-weight: 600;
+			}
+		}
+	}
+
 	&__passengers {
 		width: 11.6%;
 		white-space: nowrap;

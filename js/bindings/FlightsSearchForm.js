@@ -69,9 +69,18 @@ define(
 				else {
 					text = item.label;
 				}
+				
+				var liClass = 'nemo-flights-form__geoAC__item';
+				
+				if('noRoute' in item && item.noRoute){ 
+					liClass += ' nemo-flights-form__geoAC__item_noRoute';
+				}
+				if('directFlight' in item && item.directFlight){ 
+					liClass += ' nemo-flights-form__geoAC__item_directFlight';
+				}
 
 				return $("<li>")
-					.addClass('nemo-flights-form__geoAC__item')
+					.addClass(liClass)
 					.append(text)
 					.attr('data-value', typeof item.label == 'undefined')
 					.appendTo(ul);
@@ -84,6 +93,12 @@ define(
 				});
 
 				$(ul).addClass('nemo-ui-autocomplete nemo-flights-form__geoAC');
+				if(items.length > 10){
+					$(ul).addClass('nemo-flights-form__geoAC_withScroll');
+				}
+				else{
+					$(ul).removeClass('nemo-flights-form__geoAC_withScroll');
+				}
 			}
 		});
 
@@ -93,12 +108,30 @@ define(
 					noResultsResults = [{value: '', label: viewModel.$$controller.i18n('FlightsSearchForm', 'autocomplete_noResults')}];
 
 				$element.on('focus', function (e) {$(this).val('');});
+				
+				var isDepartureInput = viewModel.items.departure.value === valueAccessor();
+				var onFocusAutocomplete = viewModel.form.onFocusAutocomplete;
+				$element.on('focus', function (e) {
+					$element.val('');
+					if(onFocusAutocomplete){
+						$element.FlightsFormGeoAC({minLength: 0});
+					}
+					$element.FlightsFormGeoAC('search', '');
+				});
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
 					source:function(request, callback){
+						var requestUrl = viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term);
+						if(isDepartureInput && viewModel.items.arrival.value() && viewModel.items.arrival.value().IATA){
+							requestUrl += '/arr/' + encodeURIComponent(viewModel.items.arrival.value().IATA);
+						}
+						if(!isDepartureInput && viewModel.items.departure.value() && viewModel.items.departure.value().IATA){
+							requestUrl += '/dep/' + encodeURIComponent(viewModel.items.departure.value().IATA);
+						}
+						requestUrl += '?apilang=' + viewModel.$$controller.options.i18nLanguage;
 						viewModel.$$controller.makeRequest(
-							viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term) + '?user_language_get_change=' + viewModel.$$controller.options.i18nLanguage,
+							requestUrl,
 							'',
 							function (data) {
 								data = JSON.parse(data);
@@ -131,7 +164,10 @@ define(
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
 						if ($children.length == 1) {
-							$children.eq(0).mouseenter().click();
+							if(!onFocusAutocomplete){
+								//когда автокомплит с маршрутами - пользователь должен подтвердить недопустимую комбинацию
+								$children.eq(0).mouseenter().click();
+							}
 						}
 						else {
 							$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.addClass('nemo-ui-autocomplete_open');
@@ -142,21 +178,61 @@ define(
 					},
 					select: function( event, ui ) {
 						$element.blur();
+						if(typeof ui.item.noRoute  !== 'undefined' && ui.item.noRoute){
 
-						// If item has label - it's something other than geo point that should be in AC
-						// So we set corresponding stuff only if it's valid
-						if (typeof ui.item.label == 'undefined') {
+							// тут происходит сброс недопустимых маршрутов
+							
 							valueAccessor()(ui.item);
 
-							// Autofocus stuff
-							$element.trigger('nemo.fsf.segmentPropChanged');
+							var $row = $element.parents('.js-autofocus-segment');
+							if(isDepartureInput){
+								viewModel.items.arrival.value(null);
+								setTimeout(function(){
+									$row.find('.js-autofocus-field_arrival').focus();
+								}, 100);
+							}
+							else{
+								viewModel.items.departure.value(null);
+								setTimeout(function(){
+									$row.find('.js-autofocus-field_departure').focus();
+								}, 100);
+							}
+						}
+						// If item has label - it's something other than geo point that should be in AC
+						// So we set corresponding stuff only if it's valid
+						else if (typeof ui.item.label == 'undefined') {
+							valueAccessor()(ui.item);
+
+							if(onFocusAutocomplete){
+								//автофокус тут тупит, переписал на более хардкодный вариант
+								var $row = $element.parents('.js-autofocus-segment');
+								if(isDepartureInput){
+									if(viewModel.items.arrival.value()){
+										$row.find('.js-autofocus-field_date').focus();
+									}
+									else{
+										setTimeout(function(){
+											$row.find('.js-autofocus-field_arrival').focus();
+										}, 100);
+									}
+								}
+								else{
+									$row.find('.js-autofocus-field_date').focus();
+								}
+							}
+							else{
+								// Autofocus stuff
+								$element.trigger('nemo.fsf.segmentPropChanged');
+							}
 						}
 
 						return false;
 					},
 					focus: function( event, ui ) {
 						event.preventDefault();
-						$element.val(ui.item.name)
+						if(!onFocusAutocomplete){
+							$element.val(ui.item.name)
+						}
 					},
 					close:function(){
 						$element.val('')

@@ -1,0 +1,29 @@
+.nemo-ui-alert {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	padding: 15px;
+	z-index: 99999;
+	opacity: 0.6;
+	border-radius: 5px;
+	transition: opacity 0.2s;
+	cursor: pointer;
+	box-shadow: 0 3px 8px #999;
+	max-width: 250px;
+	color: #333;
+	
+	&:hover, &:active {
+		opacity: 0.9;
+	}
+	
+	&_warning {
+		background: rgba(255, 211, 33, 1);
+	}
+		
+	.ui-dialog-titlebar-close {
+		width: 20px;
+		height: 20px;
+		background-size: 9px;
+		outline: none !important;
+	}
+}

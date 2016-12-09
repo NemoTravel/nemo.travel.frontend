@@ -1,0 +1,108 @@
+.nemo-flights-results__fareVariations {
+	text-align: right;
+	padding-top: 10px;
+	
+	&__popup {
+		width: 900px !important;
+		
+		&__wrapper {
+			min-height: auto;
+			
+			&_fixed {
+				min-height: 400px;
+			}
+		}
+		
+		&__table {
+			width: 100%;
+			text-align: left;
+			border-collapse: collapse;
+			
+			td, th {
+				padding: 5px 15px 5px 10px;
+			}
+				
+			thead {
+				background-color: #64b5f6;
+				color: #fff;
+				
+				tr {
+					th {
+						cursor: pointer;
+						font-weight: normal;
+						height: 50px;
+
+						.nemo-flights-results__fareVariations__popup__table__columnWrapper {
+							background-image: url('images/sort-arrow-common.png');
+							background-position: right center;
+							background-repeat: no-repeat;
+						}
+						
+						&:hover {
+							background-color: #94ccf9;
+						}
+							
+						&.headerSortDown, &.headerSortUp {
+							background-color: #94ccf9;
+						}
+						
+						&.headerSortDown {
+							.nemo-flights-results__fareVariations__popup__table__columnWrapper {
+								background-image: url('images/sort-arrow-down.png');
+								background-position: right center;
+								background-repeat: no-repeat;
+							}
+						}
+						
+						&.headerSortUp {
+							.nemo-flights-results__fareVariations__popup__table__columnWrapper {
+								background-image: url('images/sort-arrow-up.png');
+								background-position: right center;
+								background-repeat: no-repeat;
+							}
+						}
+							
+						&:last-child {
+							text-align: center;
+							width: 135px;
+						}
+					}
+				}
+			}
+				
+			tbody {
+				font-size: 12px;
+				color: rgba(100, 100, 100, .75);
+				
+				tr {
+					&:hover {
+						background: #fafafa;
+					}
+						
+					td {
+						border-bottom: 1px solid #eee;
+						
+						&:last-child {
+							width: 135px;
+						}
+					}
+				}
+			}
+				
+			&__code {
+				.nemo-ui-pseudoLink:first-of-type {
+					color: #349ef3;
+					border-bottom: 1px dashed rgba(14, 134, 230, .75);
+				}
+			}
+				
+			&__info {
+				font-weight: bold;
+			}
+				
+			&__subInfo {
+				font-size: 11px;
+			}
+		}
+	}
+}

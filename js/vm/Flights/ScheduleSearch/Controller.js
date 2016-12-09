@@ -204,7 +204,7 @@ define(
 			var self = this,
 				params,
 				segment;
-
+		
 			function searchError (message, systemData) {
 				if (typeof systemData != 'undefined' && systemData[0] !== 0) {
 					self.$$controller.error('SEARCH ERROR: '+message, systemData);
@@ -226,7 +226,7 @@ define(
 				this.processValidation();
 				return;
 			}
-
+			
 			segment = this.segments()[0];
 
 			params = {
@@ -242,7 +242,8 @@ define(
 				datePeriodEnd: this.schedulePeriodEnd().getISODate(),
 				direct: this.directFlights()
 			};
-
+			
+			$(document).trigger("analyticsScheduleSearch");
 			// Getting schedule
 			this.clearSchedule();
 			this.scheduleLoading(true);
