@@ -27,14 +27,14 @@
 				<!-- /ko -->
 
 				<div class="nemo-ui-select__toggle nemo-flights-form__passengers__container js-flights-searchForm-passSelect"
-				     data-bind="
+					 data-bind="
 	        flightsFormPassengersSelector: null,
 	        text: passengersSummary,
 	        css: {'nemo-ui-select__toggle_open': passengersFastSelectorOpen()}
     "></div>
 
 				<div class="nemo-ui-select__toggle nemo-flights-form__passengers__containerColumn js-flights-searchForm-passSelect"
-				     data-bind="
+					 data-bind="
 	        flightsFormPassengersSelector: null,
 	        text: passengersSummary,
 	        css: {'nemo-ui-select__toggle_open': passengersFastSelectorOpen()}
@@ -44,7 +44,7 @@
 				<div class="nemo-ui-select__dropdown nemo-flights-form__passengers__fastSelect" data-bind="visible: passengersFastSelectorOpen">
 					<!-- ko foreach: passengersFastSelectOptions -->
 					<div class="nemo-ui-select__dropdown__item nemo-flights-form__passengers__fastSelect__item"
-					     data-bind="
+						 data-bind="
 		        text: $parent.passengersTextForFastSelect($index()),
 		        click: function () {$parent.passengersFastSelectorOpen(false); $parent.passengersSelectFast($index());}
 "       ></div>
@@ -98,7 +98,7 @@
 			</div>
 			<div class="nemo-flights-form__buttonContainer">
 				<button class="nemo-ui-button nemo-ui-button_main nemo-ui-button nemo-ui-button_main_form nemo-flights-form__searchButton"
-				        data-bind="
+						data-bind="
 						click: startSearch,
 						css: {
 							'nemo-ui-button_disabled': !searchEnabled(),
@@ -124,25 +124,25 @@
 
 					<div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
 						<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button"
-						     data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchForm','serviceClass_'+serviceClass())"></div>
+							 data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchForm','serviceClass_'+serviceClass())"></div>
 						<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: serviceClasses">
 							<div class="nemo-ui-select__dropdown__item" data-bind="click: function (){$parent.serviceClass($data)}, text: $root.i18n('FlightsSearchForm','serviceClass_'+$data)"></div>
 						</div>
 					</div>
 				</div><!--
-						ko if: tripType() != 'CR' && options.dateOptions.aroundDatesValues.length > 1
+						ko if: tripType() != 'CR' && options.dateOptions.aroundDatesValues.length > 0
 					--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_multiDate">
 					<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
 						<input class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: vicinityDates">
-							<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
-							      data-bind="html: $root.i18n('FlightsSearchForm','routeOptions__vicinityDates__caption')"></span>
+						<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
+							  data-bind="html: $root.i18n('FlightsSearchForm','routeOptions__vicinityDates__caption').replace('[%-dates-%]', options.dateOptions.aroundDatesValues.length)"></span>
 					</label>
 				</div>
 					<!-- /ko --><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_direct">
 					<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
 						<input class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: directFlights">
-							<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
-							      data-bind="text: $root.i18n('FlightsSearchForm','routeOptions__direct__caption')"></span>
+						<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
+							  data-bind="text: $root.i18n('FlightsSearchForm','routeOptions__direct__caption')"></span>
 					</label>
 				</div>
 				</div>
@@ -154,8 +154,8 @@
 	<!-- /ko -->
 
 	<div data-block="passengersFullSelect"
-	     class="nemo-flights-form__passengersPopUp js-nemoApp__popupBlock"
-	     data-bind="foreach: {data: passengerTypesOrder, as: 'passType'}"
+		 class="nemo-flights-form__passengersPopUp js-nemoApp__popupBlock"
+		 data-bind="foreach: {data: passengerTypesOrder, as: 'passType'}"
 	>
 		<!-- ko if: $parent.options.passengerCount[passType] &&  parseInt($parent.options.passengerCount[passType]) -->
 		<div data-bind="attr: {'class': 'nemo-flights-form__passengersPopUp__item nemo-flights-form__passengersPopUp__item_' + passType}">

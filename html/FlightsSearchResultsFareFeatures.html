@@ -1,0 +1,87 @@
+<!-- ko if: features -->
+<div class="nemo-flights-results__fareFamilies" data-bind="css: { 
+		'nemo-flights-results__fareFamilies_full': isFullMode, 
+		'nemo-flights-results__fareFamilies_slim': ($parents[1].modifier ? true : false) 
+	}">
+	<div class="nemo-flights-results__fareFamilies__header">
+			<span class="nemo-flights-results__fareFamilies__header__title">
+				<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__tariff')"></span> &laquo;
+				<!-- ko text: features.name --><!-- /ko -->&raquo;
+			</span>
+
+		<!-- ko if: resultsController -->
+		<span class="nemo-flights-results__fareFamilies__header__chooseTariff">
+					<span data-bind="component: {
+						name: 'Flights/SearchResults/FareFamilies/Controller',
+						params: { flight: flight, resultsController: resultsController }
+					}"></span>
+				</span>
+		<!-- /ko -->
+	</div>
+
+	<div class="nemo-flights-results__fareFamilies__features">
+		<div class="nemo-flights-results__fareFamilies__features__baggage">
+			<!-- ko template: { 
+					name: 'fareFamilies-features__list_short', 
+					data: { 
+						array: leftColumn, 
+						showTitles: isFullMode, 
+						title: 'baggage'
+					} 
+				} 
+			--><!-- /ko -->
+		</div>
+
+		<div class="nemo-flights-results__fareFamilies__features__refunds">
+			<!-- ko template: { 
+					name: 'fareFamilies-features__list_short', 
+					data: { 
+						array: rightColumn, 
+						showTitles: isFullMode, 
+						title: 'refunds' 
+					} 
+				} 
+			--><!-- /ko -->
+		</div>
+
+		<!-- ko if: isFullMode && miscColumn.length -->
+		<div class="nemo-flights-results__fareFamilies__features__misc">
+			<!-- ko template: { 
+					name: 'fareFamilies-features__list_short', 
+					data: { 
+						array: miscColumn, 
+						showTitles: isFullMode, 
+						title: 'misc' 
+					} 
+				} 
+			--><!-- /ko -->
+		</div>
+		<!-- /ko -->
+
+		<div style="clear: both;"></div>
+	</div>
+</div>
+
+<script type="text/html" id="fareFamilies-features__list_short">
+	<p class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__title"
+	   data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__' + title), visible: showTitles"></p>
+
+	<ul data-bind="foreach: array">
+		<li class="nemo-flights-results__fareFamilies__features__baggage__feature" data-bind="tooltip: {
+				content: description.full,
+				cssClass: 'nemo-flights-results__fareFamilies__features__baggage__feature__hint'
+			}">
+				<span class="nemo-flights-results__fareFamilies__features__baggage__feature__icon"
+					  data-bind="css: 'nemo-flights-results__fareFamilies__features__baggage__feature__icon_' + needToPay.toLowerCase()"></span>
+
+			<!-- ko if: showTitle -->
+			<span data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
+			<!-- /ko -->
+
+			<!-- ko if: !showTitle -->
+			<span data-bind="text: description.short"></span>
+			<!-- /ko -->
+		</li>
+	</ul>
+</script>
+<!-- /ko -->
