@@ -475,37 +475,44 @@ define (
 						}
 					);
 				});
-
-				if (cache.has(jsonFileUrl)) {
-					onLoad(cache.get(jsonFileUrl));
-				} else {
-					self.makeRequest(jsonFileUrl, null, onLoad, onFail, true);
-				}
 				
 				loadByAjax.map(function (segmentName, index, array) {
-					self.makeRequest(
-						self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json',
-						null,
-						function (text, request) {
-							try {
-								self.log('Setting i18n segmeent', segmentName);
-								self.i18nStorage[segmentName] = JSON.parse(text);
-							}
-							catch (e) {
-								self.error(e);
-							}
-
-							needToLoad--;
-
-							if (needToLoad === 0) {
-								successCallback();
-							}
-						},
-						function () {
-							errorCallback();
-							needToLoad--;
+					var fileURL = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json';
+					
+					if (cache.has(fileURL)) {
+						self.i18nStorage[segmentName] = JSON.parse(cache.get(fileURL));
+						
+						needToLoad--;
+						
+						if (needToLoad === 0) {
+							successCallback();
 						}
-					);
+					}
+					else {
+						self.makeRequest(
+							fileURL,
+							null,
+							function (text, request) {
+								try {
+									self.log('Setting i18n segmeent', segmentName);
+									self.i18nStorage[segmentName] = JSON.parse(text);
+								}
+								catch (e) {
+									self.error(e);
+								}
+
+								needToLoad--;
+
+								if (needToLoad === 0) {
+									successCallback();
+								}
+							},
+							function () {
+								errorCallback();
+								needToLoad--;
+							}
+						);
+					}
 				});
 			}
 		};
