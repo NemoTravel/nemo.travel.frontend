@@ -1,7 +1,7 @@
 'use strict';
 define (
-	['knockout', 'js/vm/helpers', 'js/lib/stacktrace/v.1.3.1/stacktrace.min'],
-	function (ko, helpers, StackTrace) {
+	['knockout', 'js/vm/helpers', 'js/lib/stacktrace/v.1.3.1/stacktrace.min', 'js/vm/Common/Cache/Cache', 'js/vm/Models/LocalStorage'],
+	function (ko, helpers, StackTrace, Cache, LocalStorage) {
 		var NemoFrontEndController = function (scope, options) {
 			var self = this;
 
@@ -37,7 +37,9 @@ define (
 				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
 				{re: /^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
-				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
+                {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'},
+				{re: /^hotels\/results\/?(\d+)?\/?(\d+)?$/, handler: 'Hotels/SearchResults/Controller', params: ['search_id', 'hotel_id']}, // /hotels/results/:search_id?/:hotel_id?
 			];
 			this.i18nStorage = {};
 
@@ -78,7 +80,31 @@ define (
 			 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
 			 */
 			this.router = {
+
+				current: {
+
+					route: [],
+
+					set: function (data) {
+						self.router.current.route = data;
+					},
+					getParameterValue: function (parameterId, defaultValue) {
+						return self.router.current.route[2] && self.router.current.route[2][parameterId] ? self.router.current.route[2][parameterId] : defaultValue;
+					},
+					get: function (parameter, defaultValue) {
+						var allParams = location.search.substring(1);
+						var arrayParams = allParams.split('&');
+						var objectParams = {};
+						arrayParams.forEach(function (value) {
+							var pair = value.split('=');
+							objectParams[pair[0]] = pair[1];
+						});
+						return typeof objectParams[parameter] !== 'undefined' ? objectParams[parameter] : defaultValue;
+					}
+				},
+
 				pushStateSupport: !!(history.pushState),
+
 				init: function () {
 					self.options.root = '/'+this.clearSlashes(self.options.root)+'/';
 
@@ -107,12 +133,23 @@ define (
 				check: function() {
 					var fragment = this.getFragment();
 
-					for(var i = 0; i < self.routes.length; i++) {
+					for (var i = 0; i < self.routes.length; i++) {
+
 						var match = fragment.match(self.routes[i].re);
 
-						if(match) {
+						if (match) {
+							var routeParams = match.splice(1),
+								routeParamsValues = {};
+
+							if (self.routes[i].params) {
+								self.routes[i].params.forEach(function (paramId, index) {
+									routeParamsValues[paramId] = routeParams[index];
+								});
+							}
+							
 							match.shift();
-							return [self.routes[i].handler, match];
+							
+							return [self.routes[i].handler, match, routeParamsValues];
 						}
 					}
 
@@ -140,6 +177,22 @@ define (
 					} else {
 						window.location = self.options.root + this.clearSlashes(path);
 					}
+
+					self.router.current.set(self.router.check()); // update current route
+
+					return this;
+				},
+				listen: function() {
+					var self = this;
+					var current = self.getFragment();
+					var fn = function() {
+						if(current !== self.getFragment()) {
+							current = self.getFragment();
+							self.check(current);
+						}
+					}
+					clearInterval(this.interval);
+					this.interval = setInterval(fn, 50);
 					return this;
 				}/*,
 				back: function() {
@@ -159,12 +212,42 @@ define (
 				helpers: helpers,
 				agency: {
 					id: ko.observable(0),
-					currency: ko.observable('')
+					userCurrency: ko.observable(LocalStorage.get('currency', null) || 'RUB'), // user currency
+					priceCurrency: ko.observable(''),
+					list: ko.observableArray([]), // all available currencies
+					rates: ko.observableArray([]), // exchange rate
+					onCurrencyChange: function (currency) {
+						self.viewModel.agency.userCurrency(currency);
+						LocalStorage.set('currency', currency);
+					},
+					changeLanguage: function (language) {
+						LocalStorage.set('language', language);
+						location.reload();
+					}
 				},
 				user: {
 					id: ko.observable(0),
 					status: ko.observable('guest'),
 					isB2B: ko.observable(false)
+				},
+				languages: [
+					{'id': 'en', 'title': 'English', 'icon': 'gb'},
+					{'id': 'ru', 'title': 'Русский', 'icon': 'ru'},
+					{'id': 'es', 'title': 'Español', 'icon': 'es'},
+					{'id': 'ua', 'title': 'Українська', 'icon': 'ua'}
+				],
+				getLanguageById: function (languageId) {
+
+					var language = {};
+
+					this.languages.forEach(function (item) {
+						if (item.id === languageId) {
+							language = item;
+							return;
+						}
+					});
+
+					return language;
 				}
 			};
 
@@ -180,7 +263,20 @@ define (
 			this.router.init();
 
 			// Requiring base things: common bindings, base models etc
-			this.loadI18n(['common', 'pageTitles'], function () {
+			// runs each time when app is booted
+			var segments = ['common', 'pageTitles', 'currencyNames'],
+				currentRoute = this.router.check();
+
+			if (currentRoute) {
+				segments.push(currentRoute[0].replace(/\//g, '').replace('Controller', ''));
+			}
+
+			if (segments.indexOf('HotelsSearchResults') === -1) {
+				segments.push('HotelsSearchResults');
+			}
+
+			this.loadI18n(segments, function () {
+
 				require (
 					[
 						/*this.options.controllerSourceURL + */
@@ -208,12 +304,25 @@ define (
 							self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
 							// Setting event listener that will fire on page URL change
+
 							window.addEventListener(
 								"popstate",
 								function () {
-									self.processRoute();
-								}
-								, false);
+									if (!self.hotelsSearchCardActivated || !self.hotelsSearchCardActivated()) {
+										self.processRoute();
+									} else {
+										var hotelsCtrl = self.hotelsSearchController;
+
+										self.navigate('/hotels/results/', false, 'HotelsResults');
+
+										self.hotelsSearchCardActivated(false);
+										hotelsCtrl.isCardHotelView(false);
+
+										if (!hotelsCtrl.isListView()) {
+											hotelsCtrl.initMap();
+										}
+									}
+								}, false);
 
 							self.processRoute();
 						});
@@ -242,12 +351,21 @@ define (
 			return this.router.pushStateSupport;
 		};
 
-		NemoFrontEndController.prototype.i18n = function (segment, key) {
+		NemoFrontEndController.prototype.i18n = function (segment, key, values) {
 			if (this.i18nExtensions[segment] && this.i18nExtensions[segment][key]) {
 				return this.i18nExtensions[segment][key];
 			}
 			else if (this.i18nStorage[segment] && this.i18nStorage[segment][key]) {
-				return this.i18nStorage[segment][key];
+
+				var template = this.i18nStorage[segment][key];
+
+				if (typeof values === 'object') {
+					helpers.iterateObject(values, function (value, prop) {
+						template = template.replace('{' + prop + '}', value);
+					});
+				}
+
+				return template;
 			}
 			else {
 				return '{i18n:'+segment+':'+key+'}';
@@ -311,7 +429,8 @@ define (
 		NemoFrontEndController.prototype.loadI18n = function (segmentsArray, successCallback, errorCallback) {
 			var self = this,
 				loadByRequire = [],
-				loadByAjax = [];
+				loadByAjax = [],
+				cache = Cache.storage();
 
 			errorCallback = errorCallback || function () {};
 			successCallback = successCallback || function () {};
@@ -356,6 +475,12 @@ define (
 						}
 					);
 				});
+
+				if (cache.has(jsonFileUrl)) {
+					onLoad(cache.get(jsonFileUrl));
+				} else {
+					self.makeRequest(jsonFileUrl, null, onLoad, onFail, true);
+				}
 				
 				loadByAjax.map(function (segmentName, index, array) {
 					self.makeRequest(
@@ -498,13 +623,20 @@ define (
 			try {
 				data = JSON.parse(responseText);
 
+				if (data.system && data.system.info && data.system.info.currencyRates) {
+					var currencyRates = data.system.info.currencyRates;
+					this.viewModel.agency.list(currencyRates.backendCurrencyList);
+					this.viewModel.agency.rates(currencyRates.rates);
+				}
+
 				if (data && data.system && data.system.info && data.system.info.user) {
+
 					this.viewModel.user.id(data.system.info.user.userID);
 					this.viewModel.user.status(data.system.info.user.status);
 					this.viewModel.user.isB2B(data.system.info.user.isB2B);
 
 					this.viewModel.agency.id(data.system.info.user.agencyID);
-					this.viewModel.agency.currency(data.system.info.user.settings.agencyCurrency);
+					this.viewModel.agency.priceCurrency(data.system.info.user.settings.currentCurrency); // price currency
 				}
 			}
 			catch (e) {
@@ -549,14 +681,12 @@ define (
 		NemoFrontEndController.prototype.compLoaderLoadViewModel = function (name, templateConfig, callback) {
 			var self = this;
 			this.log('Component loaded:',name, templateConfig, callback);
-
 			this.processLoadedModel(name, templateConfig);
 
 			callback(function (params, componentInfo) {
 				self.log('Creating component instance:', params, componentInfo);
 
 				var ret = self.getModel(name, params);
-
 				ret.run();
 
 				if (params.$$rootComponent && ret.pageTitle) {
@@ -579,6 +709,7 @@ define (
 				self.viewModel.componentRoute(route[1]);
 				self.viewModel.componentAdditionalParams(this.componentsAdditionalParameters[route[0]] || {}),
 				self.viewModel.component(route[0]);
+				self.router.current.set(route);
 			}
 			else {
 				this.warn('No route detected. App terminated.');

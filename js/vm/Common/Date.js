@@ -24,6 +24,8 @@ define(
 
 			this.getTime       = ko.computed(function () { return this.getHours() + ':' + this.getMinutes() }, this);
 
+			this.getFullDate = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
+
 			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getZeroedDate() }, this);
 			this.getISOTime     = ko.computed(function () { return this.getTime() + ':' + this.getSeconds() }, this);
 			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getISOTime() }, this);

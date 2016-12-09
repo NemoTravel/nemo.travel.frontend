@@ -1,5 +1,8 @@
 {
     "flights-step_search": "Search",
     "flights-step_results": "Choose",
-    "flights-step_checkout": "Purchase"
+    "flights-step_checkout": "Purchase",
+	"hotels-step_search" : "Search hotels",
+	"hotels-step_results" : "Search results",
+	"hotels-step_checkout" : "Checkout"
 }

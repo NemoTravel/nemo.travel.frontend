@@ -1,7 +1,8 @@
 'use strict';
 define(
-	['knockout'],
-	function (ko) {
+	['knockout', 'js/vm/Models/LocalStorage'],
+	function (ko, LocalStorage) {
+
 		/**
 		 * Base controller model - base model that implements standard controller behaviour and is suitable
 		 * for easy extending
@@ -19,6 +20,41 @@ define(
 			this.$$loadingItems = 0;
 			this.name = '';
 		}
+
+		BaseControllerModel.prototype.createCookieParamsFromResponse = function (requestFormData) {
+
+			var res = {
+				'segments': [
+					[
+						null,
+						requestFormData.cityId,
+						requestFormData.checkInDate,
+						requestFormData.checkOutDate
+					]
+				],
+				'rooms': [],
+				"datesUnknown": false
+			};
+
+			requestFormData.rooms.forEach(function (room) {
+
+				var temp = {};
+
+				temp.adults = room.ADT;
+
+				temp.infants = [];
+
+				if (Array.isArray(room.childAges)) {
+					room.childAges.forEach(function (child) {
+						temp.infants.push(child);
+					});
+				}
+
+				res.rooms.push(temp);
+			});
+
+			return res;
+		};
 
 		/**
 		 * Method that loads everything that is commonly needed
@@ -89,11 +125,14 @@ define(
 				this.$$controller.loadData(
 					dataURL,
 					this.dataPOSTParameters(),
-					function (text, request) {
+					function (text) {
+
 						try {
 							self.$$rawdata = JSON.parse(text);
-						}
-						catch (e) {
+							if (!LocalStorage.get('searchFormData')) {
+								LocalStorage.set('searchFormData', self.createCookieParamsFromResponse(self.$$rawdata.hotels.search.request));
+							}
+						} catch (e) {
 							self.$$error('Request failed: wrong response.');
 							self.$$loading(false);
 							return;
@@ -114,7 +153,7 @@ define(
 		 * Method that checks if we have loaded everything and if successful - starts a conversion of raw data into ViewModel structure
 		 */
 		BaseControllerModel.prototype.checkInitialLoadCompletion = function () {
-			if (this.$$loadingItems == 0) {
+			if (this.$$loadingItems === 0) {
 				this.$$controller.log('Finished initial loading of', this, ' starting to build models: ', this.$$rawdata);
 				this.buildModels();
 				this.$$loading(false);

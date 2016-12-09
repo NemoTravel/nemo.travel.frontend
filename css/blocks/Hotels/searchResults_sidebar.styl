@@ -1,0 +1,198 @@
+.nemo-hotels-results__content__sidebar {
+	&__showOnMap {
+		height: 240px;
+		background: $nemo-color-LightPoint_transparent;
+		border-radius: $nemo-border-radius * 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 20px;
+		margin-bottom: 20px;
+		cursor: pointer;
+
+		&__image {
+			display: block
+			margin-bottom: 20px;
+		}
+	}
+
+	&__offersList {
+		list-style-type: none;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	&__offer {
+		margin-top: 65px;
+
+		&:first-child {
+			margin-top: 50px;
+		}
+
+		&__header {
+			position: relative;
+
+			&:before {
+				content: '';
+				display: block;
+				position: absolute;
+				width: 90%;
+				height: 10px;
+				right: 0;
+				top: 0;
+				z-index: 2;
+				background: $nemo-color-main;
+				border-top-right-radius: $nemo-border-radius;
+			}
+		}
+
+		&__title {
+			padding: 15px 10px;
+
+			&__text {
+				max-width: 155px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 13px;
+			}
+		}
+
+		&__additional {
+			position: absolute;
+			bottom: 100%;
+			margin-bottom: -10px;
+			right: 0;
+			width: auto;
+			top: auto;
+			line-height: 40px;
+		}
+
+		&__content {
+			padding: 0;
+		}
+
+		&__rating,
+		&__distances {
+			margin-top: -20px;
+			height: 60px;
+			background: $c_ui_button_common;
+			position: relative;
+			z-index: 1;
+			border-radius: $nemo-border-radius;
+			padding: 5px 10px;
+		}
+
+		&__rating {
+			margin-right: 10px;
+			width: 110px;
+
+			&__number {
+				line-height: 1em;
+				font-size: 20px;
+			}
+
+			&__text,
+			&__link {
+				font-size: 11px;
+				margin-top: 0 !important;
+			}
+
+		}
+
+		&__distances {
+			width: 140px;
+			height: 60px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: flex-start;
+			font-size: 11px;
+
+			&:before {
+				content: none;
+			}
+		}
+
+		&__distance {
+			&__comma {
+				display: none;
+			}
+		}
+
+		&__addressWrap {
+			padding-left: 10px;
+			padding-top: 0;
+			margin-top: -20px;
+		}
+
+		&__stars {
+			width: 90px;
+			white-space: nowrap;
+			margin-left: 20px;
+			text-align: right;
+			position: relative;
+
+		}
+
+		&__starItem {
+			background-position: -4px -140px;
+			width: 13px;
+			height: 18px;
+			margin-left: 0;
+
+			&__inner {
+				width: 13px;
+			}
+		}
+
+		&__photoWrap {
+			border-radius: 0;
+			float: none;
+			width: 100%;
+			height: 158px;
+		}
+
+		&__infoBlock {
+			margin: 0;
+		}
+
+		&__mapLink {
+			margin-left: 0;
+			font-size: 11px;
+			text-transform: none;
+		}
+
+		&__description {
+			padding-left: 10px;
+			padding-right: 30px;
+
+			&__link {
+				right: 10px;
+			}
+		}
+
+		&__services {
+			list-style-type: none;
+			padding: 10px 5px 0;
+			margin: 0;
+
+			&__service {
+				display: inline-block;
+				margin: 0 0 10px;
+				vertical-align: middle;
+			}
+		}
+
+		&__footer {
+			padding: 0 10px 6px;
+
+			&__orderBtn {
+				width: 100%;
+				text-align: right;
+			}
+		}
+
+	}
+}

@@ -1,4 +1,7 @@
 {
     "FlightsSearch": "Flight search",
-    "FlightsResults": "Flight results"
+    "FlightsResults": "Flight results",
+	"HotelsResults": "Hotel results",
+	"HotelsSearch": "Hotel search",
+	"HotelCard": "Оформление заказа"
 }

@@ -5,6 +5,7 @@
 	<title>Nemo Front-End</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsf2g7FutyBN93KrM8eEOnBQJVduQGR7g&language=ru"></script>
 </head>
 <body>
 <!-- Template override example -->
@@ -41,6 +42,8 @@
 	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
 
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 
 <script>
@@ -61,7 +64,8 @@
 			tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
 			numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
 			mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min',
-			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min'
+			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min',
+			dotdotdot:     nemoSourceHost+'/js/lib/jquery.dotdotdot-master/jquery.dotdotdot'
 		},
 
 		baseUrl: nemoSourceHost,
@@ -82,8 +86,8 @@
 	});
 
 	require (
-		['AppController'],
-		function (AppController) {
+		['AppController', 'js/vm/Models/LocalStorage'],
+		function (AppController, LocalStorage) {
 			var options = {
 					controllerSourceURL: nemoSourceHost,
 					dataURL: 'http://demo.nemo.travel/api',
@@ -91,11 +95,15 @@
 					version: 'v0',
 					hostId: document.location.host,
 					root: '/',
+					verbose: false,
+					i18nLanguage: LocalStorage.get('language', null) || 'en',
 					postParameters: {},
 					CORSWithCredentials: true,
-					i18nLanguage: 'en',
 					componentsAdditionalInfo: {
 						'Flights/SearchForm/Controller': {
+							forceSelfHostNavigation: true
+						},
+						'Hotels/SearchForm/Controller': {
 							forceSelfHostNavigation: true
 						}
 					}
@@ -208,6 +216,7 @@
 		}
 	);*/
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
 </body>
 </html>

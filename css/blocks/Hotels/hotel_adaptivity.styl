@@ -1,0 +1,561 @@
+@media (max-width: 1500px) {
+
+	.nemo-hotel__content__rooms__slider {
+		ol {
+			li {
+				width: 12.285% !important;
+			}
+		}
+	}
+}
+
+@media (max-width: 1199px) {
+	.nemo-hotel {
+		&__additional {
+			display: none;
+		}
+
+		&__content {
+			flex-basis: 100%;
+
+			&__rooms {
+				&__mobileHeader {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding-bottom: 15px;
+					margin-top: -5px;
+
+					&__title {
+						font-size: 20px;
+					}
+
+					&__stars {
+						display: none;
+					}
+				}
+
+				&__rating {
+					top: 100%;
+					margin: 0 0 0 40px;
+					left: 50%;
+					background: $nemo-color-neutral;
+
+					&__num {
+						margin-top: -7px;
+					}
+				}
+
+				&__mobileDistances {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: flex-start;
+					width: 170px;
+					height: 80px;
+					position: absolute;
+					top: 100%;
+					margin: 0 -20px 0 0;
+					padding: 0 10px;
+					right: 50%;
+					background: $nemo-color-neutral;
+					border-radius: $nemo-border-radius;
+
+					&:before {
+						content: none;
+					}
+
+					&__distance,
+					&__mapLink {
+						display: block;
+					}
+
+					&__distance {
+						margin-bottom: 3px;
+					}
+
+					&__mapLink {
+						margin-left: 0;
+					}
+				}
+
+				&__slider {
+					height: auto;
+					margin-bottom: 60px;
+
+					&__dummy {
+						height: 0;
+						padding-bottom: 52%;
+					}
+				}
+
+				&__footer {
+					padding-top: 0;
+					border-top: none;
+				}
+
+			}
+		}
+	}
+
+	.nemo-hotelRoom {
+		border-width: 1px 0 0 0;
+		border-radius: 0;
+	}
+}
+
+@media (max-width: 859px) {
+	.nemo-hotel {
+		&__content {
+			&__tabs {
+				overflow: hidden;
+				padding: 0;
+				opacity: 1;
+				background: $nemo-color-LightPoint;
+
+				&Content {
+					margin-top: 0;
+					padding-top: 0;
+
+					&:before,
+					&:after {
+						display: none;
+					}
+				}
+
+				&__tab {
+					display: none;
+					border: none;
+					margin: 0;
+					background: $nemo-color-neutral;
+					color: $nemo-color-text-main;
+					opacity: 1;
+
+					&:nth-child(1),
+					&:nth-child(2) {
+						display: block;
+						width: 50%;
+						float: left;
+						text-align: center;
+						height: 50px;
+						line-height: 42px;
+					}
+
+					&:nth-child(1) {
+						border-radius: $nemo-border-radius 0 0 $nemo-border-radius;
+					}
+
+					&:nth-child(2) {
+						border-radius: 0 $nemo-border-radius $nemo-border-radius 0;
+					}
+
+					&_active {
+						background-color: $nemo-color-main;
+						color: $nemo-color-LightPoint;
+					}
+
+					&__text {
+						border: none;
+						color: inherit;
+						font-size: 15px;
+					}
+				}
+			}
+
+			&__tabsContent {
+				padding: 0;
+				margin-top: 5px;
+				box-shadow: none;
+			}
+
+			&__rooms {
+				&__mobileHeader {
+					position: relative;
+					background: $nemo-color-main;
+					border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+					padding: 10px;
+
+					&__title {
+						line-height: 30px;
+						color: $nemo-color-LightPoint;
+					}
+
+					&__stars {
+						opacity: 0;
+						position: absolute;
+						top: 100%;
+						left: 12px;
+						margin-top: 10px;
+						z-index: 1;
+
+						&__item {
+							background-position: -4px -185px;
+						}
+					}
+				}
+
+				&__title,
+				&__subtitle,
+				&__summary {
+					display: none;
+				}
+				&__list {
+					&__item {
+						margin: 0;
+						padding: 0;
+						background: darken($nemo-color-LightPoint, 2.5);
+						border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+
+						&__title {
+							margin: 0;
+							padding: 15px;
+
+							&__number {
+								display: none;
+							}
+
+							&__roomName {
+								font-size: 21px;
+							}
+						}
+					}
+				}
+
+				&__footer {
+					margin: 0;
+					padding-bottom: 20px;
+					padding-right: 0;
+				}
+			}
+
+			&__about {
+				&__location {
+					&__distances {
+						&__distance {
+							margin-bottom: 10px;
+
+							&__name {
+								float: none;
+							}
+
+							&__params {
+								margin-left: 0;
+							}
+						}
+					}
+				}
+
+				&__services,
+				&__rules,
+				&__contacts {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.nemo-hotelRoom {
+		&__tariffs {
+			&__more {
+				padding: 15px;
+				height: auto;
+
+				&__text {
+					height: 40px;
+					padding: 5px 20px;
+					background: $nemo-color-main;
+					color: $nemo-color-LightPoint;
+					line-height: 30px;
+					border: none;
+					border-radius: $nemo-border-radius;
+					trasition: $nemo-transition-main;
+					font-size: 15px;
+					text-align: center;
+
+					span {
+						trasition: all $nemo-transition-main;
+					}
+
+					&:hover {
+						border: none;
+						color: $nemo-color-LightPoint;
+						background: lighten($nemo-color-main, 5);
+					}
+				}
+			}
+		}
+	}
+
+
+	.fotorama {
+		&__stage {
+			height: 380px !important;
+		}
+	}
+}
+
+@media (max-width: 635px) {
+
+	.nemo-hotel {
+		&__content {
+			margin-left: 0;
+			margin-right: 0;
+
+			&__tabs,
+			&__tabsContent {
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+
+			&__rooms {
+				&__slider {
+					padding-bottom: 10px;
+					min-height: 375px;
+				}
+
+				&__rating,
+				&__mobileDistances {
+					height: 60px;
+					margin-top: 0;
+				}
+				&__rating {
+
+					&__num {
+						font-size: 20px;
+					}
+
+					&__text,
+					&__link {
+						font-size: 11px;
+					}
+				}
+
+				&__mobileDistances {
+
+					&__distance,
+					&__mapLink {
+						font-size: 11px;
+					}
+
+					&__distance {
+						margin-bottom: 0;
+					}
+				}
+
+				&__footer {
+					&__dummy {
+						display: block;
+						position: relative;
+						padding-top: 75px
+
+						&__text {
+							display: block;
+							padding: 0;
+							text-align: right;
+						}
+
+						&__button {
+							position: absolute;
+							top: 0;
+							right: 0;
+						}
+					}
+				}
+			}
+
+			&__about {
+				&__location {
+					&__map {
+						width: auto;
+						margin-left: -10px;
+						margin-right: -10px;
+					}
+
+					&__distances {
+						&__distance {
+							&__name {
+								width: auto;
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.nemo-hotelRoom {
+		&__info {
+			padding-right: 15px;
+			padding-top: 0;
+
+			&:before {
+				display: none;
+			}
+
+			&__title {
+				border: none;
+				padding: 15px 40px 15px 15px;
+				display: block;
+				width: 100%;
+				position: relative;
+				margin: 0 -15px 10px;
+				border-bottom: 1px solid $nemo-color-neutral;
+
+				&:hover {
+					border-color: $nemo-color-neutral;
+				}
+			}
+
+			&__services {
+				&__list {
+					column-count: 2;
+				}
+			}
+		}
+
+		&__tariff {
+			display: block;
+			overflow: hidden;
+
+			&__features {
+				width: 100%;
+				margin-bottom: 15px;
+			}
+
+			&__price {
+				margin-right: 130px;
+				width: auto;
+				text-align: left;
+			}
+
+			&__controlWrap {
+				float: right;
+				margin-top: -45px;
+			}
+		}
+	}
+
+	.fotorama {
+		&__stage {
+			height: 295px !important;
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.nemo-hotel {
+		&__content {
+			&__tabs,
+			&__tabsContent{
+				margin-left: -10px;
+				margin-right: -10px;
+			}
+
+			&__rooms {
+				&__slider {
+					min-height: 180px;
+					margin-bottom: 40px;
+				}
+				&__mobileHeader {
+					padding: 14px 10px;
+
+					&__title {
+						font-size: 15px;
+						line-height: 1em;
+					}
+				}
+
+
+				&__rating,
+				&__mobileDistances {
+					margin-top: -31px;
+				}
+
+				&__rating {
+					margin-left: 35px;
+					width: 105px
+				}
+
+				&__mobileDistances {
+					margin-right: -15px;
+					width: 165px;
+				}
+
+				&__list {
+					&__item {
+						&__title {
+							padding: 10px;
+
+							&__roomName {
+								font-size: 20px;
+							}
+						}
+					}
+				}
+
+				&__footer {
+					padding-left: 10px;
+					padding-right: 10px;
+
+					&__button {
+						width: 100%;
+					}
+
+					&__dummy {
+						&__button {
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.nemo-hotelRoom {
+		&__info {
+			padding: 0 10px 10px;
+
+			&__title {
+				padding: 10px 35px 10px 10px;
+				margin-right: -10px;
+				margin-left: -10px;
+				width: auto;
+
+				&:after {
+					right: 10px;
+				}
+			}
+
+				&__toggle {
+					top: 13px;
+					right: 10px;
+				}
+		}
+
+		&__tariffs {
+			&__more {
+				padding: 10px;
+
+				&__text {
+					width: 100%;
+				}
+			}
+		}
+
+		&__tariff {
+			padding: 10px;
+		}
+	}
+
+	.fotorama {
+		&__stage {
+			height: 184px !important;
+		}
+
+		&__nav-wrap {
+			display: none;
+		}
+	}
+}
+

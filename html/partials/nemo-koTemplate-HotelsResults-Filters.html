@@ -1,0 +1,120 @@
+<!-- Left-side filters -->
+
+<div class="nemo-common-postFilters__inner">
+
+    <div class="nemo-common-postFilters__notification nemo-hotels-results__content__postfilters__notification" data-bind="visible: $parent.isFilterNotificationVisible">
+        <span data-bind="html: $root.i18n('HotelsSearchResults', 'PF__hint')"></span>
+        <div class="nemo-common-postFilters__notification__close" data-bind="click: function () { $parent.hideFilterNotification() }"></div>
+    </div>
+
+    <!-- Button is visible only on tablet layout -->
+    <div class="nemo-hotels-results__content__postfilters__showOnMap">
+        <div class="nemo-ui-button nemo-ui-button_common nemo-hotels-results__content__postfilters__showOnMap__button"
+             data-bind="click: function () { $parent.isListView(!$parent.isListView()); $parent.initMap() }, text: $root.i18n('HotelsSearchResults', $parent.isListView() ? 'map__button-show' : 'list__button-show')">
+        </div>
+    </div>
+
+    <!-- Sorting -->
+    <label class="nemo-hotels-results__content__postfilters__order">
+        <span class="nemo-hotels-results__content__postfilters__order__title" data-bind="text: $root.i18n('HotelsSearchResults', 'sort__caption')"></span>
+        <div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__routeOptions__item__selector">
+            <div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__routeOptions__item__selector__button"
+                 data-bind="pseudoSelect: null, text: $root.i18n('HotelsSearchResults','sort__type__' + sortType())"></div>
+            <div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: sortTypes">
+                <div class="nemo-ui-select__dropdown__item"
+                     data-bind="click: function () { $parent.sortType($data) }, text: $root.i18n('HotelsSearchResults','sort__type__' + $data)"></div>
+            </div>
+        </div>
+    </label>
+
+    <div class="nemo-common-postFilters__filterList">
+
+        <!-- Clear all filters -->
+        <div class="nemo-common-postFilters__clearAll">
+            <div
+                class="nemo-ui-button nemo-ui-button_common nemo-common-postFilters__clearAll__button"
+                data-bind="text: $root.i18n('HotelsSearchResults', 'PF__clearAll'), click: resetAllFilters, visible: !isFilterEmpty()">
+            </div>
+        </div>
+
+        <!-- Prices filter -->
+        <div class="nemo-common-postFilters__filterList__filter">
+            <div class="nemo-common-postFilters__filterList__filter__caption">
+                <h4 class="nemo-common-postFilters__filterList__filter__caption__name"
+                    data-bind="text: $parent.displayCountOfNightsPrice"></h4>
+            </div>
+
+            <div class="nemo-common-postFilters__filterList__filter__valuesBlock
+                                    nemo-common-postFilters__filterList__filter__valuesBlock_slider">
+                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
+                                            nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
+
+                        <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"
+                             data-filter-id="price-range"
+                             data-bind="template: { name: 'nemo-koTemplate-HotelsResults-PostFilters-Number', data: nightsCountPriceFilter }">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stars filter -->
+        <div class="nemo-common-postFilters__filterList__filter">
+
+            <div class="nemo-common-postFilters__filterList__filter__caption">
+                <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__starsCount')"></h4>
+            </div>
+
+            <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
+
+                <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+
+                    <!-- ko template: { name: 'nemo-koTemplate-HotelsResults-StartFilterRow', data: {
+                        'filterValues': starRatingFilterValues,
+                        'initialMinStarPrices': $parent.initialMinStarPrices,
+                        'minStarPrices': $parent.minStarPrices,
+                        'countOfNights': $parent.countOfNights,
+                    } } --> <!-- /ko -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Services filter -->
+        <div class="nemo-common-postFilters__filterList__filter" data-bind="visible: $parent.filters.featureFilter.valuesAsArray().length > 0">
+            <div class="nemo-common-postFilters__filterList__filter__caption">
+                <h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__services')"></h4>
+            </div>
+
+            <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+                                nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
+                <div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+                    <!-- ko template: { name: 'nemo-koTemplate-HotelsResults-FeatureFilterRow', data: $parent.filters.featureFilter.valuesAsArray(), as: 'featureFilterValuesAsArray' } --> <!-- /ko -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratings filter -->
+        <div class="nemo-common-postFilters__filterList__filter">
+            <div class="nemo-common-postFilters__filterList__filter__caption">
+                <h4 class="nemo-common-postFilters__filterList__filter__caption__name"
+                    data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__guestsRating')"></h4>
+            </div>
+
+            <div class="nemo-common-postFilters__filterList__filter__valuesBlock
+                                nemo-common-postFilters__filterList__filter__valuesBlock_slider
+                                nemo-hotels-results__content__postfilters__inlineSlider">
+                <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values">
+                    <div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
+                                        nemo-hotels-results__content__postfilters__inlineSlider__value"
+                         data-bind="template: { name: 'nemo-koTemplate-HotelsResults-PostFilters-AverageRating', data: averageCustomerRatingFilter }">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

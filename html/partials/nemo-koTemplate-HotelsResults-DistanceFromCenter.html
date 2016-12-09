@@ -1,0 +1,21 @@
+<span class="nemo-hotels-results__map__controlTitle">
+                <span class="nemo-hotels-results__map__controlTitle__text" data-bind="text: $root.i18n('HotelsSearchResults', 'distanceFromCenterText')">
+                </span>
+                <span class="nemo-hotels-results__map__controlTitle__distance" data-bind="text: displayRangeMin"></span>
+                <span class="nemo-hotels-results__map__controlTitle__units" data-bind="text: $root.i18n('HotelsSearchResults', 'km')"></span>
+            </span>
+<div class="nemo-hotels-results__map__control">
+    <div class="nemo-ui-slider__wrapper
+                            nemo-ui-slider__wrapper__oneHandle
+                            nemo-hotels-results__content__postfilters__inlineSlider__slider">
+        <div class="nemo-ui-slider
+                                nemo-ui-slider_range
+                                ui-slider
+                                ui-slider-horizontal
+                                ui-widget
+                                ui-widget-content
+                                ui-corner-all"
+             data-bind="slider: value">
+        </div>
+    </div>
+</div>

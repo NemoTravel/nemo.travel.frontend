@@ -1,0 +1,983 @@
+.nemo-hotels-header {
+	position: absolute;
+	width: 100%;
+}
+
+.nemo-hotels-results__wrapper {
+	background: $c_content_bg;
+	width: 100%;
+}
+
+.nemo-hotels-results {
+	padding: 0;
+
+	&__error {
+		max-width: 420px;
+		margin: 40px auto;
+		padding: 0 10px;
+
+		&__header {
+			@extend .ui-dialog-titlebar;
+		}
+
+		&__content {
+			@extend .ui-dialog-content;
+			border-radius: 0;
+		}
+
+		&__footer {
+			@extend .ui-dialog-buttonpane;
+
+			&__button {
+			}
+		}
+	}
+
+	&__emptyFilterResults {
+		font-size: 15px;
+
+		&__header {
+			font-weight: normal;
+			font-size: 20px;
+		}
+
+		&__filterList {
+			&__item {
+				/*display: inline-block;*/
+				@extend .nemo-ui-button;
+				@extend .nemo-ui-button_common;
+				padding-right: 28px;
+				margin: 20px 10px 0 0;
+				max-width: 80%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				position: relative;
+
+				&:after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					right: 10px;
+					margin-top: -4px;
+					width: 8px;
+					height: 8px;
+					background: url("images/flights_results_sprite.svg") -41px -120px no-repeat;
+				}
+
+				&__additional {
+					font-size: 13px;
+					color: $nemo-color-text-secondary;
+				}
+			}
+		}
+	}
+
+	&__summary {
+		max-width: 1220px;
+		margin: 0 auto;
+		padding: 0 10px;
+		white-space: nowrap;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+		position: relative;
+
+		&__inner {
+			color: $c_common_textColor;
+			background: $nemo-color-LightPoint;
+			border-radius: 4px;
+			margin-top: 10px;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: stretch;
+			flex: 0 1 auto;
+			min-width: 1px;
+			width: 100%;
+
+			cursor: pointer;
+		}
+
+		&__filterSwitch {
+			height: 40px;
+			line-height: 40px;
+			margin-right: 20px;
+			margin-top: 10px;
+			flex: 0 0 auto;
+			display: none;
+
+			background: $nemo-color-main !important;
+			color: $nemo-color-LightPoint !important;
+
+			&:hover, &:active {
+				background: lighten($nemo-color-main, 10%);
+			}
+
+			&__mobileText {
+				display: none;
+			}
+		}
+
+		&__area {
+			font-size: 13px;
+			line-height: 20px;
+			padding: 10px;
+			min-width: 1px;
+			flex-grow: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 13px;
+			line-height: 20px;
+			padding: 10px;
+			min-width: 1px;
+
+			&__segment {
+				margin-right: 10px;
+				display: inline;
+
+				&:last-child {
+					margin: 0;
+				}
+
+				&__geo, &__date, &__guests {
+					display: inline;
+					vertical-align: top;
+				}
+
+				&__date {
+					color: $nemo-color-text-secondary;
+					padding-left: 35px;
+				}
+
+				&__guests {
+					padding-left: 35px;
+				}
+			}
+		}
+
+		&__switch {
+			flex-shrink: 0;
+			margin-left: auto;
+			height: 40px;
+			line-height: 40px;
+			background: $nemo-color-main;
+			font-size: 15px;
+
+			&:hover, &:active {
+				background: lighten($nemo-color-main, 10%);
+			}
+		}
+	}
+
+	&__switch {
+		flex-shrink: 0;
+		margin-left: auto;
+		height: 40px;
+		line-height: 40px;
+		background: $nemo-color-main;
+		font-size: 15px;
+
+		&:hover, &:active {
+			background: lighten($nemo-color-main, 10%);
+		}
+	}
+
+	&__content {
+		max-width: 1700px;
+		min-height: 85vh;
+		margin: 0 auto;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		&__postfilters,
+		&__sidebar {
+			flex-basis: 18%;
+			min-width: 280px;
+			flex-shrink: 0;
+			opacity: .75;
+			transition: all .2s;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
+		&__postfilters,
+		&__sidebar,
+		&__results {
+			margin: 20px 10px 0;
+			flex-grow: 0;
+			align-self: stretch;
+		}
+
+		&__postfilters {
+			position: relative;
+			transition: all .2s;
+			margin-top: 0;
+			margin-left: 20px;
+		}
+
+		&__results {
+			border-radius: 8px 8px 0 0;
+			flex: 0 1 64%;
+			padding-bottom: 40px !important;
+			position: relative;
+			min-height: 85vh;
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: calc(100% + 10px);
+				margin: 0 -5px;
+				height: 20px;
+				background: $c_content_bg;
+			}
+
+			&__loadingDummy {
+				&__header {
+					border-radius: $nemo-border-radius;
+					padding-top: 5px;
+					padding-bottom: 5px;
+
+					&:after {
+						content: none !important;
+					}
+				}
+
+				&__loader {
+					position: absolute;
+					width: 26px;
+					height: 26px;
+					top: 50%;
+					margin-top: -13px;
+					left: 10px;
+					z-index: 1;
+				}
+
+				&__enoughBtn {
+					position: absolute;
+					height: 40px;
+					line-height: 40px;
+					top: 0;
+					right: -1px;
+
+					display: none;
+				}
+
+				&__textItem {
+					display: inline-block;
+					background: $nemo-color-neutral;
+				}
+
+				&__item {
+					&__header {
+						&__title {
+							width: 150px;
+							height: 19px;
+							background: $nemo-color-LightPoint;
+							border: none;
+							opacity: .5;
+						}
+					}
+
+					&__stars {
+						&__item {
+							background: url(/css/images/hsf-sprite.svg) no-repeat -1px -1px !important;
+						}
+					}
+
+					&__rating {
+
+						&__number,
+						&__text,
+						&__link {
+							background: $nemo-color-LightPoint;
+						}
+
+						&__number {
+							width: 43px;
+							height: 22px;
+							margin-bottom: 6px;
+						}
+
+						&__text {
+							width: 65px;
+							height: 12px;
+							margin-bottom: 8px;
+						}
+
+						&__link {
+							width: 75px;
+							height: 12px;
+						}
+					}
+
+					&__image {
+						background: $nemo-color-neutral;
+						margin-right: 20px;
+					}
+
+					&__distances {
+						background: none;
+
+						&:before {
+							top: auto;
+							bottom: 23px;
+							background-position: -2px 0px;
+							height: 20px;
+						}
+					}
+
+					&__address {
+						width: 280px;
+						height: 20px;
+						display: block;
+					}
+					&__distance {
+						display: inline-block;
+						width: 110px;
+						height: 10px;
+					}
+
+					&__mapLink {
+						width: 80px;
+						height: 10px;
+						margin-left: 5px;
+					}
+
+					&__district {
+						width: 130px;
+						opacity: .5;
+						background: $c_highlight_warning;
+						display: block;
+					}
+
+					&__description {
+						width: 100%;
+						height: 43px;
+						margin-left: -10px;
+					}
+
+					&__services {
+						margin: 0;
+						padding: 0;
+						font-size: 0;
+						margin-top: 5px;
+
+						&__service {
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border-radius: $nemo-border-radius;
+							background: $nemo-color-neutral;
+							margin: 5px 0;
+							margin-right: 5px !important;
+						}
+					}
+
+					&__rooms {
+						&__title {
+							&__text {
+								width: 185px;
+								height: 14px;
+								display: block;
+							}
+						}
+
+						&__room {
+							&__count {
+								width: 18px;
+								height: 14px;
+							}
+
+							&__iconWrap {
+								opacity: .35;
+							}
+
+							&__text {
+								width: 245px;
+								height: 14px;
+							}
+
+							&__feature1 {
+								width: 312px;
+								height: 12px;
+							}
+
+							&__feature2 {
+								width: 160px;
+								height: 12px;
+							}
+
+							&__additional {
+								width: 80px;
+								height: 12px;
+							}
+						}
+					}
+
+					&__orderBtn {
+						background: $nemo-color-neutral !important;
+						height: 60px;
+						box-shadow: none;
+						padding-right: 0;
+						overflow: hidden;
+
+						&__price {
+							width: 94px;
+							height: 10px;
+							background: $nemo-color-LightPoint;
+							display: block;
+							margin-bottom: 10px;
+						}
+
+						&__period {
+							width: 68px;
+							height: 10px;
+							background: $nemo-color-LightPoint;
+							display: block;
+						}
+
+						&__arrow {
+							background: darken($nemo-color-neutral, 5);
+
+							&:before {
+								width: 30px;
+								height: 24px;
+								background: url(/css/images/hsf-sprite.svg) no-repeat -1px -22px;
+							}
+						}
+					}
+
+				}
+			}
+		}
+
+		&__sidebar {
+			margin-right: 20px;
+
+			&__loadingDummy {
+
+				&__textItem {
+					display: inline-block;
+					background: $nemo-color-neutral;
+				}
+
+				&__offer {
+					&__title {
+						&__text {
+							width: 120px;
+							height: 19px;
+							background: $nemo-color-LightPoint;
+							opacity: .5;
+						}
+					}
+
+					&__stars {
+						width: 96px;
+						margin-left: 20px !important;
+						text-align: right;
+					}
+
+					&__starItem {
+						width: 16px !important;
+						background-image: url(/css/images/hsf-sprite.svg);
+						background-position: -1px -2px !important;
+					}
+
+					&__photoWrap {
+						background: $nemo-color-neutral;
+					}
+
+					&__rating,
+					&__distances {
+						margin-top: -20px !important;
+						opacity: .5 !important;
+						padding: 5px !important;
+						background: darken($nemo-color-neutral, 10) !important;
+						justify-content: space-around !important;
+						height: 60px !important;
+					}
+
+					&__rating {
+						&__number,
+						&__text,
+						&__link {
+							background: $nemo-color-LightPoint;
+							display: inline-block;
+						}
+
+						&__number {
+							height: 12px;
+							width: 46px;
+						}
+
+						&__text {
+							width: 69px;
+							height: 10px;
+							margin-top: -1px !important;
+						}
+
+						&__link {
+							width: 83px;
+							height: 10px;
+						}
+					}
+
+					&__addressWrap {
+						padding-top: 0;
+						margin-top: -30px;
+					}
+
+					&__distance1,
+					&__distance2,
+					&__mapLink {
+						height: 10px;
+						display: block;
+						background: $nemo-color-LightPoint;
+					}
+
+					&__distance1 {
+						width: 94px;
+					}
+
+					&__distance2 {
+						width: 121px;
+					}
+
+					&__mapLink {
+						width: 83px;
+					}
+
+					&__description {
+						&__text {
+							height: 60px;
+							width: 100%;
+						}
+					}
+
+					&__services {
+						margin: 0 -5px 0;
+						padding: 10px 10px 0
+						font-size: 0;
+
+						&__service {
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border-radius: $nemo-border-radius;
+							background: $nemo-color-neutral;
+							margin: 0 3px 10px !important;
+						}
+					}
+
+					&__footer {
+						&__orderBtn {
+							background: $nemo-color-neutral;
+							box-shadow: none;
+							cursor: default !important;
+
+							&:hover {
+								background: $nemo-color-neutral;
+							}
+
+							&__price,
+							&__period {
+								display: block;
+								background: $nemo-color-LightPoint;
+								height: 10px;
+							}
+
+							&__price {
+								width: 95px;
+							}
+
+							&__period {
+								width: 69px;
+								margin-top: 10px;
+							}
+
+							&__arrow {
+								background: darken($nemo-color-neutral, 7);
+
+								&:before {
+									width: 30px;
+									height: 24px;
+									background: url("/css/images/hsf-sprite.svg") no-repeat -1px -22px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__groupList {
+		&__item:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__showMoreWrap {
+		padding: 20px 0 0;
+		text-align: center;
+	}
+	&__searchingInfo {
+		margin-bottom: 20px;
+
+		&__header {
+			color: $nemo-color-text-secondary;
+			margin: 16px 0 10px;
+
+		}
+
+		&__summary {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			&__inner {
+				flex-grow: 10;
+			}
+
+			&__area {
+				font-size: 15px;
+				line-height: 1.5em;
+			}
+
+			&__info {
+				color: $nemo-color-text-secondary;
+			}
+
+			&__changeBtn {
+				flex-grow: 0;
+				flex-shrink: 0;
+				font-size: 15px;
+				background: $nemo-color-main;
+				color: $nemo-color-LightPoint;
+				height: 40px;
+				line-height: 40px;
+
+				&:hover, &:active {
+					background: lighten($nemo-color-main, 10%);
+				}
+			}
+		}
+	}
+
+	&__map {
+		&__controlWrap {
+			padding: 5px 20px 20px;
+			display: flex;
+		}
+
+		&__controlTitle {
+			flex: 0 0 260px;
+			color: $nemo-color-LightPoint;
+		}
+
+		&__control {
+			flex: 1 1 50%;
+
+			.nemo-ui-slider {
+
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					width: 100%;
+					height: 2px;
+					background: darken($nemo-color-neutral, 20);
+					top: 7px;
+				}
+
+				.ui-slider-range {
+					border-radius: $nemo-border-radius;
+				}
+				.ui-slider-handle {
+					border-radius: $nemo-border-radius;
+
+					&.ui-state-focus {
+						outline: none;
+					}
+				}
+			}
+		}
+
+		&__wrap {
+			padding: 0;
+			border-radius: 8px !important;
+
+			& > div,
+			.gm-style {
+				border-radius: 8px !important;
+			}
+		}
+	}
+}
+
+.nemo-hotels-services {
+	&__service {
+		opacity: .4;
+		margin-right: 0 !important;
+		font-size: 0;
+
+		&_active {
+			opacity: 1;
+		}
+
+		&__icon {
+			display: block;
+			background: url(/css/images/hotels_results_services_sprite.svg);
+
+			&_Pool {
+				width: 20px;
+				height: 16px;
+				background-position: 0 -3px;
+				margin-right: 10px;
+			}
+
+			&_Parking {
+				width: 12px;
+				height: 17px;
+				background-position: -33px -2px;
+				margin-right: 10px;
+			}
+
+			&_Gym {
+				width: 22px;
+				height: 12px;
+				background-position: -55px -5px;
+				margin-right: 10px;
+			}
+
+			&_ConferenceFacilities {
+				width: 16px;
+				height: 16px;
+				background-position: -89px -3px;
+				margin-right: 10px;
+			}
+
+			&_WiFi {
+				width: 20px;
+				height: 15px;
+				background-position: -117px -3px;
+				margin-right: 10px;
+			}
+
+			&_Laundry {
+				width: 16px;
+				height: 20px;
+				background-position: -148px 0px;
+				margin-right: 10px;
+			}
+
+			&_Transfer {
+				width: 18px;
+				height: 20px;
+				background-position: -176px -1px;
+				margin-right: 10px;
+			}
+
+			&_ExpressCheckIn {
+				width: 20px;
+				height: 9px;
+				background-position: -206px -6px;
+				margin-right: 10px;
+			}
+
+			&_ClimateControl {
+				width: 18px;
+				height: 18px;
+				background-position: -238px -2px;
+				margin-right: 10px;
+			}
+
+			&_BusinessCenter {
+				width: 22px;
+				height: 16px;
+				background-position: -267px -3px;
+				margin-right: 10px;
+			}
+
+			&_SPA {
+				width: 21px;
+				height: 9px;
+				background-position: -299px -6px;
+				margin-right: 10px;
+			}
+
+			&_Bar {
+				width: 17px;
+				height: 20px;
+				background-position: -331px -1px;
+				margin-right: 10px;
+			}
+
+			&_Resturant {
+				width: 21px;
+				height: 18px;
+				background-position: -358px -1px;
+				margin-right: 10px;
+			}
+
+			&_Meal {
+				width: 23px;
+				height: 19px;
+				background-position: -389px -1px;
+				position: relative;
+				margin-right: 10px;
+
+				&:after {
+					content: '';
+					display: block;
+					width: 3px;
+					height: 6px;
+					background: $nemo-color-LightPoint;
+					position: absolute;
+					bottom: 0;
+					right: 0;
+				}
+			}
+		}
+	}
+}
+
+.rub {
+	font-family: 'RubleFont';
+}
+
+.nemo-hotels__langSelect {
+	min-width: 40px !important;
+	padding: 0 15px !important;
+
+}
+
+.nemo-hotels__langSelect {
+	padding: 0 17px !important;
+
+	&.nemo-ui-select__toggle_open {
+		box-shadow: 0 0 8px #edbe00;
+	}
+
+	.nemo-common-pageHeader__droplist__option__icon {
+		margin: 0 !important;
+		min-width: 0;
+	}
+
+	&:after {
+		display: none !important;
+	}
+
+	& + .nemo-ui-select__dropdown {
+		width: 240px;
+		padding: 10px;
+
+		.nemo-common-pageHeader__droplist__option__icon {
+			margin: 0 !important;
+		}
+
+		.nemo-common-pageHeader__langSelectImage {
+			margin-top: 5px !important;
+		}
+	}
+}
+
+.nemo-hotels__droplist__header {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.nemo-hotels__currencySelect {
+	width: 50px;
+	min-width: 0 !important;
+	padding: 0 15px;
+	text-align: center;
+
+	&.nemo-ui-select__toggle_open {
+		box-shadow: 0 0 8px #edbe00;
+	}
+
+	&:after {
+		display: none;
+	}
+
+	& + .nemo-ui-select__dropdown {
+		width: 240px;
+		padding: 10px;
+
+		.nemo-ui-select__dropdown__item {
+			height: 26px;
+			line-height: 26px;
+			border: none !important;
+			padding: 0 8px;
+			border-radius: 6px;
+		}
+	}
+}
+
+.nemo-hotels-bread-crumbs-component {
+	padding-top: 65px !important;
+}
+
+.nemo-common-breadCrumbs {
+	.nemo-hotels-results__content__postfilters__order {
+		margin-bottom: 0 !important;
+	}
+}
+
+.nemo-common-breadCrumbs {
+	.nemo-hotels-results__content__postfilters__order {
+		.nemo-ui-select__toggle {
+			min-width: 180px !important;
+			white-space: nowrap;
+
+			&.nemo-ui-select__toggle_open {
+				box-shadow: 0 0 8px #edbe00;
+			}
+		}
+
+		.nemo-ui-select__dropdown {
+			width: 370px;
+
+			.nemo-ui-select__dropdown__item {
+				padding: 0;
+
+				a {
+					display: block;
+					padding: 10px;
+					text-decoration: none;
+					color: $nemo-color-DarkPoint;
+				}
+			}
+		}
+	}
+}
+
+.nemo-hotels__headerRight {
+	margin-bottom: -12px;
+}
+
+[data-currency="rub"] {
+	font-family: 'RubleFont';
+}
+
+/*
+
+.set-addititional-booking-hidden,
+.set-addititional-viewed-hidden,
+.set-hotel-rooms-summary-hidden,
+.set-room-info-hidden,
+.set-hotel-about-testomonials-hidden,
+.set-hotel-about-contacts-hidden {
+	display: none !important;
+}*/

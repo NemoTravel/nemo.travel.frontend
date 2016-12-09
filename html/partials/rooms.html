@@ -1,0 +1,108 @@
+<ul class="nemo-hotel__content__rooms__list">
+
+    <!-- ko foreach: $parents[1].selectedRooms.allRooms -->
+    <li class="nemo-hotel__content__rooms__list__item">
+
+        <div class="nemo-hotel__content__rooms__list__item__title">
+            <span class="nemo-hotel__content__rooms__list__item__title__number" data-bind="text: $index() + 1"></span>
+            <span class="nemo-hotel__content__rooms__list__item__title__roomName" data-bind="text: $root.i18n('HotelsSearchForm', 'rooms_room') + ' ' + ($index() + 1)"></span>
+        </div>
+
+        <div class="nemo-hotelRoom">
+
+            <div class="nemo-hotelRoom__info set-room-info-hidden">
+
+                <span class="nemo-hotelRoom__info__title" data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }">Классический стандартный двухместный номер</span>
+
+                <button data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }, css: $parents[2].blocks.isVisible()('hotelRoomInfo' + $index()) ? 'collapse' : 'expand'" class="nemo-hotelRoom__info__toggle collapse"></button>
+
+                <div>
+
+                    <p class="nemo-hotelRoom__info__description" data-bind="dotdotdot: !$parents[2].blocks.isVisible()('hotelRoomInfo' + $index())">
+                        Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью
+                        35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить любую потребность
+                        клиента, оборудован высокотехнологичными средствами коммуникации и эргономичным рабочим
+                        местом. К услугам посетителей предоставляется доступ к высокоскоростному интернету, телефон с двумя
+                        линиями и услугами голосовой почты. Приятную работу и отдых помогут обеспечить мини-бар,
+                        оборудование для приготовления чая и кофе, индивидуальный сейф, который сможет вместить
+                        портативный компьютер стандартного размера. Комфортабельность номеров дополняют роскошные
+                        ванные комнаты из мрамора, оборудованные системой подогрева пола.
+                    </p>
+
+                    <!--<div class="nemo-hotelRoom__info__gallery" style="background: #ccc;">-->
+                    <!--Gallery here-->
+                    <!--</div>-->
+
+                    <div class="nemo-hotelRoom__info__services" data-bind="visible: $parents[2].blocks.isVisible()('hotelRoomInfo' + $index())">
+
+                        <span class="nemo-hotelRoom__info__services__title" data-bind="i18n: 'HotelsSearchResults.roomServices'"></span>
+
+                        <ul class="nemo-hotelRoom__info__services__list">
+
+                            <!-- ko foreach: $parents[2].roomServicesList -->
+                            <li class="nemo-hotelRoom__info__services__service" data-bind="text: $data.name"></li>
+                            <!-- /ko -->
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Tariffs -->
+            <div class="nemo-hotelRoom__tariffs">
+
+                <div class="nemo-hotelRoom__tariffsTail">
+
+                    <!-- ko if: $parents[2].selectedRooms.allRooms()[$index()] -->
+                    <!-- ko foreach: $parents[2].selectedRooms.allRooms()[$index()].splicedTariffs() -->
+                    <div class="nemo-hotelRoom__tariff" data-bind="css: { 'nemo-hotelRoom__tariff_selected': $parents[3].selectedRooms.isRoomSelected($parentContext.$index(), $data) }">
+
+                        <div class="nemo-hotelRoom__tariff__features">
+                            <span class="nemo-hotelRoom__tariff__feature" data-bind="text: type.name"></span>
+                            <span class="nemo-hotelRoom__tariff__feature" data-bind="text: meal.name"></span>
+                        </div>
+
+                        <div class="nemo-hotelRoom__tariff__price">
+
+                            <span class="nemo-hotelRoom__tariff__price__perNight">
+                                <span class="nemo-hotelRoom__tariff__price__perNight__value" data-bind="money: Math.round(rate.price.amount) / $parents[3].countOfNights(), currency: rate.price.currency"></span>
+                                <span class="nemo-hotelRoom__tariff__price__perNight__currency" data-bind="userCurrency"></span>
+                                <span class="nemo-hotelRoom__tariff__price__perNight__period" data-bind="i18n: 'HotelsSearchResults.perNight'"></span>
+                            </span>
+
+                            <span class="nemo-hotelRoom__tariff__price__per6Nights">
+                                <span class="nemo-hotelRoom__tariff__price__per6Nights__value" data-bind="money: Math.round(rate.price.amount), currency: 'EUR'"></span>
+                                <span class="nemo-hotelRoom__tariff__price__per6Nights__currency" data-bind="userCurrency"></span>
+                                <span class="nemo-hotelRoom__tariff__price__per6Nights__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parents[3].countOfNights() + ' ' + $parents[3].labelAfterNights()"></span>
+                            </span>
+
+                            <span class="nemo-hotelRoom__tariff__price__link nemo-ui-pseudoLink" data-bind="i18n: 'HotelsSearchResults.PH__buy_by_prepayment_link'"></span>
+
+                        </div>
+
+                        <div class="nemo-hotelRoom__tariff__controlWrap">
+                            <div class="nemo-hotelRoom__tariff__controlWrap__button" data-bind="click: function(data, event){ $parents[3].selectedRooms.selectRoom($parentContext.$index(), $data) }, text: $root.i18n('HotelsSearchResults', $parents[3].selectedRooms.isRoomSelected($parentContext.$index(), $data) ? 'selected': 'select')"></div>
+                        </div>
+
+                    </div>
+                    <!-- /ko -->
+                    <!-- /ko -->
+
+                    <!-- ko if: $parents[2].selectedRooms.allRooms()[$index()] -->
+                    <div class="nemo-hotelRoom__tariffs-buttons" data-bind="visible: $parents[2].selectedRooms.allRooms()[$index()].hasNotLoadedRooms() || $parents[2].selectedRooms.allRooms()[$index()].showHideButton()">
+                        <button data-bind="visible: $parents[2].selectedRooms.allRooms()[$index()].hasNotLoadedRooms(), click: $parents[2].selectedRooms.allRooms()[$index()].showAllTariffs, text: $parents[2].selectedRooms.allRooms()[$index()].buttonLoadAllText()" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
+                        <button data-bind="visible: $parents[2].selectedRooms.allRooms()[$index()].showHideButton(), click: $parents[2].selectedRooms.allRooms()[$index()].hideTariffs, i18n: 'HotelsSearchResults.collapse'" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
+                    </div>
+                    <!-- /ko -->
+
+                </div>
+            </div>
+
+        </div>
+    </li>
+    <!-- /ko -->
+
+</ul>

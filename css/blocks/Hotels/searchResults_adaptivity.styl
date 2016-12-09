@@ -1,0 +1,153 @@
+@media (max-width: 1339px) {
+	.nemo-hotels-results {
+		&__content {
+			&__sidebar {
+				display: none;
+			}
+
+			&__results {
+				flex-basis: 82%;
+			}
+
+			&__postfilters {
+				&__showOnMap {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1049px) {
+	.nemo-hotels-results {
+		&__summary {
+			&__filters {
+				display: block;
+			}
+
+			&__filterSwitch {
+				display: block;
+			}
+		}
+
+		&__content {
+			&__results {
+				flex-basis: 100%;
+			}
+
+			&__postfilters {
+				display: none;
+			}
+		}
+	}
+}
+
+@media (max-width: 859px) {
+	.nemo-hotels-results {
+		&__form {
+			padding-bottom: 10px;
+		}
+
+		&__wrapper {
+			background: $nemo-color-LightPoint;
+		}
+
+		&__summary {
+			flex-direction: column-reverse;
+			align-items: stretch;
+			padding: 0;
+
+			&__filterSwitch {
+				margin: 10px;
+				align-self: center;
+
+				&__mobileText {
+					display: inline;
+				}
+			}
+
+			&__inner {
+				background: $nemo-color-main;
+				border-radius: 0;
+				padding: 0;
+			}
+
+			&__area {
+				width: 100%;
+				padding: 10px 20px;
+
+				&__segment {
+					color: $nemo-color-LightPoint;
+					white-space: normal;
+
+					&__geo {
+						padding-right: 10px;
+					}
+
+					&__date {
+						color: $nemo-color-LightPoint;
+					}
+
+					&__date,
+					&__guests {
+						display: inline-block;
+						padding: 0 10px 0 0;
+					}
+				}
+			}
+
+			&__switch {
+				display: none;
+			}
+		}
+
+		&__content {
+			&__results {
+				padding: 0;
+				margin-top: 0;
+				box-shadow: none;
+			}
+		}
+	}
+
+	.nemo-flights-results__error {
+		box-shadow: 0px 0px 17px -4px rgba(0, 0, 0, .6);
+		padding: 0;
+		border-radius: $nemo-border-radius;
+	}
+}
+
+@media (max-width: 500px) {
+	.nemo-hotels-results {
+		&__summary {
+			&__filterSwitch {
+				align-self: stretch;
+				font-size: 15px;
+			}
+
+			&__filters {
+				margin: 0;
+				left: 50%;
+				margin-left: -160px;
+			}
+		}
+
+		&__content{
+			&__results{
+				&:after {
+					display: none;
+				}
+			}
+		}
+
+		&__showMoreWrap {
+			margin-bottom: -20px;
+		}
+	}
+
+	.nemo-common-contentPageBody {
+		background: $nemo-color-LightPoint;
+	}
+}
+
+
