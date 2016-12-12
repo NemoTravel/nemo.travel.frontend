@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     cache = require('./gulp-cache');
 
-gulp.task('default', ['cache', 'watch']);
+gulp.task('default', ['cache']);
 
 var options = {
     readFiles: ['./html/partials/*.html', './i18n/**/*.json'],
