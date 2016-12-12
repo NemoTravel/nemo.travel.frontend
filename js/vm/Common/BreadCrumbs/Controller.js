@@ -41,10 +41,10 @@ define(
 					switch (componentName) {
 						case 'FlightsSearchResultsController':
 							if (typeof componentParameters.component.id == 'undefined') {
-								this.elements[0].link = '/';
+								this.elements()[0].link = '/';
 							}
 							else {
-								this.elements[0].link += componentParameters.component.id + '/' + helpers.getFlightsRouteURLAdder('search', componentParameters.component.searchInfo());
+								this.elements()[0].link += componentParameters.component.id + '/' + helpers.getFlightsRouteURLAdder('search', componentParameters.component.searchInfo());
 							}
 							break;
 					}
