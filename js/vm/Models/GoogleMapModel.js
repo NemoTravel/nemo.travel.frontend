@@ -4,13 +4,15 @@ define([
     'dotdotdot',
     'js/vm/Models/HotelsBaseModel',
     'js/vm/Models/RecentHotelsModel',
-    'js/vm/Common/Cache/Cache'
+    'js/vm/Common/Cache/Cache',
+	'js/lib/md5/md5'
 ], function (ko,
-             helpers,
-             dotdotdot,
-             HotelsBaseModel,
-             RecentHotelsModel,
-             Cache) {
+			 helpers,
+			 dotdotdot,
+			 HotelsBaseModel,
+			 RecentHotelsModel,
+			 Cache,
+			 md5) {
 
     function GoogleMapModel() {
 
@@ -60,7 +62,7 @@ define([
                 map: map,
                 icon: getMarkerIcon(iconType),
                 optimized: false,
-                content: Cache.storage().get('/html/partials/nemo-koTemplate-HotelsResults-MapInfoWindow.html')
+                content: Cache.storage().get(md5('/html/partials/nemo-koTemplate-HotelsResults-MapInfoWindow.html'))
             });
 
         if (this.infoPopup) {

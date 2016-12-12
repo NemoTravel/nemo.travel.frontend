@@ -1,7 +1,7 @@
 'use strict';
 define (
-	['knockout', 'js/vm/helpers', 'js/vm/Common/Cache/Cache', 'js/vm/Models/LocalStorage'],
-	function (ko, helpers, Cache, LocalStorage) {
+	['knockout', 'js/vm/helpers', 'js/vm/Common/Cache/Cache', 'js/vm/Models/LocalStorage', 'js/lib/md5/md5'],
+	function (ko, helpers, Cache, LocalStorage, md5) {
 		var NemoFrontEndController = function (scope, options) {
 			var self = this;
 
@@ -451,7 +451,8 @@ define (
 					// Need a closure here
 					(function (index) {
 
-						var jsonFileUrl = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + loadArray[index] + '.json';
+						var jsonFileUrl = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + loadArray[index] + '.json',
+							urlHash = md5(jsonFileUrl);
 
 						var onLoad = function (json) {
 
@@ -477,8 +478,8 @@ define (
 							checkReadiness();
 						};
 
-						if (cache.has(jsonFileUrl)) {
-							onLoad(cache.get(jsonFileUrl));
+						if (cache.has(urlHash)) {
+							onLoad(cache.get(urlHash));
 						} else {
 							self.makeRequest(jsonFileUrl, null, onLoad, onFail, true);
 						}

@@ -4,13 +4,14 @@ define(
 		'knockout',
 		'jquery',
 		'js/vm/Common/Cache/Cache',
+		'js/lib/md5/md5',
 		'numeralJS',
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'touchpunch'
 	],
-	function (ko, $, Cache) {
+	function (ko, $, Cache, md5) {
 		// Common Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -522,11 +523,12 @@ define(
 
 				var cache = Cache.storage(),
 					templateId = $(element).prop('id'),
-					templateUrl = '/html/partials/' + templateId + '.html';
+					templateUrl = '/html/partials/' + templateId + '.html',
+					templateHash = md5(templateUrl);
 
-				if (cache.has(templateUrl)) {
+				if (cache.has(templateHash)) {
 
-					var html = cache.get(templateUrl);
+					var html = cache.get(templateHash);
 
 					$(element).html(html);
 				} else {

@@ -7,6 +7,7 @@
     "gulp": "^3.9.1",
     "gulp-file": "^0.3.0",
     "jsesc": "^2.2.0",
+    "md5": "^2.2.1",
     "stylobuild": "^0.7.0",
     "through2": "^2.0.1",
     "transform": "^1.1.2"
