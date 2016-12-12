@@ -126,8 +126,7 @@ define (
 				check: function() {
 					var fragment = this.getFragment();
 
-					for(var i = 0; i < self.routes.length; i++) {
-
+					for (var i = 0; i < self.routes.length; i++) {
 						var match = fragment.match(self.routes[i].re);
 
 						if (match) {
@@ -139,7 +138,9 @@ define (
 									routeParamsValues[paramId] = routeParams[index];
 								});
 							}
+							
 							match.shift();
+							
 							return [self.routes[i].handler, match, routeParamsValues];
 						}
 					}
