@@ -92,7 +92,7 @@
 				document.getElementsByClassName('js-form')[0],
 				{
 					sourceURL: nemoSourceHost,
-					dataURL: 'https://hotels.tst.nemo.travel/api', //http://conchita.mlsd.ru/api
+					dataURL: 'http://hotels.tst.nemo.travel/api', //http://conchita.mlsd.ru/api
 					staticInfoURL: 'http://conchita.mlsd.ru',
 					root: '/',
 					verbose: false,

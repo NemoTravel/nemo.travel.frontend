@@ -131,8 +131,7 @@ define (
 						var match = fragment.match(self.routes[i].re);
 
 						if (match) {
-
-							var routeParams = match.splice(1),
+							var routeParams = match.slice(1),
 								routeParamsValues = {};
 
 							if (self.routes[i].params) {
