@@ -4,6 +4,8 @@ define(
 	function () {
 		return {
 			language: 'en',
+            ageMin: 0,
+            ageMax: 17,
 
 			extendModel: function (what, withWhatArray) {
 				for (var i = 0; i < withWhatArray.length; i++) {
@@ -181,6 +183,33 @@ define(
 				return Math.floor(Date.now() / 1000);
 			},
 
+			getTimeFromCommonDate: function (dateValue) {
+				if (dateValue && dateValue.hasOwnProperty('dateObject')) {
+					dateValue.dateObject().setHours(0, 0, 0, 0);
+
+					return dateValue.dateObject().getTime();
+				}
+
+				return null;
+			},
+			
+			highlight: function (word, term) {
+				return word.replace(new RegExp('(' + term + ')', 'i'), '<span class="nemo-ui-autocomplete__match">$1</span>');
+			},
+			
+			getAges: function () {
+				var result = [];
+				for (var age = this.ageMin; age <= this.ageMax; age++) {
+					result.push(age);
+				}
+
+				return result;
+			},
+			
+			getAgesCount: function () {
+				return this.ageMax - this.ageMin + 1 ;
+			},
+
 			/**
 			 * @param object
 			 * @param onIterate - Has 2 parameters: value, property. If function returns true, iterations will break
@@ -216,7 +245,6 @@ define(
 			},
 
 			/**
-			 *
 			 * @param date
 			 * @returns {string} Example: "2016-12-31T00:00:00"
 			 * @constructor
