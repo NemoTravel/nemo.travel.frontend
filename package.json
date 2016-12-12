@@ -6,9 +6,10 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-file": "^0.3.0",
+    "jsesc": "^2.2.0",
+    "stylobuild": "^0.7.0",
     "through2": "^2.0.1",
-    "transform": "^1.1.2",
-    "jsesc": "^2.2.0"
+    "transform": "^1.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

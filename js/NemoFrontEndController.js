@@ -134,11 +134,10 @@ define (
 					var fragment = this.getFragment();
 
 					for (var i = 0; i < self.routes.length; i++) {
-
 						var match = fragment.match(self.routes[i].re);
 
 						if (match) {
-							var routeParams = match.splice(1),
+							var routeParams = match.slice(1),
 								routeParamsValues = {};
 
 							if (self.routes[i].params) {
