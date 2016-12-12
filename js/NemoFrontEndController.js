@@ -1,7 +1,7 @@
 'use strict';
 define (
-	['knockout', 'js/vm/helpers', 'js/lib/stacktrace/v.1.3.1/stacktrace.min', 'js/vm/Common/Cache/Cache', 'js/vm/Models/LocalStorage'],
-	function (ko, helpers, StackTrace, Cache, LocalStorage) {
+	['knockout', 'js/vm/helpers', 'js/lib/stacktrace/v.1.3.1/stacktrace.min', 'js/vm/Common/Cache/Cache', 'js/vm/Models/LocalStorage', 'js/lib/md5/md5'],
+	function (ko, helpers, StackTrace, Cache, LocalStorage, md5) {
 		var NemoFrontEndController = function (scope, options) {
 			var self = this;
 
@@ -457,7 +457,7 @@ define (
 				loadByRequire.map(function (segmentName, index, array) {
 					var moduleName = 'i18n/' + segmentName;
 					
-					require (
+					require(
 						[ moduleName ],
 						function (module) {
 							self.i18nStorage[segmentName] = module;
@@ -476,10 +476,11 @@ define (
 				});
 				
 				loadByAjax.map(function (segmentName, index, array) {
-					var fileURL = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json';
+					var fileURL = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json',
+						urlHash = md5(fileURL);
 					
-					if (cache.has(fileURL)) {
-						self.i18nStorage[segmentName] = JSON.parse(cache.get(fileURL));
+					if (cache.has(urlHash)) {
+						self.i18nStorage[segmentName] = JSON.parse(cache.get(urlHash));
 						
 						needToLoad--;
 						

@@ -1,6 +1,7 @@
 var through = require('through2'),
     jsesc = require('jsesc'),
     gutil = require('gulp-util'),
+    md5 = require('md5'),
     File = gutil.File;
 
 /**
@@ -26,7 +27,7 @@ module.exports = function (fileName, removeFromPath) {
         var path = file.path.replace(removeFromPath, ''),
             data = jsesc(file.contents.toString('utf8'));
 
-        codeLines.push(varName + '["' + path + '"] = \'' + data + '\';');
+        codeLines.push(varName + '["' + md5(path) + '"] = \'' + data + '\';');
 
         cb();
     }
