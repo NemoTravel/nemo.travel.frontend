@@ -29,5 +29,10 @@
     "leg__segment__baggage__passType_INF": "Infants",
     "leg__segment__baggage__passType_INS": "Infants with a seat",
     "leg__segment__baggage__passType_YTH": "Students",
-    "leg__segment__baggage__passType_SRC": "Seniors"
+    "leg__segment__baggage__passType_SRC": "Seniors",
+    "leg__stopover": "Technical stop",
+    "leg__stopover__terminal": "Terminal",
+    "leg__stopover__timeArrival": "From",
+    "leg__stopover__timeDeparture": "to",
+    "leg__stopover__passengerLanding": "Holding aircraft"
 }
