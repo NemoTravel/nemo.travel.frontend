@@ -1,15 +1,12 @@
 {
-	"leg__header": "Перелет предоставлен авиакомпанией<br>[%-carrier-%]",
-
+	"leg__header": "Перелет предоставлен компанией<br>[%-carrier-%]",
 	"serviceClass_Economy": "Эконом",
 	"serviceClass_PremiumEconomy": "Эконом-премиум",
 	"serviceClass_Business": "Бизнес",
 	"serviceClass_First": "Первый",
-	"serviceClass_All": "Неизвестно",
-
+	"serviceClass_All": "Любой",
 	"leg__transfer": "Пересадка",
 	"leg__terminalChange": "Смена терминала",
-
 	"leg__segment__departure__caption": "Аэропорт",
 	"leg__segment__departure__terminal__caption": "Терминал",
 	"leg__segment__arrival__caption": "Аэропорт",
@@ -18,6 +15,24 @@
 	"leg__segment__flightNumber__caption": "Рейс",
 	"leg__segment__serviceClass__caption": "Класс",
 	"leg__segment__aircraft__caption": "Самолет",
+	"leg__segment__baggage__caption": "Багаж",
 	"leg__segment__timeEnRoute__caption": "В пути",
-	"leg__timeEnRoute__caption": "В пути"
+	"leg__timeEnRoute__caption": "В пути",
+	"leg__stopover": "Техническая посадка",
+	"leg__stopover__terminal": "Терминал",
+	"leg__stopover__timeArrival": "С",
+	"leg__stopover__timeDeparture": "до",
+	"leg__stopover__passengerLanding": "Ожидание с выходом из самолета",
+	"leg__segment__baggage__passType_ADT": "Взрослые",
+	"leg__segment__baggage__passType_CLD": "Дети",
+	"leg__segment__baggage__passType_CNN": "Дети",
+	"leg__segment__baggage__passType_INF": "Младенцы",
+	"leg__segment__baggage__passType_INS": "Младенцы с местом",
+	"leg__segment__baggage__passType_YTH": "Студенты",
+	"leg__segment__baggage__passType_SRC": "Пенсионеры",
+	"leg__segment__baggage__carryOn_only": "Только ручная кладь",
+	"leg__segment__baggage__carryOn": "Ручная кладь +",
+	"leg__segment__baggage__metric_pc": "шт",
+	"leg__segment__baggage__metric_kg": "кг",
+	"leg__segment__baggage__metric_lb": "фунтов"
 }
