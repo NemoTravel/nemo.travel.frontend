@@ -1518,12 +1518,17 @@ define(
 			}
 
 			// Displaying
-			for (var i in this.flights) {
-				if (this.flights.hasOwnProperty(i)) {
-					tmp = typeof result == 'undefined' || result.indexOf(parseInt(i)) >= 0;
-					this.flights[i].filteredOut(!tmp);
+			for (var flightId in this.flights) {
+				if (this.flights.hasOwnProperty(flightId)) {
+					var flightPassedFilters = (typeof result === 'undefined');
 
-					if (tmp) {
+					flightPassedFilters = flightPassedFilters || !!result.find(function (filteredFlightId) {
+						return filteredFlightId == flightId;
+					});
+					
+					this.flights[flightId].filteredOut(!flightPassedFilters);
+
+					if (flightPassedFilters) {
 						visibleCount++;
 					}
 				}
