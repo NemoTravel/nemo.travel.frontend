@@ -1,6 +1,6 @@
 'use strict';
 define(
-	[/* We require nothing */],
+	['js/vm/polyfills'],
 	function () {
 		return {
 			language: 'en',
