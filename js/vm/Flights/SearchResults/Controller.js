@@ -1523,7 +1523,7 @@ define(
 					var flightPassedFilters = (typeof result === 'undefined');
 
 					flightPassedFilters = flightPassedFilters || !!result.find(function (filteredFlightId) {
-						return filteredFlightId == flightId;
+						return filteredFlightId.toString() === flightId.toString();
 					});
 					
 					this.flights[flightId].filteredOut(!flightPassedFilters);
