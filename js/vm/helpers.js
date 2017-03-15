@@ -216,7 +216,7 @@ define(
 			 */
 			iterateObject: function (object, onIterate) {
 
-				if (typeof object === 'object' && Array.isArray(object)) {
+				if (typeof object === 'object' && Array.isArray(object) && object.length > 0) {
 					throw new TypeError('Pass object instead of array');
 				}
 
