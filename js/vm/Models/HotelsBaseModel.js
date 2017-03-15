@@ -50,8 +50,8 @@ define([], function () {
 
     HotelsBaseModel.TAB_ROOMS = 'Rooms';
 
-    HotelsBaseModel.photoUrl = 'url(/img/no_hotel.svg)';
-    HotelsBaseModel.photoUrlSecond = ', url(/img/no_hotel.svg)';
+    HotelsBaseModel.photoUrl = 'url(/templates/wurst/f2.0/img/no_hotel.svg)';
+    HotelsBaseModel.photoUrlSecond = ', url(/templates/wurst/f2.0/img/no_hotel.svg)';
 
     HotelsBaseModel.DEFAULT_TAB = HotelsBaseModel.TAB_ROOMS;
     HotelsBaseModel.DEFAULT_VISIBLE_HOTELS_COUNT = 5;

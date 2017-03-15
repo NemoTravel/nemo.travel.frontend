@@ -24,7 +24,9 @@ define(
 
 			this.getTime       = ko.computed(function () { return this.getHours() + ':' + this.getMinutes() }, this);
 
-			this.getFullDate = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
+			this.getShortDate        = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName(); }, this);
+			this.getShortDateWithDOW = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
+			this.getFullDate         = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ' ' + this.getYear() + ', ' + this.getHours() + ':' + this.getMinutes(); }, this);
 
 			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getZeroedDate() }, this);
 			this.getISOTime     = ko.computed(function () { return this.getTime() + ':' + this.getSeconds() }, this);

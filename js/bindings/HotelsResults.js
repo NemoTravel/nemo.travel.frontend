@@ -288,5 +288,59 @@ define(
                 }
             }
         };
+
+		ko.bindingHandlers.hotelsResultsBuyButton = {
+			_worker: function ($element, valueAccessor) {
+				// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
+				var data = valueAccessor();
+				
+				data.rooms = helpers.toArray(data.rooms).map(function (room) {
+				    return ko.unwrap(room);
+                });
+				
+				if (data.hotel.id && data.rooms.length) {
+					$element.data('nemo-flights-results__bookingCheckInProgress', true);
+					data.controller.bookHotel(data.hotel.createOrderLink, data.rooms);
+				}
+			},
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					touchmoveOccured = false,
+					isClickEmultated = false;
+
+				$element.on('touchstart', function (e) {
+					touchmoveOccured = false;
+				});
+
+				$element.on('touchend', function (e) {
+					if (!touchmoveOccured) {
+						e.stopPropagation();
+						e.preventDefault();
+
+						try { $element.popup('destroy'); } catch (e) {/* do nothing */}
+						
+						ko.bindingHandlers.hotelsResultsBuyButton._worker($element, valueAccessor);
+					}
+
+					isClickEmultated = true;
+					setTimeout(function () {isClickEmultated = false;}, 100);
+				});
+
+				$element.on('touchmove', function (e) {
+					touchmoveOccured = true;
+				});
+
+				$element.on('click', function (e) {
+					if (!isClickEmultated) {
+						ko.bindingHandlers.hotelsResultsBuyButton._worker($element, valueAccessor);
+					}
+				});
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					try { $(element).tooltipster('destroy'); } catch (e) {/* do nothing */}
+					try { $(element).popup('destroy'); } catch (e) {/* do nothing */}
+				});
+			}
+		};
     }
 );

@@ -1,63 +1,60 @@
 'use strict';
 define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, helpers, BaseModel) {
+	function HotelsSearchFormGeo(initialData, controller) {
+		// Processing initialData: a pair of guide data and an object telling us what to take
+		// Processing data
+		BaseModel.apply(this, [initialData.data, controller]);
 
-    function HotelsSearchFormGeo(initialData, controller) {
+		// Processing guide
+		this.processGuide(initialData.guide);
 
-        // Processing initialData: a pair of guide data and an object telling us what to take
-        // Processing data
-        BaseModel.apply(this, [initialData.data, controller]);
+		var countryCode = this.country_code;
 
-        // Processing guide
-        this.processGuide(initialData.guide);
+		if (!countryCode && this.pool.cities[this.id].countryCode) {
+			countryCode = this.pool.cities[this.id].countryCode;
+		}
 
-        var countryCode = this.country_code;
+		this.name = this.pool.cities[this.id].name.trim() || this.name || ''; // city name
+		this.country = this.pool.countries[countryCode] ? this.pool.countries[countryCode].name : '';
+	}
 
-        if (!countryCode && this.pool.cities[this.id].countryCode) {
-            countryCode = this.pool.cities[this.id].countryCode;
-        }
+	// Extending from dictionaryModel
+	helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
 
-        this.name = this.pool.cities[this.id].name.trim() || this.name || ''; // city name
-        this.country = this.pool.countries[countryCode] ? this.pool.countries[countryCode].name : '';
-    }
+	HotelsSearchFormGeo.prototype.pool = {
+		countries: {},
+		cities: {}
+	};
 
-    // Extending from dictionaryModel
-    helpers.extendModel(HotelsSearchFormGeo, [BaseModel]);
+	/**
+	 *
+	 * @param {Object} guide
+	 * @param {Object} guide.cities
+	 * @param {Object} guide.countries
+	 * @param {Object} guide.hotels
+	 */
+	HotelsSearchFormGeo.prototype.processGuide = function (guide) {
+		var self = this;
 
-    HotelsSearchFormGeo.prototype.pool = {
-        countries: {},
-        cities: {}
-    };
+		if (typeof guide === 'object') {
 
-    /**
-     *
-     * @param {Object} guide
-     * @param {Object} guide.cities
-     * @param {Object} guide.countries
-     * @param {Object} guide.hotels
-     */
-    HotelsSearchFormGeo.prototype.processGuide = function (guide) {
+			helpers.iterateObject(guide, function (guideItem, guideItemKey) {
 
-        var self = this;
+				if (self.pool.hasOwnProperty(guideItemKey)) {
 
-        if (typeof guide === 'object') {
+					helpers.iterateObject(guideItem, function (guideItemValue, guideItemValueKey) {
+						if (!self.pool[guideItemKey][guideItemValueKey]) {
+							self.pool[guideItemKey][guideItemValueKey] = self.$$controller.getModel(
+								'BaseStaticModel',
+								guideItemValue
+							);
+						}
+					});
 
-            helpers.iterateObject(guide, function (guideItem, guideItemKey) {
+				}
+			});
+		}
+	};
 
-                if (self.pool.hasOwnProperty(guideItemKey)) {
-
-                    helpers.iterateObject(guideItem, function (guideItemValue, guideItemValueKey) {
-                        if (!self.pool[guideItemKey][guideItemValueKey]) {
-                            self.pool[guideItemKey][guideItemValueKey] = self.$$controller.getModel(
-                                'BaseStaticModel',
-                                guideItemValue
-                            );
-                        }
-                    });
-
-                }
-            });
-        }
-    };
-
-    return HotelsSearchFormGeo;
+	return HotelsSearchFormGeo;
 });

@@ -7,24 +7,32 @@ define([
     'js/vm/Models/HotelsBaseModel',
     'js/vm/Models/GoogleMapModel',
     'js/vm/Models/RecentSearchModel',
-    'js/vm/Models/LocalStorage'
-], function (ko,
-             helpers,
-             HotelsFiltersViewModel,
-             SliderViewModel,
-             BreadcrumbViewModel,
-             HotelsBaseModel,
-             GoogleMapModel,
-             RecentSearchModel,
-             LocalStorage
+    'js/vm/Models/LocalStorage',
+    'js/lib/lodash/v.4.17.4/lodash.min'
+], function (
+    ko,
+    helpers,
+    HotelsFiltersViewModel,
+    SliderViewModel,
+    BreadcrumbViewModel,
+    HotelsBaseModel,
+    GoogleMapModel,
+    RecentSearchModel,
+    LocalStorage,
+    _
 ) {
 
-    function HotelSearchResultsModel() {
-
-    }
+    function HotelSearchResultsModel() { }
 
     helpers.extendModel(HotelSearchResultsModel, [HotelsBaseModel, GoogleMapModel]);
 
+	/**
+     * Mapped popular hotel features.
+     * 
+	 * @type {Object}
+	 */
+	HotelSearchResultsModel.prototype.popularHotelsFeatures = {};
+    
     HotelSearchResultsModel.prototype.processInitParams = function () {
         this.mode = HotelsBaseModel.MODE_SEARCH;
         this.searchInfo(LocalStorage.get('searchFormData'));
@@ -169,7 +177,8 @@ define([
 
         var TYPE_NAME_CENTER = 'Center',
             TYPE_NAME_AIRPORT = 'Airport',
-            distances = ['', ''];
+            distances = ['', ''],
+            distanceOriginal = hotel.staticDataInfo.distancesOriginal;
 
         /**
          *
@@ -189,18 +198,20 @@ define([
 
             return res;
         };
-
-        // iterate over all existing distances and check is there distance to the center or an airport
-        helpers.iterateObject(hotel.staticDataInfo.distancesOriginal, function (distance, typeName) {
-
-            if (distance.distancesArray && distance.distancesArray.length > 0) {
-                if (typeName === TYPE_NAME_CENTER) {
-                    distances[0] = getDistance(distance.distancesArray[0].value);
-                } else if (typeName === TYPE_NAME_AIRPORT) {
-                    distances[1] = getDistance(distance.distancesArray[0].value);
-                }
-            }
-        });
+        
+        if (!(distanceOriginal instanceof Array) && typeof distanceOriginal === 'object') {
+			// iterate over all existing distances and check is there distance to the center or an airport
+			helpers.iterateObject(distanceOriginal, function (distance, typeName) {
+				if (distance.distancesArray && distance.distancesArray.length > 0) {
+					if (typeName === TYPE_NAME_CENTER) {
+						distances[0] = getDistance(distance.distancesArray[0].value);
+					}
+					else if (typeName === TYPE_NAME_AIRPORT) {
+						distances[1] = getDistance(distance.distancesArray[0].value);
+					}
+				}
+			});
+		}
 
         return distances;
     };
@@ -239,7 +250,6 @@ define([
     }
 
     function createStarsArray(starRating) {
-
         var starRatingArr = [];
 
         for (var indexStar = 0; indexStar < starRating; indexStar++) {
@@ -294,7 +304,10 @@ define([
         return hotels;
     }
 
-    HotelSearchResultsModel.prototype.processSearchResults = function () {
+    HotelSearchResultsModel.prototype.processSearchResults = function (data) {
+		if (data) {
+			_.merge(this.$$rawdata, data);
+		}
 
         var self = this,
             searchData = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
@@ -304,19 +317,42 @@ define([
             MILLISECONDS_IN_DAY = 86400000;
 
         self.cheapestHotel = null;
-
+        
+        this.popularHotelsFeatures = this.mapPopularHotelFeatures(staticData.popularHotelsFeatures);
+        this.showMaps = ko.observable(false);
         this.searchId(searchData && searchData.request ? searchData.request.id : '');
+
+		searchData.results.roomMeals  = helpers.toArray(searchData.results.roomMeals);
+		searchData.results.roomRates  = helpers.toArray(searchData.results.roomRates);
+		searchData.results.roomTypes  = helpers.toArray(searchData.results.roomTypes);
+		searchData.results.roomsGroup = helpers.toArray(searchData.results.roomsGroup);
+		
+		searchData.results.roomRates.map(function (rate) {
+		    if ('cancellationRules' in rate) {
+				rate.cancellationRules.map(function (rule) {
+				    if ('deadLine' in rule) {
+						rule.deadLine = self.$$controller.getModel('Common/Date', rule.deadLine);
+					}
+					
+					if ('money' in rule) {
+						rule.money = self.$$controller.getModel('Common/Money', rule.money);
+					}
+				});
+			}
+		});
 
         searchData.results.roomsGroup = compareObjects(searchData.results.roomMeals, searchData.results.roomsGroup, 'mealId', 'meal');
         searchData.results.roomsGroup = compareObjects(searchData.results.roomRates, searchData.results.roomsGroup, 'rateId', 'rate');
         searchData.results.roomsGroup = compareObjects(searchData.results.roomTypes, searchData.results.roomsGroup, 'typeId', 'type');
 
-        // adding `staticDataInfo` to hotel with identical id
-        staticData.hotels.forEach(function (hotel) {
-            if (searchData.results.hotels[hotel.id]) {
-                searchData.results.hotels[hotel.id].staticDataInfo = hotel;
-            }
-        });
+        if (staticData && 'hotels' in staticData) {
+			// adding `staticDataInfo` to hotel with identical id
+			staticData.hotels.forEach(function (hotel) {
+				if (searchData.results.hotels[hotel.id]) {
+					searchData.results.hotels[hotel.id].staticDataInfo = hotel;
+				}
+			});
+		}
 
         // find hotel with cheapest price
         function findCheapestHotel(hotel) {
@@ -334,8 +370,10 @@ define([
         }
 
         var hotels = addHotelsRooms(searchData.results);
+        var hotelsPool = {};
+        var hasCoordinates = false;
 
-        hotels.forEach(function (hotel) {
+        hotels.map(function (hotel, index) {
 
             hotel.staticDataInfo.featuresArray = [];
 
@@ -344,9 +382,28 @@ define([
                 hotel.staticDataInfo.featuresArray.push(feature);
             });
 
-            hotel.staticDataInfo.starRating = createStarsArray(hotel.staticDataInfo.starRating);
+            if (!(hotel.staticDataInfo.starRating instanceof Array)) {
+				hotel.staticDataInfo.starRating = createStarsArray(hotel.staticDataInfo.starRating);
+			}
+			
             hotel.staticDataInfo.distancesOriginal = hotel.staticDataInfo.distances;
             hotel.staticDataInfo.distances = helpers.toArray(hotel.staticDataInfo.distances || {});
+            
+			if (hotel.staticDataInfo.photos && hotel.staticDataInfo.photos instanceof Array) {
+				hotel.hotelPhotos = hotel.staticDataInfo.photos.map(function (url) {
+					return {
+						img: url,
+						thumb: url
+					};
+				});
+			}
+			else {
+				hotel.hotelPhotos = [];
+			}
+
+			hotel.showMap = !!(hotel.staticDataInfo.posLatitude || hotel.staticDataInfo.posLongitude);
+
+			hasCoordinates = hasCoordinates || hotel.showMap;
 
             hotel.hotelPriceOriginal = self.getFirstRoomsPrice(hotel);
             hotel.hotelPrice = Math.round(hotel.hotelPriceOriginal);
@@ -360,11 +417,17 @@ define([
                     description: ''
                 };
             }
+            
+            hotelsPool[hotel.id] = hotel;
         });
 
-        this.currentCity(staticData.cities[0].name);
+        if (staticData && 'cities' in staticData) {
+			this.currentCity(staticData.cities[0].name);
+		}
+		
         this.hotels = ko.observableArray(hotels);
-        this.recentViewedHotels = ko.observableArray([]);
+        this.hotelsPool = hotelsPool;
+        this.showMaps(hasCoordinates);
 
         this.promotionalHotels = ko.observableArray(
             getPromotionalHotels(hotels, self.$$rawdata.hotels.search.resultData.promotionalHotels)
@@ -543,7 +606,6 @@ define([
          * @return {Array}
          */
         this.minStarPrices = ko.computed(function () {
-
             var minPrices = [],
                 hotels = self.exceptStarFilteredHotels();
 
@@ -552,7 +614,6 @@ define([
             }
 
             hotels.forEach(function (hotel) {
-
                 var hotelStar = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0,
                     price = hotel.hotelPrice;
 
@@ -566,27 +627,28 @@ define([
         });
 
         /**
-         * Returns summary hotels count of each feature
+         * Returns summary hotels count of each feature.
+         * 
          * @return {Object}
          */
         this.featuresCount = ko.computed(function () {
-
             var self = this,
                 featureFilterValues = {},
                 hotels = self.getHotelsExceptFeatureFilter();
 
             hotels.forEach(function (hotel) {
-
                 var hotelServices = hotel.staticDataInfo.popularFeatures || [];
 
-                hotelServices.forEach(function (feature) {
-
+                hotelServices.map(function (feature) {
                     if (!featureFilterValues[feature]) {
                         featureFilterValues[feature] = {
                             id: feature,
-                            name: self.$$rawdata.hotels.staticDataInfo.popularHotelsFeatures[feature],
                             count: 0
                         };
+                        
+                        if (feature in self.popularHotelsFeatures) {
+                            featureFilterValues[feature].name = self.popularHotelsFeatures[feature];
+                        }
                     }
 
                     featureFilterValues[feature].count++;
@@ -621,49 +683,56 @@ define([
             self.visibleHotelsCount(self.visibleHotelsCount() + self.lazyLoadHotelsCount());
         };
 
-        function getMinAndMaxPriceOrArrayOfHotels(hotels) {
+		/**
+		 * @deprecated
+		 * 
+		 * @param hotels
+		 * @returns {[*,*]}
+		 */
+		function getMinAndMaxPriceOrArrayOfHotels(hotels) {
 
             var minPrice = Infinity,
                 maxPrice = -Infinity;
 
             hotels.forEach(function (hotel) {
+                if (hotel) {
+					if (hotel.hotelPrice < minPrice) {
+						minPrice = hotel.hotelPrice;
+					}
 
-                if (hotel.hotelPrice < minPrice) {
-                    minPrice = hotel.hotelPrice;
-                }
-
-                if (hotel.hotelPrice > maxPrice) {
-                    maxPrice = hotel.hotelPrice;
-                }
-
+					if (hotel.hotelPrice > maxPrice) {
+						maxPrice = hotel.hotelPrice;
+					}
+				}
             });
 
             return [minPrice, maxPrice];
         }
 
-        // returns string like "Еще 25 вариантов (от 16 700 до 28 000 р)"
-        this.showNextHotelsButtonText = ko.computed(function () {
+		/**
+		 * Text for "Show XX more variants" button.
+		 */
+		this.showNextHotelsButtonText = ko.computed(function () {
+            var lazyLoadHotelsCount = self.lazyLoadHotelsCount();
+                // filteredAndSortedHotels = this.getFilteredAndSortedHotels(),
+                // willLoadThisHotels = [];
 
-            var lazyLoadHotelsCount = self.lazyLoadHotelsCount(),
-                filteredAndSortedHotels = this.getFilteredAndSortedHotels(),
-                willLoadThisHotels = [];
+            // for (var i = self.visibleHotelsCount(); i < (self.visibleHotelsCount() + lazyLoadHotelsCount); i++) {
+            //     willLoadThisHotels.push(filteredAndSortedHotels[i]);
+            // }
 
-            for (var i = self.visibleHotelsCount(); i < (self.visibleHotelsCount() + lazyLoadHotelsCount); i++) {
-                willLoadThisHotels.push(filteredAndSortedHotels[i]);
-            }
+            // var prices = getMinAndMaxPriceOrArrayOfHotels(willLoadThisHotels);
 
-            var prices = getMinAndMaxPriceOrArrayOfHotels(willLoadThisHotels);
-
-            function toMoney(price) {
-                return helpers.toMoney(helpers.convertMoney(price, 'EUR', self.$$controller.viewModel.agency.userCurrency(), self.$$controller.viewModel.agency.rates()));
-            }
+            // function toMoney(price) {
+            //     return helpers.toMoney(helpers.convertMoney(price, 'EUR', self.$$controller.viewModel.agency.userCurrency(), self.$$controller.viewModel.agency.rates()));
+            // }
 
             return this.$$controller.i18n('HotelsSearchResults', 'showAlsoVariants', {
                 value: lazyLoadHotelsCount,
-                variants: this.$$controller.i18n('HotelsSearchResults', 'variants_' + helpers.getNumeral(lazyLoadHotelsCount, 'one', 'twoToFour', 'fourPlus')),
-                price1: toMoney(prices[0]),
-                price2: toMoney(prices[1]),
-                currency: this.$$controller.i18n('currencyNames', 'currency_' + this.$$controller.viewModel.agency.userCurrency() + '_s')
+                variants: this.$$controller.i18n('HotelsSearchResults', 'variants_' + helpers.getNumeral(lazyLoadHotelsCount, 'one', 'twoToFour', 'fourPlus'))
+                // price1: toMoney(prices[0]),
+                // price2: toMoney(prices[1]),
+                // currency: this.$$controller.i18n('currencyNames', 'currency_' + this.$$controller.viewModel.agency.userCurrency() + '_s')
             });
         }, this);
 
@@ -694,18 +763,7 @@ define([
         this.resultsLoaded(true);
 
         function getHotelById(id) {
-
-            var hotels = self.hotels(),
-                res = null;
-
-            hotels.forEach(function (hotel) {
-                if (hotel.id === id) {
-                    res = hotel;
-                    return;
-                }
-            });
-
-            return res
+            return id in self.hotelsPool ? self.hotelsPool[id] : null;
         }
 
         var hotelId = self.$$controller.router.current.getParameterValue('hotel_id');
@@ -715,6 +773,18 @@ define([
         }
     };
 
+    HotelSearchResultsModel.prototype.mapPopularHotelFeatures = function (features) {
+        var result = {};
+        
+        if (features instanceof Array && features.length) {
+            features.map(function (feature) {
+                result[feature.type] = feature.title;
+            });
+        }
+        
+        return result;
+	};
+    
     HotelSearchResultsModel.prototype.fillSearchForm = function () {
 
         var staticDataInfo = this.$$rawdata.hotels && this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : {},
@@ -730,8 +800,8 @@ define([
 
         if (this.$$controller.router.current.getParameterValue('search_id')) {
             RecentSearchModel.add(this.$$controller.router.current.getParameterValue('search_id'), {
-                title: form.city.name + ' (' + form.city.country + '), ' +
-                form.arrivalDate.getFullDate() + ' - ' + form.departureDate.getFullDate()
+                title: form.city.name + ', ' +
+                form.arrivalDate.getShortDateWithDOW() + ' - ' + form.departureDate.getShortDateWithDOW()
             });
         }
     };

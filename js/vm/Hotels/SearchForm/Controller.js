@@ -29,6 +29,7 @@ define([
             this.delayedSearch = true;
             this.searchError = ko.observable(false);
             this.segments = ko.observableArray([]);
+            this.citySuggestions = ko.observableArray([]);
             this.roomsFastSelectOptions = [];
             this.rooms = ko.observableArray();
             this.infantsAges = [];
@@ -129,6 +130,7 @@ define([
                 // Segments
                 for (var i = 0; i < segments.length; i++) {
                     var segment = segments[i];
+                    
                     res.segments.push([
                         segment.items.arrival.value() ? segment.items.arrival.value().t : null,
                         segment.items.arrival.value() ? segment.items.arrival.value().id : null,
@@ -161,7 +163,7 @@ define([
         helpers.extendModel(HotelsSearchFormController, [BaseControllerModel]);
         // Inheritance override
         HotelsSearchFormController.prototype.cookieName = 'HotelsSearchForm';
-        HotelsSearchFormController.prototype.$$i18nSegments = ['HotelsSearchForm'];
+        HotelsSearchFormController.prototype.$$i18nSegments = ['HotelsSearchForm', 'Hotels'];
         HotelsSearchFormController.prototype.$$KOBindings = ['HotelsSearchForm'];
         HotelsSearchFormController.prototype.openRoomsSelector = function () {
             if (this.roomsUseExtendedSelect || this.roomsFastSelectOptions.length !== 0) {
@@ -379,8 +381,9 @@ define([
         }
 
         HotelsSearchFormController.prototype.buildModels = function () {
-
-            var today = new Date();
+            var today = new Date(),
+				self = this,
+				citySuggestions;
 
             // Checking for errors
             if (this.$$rawdata.system && this.$$rawdata.system.error) {
@@ -388,6 +391,7 @@ define([
 
                 return;
             }
+            
             // Processing options
             // Passengers maximums
             this.options = this.$$rawdata.hotels.search.formData.maxLimits;
@@ -417,7 +421,26 @@ define([
             this.options.dateOptions.maxDate.setDate(
                 this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset
             );
+            
+            citySuggestions = this.$$rawdata.hotels.search.formData.citySuggestions;
+            
+            if (citySuggestions instanceof Array) {
+                var citiesModels = [];
 
+				citySuggestions.map(function (cityId) {
+					var city = self.$$controller.getModel('Hotels/Common/Geo', {
+						data: { id: cityId },
+						guide: self.$$rawdata.guide
+					});
+					
+					if (city.name) {
+						citiesModels.push(city);
+                    }
+				});
+                
+            	this.citySuggestions(citiesModels);
+			}
+			
             // Processing segments
             if (this.mode === HotelsBaseModel.MODE_PREINITTED) {
                 processPreinittedMode(this);
@@ -483,7 +506,7 @@ define([
 
 
                 Object.keys(tmp).map(function (n) {
-                    request.resources['guide/hotels/' + n] = {};
+                    // request.resources['guide/hotels/' + n] = {};
                     request.resources['guide/cities/' + n] = {};
                 });
             }
@@ -512,7 +535,7 @@ define([
             this.rooms.valueHasMutated();
         };
 
-        HotelsSearchFormController.prototype.pageTitle = null;
+		HotelsSearchFormController.prototype.pageTitle = 'HotelsSearch';
 
         return HotelsSearchFormController;
     });

@@ -338,12 +338,16 @@ define(
 			},
 
 			toArray: function (object) {
-
 				var array = [];
-
-				for (var key in object) {
-					if (object.hasOwnProperty(key)) {
-						array.push(object[key]);
+				
+				if (object instanceof Array) {
+					array = object;
+				}
+				else {
+					for (var key in object) {
+						if (object.hasOwnProperty(key)) {
+							array.push(object[key]);
+						}
 					}
 				}
 
@@ -430,6 +434,18 @@ define(
 				});
 
 				return res[0] ? res[0] : null;
+			},
+
+			/**
+			 * Animated top scroll.
+			 *
+			 * @param {number} scroll
+			 * @param {number} duration
+			 */
+			scroll: function (scroll, duration) {
+				duration = duration || 200;
+				
+				$('html, body').stop(true).animate({ scrollTop: scroll }, duration);
 			}
 		};
 	}

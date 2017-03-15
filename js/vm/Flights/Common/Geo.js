@@ -26,7 +26,7 @@ define(
 				if (!this.city) {
 					this.isCity = false;
 					this.airport = this.pool.airports[this.IATA] ? this.pool.airports[this.IATA] : null;
-					this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
+					this.city = this.airport && this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
 				}
 			}
 			else if (!this.isCity && !this.city && this.airport) {

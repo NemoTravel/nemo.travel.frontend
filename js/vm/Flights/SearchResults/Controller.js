@@ -296,7 +296,7 @@ define(
 			this.PFActive = ko.observable(false);
 			this.PFWorking = ko.observable(false);
 			this.PFHintActive = ko.observable(!Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.PFHintCookie));
-
+	
 			this.formActive = ko.observable(false);
 
 			this.requestActive = ko.observable(false);
@@ -329,15 +329,12 @@ define(
 			this.visiblePostFilters = ko.observableArray([]);
 			this.usePostfilters = false;
 
+
 			this.possibleSorts = ['rating', 'price', 'durationOnLeg'];
 			this.sort = ko.observable(null);
 
 			this.displayTypes = ['tile', 'list'];
-			this.displayType = ko.observable(
-				this.displayTypes.indexOf(Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie)) >= 0 ?
-					Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie) :
-					this.displayTypes[0]
-			);
+			this.displayType = ko.observable('tile');
 
 			this.expirationPopupWarning = null;
 			this.expirationPopupExpired = null;
@@ -351,6 +348,7 @@ define(
 			this.warning = ko.observable(false);
 
 			this.resultsLoaded = ko.observable(false);
+			this.showMaps = ko.observable(false);
 
 			this.bookingCheckInProgress = ko.observable(false);
 			this.bookingCheckError = ko.observable(null);
@@ -416,7 +414,6 @@ define(
 					);
 			}, this);
 		}
-
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
@@ -527,7 +524,7 @@ define(
 					if (tmp[i] == 'direct') {
 						this.searchParameters.parameters.direct = true;
 					}
-
+					
 					// Vicinity dates flag
 					if (tmp[i].substr(0, 14) == 'vicinityDates=') {
 						this.searchParameters.parameters.aroundDates = parseInt(tmp[i].substr(14));
@@ -638,10 +635,7 @@ define(
 						if (data.system.error && data.system.error.message) {
 							self.bookingCheckInProgress(false);
 							self.resultsLoaded(true);
-							self.bookingCheckError(
-								self.$$controller.i18n('FlightsSearchResults', 'bookingCheck__error__error_serverError') + ' ' +
-								data.system.error.message
-							);
+							self.bookingCheckError(data.system.error.message);
 						}
 						else if (self.options.needCheckAvail && !data.flights.search.flightInfo.isAvail) {
 							self.bookingCheckInProgress(false);
@@ -1119,6 +1113,7 @@ define(
 
 						this.buildPFs();
 
+						this.processDisplayType();
 						// We force sorting whether sort has changed or not
 						newsort = this.possibleSorts.indexOf(this.options.defaultSort) >= 0 ? this.options.defaultSort : this.possibleSorts[0];
 
@@ -1525,7 +1520,7 @@ define(
 					flightPassedFilters = flightPassedFilters || !!result.find(function (filteredFlightId) {
 						return filteredFlightId.toString() === flightId.toString();
 					});
-					
+
 					this.flights[flightId].filteredOut(!flightPassedFilters);
 
 					if (flightPassedFilters) {
@@ -1825,7 +1820,20 @@ define(
 				}
 			);
 		};
-
+		FlightsSearchResultsController.prototype.processDisplayType = function () {
+			var currentType = 0;
+			if(this.displayTypes.indexOf(Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie)) >= 0) {
+				currentType = this.displayTypes.indexOf(Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.resultsTypeCookie));
+			} else {
+				if(this.options.defaultViewType == 'tile'){
+					currentType = 0;
+				} else {
+					currentType = 1;
+				}
+			}
+			this.displayType(this.displayTypes[currentType]);
+		};
+		
 		FlightsSearchResultsController.prototype.abortRequest = function () {
 			if (this.requestActive()) {
 				this.requestActive(false);

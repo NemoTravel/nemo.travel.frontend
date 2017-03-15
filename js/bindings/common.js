@@ -10,7 +10,8 @@ define(
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'js/lib/jquery.tablesorter/v.2.0.5/jquery.tablesorter.min',
-		'touchpunch'
+		'touchpunch',
+		'js/lib/fotorama/fotorama.min'
 	],
 	function (ko, $, Cache, md5) {
 		// Common Knockout bindings are defined here
@@ -20,6 +21,20 @@ define(
 			 update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		 };
 		 */
+
+		/**
+		 * Advanced 'with' binding from knockout 3.5.0.
+		 */
+		ko.bindingHandlers['let'] = {
+			init: function(element, valueAccessor, allBindings, vm, bindingContext) {
+				var innerContext = bindingContext.extend(valueAccessor);
+				ko.applyBindingsToDescendants(innerContext, element);
+
+				return { controlsDescendantBindings: true };
+			}
+		};
+		
+		ko.virtualElements.allowedBindings['let'] = true;
 
 		ko.bindingHandlers.console = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -220,6 +235,10 @@ define(
 
 						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
 						
+						if (params.onlyFirstBlock === true && $target.length > 1) {
+							$target = $target.first();
+						}
+
 						if (params.onlyFirstBlock === true && $target.length > 1) {
 							$target = $target.first();
 						}
@@ -580,15 +599,14 @@ define(
 
 				var cache = Cache.storage(),
 					templateId = $(element).prop('id'),
-					templateUrl = '/html/partials/' + templateId + '.html',
+					templateUrl = '/templates/wurst/f2.0/html/partials/' + templateId + '.html',
 					templateHash = md5(templateUrl);
 
 				if (cache.has(templateHash)) {
-
 					var html = cache.get(templateHash);
-
 					$(element).html(html);
-				} else {
+				} 
+				else {
 					$.get(templateUrl).then(function (res) {
 						$(element).html(res);
 					}, function () {
@@ -603,7 +621,11 @@ define(
 				$(element).fotorama({
 					nav: 'thumbs',
 					loop: true,
-					data: valueAccessor()
+					data: valueAccessor(),
+					fit: 'none',
+					keyboard: true,
+					margin: 0,
+					glimpse: 0
 				});
 			}
 		};

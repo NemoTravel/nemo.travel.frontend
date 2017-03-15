@@ -219,7 +219,7 @@ define(
 					}
 				}
 
-				// ADT+YTH+SRC >= INF
+				// Adults >= INF
 				// Infants without seat: not more than adtSum
 				if (ret.hasOwnProperty('INF')) {
 					ret['INF'].max = Math.min(adtSum, ret['INF'].max);
@@ -439,12 +439,17 @@ define(
 		helpers.extendModel(FlightsSearchFormController, [BaseControllerModel]);
 
 		// Inheritance override
-		FlightsSearchFormController.prototype.cookieName           = 'FlightsSearchForm';
-		FlightsSearchFormController.prototype.passengerTypesOrder  = ['ADT', 'CLD', 'INF', 'INS', 'YTH', 'SRC'];
-		FlightsSearchFormController.prototype.passengerAdultTypes  = ['ADT', 'YTH', 'SRC'];
-		FlightsSearchFormController.prototype.passengerInfantTypes = ['INF', 'INS'];
-		FlightsSearchFormController.prototype.$$i18nSegments       = ['FlightsSearchForm'];
-		FlightsSearchFormController.prototype.$$KOBindings         = ['FlightsSearchForm'];
+		FlightsSearchFormController.prototype.cookieName				= 'FlightsSearchForm';
+		FlightsSearchFormController.prototype.passengerAdditionalTypes	= ['YTH', 'SRC'];
+		FlightsSearchFormController.prototype.passengerTypesOrder		= ['ADT', 'CLD', 'INF', 'INS'];
+		FlightsSearchFormController.prototype.passengerAdultTypes		= ['ADT'];
+		FlightsSearchFormController.prototype.passengerInfantTypes		= ['INF', 'INS'];
+		FlightsSearchFormController.prototype.$$i18nSegments			= ['FlightsSearchForm'];
+		FlightsSearchFormController.prototype.$$KOBindings				= ['FlightsSearchForm'];
+		//for(var i=0; i<FlightsSearchFormController.prototype.passengerAdditionalTypes.length; i++){
+		//	FlightsSearchFormController.prototype.passengerTypesOrder.push(FlightsSearchFormController.prototype.passengerAdditionalTypes[i]);
+		//	FlightsSearchFormController.prototype.passengerAdultTypes.push(FlightsSearchFormController.prototype.passengerAdditionalTypes[i]);
+		//}
 
 		FlightsSearchFormController.prototype.openPassengersSelector = function () {
 			if (
@@ -658,8 +663,6 @@ define(
 						}
 					}
 				}
-
-				console.log(this.preinittedData.segments, this.$$componentParameters.route[0]);
 			}
 			// Preinitted by cookie
 			else if (this.useCookies) {
@@ -1091,6 +1094,8 @@ define(
 			this.options.dateOptions.minDate.setDate(this.options.dateOptions.minDate.getDate() + this.options.dateOptions.minOffset);
 			this.options.dateOptions.maxDate = new Date(today);
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
+			
+			this.options.hideDirectOnlyCheckbox = this.$$rawdata.flights.search.formData.hideDirectOnlyCheckbox;
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;

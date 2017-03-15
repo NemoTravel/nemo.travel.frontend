@@ -8,7 +8,7 @@ define (
 			this.scope = scope;
 			this.options = {};
 			this.ko = ko;
-			
+
 			this.initErrorHandler();
 
 			this.routes = [
@@ -38,7 +38,7 @@ define (
 				{re: /^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
 
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
-                {re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'},
+				{re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'},
 				{re: /^hotels\/results\/?(\d+)?\/?(\d+)?$/, handler: 'Hotels/SearchResults/Controller', params: ['search_id', 'hotel_id']}, // /hotels/results/:search_id?/:hotel_id?
 			];
 			this.i18nStorage = {};
@@ -80,11 +80,8 @@ define (
 			 * Modified router from http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url
 			 */
 			this.router = {
-
 				current: {
-
 					route: [],
-
 					set: function (data) {
 						self.router.current.route = data;
 					},
@@ -145,9 +142,9 @@ define (
 									routeParamsValues[paramId] = routeParams[index];
 								});
 							}
-							
+
 							match.shift();
-							
+
 							return [self.routes[i].handler, match, routeParamsValues];
 						}
 					}
@@ -194,11 +191,11 @@ define (
 					this.interval = setInterval(fn, 50);
 					return this;
 				}/*,
-				back: function() {
-					history.back();
+				 back: function() {
+				 history.back();
 
-					return this;
-				}*/
+				 return this;
+				 }*/
 			};
 
 			this.viewModel = {
@@ -303,25 +300,7 @@ define (
 							self.log('NemoFrontEndController loaded and initted. KO bound. Options', options, 'Resulting options', self.options);
 
 							// Setting event listener that will fire on page URL change
-
-							window.addEventListener(
-								"popstate",
-								function () {
-									if (!self.hotelsSearchCardActivated || !self.hotelsSearchCardActivated()) {
-										self.processRoute();
-									} else {
-										var hotelsCtrl = self.hotelsSearchController;
-
-										self.navigate('/hotels/results/', false, 'HotelsResults');
-
-										self.hotelsSearchCardActivated(false);
-										hotelsCtrl.isCardHotelView(false);
-
-										if (!hotelsCtrl.isListView()) {
-											hotelsCtrl.initMap();
-										}
-									}
-								}, false);
+							window.addEventListener("popstate", self.processRoute.bind(self), false);
 
 							self.processRoute();
 						});
@@ -331,7 +310,9 @@ define (
 		};
 
 		NemoFrontEndController.prototype.navigate = function (url, processRoute, titlekey) {
-			this.router.navigate(url, this.i18n('pageTitles', titlekey));
+			var title = this.i18n('pageTitles', titlekey, null, true);
+			
+			this.router.navigate(url, title ? title : titlekey);
 
 			if (typeof processRoute == 'undefined' || processRoute) {
 				this.processRoute();
@@ -350,7 +331,7 @@ define (
 			return this.router.pushStateSupport;
 		};
 
-		NemoFrontEndController.prototype.i18n = function (segment, key, values) {
+		NemoFrontEndController.prototype.i18n = function (segment, key, values, returnNull) {
 			if (this.i18nExtensions[segment] && this.i18nExtensions[segment][key]) {
 				return this.i18nExtensions[segment][key];
 			}
@@ -365,6 +346,9 @@ define (
 				}
 
 				return template;
+			}
+			else if (returnNull) {
+				return null;
 			}
 			else {
 				return '{i18n:'+segment+':'+key+'}';
@@ -436,7 +420,7 @@ define (
 
 			segmentsArray.map(function (segmentName) {
 				var moduleName = 'i18n/' + segmentName;
-				
+
 				if (require.specified(moduleName)) {
 					// Find out if we can load i18n module by requirejs.
 					loadByRequire.push(segmentName);
@@ -446,24 +430,24 @@ define (
 					loadByAjax.push(segmentName);
 				}
 			});
-			
+
 			if (loadByAjax.length === 0 && loadByRequire.length === 0) {
 				// There are nothing to load.
 				successCallback();
 			}
 			else {
 				var needToLoad = loadByAjax.length + loadByRequire.length;
-				
+
 				loadByRequire.map(function (segmentName, index, array) {
 					var moduleName = 'i18n/' + segmentName;
-					
+
 					require(
 						[ moduleName ],
 						function (module) {
 							self.i18nStorage[segmentName] = module;
 
 							needToLoad--;
-							
+
 							if (needToLoad === 0) {
 								successCallback();
 							}
@@ -474,16 +458,16 @@ define (
 						}
 					);
 				});
-				
+
 				loadByAjax.map(function (segmentName, index, array) {
 					var fileURL = self.options.i18nURL + '/' + self.options.i18nLanguage + '/' + segmentName + '.json',
 						urlHash = md5(fileURL);
-					
+
 					if (cache.has(urlHash)) {
 						self.i18nStorage[segmentName] = JSON.parse(cache.get(urlHash));
-						
+
 						needToLoad--;
-						
+
 						if (needToLoad === 0) {
 							successCallback();
 						}
@@ -546,7 +530,7 @@ define (
 
 			// We use vanilla js because we don't know which of the third-party libraries are present on page
 			// TODO - make code more simple
-			if ( typeof XDomainRequest != "undefined") {
+			if ( typeof XDomainRequest != "undefined" && typeof XMLHttpRequest === 'undefined') {
 				//This pitiful parody on a normal request is written solely for IE9. Kill it with fire when support will no longer be needed
 				var request = new XDomainRequest(),
 					POSTParams = '';
@@ -592,6 +576,9 @@ define (
 				// A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true.
 				try {
 					request.withCredentials = this.options.CORSWithCredentials;
+					if(url.indexOf('frontendStatic') !== -1){
+						request.withCredentials = false;
+					}
 					request.open(POSTParams ? 'POST' : 'GET', url, true);
 				}
 				catch(e){
@@ -714,7 +701,7 @@ define (
 			if (route instanceof Array) {
 				this.log('Route detected: ', route);
 				self.viewModel.componentRoute(route[1]);
-				self.viewModel.componentAdditionalParams(this.componentsAdditionalParameters[route[0]] || {}),
+				self.viewModel.componentAdditionalParams(this.componentsAdditionalParameters[route[0]] || {});
 				self.viewModel.component(route[0]);
 				self.router.current.set(route);
 			}
@@ -931,7 +918,7 @@ define (
 						'<img style="width: 45vmin; height: auto; display: inline !important;" src="/templates/wurst/f2.0/img/404-cloud.svg">' +
 						'<h1 style="margin-top: 5vmin; color: #999999; font-size: 5.5vmin; font-weight: normal;">' + errorTitle +'</h1>' +
 						'<h3 style="color: #999999; font-size: 3vmin; font-weight: normal; padding-top: 0 !important;">' + errorMessage + '</h3>';
-					
+
 					//document.body.appendChild(overlay);
 
 					// Generating backtrace
@@ -950,7 +937,7 @@ define (
 					if (matchResults instanceof Object && 1 in matchResults) {
 						searchId = matchResults[1];
 					}
-					
+
 					self.loadData(
 						'/system/logger/error',
 						{
@@ -963,7 +950,7 @@ define (
 						},
 						function (data) {
 							data = JSON.parse(data);
-							
+
 							if (data.error.code) {
 								overlay.innerHTML += '' +
 									'<h3 style="color: #999999; font-size: 3vmin; font-weight: normal; padding-top: 5px !important;">'
@@ -975,7 +962,7 @@ define (
 						}
 					);
 				});
-				
+
 				return false;
 			};
 		};

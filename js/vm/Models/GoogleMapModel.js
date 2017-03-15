@@ -5,7 +5,8 @@ define([
     'js/vm/Models/HotelsBaseModel',
     'js/vm/Models/RecentHotelsModel',
     'js/vm/Common/Cache/Cache',
-	'js/lib/md5/md5'
+	'js/lib/md5/md5',
+    'js/vm/Models/GoogleMapLoader'
 ], function (ko,
 			 helpers,
 			 dotdotdot,
@@ -24,7 +25,7 @@ define([
 
     var getMarkerIcon = function (iconType) {
         return {
-            url: '/img/' + iconType + '.svg',
+            url: '/templates/wurst/f2.0/img/' + iconType + '.svg',
             scaledSize: new google.maps.Size(GoogleMapModel.MAP_SIZE_WIDTH, GoogleMapModel.MAP_SIZE_HEIGHT)
         };
     };
@@ -86,34 +87,39 @@ define([
 
     // map with one hotel
     GoogleMapModel.prototype.initHotelCardMap = function (hotel, mapId) {
+        if (hotel.showMap) {
+			var scrollOnWheel                   = false,
+				disableZoomAndStreetViewControl = false;
 
-        var scrollOnWheel = false,
-            disableZoomAndStreetViewControl = false;
+			switch (mapId) {
+				// map on tab "About hotel"
+				case 'aboutLocationMap': {
+					break;
+				}
+				// full screen map
+				case 'hotelBigMap': {
+					scrollOnWheel = true;
+					break;
+				}
+				// mini map on hotel card
+				case 'cardHotelMap': {
+					scrollOnWheel = true;
+					disableZoomAndStreetViewControl = true;
+					break;
+				}
+			}
 
-        switch (mapId) {
-            // map on tab "About hotel"
-            case 'aboutLocationMap':{
-                break;
-            }
-            // full screen map
-            case 'hotelBigMap':{
-                scrollOnWheel = true;
-                break;
-            }
-            // mini map on hotel card
-            case 'cardHotelMap':{
-                scrollOnWheel = true;
-                disableZoomAndStreetViewControl = true;
-                break;
-            }
-        }
+			var lat = hotel.staticDataInfo.posLatitude || 0,
+				lon = hotel.staticDataInfo.posLongitude || 0;
 
-        var lat = hotel.staticDataInfo.posLatitude || 0,
-            lon = hotel.staticDataInfo.posLongitude || 0;
+			this.maps[mapId] = makeMap(mapId, [lat, lon], scrollOnWheel, disableZoomAndStreetViewControl);
 
-        this.maps[mapId] = makeMap(mapId, [lat, lon], scrollOnWheel, disableZoomAndStreetViewControl);
-
-        this.makeMarker(this.maps[mapId], {hotel: hotel, addClickListener: false, iconColor: GoogleMapModel.ICON_TYPE_DEFAULT});
+			this.makeMarker(this.maps[mapId], {
+				hotel: hotel,
+				addClickListener: false,
+				iconColor: GoogleMapModel.ICON_TYPE_DEFAULT
+			});
+		}
     };
 
     // Check center of map
@@ -223,8 +229,7 @@ define([
                 lon = hotel.staticDataInfo.posLongitude;
 
             if (lat && lon) {
-
-                var isHotelViewed = !!RecentHotelsModel.getHotelById(hotel.id),
+                var isHotelViewed = RecentHotelsModel.hotelIsViewed(hotel.id),
                     isHotelWithBestPrice = hotel.staticDataInfo.isBestPrice,
                     iconType;
 
