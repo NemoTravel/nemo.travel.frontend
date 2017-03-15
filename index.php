@@ -54,6 +54,7 @@
 
 		// Common libraries
 		paths: {
+			async:         nemoSourceHost+'/js/lib/requirejs/async',
 			domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
 			text:          nemoSourceHost+'/js/lib/requirejs/text',
 			knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
