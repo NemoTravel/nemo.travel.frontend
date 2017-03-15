@@ -1,0 +1,41 @@
+{
+    "hotels-misc-roomAdditionalWishes_title": "Дополнительные пожелания к номеру",
+    "hotels-misc-roomAdditionalWishes_hint": "Дополнительные кровати, номера для некурящих, трансфер до аэропорта.",
+    "hotels-buyer-title": "Введите свои данные",
+    "hotels-breadcrumbs-search": "Поиск отелей",
+    "hotels-breadcrumbs-searchResults": "Результаты поиска",
+    "hotels-breadcrumbs-booking": "Бронирование",
+    "hotels-info-rooms_nominative": [
+        "номер",
+        "номеров",
+        "номера"
+    ],
+    "hotels-info-guests_accusative": [
+        "гостя",
+        "гостей",
+        "гостей"
+    ],
+    "hotels-info-forGuests": "для",
+    "hotels-info-forPeriod": "На период",
+    "hotels-info-forNights": "За",
+    "hotels-info-room": "Номер",
+    "hotels-info-noReviews": "Нет оценок",
+    "hotels-info-checkIn__title": "Заезд",
+    "hotels-info-checkIn__prefix": "с",
+    "hotels-info-checkOut__title": "Выезд",
+    "hotels-info-checkOut__prefix": "до",
+    "hotels-info-showOnMap": "Показать на карте",
+    "hotels-info-photos": "фото",
+    "hotels-info-from": "от",
+    "hotels-room-meal__BB": "Завтрак включен",
+    "hotels-room-meal__RO": "Завтрак не включен",
+    "hotels-room-cancel__isNonRefundable": "Стоимость не возвращается",
+    "hotels-room-cancel__isNonRefundable__tooltip": "При отмене стоимость не возвращается.",
+    "hotels-room-cancel__freeRefund__until": "Бесплатная отмена до",
+    "hotels-room-cancel__freeRefund__noRefundAfter_1": "При отмене после",
+    "hotels-room-cancel__freeRefund__noRefundAfter_2": "стоимость номера не возвращается",
+    "hotels-room-paymentType__Deposit": "Оплата сейчас",
+    "hotels-room-paymentType__Credit": "Подтверждение кредитной картой",
+    "hotels-room-paymentType__Prepayment": "Оплата сейчас",
+    "hotels-room-paymentType__Cash": "Оплата на месте"
+}
