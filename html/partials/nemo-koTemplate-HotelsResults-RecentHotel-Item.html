@@ -13,7 +13,7 @@
             <a class="nemo-hotels-results__hotelsGroup__header__title__text
                       nemo-hotels-results__content__sidebar__offer__title__text"
                href="#"
-               data-bind="text: $data.name, click: function(hotel){ $parents[2].showCardHotel(hotel) }, attr: { href: $parents[2].makeHotelLink($data) }">
+               data-bind="text: $data.name, click: function(hotel){ $parent.resultsController.showCardHotel(hotel) }, attr: { href: $parent.resultsController.makeHotelLink($data) }">
             </a>
 
             <div class="nemo-hotels-results__hotelsGroup__stars nemo-hotels-results__content__sidebar__offer__stars nemo-hotel__additional__viewed__item__stars" data-bind="foreach: $data.staticDataInfo.starRating">
@@ -29,22 +29,21 @@
 
         <div class="nemo-hotels-results__hotelsGroup__mainInfo">
             <div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap nemo-hotels-results__content__sidebar__offer__photoWrap"
-                 data-bind="style: {'backgroundImage': $parents[2].getHotelMainImage($data) }, click: function(hotel){ $parents[2].showCardHotel(hotel) }"></div>
+                 data-bind="style: {'backgroundImage': $parent.resultsController.getHotelMainImage($data) }, click: function(hotel){ $parent.resultsController.showCardHotel(hotel) }"></div>
 
-            <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating
-                                            nemo-hotels-results__content__sidebar__offer__rating
-                                            nemo-hotel__additional__viewed__item__rating">
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number
-                                                 nemo-hotels-results__content__sidebar__offer__rating__number" data-bind="text: $data.averageCustomerRating ? $data.averageCustomerRating.value : 0">
-                                    </span>
-                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text
-                                                 nemo-hotels-results__content__sidebar__offer__rating__text" data-bind="text: $data.averageCustomerRating.description">
-                                    </span>
-                <a href="#" class="nemo-ui-pseudoLink
-                                   nemo-hotels-results__hotelsGroup__mainInfo__rating__link
-                                   nemo-hotels-results__content__sidebar__offer__rating__link"
-                   data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' отзывов', click: function (data, e) { e.preventDefault() }">
-                </a>
+            <div class="nemo-hotels-results__hotelsGroup__mainInfo__rating nemo-hotels-results__content__sidebar__offer__rating nemo-hotel__additional__viewed__item__rating">
+                <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number
+                             nemo-hotels-results__content__sidebar__offer__rating__number" data-bind="text: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.value : 0">
+                </span>
+                
+                <span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text
+                             nemo-hotels-results__content__sidebar__offer__rating__text" data-bind="text: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.description : $root.i18n('Hotels', 'hotels-info-noReviews')">
+                </span>
+                <!--<a href="#" class="nemo-ui-pseudoLink-->
+                                   <!--nemo-hotels-results__hotelsGroup__mainInfo__rating__link-->
+                                   <!--nemo-hotels-results__content__sidebar__offer__rating__link"-->
+                   <!--data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' отзывов', click: function (data, e) { e.preventDefault() }">-->
+                <!--</a>-->
             </div>
 
             <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock nemo-hotels-results__content__sidebar__offer__infoBlock">
@@ -60,20 +59,20 @@
 
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance
                                                              nemo-hotels-results__content__sidebar__offer__distance"
-                                                            data-bind="visible: $parents[2].getDistances($data)[0]"
+                                                            data-bind="visible: $parent.resultsController.getDistances($data)[0]"
                                                 >
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parents[2].getDistances($data)[0]"></span>
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parent.resultsController.getDistances($data)[0]"></span>
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target" data-bind="i18n: 'HotelsSearchResults.targetFromCenter'"></span>
                                                 </span>
 
                                                 <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotels-results__content__sidebar__offer__distance"
-                                                      data-bind="visible: $parents[2].getDistances($data)[1]">
-                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parents[2].getDistances($data)[1]"></span>
+                                                      data-bind="visible: $parent.resultsController.getDistances($data)[1]">
+                                                    <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value" data-bind="text: $parent.resultsController.getDistances($data)[1]"></span>
                                                     <span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target" data-bind="i18n: 'HotelsSearchResults.targetFromAirport'"></span>
                                                 </span>
 
                             <a href="#" class="nemo-ui-pseudoLink nemo-hotels-results__hotelsGroup__mainInfo__mapLink nemo-hotels-results__content__sidebar__offer__mapLink"
-                               data-bind="click: function () { $parents[2].showBigMap($data) }, i18n: 'HotelsSearchResults.map__button-show'"></a>
+                               data-bind="click: function () { $parent.resultsController.showBigMap($data) }, i18n: 'HotelsSearchResults.map__button-show'"></a>
                         </div>
 
                     </div>
@@ -86,9 +85,9 @@
                                                 data-bind="visible: staticDataInfo.description"
                 >
                     <p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text
-                                                          nemo-hotel__additional__viewed__item__description__text" data-bind="html: staticDataInfo.description, click: function () { $parents[2].showCardHotel($data) }">
+                                                          nemo-hotel__additional__viewed__item__description__text" data-bind="html: staticDataInfo.description, click: function () { $parent.resultsController.showCardHotel($data) }">
                     </p>
-                    <a href="#" data-bind="click: function () { $parents[2].showCardHotel($data) }, attr: {href: $parents[2].makeHotelLink($data) }" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link
+                    <a href="#" data-bind="click: function () { $parent.resultsController.showCardHotel($data) }, attr: {href: $parent.resultsController.makeHotelLink($data) }" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link
                                                            nemo-hotels-results__content__sidebar__offer__description__link
                                                            nemo-hotel__additional__viewed__item__description__link"></a>
                 </div>
@@ -96,15 +95,13 @@
             </div>
         </div>
 
-        <ul class="nemo-hotels-results__content__sidebar__offer__services nemo-hotels-services nemo-hotel__additional__viewed__item__services">
-
-            <!-- ko foreach: $data.staticDataInfo.popularFeatures -->
-            <li class="nemo-hotels-results__content__sidebar__offer__services__service nemo-hotels-services__service hotels-services__service_active">
-                <span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data"></span>
-            </li>
-            <!-- /ko -->
-
-        </ul>
+		<!-- ko if: $data.staticDataInfo.popularFeatures && $data.staticDataInfo.popularFeatures.length -->
+			<ul class="nemo-hotels-results__content__sidebar__offer__services nemo-hotels-services nemo-hotel__additional__viewed__item__services" data-bind="foreach: staticDataInfo.popularFeatures">
+				<li class="nemo-hotels-results__content__sidebar__offer__services__service nemo-hotels-services__service hotels-services__service_active">
+					<span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data, tooltip: { content: $parents[1].resultsController.popularHotelsFeatures[$data] }"></span>
+				</li>
+			</ul>
+		<!-- /ko -->
 
         <div class="nemo-hotels-results__hotelsGroup__footer
                     nemo-hotels-results__content__sidebar__offer__footer
@@ -115,17 +112,17 @@
                         nemo-hotels-results__hotelsGroup__footer__orderBtn
                         nemo-hotels-results__content__sidebar__offer__footer__orderBtn
                         nemo-hotel__additional__viewed__item__footer__button"
-                 data-bind="click: function () { $parents[2].showCardHotel($data) }"
+                 data-bind="click: function () { $parent.resultsController.showCardHotel($data) }"
 
             >
                 <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
 
                     <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer nemo-hotel__additional__viewed__item__footer__button__priceContainer">
-                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer__price" data-bind="money: $data.hotelPrice, currency: 'EUR'"></span>
+                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer__price" data-bind="money: $data.hotelPrice, currency: $root.agency.userCurrency()"></span>
                         <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="userCurrency"></span>
                     </span>
 
-                    <span class="nemo-hotels-results__hotelsGroup__footer__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parents[2].countOfNights() + ' ' + $parents[2].labelAfterNights()"></span>
+                    <span class="nemo-hotels-results__hotelsGroup__footer__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.resultsController.countOfNights() + ' ' + $parent.resultsController.labelAfterNights()"></span>
 
                 </div>
                 <div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>

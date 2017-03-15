@@ -7,75 +7,72 @@
 	text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__chooseTariff')
 "></a>
 
-<div class="nemo-flights-results__fareFamilies__popup__coverage__global"
-	 data-bind="visible: state().fareFamiliesAreLoading() || state().choosingFlight()"></div>
+<div class="nemo-flights-results__fareFamilies__popup__coverage__global" data-bind="visible: state().fareFamiliesAreLoading() || state().choosingFlight()"></div>
 
-<div class="js-nemoApp__popupBlock nemo-flights-results__fareFamilies__popup__wrapper" style="display: none;"
-	 data-bind="attr: { 'data-block': hash }">
+<div class="js-nemoApp__popupBlock nemo-flights-results__fareFamilies__popup__wrapper" style="display: none;" data-bind="attr: { 'data-block': hash }">
 	<!-- ko if: state().fareFamiliesAreLoading() -->
-	<div class="nemo-flights-results__fareFamilies__popup__coverage">
-		<div class="nemo-flights-results__fareFamilies__popup__coverage__loader"></div>
-	</div>
+		<div class="nemo-flights-results__fareFamilies__popup__coverage">
+			<div class="nemo-flights-results__fareFamilies__popup__coverage__loader"></div>
+		</div>
 	<!-- /ko -->
-
-	<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
-	<!-- ko if: fareFamilyNotice -->
-	<div class="nemo-common-postFilters__notification">
-		<!-- ko text: fareFamilyNotice --> <!-- /ko -->
-	</div>
-	<!-- /ko -->
-	<!-- /ko -->
-
-	<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
-	<div class="nemo-flights-results__fareFamilies__popup__tariffs">
-		<!-- ko foreach: flights -->
-		<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff">
-			<div class="nemo-ui-subContainer__header nemo-flights-results__fareFamilies__popup__tariffs__tariff__header">
-				<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__header__title"
-					  data-bind="text: name"></span>
+	
+		<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
+			<!-- ko if: fareFamilyNotice -->
+			<div class="nemo-common-postFilters__notification">
+				<!-- ko text: fareFamilyNotice --> <!-- /ko -->
 			</div>
-
-			<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features">
-				<!-- ko foreach: features -->
-				<!-- ko if: array.length -->
-				<p class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__title"
-				   data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__' + title)"></p>
-
-				<ul class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list">
-					<!-- ko foreach: array -->
-					<!-- ko if: $data -->
-					<li class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature"
-						data-bind="tooltip: {
+			<!-- /ko -->
+	<!-- /ko -->
+	
+	<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
+		<div class="nemo-flights-results__fareFamilies__popup__tariffs">
+			<!-- ko foreach: flights -->
+				<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff">
+					<div class="nemo-ui-subContainer__header nemo-flights-results__fareFamilies__popup__tariffs__tariff__header">
+						<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__header__title" data-bind="text: name"></span>
+					</div>
+			
+					<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features">
+						<!-- ko foreach: features -->
+							<!-- ko if: array.length -->
+								<p class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__title" 
+								   data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__' + title)"></p>
+		
+								<ul class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list">
+									<!-- ko foreach: array -->
+										<!-- ko if: $data -->
+											<li class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature" data-bind="tooltip: {
 												content: description.full,
 												cssClass: 'nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__hint'
 											}">
 												<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__icon"
 													  data-bind="css: 'nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__icon_' + needToPay.toLowerCase()"></span>
-
-						<!-- ko if: showTitle -->
-						<span data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
+				
+												<!-- ko if: showTitle -->
+													<span data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
+												<!-- /ko -->
+				
+												<!-- ko ifnot: showTitle -->
+													<span data-bind="text: description.short"></span>
+												<!-- /ko -->
+											</li>
+										<!-- /ko -->
+									<!-- /ko -->
+								</ul>
+							<!-- /ko -->
 						<!-- /ko -->
-
-						<!-- ko ifnot: showTitle -->
-						<span data-bind="text: description.short"></span>
-						<!-- /ko -->
-					</li>
-					<!-- /ko -->
-					<!-- /ko -->
-				</ul>
-				<!-- /ko -->
-				<!-- /ko -->
-			</div>
-
-			<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__price">
-				<money format="0,0 $" data-bind="money: price"></money>
-			</div>
-
-			<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__buy">
-				<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton nemo-flights-results__fareFamilies__popup__tariffs__tariff__buy__button"
-					 data-bind="
+					</div>
+			
+					<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__price">
+						<money format="0,0 $" data-bind="money: price"></money>
+					</div>
+			
+					<div class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__buy">
+						<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton nemo-flights-results__fareFamilies__popup__tariffs__tariff__buy__button"
+							 data-bind="
 								fareFamiliesChooseFlight: { 
 									flightId: id, 
+									setHasBeenChosen: true,
 									controller: $parent
 								},
 								disabled: $parent.state().choosingFlight() && id !== $parent.currentFlightId(),
@@ -84,21 +81,19 @@
 									'nemo-flights-results__flightsGroup__buyButton_bookingCheck': $parent.state().choosingFlight() && id === $parent.currentFlightId()
 								} 
 						">
-					<span class="nemo-flights-results__flightsGroup__buyButton__text"
-						  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__buyBtn')"></span>
-					<span class="nemo-flights-results__flightsGroup__buyButton__checkText"
-						  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__buyButton__checking_short')"></span>
+							<span class="nemo-flights-results__flightsGroup__buyButton__text" data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__buyBtn')"></span>
+							<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__buyButton__checking_short')"></span>
+						</div>
+					</div>
 				</div>
-			</div>
+			<!-- /ko -->
 		</div>
-		<!-- /ko -->
-	</div>
 	<!-- /ko -->
-
+	
 	<!-- ko if: !state().fareFamiliesAreLoading() && !state().fareFamiliesAreLoaded() -->
-	<div class="nemo-flights-results__fareFamilies__popup__tariffs__error">
-			<span class="nemo-flights-results__fareFamilies__popup__tariffs__error__text"
+		<div class="nemo-flights-results__fareFamilies__popup__tariffs__error">
+			<span class="nemo-flights-results__fareFamilies__popup__tariffs__error__text" 
 				  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__error')"></span>
-	</div>
+		</div>
 	<!-- /ko -->
 </div>

@@ -18,8 +18,8 @@
                 <div class="photoWrap" data-bind="style: {'backgroundImage': $parent.getHotelMainImage($data, 2) }, click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }"></div>
                 <div class="rating">
                     <span class="number" data-bind="text: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.value : 0"></span>
-                    <span class="text" data-bind="html: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.description : ''"></span>
-                    <a href="#" class="link" data-bind="text: $data.staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title_more_than_five'), click: function (data, e) { e.preventDefault() }"></a>
+                    <span class="text" data-bind="html: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.description : $root.i18n('Hotels', 'hotels-info-noReviews')"></span>
+                    <!--<a href="#" class="link" data-bind="text: $data.staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title_more_than_five'), click: function (data, e) { e.preventDefault() }"></a>-->
                 </div>
                 <div class="infoBlock">
                     <div class="addressWrap">
@@ -39,30 +39,31 @@
                         </div>
                     </div>
                     <div class="description" data-bind="click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }">
-                        <p class="text" data-bind="hotelsResultsDescriptionBindingsTags: $data.staticDataInfo.description"></p>
+                        <p class="text" data-bind="html: $data.staticDataInfo.description"></p>
                     </div>
                 </div>
-                <ul class="services">
-                    <!-- ko foreach: $data.staticDataInfo.popularFeatures -->
+                
+                <ul class="services" data-bind="foreach: $data.staticDataInfo.popularFeatures">
                     <li class="nemo-hotels-results__content__sidebar__offer__services__service nemo-hotels-services__service hotels-services__service_active">
-                        <span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data"></span>
+                        <span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data, tooltip: {
+                            content: $parents[1].popularHotelsFeatures[$data]
+                        }"></span>
                     </li>
-                    <!-- /ko -->
                 </ul>
             </div>
+            
             <div class="nemo-hotels-results__hotelsGroup__footer">
-
                 <div class="nemo-hotels-results__hotelsGroup__footer__text">
                     В отеле не осталось свободных мест, <br>но вы можете проверить их наличие на другие даты
                 </div>
 
                 <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn" data-bind="click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }">
-
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                         <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">от
-                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="money: $data.hotelPrice, currency: 'EUR'"></span>
+                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="money: $data.hotelPrice, currency: $root.agency.userCurrency()"></span>
                             <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="userCurrency"></span>
                         </span>
+                        
                         <span class="nemo-hotels-results__hotelsGroup__footer__period">
                             <span data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
                         </span>

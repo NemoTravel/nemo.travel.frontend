@@ -46,11 +46,11 @@
                                                      nemo-hotels-results__content__sidebar__offer__rating__text"
                                               data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')">
                                         </span>
-                    <a class="nemo-ui-pseudoLink
-                                                           nemo-hotels-results__hotelsGroup__mainInfo__rating__link
-                                                           nemo-hotels-results__content__sidebar__offer__rating__link"
-                       data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title_more_than_five'), click: function(hotel, e) { e.preventDefault() }">
-                    </a>
+                    <!--<a class="nemo-ui-pseudoLink-->
+                                                           <!--nemo-hotels-results__hotelsGroup__mainInfo__rating__link-->
+                                                           <!--nemo-hotels-results__content__sidebar__offer__rating__link"-->
+                       <!--data-bind="text: staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title_more_than_five'), click: function(hotel, e) { e.preventDefault() }">-->
+                    <!--</a>-->
                 </div>
 
                 <div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock
@@ -103,16 +103,12 @@
                 </div>
             </div>
 
-            <ul class="nemo-hotels-results__content__sidebar__offer__services nemo-hotels-services">
-
-                <!-- ko foreach: [/* service icons will be here */] -->
-                    <!-- ko if: $parent.staticDataInfo.popularFeatures && $parent.staticDataInfo.popularFeatures.indexOf($data.name) > -1 -->
-                    <li class="nemo-hotels-results__content__sidebar__offer__services__service nemo-hotels-services__service nemo-hotels-services__service_active">
-                        <span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data.cssClassSuffix"></span>
-                    </li>
-                    <!-- /ko -->
-                <!-- /ko -->
-
+            <ul class="nemo-hotels-results__content__sidebar__offer__services nemo-hotels-services" data-bind="foreach: $parent.staticDataInfo.popularFeatures">
+                <li class="nemo-hotels-results__content__sidebar__offer__services__service nemo-hotels-services__service nemo-hotels-services__service_active">
+                    <span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data, tooltip: {
+                        content: $parents[2].popularHotelsFeatures[$data]
+                    }"></span>
+                </li>
             </ul>
 
             <div class="nemo-hotels-results__hotelsGroup__footer nemo-hotels-results__content__sidebar__offer__footer">
@@ -126,7 +122,7 @@
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
 
                                             <span class="nemo-hotels-results__hotelsGroup__footer__price">
-                                                <span data-bind="money: hotelPrice, currency: 'EUR'"></span>
+                                                <span data-bind="money: hotelPrice, currency: $root.agency.userCurrency()"></span>
                                                 <span class="nemo-hotels-results__hotelsGroup__footer__price__currency"
                                                       data-bind="userCurrency"></span>
                                             </span>

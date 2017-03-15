@@ -5,14 +5,20 @@
     <input type="checkbox" class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__input" data-bind="checked: $parent.filterValues[$data], enable: $parent.minStarPrices()[$data]">
 
             <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars">
-                <!-- ko foreach: new Array(parseInt($data)) -->
-                <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                <!-- ko if: parseInt($data) -->
+                    <!-- ko foreach: new Array(parseInt($data)) -->
+                        <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__name__stars__star"></span>
+                    <!-- /ko -->
+                <!-- /ko -->
+                
+                <!-- ko if: !parseInt($data) -->
+					<span data-bind="i18n: 'HotelsSearchResults.PF__filter__starsCount__unrated'"></span>
                 <!-- /ko -->
             </span>
 
             <span class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes__checkbox__value">
                 <span data-bind="text: ($root.i18n('HotelsSearchResults', 'from2'))"></span>
-                <money data-bind="money: $parent.minStarPrices()[$data], currency: 'EUR'"></money>
+                <money data-bind="money: $parent.minStarPrices()[$data], currency: $root.agency.userCurrency()"></money>
                 <span data-bind="userCurrency"></span>
             </span>
 

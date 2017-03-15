@@ -1,7 +1,7 @@
 <div class="nemo-ui-slider__info">
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_min">
-                <span data-bind="money: displayRangeMin(), currency: 'EUR'"></span>&nbsp
+                <span data-bind="money: displayRangeMin(), currency: $root.agency.userCurrency()"></span>&nbsp
                 <span data-bind="userCurrency"></span>
             </span>
             <span class="nemo-ui-slider__info__block
@@ -10,7 +10,7 @@
             </span>
             <span class="nemo-ui-slider__info__block
                          nemo-ui-slider__info__block_max">
-                <span data-bind="money: displayRangeMax(), currency: 'EUR'"></span>&nbsp
+                <span data-bind="money: displayRangeMax(), currency: $root.agency.userCurrency()"></span>&nbsp
                 <span data-bind="userCurrency"></span>
             </span>
 </div>
