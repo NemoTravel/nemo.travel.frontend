@@ -211,9 +211,12 @@ define(
                 ];
 
                 if (this.hotelCard()) {
-                    baseItems.push({i18n: this.searchForm.city.country, active: false, pageTitle: 'HotelsSearch'});
-                    baseItems.push({i18n: this.searchForm.city.name, active: false, pageTitle: 'HotelsSearch'});
-                    baseItems.push({i18n: this.hotelCard().name, active: false, pageTitle: 'HotelsSearch'});
+                    baseItems.push({
+						title: this.hotelCard().name,
+						i18n: this.hotelCard().name,
+						active: false,
+						pageTitle: this.hotelCard().name
+					});
                 } else {
                     baseItems.push({title: 'hotels-step_checkout', active: false});
                 }
