@@ -5,19 +5,35 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 	border-radius: 4px;
 	padding: 12px 10px;
 	margin: 15px 20px 5px;
-	
+
 	&__header {
 		margin-bottom: 10px;
-		
+
 		&__title {
 			font-size: 13px;
 			color: #64b5f6;
 		}
-			
+
 		&__chooseTariff {
-			font-size: 12px;
 			float: right;
-			
+			font-size: 12px;
+		}
+
+		&__rechooseTariff {
+			font-size: 13px;
+			text-align: center;
+			padding: 10px;
+			border: 1px solid rgba(230, 230, 230, .75);
+			border-radius: 4px;
+			cursor: pointer;
+
+			&:hover a {
+				border-bottom: 1px dashed rgba(14, 134, 230, .75);
+				color: #349ef3;
+			}
+		}
+
+		&__chooseTariff, &__rechooseTariff {
 			a {
 				&, &:active, &:focus, &:active:focus {
 					outline: none !important;
@@ -25,21 +41,21 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			}
 		}
 	}
-	
+
 	&__features {
 		font-size: 11px;
 		color: rgba(100, 100, 100, .75);
-		
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
 		&__baggage, &__refunds, &__misc {
-			width: 50%;
-			float: left;
-			padding-right: 20px;
 			
 			ul {
 				padding-left: 0;
 				list-style-type: none;
 			}
-				
+
 			&__feature {
 				padding-left: 18px;
 				cursor: default;
@@ -48,7 +64,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 				&:last-child {
 					margin-bottom: 0;
 				}
-					
+
 				&__hint {
 					z-index: 1005;
 					.tooltipster-content {
@@ -56,7 +72,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 						max-width: 300px;
 					}
 				}
-					
+
 				&__icon {
 					background-position: left center;
 					background-repeat: no-repeat;
@@ -81,42 +97,47 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			}
 		}
 	}
-		
+
 	&_full {
 		margin: 15px -20px 15px;
 		padding: 20px 40px;
 		border: none;
 		background-color: #f7f7f7;
-		
+
 		&:last-of-type {
 			margin-bottom: -1px;
 		}
-		
+
 		.nemo-flights-results__fareFamilies__header {
 			margin-bottom: 15px;
+		}
+
+		.nemo-flights-results__fareFamilies__features{
+			display: flex;
+			justify-content: space-between;
 		}
 
 		.nemo-flights-results__fareFamilies__features__baggage,
 		.nemo-flights-results__fareFamilies__features__refunds,
 		.nemo-flights-results__fareFamilies__features__misc {
-			width: 33.33%;
+			/*width: 33.33%;*/
 			font-size: 12px;
-			
+
 			ul {
 				margin-top: 10px;
 			}
 		}
-			
+
 		.nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list {
 			margin-bottom: 0;
 			padding-bottom: 0;
-			
+
 			&:last-child {
 				padding-bottom: 0;
 			}
 		}
 	}
-		
+
 	&__popup {
 		width: 720px !important;
 		height: auto;
@@ -125,21 +146,25 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 		padding: 0 !important;
 		font-family: $nemo-font-main;
 
+		.ui-dialog-content.ui-widget-content {
+			padding: 20px !important;
+		}
+
 		&__header {
 			margin: 10px 0 20px;
 			font-size: 1.1em;
 		}
-		
+
 		&__wrapper {
 			min-height: 400px;
 		}
-		
+
 		&__tariffs {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
 			margin-bottom: -20px;
-			
+
 			&__error {
 				width: 400px;
 				text-align: center;
@@ -174,7 +199,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 						font-size: 1.2em;
 					}
 				}
-					
+
 				&__features {
 					margin-bottom: 60px;
 
@@ -207,7 +232,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 
 							&__hint {
 								z-index: 1005 !important;
-								
+
 								.tooltipster-content {
 									padding: 10px 15px !important;
 									max-width: 300px !important;
@@ -242,7 +267,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 						}
 					}
 				}
-					
+
 				&__price {
 					height: 40px;
 					line-height: 41px;
@@ -256,7 +281,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 					color: #636469;
 					background: #fae58c;
 				}
-					
+
 				&__buy {
 					position: absolute;
 					right: 20px;
@@ -269,7 +294,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 				}
 			}
 		}
-		
+
 		&__coverage {
 			position: absolute;
 			top: 0;
@@ -277,7 +302,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			left: 0;
 			right: 0;
 			background: rgba(255, 255, 255, 0.7);
-			
+
 			&__global {
 				position: fixed;
 				top: 0;
@@ -301,7 +326,7 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			}
 		}
 	}
-		
+
 	&_checkout&_full {
 		margin: 15px -40px;
 		border-radius: 0;
@@ -309,18 +334,18 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 
 	&_slim {
 	   position: relative;
-		
+
 		.nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list {
 			margin: 10px 0 0;
 			padding-bottom: 0;
 			font-size: 12px;
-			
+
 			&__feature__icon {
 				height: 14px;
 			}
 		}
 	}
-		
+
 	&_slim &__header {
 		border-bottom: $fareFamiliesLightBorder;
 		margin: 0 -10px;
@@ -340,9 +365,10 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			overflow: hidden;
 		}
 	}
-		
+
 	&_slim &__features {
 		padding-bottom: 35px;
+		display: block;
 
 		&__baggage,
 		&__refunds,
@@ -359,15 +385,15 @@ $fareFamiliesLightBorder = 1px solid rgba(230, 230, 230, .75);
 			padding: 10px 10px 0;
 		}
 	}
-		
+
 	&_noMargin {
 		margin: 10px 0 0;
 	}
 
-	&_noMargin &__features {
+	&_noPadding &__features {
 		padding-bottom: 0;
 	}
-		
+
 	&__subClasses {
 		display: block;
 		margin: 15px 20px 5px;

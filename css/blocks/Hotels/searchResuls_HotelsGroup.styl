@@ -18,7 +18,7 @@
 				&__text {
 					display: block;
 					float: left;
-					border-bottom: 1px dashed $nemo-color-LightPoint;
+					border-bottom: 1px solid #8bc8f9;
 					color: $nemo-color-LightPoint;
 					line-height: 20px;
 					text-decoration: none;
@@ -26,9 +26,11 @@
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+					transition: border-bottom-color 0.2s ease;
 
 					&:hover {
 						color: $nemo-color-LightPoint;
+						border-bottom-color: $nemo-color-LightPoint;
 					}
 				}
 			}
@@ -92,7 +94,7 @@
 				vertical-align: middle;
 				width: 17px;
 				height: 20px;
-				background: url("/css/images/hotels_results_sprite.svg") -2px -26px no-repeat;
+				background: url("images/hotels_results_sprite.svg") -2px -26px no-repeat;
 				margin-left: 2px;
 
 				&:first-child {
@@ -107,8 +109,7 @@
 		}
 
 		&__content {
-			padding-top: 10px;
-			padding-bottom: 7px;
+			padding: 10px 20px 7px;
 		}
 
 		&__mainInfo {
@@ -130,6 +131,7 @@
 
 			&__infoBlock {
 				margin: 0 120px 0 180px;
+				color: #50505a;
 			}
 
 			&__addressWrap {
@@ -155,7 +157,7 @@
 					left: -20px;
 					top: 50%;
 					margin-top: -10px;
-					background: url(/css/images/hotels_results_sprite.svg) no-repeat -2px -2px;
+					background: url(images/hotels_results_sprite.svg) no-repeat -2px -2px;
 				}
 			}
 
@@ -164,7 +166,7 @@
 			}
 
 			&__mapLink {
-				margin-left: 30px;
+				margin-left: 10px;
 				font-size: 12px;
 				text-transform: lowercase;
 
@@ -223,6 +225,10 @@
 						font-size: 12px;
 						font-weight: 400;
 					}
+						
+					& p {
+						padding-right: 10px;
+					}
 				}
 
 				&__link {
@@ -240,7 +246,7 @@
 						display: block;
 						width: 10px;
 						height: 30px;
-						background: url(/css/images/hotels_results_sprite.svg) no-repeat -3px -68px;
+						background: url(images/hotels_results_sprite.svg) no-repeat -3px -68px;
 					}
 				}
 			}
@@ -279,7 +285,7 @@
 		}
 
 		&__rooms {
-			border: 1px solid $nemo-color-button-secondary_g2;
+			border: 1px solid #ebebeb;
 			margin-top: 20px;
 			padding-top: 10px;
 			border-radius: $nemo-border-radius;
@@ -349,7 +355,7 @@
 					display: inline-block;
 					width: 10px;
 					height: 12px;
-					background: url(/css/images/hotels_results_sprite.svg) no-repeat -2px -49px;
+					background: url(images/hotels_results_sprite.svg) no-repeat -2px -49px;
 				}
 			}
 
@@ -357,13 +363,14 @@
 				list-style-type: none;
 				padding: 0;
 				margin: 3px 0 0;
+				color: #50505a;
 			}
 		}
 
 		&__services {
 			display: block;
 			padding: 0;
-			margin: 5px 0 0 180px;
+			margin: 10px 0 0 180px;
 			font-size: 0;
 
 			&__service {
@@ -436,7 +443,7 @@
 					width: 12px;
 					height: 30px;
 					display: block;
-					background: url(/css/images/hotels_results_sprite.svg) no-repeat -2px -104px;
+					background: url(images/hotels_results_sprite.svg) no-repeat -2px -104px;
 					margin: 0 auto;
 				}
 			}

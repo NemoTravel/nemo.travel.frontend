@@ -378,16 +378,22 @@ $t_postFilters_animationTime = .1s;
                                 margin-top: -10px;
                                 width: 19px;
                                 height: 19px;
-                                background: $nemo-color-neutral url(/css/images/ui/checkbox_sprite.svg);
+                                background: $nemo-color-neutral url(images/ui/checkbox_sprite.svg);
                                 border-radius: 5px;
                              }
 
                             &__stars {
+                                color: $c_content_bg;
+                                
+                                &:first-letter {
+                                    text-transform: uppercase;
+                                }
+                                    
                                 &__star {
                                     display: inline-block;
                                     width: 17px;
                                     height: 17px;
-                                    background: url("/css/images/hotels_results_sprite.svg") -2px -24px no-repeat;
+                                    background: url("images/hotels_results_sprite.svg") -2px -24px no-repeat;
                                 }
                             }
                         }

@@ -173,6 +173,26 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 			background: $c_ui_button_hover;
 		}
 	}
+		
+	&_outline {
+		&, &:visited, &:link {
+			background: transparent;
+			border: 1px solid $c_ui_button;
+			border-radius: 5px;
+			color: $c_ui_button;
+			height: 40px;
+			line-height: 38px;
+			text-decoration: none;
+			font-size: 15px;
+		}
+
+		&:hover, &:active, &:focus, &:active:focus, &:focus:hover {
+			border-color: $c_ui_button;
+			color: $c_ui_button;
+			background: rgba(148, 202, 81, 0.13);
+			text-decoration: none;
+		}
+	}
 
 	&_common {
 		height: $d_ui_button_common_height;

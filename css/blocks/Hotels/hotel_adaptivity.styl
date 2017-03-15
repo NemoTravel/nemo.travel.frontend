@@ -17,6 +17,7 @@
 
 		&__content {
 			flex-basis: 100%;
+			margin: 15px 10px 0 10px;
 
 			&__rooms {
 				&__mobileHeader {
@@ -40,6 +41,8 @@
 					margin: 0 0 0 40px;
 					left: 50%;
 					background: $nemo-color-neutral;
+					opacity: 1;
+					box-shadow: none;
 
 					&__num {
 						margin-top: -7px;
@@ -450,13 +453,25 @@
 			&__tabsContent{
 				margin-left: -10px;
 				margin-right: -10px;
+				background: transparent;
+			}
+				
+			&__about {
+				background: #fff;
+				border-radius: 4px;
+				padding: 10px;
 			}
 
 			&__rooms {
+				&__wrapper {
+					background: #fff;
+				}
+					
 				&__slider {
 					min-height: 180px;
 					margin-bottom: 40px;
 				}
+					
 				&__mobileHeader {
 					padding: 14px 10px;
 
@@ -465,7 +480,6 @@
 						line-height: 1em;
 					}
 				}
-
 
 				&__rating,
 				&__mobileDistances {

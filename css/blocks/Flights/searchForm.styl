@@ -6,6 +6,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 	position: relative;
     margin-top: 30vh;
 	font: 13px $nemo-font-main;
+	
+	&-EAR {
+		margin-top: 0;
+	}
 
 	// Setting initial box-sizing and fonts
 	&, & * {
@@ -700,6 +704,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 					color: #6B6B6B;
 					padding: 0 20px 0 10px;
 					flex: 0 0 auto;
+					width: 33%;
 
 					&__count {
 						display: inline-block;
@@ -752,11 +757,14 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 					color: #A6A6A6;
 					width: 85px;
 					flex-shrink: 0;
+					width: 33%;
+					text-align: right;
 				}
 
 				&__name {
 					margin-right: auto;
 					white-space: normal;
+					width: 33%;
 				}
 			}
 		}
@@ -1007,6 +1015,16 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		}
 	}
 }
+	
+.nemo-root-EAR {
+	height: auto;
+
+	.nemo-common-pageWrapper {
+		min-height: auto;
+		padding-bottom: 0;
+	}
+}
+	
 @keyframes nemo-flights-form__searchingInfoPopup__headerAnimation {
 	0% {transform: rotate(0deg);}
 	100% {transform: rotate(360deg);}

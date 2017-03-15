@@ -4,6 +4,11 @@
 
 	&__bookingCheck {
 		display: none;
+		max-width: 700px;
+		
+		&__errorMessage {
+			margin: 10px 0;
+		}
 	}
 
 	&__error {
@@ -603,6 +608,14 @@
 			&:last-child {
 				margin-bottom: 0;
 			}
+		}
+	}
+		
+	&-EAR &__content {
+		min-height: auto;
+		
+		&__results {
+			align-self: auto;
 		}
 	}
 }

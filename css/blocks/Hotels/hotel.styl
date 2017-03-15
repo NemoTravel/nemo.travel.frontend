@@ -92,15 +92,15 @@
 
 			&__stars {
 				position: absolute;
-				top: 6px;
-				right: 20px;
+				top: 7px;
+				right: 0;
 				white-space: nowrap;
 
 				&__item {
 					display: inline-block;
 					width: 17px;
 					height: 19px;
-					background: url("/css/images/hotels_results_sprite.svg") -2px -24px no-repeat;
+					background: url("images/hotels_results_sprite.svg") -2px -24px no-repeat;
 				}
 			}
 		}
@@ -139,7 +139,7 @@
 			}
 
 			&__distances {
-				padding: 10px 20px;
+				padding: 20px 20px;
 
 				&__title {
 					margin-bottom: 10px;
@@ -179,7 +179,7 @@
 						display: inline-block
 						width: 11px;
 						height: 12px;
-						background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 0 0;
+						background: url(images/hotels_hotel_sprite.svg) no-repeat 0 0;
 						vertical-align: middle;
 						margin-right: 11px;
 					}
@@ -232,6 +232,7 @@
 
 				&__distances {
 					margin-left: 60px;
+					justify-content: space-around;
 				}
 
 				&__rating {
@@ -244,6 +245,7 @@
 
 					&__text {
 						height: 45px;
+						color: rgba(100, 100, 100, .75);
 					}
 
 					&__link {
@@ -255,8 +257,7 @@
 					padding-left: 15px;
 					padding-right: 15px;
 					border-top: 1px solid $nemo-color-neutral;
-					border-bottom: 1px solid $nemo-color-neutral;
-					margin: 10px 0 0;
+					margin: 0;
 					font-size: 0;
 
 					li {
@@ -265,6 +266,7 @@
 				}
 
 				&__footer {
+					border-top: 1px solid $nemo-color-neutral;
 					padding: 10px 20px 10px 0;
 
 					&__button {
@@ -287,6 +289,7 @@
 		margin: 15px 20px 0 10px;
 		flex: 0 1 82%;
 		overflow: hidden;
+		color: #50505a;
 
 		&__tabs {
 			height: 75px;
@@ -322,10 +325,11 @@
 		}
 
 		&__tabsContent {
-			min-height: 100%;
+			min-height: auto;
 			margin-top: -95px;
 			padding-top: 115px;
 			position: relative;
+			margin-bottom: 25px;
 
 			&:before {
 				content: '';
@@ -363,6 +367,10 @@
 				position: relative;
 				min-height: 425px;
 				margin-bottom: 15px;
+
+				.fotorama__stage__frame, .fotorama__stage {
+					background: #555;
+				}
 
 				.carousel-inner {
 					height: 427px;
@@ -454,6 +462,7 @@
 			}
 
 			&__rating {
+				opacity: 0.4;
 				position: absolute;
 				top: 20px;
 				right: 20px;
@@ -465,6 +474,12 @@
 				align-items: center;
 				border-radius: $nemo-border-radius;
 				background: lighten($nemo-color-neutral, 9);
+				box-shadow: 0 0 9px rgba(0,0,0,0.3);
+				transition: opacity 0.1s;
+				
+				&:hover {
+					opacity: 1;
+				}
 
 				&__num,
 				&__text {
@@ -518,6 +533,22 @@
 					border-radius: $nemo-border-radius;
 					justify-content: space-between;
 					align-items: center;
+					line-height: 40px;
+					position: relative;
+					
+					&__change {
+						font-size: 15px;
+						width: 150px;
+						height: 42px;
+						line-height: 40px;
+						border-radius: 0 4px 4px 0;
+						position: absolute;
+						right: -1px;
+						
+						&, &:hover, &:active, &:focus {
+							background: #64b5f6;
+						}
+					}
 				}
 
 				&__switch {
@@ -543,6 +574,7 @@
 
 					&__paramName {
 						color: $nemo-color-text-secondary;
+						padding-right: 10px;
 					}
 				}
 			}
@@ -652,22 +684,22 @@
 						padding-right: 10px;
 						padding-left: 15px;
 						vertical-align: middle;
+						padding-top: 3px;
 
-						&__perNight {
+						&__allNights {
 							display: block;
 							white-space: nowrap;
-							margin-top: -5px;
 
 							&__value {
 								font-size: 20px;
 							}
 
-							&__currentcy {
+							&__currency {
 								font-size: 14px;
 							}
 						}
-
-						&__per6Nights {
+							
+						&__perNight {
 							white-space: nowrap;
 							font-size: 12px;
 						}
@@ -682,6 +714,7 @@
 						vertical-align: middle;
 						padding-right: 15px;
 						border-radius: 0 $nemo-border-radius $nemo-border-radius 0;
+						transition: all .1s ease-in;
 
 						&:before {
 							content: '';
@@ -689,8 +722,12 @@
 							width: 30px;
 							margin-left: 15px;
 							height: 24px;
-							background: url("/css/images/hsf-sprite.svg") no-repeat -1px -22px;
+							background: url("images/hsf-sprite.svg") no-repeat -1px -22px;
 						}
+					}
+						
+					&:hover &__icon {
+						background: darken($c_ui_button, 8);
 					}
 				}
 			}
@@ -742,8 +779,13 @@
 				}
 			}
 			&__location {
-				margin-bottom: 35px;
-
+				& &__distances {
+					&__distance {
+						width: 50%;
+						float: left;
+					}
+				}
+					
 				&__distances {
 					&__list {
 						list-style-type: none;
@@ -787,8 +829,6 @@
 			}
 
 			&__services {
-				margin-bottom: 30px;
-
 				&__list {
 					list-style-type: none;
 					margin: 0;
@@ -815,9 +855,8 @@
 					}
 				}
 			}
+				
 			&__rules {
-				margin-bottom: 30px;
-
 				&:after {
 					content: '';
 					display: block;
@@ -841,11 +880,11 @@
 					&__name {
 						float: left;
 						display: block;
-						width: 190px;
+						width: 150px;
 					}
 
 					&__values {
-						margin-left: 200px;
+						margin-left: 160px;
 
 						p {
 							margin-bottom: 10px;
@@ -880,7 +919,7 @@
 }
 
 .nemo-hotelRoom {
-	border: 1px solid $nemo-color-neutral;
+	border: 1px solid #ebebeb;
 	border-radius: $nemo-border-radius;
 	overflow: hidden;
 	margin-bottom: 20px;
@@ -904,7 +943,7 @@
 			display: block;
 			width: 15px;
 			height: 15px;
-			background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 1px -18px;
+			background: url(images/hotels_hotel_sprite.svg) no-repeat 1px -18px;
 			border: none;
 			outline: none;
 			cursor: pointer;
@@ -994,6 +1033,10 @@
 
 	&__tariff {
 		border-top: 1px solid $nemo-color-neutral;
+		
+		&:first-of-type {
+			border-top: none;
+		}
 
 		&:last-child {
 			border-bottom: none;
@@ -1022,13 +1065,14 @@
 
 		&__feature {
 			display: block;
+			line-height: 20px;
 		}
 
 		&__price {
 			flex: 0 0 190px;
 			text-align: right;
 
-			&__perNight {
+			&__allNights {
 				display: block;
 				margin-top: -5px;
 
@@ -1045,22 +1089,41 @@
 				}
 			}
 
-			&__per6Nights {
+			&__perNight {
 				display: block;
 				font-size: 12px;
 				color: $nemo-color-text-secondary;
 			}
 
-			&__link {
+			&__cancellation {
 				font-size: 12px;
+				cursor: default;
+				
+				&__tooltip {
+					.tooltipster-content {
+						padding: 12px 15px;
+						background: #fff5cc;
+						font-weight: 500;
+						color: #333;
+						max-width: 280px !important;
+						font-size: 11px;
+
+						p {
+							margin-bottom: 10px;
+
+							&:last-of-type {
+								margin-bottom: 0;
+							}
+						}
+					}
+				}
 			}
 		}
 
 		&__controlWrap {
-			padding-top: 2px;
 			flex: 0 0 130px;
 			text-align: right;
-			align-self: flex-start;
+			align-self: center;
 
 			&__button {
 				display: inline-block;
@@ -1084,18 +1147,17 @@
 
 		&_selected {
 			background: $c_ui_button;
-			border-radius: $nemo-border-radius;
 
 			& * {
 				color: $nemo-color-LightPoint;
 			}
+				
 			& .nemo-hotelRoom__tariff__controlWrap {
 				align-self: center;
-				flex-basis: 135px;
+				flex-basis: 130px;
 
 				&__button {
 					background: $c_ui_button !important;
-					cursor: default;
 					position: relative;
 
 					&:before {
@@ -1104,7 +1166,7 @@
 						position: absolute;
 						width: 12px;
 						height: 10px;
-						background: url(/css/images/hotels_hotel_sprite.svg) no-repeat 0 -44px;
+						background: url(images/hotels_hotel_sprite.svg) no-repeat 0 -44px;
 						left: 0;
 						top: 50%;
 						margin-top: -5px;

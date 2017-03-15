@@ -16,17 +16,16 @@
 		border-top: 1px solid rgba(230, 230, 230, .75);
 		background-color: #f7f7f7;
 
-		&__features__baggage, &__features__refunds, &__features__misc {
-			width: auto;
-			padding-right: 0px;
+		&__features{
+			display: flex;
+			justify-content: space-between;
+		}
 
-			&__feature {
-				display: inline-block;
-				padding-right: 10px;
-			}
+		&__features__baggage, &__features__refunds, &__features__misc {
+			padding-right: 0px;
 		}
 	}
-		
+
 	&__fareVariations {
 		margin: 0;
 		border: 0;
@@ -315,6 +314,11 @@
 
 		&__inner {
 			text-align: center;
+			
+			&__exchange {
+				margin-top: 10px;
+				text-align: right;
+			}
 		}
 	}
 
@@ -366,10 +370,10 @@
 			padding-right: 5px;
 		}
 	}
-		
+
 	&__fareVariations {
 		padding-bottom: 10px;
-		
+
 		.nemo-flights-results__fareVariations {
 			text-align: center;
 		}

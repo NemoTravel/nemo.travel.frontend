@@ -1,3 +1,14 @@
+.nemo-hotels-loader {
+	background: #fff url(/templates/nemofront/css/images/checkout-loader.svg) center no-repeat;
+	background-size: 200px 200px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 99999;
+}
+
 .nemo-hotels-header {
 	position: absolute;
 	width: 100%;
@@ -7,9 +18,23 @@
 	background: $c_content_bg;
 	width: 100%;
 }
+	
+.nemo-hotels-results__form {
+	.nemo-hotels-form {
+		margin-top: 0;
+	}
+}
 
 .nemo-hotels-results {
 	padding: 0;
+	
+	&__bookingCheck {
+		display: none;
+		
+		&__errorMessage {
+			padding: 10px 0;
+		}
+	}
 
 	&__error {
 		max-width: 420px;
@@ -119,6 +144,13 @@
 				display: none;
 			}
 		}
+			
+		&__mapSwitch {
+			margin-bottom: 0;
+			color: #1e1e2e !important;
+			background-color: #e6e6e6 !important;
+			background-image: linear-gradient(to bottom,rgba(250,250,250,.75),rgba(240,240,240,.75)) !important;
+		}
 
 		&__area {
 			font-size: 13px;
@@ -129,10 +161,6 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			font-size: 13px;
-			line-height: 20px;
-			padding: 10px;
-			min-width: 1px;
 
 			&__segment {
 				margin-right: 10px;
@@ -260,6 +288,8 @@
 					margin-top: -13px;
 					left: 10px;
 					z-index: 1;
+					display: block;
+					background: url('images/ui/ui-loader-circle.svg');
 				}
 
 				&__enoughBtn {
@@ -290,7 +320,7 @@
 
 					&__stars {
 						&__item {
-							background: url(/css/images/hsf-sprite.svg) no-repeat -1px -1px !important;
+							background: url(images/hsf-sprite.svg) no-repeat -1px -1px !important;
 						}
 					}
 
@@ -452,7 +482,7 @@
 							&:before {
 								width: 30px;
 								height: 24px;
-								background: url(/css/images/hsf-sprite.svg) no-repeat -1px -22px;
+								background: url(images/hsf-sprite.svg) no-repeat -1px -22px;
 							}
 						}
 					}
@@ -489,7 +519,7 @@
 
 					&__starItem {
 						width: 16px !important;
-						background-image: url(/css/images/hsf-sprite.svg);
+						background-image: url(images/hsf-sprite.svg);
 						background-position: -1px -2px !important;
 					}
 
@@ -611,7 +641,7 @@
 								&:before {
 									width: 30px;
 									height: 24px;
-									background: url("/css/images/hsf-sprite.svg") no-repeat -1px -22px;
+									background: url("images/hsf-sprite.svg") no-repeat -1px -22px;
 								}
 							}
 						}
@@ -731,13 +761,13 @@
 		margin-right: 0 !important;
 		font-size: 0;
 
-		&_active {
+		&:hover {
 			opacity: 1;
 		}
-
+		
 		&__icon {
 			display: block;
-			background: url(/css/images/hotels_results_services_sprite.svg);
+			background: url(images/hotels_results_services_sprite.svg);
 
 			&_Pool {
 				width: 20px;
@@ -823,7 +853,7 @@
 				margin-right: 10px;
 			}
 
-			&_Resturant {
+			&_Restaurant {
 				width: 21px;
 				height: 18px;
 				background-position: -358px -1px;
@@ -833,7 +863,7 @@
 			&_Meal {
 				width: 23px;
 				height: 19px;
-				background-position: -389px -1px;
+				background-position: -358px -1px;
 				position: relative;
 				margin-right: 10px;
 
@@ -925,10 +955,6 @@
 	}
 }
 
-.nemo-hotels-bread-crumbs-component {
-	padding-top: 65px !important;
-}
-
 .nemo-common-breadCrumbs {
 	.nemo-hotels-results__content__postfilters__order {
 		margin-bottom: 0 !important;
@@ -969,6 +995,10 @@
 
 [data-currency="rub"] {
 	font-family: 'RubleFont';
+}
+	
+.tooltipster-content:first-letter {
+	text-transform: uppercase;
 }
 
 /*

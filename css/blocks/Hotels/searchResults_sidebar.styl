@@ -10,10 +10,20 @@
 		padding: 20px;
 		margin-bottom: 20px;
 		cursor: pointer;
-
+			
 		&__image {
 			display: block
 			margin-bottom: 20px;
+			width: 200px;
+			height: 140px;
+			
+			&_list {
+				background: url('../img/show_on_map.png') no-repeat;
+			}
+				
+			&_map {
+				background: url('../img/show_on_list.png') no-repeat;
+			}
 		}
 	}
 
@@ -77,7 +87,7 @@
 		&__distances {
 			margin-top: -20px;
 			height: 60px;
-			background: $c_ui_button_common;
+			background: #f0f0f0;
 			position: relative;
 			z-index: 1;
 			border-radius: $nemo-border-radius;
@@ -156,6 +166,7 @@
 
 		&__infoBlock {
 			margin: 0;
+			padding-bottom: 10px;
 		}
 
 		&__mapLink {
