@@ -270,6 +270,10 @@ define (
 			if (segments.indexOf('HotelsSearchResults') === -1) {
 				segments.push('HotelsSearchResults');
 			}
+			
+			if (segments.indexOf('CommonBreadCrumbs') === -1) {
+				segments.push('CommonBreadCrumbs');
+			}
 
 			this.loadI18n(segments, function () {
 
@@ -976,6 +980,7 @@ define (
 			root: '/',
 			controllerSourceURL: '',
 			templateSourceURL: '',
+			createOrderLinkPrefixHotels: null,
 			dataURL: '',
 			staticInfoURL: '',
 			version: '',

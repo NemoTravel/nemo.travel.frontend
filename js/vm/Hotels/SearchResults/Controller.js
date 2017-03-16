@@ -42,7 +42,7 @@ define(
 			this.resultsTypeCookie = 'HotelsSearchForm';
 			this.mode = HotelsBaseModel.MODE_ID;
 			this.hasSearchIdInUrl = !!(getSearchId());
-
+			
 			this.searchId = ko.observable(null);
 			this.errorCode = ko.observable(false);
 			this.$$loading = ko.observable(false);
@@ -178,7 +178,7 @@ define(
 					},
 					{
 						title: 'hotels-step_results',
-						active: true,
+						active: !!this.hotelCard(),
 						link: '/hotels/results/' + (this.searchId() || ''),
 						pageTitle: 'HotelsResults'
 					}
@@ -187,8 +187,8 @@ define(
 				if (this.hotelCard()) {
 					baseItems.push({
 						title: this.hotelCard().name,
-						i18n: this.hotelCard().name,
 						active: false,
+						i18n: this.hotelCard().name,
 						pageTitle: this.hotelCard().name
 					});
 				}
@@ -280,6 +280,14 @@ define(
 			var roomsInfo = rooms.map(function (room) {
 				return room.id;
 			});
+			
+			if (this.$$controller.options.createOrderLinkPrefixHotels) {
+				var prefix = this.$$controller.options.createOrderLinkPrefixHotels,
+					urlParts = url.split('?'),
+					getParams = urlParts.splice(1);
+				
+				url = prefix + '?' + getParams;
+			}
 			
 			document.location.href = url + '&room_ids=' + roomsInfo.join(',');
 		};
