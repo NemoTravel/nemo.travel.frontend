@@ -77,26 +77,25 @@
 </div>
 <!-- MOBILE DROPDOWNS END -->
 
-<!-- ko if: !$$loading() -->
-<div data-bind="component: { name: 'Common/BreadCrumbs/Controller', params: { component: $data, variants: $data.breadCrumbsVariants() } }"
-	 class="nemo-hotels-bread-crumbs-component"></div>
+<div data-bind="component: { name: 'Common/BreadCrumbs/Controller', params: { component: $data, variants: $data.breadCrumbsVariants() } }" class="nemo-hotels-bread-crumbs-component"></div>
 
+<!-- ko if: !$$loading() -->
 <div data-bind="setBodyClass: 'nemo-common-contentPageBody'">
 	<!--ko if: resultsLoaded() || errorCode()-->
-	<section class="nemo-hotels-results__form js-hotels-results__form"
-			 data-bind="component: {
-							name: 'Hotels/SearchForm/Controller',
-							params: {
-								route: [],
-								formData: $data.$$rawdata,
-								additional: {
-									showPreviousSearches: false
-								}
-							}
-						},
-						visible: searchFormActive,
-						hotelsResultsSearchFormHider: searchFormActive">
-	</section>
+		<section class="nemo-hotels-results__form js-hotels-results__form" data-bind="
+			component: {
+				name: 'Hotels/SearchForm/Controller',
+				params: {
+					route: [],
+					formData: $data.$$rawdata,
+					additional: {
+						showPreviousSearches: false
+					}
+				}
+			},
+			visible: searchFormActive,
+			hotelsResultsSearchFormHider: searchFormActive">
+		</section>
 	<!-- /ko -->
 
 	<div class="nemo-hotels-loader" data-bind="visible: showGlobalLoading()"></div>
