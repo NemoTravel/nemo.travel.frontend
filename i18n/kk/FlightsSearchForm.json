@@ -71,7 +71,7 @@
     "segments__date__placeholder_RT_leg_1": "Артқа",
     "routeOptions__tripType__caption": "Бағдар",
     "routeOptions__serviceClass__caption": "Дәреже",
-    "routeOptions__vicinityDates__caption": "Іздеу ±3 күнді",
+    "routeOptions__vicinityDates__caption": "Іздеу ±[%-dates-%] күнді",
     "routeOptions__direct__caption": "Тек ғана тіке",
     "passengers__fullSelect__button__done": "Әзір",
     "passengers__fastSelect__fullSelectOption": "Жолаушылар көбірек",

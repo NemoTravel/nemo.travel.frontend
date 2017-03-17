@@ -29,5 +29,10 @@
     "leg__segment__baggage__passType_INF": "Säuglinge",
     "leg__segment__baggage__passType_INS": "Säuglinge (mit Sitz)",
     "leg__segment__baggage__passType_YTH": "Jugendliche",
-    "leg__segment__baggage__passType_SRC": "Ältere"
+    "leg__segment__baggage__passType_SRC": "Ältere",
+    "leg__stopover": "Technischer Stopp",
+    "leg__stopover__terminal": "Terminal",
+    "leg__stopover__timeArrival": "Von",
+    "leg__stopover__passengerLanding": "Warten, um das Flugzeug zu verlassen",
+    "leg__stopover__timeDeparture": "nach"
 }

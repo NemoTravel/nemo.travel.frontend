@@ -95,7 +95,7 @@
     "flightsGroup__header_cheapest_recommended": "Ən ucuz və və ən rahat",
     "flightsGroup__header_fastest_recommended": "Ən qısa və ən rahat",
     "flightsGroup__header__carrierMismatch__header": "Bir neçə havayolları",
-    "flightsGroup__header__carrierMismatch__content": "Uçuş idarə olunur [%-validatingCarrier-%] eləcə də [%-operatingCarriers-%]",
+    "flightsGroup__header__carrierMismatch__content": "Uçuş idarə olunur [%-marketingCarrier-%] eləcə də [%-operatingCarriers-%]",
     "flightsGroup__header__carrierMismatch__carriersLastJoin": "və",
     "flightsGroup__leg__title": "Uçuş detalları",
     "matrix__table__header_leg_0": "Gediş",

@@ -1,0 +1,116 @@
+<!-- nemo-flights-form_compact || nemo-flights-form_twoThirds -->
+<div class="nemo-flights-form nemo-flights-form-EAR js-autofocus-form js-nemoApp__component"> <!-- MODIFIERS: nemo-flights-form_compact || nemo-flights-form_twoThirds -->
+	<!-- ko if: !$$loading() && !$$error() -->
+	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_buttons" data-bind="foreach: tripTypes"><div class="nemo-ui-button nemo-ui-button_common nemo-flights-form__routeTypeSelector__button"data-bind="text: $root.i18n('FlightsSearchForm','triptype_'+$data),css: {'nemo-flights-form__routeTypeSelector__button_active': $parent.tripType() == $data},click: function () {$parent.tripType($data);}"></div></div>
+
+	<div class="nemo-flights-form__routeTypeSelector nemo-flights-form__routeTypeSelector_select">
+		<div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeTypeSelector__selectWrap">
+			<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeTypeSelector__select" data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchForm','triptype_' + tripType())"></div>
+			<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: tripTypes">
+				<div class="nemo-ui-select__dropdown__item" data-bind="click: function () {$parent.tripType($data)}, text: $root.i18n('FlightsSearchForm','triptype_' + $data)"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="nemo-flights-form__formContainer">
+		<!-- ko if: !searchAllowedByParamChange() -->
+		<div
+				class="nemo-ui-hint nemo-ui-hint_warn nemo-flights-form__searchBlockedError"
+				data-bind="text: $root.i18n('FlightsSearchForm','error_searchBlocked'), click: function (d,e) {$(e.target).hide()}"></div>
+		<!-- /ko -->
+		<div class="nemo-flights-form__formContainer__inner">
+			<div data-bind="attr: {'class':'nemo-flights-form__route nemo-flights-form__route_'+tripType()}, foreach: segments(), flightsFormAutoFocus: null"><div data-bind="attr: {'class': 'nemo-flights-form__route__segment ' +($parent.tripType() == 'RT' && $index() == 1 ? 'nemo-flights-form__route__segment_returnSegment ' : '') +'nemo-flights-form__route__segment_' + $parent.tripType() + ' ' +'js-autofocus-segment'}"><!-- ko if: $parent.tripType() != 'RT' || $index() != 1 --><!-- ko if: $parent.tripType() == 'CR' && $index() == ($parent.segments().length-1) --><div class="nemo-flights-form__route__removeCRSegment"data-bind="click: $parent.removeLastCRSegment.bind($parent),css: {'nemo-flights-form__route__removeCRSegment_inactive': $parent.segments().length == 1}"></div><!-- /ko --><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_from"data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.departure.error()}"><label class="nemo-ui-textInput nemo-ui-dummiedInput js-flightsSearchForm-autocomplete"><!-- ko if: $parent.validaTERROR() && items.departure.error() && items.departure.focus() --><div class="nemo-ui-hint nemo-ui-hint_warn nemo-flights-form__route__segment__item__error"data-bind="text: $root.i18n('FlightsSearchForm','error_departure_'+items.departure.error());"></div><!-- /ko --><div class="nemo-flights-form__route__segment__item__inputContainer"><input class=" nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-flights-form__route__segment__input nemo-flights-form__route__segment__input_autocomplete js-autofocus-field js-autofocus-field_departure"type="text"data-bind="flightsFormGeoAC: items.departure.value, hasFocus: items.departure.focus,attr: {placeholder: $root.i18n('FlightsSearchForm','segments__departure__placeholder')}"><div class="nemo-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy js-flightsSearchForm-autocomplete-dummy"><!-- ko if: !items.departure.value() --><span class="nemo-ui-dummiedInput__dummy__placeholder js-flightsSearchForm-autocomplete-dummy__placeholder"data-bind="text: $root.i18n('FlightsSearchForm','segments__departure__placeholder')"></span><!-- /ko --><!-- ko if: items.departure.value() --><!-- ko with: items.departure.value() --><span class="nemo-ui-dummiedInput__dummy__main js-flightsSearchForm-autocomplete-dummy__main" data-bind="text: name"></span><span class="nemo-ui-dummiedInput__dummy__aux js-flightsSearchForm-autocomplete-dummy__aux" data-bind="text: ', ' + country.name"></span><!-- /ko --><!-- /ko --></div></div><!-- ko if: $parent.showCitySwapBtn --><div class="nemo-flights-form__route__segment__item__citySwap" data-bind="click: function(){$parent.citySwap($index())}"></div><!-- /ko --></label></div><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_to"data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.arrival.error()}"><label class="nemo-ui-textInput nemo-ui-dummiedInput js-flightsSearchForm-autocomplete"><!-- ko if: $parent.validaTERROR() && items.arrival.error() && items.arrival.focus() --><div class="nemo-ui-hint nemo-ui-hint_warn nemo-flights-form__route__segment__item__error"data-bind="text: $root.i18n('FlightsSearchForm','error_arrival_'+items.arrival.error())"></div><!-- /ko --><div class="nemo-flights-form__route__segment__item__inputContainer"><input class=" nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-flights-form__route__segment__input nemo-flights-form__route__segment__input_autocomplete js-autofocus-field js-autofocus-field_arrival"type="text"data-bind="flightsFormGeoAC: items.arrival.value, hasFocus: items.arrival.focus,attr: {placeholder: $root.i18n('FlightsSearchForm','segments__arrival__placeholder')}"><div class="nemo-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy js-flightsSearchForm-autocomplete-dummy"><!-- ko if: !items.arrival.value() --><span class="nemo-ui-dummiedInput__dummy__placeholder js-flightsSearchForm-autocomplete-dummy__placeholder"data-bind="text: $root.i18n('FlightsSearchForm','segments__arrival__placeholder')"></span><!-- /ko --><!-- ko if: items.arrival.value() --><!-- ko with: items.arrival.value() --><span class="nemo-ui-dummiedInput__dummy__main js-flightsSearchForm-autocomplete-dummy__main" data-bind="text: name"></span><span class="nemo-ui-dummiedInput__dummy__aux js-flightsSearchForm-autocomplete-dummy__aux" data-bind="text: ', ' + country.name"></span><!-- /ko --><!-- /ko --></div></div></label></div><!-- /ko --><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date"data-bind="css: {'nemo-flights-form__route__segment__item_hasError': $parent.validaTERROR() && items.departureDate.error()}"><label class="nemo-ui-textInput nemo-ui-dummiedInput nemo-flights-form__route__segment__item__date"><div class="nemo-flights-form__route__segment__item__date__indicator" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31"></div><!-- ko if: $parent.validaTERROR() && items.departureDate.error() && items.departureDate.focus() --><div class="nemo-ui-hint nemo-ui-hint_warn nemo-flights-form__route__segment__item__error"data-bind="text: $root.i18n('FlightsSearchForm','error_departureDate_'+items.departureDate.error());"></div><!-- /ko --><div class="nemo-flights-form__route__segment__item__inputContainer"><input class="nemo-ui-textInput__input nemo-ui-dummiedInput__input nemo-flights-form__route__segment__input nemo-flights-form__route__segment__input_date js-autofocus-field js-autofocus-field_date"type="text"data-bind="attr: {placeholder: $root.i18n('FlightsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))},flightsFormDatepicker: items.departureDate.value,css: $parent.tripType() == 'RT' ? ($index() == 0 ? 'nemo-flights-form__route__segment__input_date_there' : 'nemo-flights-form__route__segment__input_date_back') : 'nemo-flights-form__route__segment__input_date_there',hasFocus: items.departureDate.focus"><div class="nemo-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_full"><!-- ko if: !items.departureDate.value() --><span class="nemo-ui-dummiedInput__dummy__placeholder" data-bind="text: $root.i18n('FlightsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))"></span><!-- /ko --><!-- ko if: items.departureDate.value() --><span class="nemo-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthName()"></span><span class="nemo-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWName()"></span><!-- /ko --></div><div class="nemo-ui-dummiedInput__dummy nemo-flights-form__route__segment__item__dummy nemo-flights-form__route__segment__item__date__dummy nemo-flights-form__route__segment__item__date__dummy_short"><!-- ko if: !items.departureDate.value() --><span class="nemo-ui-dummiedInput__dummy__placeholder" data-bind="text: $root.i18n('FlightsSearchForm','segments__date__placeholder' + ($parent.tripType() == 'RT' ? ($index() == 0 ? '_RT_leg_0' : '_RT_leg_1') : ''))"></span><!-- /ko --><!-- ko if: items.departureDate.value() --><span class="nemo-ui-dummiedInput__dummy__main" data-bind="text: items.departureDate.value().getDate()+' '+items.departureDate.value().getMonthNameShort()"></span><span class="nemo-ui-dummiedInput__dummy__aux" data-bind="text: ', '+items.departureDate.value().getDOWNameShort()"></span><!-- /ko --></div></div></label><!-- ko if: $parent.tripType() == 'RT' && $index() == 1 --><div class="nemo-flights-form__route__switchToOW" data-bind="click: function () {$parent.tripType('OW')}"></div><!-- /ko --></div></div><!-- ko if: $parent.tripType() == 'OW' --><div class="nemo-flights-form__route__segment nemo-flights-form__route__segment_returnSegment"><div class="nemo-flights-form__route__segment__item nemo-flights-form__route__segment__item_date"><div class="nemo-flights-form__route__switchToRT"data-bind="click: function () {$parent.tripType('RT')},flightsFormRTAutoFocus:null,text: $root.i18n('FlightsSearchForm','segments__switchToRT__text')"></div></div></div><!-- /ko --><!-- ko if: $parent.tripType() == 'CR' && $index() == ($parent.segments().length-1) --><div class="nemo-flights-form__route__continueCR"data-bind="click: $parent.continueCR.bind($parent),css: {'nemo-flights-form__route__continueCR_inactive': $parent.segments().length >= $parent.options.flightSegments},text: $root.i18n('FlightsSearchForm','segments__CR__continueRoute__text')"></div><!-- /ko --></div>
+
+			<div class="nemo-flights-form__buttonContainer">
+				<button class="nemo-ui-button nemo-ui-button_main nemo-ui-button nemo-ui-button_main_form nemo-flights-form__searchButton"
+						data-bind="
+						click: startSearch,
+						css: {
+							'nemo-ui-button_disabled': !searchEnabled(),
+							'nemo-flights-form__searchButton_searching': isSearching()
+						},
+						text: $root.i18n('FlightsSearchForm','searchButton__text')"></button>
+			</div>
+
+			<div  data-bind="attr: {'class':'nemo-flights-form__routeOptions nemo-flights-form__routeOptions_'+tripType()}">
+	<div class="nemo-flights-form__routeOptions__inner">
+		<div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_routeType">
+			<span class="nemo-flights-form__routeOptions__item__caption" data-bind="text: $root.i18n('FlightsSearchForm','routeOptions__tripType__caption')"></span>
+
+			<div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
+				<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button" data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchForm','triptype_' + tripType())"></div>
+				<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: tripTypes">
+					<div class="nemo-ui-select__dropdown__item" data-bind="click: function () {$parent.tripType($data)}, text: $root.i18n('FlightsSearchForm','triptype_' + $data)"></div>
+				</div>
+			</div>
+		</div><!--
+		--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_class">
+			<span class="nemo-flights-form__routeOptions__item__caption" data-bind="text: $root.i18n('FlightsSearchForm','routeOptions__serviceClass__caption')"></span>
+
+			<div class="nemo-ui-select js-common-pseudoSelect nemo-flights-form__routeOptions__item__selector">
+				<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-form__routeOptions__item__selector__button"
+				     data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchForm','serviceClass_'+serviceClass())"></div>
+				<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: serviceClasses">
+					<div class="nemo-ui-select__dropdown__item" data-bind="click: function (){$parent.serviceClass($data)}, text: $root.i18n('FlightsSearchForm','serviceClass_'+$data)"></div>
+				</div>
+			</div>
+		</div><!--
+			ko if: tripType() != 'CR' && options.dateOptions.aroundDatesValues.length > 0
+		--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_multiDate">
+			<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
+				<input class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: vicinityDates">
+							<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
+							      data-bind="html: $root.i18n('FlightsSearchForm','routeOptions__vicinityDates__caption').replace('[%-dates-%]', options.dateOptions.aroundDatesValues.length)"></span>
+			</label>
+		</div><!-- /ko --><!--
+			ko ifnot: options.hideDirectOnlyCheckbox
+		--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_direct">
+			<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
+				<input class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: directFlights">
+							<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
+							      data-bind="text: $root.i18n('FlightsSearchForm','routeOptions__direct__caption')"></span>
+			</label>
+		</div><!-- /ko -->
+	</div>
+</div>		</div>
+	</div>
+
+	<!-- ko if: isSearching () -->
+	<div data-bind="
+			automaticPopup: {
+				title: $root.i18n('FlightsSearchForm','searchingInfo__title'),
+				close: function () {abortSearch()},
+				closeOnOverlayClick: false,
+				contentClass: 'nemo-flights-form__searchingInfoPopup',
+				headerClass: 'ui-dialog-titlebar_progress nemo-flights-form__searchingInfoPopup__header'
+			}
+		">
+		<div class="nemo-flights-form__searchingInfo nemo-flights-form__searchingInfoPopup__content">
+	<div class="nemo-flights-form__searchingInfo__header" data-bind="text: $root.i18n('FlightsSearchForm','searchingInfo__header')"></div>
+
+	<div class="nemo-flights-form__searchingInfo__subHeader"
+		data-bind="
+			text: $root.i18n('FlightsSearchForm','searchingInfo__info')
+				.replace('[%-flightType-%]', $root.i18n('FlightsSearchForm', 'searchingInfo__flightType_' + tripType()))
+				.replace('[%-class-%]', $root.i18n('FlightsSearchForm', 'searchingInfo__class_' + serviceClass()))
+		"></div>
+
+	<div class="nemo-flights-form__searchingInfo__segments" data-bind="css: {'nemo-flights-form__searchingInfo__segments_RTLike': segments().length == 2}, foreach: segments"><div class="nemo-flights-form__searchingInfo__segment"><div class="nemo-flights-form__searchingInfo__segment__inner"><div class="nemo-flights-form__searchingInfo__segment__date" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() + ' ' + items.departureDate.value().getMonthName() + ', ' + items.departureDate.value().getDOWName() : ''"></div><div class="nemo-flights-form__searchingInfo__segment__route"><span class="nemo-flights-form__searchingInfo__segment__route__departure" data-bind="text: items.departure.value() ? items.departure.value().city.name || items.departure.value().name : ''"></span><span class="nemo-flights-form__searchingInfo__segment__route__arrival" data-bind="text: items.arrival.value() ? items.arrival.value().city.name || items.arrival.value().name : ''"></span></div></div></div></div>
+</div>	</div>
+	<!-- /ko -->
+
+	<!-- ko if: searchError -->
+	<div data-bind="automaticPopup: {title: $root.i18n('FlightsSearchForm','searchingError__title'), close: function () {searchError(false);}}">
+		<div data-bind="text: searchError" style="display: none;"></div>
+	</div>
+	<!-- /ko -->
+	<!-- /ko -->
+
+	<!-- ko if: $$error() -->
+	<div data-bind="text: $$error()"></div>
+	<!-- /ko -->
+
+	<!-- ko if: $$loading() -->
+	<div class="nemo-flights-form__loader"></div>
+	<!-- /ko -->
+</div>

@@ -92,7 +92,7 @@
     "segments__date__placeholder_RT_leg_1": "Артка",
     "routeOptions__tripType__caption": "Маршрут",
     "routeOptions__serviceClass__caption": "Класс",
-    "routeOptions__vicinityDates__caption": "3 күндүн тегерегинде издөө",
+    "routeOptions__vicinityDates__caption": "[%-dates-%] күндүн тегерегинде издөө",
     "routeOptions__direct__caption": "Түптүз",
     "passengers__fullSelect__button__done": "Даяр",
     "passengers__fastSelect__fullSelectOption": "Ашык жүргүнчүлөр",

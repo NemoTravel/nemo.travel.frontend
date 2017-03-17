@@ -35,7 +35,7 @@
     "flightsGroup__leg__title": "Ҷузъиёти парвоз",
     "flightsGroup__info__title": "Ҷузъиёти парвоз",
     "flightsGroup__header__carrierMismatch__header": "Интиқолдиҳандагони гуногун",
-    "flightsGroup__header__carrierMismatch__content": "Парвоз тавассути ширкати [%-validatingCarrier-%], ва инчунин [%-operatingCarriers-%] анҷом дода мешавад",
+    "flightsGroup__header__carrierMismatch__content": "Парвоз тавассути ширкати [%-marketingCarrier-%], ва инчунин [%-operatingCarriers-%] анҷом дода мешавад",
     "flightsGroup__selector__title": "Парвоз ва нишасти ҳавопаймо",
     "flightsGroup__selector__uncombinable_one": "Ба парвози №[%-numbers-%] мутобиқат намекунад",
     "flightsGroup__selector__uncombinable_many": "Ба парвозҳои №[%-numbers-%] мутобиқат намекунад",

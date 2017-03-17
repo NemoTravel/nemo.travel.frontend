@@ -35,7 +35,7 @@
     "flightsGroup__leg__title": "Ұшудың егжей-тегжейі",
     "flightsGroup__info__title": "Ұшулардың егжей-тегжейі",
     "flightsGroup__header__carrierMismatch__header": "Бірнеше тасымалдаушы",
-    "flightsGroup__header__carrierMismatch__content": "Ұшуды [%-validatingCarrier-%] компаниясы, сондай-ақ [%-operatingCarriers-%] орындайды",
+    "flightsGroup__header__carrierMismatch__content": "Ұшуды [%-marketingCarrier-%] компаниясы, сондай-ақ [%-operatingCarriers-%] орындайды",
     "flightsGroup__header__carrierMismatch__carriersLastJoin": "және",
     "flightsGroup__selector__title": "Ұшып кету және ұшып келу",
     "flightsGroup__selector__uncombinable_one": "№ [%-numbers-%] ұшуларымен үйлеспейді",

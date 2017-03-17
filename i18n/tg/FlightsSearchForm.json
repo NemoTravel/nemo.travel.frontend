@@ -93,7 +93,7 @@
     "segments__date__placeholder_RT_leg_1": "Баргашт",
     "routeOptions__tripType__caption": "Хатсайр ",
     "routeOptions__serviceClass__caption": "Дараҷа",
-    "routeOptions__vicinityDates__caption": "Ҷустуҷӯи ±3 рӯз",
+    "routeOptions__vicinityDates__caption": "Ҷустуҷӯи ±[%-dates-%] рӯз",
     "routeOptions__direct__caption": "Танҳо мустақим",
     "passengers__fullSelect__button__done": "Омода",
     "passengers__fastSelect__fullSelectOption": "Мусофирони бештар",

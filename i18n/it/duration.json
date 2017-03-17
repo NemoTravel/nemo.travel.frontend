@@ -1,7 +1,7 @@
 {
     "day_fourPlus": "giorni",
     "day_one": "giorno",
-    "day_short": "giorno\/i",
+    "day_short": "giorno/i",
     "day_twoToFour": "giorni",
     "hour_fourPlus": "ore",
     "hour_one": "ora",
@@ -13,7 +13,7 @@
     "minute_twoToFour": "minuti",
     "month_fourPlus": "mesi",
     "month_one": "mese",
-    "month_short": "mese\/i",
+    "month_short": "mese/i",
     "month_twoToFour": "mesi",
     "second_fourPlus": "secondi",
     "second_one": "secondo",
@@ -21,10 +21,10 @@
     "second_twoToFour": "secondi",
     "week_fourPlus": "settimane",
     "week_one": "settimana",
-    "week_short": "settimana\/e",
+    "week_short": "settimana/e",
     "week_twoToFour": "settimane",
     "year_fourPlus": "anni",
     "year_one": "anno",
-    "year_short": "anno\/i",
+    "year_short": "anno/i",
     "year_twoToFour": "anni"
 }

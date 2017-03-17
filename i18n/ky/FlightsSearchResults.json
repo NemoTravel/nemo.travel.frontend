@@ -34,7 +34,7 @@
     "flightsGroup__leg__title": "Учуу майда-барат",
     "flightsGroup__info__title": "Учуу даталары",
     "flightsGroup__header__carrierMismatch__header": "Бир нече ташуучулар",
-    "flightsGroup__header__carrierMismatch__content": "Учуу [%-validatingCarrier-%], а также [%-operatingCarriers-%] компаниясы менен аткарылат",
+    "flightsGroup__header__carrierMismatch__content": "Учуу [%-marketingCarrier-%], а также [%-operatingCarriers-%] компаниясы менен аткарылат",
     "flightsGroup__header__carrierMismatch__carriersLastJoin": "жана",
     "flightsGroup__selector__title": "Учуп чыгуу жана учуп чыгуу",
     "flightsGroup__selector__uncombinable_one": "№[%-numbers-%] учуусу менен төп келишпейт",
