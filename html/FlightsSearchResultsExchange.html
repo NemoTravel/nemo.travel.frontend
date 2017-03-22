@@ -473,7 +473,8 @@
             text: (
 	                $parent.config.name == 'carrier' ||
 	                $parent.config.name == 'departureAirport' ||
-	                $parent.config.name == 'arrivalAirport'
+	                $parent.config.name == 'arrivalAirport' ||
+	                $parent.config.name == 'travelPolicies'
 	            ?
 	            value.name :
 	            $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value)
@@ -483,7 +484,8 @@
 	            content: (
 		                $parent.config.name == 'carrier' ||
 		                $parent.config.name == 'departureAirport' ||
-		                $parent.config.name == 'arrivalAirport'
+		                $parent.config.name == 'arrivalAirport' ||
+		                $parent.config.name == 'travelPolicies'
 		            ?
 		            value.name :
 		            $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value)

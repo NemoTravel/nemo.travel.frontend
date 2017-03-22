@@ -248,9 +248,37 @@ define(
 								this.displayValues.max.length(newValue.max);
 							}
 						}
+					},
+					travelPolicies: {
+						name: 'travelPolicies',
+						type: 'String',
+						isLegged: false,
+						legNumber: 0,
+						getter: function (obj) {
+							var ret = [];
+
+							for (var i = 0; i < obj.travelPolicies.length; i++) {
+								if(obj.travelPolicies[i].value) {
+									ret.push([
+										obj.travelPolicies[i].id,
+										obj.travelPolicies[i]
+									]);
+								}
+							}
+
+							return ret;
+						},
+						options: {
+							// Filter-specific options here
+							valuesSorter: function (a, b) {
+								return a.value.name.localeCompare(b.value.name) && a.value.value === b.value.value;
+							},
+							additionalValueChooser: stringPFMinPrice,
+							type: 'multiChoice'
+						}
 					}
 				},
-				order: ['price', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute'],
+				order: ['travelPolicies', 'price', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute'],
 				grouppable: ['departureTime', 'arrivalTime'],
 				preInitValues: {
 					carrier: null,
@@ -1039,14 +1067,62 @@ define(
 						// Processing flights (iterating over groups because flights are grouped by routes)
 						tmp = 0;
 
+						var travelPoliciesInfo = this.$$rawdata.travelPolicies,
+							currentLang = this.$$rawdata.system.info.user.settings.currentLanguage;
+
 						for (var i = 0; i < this.$$rawdata.flights.search.results.flightGroups.length; i++) {
 							var segsarr = [],
+								travelPoliciesArr = [],
+								allAvailable = null,
+								allAvailableArr = [],
 								source = this.$$rawdata.flights.search.results.flightGroups[i];
 
 							// Preparing segments array
 							for (var j = 0; j < source.segments.length; j++) {
 								segsarr.push(this.segments[source.segments[j]]);
 							}
+
+							//Preparing travel policies
+							source.flights.map(function(flight, index) {
+								var travelPolicy = flight.travelPolicies,
+									travelPolicyArr = [];
+
+								ko.utils.objectForEach(travelPolicy, function (id, value) {
+									var namePolicy = '';
+
+									travelPoliciesInfo.map(function(item, index){
+										if (item.id == id) {
+											if (item.name.hasOwnProperty(currentLang)) {
+												namePolicy = item.name[currentLang];
+											}
+											else {
+												namePolicy = item.name.default;
+											}
+										}
+									});
+
+									travelPolicyArr.push({
+										'id': id,
+										'name': namePolicy,
+										'value': value[0],
+										'hint': (!value[0]) ? value[1] : ''
+									});
+								});
+
+								var tmpArr = travelPolicyArr.filter(function(item) {
+									return !!item.value;
+								});
+
+								if (tmpArr.length == travelPolicyArr.length) {
+									allAvailable = true;
+								}
+								else if (tmpArr.length == 0) {
+									allAvailable = false;
+								}
+
+								travelPoliciesArr[index] = travelPolicyArr;
+								allAvailableArr[index] = allAvailable;
+							});
 
 							// Creating flights and defining minimum and maximum flight durations and prices
 							for (var j = 0; j < source.flights.length; j++) {
@@ -1057,7 +1133,9 @@ define(
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
 										segments: segsarr,
-										createOrderLink: source.flights[j].createOrderLink
+										createOrderLink: source.flights[j].createOrderLink,
+										travelPolicies: travelPoliciesArr[j],
+										travelPoliciesAvailable: allAvailableArr[j],
 									}
 								);
 

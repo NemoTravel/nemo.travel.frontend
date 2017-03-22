@@ -398,7 +398,7 @@ define(
 					urlAdder += '-flightNumbers=' + this.flightNumbers();
 				}
 
-				if (this.directFlights()) {
+				if (this.directFlights() && !this.options.hideDirectOnlyCheckbox) {
 					urlAdder += '-direct';
 				}
 

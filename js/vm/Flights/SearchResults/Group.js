@@ -334,7 +334,9 @@ define(
 		Group.prototype.clone = function () {
 			var ret = this.$$controller.getModel('Flights/SearchResults/Group', this.$$originalData);
 
-			ret.buildCouplingTable(this.couplingTable.flights);
+			if (this.couplingTable && 'flights' in this.couplingTable) {
+				ret.buildCouplingTable(this.couplingTable.flights);
+			}
 
 			return ret;
 		};

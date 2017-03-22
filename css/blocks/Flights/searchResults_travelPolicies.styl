@@ -1,0 +1,111 @@
+$travelPoliciesLightBorder = 1px solid rgba(230, 230, 230, .75);
+$travelPoliciesAvailable = $nemo-color-secondary;
+$travelPoliciesNotAvailable = #e33905;
+$travelPoliciesToggle = $nemo-color-main;
+$travelPoliciesGrayBg = #fafafa;
+$travelPoliciesGrayBgHover = #f1f1f1;
+
+.nemo-flights-results__travelPolicies {
+	border-top: $travelPoliciesLightBorder;
+	border-bottom: $travelPoliciesLightBorder;
+	margin: 15px 0 0;
+
+	&__list {
+		margin: 0;
+		border-bottom: 0;
+	}
+
+	&__container {
+		background: $travelPoliciesGrayBg;
+	}
+
+	&__list &__container {
+		background: 0 0;
+	}
+
+	&__caption {
+		padding: 12px 20px;
+
+		&_allAvailable {
+			color: $travelPoliciesAvailable;
+		}
+
+		&_notAvailable {
+			color: $travelPoliciesNotAvailable;
+		}
+
+		&_toggle {
+			color: $travelPoliciesToggle;
+			cursor: pointer;
+			position: relative;
+			transition: all $nemo-transition-main;
+
+			&:after {
+				@extend .nemo-ui-select__toggle:after;
+			}
+
+			&.toggleBlock-open {
+				&:hover,
+				&:active {
+					background: $travelPoliciesGrayBg;
+				}
+
+				&:after {
+					@extend	.nemo-ui-select__toggle_open:after;
+				}
+			}
+
+			&:hover,
+			&:active {
+				background: $travelPoliciesGrayBgHover;
+			}
+		}
+	}
+
+	&__policies {
+		padding: 0 20px 8px;
+	}
+
+	&__list &__caption,
+	&__list &__policies {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	&__list &__caption_toggle {
+		&:hover,
+		&:active {
+			background: rgba($travelPoliciesToggle, .1);
+		}
+
+		&.toggleBlock-open {
+			&:hover,
+			&:active {
+				background: 0 0;
+			}
+		}
+	}
+
+	&__policy {
+		display: inline-block;
+		color: $nemo-color-LightPoint;
+		font-size: 11px;
+		background: $travelPoliciesAvailable;
+		padding: 4px 10px;
+		border-radius: 2px;
+		margin: 0 7px 7px 0;
+
+		&_notAvailable {
+			background: $travelPoliciesNotAvailable;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+.nemo-flights-results__flightsGroup__legs + .nemo-flights-results__travelPolicies {
+	border-top: 0;
+	margin-top: 0;
+}

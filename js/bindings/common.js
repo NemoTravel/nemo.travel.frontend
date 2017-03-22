@@ -519,6 +519,35 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.toggleBlock = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $this = $(element),
+					$root = $this.parents('.js-common-toggleBlock'),
+					$dropdown = $root.find('.js-common-toggleBlock__dropdown'),
+					openToggleBlockClass = 'toggleBlock-open';
+
+				$this.on('click', function (e) {
+					var $dropdown = $root.find('.js-common-toggleBlock__dropdown');
+
+					e.preventDefault();
+
+					if ($dropdown.is(':visible')) {
+						$dropdown.hide();
+						$this.removeClass(openToggleBlockClass);
+					}
+					else {
+						$dropdown.show();
+						$this.addClass(openToggleBlockClass);
+					}
+				});
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$this.removeClass(openToggleBlockClass);
+					$dropdown.hide();
+				});
+			}
+		};
+
 		ko.bindingHandlers.setBodyClass = {
 			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var data = valueAccessor();

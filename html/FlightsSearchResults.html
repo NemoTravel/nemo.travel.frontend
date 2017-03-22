@@ -469,7 +469,8 @@
             text: (
 	                $parent.config.name == 'carrier' ||
 	                $parent.config.name == 'departureAirport' ||
-	                $parent.config.name == 'arrivalAirport'
+	                $parent.config.name == 'arrivalAirport' ||
+	                $parent.config.name == 'travelPolicies'
 	            ?
 	            value.name :
 	            $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value)
@@ -479,7 +480,8 @@
 	            content: (
 		                $parent.config.name == 'carrier' ||
 		                $parent.config.name == 'departureAirport' ||
-		                $parent.config.name == 'arrivalAirport'
+		                $parent.config.name == 'arrivalAirport' ||
+		                $parent.config.name == 'travelPolicies'
 		            ?
 		            value.name :
 		            $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value)
@@ -594,6 +596,46 @@
 			resultsController: resultsController
 		}
 	} --><!-- /ko -->
+
+	<!-- ko if:  selectedFlight().travelPolicies.length -->
+	<div class="nemo-flights-results__travelPolicies" data-bind="with: selectedFlight()">
+		<!-- ko if: travelPoliciesAvailable -->
+				<div class="nemo-flights-results__travelPolicies__container">
+					<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_allAvailable">
+						<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__allAvailable') --><!-- /ko -->
+					</div>
+				</div>
+		<!-- /ko -->
+
+		<!-- ko if: !travelPoliciesAvailable && travelPoliciesAvailable != null -->
+			<div class="nemo-flights-results__travelPolicies__container">
+				<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_notAvailable">
+					<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__allNotAvailable') --><!-- /ko -->
+				</div>
+			</div>
+		<!-- /ko -->
+
+		<!-- ko if: travelPoliciesAvailable == null -->
+			<div class="nemo-flights-results__travelPolicies__container js-common-toggleBlock">
+				<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_toggle js-common-toggleBlock__toggle" data-bind="toggleBlock">
+					<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__someAvailable') --><!-- /ko -->
+				</div>
+				<div class="nemo-flights-results__travelPolicies__policies js-common-toggleBlock__dropdown" style="display: none;" data-bind="foreach: travelPolicies">
+					<div class="nemo-flights-results__travelPolicies__policy"
+						data-bind="css: {
+							'nemo-flights-results__travelPolicies__policy_notAvailable': !value
+						},
+						tooltip: {
+							content: (hint.length) ? $root.i18n('FlightsSearchResults', 'travelPolicies__' + hint) : false,
+							cssClass: 'nemo-flights-results__travelPolicies__policy__hint'
+						}">
+						<!-- ko text: name --><!-- /ko -->
+					</div>
+				</div>
+			</div>
+		<!-- /ko -->
+	</div>
+	<!-- /ko -->
 
 	<div class="nemo-flights-results__flightsGroup__footer">
 		<div class="nemo-flights-results__flightsGroup__footer__controls">
@@ -960,6 +1002,46 @@
 					resultsController: resultsController
 				}
 			}"></div>
+		<!-- /ko -->
+
+		<!-- ko if:  selectedFlight().travelPolicies.length -->
+		<div class="nemo-flights-results__travelPolicies nemo-flights-results__travelPolicies__list" data-bind="with: selectedFlight()">
+			<!-- ko if: travelPoliciesAvailable -->
+			<div class="nemo-flights-results__travelPolicies__container">
+				<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_allAvailable">
+					<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__allAvailable') --><!-- /ko -->
+				</div>
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: !travelPoliciesAvailable && travelPoliciesAvailable != null -->
+			<div class="nemo-flights-results__travelPolicies__container">
+				<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_notAvailable">
+					<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__allNotAvailable') --><!-- /ko -->
+				</div>
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: travelPoliciesAvailable == null -->
+			<div class="nemo-flights-results__travelPolicies__container js-common-toggleBlock">
+				<div class="nemo-flights-results__travelPolicies__caption nemo-flights-results__travelPolicies__caption_toggle js-common-toggleBlock__toggle" data-bind="toggleBlock">
+					<!-- ko text: $root.i18n('FlightsSearchResults', 'travelPolicies__someAvailable') --><!-- /ko -->
+				</div>
+				<div class="nemo-flights-results__travelPolicies__policies js-common-toggleBlock__dropdown" style="display: none;" data-bind="foreach: travelPolicies">
+					<div class="nemo-flights-results__travelPolicies__policy"
+					    data-bind="css: {
+							'nemo-flights-results__travelPolicies__policy_notAvailable': !value
+						},
+						tooltip: {
+							content: (hint.length) ? $root.i18n('FlightsSearchResults', 'travelPolicies__' + hint) : false,
+							cssClass: 'nemo-flights-results__travelPolicies__policy__hint'
+						}">
+						<!-- ko text: name --><!-- /ko -->
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
 		<!-- /ko -->
 	</div>
 
