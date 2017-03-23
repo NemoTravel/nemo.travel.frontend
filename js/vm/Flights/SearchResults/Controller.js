@@ -1355,19 +1355,56 @@ define(
 
 			// Creating
 			for (var i = 0; i < pfsOrder.length; i++) {
-				if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
-					var pfConfig,
-						pfGroup = [];
+				if (this.postfiltersData.configs[pfsOrder[i]]) {
+					if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
+						var pfConfig,
+							pfGroup = [];
 
-					for (var j = 0; j < this.searchInfo().segments.length; j++) {
-						pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
+						for (var j = 0; j < this.searchInfo().segments.length; j++) {
+							pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
 
-						pfConfig.legNumber = j;
+							pfConfig.legNumber = j;
 
+							tmp = this.$$controller.getModel(
+								'Common/PostFilter/' + pfConfig.type,
+								{
+									config: pfConfig,
+									items: this.flights,
+									onChange: function () {
+										self.PFChanged.apply(self, arguments);
+									}
+								}
+							);
+
+							this.postFilters.push(tmp);
+
+							if (tmp.isActive()) {
+								if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
+									pfGroup.push(tmp);
+								}
+								else {
+									this.visiblePostFilters.push(tmp);
+								}
+							}
+						}
+
+						if (pfGroup.length) {
+							this.visiblePostFilters.push(
+								this.$$controller.getModel(
+									'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
+									{
+										filters: pfGroup,
+										resultsController: this
+									}
+								)
+							);
+						}
+					}
+					else {
 						tmp = this.$$controller.getModel(
-							'Common/PostFilter/' + pfConfig.type,
+							'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
 							{
-								config: pfConfig,
+								config: this.postfiltersData.configs[pfsOrder[i]],
 								items: this.flights,
 								onChange: function () {
 									self.PFChanged.apply(self, arguments);
@@ -1375,80 +1412,45 @@ define(
 							}
 						);
 
-						this.postFilters.push(tmp);
-
 						if (tmp.isActive()) {
-							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
-								pfGroup.push(tmp);
-							}
-							else {
-								this.visiblePostFilters.push(tmp);
-							}
-						}
-					}
+							var tmp2;
 
-					if (pfGroup.length) {
-						this.visiblePostFilters.push(
-							this.$$controller.getModel(
-								'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
-								{
-									filters: pfGroup,
-									resultsController: this
-								}
-							)
-						);
-					}
-				}
-				else {
-					tmp = this.$$controller.getModel(
-						'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
-						{
-							config: this.postfiltersData.configs[pfsOrder[i]],
-							items: this.flights,
-							onChange: function () {
-								self.PFChanged.apply(self, arguments);
-							}
-						}
-					);
+							this.postFilters.push(tmp);
+							this.visiblePostFilters.push(tmp);
 
-					if (tmp.isActive()) {
-						var tmp2;
+							// Setting preInittedValue
+							if (this.postfiltersData.preInitValues[tmp.config.name]) {
+								switch (tmp.config.name) {
+									case 'price':
+									case 'transfersDuration':
+									case 'timeEnRoute':
+										tmp2 = tmp.value();
 
-						this.postFilters.push(tmp);
-						this.visiblePostFilters.push(tmp);
+										tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
 
-						// Setting preInittedValue
-						if (this.postfiltersData.preInitValues[tmp.config.name]) {
-							switch (tmp.config.name) {
-								case 'price':
-								case 'transfersDuration':
-								case 'timeEnRoute':
-									tmp2 = tmp.value();
+										tmp.value(tmp2);
+										break;
+									case 'carrier':
+										tmp2 = tmp.value() || [];
 
-									tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
+										for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
+											if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
+												tmp.addValue(
+													this.postfiltersData.preInitValues[tmp.config.name][j],
+													this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
+													true
+												);
 
-									tmp.value(tmp2);
-									break;
-								case 'carrier':
-									tmp2 = tmp.value() || [];
-
-									for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
-										if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
-											tmp.addValue(
-												this.postfiltersData.preInitValues[tmp.config.name][j],
-												this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
-												true
-											);
-
-											tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
+												tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
+											}
 										}
-									}
 
-									tmp.setValues(tmp2);
+										tmp.setValues(tmp2);
 
-									tmp.sort();
+										tmp.sort();
 
-									break;
+										break;
+								}
 							}
 						}
 					}
