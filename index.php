@@ -12,12 +12,7 @@
 <!--		<div>Overridden Flights Results Group template <span data-bind="text: id"></span></div>-->
 <!--	</script>-->
 
-<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: {
-        RUB: '1',
-GBP: '0.013845908880074',
-USD: '0.016975075496648',
-EUR: '0.016132935387594'
-}">
+<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: $data">
 	<!-- ko if: component() -->
 	<div style="display: none;" data-bind="attr:{style: ''}">
 		<div class="" data-bind="component: {
@@ -43,7 +38,7 @@ EUR: '0.016132935387594'
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 <!--[if IE 9]>
-	<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
+<link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
 
 <link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
@@ -95,8 +90,8 @@ EUR: '0.016132935387594'
 		function (AppController, LocalStorage) {
 			var options = {
 					controllerSourceURL: nemoSourceHost,
-					dataURL: 'http://nemo1/api',
-					staticInfoURL: '//nemo1',
+					dataURL: 'http://demo.nemo.travel/api',
+					staticInfoURL: '//demo.nemo.travel',
 					version: 'v0',
 					hostId: document.location.host,
 					root: '/',
