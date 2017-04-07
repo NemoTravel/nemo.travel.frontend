@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'js/lib/md5/md5'],
-	function (ko, helpers, BaseControllerModel, md5) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'js/lib/md5/md5', 'js/vm/Analytics'],
+	function (ko, helpers, BaseControllerModel, md5, Analytics) {
 		function FlightsSearchResultsFareFamiliesController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
@@ -51,6 +51,8 @@ define(
 			var self = this;
 			
 			if (!self.state().fareFamiliesAreLoading()) {
+				Analytics.tap('searchResults.fareFamilies.load');
+				
 				self.state().fareFamiliesAreLoading(true);
 				self.state().fareFamiliesAreLoaded(false);
 

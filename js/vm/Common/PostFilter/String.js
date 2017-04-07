@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/Common/PostFilter/Abstract'],
-	function (ko, helpers, BaseModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/Common/PostFilter/Abstract', 'js/vm/Analytics'],
+	function (ko, helpers, BaseModel, Analytics) {
 		function PostFilterString (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
@@ -153,6 +153,7 @@ define(
 				foundIndex = 0,
 				currentValue = this.value() || [];
 
+			Analytics.tap('searchResults.filter.value', { name: this.config.name, value: value });
 
 			if (this.type == 'singleChoice') {
 				this.value([value]);

@@ -23,13 +23,6 @@ define([
     GoogleMapModel.prototype.infoPopup = null;
     GoogleMapModel.prototype.maps = {};
 
-    var getMarkerIcon = function (iconType) {
-        return {
-            url: '/templates/wurst/f2.0/img/' + iconType + '.svg',
-            scaledSize: new google.maps.Size(GoogleMapModel.MAP_SIZE_WIDTH, GoogleMapModel.MAP_SIZE_HEIGHT)
-        };
-    };
-
     function makeMap(id, coords, scrollOnWheel, disableZoomAndStreetViewControl) {
         return new google.maps.Map(document.getElementById(id), {
             center: {lat: coords[0], lng: coords[1]},
@@ -39,6 +32,15 @@ define([
             streetViewControl: !disableZoomAndStreetViewControl
         });
     }
+
+	GoogleMapModel.prototype.getMarkerIcon = function (iconType) {
+		var baseUrl = this.$$controller.options.controllerSourceURL;
+
+		return {
+			url: baseUrl + '/img/' + iconType + '.svg',
+			scaledSize: new google.maps.Size(GoogleMapModel.MAP_SIZE_WIDTH, GoogleMapModel.MAP_SIZE_HEIGHT)
+		};
+	};
 
     /**
      *
@@ -61,7 +63,7 @@ define([
                     hotel.staticDataInfo.posLongitude
                 ),
                 map: map,
-                icon: getMarkerIcon(iconType),
+                icon: this.getMarkerIcon(iconType),
                 optimized: false,
                 content: Cache.storage().get(md5('/html/partials/nemo-koTemplate-HotelsResults-MapInfoWindow.html'))
             });

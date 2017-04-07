@@ -10,7 +10,7 @@ define(['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'], function (ko, hel
 
 		var countryCode = this.country_code;
 
-		if (!countryCode && this.pool.cities[this.id].countryCode) {
+		if (!countryCode && this.pool.cities[this.id] && this.pool.cities[this.id].countryCode) {
 			countryCode = this.pool.cities[this.id].countryCode;
 		}
 

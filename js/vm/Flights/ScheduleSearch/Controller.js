@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchForm/Controller'],
-	function (ko, helpers, BaseControllerModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchForm/Controller' , 'js/vm/Analytics'],
+	function (ko, helpers, BaseControllerModel, Analytics) {
 		function FlightsScheduleSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
@@ -242,8 +242,10 @@ define(
 				datePeriodEnd: this.schedulePeriodEnd().getISODate(),
 				direct: this.directFlights()
 			};
+
+			Analytics.tap('searchForm.scheduleSearch');
+			Analytics.tap('analyticsScheduleSearch', { noPrefix: true });
 			
-			$(document).trigger("analyticsScheduleSearch");
 			// Getting schedule
 			this.clearSchedule();
 			this.scheduleLoading(true);

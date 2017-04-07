@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
-	function (ko, helpers, BaseControllerModel, Cookie) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'js/vm/Analytics'],
+	function (ko, helpers, BaseControllerModel, Cookie, Analytics) {
 		function FlightsSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
@@ -433,6 +433,8 @@ define(
 
 				return urlAdder;
 			}, this);
+
+			this.initAnalytics();
 		}
 
 		// Extending from dictionaryModel
@@ -450,6 +452,41 @@ define(
 		//	FlightsSearchFormController.prototype.passengerTypesOrder.push(FlightsSearchFormController.prototype.passengerAdditionalTypes[i]);
 		//	FlightsSearchFormController.prototype.passengerAdultTypes.push(FlightsSearchFormController.prototype.passengerAdditionalTypes[i]);
 		//}
+
+		FlightsSearchFormController.prototype.initAnalytics = function () {
+			// Analytics bindings
+			this.directFlights.subscribe(function (val) {
+				Analytics.tap('searchForm.directFlights.active', { value: val });
+			});
+
+			this.tripType.subscribe(function (val) {
+				Analytics.tap('searchForm.tripType.value', { value: val });
+			});
+
+			this.additionalParameters.maxTransfersLength.subscribe(function (val) {
+				Analytics.tap('searchForm.additionalParameters.fastFlights.active', { value: val });
+			});
+
+			this.additionalParameters.maxTimeEnRoute.subscribe(function (val) {
+				Analytics.tap('searchForm.additionalParameters.maxRouteTime.value', { value: val });
+			});
+
+			this.additionalParameters.maxPrice.subscribe(function (val) {
+				Analytics.tap('searchForm.additionalParameters.maxPrice.value', { value: val });
+			});
+
+			this.additionalParameters.carriers.subscribe(function (val) {
+				Analytics.tap('searchForm.additionalParameters.carriers.value', { value: val });
+			});
+
+			this.serviceClass.subscribe(function (val) {
+				Analytics.tap('searchForm.serviceClass.value', { value: val });
+			});
+
+			this.vicinityDates.subscribe(function (val) {
+				Analytics.tap('searchForm.vicinityDates.active', { value: val });
+			});
+		};
 
 		FlightsSearchFormController.prototype.openPassengersSelector = function () {
 			if (
@@ -887,13 +924,16 @@ define(
 			if (!this.isValid()) {
 				this.validaTERROR(true);
 				this.processValidation();
+				Analytics.tap('searchForm.search.validationError');
 			}
 			else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
-				$(document).trigger("analyticsStartSearch");
+				Analytics.tap('searchForm.search');
+				Analytics.tap('analyticsStartSearch', { noPrefix: true });
 				this.goToResults();
 			}
 			else {
-				$(document).trigger("analyticsStartSearch");
+				Analytics.tap('searchForm.search');
+				Analytics.tap('analyticsStartSearch', { noPrefix: true });
 				this.makeSynchronousSeach();
 			}
 		};

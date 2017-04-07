@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'jquery'],
-	function (ko, $) {
+	['knockout', 'jquery', 'js/vm/Analytics'],
+	function (ko, $, Analytics) {
 		ko.bindingHandlers.fareFamiliesChooseFlight = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var data = ko.utils.unwrapObservable(valueAccessor());
@@ -12,7 +12,9 @@ define(
 				
 				$(element).on('click', function () {
 					if (!data.controller.state().choosingFlight()) {
-						$(document).trigger("analyticsSelectFareFamily");
+						Analytics.tap('searchResults.fareFamilies.select');
+						Analytics.tap('analyticsSelectFareFamily', { noPrefix: true });
+						
 						data.controller.state().choosingFlight(true);
 						data.controller.currentFlightId(data.flightId);
 						data.controller.resultsController.bookFlight([data.flightId], { 

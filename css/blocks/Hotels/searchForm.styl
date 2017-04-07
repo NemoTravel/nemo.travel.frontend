@@ -1,0 +1,60 @@
+$i_hotels_form_datapicker_interval_background = #edf6e2;
+$i_hotels_form_datapicker_weekend_color = #64b5f6;
+$i_hotels_form_datapicker_start_background = 136, 196, 61;
+$i_hotels_form_datapicker_stop_background = 136, 196, 61;
+$i_hotels_form_datapicker_start_color = #ffffff;
+$i_hotels_form_datapicker_stop_color = #ffffff;
+
+.nemo-hotels {
+	.nemo-pmu {
+		&-interval {
+			background: $i_hotels_form_datapicker_interval_background;
+		}
+			
+		&-sunday, &-saturday, &-start, &-stop {
+			&:not(.nemo-pmu-notInMonth) {
+				color: $i_hotels_form_datapicker_weekend_color;
+			}
+		}
+			
+		&-start:not(.nemo-pmu-notInMonth) {
+			background: rgba($i_hotels_form_datapicker_start_background, 1);
+			color: $i_hotels_form_datapicker_start_color !important;
+			position: relative;
+			box-shadow: 1px 0 10px rgba($i_hotels_form_datapicker_start_background, 0.8);
+			border-bottom: 0;
+			border-left-color: rgba($i_hotels_form_datapicker_start_background, 1);
+			
+			&:after {
+				content: '';
+				position: absolute;
+				right: -5px;
+				width: 0;
+				height: 0;
+				border-top: 14px solid rgba(0, 0, 0, 0);
+				border-bottom: 15px solid rgba(0, 0, 0, 0);
+				border-left: 5px solid rgba($i_hotels_form_datapicker_start_background, 1);
+			}
+		}
+			
+		&-stop:not(.nemo-pmu-notInMonth) {
+			background: rgba($i_hotels_form_datapicker_stop_background, 1);
+			color: $i_hotels_form_datapicker_stop_color !important;
+			position: relative;
+			box-shadow: -1px 0 10px rgba($i_hotels_form_datapicker_stop_background, 0.8);
+			border-bottom: 0;
+			border-right-color: rgba($i_hotels_form_datapicker_stop_background, 1);
+
+			&:after {
+				content: '';
+				position: absolute;
+				left: -5px;
+				width: 0;
+				height: 0;
+				border-top: 14px solid rgba(0, 0, 0, 0);
+				border-bottom: 15px solid rgba(0, 0, 0, 0);
+				border-right: 5px solid rgba($i_hotels_form_datapicker_stop_background, 1);
+			}
+		}
+	}
+}

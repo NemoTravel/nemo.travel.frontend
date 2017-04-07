@@ -12,35 +12,80 @@ define (
 			this.initErrorHandler();
 
 			this.routes = [
-				// Form with optional data from existing search
-				{re: /^(?:search\/(\d+)(?:\/?.*)?)?$/, handler: 'Flights/SearchForm/Controller'},
+				// Flights Search Form
+				{
+					re: [
+						// Form with optional data from existing search
+						/^(?:search\/(\d+)(?:\/?.*)?)?$/,
+						
+						// Form with initialization by URL:
+						// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
+						// /IEVPEWd1PEWMOWd10ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
+						// IEV, PEW - IATAs with city priority, 20150718 - YYYY-MM-DD date
+						// d1 & d10 in second URL - relative dates
+						// ADT 3 INS 1 CLD 2 - Passenger types with corresponding counts
+						// direct - direct flights flag
+						// vicinityDates - vicinity dates flag
+						// class=Business - class definition
+						// GO - immediate search flag
+						/^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/
+					],
+					handler: 'Flights/SearchForm/Controller'
+				},
 
-				// Form with initialization by URL:
-				// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
-				// /IEVPEWd1PEWMOWd10ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
-				// IEV, PEW - IATAs with city priority, 20150718 - YYYY-MM-DD date
-				// d1 & d10 in second URL - relative dates
-				// ADT 3 INS 1 CLD 2 - Passenger types with corresponding counts
-				// direct - direct flights flag
-				// vicinityDates - vicinity dates flag
-				// class=Business - class definition
-				// GO - immediate search flag
-				{re: /^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/SearchForm/Controller'},
+				// Flights Schedule Search
+				{
+					re: [
+						/^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?(?:\/?\?.*)?$/,
+						/^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/
+					],
+					handler: 'Flights/ScheduleSearch/Controller'
+				},
 
-				{re: /^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
-				{re: /^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/, handler: 'Flights/ScheduleSearch/Controller'},
+				// Flights Search Results
+				{
+					re: [
+						// Search by results id
+						/^results\/(\d+)(\/.*)?$/,
+						
+						// Search by URL params
+						// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
+						// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
+						/^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/
+					],
+					handler: 'Flights/SearchResults/Controller'
+				},
 
-				{re: /^results\/(\d+)(\/.*)?$/, handler: 'Flights/SearchResults/Controller'},
+				// Hotels Search Form
+				{
+					re: /^hotels$/, 
+					handler: 'Hotels/SearchForm/Controller'
+				},
 
-				// Search by URL params
-				// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
-				// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
-				{re: /^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)$/, handler: 'Flights/SearchResults/Controller'},
+				// Hotels Search Results
+				{
+					// /hotels/results/:search_id?/:hotel_id?
+					re: /^hotels\/results\/?(\d+)?\/?(\d+)?$/, 
+					handler: 'Hotels/SearchResults/Controller', 
+					params: ['search_id', 'hotel_id']
+				},
 
-				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'},
-				{re: /^hotels$/, handler: 'Hotels/SearchForm/Controller'},
-				{re: /^hotels\/results\/?(\d+)?\/?(\d+)?$/, handler: 'Hotels/SearchResults/Controller', params: ['search_id', 'hotel_id']}, // /hotels/results/:search_id?/:hotel_id?
+				// Fallback for the search form
+				{
+					re: /^(\/?)\?(.*)?$/, 
+					handler: 'Flights/SearchForm/Controller'
+				},
+
+				// Fallback for the hotels search form
+				{
+					re: /^hotels(\/?)\?(.*)?$/, 
+					handler: 'Hotels/SearchForm/Controller'
+				},
+				
+				// ??? what is that thing
+				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
+			
 			this.i18nStorage = {};
 
 			this.componentsAdditionalParameters = {};
@@ -131,21 +176,29 @@ define (
 					var fragment = this.getFragment();
 
 					for (var i = 0; i < self.routes.length; i++) {
-						var match = fragment.match(self.routes[i].re);
+						var patterns = self.routes[i].re;
+						
+						if (!(patterns instanceof Array)) {
+							patterns = [patterns];
+						}
+						
+						for (var j = 0, max = patterns.length; j < max; j++) {
+							var match = fragment.match(patterns[j]);
 
-						if (match) {
-							var routeParams = match.slice(1),
-								routeParamsValues = {};
+							if (match) {
+								var routeParams = match.slice(1),
+									routeParamsValues = {};
 
-							if (self.routes[i].params) {
-								self.routes[i].params.forEach(function (paramId, index) {
-									routeParamsValues[paramId] = routeParams[index];
-								});
+								if (self.routes[i].params) {
+									self.routes[i].params.forEach(function (paramId, index) {
+										routeParamsValues[paramId] = routeParams[index];
+									});
+								}
+
+								match.shift();
+
+								return [self.routes[i].handler, match, routeParamsValues];
 							}
-
-							match.shift();
-
-							return [self.routes[i].handler, match, routeParamsValues];
 						}
 					}
 

@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'jquery', 'jqueryUI'],
-	function (ko, $) {
+	['knockout', 'jquery', 'js/vm/Analytics', 'jqueryUI'],
+	function (ko, $, Analytics) {
 		// Common Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -37,6 +37,8 @@ define(
 					},
 					change: function( event, ui ) {
 						if (event.originalEvent) {
+							Analytics.tap('searchResults.filter.value', { name: viewModel.config.name, value: ko.unwrap(valueAccessor()) });
+							
 							switch (viewModel.type) {
 								case 'range':
 									valueAccessor()({

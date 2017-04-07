@@ -12,7 +12,12 @@
 <!--		<div>Overridden Flights Results Group template <span data-bind="text: id"></span></div>-->
 <!--	</script>-->
 
-<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: $data">
+<div class="nemo-root nemo-widget nemo-widget_flights js-nemoApp" data-bind="moneyInit: {
+        RUB: '1',
+GBP: '0.013845908880074',
+USD: '0.016975075496648',
+EUR: '0.016132935387594'
+}">
 	<!-- ko if: component() -->
 	<div style="display: none;" data-bind="attr:{style: ''}">
 		<div class="" data-bind="component: {
@@ -90,8 +95,8 @@
 		function (AppController, LocalStorage) {
 			var options = {
 					controllerSourceURL: nemoSourceHost,
-					dataURL: 'http://demo.nemo.travel/api',
-					staticInfoURL: '//demo.nemo.travel',
+					dataURL: 'http://nemo1/api',
+					staticInfoURL: '//nemo1',
 					version: 'v0',
 					hostId: document.location.host,
 					root: '/',

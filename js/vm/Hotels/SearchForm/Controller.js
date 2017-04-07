@@ -5,28 +5,29 @@ define([
         'jsCookie',
         'js/vm/Models/HotelsBaseModel',
         'js/vm/Models/RecentHotelsModel',
-        'js/vm/Models/LocalStorage'
+        'js/vm/Models/LocalStorage',
+		'js/vm/Models/RecentSearchModel'
     ],
-    function (ko,
-              helpers,
-              BaseControllerModel,
-              Cookie,
-              HotelsBaseModel,
-              RecentHotelsModel,
-              LocalStorage
+    function (
+    	ko,
+		helpers,
+		BaseControllerModel,
+		Cookie,
+		HotelsBaseModel,
+		RecentHotelsModel,
+		LocalStorage,
+		RecentSearchModel
     ) {
 
         function HotelsSearchFormController(componentParameters) {
-
             BaseControllerModel.apply(this, arguments);
 
             var self = this;
 
             this.name = 'HotelsSearchFormController';
-
             this.maxInfants = 4;
-
             this.delayedSearch = true;
+			this.roomsUseExtendedSelect = false;
             this.searchError = ko.observable(false);
             this.segments = ko.observableArray([]);
             this.citySuggestions = ko.observableArray([]);
@@ -36,11 +37,11 @@ define([
             this.datesUnknown = ko.observable(false);
             this.options = {};
             this.validaTERROR = ko.observable(false);
+			this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
 
             // Set cookies is not an observable for when it changes it won't trigger cookie setting via
             this.setCookies = false;
             this.useCookies = true;
-
             this.mode = HotelsBaseModel.MODE_NORMAL;
             this.roomsFastSelectorOpen = ko.observable(false);
             this.parametersChanged = ko.observable(false);

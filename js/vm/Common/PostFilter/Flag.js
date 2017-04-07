@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/Common/PostFilter/Abstract'],
-	function (ko, helpers, BaseModel) {
+	['knockout', 'js/vm/helpers', 'js/vm/Common/PostFilter/Abstract', 'js/vm/Analytics'],
+	function (ko, helpers, BaseModel, Analytics) {
 		function PostFilterFlag (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
@@ -51,6 +51,7 @@ define(
 		};
 
 		PostFilterFlag.prototype.selectValue = function (value) {
+			Analytics.tap('searchResults.filter.value', { name: this.config.name, value: value });
 			this.value(true);
 		};
 

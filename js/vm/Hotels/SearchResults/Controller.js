@@ -256,13 +256,14 @@ define(
 			this.getHotelMainImage = function (hotel, defaultImage) {
 				var photos = hotel.staticDataInfo.photos || [],
 					mainPhotoId = hotel.staticDataInfo.mainPhotoId,
-					url = 'url(' + (photos[mainPhotoId] ? photos[mainPhotoId] : '/templates/wurst/f2.0/img/no_hotel.svg') + ')';
+					baseUrl = this.$$controller.options.controllerSourceURL,
+					url = 'url(' + (photos[mainPhotoId] ? photos[mainPhotoId] : baseUrl + '/img/no_hotel.svg') + ')';
 
 				if (defaultImage === 1) {
-					url += ', url(/templates/wurst/f2.0/img/no_hotel.svg)';
+					url += ', url(' + baseUrl + '/img/no_hotel.svg)';
 				}
 				else if (defaultImage === 2) {
-					url += ', url(/templates/wurst/f2.0/img/hotel_thumb.png)';
+					url += ', url(' + baseUrl + '/img/hotel_thumb.png)';
 				}
 
 				return url;

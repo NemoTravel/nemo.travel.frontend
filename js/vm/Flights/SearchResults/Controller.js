@@ -1,7 +1,7 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie'],
-	function (ko, helpers, BaseControllerModel, Cookie) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'js/vm/Analytics'],
+	function (ko, helpers, BaseControllerModel, Cookie, Analytics) {
 		function FlightsSearchResultsController(componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
@@ -441,9 +441,30 @@ define(
 						this.flightsCompareTableTransfer().isDisplayable()
 					);
 			}, this);
+			
+			this.initAnalytics();
 		}
+		
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
+
+		FlightsSearchResultsController.prototype.initAnalytics = function () {
+			this.compareTablesOpen.subscribe(function (val) {
+				Analytics.tap('searchResults.compareTable.active', { value: val });
+			});
+			
+			this.formActive.subscribe(function (val) {
+				Analytics.tap('searchResults.fastSearchForm.active', { value: val });
+			});
+
+			this.sort.subscribe(function (val) {
+				Analytics.tap('searchResults.sort.value', { value: val });
+			});
+
+			this.displayType.subscribe(function (val) {
+				Analytics.tap('searchResults.displayType.value', { value: val });
+			});
+		};
 
 		FlightsSearchResultsController.prototype.paramsParsers = {
 			rtseg: /^([ac][A-ZА-Я]{3})([ac][A-ZА-Я]{3})(\d{8})(\d{8})$/g,
@@ -690,13 +711,15 @@ define(
 									oldPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.oldValue),
 									newPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.newValue),
 									proceed: function() {
-										$(document).trigger("analyticsSelectFlight");
+										Analytics.tap('searchResults.flight.select');
+										Analytics.tap('analyticsSelectFlight', { noPrefix: true });
 										document.location = url;
 									}
 								});
 							}
 							else {
-								$(document).trigger("analyticsSelectFlight");
+								Analytics.tap('searchResults.flight.select');
+								Analytics.tap('analyticsSelectFlight', { noPrefix: true });
 								document.location = url;
 							}
 						}
@@ -1355,56 +1378,19 @@ define(
 
 			// Creating
 			for (var i = 0; i < pfsOrder.length; i++) {
-				if (this.postfiltersData.configs[pfsOrder[i]]) {
-					if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
-						var pfConfig,
-							pfGroup = [];
+				if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
+					var pfConfig,
+						pfGroup = [];
 
-						for (var j = 0; j < this.searchInfo().segments.length; j++) {
-							pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
+					for (var j = 0; j < this.searchInfo().segments.length; j++) {
+						pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
 
-							pfConfig.legNumber = j;
+						pfConfig.legNumber = j;
 
-							tmp = this.$$controller.getModel(
-								'Common/PostFilter/' + pfConfig.type,
-								{
-									config: pfConfig,
-									items: this.flights,
-									onChange: function () {
-										self.PFChanged.apply(self, arguments);
-									}
-								}
-							);
-
-							this.postFilters.push(tmp);
-
-							if (tmp.isActive()) {
-								if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
-									pfGroup.push(tmp);
-								}
-								else {
-									this.visiblePostFilters.push(tmp);
-								}
-							}
-						}
-
-						if (pfGroup.length) {
-							this.visiblePostFilters.push(
-								this.$$controller.getModel(
-									'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
-									{
-										filters: pfGroup,
-										resultsController: this
-									}
-								)
-							);
-						}
-					}
-					else {
 						tmp = this.$$controller.getModel(
-							'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
+							'Common/PostFilter/' + pfConfig.type,
 							{
-								config: this.postfiltersData.configs[pfsOrder[i]],
+								config: pfConfig,
 								items: this.flights,
 								onChange: function () {
 									self.PFChanged.apply(self, arguments);
@@ -1412,45 +1398,80 @@ define(
 							}
 						);
 
+						this.postFilters.push(tmp);
+
 						if (tmp.isActive()) {
-							var tmp2;
+							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
+								pfGroup.push(tmp);
+							}
+							else {
+								this.visiblePostFilters.push(tmp);
+							}
+						}
+					}
 
-							this.postFilters.push(tmp);
-							this.visiblePostFilters.push(tmp);
-
-							// Setting preInittedValue
-							if (this.postfiltersData.preInitValues[tmp.config.name]) {
-								switch (tmp.config.name) {
-									case 'price':
-									case 'transfersDuration':
-									case 'timeEnRoute':
-										tmp2 = tmp.value();
-
-										tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
-
-										tmp.value(tmp2);
-										break;
-									case 'carrier':
-										tmp2 = tmp.value() || [];
-
-										for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
-											if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
-												tmp.addValue(
-													this.postfiltersData.preInitValues[tmp.config.name][j],
-													this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
-													true
-												);
-
-												tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
-											}
-										}
-
-										tmp.setValues(tmp2);
-
-										tmp.sort();
-
-										break;
+					if (pfGroup.length) {
+						this.visiblePostFilters.push(
+							this.$$controller.getModel(
+								'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
+								{
+									filters: pfGroup,
+									resultsController: this
 								}
+							)
+						);
+					}
+				}
+				else {
+					tmp = this.$$controller.getModel(
+						'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
+						{
+							config: this.postfiltersData.configs[pfsOrder[i]],
+							items: this.flights,
+							onChange: function () {
+								self.PFChanged.apply(self, arguments);
+							}
+						}
+					);
+
+					if (tmp.isActive()) {
+						var tmp2;
+
+						this.postFilters.push(tmp);
+						this.visiblePostFilters.push(tmp);
+
+						// Setting preInittedValue
+						if (this.postfiltersData.preInitValues[tmp.config.name]) {
+							switch (tmp.config.name) {
+								case 'price':
+								case 'transfersDuration':
+								case 'timeEnRoute':
+									tmp2 = tmp.value();
+
+									tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
+
+									tmp.value(tmp2);
+									break;
+								case 'carrier':
+									tmp2 = tmp.value() || [];
+
+									for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
+										if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
+											tmp.addValue(
+												this.postfiltersData.preInitValues[tmp.config.name][j],
+												this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
+												true
+											);
+
+											tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
+										}
+									}
+
+									tmp.setValues(tmp2);
+
+									tmp.sort();
+
+									break;
 							}
 						}
 					}
@@ -1521,6 +1542,8 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.showAllGroups = function () {
+			Analytics.tap('searchResults.showAllFlights');
+			
 			this.shownGroups(Infinity);
 
 			this.buildVisibleGroups();
