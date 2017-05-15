@@ -20,5 +20,19 @@
     "leg__stopover__timeDeparture": "kadar",
     "leg__stopover__timeArrival": "- dan / den",
     "leg__stopover": "Teknik iniş",
-    "leg__stopover__terminal": "Terminal"
+    "leg__stopover__terminal": "Terminal",
+    "leg__segment__baggage__metric_pc": "Adet",
+    "leg__segment__baggage__metric_lb": "",
+    "leg__segment__baggage__caption": "Bagaj",
+    "leg__segment__baggage__passType_ADT": "Yetişkinler",
+    "leg__segment__baggage__passType_CLD": "Çocuklar",
+    "leg__segment__baggage__passType_CNN": "Çocuklar",
+    "leg__segment__baggage__passType_INF": "Bebekler",
+    "leg__segment__baggage__passType_INS": "Bebekler koltuklu",
+    "leg__segment__baggage__passType_YTH": "Öğrenciler",
+    "leg__segment__baggage__passType_SRC": "Emekliler",
+    "leg__segment__baggage__carryOn_only": "Sadece el bagajı",
+    "leg__segment__baggage__carryOn": "El bagajı  +",
+    "leg__segment__baggage__metric_kg": "Kg",
+    "leg__stopover__passengerLanding": "Uçaktan çıkmayı bekleme"
 }

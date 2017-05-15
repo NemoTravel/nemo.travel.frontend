@@ -29,6 +29,8 @@
     "show_city_swap_button": "Отображать кнопку, которая меняет местами города вылета и прилета",
     "google_maps_api_key": "Ключ для Google Maps API",
     "google_maps_client_id": "Идентификатор клиента Google Maps API",
+    "redirect_from_nemo_to_pages": "Перенаправлять указанные страницы на другой домен",
+    "redirect_from_nemo_to": "Домен перенаправления",
     "compare_table_transfers_type": "Способ отображения числа пересадок в сравнительной таблице перелетов",
     "transfersSum": "Сумма пересадок",
     "transfersMin": "Минимальное количество пересадок на плече",

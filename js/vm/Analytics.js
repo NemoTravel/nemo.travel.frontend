@@ -13,6 +13,16 @@ function initAnalytics($) {
 			var info = {};
 			
 			if (options.value) {
+				if (options.value instanceof Array) {
+					options.value = options.value.join(',');	
+				}
+				else if (typeof options.value === 'function') {
+					options.value = '';
+				}
+				else if (typeof options.value === 'object') {
+					options.value = JSON.stringify(options.value);
+				}
+				
 				info.value = options.value;
 			}
 			
