@@ -1,7 +1,5 @@
 {
-	"FlightsSearch": "Поиск авиабилетов",
-	"FlightsResults": "Результаты поиска",
-	"HotelsResults": "Результаты поиска",
-	"HotelsSearch": "Поиск отелей",
-	"HotelCard": "Оформление заказа"
+    "FlightsSearch": "Búsqueda de billetes",
+    "FlightsResults": "Resultados de búsqueda",
+    "FlightsScheduleSearch": "Búsqueda por horario"
 }

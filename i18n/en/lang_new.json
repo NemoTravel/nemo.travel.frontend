@@ -19,5 +19,6 @@
     "showFareVariationsNever": "Never",
     "showFareVariationsB2B": "Only for B2B users",
     "showFareVariationsAlways": "Always",
-    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": ""
+    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": "",
+    "transfersMin": "Minimum number of transfers on the leg"
 }

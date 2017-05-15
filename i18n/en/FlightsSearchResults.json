@@ -222,7 +222,7 @@
     "flightsGroup__selector__isCharter": "Charter flight",
     "flightsGroup__footer__subagentProfit": "Subagent's profit:",
     "warning_204_header": "No flights found",
-    "warning_204": "Unfortunately, there are no flights meeting your search criteri. We can offer some other flights or you can start a new search.",
+    "warning_204": "Unfortunately, there are no flights meeting your search criterias. We can offer some other flights or you can start a new search.",
     "warning_204_button_continue": "Continue",
     "warning_204_button_return": "Back to search",
     "error_requestFailed_header": "Search request failed. Please, contact your helpdesk.",
