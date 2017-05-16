@@ -236,28 +236,8 @@
 					<div class="nemo-hotels-form__RoomsPopup__room__ages">
 						<div class="nemo-hotels-form__RoomsPopup__room__ages__title" data-bind="text: infants().length > 0 ? $root.i18n('HotelsSearchForm','rooms_infants_ages') : ''"></div>
 						<!-- ko foreach: infants -->
-							<div class="nemo-hotels-form__yearsPicker_container js-nemo-hotels-form__yearsPicker_container" data-bind="
-								infantsAgesSelector:null,
-								attr: { room: $parentContext.$index, infant:$index() }
-							">
-								<div class="nemo-hotels-form__yearsPicker_drop js-nemo-hotels-form__yearsPicker_drop">
-									<!-- ko foreach: $parentContext.$parent.infantsAges -->
-										<div class="nemo-hotels-form__yearsPicker_drop_item"
-											 data-bind="
-												infantsAgesSelect:null,
-												text: $data,
-												attr: { room: $parentContext.$parentContext.$index, infant:$parentContext.$index() }
-											 "></div>
-									<!-- /ko -->
-									
-									<div class="nemo-hotels-form__yearsPicker_drop_item"></div>
-									<div class="nemo-hotels-form__yearsPicker_drop_item"></div>
-								</div>
-								
-								<select name="" class="nemo-hotels-form__yearsPicker_mobile js-nemo-hotels-form__yearsPicker_mobile" data-bind="
-									options: $parentContext.$parent.infantsAges,
-									value: $data">
-								</select>
+							<div class="nemo-hotels-form__spinner">
+								<input data-bind="snipperAge: $parentContext.$data.infants()[$index()], spinnerOptions: { min: 0, max: 17, numberFormat: 'n' }, attr:{ room: $parentContext.$index(), infant: $index() }" maxlength="1" readonly>
 							</div>
 						<!-- /ko -->
 					</div>

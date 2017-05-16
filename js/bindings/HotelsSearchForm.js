@@ -356,6 +356,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				}
 			}
 		};
+		
 		ko.bindingHandlers.spinnerInfants = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				//initialize datepicker with some optional options
@@ -370,14 +371,13 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 					element,
 					'spinstop',
 					function (event) {
-						if (event.keyCode != undefined) {
+						if (event.keyCode !== undefined) {
 							return;
 						}
 
-						var countInfants = $(element).spinner('value'),
-							isDesktop    = mobileDetect() == 'desktop';
+						var countInfants = parseInt($(element).spinner('value'));
 
-						if (countInfants == 0) {
+						if (countInfants === 0) {
 							context.$parent.rooms()[$(element).attr('room')].infants([]);
 						}
 						else {
@@ -410,59 +410,49 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				}
 			}
 		};
-		ko.bindingHandlers.infantsAgesSelector = {
+
+		ko.bindingHandlers.snipperAge = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var context = bindingContext;
+				// initialize datepicker with some optional options
+				var options = allBindingsAccessor().spinnerOptions || {};
 
-				if (mobileDetect().deviceType != 'phone') {
-					$('.js-nemo-hotels-form__yearsPicker_mobile').attr('disabled', 'disabled');
-				}
-				else {
-					var $selectCurrent = $('.js-nemo-hotels-form__yearsPicker_mobile', element);
+				$(element).spinner(options);
 
-					$selectCurrent.on('change', function (e) {
-						e.preventDefault();
+				// handle the field changing
+				ko.utils.registerEventHandler(
+					element,
+					'spinstop',
+					function (event) {
+						if (event.keyCode !== undefined) {
+							return;
+						}
 
-						var $self = $(element);
-						var room = $self.attr('room');
-						var infant = $self.attr('infant');
-						var age = $(this).val();
+						var $self = $(element),
+							room = $self.attr('room'),
+							infant = $self.attr('infant'),
+							age = $(element).spinner('value');
 
-						context.$parentContext.$parent.selectInfantAge(room, infant, age);
-					});
-				}
-
-				$(element).on('click', function (e) {
-					if (mobileDetect().deviceType == 'phone') {
-						$('.js-nemo-hotels-form__yearsPicker_drop').remove();
+						bindingContext.$parentContext.$parent.selectInfantAge(room, infant, age);
 					}
+				);
 
-					if (!$(this).hasClass('opened')) {
-						$(this).addClass('opened');
-					}
-					else {
-						$('.js-nemo-hotels-form__yearsPicker_container').removeClass('opened');
-					}
+				// handle disposal (if KO removes by the template binding)
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+					$(element).spinner('destroy');
 				});
-			}
-		};
-		ko.bindingHandlers.infantsAgesSelect = {
-			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var context = bindingContext;
+			},
+			update: function (element, valueAccessor) {
+				var value   = ko.utils.unwrapObservable(valueAccessor()),
+					current = $(element).spinner('value'),
+					msg     = 'You have entered an Invalid Quantity';
 
-				$(element).on('click', function (e) {
-					e.preventDefault();
+				if (isNaN(parseInt(value))) {
+					alert(msg);
+				}
 
-					var $self = $(element);
-					var room = $self.attr('room');
-					var infant = $self.attr('infant');
-					var age = parseInt($(element).text());
-
-					context.$parentContext.$parentContext.$parent.selectInfantAge(room, infant, age);
-
-					var $select = $(element).closest('.js-nemo-hotels-form__yearsPicker_container').find('select');
-					$select.val(age);
-				});
+				if (value !== current && !isNaN(parseInt(value))) {
+					$(element).spinner('value', value);
+				}
 			}
 		};
 	});
