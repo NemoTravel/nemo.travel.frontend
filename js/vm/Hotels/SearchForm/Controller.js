@@ -38,7 +38,11 @@ define([
             this.options = {};
             this.validaTERROR = ko.observable(false);
 			this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
-
+			this.preinittedData = {
+                dateUnknown: true,
+                segments: [],
+                rooms: []
+			};
             // Set cookies is not an observable for when it changes it won't trigger cookie setting via
             this.setCookies = false;
             this.useCookies = true;
@@ -54,7 +58,7 @@ define([
             this.searchEnabled = ko.computed(function () {
                 return (!this.validaTERROR() || this.isValid()) && this.searchAllowedByParamChange();
             }, this);
-
+			
             this.processInitParams();
 
             this.segments.subscribe(function () {
@@ -227,31 +231,106 @@ define([
         };
 
         HotelsSearchFormController.prototype.getSearchParams = function () {
-            return LocalStorage.get('searchFormData');
+			return LocalStorage.get('searchFormData');
         };
-
+		
         HotelsSearchFormController.prototype.processInitParams = function () {
+			// Preinitted by URL
+		    if (this.$$componentParameters.route.length === 9) {
+				var route = this.$$componentParameters.route[0], 
+					pointer = 0, 
+					childrenCount = 0,
+					childrenArray = [], 
+					hotelID = null,
+					arrivalDateTemp = null,
+					departureDateTemp = null,
+					todayTimestamp = new Date(),
+                    tmpDate = null,
+					arrivalTimestamp = null;
 
-            var cookie = this.getSearchParams();
+				todayTimestamp.setHours(0, 0, 0, 0);
+				todayTimestamp = todayTimestamp.getTime();
+	
+				route = route.split('-');
 
-            if (cookie) {
+				if (!helpers.stringIsDate(route[pointer])) { // hotel id ?
+					// hotel ID
+					hotelID = route[pointer];
+					pointer++;
+				}
 
-                var hasSegments = cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0,
-                    hasRooms = cookie.rooms && cookie.rooms instanceof Array && cookie.rooms.length > 0;
+				if (helpers.stringIsDate(route[pointer])) { // arrival date ?
+					// get arrival date
+					arrivalDateTemp = route[pointer];
+					arrivalDateTemp = arrivalDateTemp.substr(0, 4) + '-' + arrivalDateTemp.substr(4, 2) + '-' + arrivalDateTemp.substr(6);
+					// check date
+					tmpDate = new Date(arrivalDateTemp);
+					tmpDate.setHours(0, 0, 0, 0);
+					if (tmpDate.getTime() < todayTimestamp) {
+					    arrivalDateTemp = null;
+                    }
+                    else {
+						arrivalTimestamp = tmpDate.getTime();
+					}
+					pointer++;
+				}
 
-                // Checking cookie validity and fixing that
-                if (hasSegments && hasRooms) {
-                    this.$$controller.log('Initted by cookie', cookie);
-                    this.preinittedData = cookie;
-                    this.mode = HotelsBaseModel.MODE_PREINITTED;
-                }
+				if (helpers.stringIsDate(route[pointer])) { // is departure date exist?
+					// get departure date
+					departureDateTemp = route[pointer];
+					departureDateTemp = departureDateTemp.substr(0, 4) + '-' + departureDateTemp.substr(4, 2) + '-' + departureDateTemp.substr(6);
+					// check date
+					tmpDate = new Date(departureDateTemp);
+					tmpDate.setHours(0, 0, 0, 0);
+					if (tmpDate.getTime() < todayTimestamp || tmpDate.getTime() <= arrivalTimestamp + 86400) {
+						departureDateTemp = null;
+					}
+					pointer++;
+				}
+
+				// get guests
+				// for each room
+				for (pointer; pointer < route.length; pointer += 1) {
+					var term = route[pointer];
+					var adultCount = parseInt(term.substr(3, 1));
+					childrenArray = [];
+
+					// Children
+					childrenCount = parseInt(term.length > 4 ? term.substr(7) : 0);
+					for (var i = 0; i < childrenCount; i++) {
+						childrenArray.push(0);
+					}
+
+					this.preinittedData.rooms.push({adults: adultCount, infants: childrenArray});
+				}
+				this.preinittedData.segments.push([null, hotelID, arrivalDateTemp, departureDateTemp]);
+				this.preinittedData.dateUnknown = false;
+				this.mode = HotelsBaseModel.MODE_PREINITTED;
+				console.log(this.preinittedData);
             }
+			// Preinitted by Cookie
+            else {
+				var cookie = this.getSearchParams();
 
-            var additional = this.$$componentParameters.additional;
+				if (cookie) {
 
-            if (additional) {
-                this.showPreviousSearches = !!additional.showPreviousSearches;
-            }
+					var hasSegments = cookie.segments && cookie.segments instanceof Array && cookie.segments.length > 0,
+						hasRooms    = cookie.rooms && cookie.rooms instanceof Array && cookie.rooms.length > 0;
+
+					// Checking cookie validity and fixing that
+					if (hasSegments && hasRooms) {
+						this.$$controller.log('Initted by cookie', cookie);
+						this.preinittedData = cookie;
+						this.mode = HotelsBaseModel.MODE_PREINITTED;
+					}
+				}
+
+				var additional = this.$$componentParameters.additional;
+
+				if (additional) {
+					this.showPreviousSearches = !!additional.showPreviousSearches;
+				}
+			}
         };
 
         HotelsSearchFormController.prototype.recalcDateRestrictions = function () {
@@ -347,7 +426,7 @@ define([
         function processPreinittedMode(self) {
             
             for (var i = 0; i < self.preinittedData.segments.length; i++) {
-
+                
                 var segment = self.preinittedData.segments[i],
                     arrData = null;
 

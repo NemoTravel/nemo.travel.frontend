@@ -446,6 +446,28 @@ define(
 				duration = duration || 200;
 				
 				$('html, body').stop(true).animate({ scrollTop: scroll }, duration);
+			},
+
+			/**
+			 * Check date format YYYYMMDD
+			 * @param value
+			 * @returns {boolean}
+			 */
+			stringIsDate: function (value) {
+				if (value.length === 8) {
+					var getYear  = parseInt(value.substr(0, 4)),
+						getMonth = parseInt(value.substr(4, 2)),
+						getDay   = parseInt(value.substr(6, 2)),
+						currentDate = new Date();
+
+					if (getYear >= currentDate.getFullYear() && getMonth >= 1 && getMonth <= 12 && getDay >= 1 && getDay <= 31) {
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+				return false;
 			}
 		};
 	}
