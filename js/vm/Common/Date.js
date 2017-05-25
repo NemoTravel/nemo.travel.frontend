@@ -8,31 +8,33 @@ define(
 			this.update(initialData);
 			BaseModel.apply(this, arguments);
 
-			this.getDate       = ko.computed(function () { return this.dateObject().getDate();                                      }, this);
-			this.getZeroedDate = ko.computed(function () { return this.prependZero(this.dateObject().getDate());                    }, this);
-			this.getMonth      = ko.computed(function () { return this.prependZero(this.dateObject().getMonth() + 1);               }, this);
-			this.getYear       = ko.computed(function () { return this.dateObject().getFullYear();                                  }, this);
-			this.getHours      = ko.computed(function () { return this.prependZero(this.dateObject().getHours());                   }, this);
-			this.getMinutes    = ko.computed(function () { return this.prependZero(this.dateObject().getMinutes());                 }, this);
-			this.getSeconds    = ko.computed(function () { return this.prependZero(this.dateObject().getSeconds());                 }, this);
-			this.getDOW        = ko.computed(function () { return this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay(); }, this);
+			this.getDate       = ko.pureComputed(function () { return this.dateObject().getDate();                                      }, this);
+			this.getZeroedDate = ko.pureComputed(function () { return this.prependZero(this.dateObject().getDate());                    }, this);
+			this.getMonth      = ko.pureComputed(function () { return this.prependZero(this.dateObject().getMonth() + 1);               }, this);
+			this.getYear       = ko.pureComputed(function () { return this.dateObject().getFullYear();                                  }, this);
+			this.getHours      = ko.pureComputed(function () { return this.prependZero(this.dateObject().getHours());                   }, this);
+			this.getMinutes    = ko.pureComputed(function () { return this.prependZero(this.dateObject().getMinutes());                 }, this);
+			this.getSeconds    = ko.pureComputed(function () { return this.prependZero(this.dateObject().getSeconds());                 }, this);
+			this.getDOW        = ko.pureComputed(function () { return this.dateObject().getDay() == 0 ? 7 : this.dateObject().getDay(); }, this);
 
-			this.getMonthName      = ko.computed(function () { return this.$$controller.i18n('dates', 'month_' + (this.dateObject().getMonth() + 1) + '_f'); }, this);
-			this.getMonthNameShort = ko.computed(function () { return this.$$controller.i18n('dates', 'month_' + (this.dateObject().getMonth() + 1) + '_s'); }, this);
-			this.getDOWName        = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_' + this.getDOW() + '_f'); }, this);
-			this.getDOWNameShort   = ko.computed(function () { return this.$$controller.i18n('dates', 'dow_' + this.getDOW() + '_s'); }, this);
+			this.getMonthName      = ko.pureComputed(function () { return this.$$controller.i18n('dates', 'month_' + (this.dateObject().getMonth() + 1) + '_f'); }, this);
+			this.getMonthNameShort = ko.pureComputed(function () { return this.$$controller.i18n('dates', 'month_' + (this.dateObject().getMonth() + 1) + '_s'); }, this);
+			this.getDOWName        = ko.pureComputed(function () { return this.$$controller.i18n('dates', 'dow_' + this.getDOW() + '_f'); }, this);
+			this.getDOWNameShort   = ko.pureComputed(function () { return this.$$controller.i18n('dates', 'dow_' + this.getDOW() + '_s'); }, this);
 
-			this.getTime       = ko.computed(function () { return this.getHours() + ':' + this.getMinutes() }, this);
+			this.getTime       = ko.pureComputed(function () { return this.getHours() + ':' + this.getMinutes() }, this);
 
-			this.getShortDate        = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName(); }, this);
-			this.getShortDateWithDOW = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
-			this.getFullDate         = ko.computed(function () { return this.getDate() + ' ' + this.getMonthName() + ' ' + this.getYear() + ', ' + this.getHours() + ':' + this.getMinutes(); }, this);
+			this.getShortDate        = ko.pureComputed(function () { return this.getDate() + ' ' + this.getMonthName(); }, this);
+			this.getShortDateWithDOW = ko.pureComputed(function () { return this.getDate() + ' ' + this.getMonthName() + ', ' + this.getDOWNameShort() + '.'; }, this);
+			this.getFullDate         = ko.pureComputed(function () { return this.getDate() + ' ' + this.getMonthName() + ' ' + this.getYear() + ', ' + this.getHours() + ':' + this.getMinutes(); }, this);
 
-			this.getISODate     = ko.computed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getZeroedDate() }, this);
-			this.getISOTime     = ko.computed(function () { return this.getTime() + ':' + this.getSeconds() }, this);
-			this.getISODateTime = ko.computed(function () { return this.getISODate() + 'T' + this.getISOTime() }, this);
+			this.getISODate     = ko.pureComputed(function () { return this.getYear() + '-' + this.getMonth() + '-' + this.getZeroedDate() }, this);
+			this.getISOTime     = ko.pureComputed(function () { return this.getTime() + ':' + this.getSeconds() }, this);
+			this.getISODateTime = ko.pureComputed(function () { return this.getISODate() + 'T' + this.getISOTime() }, this);
+			
+			this.getHumanFullDate = ko.pureComputed(function () { return this.getHours() + ':' + this.getMinutes() + ' ' + this.getDate() + ' ' + this.getMonthName() + ' ' + this.getYear() }, this);
 
-			this.getTimestamp = ko.computed(function () { return Math.floor(this.dateObject().getTime()/1000) }, this);
+			this.getTimestamp = ko.pureComputed(function () { return Math.floor(this.dateObject().getTime()/1000) }, this);
 		}
 
 		// Extending from base and i18nized model

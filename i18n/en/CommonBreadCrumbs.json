@@ -5,5 +5,6 @@
     "hotels-step_search": "Search hotels",
     "hotels-step_results": "Search results",
     "hotels-step_checkout": "Checkout",
-    "hotels-step_chooseHotel": "Choose hotel"
+    "hotels-step_chooseHotel": "Choose hotel",
+    "recentSearches__toggle": "Recent searches"
 }

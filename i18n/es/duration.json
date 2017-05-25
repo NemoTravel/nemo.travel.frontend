@@ -14,5 +14,17 @@
     "month_fourPlus": "meses",
     "month_twoToFour": "mes",
     "week_fourPlus": "semanas",
-    "month_one": "mes"
+    "month_one": "mes",
+    "hour_twoToFour": "horas",
+    "hour_fourPlus": "horas",
+    "day_one": "día",
+    "day_twoToFour": "día",
+    "minute_short": "min",
+    "year_fourPlus": "años",
+    "month_short": "mes",
+    "hour_short": "h",
+    "day_short": "días",
+    "week_short": "sem",
+    "year_short": "años",
+    "second_short": "seg"
 }

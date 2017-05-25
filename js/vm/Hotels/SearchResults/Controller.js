@@ -5,26 +5,27 @@ define(
 		'js/vm/BaseControllerModel',
 		'js/vm/Models/HotelSearchResultsModel',
 		'jsCookie',
-		'js/vm/Models/SelectRoomsViewModel',
 		'js/vm/Models/HotelsBaseModel',
 		'js/vm/Models/RecentSearchModel',
 		'js/lib/q/v.0.9.2/q.min',
 		'js/lib/lodash/v.4.17.4/lodash.min',
 		'js/vm/Models/RecentHotelsModel',
-		'dotdotdot'
-	], 
+		'dotdotdot',
+		'jquery'
+	],
 	function (
 		ko,
 		helpers,
 		BaseControllerModel,
 		HotelSearchResultsModel,
 		Cookie,
-		SelectRoomsViewModel,
 		HotelsBaseModel,
 		RecentSearchModel,
 		Q,
 		_,
-		RecentHotelsModel
+		RecentHotelsModel,
+		dotdotdot,
+		$
 	) {
 
 		function HotelsSearchResultsController(componentParameters) {
@@ -32,6 +33,12 @@ define(
 
 			BaseControllerModel.apply(this, arguments);
 			HotelSearchResultsModel.apply(this, arguments);
+
+			this.$$controller.viewModel.user.settings.googleMapsApiKey.subscribe(function (key) {
+				if (key) {
+					$('body').append('<script src="//maps.googleapis.com/maps/api/js?key=' + key + '"></script>');
+				}
+			}, this);
 
 			var getSearchId = function () {
 				return self.$$controller.router.current.getParameterValue('search_id');
@@ -42,7 +49,7 @@ define(
 			this.resultsTypeCookie = 'HotelsSearchForm';
 			this.mode = HotelsBaseModel.MODE_ID;
 			this.hasSearchIdInUrl = !!(getSearchId());
-			
+
 			this.searchId = ko.observable(null);
 			this.errorCode = ko.observable(false);
 			this.$$loading = ko.observable(false);
@@ -67,7 +74,27 @@ define(
 			this.oldMarkers = ko.observable([]);
 			this.searchInfo = ko.observable({});
 			this.resultsLoaded = ko.observable(false);
+			
+			this.guestsByRooms = ko.pureComputed(function () {
+				var searchInfo = this.searchInfo(),
+					result = {};
+				
+				if (searchInfo && searchInfo.rooms) {
+					searchInfo.rooms.map(function (room, index) {
+						result[index] = parseInt(room.adults);
 
+						if (room.infants instanceof Array) {
+							result[index] += room.infants.length;
+						}
+						else {
+							result[index] += parseInt(room.infants);
+						}
+					});
+				}
+				
+				return result;
+			}, this);
+			
 			this.showGlobalLoading = ko.pureComputed(function () {
 				return this.bookingCheckInProgress();
 			}, this);
@@ -76,7 +103,7 @@ define(
 				// key is block id, value is Boolean value (visible or hidden)
 				list: ko.observable({}),
 
-				isVisible: ko.computed(function () {
+				isVisible: ko.pureComputed(function () {
 					return function (blockId) {
 						return self.blocks.list()[blockId] !== false;
 					};
@@ -157,7 +184,7 @@ define(
 				this.PFActive(!this.PFActive());
 			};
 
-			this.isShowResultIsEmpty = ko.computed(function () {
+			this.isShowResultIsEmpty = ko.pureComputed(function () {
 				return this.resultsLoaded() && !this.isCardHotelView() && this.isResultEmpty();
 			}, this);
 
@@ -168,7 +195,7 @@ define(
 			this.isCardHotelView = ko.observable(false);
 			this.hotelCard = ko.observable(null);
 
-			this.breadCrumbsVariants = ko.computed(function () {
+			this.breadCrumbsVariants = ko.pureComputed(function () {
 				var baseItems = [
 					{
 						title: 'hotels-step_search',
@@ -193,7 +220,7 @@ define(
 					});
 				}
 				else {
-					baseItems.push({ title: 'hotels-step_chooseHotel', active: false });
+					baseItems.push({title: 'hotels-step_chooseHotel', active: false});
 				}
 
 				return baseItems;
@@ -207,7 +234,6 @@ define(
 				this.isFilterNotificationVisible(false);
 			};
 
-			this.selectedRooms = new SelectRoomsViewModel();
 
 			this.showCardHotel = function (hotel) {
 				if (!self.bookingCheckInProgress()) {
@@ -224,15 +250,13 @@ define(
 									hotel = _.cloneDeep(self.hotelsPool[hotel.id]);
 								}
 	
-								// Display hotel card.
-								self.selectedRooms.setHotel(hotel);
-	
 								self.$$controller.navigate('/hotels/results/' + getSearchId() + '/' + hotel.id, false, hotel.name);
 								self.isCardHotelView(true);
 								RecentHotelsModel.add(hotel);
 	
 								hotel.staticDataInfo.currentCity = self.currentCity();
-	
+								
+								// Display hotel card.
 								self.hotelCard(hotel);
 	
 								setTimeout(function () {
@@ -245,7 +269,7 @@ define(
 						.done(function () {
 							self.bookingCheckInProgress(false);
 							self.resultsLoaded(true);
-						})
+						});
 				}
 			};
 
@@ -254,10 +278,10 @@ define(
 			};
 
 			this.getHotelMainImage = function (hotel, defaultImage) {
-				var photos = hotel.staticDataInfo.photos || [],
+				var photos      = hotel.staticDataInfo.photos || [],
 					mainPhotoId = hotel.staticDataInfo.mainPhotoId,
-					baseUrl = this.$$controller.options.controllerSourceURL,
-					url = 'url(' + (photos[mainPhotoId] ? photos[mainPhotoId] : baseUrl + '/img/no_hotel.svg') + ')';
+					baseUrl     = this.$$controller.options.controllerSourceURL,
+					url         = 'url(' + (photos[mainPhotoId] ? photos[mainPhotoId] : baseUrl + '/img/no_hotel.svg') + ')';
 
 				if (defaultImage === 1) {
 					url += ', url(' + baseUrl + '/img/no_hotel.svg)';
@@ -277,19 +301,19 @@ define(
 
 		HotelsSearchResultsController.prototype.bookHotel = function (url, rooms) {
 			this.bookingCheckInProgress(true);
-			
+
 			var roomsInfo = rooms.map(function (room) {
 				return room.id;
 			});
-			
+
 			if (this.$$controller.options.createOrderLinkPrefixHotels) {
-				var prefix = this.$$controller.options.createOrderLinkPrefixHotels,
-					urlParts = url.split('?'),
+				var prefix    = this.$$controller.options.createOrderLinkPrefixHotels,
+					urlParts  = url.split('?'),
 					getParams = urlParts.splice(1);
-				
+
 				url = prefix + '?' + getParams;
 			}
-			
+
 			document.location.href = url + '&room_ids=' + roomsInfo.join(',');
 		};
 
@@ -300,7 +324,7 @@ define(
 		HotelsSearchResultsController.prototype.checkHotelAvailability = function (searchId, hotel) {
 			this.bookingCheckError(null);
 			this.bookingCheckPriceChangeData(null);
-			
+
 			if (!this.bookingCheckInProgress()) {
 				this.bookingCheckInProgress(true);
 
@@ -336,7 +360,7 @@ define(
 									console.warn(e);
 									deferred.reject(message.hotelUnavailable);
 								}
-								
+
 								deferred.resolve(true);
 							}
 						}.bind(this),
@@ -357,7 +381,9 @@ define(
 			'Common/Duration',
 			'Common/Money',
 			'Common/PostFilter/Abstract',
-			'Hotels/Common/Geo'
+			'Hotels/Common/Geo',
+			'Hotels/SearchResults/Hotel/Rooms/Tariff',
+			'Hotels/SearchResults/Hotel/Rooms/Room'
 		];
 
 		HotelsSearchResultsController.prototype.$$i18nSegments = ['HotelsSearchForm', 'HotelsSearchResults', 'currencyNames', 'Hotels'];

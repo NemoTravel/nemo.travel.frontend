@@ -89,8 +89,7 @@ define([
             }
 
             this.guestsSummary = ko.computed(function () {
-
-                var guest = {adults: 0, infants: 0},
+                var guest = { adults: 0, infants: 0 },
                     rooms = this.rooms();
 
                 if (!rooms.length) {

@@ -9,6 +9,14 @@
 	}
 }
 
+@media (max-width: 1439px) {
+	.nemo-hotel__content__rooms__list {
+		&__item {
+			flex-basis: 100%;
+		}
+	}
+}
+
 @media (max-width: 1199px) {
 	.nemo-hotel {
 		&__additional {
@@ -97,18 +105,38 @@
 					border-top: none;
 				}
 
+				&__list {
+					display: flex;
+					
+					&__item {
+						flex: 0 1 49%;
+						
+						.nemo-hotelRoom__tariff {
+							padding: 11px 20px;
+						}
+						
+						.nemo-hotelRoom__tariffs-buttons {
+							//border-bottom: 1px solid #e6e6e6;
+						}
+					}
+				}
 			}
 		}
 	}
+}
 
-	.nemo-hotelRoom {
-		border-width: 1px 0 0 0;
-		border-radius: 0;
+@media (max-width: 999px) {
+	.nemo-hotel__content__rooms__list {
+		&__item {
+			flex-basis: 100%;
+		}
 	}
 }
 
 @media (max-width: 859px) {
 	.nemo-hotel {
+		margin-bottom: 20px;
+		
 		&__content {
 			&__tabs {
 				overflow: hidden;
@@ -169,6 +197,7 @@
 				padding: 0;
 				margin-top: 5px;
 				box-shadow: none;
+				margin-bottom: 0;
 			}
 
 			&__rooms {
@@ -207,7 +236,12 @@
 						margin: 0;
 						padding: 0;
 						background: darken($nemo-color-LightPoint, 2.5);
-						border-radius: $nemo-border-radius $nemo-border-radius 0 0;
+						border-radius: $nemo-border-radius;
+						border-top: none;
+						
+						&:not(:first-of-type) {
+							margin-top: 20px;
+						}
 
 						&__title {
 							margin: 0;
@@ -221,11 +255,17 @@
 								font-size: 21px;
 							}
 						}
+
+						.nemo-hotelRoom {
+							border-width: 1px 0 0 0;
+							border-radius: 0;
+							margin-bottom: 0;
+						}
 					}
 				}
 
 				&__footer {
-					margin: 0;
+					margin: 20px 0 0;
 					padding-bottom: 20px;
 					padding-right: 0;
 				}

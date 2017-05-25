@@ -15,7 +15,7 @@ define(['knockout', 'js/vm/helpers'], function (ko, helpers) {
 
         self.values = ko.observable({});
 
-        self.valuesAsArray = ko.computed(function () {
+        self.valuesAsArray = ko.pureComputed(function () {
 
             var filtersAsArray = [];
 
@@ -52,7 +52,7 @@ define(['knockout', 'js/vm/helpers'], function (ko, helpers) {
         /**
          * Check if any of filters weren't applied
          */
-        self.isDefault = ko.computed(function () {
+        self.isDefault = ko.pureComputed(function () {
 
             var applied = false;
 
@@ -66,7 +66,7 @@ define(['knockout', 'js/vm/helpers'], function (ko, helpers) {
 
         }, this);
 
-        self.getAppliedFilters = ko.computed(function () {
+        self.getAppliedFilters = ko.pureComputed(function () {
             return this.valuesAsArray().filter(function (filter) {
                 return true === filter.checked();
             });

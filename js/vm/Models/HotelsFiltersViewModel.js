@@ -30,13 +30,13 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
         self.nightsCountPriceFilter = new SliderViewModel(ko, SliderViewModel.TYPE_RANGE, minRoomPrice, maxRoomPrice);
         self.averageCustomerRatingFilter = new SliderViewModel(ko, SliderViewModel.TYPE_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MAX);
 
-        self.isStarFilterEmpty = ko.computed(function () {
+        self.isStarFilterEmpty = ko.pureComputed(function () {
             return helpers.objectFilter(self.starRatingFilterValues, function (filterValue) {
                     return true === filterValue();
                 }).length === 0;
         });
 
-        self.isFilterEmpty = ko.computed(function () {
+        self.isFilterEmpty = ko.pureComputed(function () {
             return self.isStarFilterEmpty() && self.nightsCountPriceFilter.isDefault() && self.averageCustomerRatingFilter.isDefault() && self.featureFilter.isDefault();
         });
 

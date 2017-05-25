@@ -33,8 +33,7 @@ define([], function () {
         /**
          * Check is slider in initial state
          */
-        self.isDefault = ko.computed(function () {
-
+        self.isDefault = ko.pureComputed(function () {
             if (self.type === SliderViewModel.TYPE_RANGE) {
                 return !self.isMinRangeChanged() && !self.isMaxRangeChanged();
             }

@@ -64,8 +64,13 @@ define (
 
 				// Hotels Search Results
 				{
-					// /hotels/results/:search_id?/:hotel_id?
-					re: /^hotels\/results\/?(\d+)?\/?(\d+)?$/, 
+					re: [
+						// /hotels/results/:search_id?/:hotel_id?
+						/^hotels\/results\/?(\d+)?\/?(\d+|\w+)?$/,
+						
+						// Fallback
+						/^hotels\/results\/(\d+)\/(\d+|\w+)(\?.*)?$/
+					], 
 					handler: 'Hotels/SearchResults/Controller', 
 					params: ['search_id', 'hotel_id']
 				},
@@ -277,7 +282,10 @@ define (
 				user: {
 					id: ko.observable(0),
 					status: ko.observable('guest'),
-					isB2B: ko.observable(false)
+					isB2B: ko.observable(false),
+					settings: {
+						googleMapsApiKey: ko.observable('')
+					}
 				},
 				languages: [
 					{'id': 'en', 'title': 'English', 'icon': 'gb'},
@@ -685,6 +693,7 @@ define (
 					this.viewModel.user.id(data.system.info.user.userID);
 					this.viewModel.user.status(data.system.info.user.status);
 					this.viewModel.user.isB2B(data.system.info.user.isB2B);
+					this.viewModel.user.settings.googleMapsApiKey(data.system.info.user.settings.googleMapsApiKey);
 
 					this.viewModel.agency.id(data.system.info.user.agencyID);
 					this.viewModel.agency.priceCurrency(data.system.info.user.settings.currentCurrency); // price currency

@@ -239,7 +239,7 @@ define(
         /**
          * Displays formatted money value depends on user currency
          */
-        ko.bindingHandlers.money = {
+        ko.bindingHandlers.moneyWTF = {
             update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                 var $moneyElement = $(element),

@@ -27,25 +27,26 @@ define(
 				{
 					name: 'rooms',
 					title: this.$$controller.i18n('HotelsSearchResults', 'tabRooms'),
-					isActive: ko.pureComputed(function () { return this.activeTab() === 'rooms'; }, this)
+					isActive: ko.pureComputed(function () { return this.activeTab() === 'rooms'; }, this),
+					isAvailable: ko.pureComputed(function () { return true; }, this)
 				},
 				{
 					name: 'about',
 					title: this.$$controller.i18n('HotelsSearchResults', 'tabAboutHotel'),
 					isActive: ko.pureComputed(function () { return this.activeTab() === 'about'; }, this),
-					initCallback: function () {
-						return this.resultsController.initHotelCardMap(this.hotel(), 'aboutLocationMap');
-					}.bind(this)
+					isAvailable: ko.pureComputed(function () { return true; }, this)
 				},
 				{
 					name: 'conveniences',
 					title: this.$$controller.i18n('HotelsSearchResults', 'tabConveniences'),
-					isActive: ko.pureComputed(function () { return this.activeTab() === 'conveniences'; }, this)
+					isActive: ko.pureComputed(function () { return this.activeTab() === 'conveniences'; }, this),
+					isAvailable: ko.pureComputed(function () { return this.hotel().staticDataInfo.featuresArray.length }, this)
 				},
 				{
 					name: 'rules',
 					title: this.$$controller.i18n('HotelsSearchResults', 'tabHotelRules'),
-					isActive: ko.pureComputed(function () { return this.activeTab() === 'rules'; }, this)
+					isActive: ko.pureComputed(function () { return this.activeTab() === 'rules'; }, this),
+					isAvailable: ko.pureComputed(function () { return true; }, this)
 				}
 			];
 		}

@@ -5,8 +5,7 @@ define([
     'js/vm/Models/HotelsBaseModel',
     'js/vm/Models/RecentHotelsModel',
     'js/vm/Common/Cache/Cache',
-	'js/lib/md5/md5',
-    'js/vm/Models/GoogleMapLoader'
+	'js/lib/md5/md5'
 ], function (ko,
 			 helpers,
 			 dotdotdot,
@@ -201,7 +200,7 @@ define([
             var lat = hotel.staticDataInfo.posLatitude,
                 lon = hotel.staticDataInfo.posLongitude;
 
-            if (lat && lon) {
+            if (lat && lon && centerLocation) {
                 hotel.distanceFromCenter = helpers.calculateDistanceBetweenTwoCoordinates(
                     {lat: centerLocation.lat, lng: centerLocation.lng},
                     {lat: lat, lng: lon}
