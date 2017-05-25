@@ -5,6 +5,7 @@ define(
 		'jquery',
 		'js/vm/Common/Cache/Cache',
 		'js/lib/md5/md5',
+		'js/vm/Common/Money',
 		'numeralJS',
 		'js/lib/jquery.currencyConverter/jquery.currencyConverter',
 		'js/lib/jquery.tooltipster/v.3.3.0/jquery.tooltipster.min',
@@ -13,7 +14,7 @@ define(
 		'touchpunch',
 		'js/lib/fotorama/fotorama.min'
 	],
-	function (ko, $, Cache, md5) {
+	function (ko, $, Cache, md5, Money) {
 		// Common Knockout bindings are defined here
 		/*
 		 ko.bindingHandlers.testBinding = {
@@ -73,11 +74,15 @@ define(
 
 		ko.bindingHandlers.tooltip = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					try{
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+					try {
 						$(element).tooltipster('destroy');
 					}
 					catch (e) {/* do nothing */}
+				});
+				
+				$(document).on('cc:changeCurrency', function () {
+					ko.bindingHandlers.tooltip.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
 				});
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -87,7 +92,16 @@ define(
 				// Overriding default options
 				if(options.content){
 					options.content = options.content || '';
-					options.content = (options.header ? '<div class="tooltipster-header">'+options.header+'</div>' : '') + options.content;
+					options.trigger = options.trigger || 'hover';
+					
+					if (options.header) {
+						if (options.content instanceof $ && options.content.length === 1) {
+							options.content = options.content.html();
+						}
+
+						options.content = '<div class="tooltipster-header">' + options.header + '</div>' + options.content;
+					}
+					
 					options.theme = options.cssClass || '';
 					options.arrow = options.arrow || false;
 					options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
@@ -119,18 +133,29 @@ define(
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $moneyElement = $(element),
-					money = valueAccessor();
+					money = valueAccessor(),
+					moneyObject;
 
 				if (money) {
+					if (typeof money === 'object' && !(money instanceof Money) && bindingContext.$root.controller) {
+						moneyObject = bindingContext.$root.controller.getModel('Common/Money', {
+							amount: money.amount,
+							currency: money.currency
+						});
+					}
+					else {
+						moneyObject = money;
+					}
+					
 					$moneyElement
-						.attr('currency', money.currency())
-						.attr('amount', money.amount())
-						.text(Math.ceil(money.normalizedAmount()) + ' ' + money.currency());
+						.attr('currency', moneyObject.currency())
+						.attr('amount', moneyObject.amount())
+						.text(Math.ceil(moneyObject.normalizedAmount()) + ' ' + moneyObject.currency());
 				}
 
 				$moneyElement.trigger('cc:updated');
 			}
-		}
+		};
 
 		ko.bindingHandlers.automaticPopup = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -625,7 +650,6 @@ define(
 
 		ko.bindingHandlers.loadTemplate = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
 				var cache = Cache.storage(),
 					templateId = $(element).prop('id'),
 					templateUrl = '/templates/wurst/f2.0/html/partials/' + templateId + '.html',
@@ -651,7 +675,8 @@ define(
 					nav: 'thumbs',
 					loop: true,
 					data: valueAccessor(),
-					fit: 'none',
+					fit: 'contain',
+					arrows: true,
 					keyboard: true,
 					margin: 0,
 					glimpse: 0

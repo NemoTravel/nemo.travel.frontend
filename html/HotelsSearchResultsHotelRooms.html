@@ -1,106 +1,74 @@
-<ul class="nemo-hotel__content__rooms__list" data-bind="foreach: selectedRooms.allRooms">
+<ul class="nemo-hotel__content__rooms__list" data-bind="foreach: rooms">
 	<li class="nemo-hotel__content__rooms__list__item">
 		<div class="nemo-hotel__content__rooms__list__item__title">
 			<span class="nemo-hotel__content__rooms__list__item__title__number" data-bind="text: $index() + 1"></span>
 			<span class="nemo-hotel__content__rooms__list__item__title__roomName" data-bind="text: $root.i18n('HotelsSearchForm', 'rooms_room') + ' ' + ($index() + 1)"></span>
+			<span class="nemo-hotel__content__rooms__list__item__title__guests" data-bind="html: guestsSummary"></span>
 		</div>
 
 		<div class="nemo-hotelRoom">
-			<!--<div class="nemo-hotelRoom__info set-room-info-hidden">-->
-			<!--<span class="nemo-hotelRoom__info__title" data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }">Классический стандартный двухместный номер</span>-->
-
-			<!--<button data-bind="click: function () { $parents[2].blocks.toggleVisibility('hotelRoomInfo' + $index()) }, css: $parents[2].blocks.isVisible()('hotelRoomInfo' + $index()) ? 'collapse' : 'expand'" class="nemo-hotelRoom__info__toggle collapse"></button>-->
-
-			<!--<div>-->
-
-			<!--<p class="nemo-hotelRoom__info__description" data-bind="dotdotdot: !$parents[2].blocks.isVisible()('hotelRoomInfo' + $index())">-->
-			<!--Насладитесь домашним уютом, созерцая красоту старого Киева в комфортабельном номере площадью-->
-			<!--35 кв. метров. с двух- или одноместной кроватью. Номер призван удовлетворить любую потребность-->
-			<!--клиента, оборудован высокотехнологичными средствами коммуникации и эргономичным рабочим-->
-			<!--местом. К услугам посетителей предоставляется доступ к высокоскоростному интернету, телефон с двумя-->
-			<!--линиями и услугами голосовой почты. Приятную работу и отдых помогут обеспечить мини-бар,-->
-			<!--оборудование для приготовления чая и кофе, индивидуальный сейф, который сможет вместить-->
-			<!--портативный компьютер стандартного размера. Комфортабельность номеров дополняют роскошные-->
-			<!--ванные комнаты из мрамора, оборудованные системой подогрева пола.-->
-			<!--</p>-->
-
-			<!--&lt;!&ndash;<div class="nemo-hotelRoom__info__gallery" style="background: #ccc;">&ndash;&gt;-->
-			<!--&lt;!&ndash;Gallery here&ndash;&gt;-->
-			<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-			<!--<div class="nemo-hotelRoom__info__services" data-bind="visible: $parents[2].blocks.isVisible()('hotelRoomInfo' + $index())">-->
-			<!--<span class="nemo-hotelRoom__info__services__title" data-bind="i18n: 'HotelsSearchResults.roomServices'"></span>-->
-			<!--<ul class="nemo-hotelRoom__info__services__list">-->
-			<!--&lt;!&ndash; ko foreach: $parents[2].roomServicesList &ndash;&gt;-->
-			<!--<li class="nemo-hotelRoom__info__services__service" data-bind="text: $data.name"></li>-->
-			<!--&lt;!&ndash; /ko &ndash;&gt;-->
-			<!--</ul>-->
-			<!--</div>-->
-			<!--</div>-->
-			<!--</div>-->
-
 			<div class="nemo-hotelRoom__tariffs">
-				<div class="nemo-hotelRoom__tariffsTail">
-					<!-- ko if: $parent.selectedRooms.allRooms()[$index()] -->
-						<!-- ko foreach: $parent.selectedRooms.allRooms()[$index()].splicedTariffs() -->
-							<div class="nemo-hotelRoom__tariff" data-bind="css: { 'nemo-hotelRoom__tariff_selected': $parents[1].selectedRooms.isRoomSelected($parentContext.$index(), $data) }">
-								<div class="nemo-hotelRoom__tariff__features">
-									<span class="nemo-hotelRoom__tariff__feature" data-bind="text: type.commonName ? type.commonName : type.name"></span>
-									<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-meal__' + meal.code)"></span>
-
-									<!-- ko if: rate.paymentType -->
-										<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-paymentType__' + rate.paymentType)"></span>
-									<!-- /ko -->
-								</div>
-		
-								<div class="nemo-hotelRoom__tariff__price">
-									<span class="nemo-hotelRoom__tariff__price__allNights">
-										<span class="nemo-hotelRoom__tariff__price__allNights__value" data-bind="money: Math.round(rate.price.amount), currency: rate.price.currency"></span>
-										<span class="nemo-hotelRoom__tariff__price__allNights__currency" data-bind="userCurrency"></span>
-										<span class="nemo-hotelRoom__tariff__price__allNights__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parents[1].countOfNights() + ' ' + $parents[1].labelAfterNights()"></span>
-									</span>
-		
-									<!-- ko if: $parents[1].countOfNights() > 1 -->
-										<span class="nemo-hotelRoom__tariff__price__perNight">
-											<span class="nemo-hotelRoom__tariff__price__perNight__value" data-bind="money: Math.round(rate.price.amount) / $parents[1].countOfNights(), currency: rate.price.currency"></span>
-											<span class="nemo-hotelRoom__tariff__price__perNight__currency" data-bind="userCurrency"></span>
-											<span class="nemo-hotelRoom__tariff__price__perNight__period" data-bind="i18n: 'HotelsSearchResults.perNight'"></span>
-										</span>
-									<!-- /ko -->
-
-									<!-- ko if: !rate.isNonRefundable && rate.cancellationRules && rate.cancellationRules.length && !rate.cancellationRules[0].isPast -->
-										<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="tooltip: {
-											cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
-											content: $parents[1].getCancellationTooltipContent(rate.cancellationRules),
-											delay: 0
-										}">
-											<span data-bind="i18n: 'Hotels.hotels-room-cancel__freeRefund__until'"></span>
-											<span data-bind="text: rate.cancellationRules[0].deadLine.getShortDate()"></span>
-										</span>
-									<!-- /ko -->
-
-									<!-- ko if: rate.isNonRefundable || !rate.cancellationRules || !rate.cancellationRules.length || rate.cancellationRules[0].isPast -->
-										<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable', tooltip: {
-											cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
-											content: $root.i18n('Hotels', 'hotels-room-cancel__isNonRefundable__tooltip'),
-											delay: 0
-										}"></span>
-									<!-- /ko -->
-								</div>
-		
-								<div class="nemo-hotelRoom__tariff__controlWrap">
-									<div class="nemo-hotelRoom__tariff__controlWrap__button" data-bind="click: function(data, event){ $parents[1].selectedRooms.selectRoom($parentContext.$index(), $data) }, text: $root.i18n('HotelsSearchResults', $parents[1].selectedRooms.isRoomSelected($parentContext.$index(), $data) ? 'selected': 'select')"></div>
-								</div>
-							</div>
-						<!-- /ko -->
-					
-						<div class="nemo-hotelRoom__tariffs-buttons" data-bind="visible: $parent.selectedRooms.allRooms()[$index()].hasNotLoadedRooms() || $parent.selectedRooms.allRooms()[$index()].showHideButton()">
-							<button data-bind="visible: $parent.selectedRooms.allRooms()[$index()].hasNotLoadedRooms(), click: $parent.selectedRooms.allRooms()[$index()].showAllTariffs, text: $parent.selectedRooms.allRooms()[$index()].buttonLoadAllText()" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
-							<button data-bind="visible: $parent.selectedRooms.allRooms()[$index()].showHideButton(), click: $parent.selectedRooms.allRooms()[$index()].hideTariffs, i18n: 'HotelsSearchResults.collapse'" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
-						</div>
+				<div class="nemo-hotelRoom__tariffsTail" data-bind="if: $data">
+					<!-- ko foreach: visibleTariffs() -->
+						<div class="nemo-hotelRoom__tariff__wrapper" data-bind="component: { 
+							name: 'Hotels/SearchResults/Hotel/Rooms/Tariff/Controller', 
+							params: { 
+								tariff: $data,
+								resultsController: $parents[1].resultsController,
+								roomIndex: $parentContext.$index(),
+								selectedRoomsTariffs: $parents[1].selectedRoomsTariffs,
+								tariffCombinations: $parents[1].tariffCombinations,
+								selectTariffForRoom: $parents[1].selectTariffForRoom
+							}
+						}"></div>
 					<!-- /ko -->
+				
+					<div class="nemo-hotelRoom__tariffs-buttons" data-bind="visible: $parent.rooms()[$index()].hiddenTarrifsCount() || $parent.rooms()[$index()].showHideButton()">
+						<button data-bind="visible: $parent.rooms()[$index()].hiddenTarrifsCount(), click: $parent.rooms()[$index()].showAllTariffs, text: $parent.rooms()[$index()].showAllText()" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
+						<button data-bind="visible: $parent.rooms()[$index()].showHideButton(), click: $parent.rooms()[$index()].hideTariffs, i18n: 'HotelsSearchResults.collapse'" class="nemo-hotelRoom__more-tarifs nemo-ui-pseudoLink"></button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</li>
 </ul>
+
+<div class="nemo-hotel__content__rooms__footer">
+	<div class="nemo-hotel__content__rooms__footer__dummy" data-bind="visible: !canProceed()">
+		<span class="nemo-hotel__content__rooms__footer__dummy__text" data-bind="html: $root.i18n('HotelsSearchResults', 'selectFromBeforeCheckoutRoom')"></span>
+
+		<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__orderBtn nemo-hotels-results__content__results__loadingDummy__item__orderBtn nemo-hotel__content__rooms__footer__dummy__button">
+			<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+				<span class="nemo-hotels-results__hotelsGroup__footer__price nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+				<span class="nemo-hotels-results__hotelsGroup__footer__period nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+			</div>
+
+			<div class="nemo-hotels-results__hotelsGroup__footer__arrow nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
+		</div>
+	</div>
+
+	<!-- ko if: canProceed() -->
+		<div class="nemo-ui-button nemo-ui-button_main nemo-hotel__content__rooms__footer__button" data-bind="hotelsResultsBuyButton: {
+			controller: resultsController,
+			rooms: selectedRoomsTariffs(),
+			hotel: hotel
+		}">
+			<div class="nemo-hotel__content__rooms__footer__button__price">
+				<span class="nemo-hotel__content__rooms__footer__button__price__allNights">
+					<span class="nemo-hotel__content__rooms__footer__button__price__allNights__value">
+						<money data-bind="money: totalRoomsPrice()" round="up" format="0,0 $"></money>
+					</span>
+					<span class="nemo-hotel__content__rooms__footer__button__price__allNights__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + resultsController.countOfNights() + ' ' + resultsController.labelAfterNights()"></span>
+				</span>
+	
+				<span class="nemo-hotel__content__rooms__footer__button__price__perNight">
+					<span class="nemo-hotel__content__rooms__footer__button__price__perNight__value">
+						<money data-bind="money: totalRoomsPricePerNight()" round="up" format="0,0 $"></money>
+					</span>
+					<span class="nemo-hotel__content__rooms__footer__button__price__perNight__period" data-bind="i18n: 'HotelsSearchResults.perNight'"></span>
+				</span>
+			</div>
+			<div class="nemo-hotel__content__rooms__footer__button__icon"></div>
+		</div>
+	<!--/ko-->
+</div>

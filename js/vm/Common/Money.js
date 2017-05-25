@@ -17,6 +17,34 @@ define(
 					currency: this.currency()
 				});
 			};
+
+			/**
+			 * @param {Money|Number} money
+			 */
+			this.add = function (money) {
+				if (money instanceof Money) {
+					this.amount(this.amount() + money.amount());
+				}
+				else {
+					this.amount(this.amount() + money);
+				}
+				
+				return this;
+			};
+
+			/**
+			 * @param money
+			 */
+			this.divide = function (money) {
+				if (money instanceof Money) {
+					this.amount(this.amount() / money.amount());
+				}
+				else {
+					this.amount(this.amount() / money);
+				}
+				
+				return this;
+			};
 		}
 
 		// Extending from base and i18nized model

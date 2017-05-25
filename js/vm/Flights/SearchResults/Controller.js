@@ -1934,6 +1934,9 @@ define(
 					currentType = 1;
 				}
 			}
+			if(!this.displayTypes[currentType]){
+				currentType = 0;
+			}
 			this.displayType(this.displayTypes[currentType]);
 		};
 		
