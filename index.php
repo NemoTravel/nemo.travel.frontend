@@ -37,19 +37,22 @@
 <?php
 $requestUri = $_SERVER['REQUEST_URI'];
 $urlParamPos = strpos($requestUri, "results");
-if(!$urlParamPos){
+	
+if (!$urlParamPos) {
 	$urlParamPos = strpos($requestUri, "search");
 }
-If($urlParamPos){
+	
+if ($urlParamPos) {
 	$urlParamStr = substr($requestUri, $urlParamPos);
 }
-else{
-	$urlParamStr = "";
+else {
+	$urlParamStr = '';
 }
-$newRoot = str_replace($urlParamStr, "", $requestUri); 
+	
+$newRoot = str_replace($urlParamStr, '', $requestUri); 
+$host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 ?>
-
-<?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
+	
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 <!--[if IE 9]>
