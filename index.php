@@ -34,6 +34,21 @@
 	<!-- /ko -->
 </div>
 
+<?php
+$requestUri = $_SERVER['REQUEST_URI'];
+$urlParamPos = strpos($requestUri, "results");
+if(!$urlParamPos){
+	$urlParamPos = strpos($requestUri, "search");
+}
+If($urlParamPos){
+	$urlParamStr = substr($requestUri, $urlParamPos);
+}
+else{
+	$urlParamStr = "";
+}
+$newRoot = str_replace($urlParamStr, "", $requestUri); 
+?>
+
 <?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
@@ -94,15 +109,12 @@
 					staticInfoURL: '//demo.nemo.travel',
 					version: 'v0',
 					hostId: document.location.host,
-					root: '/',
+					root: '<?php echo $newRoot ?>',
 					verbose: false,
 					i18nLanguage: LocalStorage.get('language', null) || 'en',
 					postParameters: {},
 					CORSWithCredentials: true,
 					componentsAdditionalInfo: {
-						'Flights/SearchForm/Controller': {
-							forceSelfHostNavigation: true
-						},
 						'Hotels/SearchForm/Controller': {
 							forceSelfHostNavigation: true
 						}
@@ -155,6 +167,9 @@
 //			options.i18nURL           = '/i18n/';
 
 			controller = new AppController(document.getElementsByClassName('js-nemoApp')[0], options);
+			AppController.prototype.extend('Flights/SearchForm/Controller', function () {
+				this.forceSelfHostNavigation = true;
+			});
 		}
 	);
 
