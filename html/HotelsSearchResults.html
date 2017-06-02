@@ -390,7 +390,8 @@
 									</div>
 	
 								</div>
-								<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice"></div>
+								<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__special-offer'), visible: $data.isSpecialOffer"></div>
+								<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice && !$data.isSpecialOffer"></div>
 							</div>
 	
 							<div class="nemo-hotels-results__hotelsGroup__content">
