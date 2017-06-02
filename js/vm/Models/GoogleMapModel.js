@@ -40,7 +40,7 @@ define([
 			scaledSize: new google.maps.Size(GoogleMapModel.MAP_SIZE_WIDTH, GoogleMapModel.MAP_SIZE_HEIGHT)
 		};
 	};
-
+	
     /**
      *
      * @param map
@@ -72,7 +72,6 @@ define([
         }
 
         this.infoPopup = new google.maps.InfoWindow();
-
         // Add click event on marker
         if (addClickListener) {
             google.maps.event.addListener(marker, 'click', function () {
@@ -80,6 +79,48 @@ define([
                 self.infoPopup.setContent($('#infoWindowContentTemplate .mapItem')[0]);
                 self.infoPopup.open(map, marker);
                 $('#infoWindowContent .description .text').dotdotdot({watch: 'window'});
+				google.maps.event.addListener(self.infoPopup, 'domready', function() {
+					// Reference to the DIV which receives the contents of the infowindow using jQuery
+					var iwOuter = $('.gm-style-iw');
+					
+					/* The DIV we want to change is above the .gm-style-iw DIV.
+					 * So, we use jQuery and create a iwBackground variable,
+					 * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
+					 */
+					var iwBackground = iwOuter.prev();
+
+					// Remove the background shadow DIV
+					iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+					// Remove the white background DIV
+					iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+					// Get height of infowindow
+					var infoWindowHeight = $('.gm-style-iw').height();
+					
+					// Arrow change top position
+					iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'top: ' + infoWindowHeight + 'px !important;' });
+					iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'top: ' + infoWindowHeight + 'px !important;' });
+					
+					// Move close button to header block
+					var iwCloseBtn = iwOuter.next();
+					iwOuter.find('.header').append(iwCloseBtn);
+					iwOuter.find('.stars').css({marginRight: '15px'});
+					
+					// Disable zoom
+					map.setOptions({ scrollwheel:false, scaleControl: false, zoomControl: false });
+				
+				});
+				
+				// Enable zoom when infoWindow closed
+				google.maps.event.addListener(self.infoPopup, 'closeclick', function() {
+					map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true });
+					var iwOuter = $('.gm-style-iw');
+					var iwBackground = iwOuter.prev();
+					iwBackground.children(':nth-child(1)').attr('style', "");
+					iwBackground.children(':nth-child(3)').attr('style', "");
+				});
+				
             });
         }
 
@@ -269,7 +310,7 @@ define([
         strokeWeight: 1
     };
 
-    GoogleMapModel.MAP_SIZE_WIDTH = 40;
+    GoogleMapModel.MAP_SIZE_WIDTH = 35;
     GoogleMapModel.MAP_SIZE_HEIGHT = 35;
 
     GoogleMapModel.MAP_DISTANCE_MIN = 1;

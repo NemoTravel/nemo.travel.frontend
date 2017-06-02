@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="31.7px" height="32.4px" viewBox="0 0 31.7 32.4" enable-background="new 0 0 31.7 32.4" xml:space="preserve">
+	 width="24px" height="32.4px" viewBox="0 0 24 32.4" enable-background="new 0 0 24 32.4" xml:space="preserve">
 <g>
 	<g>
 		<defs>
@@ -10,7 +10,7 @@
 				<feBlend  in="SourceGraphic" in2="back" mode="normal"/>
 			</filter>
 		</defs>
-		<mask maskUnits="userSpaceOnUse" x="6.7" y="19" width="25" height="13.4" id="SVGID_1_">
+<!--		<mask maskUnits="userSpaceOnUse" x="6.7" y="19" width="25" height="13.4" id="SVGID_1_">
 			<g filter="url(#Adobe_OpacityMaskFilter)">
 				
 					<image overflow="visible" width="121" height="73" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEBLAEsAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA
@@ -40,7 +40,7 @@ Jgf+tgM/osVuzu2ULFbs7tlCxW7O7ZQsVuzu2ULFbs7tlCxW7O7ZQsVuzu2ULFbs7tlCxW7O7ZQs
 Vuzu2ULFbs7tlCxW7O7ZQsVuzu2ULFbs7tlC+Dx7GPwuH8iuOB+EK3Emq+a//9k=" transform="matrix(0.24 0 0 0.24 4.7281 17)">
 				</image>
 			</g>
-		</mask>
+		</mask>-->
 		<g mask="url(#SVGID_1_)">
 			<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="9.6467" y1="30.243" x2="29.9801" y2="16.5758">
 				<stop  offset="0" style="stop-color:#1B1B1B"/>

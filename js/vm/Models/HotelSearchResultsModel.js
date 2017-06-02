@@ -174,6 +174,20 @@ define(
 		};
 
 		/**
+		 * Search rooms with special offer in hotel
+		 * @param hotel
+		 * @return {boolean}
+		 */
+		HotelSearchResultsModel.prototype.isSpecialOfferExist = function (hotel) {
+			for (var item in hotel.rooms[0]) {
+				if (hotel.rooms[0].hasOwnProperty(item) && hotel.rooms[0][item].rate.isSpecialOffer) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		/**
 		 * Get distance from center and airport
 		 * @param hotel
 		 * @returns {string[]} first element is distance from center, second is distance from airport
@@ -423,6 +437,7 @@ define(
 				// связанные со стоимостью чего-либо будет проводить с цифрами, а не с обычными нашими моделями...
 				hotel.hotelPriceOriginal = firstRoomPrice.amount;
 				hotel.hotelPrice = Math.round(hotel.hotelPriceOriginal);
+				hotel.isSpecialOffer = self.isSpecialOfferExist(hotel);
 				hotel.priceObservable = self.$$controller.getModel('Common/Money', {
 					amount: firstRoomPrice.amount,
 					currency: firstRoomPrice.currency
