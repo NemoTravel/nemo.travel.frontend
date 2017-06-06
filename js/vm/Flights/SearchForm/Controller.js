@@ -1139,6 +1139,7 @@ define(
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
+			this.forceAggregationAirports = !!this.$$rawdata.flights.search.formData.forceAggregationAirports;
 
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};

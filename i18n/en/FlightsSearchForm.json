@@ -109,6 +109,7 @@
     "additionalParameters__maxPrice__title": "Price",
     "additionalParameters__maxPrice__placeholder": "to",
     "additionalParameters__timeEnRoute__title": "Time en route",
+    "additionalParameters__totalTimeEnRoute__title": "Total time en route",
     "additionalParameters__timeEnRoute__option_6": "6 hours",
     "additionalParameters__timeEnRoute__subTitle": "Up to",
     "additionalParameters__timeEnRoute__option_none": "Any duration",

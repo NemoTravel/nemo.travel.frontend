@@ -12,6 +12,7 @@
     "additionalParameters__timeEnRoute__option_none": "Beliebige Dauer",
     "additionalParameters__timeEnRoute__subTitle": "Bis zu",
     "additionalParameters__timeEnRoute__title": "Reisezeit",
+    "additionalParameters__totalTimeEnRoute__title": "Reisezeit",
     "additionalParameters__toggle": "Weitere Optionen",
     "additionalParameters__transfers__noTransfers__caption": "Nonstop",
     "additionalParameters__transfers__shortTransfers__caption": "nur kurze Stopps (bis zu 2 Stunden)",
