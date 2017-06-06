@@ -108,6 +108,7 @@
     "additionalParameters__maxPrice__title": "Цена билетов",
     "additionalParameters__maxPrice__placeholder": "до",
     "additionalParameters__timeEnRoute__title": "Время в пути",
+    "additionalParameters__totalTimeEnRoute__title": "Общее время в пути",
     "additionalParameters__timeEnRoute__subTitle": "Не более",
     "additionalParameters__timeEnRoute__option_none": "Не важно",
     "additionalParameters__timeEnRoute__option_6": "6 часов",

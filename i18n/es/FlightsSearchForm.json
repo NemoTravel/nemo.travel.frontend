@@ -28,6 +28,7 @@
     "additionalParameters__timeEnRoute__option_none": "No importa",
     "additionalParameters__timeEnRoute__subTitle": "No más",
     "additionalParameters__timeEnRoute__title": "Tiempo en el camino",
+    "additionalParameters__totalTimeEnRoute__title": "Tiempo en el camino",
     "routeOptions__tripType__caption": "Itinerario",
     "searchError_requestFailed": "La búsqueda se ha fallado. Póngase en contacto con el desarrollador.",
     "autocomplete_noResults": "Indique ciudad o aeropuerto",

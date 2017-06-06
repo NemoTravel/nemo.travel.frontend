@@ -109,8 +109,10 @@ define(
 
 				$element.on('focus', function (e) {$(this).val('');});
 				
-				var isDepartureInput = viewModel.items.departure.value === valueAccessor();
-				var onFocusAutocomplete = viewModel.form.onFocusAutocomplete;
+				var isDepartureInput = viewModel.items.departure.value === valueAccessor(),
+					onFocusAutocomplete = viewModel.form.onFocusAutocomplete,
+					forceAggregationAirports = viewModel.form.forceAggregationAirports;
+				
 				$element.on('focus', function (e) {
 					$element.val('');
 					if(onFocusAutocomplete){
@@ -196,6 +198,25 @@ define(
 								setTimeout(function(){
 									$row.find('.js-autofocus-field_departure').focus();
 								}, 100);
+							}
+						}
+						// If a wanted airport has an aggregation airport (example: MOW owns DME) 
+						// and the corresponding setting is set, replace wanted airport with aggregation one.
+						else if (forceAggregationAirports && ui.item.aggregationIATA) {
+							var aggregationIATA = ui.item.aggregationIATA;
+
+							if (
+								ui.item.pool.airports &&
+								ui.item.pool.airports[aggregationIATA] &&
+								ui.item.pool.airports[aggregationIATA].isAggregation === true
+							) {
+								// Aggregation exists, create corresponding search form model.
+								var aggregationItem = viewModel.$$controller.getModel('Flights/Common/Geo', {
+									data: ui.item.pool.airports[aggregationIATA],
+									guide: ui.item.pool
+								});
+
+								valueAccessor()(aggregationItem);
 							}
 						}
 						// If item has label - it's something other than geo point that should be in AC

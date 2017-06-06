@@ -108,6 +108,7 @@
     "additionalParameters__maxPrice__title": "Ціна квитків",
     "additionalParameters__maxPrice__placeholder": "до",
     "additionalParameters__timeEnRoute__title": "Час у польоті",
+    "additionalParameters__totalTimeEnRoute__title": "Час у польоті",
     "additionalParameters__timeEnRoute__subTitle": "Не більше",
     "additionalParameters__timeEnRoute__option_none": "Не важливо",
     "additionalParameters__timeEnRoute__option_6": "6 годин",

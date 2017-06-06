@@ -197,7 +197,7 @@
     "flightsGroup__fareFamilies__title__misc": "Miscellaneous",
     "flightsGroup__fareFamilies__title__buyBtn": "Buy",
     "flightsGroup__fareFamilies__title__price": "Price",
-    "flightsGroup__fareFamilies__title__error": "Unfortunately, no other tariffs has been found for this flight.",
+    "flightsGroup__fareFamilies__title__error": "Unfortunately, no other fares have been found for this flight.",
     "flightsGroup__fareFamilies__param__description": "Fare description",
     "flightsGroup__fareFamilies__param__carry_on": "Hand luggage",
     "flightsGroup__fareFamilies__param__baggage": "Baggage",

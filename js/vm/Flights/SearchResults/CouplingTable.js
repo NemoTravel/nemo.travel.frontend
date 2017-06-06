@@ -104,7 +104,6 @@ define(
 				}));
 
 				this.legGroupings.push(addObj);
-
 				this.isActive = this.isActive || this.legGroupings[siter].flights().length > 1;
 
 				if (this.maxFlights == 0 || this.maxFlights < this.legGroupings[siter].flights().length) {
