@@ -58,8 +58,8 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 <!--[if IE 9]>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
-
-<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<link href="/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 

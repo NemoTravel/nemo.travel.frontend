@@ -464,18 +464,21 @@ define(
 		ko.bindingHandlers.flightsResultsBuyButtonFlightCheck = {
 			_worker: function ($element, valueAccessor) {
 				// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
-				var data = valueAccessor();
+				var data = valueAccessor(),
+					flightIds = data.ids;
 				
-				if (data.ids.length) {
-					if($element.parents('.js-flights-results__showcase').length > 0){
-						Cookie.set('nemo-showcaseFlight-' + data.ids[0], true, 30);
+				if (flightIds.length) {
+					if ($element.parents('.js-flights-results__showcase').length > 0 ){
+						Cookie.set('nemo-showcaseFlight-' + flightIds[0], true, 30);
 					}
 
 					if (data.controller.options.needCheckAvail) {
 						$element.data('nemo-flights-results__bookingCheckInProgress',true);
 					}
+
+					flightIds = data.controller.handleFlightIdsBeforeBooking(flightIds);
 					
-					data.controller.bookFlight(data.ids);
+					data.controller.bookFlight(flightIds);
 				}
 			},
 			_hintContent: function (flight, i18n, valueAccessor) {
