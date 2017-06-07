@@ -70,7 +70,7 @@
 			<div class="nemo-hotel__content__rooms__header">
 				<div class="nemo-hotel__content__rooms__slider">
 					<div data-bind="visible: !hotel.hotelPhotos.length" class="nemo-hotel__content__rooms__slider__dummy nemo-hotel__noPhoto"></div>
-					<div data-bind="fotorama: hotel.hotelPhotos" data-width="100%"></div>
+					<div data-bind="lightslider: hotel.hotelPhotos"></div>
 		
 					<!-- ko if: hotel.staticDataInfo.averageCustomerRating -->
 						<div class="nemo-hotel__content__rooms__rating">
@@ -142,7 +142,7 @@
 			<div class="nemo-hotel__content__about__description__text" data-bind="html: hotel.staticDataInfo.description"></div>
 		</div>
 
-		<div class="nemo-hotel__content__about__location set-hotel-about-location-hidden">
+		<div class="nemo-hotel__content__about__location set-hotel-about-location-hidden" data-bind="visible: hotel.staticDataInfo.distances.length">
 			<h3 class="nemo-hotel__content__about__title" data-bind="i18n: 'HotelsSearchResults.location'"></h3>
 			<div class="nemo-hotel__content__about__location__distances">
 				<!--ko if: hotel.staticDataInfo.distances.length -->

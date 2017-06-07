@@ -10,6 +10,7 @@ define(
 			this.parentFlight = componentParameters.flight;
 			this.resultsController = componentParameters.resultsController;
 			this.flights = [];
+			this.flightsById = {};
 			this.fareFamilyNotice = '';
 			this.currentFlightId = ko.observable(null);
 			this.state = ko.observable({});
@@ -85,6 +86,7 @@ define(
 
 								newFlights.push({
 									id: element.id,
+									nemo2id: element.nemo2id,
 									name: element.name,
 									price: self.$$controller.getModel('Common/Money', element.price),
 									features: features
@@ -94,6 +96,10 @@ define(
 
 						self.flights = newFlights;
 						self.fareFamilyNotice = data.flights.search.fareFamilies.fareFamilyNotice;
+
+						newFlights.map(function (flight) {
+							self.flightsById[flight.id] = flight;
+						});
 
 						if (self.flights.length > 0) {
 							isSuccess = true;
@@ -109,6 +115,16 @@ define(
 					}
 				);
 			}
+		};
+
+		/**
+		 * For overriding.
+		 * 
+		 * @param {Array} flightIds
+		 * @returns {Array}
+		 */
+		FlightsSearchResultsFareFamiliesController.prototype.handleFlightIdsBeforeBooking = function (flightIds) {
+			return flightIds;
 		};
 
 		return FlightsSearchResultsFareFamiliesController;

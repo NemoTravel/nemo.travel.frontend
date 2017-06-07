@@ -1153,6 +1153,7 @@ define(
 									'Flights/SearchResults/Flight',
 									{
 										id: source.flights[j].id,
+										nemo2id: source.flights[j].nemo2id,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
 										segments: segsarr,
@@ -2051,6 +2052,16 @@ define(
 			}
 
 			return ret;
+		};
+
+		/**
+		 * For overriding.
+		 *
+		 * @param {Array} flightIds
+		 * @returns {Array}
+		 */
+		FlightsSearchResultsController.prototype.handleFlightIdsBeforeBooking = function (flightIds) {
+			return flightIds;
 		};
 
 		FlightsSearchResultsController.prototype.pageTitle = 'FlightsResults';
