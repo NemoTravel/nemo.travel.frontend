@@ -12,7 +12,7 @@ define(
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'js/lib/jquery.tablesorter/v.2.0.5/jquery.tablesorter.min',
 		'touchpunch',
-		'js/lib/lightslider/src/js/lightslider'
+		'js/lib/lightslider/dist/js/lightslider.min'
 	],
 	function (ko, $, Cache, md5, Money) {
 		// Common Knockout bindings are defined here
