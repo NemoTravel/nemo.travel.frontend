@@ -183,11 +183,53 @@ define([
     GoogleMapModel.prototype.initMap = function () {
 
         var self = this,
-            hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [];
+            hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [],
+            inputSearchBox = document.createElement("input"),
+            searchBox;
 
         // Init map and show center
         this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], true, false);
+        
+        inputSearchBox.classList.add('searchBox');
+		inputSearchBox.spellcheck = false;
+        inputSearchBox.placeholder = self.$$controller.i18nStorage.HotelsSearchResults['searchBox_map'];
 
+        searchBox = new google.maps.places.SearchBox(inputSearchBox);
+        this.maps['map'].controls[google.maps.ControlPosition.TOP_LEFT].push(inputSearchBox);
+        var map = this.maps['map'];
+		this.maps['map'].addListener('bounds_changed', function() {
+			searchBox.setBounds(map.getBounds());
+		});
+        
+        searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+            if (places.length === 0) {
+                return;
+            }
+            // For each place, get the location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                
+                // close popup
+                if (self.infoPopup) {
+                    self.infoPopup.close();
+                    map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true });
+                }
+                
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+        
         // Add circle overlay and bind to center
         this.circle = new google.maps.Circle({
             map: this.maps['map'],

@@ -238,6 +238,10 @@
 				&__distances {
 					margin-left: 60px;
 					justify-content: space-around;
+                                           
+					&__alone {
+						margin: 0 auto;
+					}
 				}
 
 				&__rating {
@@ -422,19 +426,27 @@
 						}
 					}
 				}
-				
-				.lSSlideOuter .lSPager.lSGallery {
-					li {
-						opacity: 0.4;
-						transition: opacity 0.2s;
-						
-						&.active, &:hover {
-							opacity: 1;
-							border-radius: 0;
+
+				.lSSlideOuter {
+					.lSPager.lSGallery {
+						img {
+							width: auto;
+							height: 80px;
 						}
 						
-						&.active {
-							border: 3px solid #64b5f7;
+						li {
+							opacity: 0.4;
+							transition: opacity 0.2s;
+							
+							a {
+								display: flex;
+								justify-content: center;
+							}
+
+							&.active, &:hover {
+								opacity: 1;
+								border-radius: 0;
+							}
 						}
 					}
 				}

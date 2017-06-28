@@ -1,0 +1,28 @@
+.nemo-ui-clickCover {
+	background: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	z-index: 1 !important;
+	cursor: pointer;
+	text-align: center;
+	line-height: @height - 2px;
+	display: block;
+	border: 1px solid #e6e6e6;
+	
+	&__text {
+		color: #64b5f6;
+		border-bottom: 1px dashed rgba(100, 181, 246, .25);
+	}
+	
+	&:hover {
+		border-color: #64b5f6;
+	}
+	
+	&:hover &__text, &:focus &__text, &:active &__text {
+		color: #349ef3;
+		border-bottom: 1px dashed rgba(14, 134, 230, .75);
+	}
+}

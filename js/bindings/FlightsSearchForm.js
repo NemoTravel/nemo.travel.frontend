@@ -6,7 +6,7 @@ define(
 		'jquery',
 		'jqueryUI',
 		'js/lib/jquery.pickmeup/jquery.pickmeup',
-		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min'
+		'js/lib/nemo.jquery.chosen/chosen.jquery'
 	],
 	function (ko, mobileDetect, $) {
 		// FlightsSearchForm Knockout bindings are defined here
@@ -165,7 +165,7 @@ define(
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
-						if ($children.length == 1) {
+						if ($children.length == 1 && $(this).data('nemo-FlightsFormGeoAC').term.length > 2) {
 							if(!onFocusAutocomplete){
 								//когда автокомплит с маршрутами - пользователь должен подтвердить недопустимую комбинацию
 								$children.eq(0).mouseenter().click();

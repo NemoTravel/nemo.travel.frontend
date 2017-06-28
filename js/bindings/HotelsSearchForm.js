@@ -10,12 +10,23 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			},
 			_renderItem: function (ul, item) {
 				var text;
-				text = '<span class="nemo-hotels-form__staying__segment_autocomplete_item__first">' +
-					item.name +
-					'</span>' +
-					'<span class="nemo-hotels-form__staying__segment_autocomplete_item__second">' +
-					item.country +
-					'</span>';
+				if (typeof item.label == 'undefined') {
+					text = item.name
+							.replace(
+								new RegExp(
+									'(' + (this.term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '')) + ')',
+									''
+								),
+								'<span class="nemo-ui-autocomplete__match">$1</span>'
+							) +
+						(item.country ? '<span class="nemo-hotels-form__geoAC__item__country">, ' + item.country + '</span>' : '');
+				}
+				else {
+					text = item.label;
+				}
+
+				//text += '</span>' + ('<span class="nemo-hotels-form__staying__segment_autocomplete_item__second">' + item.country + '</span>');
+
 
 				return $('<li>')
 				.addClass('nemo-hotels-form__staying__segment_autocomplete_item')
