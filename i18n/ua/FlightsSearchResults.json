@@ -41,6 +41,7 @@
     "flightsGroup__selector__uncombinable_one": "Не комбінується с перельотом №[%-numbers-%]",
     "flightsGroup__selector__uncombinable_many": "Не комбінується с перельотами №[%-numbers-%]",
     "flightsGroup__selector__uncombinable__lastConjunction": "і",
+    "flightsGroup__selector__showMoreFlights": " ",
     "flightsGroup__availSeats_one": "місце",
     "flightsGroup__availSeats_twoToFour": "Місця",
     "flightsGroup__availSeats_fourPlus": "місць",

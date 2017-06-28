@@ -79,7 +79,7 @@
 						</div>
 					<!-- /ko -->
 		
-					<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotel__content__rooms__mobileDistances">
+					<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotel__content__rooms__mobileDistances" data-bind="css: {'nemo-hotel__content__rooms__mobileDistances__alone': !hotel.staticDataInfo.averageCustomerRating}">
 						<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotel__content__rooms__mobileDistances__distance" data-bind="visible: resultsController.getDistances(hotel)[0]">
 							<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value nemo-hotel__content__rooms__mobileDistances__distance__value" data-bind="text: resultsController.getDistances(hotel)[0]"></span>
 							<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target nemo-hotel__content__rooms__mobileDistances__distance__target" data-bind="i18n: 'HotelsSearchResults.targetFromCenter'"></span>

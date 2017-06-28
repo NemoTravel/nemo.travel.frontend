@@ -57,7 +57,7 @@ define(
 			}
 
 
-			for (var i in tempGroupsArrTransfer){
+			for (var i = 0; i < tempGroupsArrTransfer.length; i++){
 				tempGroupsArrTransfer[i].groupsFilteredOut = ko.computed(function() {
 					for (var j = 0; j < this.groups.length; j++) {
 						if (this.groups[j].filteredOut() == false) {
@@ -70,7 +70,7 @@ define(
 				}, tempGroupsArrTransfer[i]);
 			}
 
-			for (var i in tempGroupsArrDirect){
+			for (var i = 0; i < tempGroupsArrDirect.length; i++){
 				tempGroupsArrDirect[i].groupsFilteredOut = ko.computed(function() {
 					for (var j = 0; j < this.groups.length; j++) {
 						if (this.groups[j].filteredOut() == false) {

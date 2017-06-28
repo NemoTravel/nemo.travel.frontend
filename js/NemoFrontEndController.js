@@ -169,7 +169,7 @@ define (
 					}
 				},
 				getFragment: function() {
-					var path = ('/' + this.clearSlashes(decodeURI(location.pathname + location.search))/*.replace(/\?(.*)$/, '')*/ + '/'),
+					var path = ('/' + this.clearSlashes(decodeURI(location.pathname + (location.host.indexOf('yandex') !== -1 ? '' : location.search)))/*.replace(/\?(.*)$/, '')*/ + '/'),
 						fragment;
 
 					if (path == '//') {

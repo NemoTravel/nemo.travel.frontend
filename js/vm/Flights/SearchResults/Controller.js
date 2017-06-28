@@ -374,6 +374,7 @@ define(
 
 			this.error = ko.observable(false);
 			this.warning = ko.observable(false);
+			this.forcedMessageAsIs = ko.observable(null);
 
 			this.resultsLoaded = ko.observable(false);
 			this.showMaps = ko.observable(false);
@@ -879,6 +880,9 @@ define(
 					this.$$rawdata.flights.search.results.info.errorCode &&
 					this.$$rawdata.flights.search.results.info.errorCode != 204
 				) {
+					if (this.$$rawdata.flights.search.results.info.forcedMessageAsIs) {
+						this.forcedMessageAsIs(this.$$rawdata.flights.search.results.info.forcedMessageAsIs);
+					}
 					this.error(this.$$rawdata.flights.search.results.info.errorCode);
 				}
 				else {

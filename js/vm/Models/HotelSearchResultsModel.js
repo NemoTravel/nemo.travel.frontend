@@ -323,9 +323,17 @@ define(
 			var self                = this,
 				searchData          = this.$$rawdata.hotels.search ? this.$$rawdata.hotels.search : null,
 				staticData          = this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : null,
+				googleMapKey        = this.$$rawdata.system.info.user.settings.googleMapsApiKey ? this.$$rawdata.system.info.user.settings.googleMapsApiKey : null,
 				minHotelPrice       = Infinity,
 				maxHotelPrice       = -Infinity,
-				MILLISECONDS_IN_DAY = 86400000;
+				maxAverageCustomerRating = 0;
+				MILLISECONDS_IN_DAY = 86400000,
+				$body               = $('body');
+			
+			if (googleMapKey && !$body.find('.js-googleMapScript').length) {
+				self.$$controller.viewModel.user.settings.googleMapsApiKey(googleMapKey);
+				$body.append('<script class="js-googleMapScript" src="//maps.googleapis.com/maps/api/js?key=' + googleMapKey + '&libraries=places"></script>');
+			}
 
 			self.cheapestHotel = null;
 			self.minHotelPrice = null;
@@ -395,6 +403,13 @@ define(
 					maxHotelPrice = hotel.hotelPrice;
 				}
 			}
+			
+			// find hotel with max average customer rating
+			function findMaxAverageCustomerRating(hotel) {
+				if (hotel.averageCustomerRating > maxAverageCustomerRating) {
+					maxAverageCustomerRating = hotel.averageCustomerRating;
+				}
+			}
 
 			var hotels = addHotelsRooms(searchData.results);
 			var hotelsPool = {};
@@ -445,6 +460,7 @@ define(
 				
 				findCheapestHotel(hotel);
 				findMostExpensiveHotel(hotel);
+				findMaxAverageCustomerRating(hotel);
 
 				if (!hotel.averageCustomerRating) {
 					hotel.averageCustomerRating = {
@@ -472,9 +488,19 @@ define(
 			this.countOfNights = ko.observable(
 				Math.floor((new Date(searchData.request.checkOutDate) - new Date(searchData.request.checkInDate)) / MILLISECONDS_IN_DAY)
 			);
+			
+			this.maxAverageCustomerRating = ko.observable(maxAverageCustomerRating);
 
 			this.filters = new HotelsFiltersViewModel(ko, minHotelPrice, maxHotelPrice);
-
+			
+			this.averageCustomerRatingComputed = ko.pureComputed(function () {
+				if (self.maxAverageCustomerRating() === 0) {
+					self.filters.sortTypes = [HotelsBaseModel.SORT_TYPES.BY_PRICE];
+					self.filters.sortType(HotelsBaseModel.SORT_TYPES.BY_PRICE);
+				}
+			});
+			this.initialAverageCustomerRating = this.averageCustomerRatingComputed();
+			
 			/**
 			 * Returns sorted hotels
 			 */
@@ -682,12 +708,28 @@ define(
 						featureFilterValues[feature].count++;
 					});
 				});
-
+				
 				this.filters.featureFilter.setFilterValues(featureFilterValues);
 
 			}, this);
 
+			this.specialConditionsCount = ko.pureComputed(function() {
+				var self = this,
+					specialConditions= {specialOffer : 0},
+					hotels = self.getHotelsExceptFeatureFilter();
+					
+					hotels.forEach(function (hotel) {
+						if(self.isSpecialOfferExist(hotel)) {
+							specialConditions.specialOffer++;
+						}
+					});
+					
+					this.filters.specialFilter.setFilterValues({SpecialOffer: {id: 'isSpecialOffer', name: this.$$controller.i18n('HotelsSearchResults','header-flag__special-offer'), count: specialConditions.specialOffer}});
+			}, this);
+
 			this.initialMinStarPrices = this.minStarPrices();
+			this.initialFeaturesCount = this.featuresCount();
+                        this.initialSpecialCount = this.specialConditionsCount();
 
 			/**
 			 * Returns hotels count what can be loaded with lazy loading

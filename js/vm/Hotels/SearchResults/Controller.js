@@ -34,12 +34,6 @@ define(
 			BaseControllerModel.apply(this, arguments);
 			HotelSearchResultsModel.apply(this, arguments);
 
-			this.$$controller.viewModel.user.settings.googleMapsApiKey.subscribe(function (key) {
-				if (key) {
-					$('body').append('<script src="//maps.googleapis.com/maps/api/js?key=' + key + '"></script>');
-				}
-			}, this);
-
 			var getSearchId = function () {
 				return self.$$controller.router.current.getParameterValue('search_id');
 			};
@@ -332,9 +326,9 @@ define(
 
 				if (searchId && hotel.id) {
 					var message = {
-						wrongResponse: this.$$controller.i18n('HotelsSearchResults', 'bookingCheck__error__error_wrongResponse'),
-						serverError: this.$$controller.i18n('HotelsSearchResults', 'bookingCheck__error__error_serverError'),
-						hotelUnavailable: this.$$controller.i18n('HotelsSearchResults', 'bookingCheck__error__error_unavailable')
+						wrongResponse: this.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_wrongResponse'),
+						serverError: this.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_serverError'),
+						hotelUnavailable: this.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_unavailable')
 					};
 
 					this.$$controller.loadData(
