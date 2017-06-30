@@ -210,5 +210,6 @@
     "flightsGroup__fareFamilies__title__refunds": "Rambursări și modificări",
     "flightsGroup__fareFamilies__title__buyBtn": "Cumpără",
     "flightsGroup__fareFamilies__param__miles": "Acordarea milelor",
-    "flightsGroup__fareFamilies__param__description": "Descrierea tarifului"
+    "flightsGroup__fareFamilies__param__description": "Descrierea tarifului",
+    "flightsGroup__selector__showMoreFlights": "Mai multe zboruri"
 }
