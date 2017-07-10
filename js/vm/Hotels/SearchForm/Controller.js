@@ -504,20 +504,7 @@ define([
             citySuggestions = this.$$rawdata.hotels.search.formData.citySuggestions;
             
             if (citySuggestions instanceof Array) {
-                var citiesModels = [];
-
-				citySuggestions.map(function (cityId) {
-					var city = self.$$controller.getModel('Hotels/Common/Geo', {
-						data: { id: cityId },
-						guide: self.$$rawdata.guide
-					});
-					
-					if (city.name) {
-						citiesModels.push(city);
-                    }
-				});
-                
-            	this.citySuggestions(citiesModels);
+				this.citySuggestions(citySuggestions);
 			}
 			
             // Processing segments

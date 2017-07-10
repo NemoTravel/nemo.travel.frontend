@@ -38,5 +38,8 @@
     "hotels-room-paymentType__Deposit": "Оплата сейчас",
     "hotels-room-paymentType__Credit": "Подтверждение кредитной картой",
     "hotels-room-paymentType__Prepayment": "Оплата сейчас",
-    "hotels-room-paymentType__Cash": "Оплата на месте"
+    "hotels-room-paymentType__Cash": "Оплата на месте",
+    "description": "Об отеле",
+    "location": "Расположение",
+    "hotelServicesCaption": "Услуги и удобства в отеле"
 }

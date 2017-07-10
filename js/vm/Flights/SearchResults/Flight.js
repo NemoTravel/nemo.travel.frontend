@@ -75,7 +75,10 @@ define(
 							depTerminal: this.segmentsByLeg[i][j].depTerminal,
 							arrTerminal: this.segmentsByLeg[i][j-1].arrTerminal,
 							depAirp: this.segmentsByLeg[i][j].depAirp,
-							arrAirp: this.segmentsByLeg[i][j-1].arrAirp
+							arrAirp: this.segmentsByLeg[i][j-1].arrAirp,
+							marketingCompany: this.segmentsByLeg[i][j].marketingCompany,
+							flightNumber:  this.segmentsByLeg[i][j].flightNumber,
+							aircraftType: this.segmentsByLeg[i][j].aircraftType
 						});
 
 						this.isDirect = false;

@@ -4,7 +4,6 @@ define(
 	function (ko, helpers, BaseControllerModel, Analytics) {
 		function FlightsScheduleSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
-
 			this.name = 'FlightsScheduleSearchFormController';
 			this.scheduleLoading = ko.observable(false);
 			this.schedule = {
@@ -15,7 +14,7 @@ define(
 				visibleDates: ko.observableArray([])
 			};
 			this.loadScheduleRequest = false;
-
+			
 			// PFs stuff
 			this.postFilters = ko.observableArray([]);
 			this.visiblePostFilters = ko.observableArray([]);
@@ -24,7 +23,8 @@ define(
 
 			this.schedulePeriodBegin = ko.observable(null);
 			this.schedulePeriodEnd = ko.observable(null);
-
+			
+			this.trdScheduleRequestDate = ko.observable();
 			this.possibleSorts = ['depTime', 'arrTime', 'timeEnRoute'];
 			this.sort = ko.observable(this.possibleSorts[0]);
 
@@ -38,7 +38,7 @@ define(
 
 		// Inheritance override
 		FlightsScheduleSearchFormController.prototype.cookieName     = 'FlightsScheduleSearchForm';
-		FlightsScheduleSearchFormController.prototype.$$i18nSegments = ['FlightsScheduleSearchForm'];
+		FlightsScheduleSearchFormController.prototype.$$i18nSegments = ['FlightsSearchForm', 'FlightsSearchResults','FlightsFlightInfo'];
 		FlightsScheduleSearchFormController.prototype.$$KOBindings   = ['PostFilters', 'FlightsSearchForm'];
 		FlightsScheduleSearchFormController.prototype.$$usedModels   = [
 			'Flights/SearchForm/Segment',
@@ -79,7 +79,7 @@ define(
 					var ret = [];
 
 					ret.push([
-						obj.getMarketingCompany().IATA,
+						obj.getMarketingCompany().name,
 						obj.getMarketingCompany()
 					]);
 
@@ -98,7 +98,7 @@ define(
 				isLegged: true,
 				legNumber: 0,
 				getter: function (obj) {
-					return [[obj.depAirp.IATA, obj.depAirp]];
+					return [[obj.depAirp.name, obj.depAirp]];
 				},
 				options: {
 					// Filter-specific options here
@@ -113,7 +113,7 @@ define(
 				isLegged: true,
 				legNumber: 0,
 				getter: function (obj) {
-					return [[obj.arrAirp.IATA, obj.arrAirp]];
+					return [[obj.arrAirp.name, obj.arrAirp]];
 				},
 				options: {
 					// Filter-specific options here
@@ -485,7 +485,7 @@ define(
 
 		FlightsScheduleSearchFormController.prototype.doSort = function (type) {
 			var sortFunc;
-
+			this.sort(type);
 			switch (type) {
 				case 'depTime':
 					sortFunc = function (a, b) {

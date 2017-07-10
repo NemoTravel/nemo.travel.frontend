@@ -1,0 +1,577 @@
+.nemo-flights-form {
+
+	&-scheduleSearch {
+		background: #63636c;
+
+		&__searchToTop {
+			margin-top: 0;
+		}
+		
+		&__buttonContainer {
+			padding-left: 0; 
+			padding-top: 0px !important; 
+			padding-bottom: 20px;
+		}
+
+		&__content {
+			background: #63636c; 
+			padding-top: 20px; 
+			padding-bottom: 20px;
+			
+			@media (max-width: 970px) {
+				margin-left: 10px;
+				margin-right: 10px;
+			}
+			
+			@media (max-width: 470px) {
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+			&__results {
+				margin: 0 auto;
+				flex: 0 1 1210px;
+				border-radius: 8px;
+
+				&__details {
+
+					text-align: center !important;
+
+					&_button {
+						margin-top: 10px;
+					}
+
+					@media (max-width: 970px) {
+						width: 100%;
+						display: flex;
+						justify-content: space-between;
+					}
+					@media (max-width: 670px) {
+						text-align: center;
+						display: block;
+					}
+				}
+
+				&__item__dummy {
+					padding-left: 0;
+					padding-right: 0;
+				}
+				
+				&__list {
+					@media (max-width: 470px) {
+						margin-left: 10px;
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+
+		&__select {
+			&__days {
+				display: flex;
+				@media (max-width: 450px) {
+					width: 100%;
+				}
+			}
+			&__day {
+			
+				&:first-child {
+					border-top-left-radius: 4px;
+					border-top-right-radius: 0px;
+					border-bottom-right-radius: 0px;
+					border-bottom-left-radius: 4px;
+				}
+				&:last-child {
+					border-top-left-radius: 0px;
+					border-top-right-radius: 4px;
+					border-bottom-right-radius: 4px;
+					border-bottom-left-radius: 0px;
+				}
+				
+				background-color: #e6e6e6;
+				background-image: linear-gradient(to bottom,rgba(250,250,250,.75),rgba(240,240,240,.75));
+				color: #1e1e2e; 
+				padding: 10px;
+				cursor: pointer;
+				
+				&:hover {
+					background: #f7f7f7;
+				}
+				
+				&_searchDate {
+					background: #88c43d;
+					color: #fff;
+					&:hover {
+						background: #88c43d !important;
+					}
+				}
+				
+				&_inactive {
+					color: #bdbdbd; 
+					cursor: not-allowed;
+					
+					&:hover {
+						background-color: #e6e6e6;
+						background-image: linear-gradient(to bottom,rgba(250,250,250,.75),rgba(240,240,240,.75));
+					}
+				}
+                                
+				@media (max-width: 670px) {
+					flex-basis: 100%;
+					text-align: center;
+				}
+
+				@media (max-width: 375px) {
+					&__calendar {
+						&_dialog {
+							padding: 0;
+							margin: 0;
+							top: 0 !important;
+							left: 0 !important;
+							min-height: 100% !important;
+							width: 100% !important;
+						}
+						&_header {
+							border-radius: 0px;
+							width: 100%;
+						}
+						&_content {
+							padding-right: 0;
+							padding-left: 0;
+							text-align: center;
+							width: 100%;
+						}
+						&_buttons {
+							position: absolute;
+							bottom: 0;
+							width: 100%;
+							border-radius: 0;
+							width: 100%;
+						}
+						&_wrapper {
+							background: #fff;
+						}
+					}
+				}
+			}
+		}
+		
+		&__result {
+			width: 100%; 
+			display: flex; 
+			justify-content: space-between;
+			//margin-bottom: 10px;
+
+			&__datesShift {
+				margin-left: -10px;
+				@media (max-width: 470px) {
+					margin-left: 0;
+				}
+			}
+
+			&__otherFilters {
+				text-align: right;
+			}
+
+			@media (max-width: 470px) {
+				padding-right: 10px;
+				padding-left: 10px;
+				display: block;
+			}
+		}
+
+		&__sortList {
+			margin-left: 10px;
+			//margin-right: 10px;
+			margin-bottom: 10px;
+					
+			@media (max-width: 470px) {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+		}
+
+		&__searchButton {
+			margin-left: 20px;
+			
+			@media (max-width: 970px) {
+				width: 100%;
+				margin-left: 0;
+			}
+		}
+
+		&__departureDate {
+			@media (max-width: 970px) {
+				width: 100% !important;
+				padding-right: 0 !important;
+			}
+		}
+		
+		&__flightInfo {
+			&__footer {
+				border-top: 1px solid #b0b0b0;
+			}
+		}
+    }
+}
+.nemo-flights-results__scheduleFlightsListGroup {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	padding: 0;
+	position: relative;
+	margin-top: 20px;
+
+	&__wrapper {
+		flex-basis: 100%;
+		min-width: 1px;
+	}
+
+	&__segment {
+		border-top: $i_ui_subContainer_divider_border;
+		padding-right: 20px;
+		display: flex;
+		align-items: stretch;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		text-overflow: ellipsis;
+		min-height: 65px;
+
+		&:first-child {
+			border-top: 0;
+		}
+
+		&:only-child {
+			min-height: 100px;
+		}
+
+		&:only-child &__selected {
+			padding-top: 23px;
+			padding-bottom: 23px;
+			height: 100px;
+		}
+
+		&__carrier {
+			flex: 0 0 140px;
+			width: 140px;
+			padding: 10px 20px;
+			border-right: $i_ui_subContainer_divider_border;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 1px;
+
+			&__logo {
+				height: auto;
+				max-height: 40px;
+				max-width: 95px;
+			}
+		}
+
+		&__selector {
+			min-width: 1px;
+			border-right: $i_ui_subContainer_divider_border;
+			display: inline-block;
+			vertical-align: middle;
+			flex-shrink: 0;
+			flex-grow: 0;
+			flex-basis: 370px;
+		}
+
+		&__selected {
+			min-width: 250px;
+			border-radius: 0;
+			padding: 7px 20px;
+			height: 65px;
+			line-height: 20px;
+			transition: all $nemo-transition-main;
+			background: transparent;
+			color: $nemo-color-text-main;
+
+			&:hover, &:active {
+				background: rgba($nemo-color-main, .1);
+			}
+
+			&_unopenable {
+				cursor: auto;
+
+				&:after {
+					display: none;
+				}
+
+				&:hover, &:active {
+					background: transparent;
+				}
+			}
+
+			&__departure, &__arrival {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			&__arrival {
+				position: relative;
+				width: 140px;
+
+				&__nextDayWarn {
+					position: absolute;
+					top: 110%;
+					left: 0;
+					font-size: 10px;
+					color: $nemo-color-text-secondary;
+					line-height: 10px;
+					white-space: nowrap;
+				}
+			}
+
+			&__departure {
+				padding-right: 40px;
+				position: relative;
+				width: 185px;
+
+				&:after {
+					content: '';
+					position: absolute;
+					top: 50%;
+					right: 15px;
+					margin-top: -10px;
+					width: 18px;
+					height: 20px;
+					background: url("images/flights_results_sprite.svg") -70px 0 no-repeat;
+				}
+			}
+
+			&__time {
+				display: inline-block;
+				vertical-align: baseline;
+				font-size: 17px;
+				min-width: 50px;
+				color: #636467;
+				line-height: 17px;
+
+				&_nextDay {
+					color: $nemo-color-notification_error_text;
+				}
+			}
+
+			&__date {
+				display: inline-block;
+				vertical-align: baseline;
+				color: $nemo-color-text-main;
+				font-size: 10px;
+				line-height: 10px;
+
+				&_nextDay {
+					color: $nemo-color-notification_error_text;
+				}
+			}
+
+			&__portName, &__city {
+				font-size: 12px;
+				line-height: 15px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+
+		}
+
+		&__additionalDetails {
+			display: flex;
+			flex-wrap: nowrap;
+			align-items: center;
+			flex: 1 1 auto;
+			padding: 5px 0 5px 20px;
+			min-width: 1px;
+
+			&__info {
+				flex: 1 1 auto;
+				min-width: 1px;
+				padding-right: 10px;
+			}
+
+			&__aux {
+				text-align: right;
+				white-space: nowrap;
+				flex: 0 0 auto;
+				min-width: 1px;
+			}
+		}
+		
+		&__calendar {
+			padding: 15px 20px;
+            border-left: 0;
+            display: block;
+            
+            @media (min-width: 970px) {
+				border-left: 1px solid rgba(230,230,230,.75);
+            }
+            
+            @media (max-width: 970px) {
+            	border-top: 1px solid rgba(230,230,230,.75);
+            }
+		}
+
+		&__timeEnRoute {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			line-height: 15px;
+			margin-bottom: 5px;
+		}
+
+		&__details {
+			padding-left: 5px;
+			padding-right: 5px;
+			width: 80px;
+			margin-left: 10px;
+			flex: 0 0 auto;
+			min-width: 1px;
+
+			display: none;
+		}
+	}
+
+}
+
+@media (max-width: 970px) {
+	.nemo-flights-results__scheduleFlightsListGroup {
+		&__segment {
+			display: block;
+			padding-right: 0;
+			padding-left: 140px;
+			position: relative;
+
+			&__carrier {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+			}
+
+			&__selector {
+				display: block;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+			}
+
+			&__selected {
+				&:after {
+					right: 20px;
+				}
+
+				&__moreFlights {
+					display: block;
+				}
+
+				&_unopenable &__moreFlights {
+					display: none;
+				}
+			}
+
+			&:only-child &__selected {
+				padding: 7px 20px;
+				height: 65px;
+			}
+
+			&__additionalDetails {
+				padding: 10px 20px;
+				align-items: flex-start;
+
+				&__info {
+					display: flex;
+					flex-flow: row nowrap;
+				}
+			}
+
+			&__timeEnRoute, &__transfers {
+				margin-bottom: 0;
+				flex: 0 0 auto;
+				min-width: 1px;
+			}
+
+			&__timeEnRoute {
+				width: 185px;
+			}
+		}
+	}
+}
+
+@media (max-width: 750px) {
+	.nemo-flights-form-scheduleSearch__result {
+		//margin-bottom: 10px;
+	}
+}
+
+@media (max-width: 670px) {
+	.nemo-flights-results__scheduleFlightsListGroup {
+		&__segment {
+			padding-left: 0;
+
+			&__carrier {
+				display: none;
+
+				&__logo {
+					max-height: 30px;
+				}
+			}
+				
+			&:first-child &__carrier {
+				display: flex;
+				width: 100%;
+				border-right: 0;
+				border-bottom: $i_ui_subContainer_divider_border;
+				height: 51px;
+				position: static;
+				top: auto;
+				left: auto;
+				right: auto;
+				bottom: auto;
+			}
+		}
+	}
+}
+@media (max-width: 525px) {
+	.nemo-flights-results__scheduleFlightsListGroup {
+		&__segment {
+			&__selected {
+				padding-right: 25px;
+
+				&:after {
+					right: 10px;
+				}
+
+				&__departure, &__arrival {
+					width: 50%;
+				}
+
+				&__departure {
+					padding-right: 20px;
+
+					&:after {
+						right: -9px;
+					}
+				}
+
+				&__arrival {
+					padding-left: 20px;
+				}
+			}
+
+			&__timeEnRoute {
+				width: auto;
+				margin-right: 20px;
+			}
+
+			&__additionalDetails__info {
+				flex-direction: column;
+			}
+		}
+	}
+}
+
+@media (max-width: 375px) {
+	.nemo-flights-form__passengersPopUp__item__counts {
+		margin-bottom: 10px;
+	}
+}

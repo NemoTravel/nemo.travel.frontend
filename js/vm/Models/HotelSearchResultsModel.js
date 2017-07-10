@@ -74,11 +74,14 @@ define(
 					}
 				}
 			});
-
+			
+			var checkInDate = this.$$controller.getModel('Common/Date', segment[KEY_CHECK_IN_DATE]),
+				checkOutDate = this.$$controller.getModel('Common/Date', segment[KEY_CHECK_OUT_DATE]);
+			
 			requestData.request = JSON.stringify({
 				cityId: segment[KEY_CITY_ID],
-				checkInDate: helpers.ISODateString(new Date(segment[KEY_CHECK_IN_DATE])),
-				checkOutDate: helpers.ISODateString(new Date(segment[KEY_CHECK_OUT_DATE])),
+				checkInDate: checkInDate.getISODateTime(),
+				checkOutDate: checkOutDate.getISODateTime(),
 				isDelayed: false,
 				rooms: rooms
 			});
@@ -285,8 +288,9 @@ define(
 			return existingHotels.slice(0, 2);
 		}
 
-		function addHotelsRooms(results) {
-			var hotels          = [],
+		HotelSearchResultsModel.prototype.addHotelsRooms = function(results) {
+			var self            = this,
+				hotels          = [],
 				roomsDictionary = createRoomsDictionary(results.roomsGroup);
 
 			// running through all hotels in search results
@@ -296,6 +300,17 @@ define(
 				// rooms in a hotel
 				hotel.roomGroups.forEach(function (room) {
 					var roomTariffs = [];
+
+					if (room.roomCharges) {
+						room.roomCharges.forEach(function (charge) {
+							if (roomsDictionary[charge.roomId]) {
+								var priceCharge = self.$$controller.getModel('Common/Money', charge.price);
+								
+								roomsDictionary[charge.roomId].rate.priceCharge = priceCharge;
+								roomsDictionary[charge.roomId].rate.price.add(priceCharge);
+							}
+						});
+					}
 
 					// room variants
 					room.roomVariants.forEach(function (roomId) {
@@ -313,7 +328,7 @@ define(
 			});
 
 			return hotels;
-		}
+		};
 
 		HotelSearchResultsModel.prototype.processSearchResults = function (data) {
 			if (data) {
@@ -411,7 +426,7 @@ define(
 				}
 			}
 
-			var hotels = addHotelsRooms(searchData.results);
+			var hotels = this.addHotelsRooms(searchData.results);
 			var hotelsPool = {};
 			var hasCoordinates = false;
 
@@ -599,7 +614,7 @@ define(
 			);
 
 			this.isResultEmpty = ko.pureComputed(function () {
-				return !self.filters.isFilterEmpty() && self.getFilteredAndSortedHotels().length === 0;
+				return !self.filters.isFilterEmpty() && self.getFilteredAndSortedHotels() && self.getFilteredAndSortedHotels().length === 0;
 			});
 
 			function updateMapMarkers(hotels) {
@@ -840,7 +855,8 @@ define(
 		};
 
 		HotelSearchResultsModel.prototype.fillSearchForm = function () {
-			var staticDataInfo = this.$$rawdata.hotels && this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : {},
+			// var staticDataInfo = this.$$rawdata.hotels && this.$$rawdata.hotels.staticDataInfo ? this.$$rawdata.hotels.staticDataInfo : {};
+			var staticDataInfo = this.$$rawdata.guide ? this.$$rawdata.guide : {},
 				searchInfo;
 
 			if (this.$$rawdata.hotels && this.$$rawdata.hotels.search && this.$$rawdata.hotels.search.request) {

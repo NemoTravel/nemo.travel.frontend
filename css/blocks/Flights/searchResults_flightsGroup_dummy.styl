@@ -87,4 +87,44 @@
 			letter-spacing: -4px;
 		}
 	}
+	
+	.nemo-flights-results__flightsListGroup__segment {
+		//color: $nemo-color-neutral;
+        //opacity: 0.7;
+        
+		&__carrier {
+			&_stab {
+				width: 130px;
+				height: 30px;
+				background: rgb($nemo-color-neutral);
+            }
+		}
+		
+		&__selected {
+			&__time_departure, &__time_arrival {
+				color: $nemo-color-neutral;
+                letter-spacing: -5px;
+			}
+			&__portName {
+				&_departure, &_arrival {
+					color: $nemo-color-neutral;
+					letter-spacing: -5px;
+				}
+			}
+			&__city {
+				&_departure, &_arrival {
+					color: $nemo-color-neutral;
+					letter-spacing: -5px;
+				}
+			}
+		}
+	}
+	.nemo-flights-form {
+		&-scheduleSearch {
+			&__days {
+				letter-spacing: -4px;
+			}
+		}
+	}
+	
 }

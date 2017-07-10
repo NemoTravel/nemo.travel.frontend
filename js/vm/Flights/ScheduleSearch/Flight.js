@@ -65,7 +65,10 @@ define(
 				tmp.marketingCompany = guide.airlines[tmp.marketingCompany || tmp.operatingCompany];
 				tmp.operatingCompany = guide.airlines[tmp.operatingCompany];
 				tmp.aircraftType = guide.aircrafts[tmp.aircraftType];
-
+				if (!tmp.marketingCompany) {
+					tmp.marketingCompany = tmp.operatingCompany;
+				}
+				
 				tmp.flightTime = this.$$controller.getModel('Common/Duration', tmp.flightTime * 60);
 
 				// Adding stuff needed

@@ -145,6 +145,7 @@
     "new-passinfo-payDetails__header__taxes": "Taxes",
     "new-passinfo-payDetails__header__fare": "Fare",
     "new-passinfo-payDetails__header__passenger": "Passenger ",
+    "new-passinfo-payDetails__header__hotel_room": "Room",
     "new-flightRoute__info__baggage_unknown": "Hand luggage only",
     "new-flightRoute__info__hand_luggage": "Carry-on baggage",
     "new-flightRoute__info__registered_baggage": "checked baggage per passenger",
