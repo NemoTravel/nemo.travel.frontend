@@ -174,9 +174,13 @@
 							
 							<!-- ko foreach: citySuggestions -->
 								<span class="nemo-hotels-form__stayingOptions__item__town" data-bind="
-									text: name + (($index() !== ($parent.citySuggestions().length - 1)) ? ',' : ''),
+									text: $data + (($index() !== ($parent.citySuggestions().length - 1)) ? ',' : ''),
 									click: function () {
-										$parent.segments()[0].items.arrival.value(this)
+										var $field = $('.nemo-hotels-form__staying__segment__input_autocomplete');
+										
+										if ($field.length) {
+											$field.HotelsFormGeoAC('search', $data);
+										}
 									}
 								"></span>
 							<!-- /ko -->

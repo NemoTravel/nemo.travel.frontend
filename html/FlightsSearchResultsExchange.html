@@ -1292,7 +1292,7 @@
 					"></span>
 					<span class="nemo-flights-results__couplingTable__groups__group__item__timeEnRoute" 
 						  data-bind="
-						  		text: timeEnRoute.readableStringShort() + (transfersCount > 0 ? ', ' : ''), 
+						  		text: $root.i18n('FlightsFlightInfo','leg__segment__timeEnRoute__caption') + ': ' + timeEnRoute.readableStringShort() + (transfersCount > 0 ? ', ' : ''), 
 								tooltip: {
 									content: $root.i18n('FlightsSearchForm', 'additionalParameters__totalTimeEnRoute__title'),
 									cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'																							
@@ -1321,17 +1321,32 @@
 								cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
 							}
 						"></span>
-						<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter">&rarr;</span>
+						<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter"
+							data-bind="
+							  tooltip: {
+								  content:  $root.i18n('FlightsFlightInfo','leg__segment__flightNumber__caption') + ': '
+											  + $parent.referenceFlight.segments[0].marketingCompany.IATA + '-' + $parent.referenceFlight.segments[0].flightNumber + '. ' 
+											  + $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': ' 
+											  + $parent.referenceFlight.segments[0].aircraftType.name
+							  }
+							">&rarr;</span>
 						<!-- ko if: transfersCount > 0 -->
 							<span data-bind="foreach: $parent.referenceFlight.transfers[$parentContext.$parentContext.$index()]">
 								<span data-bind="
-											text: depAirp.IATA,
-											tooltip: {
-												content: depAirp.name,
-												cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
-											}
+									text: depAirp.IATA,
+									tooltip: {
+										content: depAirp.name + '. ' + $root.i18n('FlightsSearchResults','flightsCompareTable__transfers') + ' ' + duration.readableStringShort(),
+										cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
+									}
 								"></span>
-								<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter">&rarr;</span>
+								<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter"
+									data-bind="
+										  tooltip: {
+											 content: $root.i18n('FlightsFlightInfo','leg__segment__flightNumber__caption') + ': '
+													 + marketingCompany.IATA + '-' + flightNumber + '. '
+													 + (aircraftType ?  $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': ' + aircraftType.name : '')
+										  }
+									">&rarr;</span>
 							</span>
 						<!-- /ko -->
 						<span class="nemo-flights-results__couplingTable__groups__group__item__route__arrival"
