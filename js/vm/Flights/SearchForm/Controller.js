@@ -425,7 +425,7 @@ define(
 					urlAdder += '-PCarriers=';
 
 					for (var i = 0; i < tmp.length; i++) {
-						urlAdder += tmp[i].IATA;
+						urlAdder += tmp[i].substr(1,2);
 					}
 				}
 

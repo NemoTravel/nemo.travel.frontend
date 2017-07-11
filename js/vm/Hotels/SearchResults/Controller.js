@@ -332,7 +332,7 @@ define(
 					};
 
 					this.$$controller.loadData(
-						'/hotels/search/availability/' + searchId + '/' + hotel.id,
+						'/hotels/search/availability/' + searchId + '/' + hotel.resultsHotelId,
 						{},
 						function (data, request) {
 							try {

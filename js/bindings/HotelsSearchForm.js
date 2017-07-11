@@ -237,7 +237,21 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 					}
 				}
 				var calendarsToShow = mobileDetect().deviceType != 'desktop' ? 1 : 2;
-				$element.pickmeup(
+
+				$element.pickmeup("destroy"); // удалить текущий календарь
+
+				// для случая, когда юзер выбрал дату заезда, но еще не выбрал дату выезда
+				var selectDepartureDateCalendar = false;
+				if (viewModel.form.segments()[0].items) {
+					if(viewModel.form.segments()[0].items.arrivalDate.value() !== null) {
+						if (valueAccessor()() === null) {
+							// дата заезда есть, но текущий valueAccessor пустой, значит юзер выбирает дату выезда
+							selectDepartureDateCalendar = true;
+						}
+					}
+				}
+
+				$element.pickmeup( // создать новый с обновленным defaultDate
 					{
 						className: 'nemo-flights-form__datePicker nemo-hotels',
 						locale: PMULocale,
@@ -248,12 +262,15 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						hideOnSelect: true,
 						defaultDate: valueAccessor()() ?
 							valueAccessor()().dateObject() :
-							viewModel.form.dateRestrictions[viewModel.index][0],
+							viewModel.form.segments()[0].items && viewModel.form.segments()[0].items.arrivalDate.value() ?
+								viewModel.form.segments()[0].items.arrivalDate.value().dateObject() :
+								viewModel.form.dateRestrictions[viewModel.index][0],
 						render: function (dateObj) {
 							var ret = viewModel.form.getSegmentDateParameters(
 								dateObj,
 								viewModel.index,
-								$(this).hasClass('js-autofocus-field_date_arrival')
+								$(this).hasClass('js-autofocus-field_date_arrival'),
+								selectDepartureDateCalendar
 							);
 
 							ret.className = '';

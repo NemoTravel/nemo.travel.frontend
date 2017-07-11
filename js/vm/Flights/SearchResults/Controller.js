@@ -443,6 +443,10 @@ define(
 					);
 			}, this);
 			
+			this.searchFormURL = ko.pureComputed(function () {
+				return '/search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
+			}, this);
+			
 			this.initAnalytics();
 		}
 		
@@ -2066,6 +2070,13 @@ define(
 		 */
 		FlightsSearchResultsController.prototype.handleFlightIdsBeforeBooking = function (flightIds) {
 			return flightIds;
+		};
+
+		/**
+		 * Hide flight check error popup.
+		 */
+		FlightsSearchResultsController.prototype.hideFlightCheckErrorPopup = function () {
+			this.bookingCheckError(false);
 		};
 
 		FlightsSearchResultsController.prototype.pageTitle = 'FlightsResults';

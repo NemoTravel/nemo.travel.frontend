@@ -339,15 +339,10 @@ define(
 
 			toArray: function (object) {
 				var array = [];
-				
-				if (object instanceof Array) {
-					array = object;
-				}
-				else {
-					for (var key in object) {
-						if (object.hasOwnProperty(key)) {
-							array.push(object[key]);
-						}
+
+				for (var key in object) {
+					if (object.hasOwnProperty(key)) {
+						array.push(object[key]);
 					}
 				}
 
