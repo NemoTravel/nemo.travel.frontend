@@ -341,7 +341,7 @@ define(
 				googleMapKey        = this.$$rawdata.system.info.user.settings.googleMapsApiKey ? this.$$rawdata.system.info.user.settings.googleMapsApiKey : null,
 				minHotelPrice       = Infinity,
 				maxHotelPrice       = -Infinity,
-				maxAverageCustomerRating = 0;
+				maxAverageCustomerRating = 0,
 				MILLISECONDS_IN_DAY = 86400000,
 				$body               = $('body');
 			
