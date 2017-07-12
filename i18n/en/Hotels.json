@@ -35,8 +35,10 @@
     "hotels-room-cancel__freeRefund__until": "Free cancellation before",
     "hotels-room-cancel__freeRefund__noRefundAfter_1": "The rate is non-refundable if cancelled after",
     "hotels-room-cancel__freeRefund__noRefundAfter_2": " ",
-    "hotels-room-paymentType__Deposit": "Prepayment needed",
+    "hotels-room-paymentType__Deposit": "Payment of deposit required",
+    "hotels-room-paymentType__Guarantee": "Credit card confirmation required",
     "hotels-room-paymentType__Credit": "Credit card confirmation required",
     "hotels-room-paymentType__Prepayment": "Prepayment needed",
-    "hotels-room-paymentType__Cash": "Pay at the property"
+    "hotels-room-paymentType__Cash": "Pay at the property",
+    "hotels-room-paymentType__Other": "Prepayment needed"
 }
