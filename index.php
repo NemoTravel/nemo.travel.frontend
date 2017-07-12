@@ -34,14 +34,32 @@
 	<!-- /ko -->
 </div>
 
-<?php $host = 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'.$_SERVER['HTTP_HOST']; ?>
+<?php
+$requestUri = $_SERVER['REQUEST_URI'];
+$urlParamPos = strpos($requestUri, "results");
+	
+if (!$urlParamPos) {
+	$urlParamPos = strpos($requestUri, "search");
+}
+	
+if ($urlParamPos) {
+	$urlParamStr = substr($requestUri, $urlParamPos);
+}
+else {
+	$urlParamStr = '';
+}
+	
+$newRoot = str_replace($urlParamStr, '', $requestUri); 
+$host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+?>
+	
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/style.css?a=1123">
 <!--[if IE 9]>
 <link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
-
-<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<link href="/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 
@@ -94,15 +112,12 @@
 					staticInfoURL: '//demo.nemo.travel',
 					version: 'v0',
 					hostId: document.location.host,
-					root: '/',
+					root: '<?php echo $newRoot ?>',
 					verbose: false,
 					i18nLanguage: LocalStorage.get('language', null) || 'en',
 					postParameters: {},
 					CORSWithCredentials: true,
 					componentsAdditionalInfo: {
-						'Flights/SearchForm/Controller': {
-							forceSelfHostNavigation: true
-						},
 						'Hotels/SearchForm/Controller': {
 							forceSelfHostNavigation: true
 						}
@@ -155,6 +170,9 @@
 //			options.i18nURL           = '/i18n/';
 
 			controller = new AppController(document.getElementsByClassName('js-nemoApp')[0], options);
+			AppController.prototype.extend('Flights/SearchForm/Controller', function () {
+				this.forceSelfHostNavigation = true;
+			});
 		}
 	);
 

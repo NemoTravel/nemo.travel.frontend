@@ -103,6 +103,7 @@
     "flightsGroup__selector__uncombinable__lastConjunction": "und",
     "flightsGroup__selector__uncombinable_many": "nicht kombinierbar mit den Flügen [%-numbers-%]",
     "flightsGroup__selector__uncombinable_one": "nicht kombinierbar mit der Flugnr. [%-numbers-%]",
+    "flightsGroup__selector__showMoreFlights": " ",
     "flightsGroup__subHeader__rating__caption": "Flugbewertungen",
     "formDummy__filterSwitch": "Filter",
     "formDummy__route__rt__flight": "Abflug",

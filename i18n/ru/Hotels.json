@@ -35,8 +35,13 @@
     "hotels-room-cancel__freeRefund__until": "Бесплатная отмена до",
     "hotels-room-cancel__freeRefund__noRefundAfter_1": "При отмене после",
     "hotels-room-cancel__freeRefund__noRefundAfter_2": "взимается штраф в размере",
-    "hotels-room-paymentType__Deposit": "Оплата сейчас",
-    "hotels-room-paymentType__Credit": "Подтверждение кредитной картой",
+    "hotels-room-paymentType__Deposit": "Требуется внесение депозита",
+    "hotels-room-paymentType__Guarantee": "Требуется подтверждение кредитной картой",
+    "hotels-room-paymentType__Credit": "Требуется подтверждение кредитной картой",
     "hotels-room-paymentType__Prepayment": "Оплата сейчас",
-    "hotels-room-paymentType__Cash": "Оплата на месте"
+    "hotels-room-paymentType__Cash": "Оплата на месте",
+    "hotels-room-paymentType__Other": "Оплата сейчас",
+    "description": "Об отеле",
+    "location": "Расположение",
+    "hotelServicesCaption": "Услуги и удобства в отеле"
 }

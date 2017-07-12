@@ -12,7 +12,7 @@ define(
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'js/lib/jquery.tablesorter/v.2.0.5/jquery.tablesorter.min',
 		'touchpunch',
-		'js/lib/fotorama/fotorama.min'
+		'js/lib/lightslider/dist/js/lightslider.min'
 	],
 	function (ko, $, Cache, md5, Money) {
 		// Common Knockout bindings are defined here
@@ -675,12 +675,43 @@ define(
 					nav: 'thumbs',
 					loop: true,
 					data: valueAccessor(),
-					fit: 'contain',
+					fit: 'none',
 					arrows: true,
 					keyboard: true,
 					margin: 0,
 					glimpse: 0
 				});
+			}
+		};
+
+		ko.bindingHandlers.lightslider = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var photos = ko.unwrap(valueAccessor());
+				
+				if (photos instanceof Array && photos.length) {
+					var $inner = $('<ul></ul>');
+
+					photos.map(function (photo) {
+						$inner.append('' +
+							'<li data-thumb="' + photo.thumb + '">' +
+								'<div class="lslideUndercover" style="background-image: url(' + photo.img + ')"></div>' +
+								'<div class="lslideUndercoverDarken"></div>' +
+								'<img src="' + photo.img + '">' +
+							'</li>' +
+						'');
+					});
+					
+					$(element).append($inner);
+
+					$inner.lightSlider({
+						gallery: true,
+						item: 1,
+						controls: false,
+						loop: false,
+						slideMargin: 0,
+						thumbItem: 12
+					});
+				}
 			}
 		};
 

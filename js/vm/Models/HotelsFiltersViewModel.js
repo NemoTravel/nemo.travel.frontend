@@ -1,191 +1,238 @@
 define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/helpers', 'js/vm/Models/FilterModel'], function (SliderViewModel, HotelsBaseModel, helpers, FilterModel) {
 
-    function HotelsFiltersViewModel(ko, minRoomPrice, maxRoomPrice) {
+	function HotelsFiltersViewModel(ko, minRoomPrice, maxRoomPrice) {
 
-        var self = this;
+		var self = this;
 
-        self.minRoomPrice = minRoomPrice;
-        self.maxRoomPrice = maxRoomPrice;
+		self.minRoomPrice = minRoomPrice;
+		self.maxRoomPrice = maxRoomPrice;
 
-        self.dummyObservalbe = ko.observable();
+		self.dummyObservalbe = ko.observable();
 
-        self.sortTypes = [HotelsBaseModel.SORT_TYPES.BY_POPULAR, HotelsBaseModel.SORT_TYPES.BY_PRICE];
-        self.sortType = ko.observable(HotelsBaseModel.SORT_TYPES.BY_POPULAR);
+		self.sortTypes = [HotelsBaseModel.SORT_TYPES.BY_POPULAR, HotelsBaseModel.SORT_TYPES.BY_PRICE];
+		self.sortType = ko.observable(HotelsBaseModel.SORT_TYPES.BY_POPULAR);
 
-        self.starRatingFilterValues = {};
+		self.starRatingFilterValues = {};
 
-        self.resetStarFilter = function () {
-            for (var i = 0; i <= HotelsFiltersViewModel.STARS_MAX_COUNT; i++) {
-                if (!ko.isObservable(self.starRatingFilterValues[i])) {
-                    self.starRatingFilterValues[i] = ko.observable(false);
-                } else {
-                    self.starRatingFilterValues[i](false);
-                }
-            }
-        };
+		self.resetStarFilter = function () {
+			for (var i = 0; i <= HotelsFiltersViewModel.STARS_MAX_COUNT; i++) {
+				if (!ko.isObservable(self.starRatingFilterValues[i])) {
+					self.starRatingFilterValues[i] = ko.observable(false);
+				} else {
+					self.starRatingFilterValues[i](false);
+				}
+			}
+		};
 
-        self.resetStarFilter();
+		self.resetStarFilter();
 
-        self.featureFilter = new FilterModel();
-        self.nightsCountPriceFilter = new SliderViewModel(ko, SliderViewModel.TYPE_RANGE, minRoomPrice, maxRoomPrice);
-        self.averageCustomerRatingFilter = new SliderViewModel(ko, SliderViewModel.TYPE_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MAX);
+		self.findByName = ko.observable('');
 
-        self.isStarFilterEmpty = ko.pureComputed(function () {
-            return helpers.objectFilter(self.starRatingFilterValues, function (filterValue) {
-                    return true === filterValue();
-                }).length === 0;
-        });
+		self.featureFilter = new FilterModel();
+		self.nightsCountPriceFilter = new SliderViewModel(ko, SliderViewModel.TYPE_RANGE, minRoomPrice, maxRoomPrice);
+		self.averageCustomerRatingFilter = new SliderViewModel(ko, SliderViewModel.TYPE_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MAX);
+		self.specialFilter = new FilterModel();
 
-        self.isFilterEmpty = ko.pureComputed(function () {
-            return self.isStarFilterEmpty() && self.nightsCountPriceFilter.isDefault() && self.averageCustomerRatingFilter.isDefault() && self.featureFilter.isDefault();
-        });
+		self.isStarFilterEmpty = ko.pureComputed(function () {
+			return helpers.objectFilter(self.starRatingFilterValues, function (filterValue) {
+					return true === filterValue();
+				}).length === 0;
+		});
 
-        /**
-         *
-         * @param hotel
-         * @param filter
-         * @returns {*}
-         */
-        self.isMatchWithFilter = function (hotel, filter) {
+		self.isFilterEmpty = ko.pureComputed(function () {
+			return self.isStarFilterEmpty() && self.nightsCountPriceFilter.isDefault() && self.averageCustomerRatingFilter.isDefault() && self.featureFilter.isDefault() && self.findByName().length < 2 && self.specialFilter.isDefault();
+		});
 
-            /**
-             *
-             * @returns {boolean}
-             */
-            var isMatchStarFilter = function (hotel) {
+		/**
+		 *
+		 * @param hotel
+		 * @param filter
+		 * @returns {*}
+		 */
+		self.isMatchWithFilter = function (hotel, filter) {
 
-                var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
+			/**
+			 *
+			 * @returns {boolean}
+			 */
+			var isMatchStarFilter = function (hotel) {
 
-                if (self.isStarFilterEmpty()) {
-                    return true;
-                }
+				var hotelStars = hotel.staticDataInfo.starRating ? hotel.staticDataInfo.starRating.length : 0;
 
-                var matches = helpers.objectFilter(self.starRatingFilterValues, function (isFilterChecked, starCount) {
-                    return isFilterChecked() === true && (hotelStars === parseInt(starCount, 10));
-                });
+				if (self.isStarFilterEmpty()) {
+					return true;
+				}
 
-                return matches.length > 0;
-            };
+				var matches = helpers.objectFilter(self.starRatingFilterValues, function (isFilterChecked, starCount) {
+					return isFilterChecked() === true && (hotelStars === parseInt(starCount, 10));
+				});
 
-            /**
-             * @returns {boolean}
-             */
-            var isMatchFiveNightPriceFilter = function (hotel) {
+				return matches.length > 0;
+			};
 
-                if (self.nightsCountPriceFilter.isDefault()) {
-                    return true;
-                }
+			/**
+			 * @returns {boolean}
+			 */
+			var isMatchFiveNightPriceFilter = function (hotel) {
 
-                var isMatchMinPrice = true,
-                    isMatchMaxPrice = true;
+				if (self.nightsCountPriceFilter.isDefault()) {
+					return true;
+				}
 
-                if (self.nightsCountPriceFilter.isMinRangeChanged()) {
-                    isMatchMinPrice = Math.ceil(hotel.hotelPrice) >= self.nightsCountPriceFilter.rangeMin();
-                }
+				var isMatchMinPrice = true,
+					isMatchMaxPrice = true;
 
-                if (self.nightsCountPriceFilter.isMaxRangeChanged()) {
-                    isMatchMaxPrice = Math.floor(hotel.hotelPrice) <= self.nightsCountPriceFilter.rangeMax();
-                }
+				if (self.nightsCountPriceFilter.isMinRangeChanged()) {
+					isMatchMinPrice = Math.ceil(hotel.hotelPrice) >= self.nightsCountPriceFilter.rangeMin();
+				}
 
-                return isMatchMinPrice && isMatchMaxPrice;
-            };
+				if (self.nightsCountPriceFilter.isMaxRangeChanged()) {
+					isMatchMaxPrice = Math.floor(hotel.hotelPrice) <= self.nightsCountPriceFilter.rangeMax();
+				}
 
-            /**
-             * @returns {*}
-             */
-            var isMatchAverageCustomerRatingFilter = function (hotel) {
+				return isMatchMinPrice && isMatchMaxPrice;
+			};
 
-                var hotelRating = hotel.staticDataInfo.averageCustomerRating ? hotel.staticDataInfo.averageCustomerRating.value : 0;
+			/**
+			 * @returns {*}
+			 */
+			var isMatchAverageCustomerRatingFilter = function (hotel) {
 
-                if (self.averageCustomerRatingFilter.isDefault()) {
-                    return true;
-                }
+				var hotelRating = hotel.staticDataInfo.averageCustomerRating ? hotel.staticDataInfo.averageCustomerRating.value : 0;
 
-                return hotelRating >= self.averageCustomerRatingFilter.rangeMin();
-            };
+				if (self.averageCustomerRatingFilter.isDefault()) {
+					return true;
+				}
 
-            if (filter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
-                return isMatchStarFilter(hotel);
-            }
+				return hotelRating >= self.averageCustomerRatingFilter.rangeMin();
+			};
 
-            if (filter === HotelsFiltersViewModel.FILTER_TYPE_PRICE) {
-                return isMatchFiveNightPriceFilter(hotel);
-            }
+			var isMatchHotelName = function (hotel) {
+				
+				if (hotel.name.toLowerCase().indexOf(self.findByName().toLowerCase()) >= 0 && self.findByName().length >= 2 || self.findByName().length < 2) {
+					return true;
+				} 
+				else {
+					return false;
+				}
+				
+			}
 
-            if (filter === HotelsFiltersViewModel.FILTER_TYPE_RATING) {
-                return isMatchAverageCustomerRatingFilter(hotel);
-            }
+			var isMatchSpecialFilter = function (hotel, selectedFilters) {
+				var matchFilters = 0,
+					checkedFilters = 0;
+			
+				if (self.specialFilter.isDefault()) {
+					return true;
+				}
 
-            if (filter === HotelsFiltersViewModel.FILTER_TYPE_FEATURE) {
-                return self.featureFilter.isMatch(hotel);
-            }
+				helpers.iterateObject(selectedFilters, function (filter) {
+					checkedFilters++;
+					if(hotel.hasOwnProperty(filter.id) && hotel[filter.id] === true)
+						matchFilters++;
+				});
 
-            return false;
-        };
+				return checkedFilters === matchFilters;
+			}
 
-        /**
-         * Check is hotel matches with applied filters
-         * @param hotel
-         * @return {Boolean}
-         */
-        self.isMatchWithAllFilters = function (hotel) {
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
+				return isMatchStarFilter(hotel);
+			}
 
-            var matchFilters = HotelsFiltersViewModel.FILTERS.filter(function (filterId) {
-                return self.isMatchWithFilter(hotel, filterId);
-            });
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_PRICE) {
+				return isMatchFiveNightPriceFilter(hotel);
+			}
 
-            return matchFilters.length === HotelsFiltersViewModel.FILTERS.length;
-        };
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_RATING) {
+				return isMatchAverageCustomerRatingFilter(hotel);
+			}
 
-        /**
-         * Check is hotel matches with all filters ignoring passed filter
-         * @param hotel
-         * @param exceptFilter
-         * @returns {boolean}
-         */
-        self.isMatchWithAllFiltersExcept = function (hotel, exceptFilter) {
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_FEATURE) {
+				return self.featureFilter.isMatch(hotel);
+			}
 
-            if (exceptFilter === HotelsFiltersViewModel.FILTER_TYPE_FEATURE) {
-                return self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_STARS) &&
-                    self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
-                    self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING);
-            }
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_SPECIAL) {
+				return isMatchSpecialFilter(hotel, self.specialFilter.values());
+			}
 
-            if (exceptFilter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
-                return self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
-                    self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_FEATURE) &&
-                    self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING);
-            }
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_NAME) {
+				return isMatchHotelName(hotel);
+			}
 
-            return false;
-        };
+			return false;
+		};
 
-        self.resetAllFilters = function () {
-            self.nightsCountPriceFilter.reset();
-            self.resetStarFilter();
-            self.featureFilter.resetFilters();
-            self.averageCustomerRatingFilter.reset();
-        };
-    }
+		/**
+		 * Check is hotel matches with applied filters
+		 * @param hotel
+		 * @return {Boolean}
+		 */
+		self.isMatchWithAllFilters = function (hotel) {
 
-    HotelsFiltersViewModel.FILTER_TYPE_PRICE = 'price';
-    HotelsFiltersViewModel.FILTER_TYPE_STARS = 'stars';
-    HotelsFiltersViewModel.FILTER_TYPE_FEATURE = 'feature';
-    HotelsFiltersViewModel.FILTER_TYPE_RATING = 'rating';
+			var matchFilters = HotelsFiltersViewModel.FILTERS.filter(function (filterId) {
+				return self.isMatchWithFilter(hotel, filterId);
+			});
 
-    HotelsFiltersViewModel.FILTERS = [
-        HotelsFiltersViewModel.FILTER_TYPE_PRICE,
-        HotelsFiltersViewModel.FILTER_TYPE_STARS,
-        HotelsFiltersViewModel.FILTER_TYPE_FEATURE,
-        HotelsFiltersViewModel.FILTER_TYPE_RATING
-    ];
+			return matchFilters.length === HotelsFiltersViewModel.FILTERS.length;
+		};
 
-    HotelsFiltersViewModel.CUSTOMER_RATING_MIN = 0;
-    HotelsFiltersViewModel.CUSTOMER_RATING_MAX = 10;
+		/**
+		 * Check is hotel matches with all filters ignoring passed filter
+		 * @param hotel
+		 * @param exceptFilter
+		 * @returns {boolean}
+		 */
+		self.isMatchWithAllFiltersExcept = function (hotel, exceptFilter) {
 
-    HotelsFiltersViewModel.STARS_MAX_COUNT = 5;
+			if (exceptFilter === HotelsFiltersViewModel.FILTER_TYPE_FEATURE) {
+				return self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_STARS) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_NAME) && 
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL);
+			}
 
-    helpers.extendModel(HotelsFiltersViewModel, [HotelsBaseModel]);
+			if (exceptFilter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
+				return self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_FEATURE) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL);
+			}
 
-    return HotelsFiltersViewModel;
+			return false;
+		};
+
+		self.resetAllFilters = function () {
+			self.nightsCountPriceFilter.reset();
+			self.resetStarFilter();
+			self.featureFilter.resetFilters();
+			self.averageCustomerRatingFilter.reset();
+			self.findByName('');
+		};
+	}
+
+	HotelsFiltersViewModel.FILTER_TYPE_PRICE = 'price';
+	HotelsFiltersViewModel.FILTER_TYPE_STARS = 'stars';
+	HotelsFiltersViewModel.FILTER_TYPE_FEATURE = 'feature';
+	HotelsFiltersViewModel.FILTER_TYPE_SPECIAL = 'special';
+	HotelsFiltersViewModel.FILTER_TYPE_RATING = 'rating';
+	HotelsFiltersViewModel.FILTER_TYPE_NAME = 'name';
+
+	HotelsFiltersViewModel.FILTERS = [
+		HotelsFiltersViewModel.FILTER_TYPE_PRICE,
+		HotelsFiltersViewModel.FILTER_TYPE_STARS,
+		HotelsFiltersViewModel.FILTER_TYPE_FEATURE,
+		HotelsFiltersViewModel.FILTER_TYPE_RATING,
+		HotelsFiltersViewModel.FILTER_TYPE_NAME,
+		HotelsFiltersViewModel.FILTER_TYPE_SPECIAL
+	];
+
+	HotelsFiltersViewModel.CUSTOMER_RATING_MIN = 0;
+	HotelsFiltersViewModel.CUSTOMER_RATING_MAX = 10;
+
+	HotelsFiltersViewModel.STARS_MAX_COUNT = 5;
+
+	helpers.extendModel(HotelsFiltersViewModel, [HotelsBaseModel]);
+
+	return HotelsFiltersViewModel;
 });

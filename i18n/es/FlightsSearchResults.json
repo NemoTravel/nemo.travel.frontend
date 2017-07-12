@@ -149,6 +149,7 @@
     "flightsGroup__buyButton__checking": "Comprobación de asientos",
     "flightsGroup__selector__uncombinable__lastConjunction": "y",
     "flightsGroup__selector__uncombinable_many": "No se combina con vuelos [%-numbers-%]",
+    "flightsGroup__selector__showMoreFlights": " ",
     "flightsGroup__leg__transfers__noTransfers": "Sin escalas",
     "flightsGroup__leg__transfers__time__caption": "Escalas",
     "flightsGroup__subHeader__rating__caption": "Rating de vuelo",

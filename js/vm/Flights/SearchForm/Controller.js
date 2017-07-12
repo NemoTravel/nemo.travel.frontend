@@ -425,7 +425,7 @@ define(
 					urlAdder += '-PCarriers=';
 
 					for (var i = 0; i < tmp.length; i++) {
-						urlAdder += tmp[i].IATA;
+						urlAdder += tmp[i].substr(1,2);
 					}
 				}
 
@@ -1139,6 +1139,7 @@ define(
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
+			this.forceAggregationAirports = !!this.$$rawdata.flights.search.formData.forceAggregationAirports;
 
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};

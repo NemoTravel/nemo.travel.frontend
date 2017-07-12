@@ -213,6 +213,10 @@ define(
 						currency = forceCurrency;
 					}
 
+					if (currency == null && originalCurrency in options.currencyFixedFormat) {
+						format = options.currencyFixedFormat[originalCurrency];
+					}
+
 					if( currency in options.currencyFixedFormat && format != '$' ) {
 						format = options.currencyFixedFormat[currency]; //
 					}

@@ -1,6 +1,36 @@
+.gm-style-iw {
+	//left: 0 !important;
+	//top: 0 !important;
+	//width: 100% !important;
+	//height: 100% !important;
+	.ltr{
+		top: 5%;
+		left: 5%;
+	}
+}
+
+.searchBox {
+	height: 29px;
+	width: 200px;
+	margin-top: 10px;
+	font-family: Roboto,"Open Sans",sans-serif;
+	font-size: 13px;
+	padding: 5px;
+}
+
 .mapItem {
 	width: 100%;
-
+	
+	:after{
+			background: #ccc;
+        	width: 50px;
+        	height: 50px;
+        	margin: 0 auto;
+        	bottom: -50px;
+        	position: absolute;
+        	z-index: 1000;
+	}
+	
 	.hotel {
 		border-radius: 4px;
 		box-shadow: 0px 1px 8px rgba(10, 10, 15, 0.15);
@@ -178,7 +208,14 @@
 					font-size: 12px;
 					line-height: 1.3em;
 					cursor: pointer;
-
+					
+					h2 {
+						margin: 0;
+						padding: 0;
+ 						font-size: 1em !important;
+						font-weight: normal;
+					}
+					
 					.text {
 						height: 80px;
 					}

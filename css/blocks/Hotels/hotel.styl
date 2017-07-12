@@ -238,6 +238,10 @@
 				&__distances {
 					margin-left: 60px;
 					justify-content: space-around;
+                                           
+					&__alone {
+						margin: 0 auto;
+					}
 				}
 
 				&__rating {
@@ -332,7 +336,7 @@
 		&__tabsContent {
 			min-height: auto;
 			margin-top: -95px;
-			padding-top: 110px;
+			padding-top: 111px;
 			position: relative;
 			margin-bottom: 25px;
 
@@ -391,6 +395,61 @@
 			
 			&__slider {
 				position: relative;
+				
+				.lightSlider {
+					.lslide {
+						text-align: center;
+						position: relative;
+						bottom: -4px;
+						
+						.lslideUndercover {
+							background-repeat: no-repeat;
+							background-size: cover;
+							background-position: center;
+							position: absolute;
+							filter: blur(7px);
+							top: -15px;
+							bottom: -15px;
+							left: -15px;
+							right: -15px;
+							z-index: -2;
+						}
+						
+						.lslideUndercoverDarken {
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							z-index: -1;
+							background: rgba(0, 0, 0, 0.5);
+						}
+					}
+				}
+
+				.lSSlideOuter {
+					.lSPager.lSGallery {
+						img {
+							width: auto;
+							height: 80px;
+						}
+						
+						li {
+							opacity: 0.4;
+							transition: opacity 0.2s;
+							
+							a {
+								display: flex;
+								justify-content: center;
+							}
+
+							&.active, &:hover {
+								opacity: 1;
+								border-radius: 0;
+							}
+						}
+					}
+				}
 				
 				&_aside {
 					width: 49%;

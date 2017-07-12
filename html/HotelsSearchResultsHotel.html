@@ -70,7 +70,7 @@
 			<div class="nemo-hotel__content__rooms__header">
 				<div class="nemo-hotel__content__rooms__slider">
 					<div data-bind="visible: !hotel.hotelPhotos.length" class="nemo-hotel__content__rooms__slider__dummy nemo-hotel__noPhoto"></div>
-					<div data-bind="fotorama: hotel.hotelPhotos" data-width="100%"></div>
+					<div data-bind="lightslider: hotel.hotelPhotos"></div>
 		
 					<!-- ko if: hotel.staticDataInfo.averageCustomerRating -->
 						<div class="nemo-hotel__content__rooms__rating">
@@ -79,7 +79,7 @@
 						</div>
 					<!-- /ko -->
 		
-					<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotel__content__rooms__mobileDistances">
+					<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances nemo-hotel__content__rooms__mobileDistances" data-bind="css: {'nemo-hotel__content__rooms__mobileDistances__alone': !hotel.staticDataInfo.averageCustomerRating}">
 						<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance nemo-hotel__content__rooms__mobileDistances__distance" data-bind="visible: resultsController.getDistances(hotel)[0]">
 							<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value nemo-hotel__content__rooms__mobileDistances__distance__value" data-bind="text: resultsController.getDistances(hotel)[0]"></span>
 							<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target nemo-hotel__content__rooms__mobileDistances__distance__target" data-bind="i18n: 'HotelsSearchResults.targetFromCenter'"></span>
@@ -106,14 +106,14 @@
 						<span class="nemo-hotel__content__rooms__summary__info__from">
 							<span class="nemo-hotel__content__rooms__summary__info__paramName" data-bind="text: $root.i18n('HotelsSearchResults', 'checkIn')"></span>
 							<span data-bind="text: resultsController.searchForm.arrivalDate.getDOWName()"></span>,
-							<span data-bind="text: resultsController.searchForm.arrivalDate.getShortDate()"></span>,
+							<span data-bind="text: resultsController.searchForm.arrivalDate.getShortDate()"></span>
 							<span data-bind="text: $root.i18n('HotelsSearchResults', 'checkIn_from') + ' ' + hotel.staticDataInfo.checkInTime"></span>
 						</span>
 	
 						<span class="nemo-hotel__content__rooms__summary__info__to">
 							<span class="nemo-hotel__content__rooms__summary__info__paramName" data-bind="text: $root.i18n('HotelsSearchResults', 'checkOut')"></span>
 							<span data-bind="text: resultsController.searchForm.departureDate.getDOWName()"></span>,
-							<span data-bind="text: resultsController.searchForm.departureDate.getShortDate()"></span>,
+							<span data-bind="text: resultsController.searchForm.departureDate.getShortDate()"></span>
 							<span data-bind="text: $root.i18n('HotelsSearchResults', 'checkOut_until') + ' ' + hotel.staticDataInfo.checkOutTime"></span>
 						</span>
 	
@@ -142,7 +142,7 @@
 			<div class="nemo-hotel__content__about__description__text" data-bind="html: hotel.staticDataInfo.description"></div>
 		</div>
 
-		<div class="nemo-hotel__content__about__location set-hotel-about-location-hidden">
+		<div class="nemo-hotel__content__about__location set-hotel-about-location-hidden" data-bind="visible: hotel.staticDataInfo.distances.length">
 			<h3 class="nemo-hotel__content__about__title" data-bind="i18n: 'HotelsSearchResults.location'"></h3>
 			<div class="nemo-hotel__content__about__location__distances">
 				<!--ko if: hotel.staticDataInfo.distances.length -->

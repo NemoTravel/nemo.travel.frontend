@@ -6,7 +6,7 @@ define(
 		'jquery',
 		'jqueryUI',
 		'js/lib/jquery.pickmeup/jquery.pickmeup',
-		'js/lib/jquery.chosen/v.1.4.2/chosen.jquery.min'
+		'js/lib/nemo.jquery.chosen/chosen.jquery'
 	],
 	function (ko, mobileDetect, $) {
 		// FlightsSearchForm Knockout bindings are defined here
@@ -109,8 +109,10 @@ define(
 
 				$element.on('focus', function (e) {$(this).val('');});
 				
-				var isDepartureInput = viewModel.items.departure.value === valueAccessor();
-				var onFocusAutocomplete = viewModel.form.onFocusAutocomplete;
+				var isDepartureInput = viewModel.items.departure.value === valueAccessor(),
+					onFocusAutocomplete = viewModel.form.onFocusAutocomplete,
+					forceAggregationAirports = viewModel.form.forceAggregationAirports;
+				
 				$element.on('focus', function (e) {
 					$element.val('');
 					if(onFocusAutocomplete){
@@ -163,7 +165,7 @@ define(
 					open: function (event, ui) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
-						if ($children.length == 1) {
+						if ($children.length == 1 && $(this).data('nemo-FlightsFormGeoAC').term.length > 2) {
 							if(!onFocusAutocomplete){
 								//когда автокомплит с маршрутами - пользователь должен подтвердить недопустимую комбинацию
 								$children.eq(0).mouseenter().click();
@@ -196,6 +198,25 @@ define(
 								setTimeout(function(){
 									$row.find('.js-autofocus-field_departure').focus();
 								}, 100);
+							}
+						}
+						// If a wanted airport has an aggregation airport (example: MOW owns DME) 
+						// and the corresponding setting is set, replace wanted airport with aggregation one.
+						else if (forceAggregationAirports && ui.item.aggregationIATA) {
+							var aggregationIATA = ui.item.aggregationIATA;
+
+							if (
+								ui.item.pool.airports &&
+								ui.item.pool.airports[aggregationIATA] &&
+								ui.item.pool.airports[aggregationIATA].isAggregation === true
+							) {
+								// Aggregation exists, create corresponding search form model.
+								var aggregationItem = viewModel.$$controller.getModel('Flights/Common/Geo', {
+									data: ui.item.pool.airports[aggregationIATA],
+									guide: ui.item.pool
+								});
+
+								valueAccessor()(aggregationItem);
 							}
 						}
 						// If item has label - it's something other than geo point that should be in AC

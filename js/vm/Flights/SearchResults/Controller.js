@@ -374,6 +374,7 @@ define(
 
 			this.error = ko.observable(false);
 			this.warning = ko.observable(false);
+			this.forcedMessageAsIs = ko.observable(null);
 
 			this.resultsLoaded = ko.observable(false);
 			this.showMaps = ko.observable(false);
@@ -440,6 +441,10 @@ define(
 						this.flightsCompareTableTransfer() &&
 						this.flightsCompareTableTransfer().isDisplayable()
 					);
+			}, this);
+			
+			this.searchFormURL = ko.pureComputed(function () {
+				return '/search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
 			}, this);
 			
 			this.initAnalytics();
@@ -879,6 +884,9 @@ define(
 					this.$$rawdata.flights.search.results.info.errorCode &&
 					this.$$rawdata.flights.search.results.info.errorCode != 204
 				) {
+					if (this.$$rawdata.flights.search.results.info.forcedMessageAsIs) {
+						this.forcedMessageAsIs(this.$$rawdata.flights.search.results.info.forcedMessageAsIs);
+					}
 					this.error(this.$$rawdata.flights.search.results.info.errorCode);
 				}
 				else {
@@ -1153,6 +1161,7 @@ define(
 									'Flights/SearchResults/Flight',
 									{
 										id: source.flights[j].id,
+										nemo2id: source.flights[j].nemo2id,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
 										segments: segsarr,
@@ -2051,6 +2060,23 @@ define(
 			}
 
 			return ret;
+		};
+
+		/**
+		 * For overriding.
+		 *
+		 * @param {Array} flightIds
+		 * @returns {Array}
+		 */
+		FlightsSearchResultsController.prototype.handleFlightIdsBeforeBooking = function (flightIds) {
+			return flightIds;
+		};
+
+		/**
+		 * Hide flight check error popup.
+		 */
+		FlightsSearchResultsController.prototype.hideFlightCheckErrorPopup = function () {
+			this.bookingCheckError(false);
 		};
 
 		FlightsSearchResultsController.prototype.pageTitle = 'FlightsResults';

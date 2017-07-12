@@ -1,0 +1,36 @@
+$fullLoaderSize = 50px;
+$smallLoaderSize = 34px;
+
+.nemo-ui-loader {
+	background: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99999;
+	cursor: wait;
+
+	&:after {
+		content: '';
+		width: $fullLoaderSize;
+		height: $fullLoaderSize;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -($fullLoaderSize / 2);
+		margin-top: -($fullLoaderSize / 2);
+		background-image: url('images/loader.svg');
+		background-size: $fullLoaderSize;
+	}
+
+	&_small {
+		&:after {
+			width: $smallLoaderSize;
+			height: $smallLoaderSize;
+			margin-left: -($smallLoaderSize / 2);
+			margin-top: -($smallLoaderSize / 2);
+			background-size: $smallLoaderSize;
+		}
+	}
+}

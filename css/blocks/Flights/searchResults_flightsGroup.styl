@@ -380,6 +380,12 @@
 				position: relative;
 				font-size: 16px;
 
+				&__block {
+					display: flex !important; 
+					justify-content: space-between; 
+					align-items: center;
+				}
+
 				&:active {
 					padding-top: 10px;
 					padding-bottom: 10px;
@@ -432,6 +438,16 @@
 					}
 				}
 
+				&__timeAndTimeEnRoute {
+					display: block;
+				}
+				
+				&__showMoreFligths {
+					font-size: 13px; 
+					color: rgba(100, 100, 100, 0.5);
+					z-index: 100;
+				}
+
 				&__time {
 					font-size: 100%;
 					height: 23px;
@@ -455,7 +471,7 @@
 					font-size: 80%;
 					color: $nemo-color-text-secondary;
 					//opacity: 0.75;
-					height: 17px;
+					//height: 17px;
 
 					&__addText {
 						color: $nemo-color-text-secondary;

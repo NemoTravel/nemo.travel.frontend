@@ -56,12 +56,22 @@ define (
 					handler: 'Flights/SearchResults/Controller'
 				},
 
+				
 				// Hotels Search Form
 				{
-					re: /^hotels$/, 
+					re: [
+						/^hotels$/,
+						
+						//Search by URL params
+						// /123-20170801-20170803-ADT4INF2-ADT5INF4-ADT1
+						// 123 - hotel id (optional)
+						// 20170801 - arrival date (optional) (yyyymmdd)
+						// 20170803 - departure date (optional)
+						// -ADT4INF2 - 4 adults and 2 childs (optional) - (-ADT{X}INF{Y}) {X}, {Y} <= 9
+						/^hotels\/search\/(((\d)*(-)?)?(\d{8}(-)?)?(-\d{8})?(-ADT\d(CLD\d)?)*)$/
+					],	
 					handler: 'Hotels/SearchForm/Controller'
 				},
-
 				// Hotels Search Results
 				{
 					re: [
@@ -86,7 +96,6 @@ define (
 					re: /^hotels(\/?)\?(.*)?$/, 
 					handler: 'Hotels/SearchForm/Controller'
 				},
-				
 				// ??? what is that thing
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
@@ -160,7 +169,7 @@ define (
 					}
 				},
 				getFragment: function() {
-					var path = ('/' + this.clearSlashes(decodeURI(location.pathname + location.search))/*.replace(/\?(.*)$/, '')*/ + '/'),
+					var path = ('/' + this.clearSlashes(decodeURI(location.pathname + (location.host.indexOf('yandex') !== -1 ? '' : location.search)))/*.replace(/\?(.*)$/, '')*/ + '/'),
 						fragment;
 
 					if (path == '//') {
