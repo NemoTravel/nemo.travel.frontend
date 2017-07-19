@@ -252,5 +252,13 @@
     "travelPolicies__checkServiceClass": "Class of service does not correspond to travel policy",
     "travelPolicies__checkZone": "The flight zone does not correspond to the travel policy",
     "travelPolicies__checkTariffs": "Tariff does not correspond to travel policy",
-    "travelPolicies__checkPrice": "The price does not match the travel policy"
+    "travelPolicies__checkPrice": "The price does not match the travel policy",
+    "nemo__fareRules__passtype_ADT": "adult",
+    "nemo__fareRules__passtype_INF": "infant",
+    "nemo__fareRules__passtype_INS": "infant (with seat)",
+    "nemo__fareRules__passtype_CNN": "child",
+    "nemo__fareRules__passtype_CLD": "child",
+    "nemo__fareRules__passtype_SRC": "pensioner",
+    "nemo__fareRules__passtype_YTH": "student",
+    "nemo__fareRules__passtype_undefined": "unknown"
 }

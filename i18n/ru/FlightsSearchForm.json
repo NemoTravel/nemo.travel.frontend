@@ -135,6 +135,7 @@
     "flightsResults-table__header__sortType_depTime": "По вылету",
     "flightsResults-table__header__sortType_timeEnRoute": "По времени в пути",
     "flightsResults-table__header__sortType_transfersCount": "Количество пересадок",
+    "flightsForm-scheduleSearch_button": "Поиск по расписанию",
     "flightsForm-scheduleInfoHeader_flight": "Перелет",
     "flightsForm-scheduleInfoHeader_departure": "Вылет",
     "flightsForm-scheduleInfoHeader_arrival": "Прилет",

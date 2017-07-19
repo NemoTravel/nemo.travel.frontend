@@ -6,96 +6,149 @@
 		dialogClass: popupCSSClasses, 
 		title: $root.i18n('FlightsSearchResults', 'flightsFareRules__popup__title')
 	},
-	text: linkText
+	html: linkText
 ">
 </span>
 
 <div class="js-nemoApp__popupBlock" style="display: none;" data-bind="attr: { 'data-block': hash }">
 	<div class="nemo-flights-farerules__content">
-		<!-- ko if: agencyRules() -->
-			<div class="nemo-flights-farerules__content__agencyRules">
-				<h2 class="nemo-flights-farerules__content__rules__list__body__category__name" 
-					data-bind="text: $root.i18n('FlightsSearchResults', 'flightsFareRules__misc__agencyRules__title')">
-				</h2>
-	
-				<div data-bind="html: agencyRules()"></div>
-			</div>
-		<!-- /ko -->
-		
-		<!-- ko if: canBeTranslated() -->
-			<div class="nemo-flights-farerules__content__translators">
-				<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadOriginal, css: { 'nemo-ui-pseudoLink': translated() }">
-					<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__translator__original') --><!-- /ko -->
-				</span>
-	
-				<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadTranslated, css: { 'nemo-ui-pseudoLink': !translated() }">
-					<!-- ko text: currentLangLabel() --><!-- /ko --> *
-				</span>
+		<!-- ko if: isSpecialFaresService() -->
+			<div id="new-flights-farerules__ruleText" style="padding: 0 20px 20px;">
+				<div id="new-flights-farerules__ruleText__rules">
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>При заказе чартерных билетов выписывается Сертификат, подтверждающий право на получение маршрутной квитанции электронного авиабилета. Сертификат не является билетом и недействителен для перелета, т.к. не содержит номера.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>Накануне даты вылета вместо Сертификата выписывается Электронный авиабилет. Пассажир допускается к полету только при наличии маршрут-квитанции электронного билета и паспорта.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>У чартерных рейсов возможна замена времени вылета (в пределах обозначенной даты), могут быть изменены аэропорты, номера рейсов, авиаперевозчик. Информацию об изменениях по перелету Вы получите на указанный Вами при заказе E-Mail.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>Перед вылетом пассажир обязан самостоятельно уточнить информацию о возможных изменениях в расписании.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>За сутки до вылета обратного рейса пассажир должен проверить информацию об обратном рейсе.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>При отказе пассажира от перевозки по любой причине возврат стоимости чартерной перевозки не производится, изменение условий чартерной перевозки по инициативе пассажира (обмен сертификата/маршрутной квитанции) не производится.</pre>
+						</div>
+					</div>
+					<br/>
+					<div class="new-flights-farerules__rules__rule">
+						<div class="new-flights-farerules__rules__rule__text">
+							<pre>В случае неявки пассажира на первый рейс авиакомпания аннулирует билет на обратный рейс, и пассажир не сможет воспользоваться обратным перелетом.</pre>
+						</div>
+					</div>
+				</div>
 			</div>
 		<!-- /ko -->
 
-		<div class="nemo-flights-farerules__content__segments">
-			<!-- ko foreach: flight.segmentsByLeg -->
-				<!-- ko foreach: $data -->
+		<!-- ko if: !isSpecialFaresService() -->
+			<!-- ko if: agencyRules() -->
+				<div class="nemo-flights-farerules__content__agencyRules">
+					<h2 class="nemo-flights-farerules__content__rules__list__body__category__name" 
+						data-bind="text: $root.i18n('FlightsSearchResults', 'flightsFareRules__misc__agencyRules__title')">
+					</h2>
+		
+					<div data-bind="html: agencyRules()"></div>
+				</div>
+			<!-- /ko -->
+			
+			<!-- ko if: canBeTranslated() -->
+				<div class="nemo-flights-farerules__content__translators">
+					<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadOriginal, css: { 'nemo-ui-pseudoLink': translated() }">
+						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__translator__original') --><!-- /ko -->
+					</span>
+		
+					<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadTranslated, css: { 'nemo-ui-pseudoLink': !translated() }">
+						<!-- ko text: currentLangLabel() --><!-- /ko --> *
+					</span>
+				</div>
+			<!-- /ko -->
+	
+			<div class="nemo-flights-farerules__content__segments">
+				<!-- ko foreach: flight.segments -->
 					<div class="nemo-flights-farerules__content__segments__segment">
 						<span class="nemo-ui-button nemo-flights-farerules__content__segments__segment__button" data-bind="
 							css: { 
-								'nemo-flights-farerules__content__segments__segment_disabled nemo-ui-button_medium': number == $parents[1].selectedSegmentId(),
-								'nemo-ui-button_common': number != $parents[1].selectedSegmentId(),
-								'nemo-flights-farerules__content__segments__segment__button_disabled': !$parents[1].isLoaded()
+								'nemo-flights-farerules__content__segments__segment_disabled nemo-ui-button_medium': $index() == $parent.selectedSegmentId(),
+								'nemo-ui-button_common': $index() != $parent.selectedSegmentId(),
+								'nemo-flights-farerules__content__segments__segment__button_disabled': !$parent.isLoaded()
 							},
-							click: function (d, e) { $parents[1].selectSegment(number); },
+							click: function (d, e) { $parent.selectSegment($index()); },
 							html: shortInfo
 						"></span>
 					</div>
 				<!-- /ko -->
-			<!-- /ko -->
-			<div style="clear: both;"></div>
-		</div>
+				<div style="clear: both;"></div>
+			</div>
 
-		<div class="nemo-flights-farerules__content__rules">
-			<!-- ko if: isLoaded() -->
-				<!-- ko with: flight.segments[selectedSegmentId()] -->
-					<h2 class="nemo-flights-farerules__content__rules__header" data-bind="html: shortInfo"></h2>
-				<!-- /ko -->
-
-				<div class="nemo-flights-farerules__content__rules__list" data-bind="foreach: rules()">
-					<!-- ko if: segNum == $parent.selectedSegmentId() || $parent.rules().length === 1 -->
-					<div class="nemo-flights-farerules__content__rules__list__header">
-						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__popup__title') --><!-- /ko -->:
-						<!-- ko text: passType --><!-- /ko -->
-					</div>
-	
-					<div class="nemo-flights-farerules__content__rules__list__body">
-						<div class="nemo-flights-farerules__content__rules__list__body__code">
-							<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__tariffCode') --><!-- /ko -->: <!-- ko text: code --><!-- /ko -->
-						</div>
-	
-						<div class="nemo-flights-farerules__content__rules__list__body__category" data-bind="foreach: rules">
-							<div class="nemo-flights-farerules__content__rules__list__body__category__name" data-bind="text: name"></div>
-							<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="text: text"></pre>
-						</div>
-					</div>
+			<!-- ko if: isLoaded() && visibleRules().length > 1 -->
+				<div class="nemo-flights-farerules__content__codesList">
+					<!-- ko foreach: visibleRules() -->
+						<a href="#" class="nemo-ui-pseudoLink" data-bind="text: $data[0].tariffCode, click: $parent.scrollToTariffBlock.bind($parent, $data[0].tariffCode)"></a>
 					<!-- /ko -->
 				</div>
 			<!-- /ko -->
-
-			<!-- ko if: !isLoading() && !isLoaded() -->
-				<h2 class="nemo-flights-farerules__content__rules__error">
-					<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__error') --><!-- /ko -->
-				</h2>
 	
-				<span class="nemo-ui-link" data-bind="click: loadOriginal">
-					<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__tryAgain') --><!-- /ko -->
-				</span>
-			<!-- /ko -->
+			<div class="nemo-flights-farerules__content__rules js-nemo-popup__fareRules__content">
+				<!-- ko if: isLoaded() -->
+					<div class="nemo-flights-farerules__content__rules__list" data-bind="foreach: visibleRules()">
+						<div class="nemo-flights-farerules__content__rules__list__header"  data-bind="attr: { 'data-block': $data[0].tariffCode }">
+							<div>
+								<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__popup__title') --><!-- /ko -->: 
+								<!-- ko text: $parent.getPassengersTypes($data[0]) --><!-- /ko -->
+							</div>
 
-			<div class="clear"></div>
-		</div>
+							<div>
+								<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__tariffCode') --><!-- /ko -->: <!-- ko text: $data[0].tariffCode --><!-- /ko -->
+							</div>
+						</div>
 
-		<div class="nemo-flights-farerules__content__coverage" data-bind="doubleFade: isLoading()">
-			<div class="nemo-flights-farerules__content__coverage__loader"></div>
-		</div>
+						<div class="nemo-flights-farerules__content__rules__list__body">
+							<div class="nemo-flights-farerules__content__rules__list__body__category" data-bind="foreach: $data">
+								<div class="nemo-flights-farerules__content__rules__list__body__category__name" data-bind="text: code + ' ' + name"></div>
+								<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="text: text"></pre>
+							</div>
+						</div>
+					</div>
+				<!-- /ko -->
+	
+				<!-- ko if: !isLoading() && !isLoaded() -->
+					<h2 class="nemo-flights-farerules__content__rules__error">
+						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__error') --><!-- /ko -->
+					</h2>
+		
+					<span class="nemo-ui-link" data-bind="click: loadOriginal">
+						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__tryAgain') --><!-- /ko -->
+					</span>
+				<!-- /ko -->
+	
+				<div class="clear"></div>
+			</div>
+	
+			<div class="nemo-flights-farerules__content__coverage" data-bind="doubleFade: isLoading()">
+				<div class="nemo-flights-farerules__content__coverage__loader"></div>
+			</div>
+		<!-- /ko -->
 	</div>
 
 	<!-- ko if: canBeTranslated() -->

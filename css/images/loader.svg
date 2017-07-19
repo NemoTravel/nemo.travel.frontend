@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50" height="50" viewBox="0 0 100 100">
 	<defs>
 		<linearGradient id="two_hues_1">
-			<stop offset="0%" style="stop-color: rgba(100, 181, 246, .5);"></stop>
-			<stop offset="100%" style="stop-color: rgba(100, 181, 246, 1);"></stop>
+			<stop offset="0%" style="stop-color: rgb(100, 181, 246); stop-opacity: 0.5;"></stop>
+			<stop offset="100%" style="stop-color: rgb(100, 181, 246); stop-opacity: 1;"></stop>
 		</linearGradient>
 		<linearGradient id="two_hues_2">
-			<stop offset="0%" style="stop-color: rgba(100, 181, 246, .5);"></stop>
-			<stop offset="100%" style="stop-color: rgba(100, 181, 246, 0);"></stop>
+			<stop offset="0%" style="stop-color: rgb(100, 181, 246); stop-opacity: 0.5;"></stop>
+			<stop offset="100%" style="stop-color: rgb(100, 181, 246); stop-opacity: 0;"></stop>
 		</linearGradient>
 	</defs>
-	<g transform="rotate(-0.668365 50 50)">
+	<g transform="rotate(-0.668365 50deg 50deg)">
 		<path stroke="url(#two_hues_1)" stroke-linecap="butt" fill="none" stroke-width="12" d="M 20,50 A 30, 30, 45, 0, 1, 80,50">
 		</path>
-		<path stroke="url(#two_hues_2)" transform="rotate(0 50 50)" stroke-linecap="butt" fill="none" stroke-width="12" d="M 20,50 A 30, 30, 45, 0, 0, 80,50">
+		<path stroke="url(#two_hues_2)" transform="rotate(0deg 50deg 50deg)" stroke-linecap="butt" fill="none" stroke-width="12" d="M 20,50 A 30, 30, 45, 0, 0, 80,50">
 		</path>
 		<animateTransform attributeType="xml" attributeName="transform" repeatCount="indefinite" type="rotate" additive="sum" dur="1.5s" keyTimes="
                 0;

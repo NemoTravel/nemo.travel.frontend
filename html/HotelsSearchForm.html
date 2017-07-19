@@ -249,7 +249,7 @@
 			<!-- /ko -->
 			
 			<button class="nemo-hotels-form__RoomsPopup_addRoomButton" data-bind="
-				visible: rooms().length < 4,
+				visible: rooms().length < 4 && (maxAdultsFromFS === null || guestsSummaryByType().adults < maxAdultsFromFS),
 				text: $root.i18n('HotelsSearchForm','rooms_room_add'),
 				click: function () { roomAdd(); }
 				"></button>

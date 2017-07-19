@@ -216,7 +216,7 @@
     "error_1026": "Достигнут лимит поисковых запросов, обратитесь к администратору агентства.",
     "error_1026_buttonText": "На главную",
     "warning_204_header": "Искомые рейсы не найдены",
-    "warning_204": "К сожалению, мы не смогли найти те перелеты, которые вы искали, тем не менее, мы нашли несколько других. Вы можете выбрать ииз того, что мы нашли или вернуться к форме.",
+    "warning_204": "К сожалению, мы не смогли найти те перелеты, которые вы искали, тем не менее, мы нашли несколько других. Вы можете выбрать из того, что мы нашли или вернуться к форме.",
     "warning_204_button_continue": "Выбрать",
     "warning_204_button_return": "К поиску",
     "error_requestFailed_header": "Поиск не удался, обратитесь к разработчику. (Провалился запрос)",
@@ -252,5 +252,13 @@
     "bookingCheck__priceChanged__button_return": "К результатам",
     "bookingCheck__priceChanged__button_continue": "Забронировать",
     "booikingCheck__link_to_searchResults": "Вернуться к результатам поиска",
-    "booikingCheck__link_to_mainPage": "Новый поиск"
+    "booikingCheck__link_to_mainPage": "Новый поиск",
+    "nemo__fareRules__passtype_ADT": "взрослый",
+    "nemo__fareRules__passtype_INF": "младенец",
+    "nemo__fareRules__passtype_INS": "младенец с местом",
+    "nemo__fareRules__passtype_CNN": "ребенок",
+    "nemo__fareRules__passtype_CLD": "ребенок",
+    "nemo__fareRules__passtype_SRC": "пенсионер",
+    "nemo__fareRules__passtype_YTH": "студент",
+    "nemo__fareRules__passtype_undefined": "неизвестно"
 }

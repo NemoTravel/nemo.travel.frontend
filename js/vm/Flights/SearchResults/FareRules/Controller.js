@@ -5,7 +5,11 @@ define(
 		function FlightsSearchResultsFareRulesController(componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			componentParameters.initSegment = componentParameters.initSegment || null;
+			var initSegment = 0;
+
+			if (typeof componentParameters.initSegment === 'number' || typeof componentParameters.initSegment === 'string') {
+				initSegment = parseInt(componentParameters.initSegment);
+			}
 
 			this.flight = componentParameters.flight;
 			this.hash = md5(this.flight.id + Math.random() + 'fareRules');
@@ -15,11 +19,28 @@ define(
 			this.rules = ko.observableArray([]);
 			this.agencyRules = ko.observable(null);
 			this.canBeTranslated = ko.observable(false);
+			this.isSpecialFaresService = ko.observable(false);
 			this.isLoading = ko.observable(false);
 			this.isLoaded = ko.observable(false);
 			this.errorMessage = ko.observable('');
-			this.selectedSegmentId = ko.observable(componentParameters.initSegment);
+			this.selectedSegmentId = ko.observable(initSegment);
 			this.translated = ko.observable(null);
+
+			this.visibleRules = ko.computed(function () {
+				var result = [];
+
+				this.rules().map(function (group) {
+					var filteredRules = group.filter(function (rule) {
+						return rule.segmentNumber === this.selectedSegmentId();
+					}, this);
+
+					if (filteredRules.length) {
+						result.push(filteredRules);
+					}
+				}, this);
+				
+				return result;
+			}, this);
 		}
 
 		helpers.extendModel(FlightsSearchResultsFareRulesController, [BaseControllerModel]);
@@ -74,41 +95,46 @@ define(
 		 * @returns {Array}
 		 */
 		FlightsSearchResultsFareRulesController.prototype.parseRules = function (response) {
-			var result = [], 
-				tariffRules = response.flights.utils.rules.tariffRules;
-			
-			this.canBeTranslated(response.flights.utils.rules.canBeTranslated);
-			
-			if (response.flights.utils.rules.agencyRules) {
-				this.agencyRules(response.flights.utils.rules.agencyRules);
-			}
+			var result = [], rulesMap = {}, tariffRules, agencyRules;
 
 			if ((response.system.hasOwnProperty('error') && response.system.error)) {
 				throw new Error(response.system.error);
 			}
 
-			if (!tariffRules instanceof Array || tariffRules.length == 0) {
+			tariffRules = response.flights.utils.rules.tariffRules;
+			agencyRules = response.flights.utils.rules.agencyRules;
+
+			this.isSpecialFaresService(response.flights.utils.rules.isSpecialFaresService);
+			this.canBeTranslated(response.flights.utils.rules.canBeTranslated);
+
+			if (agencyRules) {
+				this.agencyRules(agencyRules);
+			}
+			
+			if (!tariffRules instanceof Array || tariffRules.length === 0) {
 				throw new Error('No fare rules');
 			}
 
+			// Складываем в стопку правила, группируя их по коду тарифа + типу пассажира.
 			for (var segmentNumber in tariffRules) if (tariffRules.hasOwnProperty(segmentNumber)) {
-				var rules = tariffRules[segmentNumber],
-					passType = '',
-					code = '';
+				if (tariffRules[segmentNumber] instanceof Array) {
+					tariffRules[segmentNumber].map(function (rule) {
+						var hash = md5(rule.tariffCode + JSON.stringify(rule.passengerTypes));
 
-				if (rules.hasOwnProperty('0')) {
-					passType = rules['0'].passengerType;
-					code = rules['0'].tarrifCode;
+						if (!rulesMap.hasOwnProperty(hash)) {
+							rulesMap[hash] = [];
+						}
+
+						rulesMap[hash].push(rule);
+					});
 				}
-
-				result.push({
-					code: code,
-					passType: passType,
-					segNum: segmentNumber,
-					rules: rules
-				});
 			}
 
+			// Пихаем сгруппированные правила в массив.
+			for (var hash in rulesMap) if (rulesMap.hasOwnProperty(hash)) {
+				result.push(rulesMap[hash]);
+			}
+			
 			return result;
 		};
 
@@ -126,8 +152,45 @@ define(
 		 */
 		FlightsSearchResultsFareRulesController.prototype.selectSegment = function (segmentId) {
 			if (!this.isLoading() && this.isLoaded()) {
-				this.selectedSegmentId(segmentId);
+				this.isLoading(true);
+
+				// Имитируем процесс загрузки.
+				// Часто на всех сегментах один и тот же тариф, и при переключении сегментов, содержимое попапа 
+				// не меняется, что может вводить юзера в ступор. Для того, чтобы юзер понимал, что все работает 
+				// в штатном режиме, имитируем загрузку.
+				setTimeout(function () {
+					this.isLoading(false);
+					this.selectedSegmentId(segmentId);
+				}.bind(this), 200);
 			}
+		};
+
+		/**
+		 * @param code
+		 */
+		FlightsSearchResultsFareRulesController.prototype.scrollToTariffBlock = function (code) {
+			var $content = $('.js-nemoApp__popupBlock[data-block="' + this.hash + '"] .js-nemo-popup__fareRules__content:first'),
+				$target = $content.find('[data-block="' + code + '"]:first');
+			
+			var	currentScroll = parseInt($content.scrollTop()),
+				newScroll = parseInt($target.position().top) + currentScroll;
+
+			if ($target.length && newScroll !== currentScroll) {
+				$content.animate({ scrollTop: newScroll });
+			}
+		};
+
+		/**
+		 * @param rule
+		 */
+		FlightsSearchResultsFareRulesController.prototype.getPassengersTypes = function (rule) {
+			var types = rule.passengerTypes;
+
+			types = types.map(function (type) {
+				return this.$$controller.i18n('FlightsSearchResults', 'nemo__fareRules__passtype_' + type);
+			}, this);
+
+			return types.join(', ');
 		};
 
 		/**

@@ -758,5 +758,6 @@
     "checkout-titles-agreed": "I agree",
     "checkout-steps-one-title": "Fill in information about the guests",
     "checkout-steps-two-title": "Fill in your contacts",
-    "checkout-steps-three-title": "Choose the payment method"
+    "checkout-steps-three-title": "Choose the payment method",
+    "checkout-misc__paymentTypeAdditionalInfo": "Payment type additional informationg"
 }

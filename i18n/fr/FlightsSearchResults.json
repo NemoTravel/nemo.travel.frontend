@@ -171,5 +171,14 @@
     "flightsGroup__flightWarnings__stopovers": "Sur la route il y a [%-count-%]",
     "flightsGroup__flightWarnings__stopovers__stop_one": "escale technique",
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "escale technique",
-    "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "escale technique"
+    "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "escale technique",
+    "nemo__fareRules__header": "Règles tarifaires",
+    "nemo__fareRules__code": "Fare basis",
+    "nemo__fareRules__passtype_ADT": "adulte",
+    "nemo__fareRules__passtype_INF": "Jeune enfant",
+    "nemo__fareRules__passtype_INS": "Jeune enfant (avec siège)",
+    "nemo__fareRules__passtype_CNN": "enfant",
+    "nemo__fareRules__passtype_CLD": "enfant",
+    "nemo__fareRules__passtype_SRC": "Personne âgée",
+    "nemo__fareRules__passtype_YTH": "Jeune personne"
 }

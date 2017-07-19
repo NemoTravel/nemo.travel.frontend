@@ -5,6 +5,8 @@
     "serviceClass_Business": "Бизнес",
     "serviceClass_First": "Первый",
     "serviceClass_All": "Любой",
+    "fareInformation": "Подробнее о тарифе",
+    "fareInformationHeader": "Бесплатный багаж",
     "leg__transfer": "Пересадка",
     "leg__terminalChange": "Смена терминала",
     "leg__segment__departure__caption": "Аэропорт",
@@ -31,8 +33,13 @@
     "leg__segment__baggage__passType_YTH": "Студенты",
     "leg__segment__baggage__passType_SRC": "Пенсионеры",
     "leg__segment__baggage__carryOn_only": "Только ручная кладь",
+    "leg__segment__baggage__noBaggage": "Без багажа",
+    "leg__segment__baggage__withBaggage": "С багажом",
     "leg__segment__baggage__carryOn": "Ручная кладь +",
     "leg__segment__baggage__metric_pc": "шт",
     "leg__segment__baggage__metric_kg": "кг",
-    "leg__segment__baggage__metric_lb": "фунтов"
+    "leg__segment__baggage__metric_lb": "фунтов",
+    "leg__segment__baggage__metric_bag_1": "сумка",
+    "leg__segment__baggage__metric_bag_2": "сумки",
+    "leg__segment__baggage__metric_bag_3": "сумок"
 }

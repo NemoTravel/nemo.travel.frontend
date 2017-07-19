@@ -87,6 +87,7 @@ define(
 								newFlights.push({
 									id: element.id,
 									nemo2id: element.nemo2id,
+									expectedNumberOfTickets: element.expectedNumberOfTickets,
 									name: element.name,
 									price: self.$$controller.getModel('Common/Money', element.price),
 									features: features

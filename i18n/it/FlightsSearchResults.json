@@ -171,5 +171,14 @@
     "flightsGroup__flightWarnings__stopovers": " Sulla strada",
     "flightsGroup__flightWarnings__stopovers__stop_one": "c'è [%-count-%] scalo tecnico",
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "ci sono [%-count-%] scalo tecnico",
-    "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "ci sono [%-count-%] scalo tecnico"
+    "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "ci sono [%-count-%] scalo tecnico",
+    "nemo__fareRules__header": "Norme sulle tariffe",
+    "nemo__fareRules__code": "Fare basis",
+    "nemo__fareRules__passtype_ADT": "adulto",
+    "nemo__fareRules__passtype_INF": "neonato",
+    "nemo__fareRules__passtype_INS": "neonato (con sedile)",
+    "nemo__fareRules__passtype_CLD": "bambino",
+    "nemo__fareRules__passtype_CNN": "bambino",
+    "nemo__fareRules__passtype_SRC": "anziano",
+    "nemo__fareRules__passtype_YTH": "giovane"
 }

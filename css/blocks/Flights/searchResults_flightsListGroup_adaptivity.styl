@@ -45,6 +45,7 @@
 				&__info {
 					display: flex;
 					flex-flow: row nowrap;
+					flex: 0 1 auto;
 				}
 			}
 
@@ -60,6 +61,8 @@
 
 			&__transfers {
 				flex-shrink: 1;
+				max-width: 130px;
+				width: 130px;
 			}
 
 			&__timeEnRoute {
@@ -78,10 +81,15 @@
 			border-left: 0;
 			border-top: $i_ui_subContainer_divider_border;
 			display: block;
+			max-width: none;
 
 			&__inner {
 				text-align: right;
 				direction: rtl;
+			}
+			
+			.nemo-flights-results__flightsGroup__footer__disclaimer {
+				text-align: right;
 			}
 		}
 
@@ -95,6 +103,18 @@
 			border-radius: $nemo-border-radius;
 			margin-right: 20px;
 		}
+		
+		&__gds-comission-block {
+			text-align: right;
+		}
+		
+		//&__segment {
+		//	&__additionalDetails {
+		//		&__fareInfo {
+		//			padding-right: 15px;
+		//		}
+		//	}
+		//}
 	}
 }
 
@@ -163,9 +183,16 @@
 				width: auto;
 				margin-right: 20px;
 			}
+			
+			&__transfers {
+				max-width: auto;
+				width: auto;
+			}
 
 			&__additionalDetails__info {
 				flex-direction: column;
+				width: 110px;
+				max-width: 110px;
 			}
 		}
 	}

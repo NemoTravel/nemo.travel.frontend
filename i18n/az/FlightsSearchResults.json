@@ -173,5 +173,14 @@
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "fasilə",
     "flightsGroup__flightWarningsContinue": "Satın al",
     "flightsGroup__flightWarningsHeader": "Əlavə məhdudiyyətlər",
-    "flightsGroup__flightWarningsReturn": "Başqa uçuşu seçin"
+    "flightsGroup__flightWarningsReturn": "Başqa uçuşu seçin",
+    "nemo__fareRules__header": "Tarif şərtləri",
+    "nemo__fareRules__code": "Код тарифа",
+    "nemo__fareRules__passtype_ADT": "yetkin",
+    "nemo__fareRules__passtype_INF": "körpə",
+    "nemo__fareRules__passtype_INS": "körpə (oturacaqlı)",
+    "nemo__fareRules__passtype_CLD": "uşaq",
+    "nemo__fareRules__passtype_CNN": "uşaq",
+    "nemo__fareRules__passtype_SRC": "yaşlı",
+    "nemo__fareRules__passtype_YTH": "gənc"
 }

@@ -146,13 +146,6 @@ define(
 							guide: null
 						}
 					);
-					
-					segments[i].shortInfo = '';
-					segments[i].shortInfo += segments[i].depAirp.city && segments[i].depAirp.city.name ? segments[i].depAirp.city.name : segments[i].depAirp.name;
-					segments[i].shortInfo += '&nbsp;&rarr;&nbsp;';
-					segments[i].shortInfo += segments[i].arrAirp.city && segments[i].arrAirp.city.name ? segments[i].arrAirp.city.name : segments[i].arrAirp.name;
-					segments[i].shortInfo += '&nbsp;';
-					segments[i].shortInfo += '(' + segments[i].depDateTime.getDate() + '&nbsp;' + segments[i].depDateTime.getMonthName() + ',&nbsp;' + segments[i].depDateTime.getDOWName() +')';
 				}
 			}
 
