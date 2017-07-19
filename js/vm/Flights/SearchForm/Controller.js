@@ -1136,6 +1136,7 @@ define(
 			this.options.dateOptions.maxDate.setDate(this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset);
 			
 			this.options.hideDirectOnlyCheckbox = this.$$rawdata.flights.search.formData.hideDirectOnlyCheckbox;
+			this.options.scheduleSearchEnable = this.$$rawdata.flights.search.formData.scheduleSearchEnable;
 
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;

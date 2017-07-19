@@ -1,0 +1,8 @@
+{
+    "bookingCheck__error__title": "發生了錯誤",
+    "error_systemError": "搜索失敗，與廠家聯繫。（服務器錯誤）",
+    "PF__clearAll": "清除所有過濾器",
+    "PF__clearPF": "明確",
+    "error_systemError_header": "未找到結果",
+    "error_systemError_buttonText": "回到主頁面"
+}

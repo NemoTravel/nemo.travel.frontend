@@ -203,5 +203,13 @@
     "flightsGroup__fareFamilies__title__misc": "Додатково",
     "flightsGroup__fareFamilies__title__chooseSubClass": "Обрати інший підклас",
     "flightsFareRules__tariffCode": "Код тарифа",
-    "flightsGroup__fareFamilies__title__price": "Вартість"
+    "flightsGroup__fareFamilies__title__price": "Вартість",
+    "nemo__fareRules__passtype_ADT": "дорослий",
+    "nemo__fareRules__passtype_INF": "немовля до 2 років",
+    "nemo__fareRules__passtype_INS": "немовля з місцем",
+    "nemo__fareRules__passtype_CNN": "дитина",
+    "nemo__fareRules__passtype_CLD": "дитина",
+    "nemo__fareRules__passtype_SRC": "літній",
+    "nemo__fareRules__passtype_YTH": "молодий",
+    "nemo__fareRules__passtype_undefined": "не визначено"
 }

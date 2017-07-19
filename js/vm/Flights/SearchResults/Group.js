@@ -180,6 +180,11 @@ define(
 			this.selectedFlight = ko.computed(function () {
 				return this.selectedFlightsIds().length ? this.flightsById[this.selectedFlightsIds()[0]] : this.flights[0];
 			}, this);
+			
+			this.disclaimerIsVisible = this.resultsController.searchInfo().totalPassengers > 1 || 
+				this.isRefundable() === false ||
+				this.isRefundable() === true ||
+				(this.$$controller.viewModel.user.isB2B() && this.selectedFlight().expectedNumberOfTickets !== false);
 
 			this.fareVariationsVisible = this.resultsController.options.showBlocks.showFareVariations && 
 				!this.selectedFlight().fareFeatures.getFirstFamily() &&

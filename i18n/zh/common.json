@@ -1,0 +1,7 @@
+{
+    "nemoApp__globalError__noRoute": "未知網址",
+    "popup_closeText": "關",
+    "nemoApp__globalError__uncaughtError__title": "處理數據時發生錯誤",
+    "nemoApp__globalError__uncaughtError__message": "請稍後再試。",
+    "nemoApp__globalError__uncaughtError__errorCode": "錯誤代碼"
+}

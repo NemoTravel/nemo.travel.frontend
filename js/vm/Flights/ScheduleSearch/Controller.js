@@ -21,6 +21,48 @@ define(
 			this.postFiltersObject = ko.observable({});
 			this.usePostfilters = false;
 
+			// isValid без учета пассажиров
+			this.isValid = ko.computed(function () {
+				var segments = this.segments(),
+					ret = true,
+					prevDate;
+
+				if (segments.length) {
+					for (var i = 0; i < segments.length; i++) {
+						if (segments[i].items.departureDate.value()) {
+							if (prevDate && segments[i].items.departureDate.value().dateObject() < prevDate) {
+								segments[i].items.departureDate.error('notInOrder');
+								ret = false;
+							}
+							else if (i + 1 == segments.length && segments[i].items.departureDate.value().dateObject() > this.options.dateOptions.maxDate) {
+								segments[i].items.departureDate.error('tooLate');
+								ret = false;
+							}
+							else if (i == 0 && segments[i].items.departureDate.value().dateObject() < this.options.dateOptions.minDate) {
+								segments[i].items.departureDate.error('tooEraly');
+								ret = false;
+							}
+							else {
+								segments[i].items.departureDate.error(null);
+							}
+
+							prevDate = segments[i].items.departureDate.value().dateObject();
+						}
+
+						for (var j in segments[i].items) {
+							if (segments[i].items.hasOwnProperty(j) && segments[i].items[j].error()) {
+								ret = false;
+							}
+						}
+					}
+				}
+				else {
+					ret = false;
+				}
+
+				return ret;
+			}, this);
+
 			this.schedulePeriodBegin = ko.observable(null);
 			this.schedulePeriodEnd = ko.observable(null);
 			
@@ -351,7 +393,48 @@ define(
 			);
 		};
 
+		FlightsScheduleSearchFormController.prototype.showPassengersPopup = function (flightNumber, date) {
+			var self = this;
+
+			this.flightNumbers([flightNumber]);
+			this.trdScheduleRequestDate(date);
+			var $target = $(document).find('.js-nemoApp__popupBlock[data-block=booking]');
+			if ($target.length > 1) {
+				$target = $target.first();
+			}
+
+			if (!$target.data('ui-popup')) {
+				$target.popup({
+					buttons: [
+						{
+							text: this.$$controller.i18n('FlightsSearchForm','flightsScheduleForm-tickets'),
+							click: function () {
+								if (!self.passengersError()) {
+									$target.popup('close');
+									self.startActualSearch(self.trdScheduleRequestDate(), self.flightNumbers());
+								}
+							}
+						}
+					],
+					width: 'auto',
+					dialogClass: 'nemo-flights-form-scheduleSearch__select__day__calendar_dialog',
+					headerClass: 'nemo-flights-form-scheduleSearch__select__day__calendar_header',
+					contentClass: 'nemo-flights-form-scheduleSearch__select__day__calendar_content',
+					buttonPaneClass: 'nemo-flights-form-scheduleSearch__select__day__calendar_buttons',
+					wrapperClass: 'nemo-flights-form-scheduleSearch__select__day__calendar_wrapper'
+				});
+			}
+			else {
+				$target.popup('open');
+			}
+		};
+
 		FlightsScheduleSearchFormController.prototype.startActualSearch = function (date, flightNumbers) {
+
+			if (this.passengersError()) {
+				return false;
+			}
+
 			this.searchError(false);
 
 			this.segments()[0].items.departureDate.value(date);

@@ -166,5 +166,14 @@
     "bookingCheck__priceChanged__button_continue": "Брондоо",
     "matrix__list__dateSelected__priceFrom": "андан",
     "matrix__list__dateOption__priceFrom": "андан",
-    "matrix__list__selectableDate__priceFrom": "андан"
+    "matrix__list__selectableDate__priceFrom": "андан",
+    "nemo__fareRules__header": "Жол жүрүү эрежеси",
+    "nemo__fareRules__code": "Код тарифа",
+    "nemo__fareRules__passtype_ADT": "Чоңкиши",
+    "nemo__fareRules__passtype_INF": "бөбөк",
+    "nemo__fareRules__passtype_INS": "орду менен бөбөк",
+    "nemo__fareRules__passtype_CNN": "Бала",
+    "nemo__fareRules__passtype_CLD": "Бала",
+    "nemo__fareRules__passtype_SRC": "пенсионер",
+    "nemo__fareRules__passtype_YTH": "студент"
 }

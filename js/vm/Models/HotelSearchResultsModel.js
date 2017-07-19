@@ -398,11 +398,16 @@ define(
 				// adding `staticDataInfo` to hotel with identical id
 				staticData.hotels.forEach(function (hotel) {
 					if (searchData.results.hotels[hotel.id]) {
-						searchData.results.hotels[hotel.id].staticDataInfo = hotel;
+						if (searchData.results.hotels[hotel.id].staticDataInfo) {
+							_.merge(searchData.results.hotels[hotel.id].staticDataInfo, hotel);
+						}
+						else {
+							searchData.results.hotels[hotel.id].staticDataInfo = hotel;
+						}
 					}
 				});
 			}
-
+			
 			// find hotel with cheapest price
 			function findCheapestHotel(hotel) {
 				if (hotel.hotelPrice < minHotelPrice) {
@@ -429,9 +434,8 @@ define(
 			var hotels = this.addHotelsRooms(searchData.results);
 			var hotelsPool = {};
 			var hasCoordinates = false;
-
+			
 			hotels.map(function (hotel, index) {
-
 				hotel.staticDataInfo.featuresArray = [];
 
 				helpers.iterateObject(hotel.staticDataInfo.features, function (feature, id) {
@@ -461,18 +465,19 @@ define(
 				hotel.showMap = !!(hotel.staticDataInfo.posLatitude || hotel.staticDataInfo.posLongitude);
 
 				hasCoordinates = hasCoordinates || hotel.showMap;
-				
+
 				var firstRoomPrice = self.getFirstRoomsPrice(hotel);
 				// Тот, кто изначально писал этот код, подумал что будет смешно, если он ВЕЗДЕ расчеты 
 				// связанные со стоимостью чего-либо будет проводить с цифрами, а не с обычными нашими моделями...
 				hotel.hotelPriceOriginal = firstRoomPrice.amount;
 				hotel.hotelPrice = Math.round(hotel.hotelPriceOriginal);
 				hotel.isSpecialOffer = self.isSpecialOfferExist(hotel);
+				hotel.hotelChainName = hotel.staticDataInfo.hotelChainName;
 				hotel.priceObservable = self.$$controller.getModel('Common/Money', {
 					amount: firstRoomPrice.amount,
 					currency: firstRoomPrice.currency
 				});
-				
+
 				findCheapestHotel(hotel);
 				findMostExpensiveHotel(hotel);
 				findMaxAverageCustomerRating(hotel);
@@ -728,6 +733,27 @@ define(
 
 			}, this);
 
+			this.hotelsChainCount = ko.pureComputed(function() {
+				var self 		= this,
+					hotelsChains = {};
+
+				hotels.forEach(function (hotel) {
+					if(hotel.hotelChainName) {
+						if (!hotelsChains.hasOwnProperty(hotel.hotelChainName)) {
+							hotelsChains[hotel.hotelChainName] = {
+								id: hotel.hotelChainName,
+								name: hotel.hotelChainName,
+								count: 0
+							}
+						}
+						hotelsChains[hotel.hotelChainName].count++;
+					}
+				});
+
+				this.filters.hotelsChainFilter.setFilterValues(hotelsChains);
+
+			}, this);
+
 			this.specialConditionsCount = ko.pureComputed(function() {
 				var self = this,
 					specialConditions= {specialOffer : 0},
@@ -744,7 +770,8 @@ define(
 
 			this.initialMinStarPrices = this.minStarPrices();
 			this.initialFeaturesCount = this.featuresCount();
-                        this.initialSpecialCount = this.specialConditionsCount();
+			this.initialSpecialCount = this.specialConditionsCount();
+			this.initialHotelsChainCount = this.hotelsChainCount();
 
 			/**
 			 * Returns hotels count what can be loaded with lazy loading
@@ -763,8 +790,19 @@ define(
 				return self.lazyLoadHotelsCount() === 0;
 			});
 
+			this.searchFormURL = ko.pureComputed(function () {
+				return self.$$controller.options.root + 'hotels';
+			});
+
 			this.showNextHotels = function () {
 				self.visibleHotelsCount(self.visibleHotelsCount() + self.lazyLoadHotelsCount());
+			};
+
+			/**
+			 * Hide hotel check error popup.
+			 */
+			this.hideHotelCheckErrorPopup = function () {
+				self.bookingCheckError(false);
 			};
 
 			/**

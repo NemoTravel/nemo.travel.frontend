@@ -444,7 +444,7 @@ define(
 			}, this);
 			
 			this.searchFormURL = ko.pureComputed(function () {
-				return '/search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
+				return this.$$controller.options.root + 'search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
 			}, this);
 			
 			this.initAnalytics();
@@ -1162,6 +1162,7 @@ define(
 									{
 										id: source.flights[j].id,
 										nemo2id: source.flights[j].nemo2id,
+										expectedNumberOfTickets: source.flights[j].expectedNumberOfTickets,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
 										segments: segsarr,
@@ -2020,6 +2021,8 @@ define(
 			'Flights/SearchResults/StringPFGroup',
 			'Flights/SearchResults/CompareTable',
 			'Flights/SearchResults/FareFeatures',
+			'Flights/SearchResults/Leg',
+			'Flights/SearchResults/Transfer',
 			'Flights/Common/Airline',
 			'Common/Date',
 			'Common/Duration',

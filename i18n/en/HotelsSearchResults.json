@@ -105,5 +105,6 @@
     "showAlsoVariants": "Show {value} more {variants}",
     "variants_one": "variant",
     "variants_twoToFour": "variants",
-    "variants_fourPlus": "variants"
+    "variants_fourPlus": "variants",
+    "hotels__hotelsChain": "Hotels chain"
 }

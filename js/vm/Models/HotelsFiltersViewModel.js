@@ -27,7 +27,7 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 		self.resetStarFilter();
 
 		self.findByName = ko.observable('');
-
+		self.hotelsChainFilter = new FilterModel();
 		self.featureFilter = new FilterModel();
 		self.nightsCountPriceFilter = new SliderViewModel(ko, SliderViewModel.TYPE_RANGE, minRoomPrice, maxRoomPrice);
 		self.averageCustomerRatingFilter = new SliderViewModel(ko, SliderViewModel.TYPE_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MIN, HotelsFiltersViewModel.CUSTOMER_RATING_MAX);
@@ -40,7 +40,10 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 		});
 
 		self.isFilterEmpty = ko.pureComputed(function () {
-			return self.isStarFilterEmpty() && self.nightsCountPriceFilter.isDefault() && self.averageCustomerRatingFilter.isDefault() && self.featureFilter.isDefault() && self.findByName().length < 2 && self.specialFilter.isDefault();
+			return self.isStarFilterEmpty() && self.nightsCountPriceFilter.isDefault() &&
+						self.averageCustomerRatingFilter.isDefault() && self.featureFilter.isDefault() &&
+						self.findByName().length < 2 && self.specialFilter.isDefault() &&
+						self.hotelsChainFilter.isDefault();
 		});
 
 		/**
@@ -116,7 +119,7 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 					return false;
 				}
 				
-			}
+			};
 
 			var isMatchSpecialFilter = function (hotel, selectedFilters) {
 				var matchFilters = 0,
@@ -133,7 +136,24 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 				});
 
 				return checkedFilters === matchFilters;
-			}
+			};
+
+			var isMatchHotelsChainFilter = function (hotel, selectedFilters) {
+				var matchFilters = 0;
+
+				if (self.hotelsChainFilter.isDefault()) {
+					return true;
+				}
+
+				helpers.iterateObject(selectedFilters, function (filter) {
+					if (filter.checked()) {
+						if (hotel.hotelChainName === filter.name)
+							matchFilters++;
+					}
+				});
+
+				return matchFilters > 0;
+			};
 
 			if (filter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
 				return isMatchStarFilter(hotel);
@@ -157,6 +177,10 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 
 			if (filter === HotelsFiltersViewModel.FILTER_TYPE_NAME) {
 				return isMatchHotelName(hotel);
+			}
+
+			if (filter === HotelsFiltersViewModel.FILTER_TYPE_CHAIN) {
+				return isMatchHotelsChainFilter(hotel, self.hotelsChainFilter.values());
 			}
 
 			return false;
@@ -189,14 +213,16 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
 					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING) &&
 					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_NAME) && 
-					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL);
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_CHAIN);
 			}
 
 			if (exceptFilter === HotelsFiltersViewModel.FILTER_TYPE_STARS) {
 				return self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_PRICE) &&
 					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_FEATURE) &&
 					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_RATING) &&
-					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL);
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_SPECIAL) &&
+					self.isMatchWithFilter(hotel, HotelsFiltersViewModel.FILTER_TYPE_CHAIN);
 			}
 
 			return false;
@@ -208,6 +234,7 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 			self.featureFilter.resetFilters();
 			self.averageCustomerRatingFilter.reset();
 			self.findByName('');
+			self.hotelsChainFilter.resetFilters();
 		};
 	}
 
@@ -217,6 +244,7 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 	HotelsFiltersViewModel.FILTER_TYPE_SPECIAL = 'special';
 	HotelsFiltersViewModel.FILTER_TYPE_RATING = 'rating';
 	HotelsFiltersViewModel.FILTER_TYPE_NAME = 'name';
+	HotelsFiltersViewModel.FILTER_TYPE_CHAIN = 'chain';
 
 	HotelsFiltersViewModel.FILTERS = [
 		HotelsFiltersViewModel.FILTER_TYPE_PRICE,
@@ -224,7 +252,8 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 		HotelsFiltersViewModel.FILTER_TYPE_FEATURE,
 		HotelsFiltersViewModel.FILTER_TYPE_RATING,
 		HotelsFiltersViewModel.FILTER_TYPE_NAME,
-		HotelsFiltersViewModel.FILTER_TYPE_SPECIAL
+		HotelsFiltersViewModel.FILTER_TYPE_SPECIAL,
+		HotelsFiltersViewModel.FILTER_TYPE_CHAIN
 	];
 
 	HotelsFiltersViewModel.CUSTOMER_RATING_MIN = 0;

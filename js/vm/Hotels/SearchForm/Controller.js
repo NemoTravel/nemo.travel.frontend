@@ -36,6 +36,9 @@ define([
 			this.infantsAges = [];
 			this.datesUnknown = ko.observable(false);
 			this.options = {};
+			// ограничения на количество гостей, если параметры заданы через Fast Search
+			this.maxAdultsFromFS = null;
+			this.maxInfantsFromFS = null;
 			this.validaTERROR = ko.observable(false);
 			this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
 			this.preinittedData = {
@@ -106,6 +109,27 @@ define([
 				});
 
 				return getSummaryGuests(rooms, guest);
+			}, this);
+
+			/**
+			 * Возвращает объект с указанием общего кол-ва гостей по каждому типу
+			 * @return Object { adults: 0, infants: 0 }
+			 */
+			this.guestsSummaryByType = ko.computed(function () {
+				var guest = { adults: 0, infants: 0 },
+					rooms = this.rooms();
+
+				if (!rooms.length) {
+					return {adults: 0, infants: 0};
+				}
+
+				rooms.forEach(function (room) {
+					guest.adults += room.adults();
+					guest.infants += room.infants().length;
+				});
+
+				return guest;
+
 			}, this);
 
 			this.isValid = ko.computed(function () {
@@ -288,6 +312,9 @@ define([
 					pointer++;
 				}
 
+				this.maxAdultsFromFS = 0;
+				this.maxInfantsFromFS = 0;
+
 				// get guests
 				// for each room
 				for (pointer; pointer < route.length; pointer += 1) {
@@ -300,6 +327,9 @@ define([
 					for (var i = 0; i < childrenCount; i++) {
 						childrenArray.push(0);
 					}
+
+					this.maxAdultsFromFS += adultCount;
+					this.maxInfantsFromFS += childrenCount;
 
 					this.preinittedData.rooms.push({adults: adultCount, infants: childrenArray});
 				}

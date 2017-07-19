@@ -53,6 +53,8 @@ define(
 					this.leftColumn = newLeftColumn;
 					this.rightColumn = newRightColumn;
 				}
+
+				this.fareRulesLinkText = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__tariff') + ' &laquo;' + this.features.name + '&raquo;';
 			}
 		}
 

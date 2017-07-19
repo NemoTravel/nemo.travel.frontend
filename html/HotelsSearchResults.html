@@ -263,6 +263,30 @@
 					</div>
 				</div>
 				<!-- /ko -->
+
+				<!-- Hotels Chain -->
+				<!-- ko if: filters.hotelsChainFilter.valuesAsArray().length > 0 -->
+				<div class="nemo-common-postFilters__filterList__filter">
+					<div class="nemo-common-postFilters__filterList__filter__caption">
+						<h4 class="nemo-common-postFilters__filterList__filter__caption__name
+										nemo-hotels-results__summary__filters__filter__caption__name"
+							data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__hotelsChain')"></h4>
+					</div>
+					<div class="nemo-common-postFilters__filterList__filter__checkboxesBlock
+								nemo-common-postFilters__filterList__filter__checkboxesBlock_checkboxes">
+						<div class="nemo-common-postFilters__filterList__filter__checkboxesBlock__checkboxes">
+							<label class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noMatter"
+								   data-bind="
+									css: { 'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_checked' : filters.hotelsChainFilter.isDefault },
+									click: filters.hotelsChainFilter.resetFilters
+									 ">
+								<span class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name nemo-common-postFilters__filterList__filter__valuesBlock__values__value__name_noMatter" data-bind="text: $root.i18n('HotelsSearchResults', 'PF__filter__noMatter')"></span>
+							</label>
+							<!-- ko template: { name: 'nemo-koTemplate-HotelsResults-FeatureFilterRow', data: filters.hotelsChainFilter.valuesAsArray(), as: 'featureFilterValuesAsArray' } --> <!-- /ko -->
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
 				
 				<!-- Special options -->
 				<div class="nemo-common-postFilters__filterList__filter">
@@ -540,7 +564,7 @@
 													</div>
 													
 													<ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-														<li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-meal__' + $data[0].meal.code)"></li>
+														<li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="visible: $data[0].meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + $data[0].meal.code)"></li>
 													</ul>
 												</div>
 											</li>

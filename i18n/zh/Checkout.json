@@ -1,0 +1,10 @@
+{
+    "exare_return_compelled_file_type_other": "其他",
+    "exare_return_compelled_file_type_flight_problems": "飛行延誤/航班取消航班",
+    "exare_return_compelled_file_type_visa": "官方簽證拒絕",
+    "exare_return_compelled_file_type_death": "家庭死亡（證書）",
+    "exare_return_compelled_file_type_medical": "醫病證明",
+    "nemoApp__globalError__uncaughtError__title": "處理數據時發生錯誤",
+    "nemoApp__globalError__uncaughtError__message": "請稍後再試。",
+    "nemoApp__globalError__uncaughtError__errorCode": "錯誤代碼"
+}

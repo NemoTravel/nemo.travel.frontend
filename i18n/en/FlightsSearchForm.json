@@ -135,6 +135,7 @@
     "flightsResults-table__header__sortType_depTime": "Departure",
     "flightsResults-table__header__sortType_timeEnRoute": "Duration",
     "flightsResults-table__header__sortType_transfersCount": "Stops",
+    "flightsForm-scheduleSearch_button": "Flights schedule search",
     "flightsForm-scheduleInfoHeader_flight": "Flight",
     "flightsForm-scheduleInfoHeader_departure": "Departure",
     "flightsForm-scheduleInfoHeader_arrival": "Arrival",

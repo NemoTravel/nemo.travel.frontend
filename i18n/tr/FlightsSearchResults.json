@@ -251,5 +251,14 @@
     "PF__name_travelPolicies": "Seyahat politikası",
     "travelPolicies__incorrect_tariff": "Ücret, seyahat politikası ile uyumlu değil",
     "travelPolicies__incorrect_flight_zone": "Varış noktası seyahat politikasına uymuyor",
-    "travelPolicies__incorrect_booking_class": "Reservasyon sınıfı seyahat politikasına uymuyor"
+    "travelPolicies__incorrect_booking_class": "Reservasyon sınıfı seyahat politikasına uymuyor",
+    "nemo__fareRules__header": "Tarife uygulama şartları",
+    "nemo__fareRules__code": "Fare basis",
+    "nemo__fareRules__passtype_ADT": "yetişkin",
+    "nemo__fareRules__passtype_INF": "bebek",
+    "nemo__fareRules__passtype_INS": "bebek (koltukla)",
+    "nemo__fareRules__passtype_CLD": "çocuk",
+    "nemo__fareRules__passtype_CNN": "çocuk",
+    "nemo__fareRules__passtype_SRC": "Yaşlı",
+    "nemo__fareRules__passtype_YTH": "genç"
 }

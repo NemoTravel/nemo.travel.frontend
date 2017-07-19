@@ -252,5 +252,13 @@
     "travelPolicies__checkMarketingVendor": "Der Fluggesellschaft entspricht nicht der Reisepolitik",
     "travelPolicies__incorrect_service_class": "Dienstleistungskategorie entspricht nicht der Reisepolitik",
     "travelPolicies__checkPrice": "Der Preis stimmt nicht mit der Reisepolitik überein",
-    "travelPolicies__checkBookingClass": "Die Buchungsklasse entspricht nicht der Reisepolitik"
+    "travelPolicies__checkBookingClass": "Die Buchungsklasse entspricht nicht der Reisepolitik",
+    "nemo__fareRules__passtype_ADT": "Erwachsener",
+    "nemo__fareRules__passtype_INF": "Säugling",
+    "nemo__fareRules__passtype_INS": "Säugling (mit Sitz)",
+    "nemo__fareRules__passtype_CNN": "Kinder",
+    "nemo__fareRules__passtype_CLD": "Kinder",
+    "nemo__fareRules__passtype_SRC": "Ältere",
+    "nemo__fareRules__passtype_YTH": "Jugendliche",
+    "nemo__fareRules__passtype_undefined": "Unbekannt"
 }

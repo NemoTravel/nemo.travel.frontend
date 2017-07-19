@@ -28,6 +28,13 @@ define(
 
 			// Dividing segments by leg
 			for (var i = 0; i < this.segments.length; i++) {
+				this.segments[i].shortInfo = '';
+				this.segments[i].shortInfo += this.segments[i].depAirp.city.name;
+				this.segments[i].shortInfo += '&nbsp;&rarr;&nbsp;';
+				this.segments[i].shortInfo += this.segments[i].arrAirp.city.name;
+				this.segments[i].shortInfo += '&nbsp;';
+				this.segments[i].shortInfo += '(' + this.segments[i].depDateTime.getDate() + '&nbsp;' + this.segments[i].depDateTime.getMonthName() + ',&nbsp;' + this.segments[i].depDateTime.getDOWName() +')';
+				
 				if (this.segments[i].routeNumber != tmp) {
 					this.segmentsByLeg.push([]);
 					tmpClasses.push([]);
@@ -69,7 +76,7 @@ define(
 					if (j > 0) {
 						timeForLeg += this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp();
 
-						this.transfers[i].push({
+						this.transfers[i].push(this.$$controller.getModel('Flights/SearchResults/Transfer', {
 							duration: this.$$controller.getModel('Common/Duration', this.segmentsByLeg[i][j].depDateTime.getTimestamp() - this.segmentsByLeg[i][j-1].arrDateTime.getTimestamp()),
 							place: this.segmentsByLeg[i][j].depAirp,
 							depTerminal: this.segmentsByLeg[i][j].depTerminal,
@@ -79,7 +86,7 @@ define(
 							marketingCompany: this.segmentsByLeg[i][j].marketingCompany,
 							flightNumber:  this.segmentsByLeg[i][j].flightNumber,
 							aircraftType: this.segmentsByLeg[i][j].aircraftType
-						});
+						}));
 
 						this.isDirect = false;
 						this.transfersCount++;
@@ -92,8 +99,8 @@ define(
 				this.totalTimeEnRoute += timeForLeg;
 				this.timeEnRouteByLeg.push(this.$$controller.getModel('Common/Duration', timeForLeg));
 				this.totalStopovers += stopoversForLeg;
-
-				this.legs.push({
+				
+				this.legs.push(this.$$controller.getModel('Flights/SearchResults/Leg', {
 					depAirp: this.segmentsByLeg[i][0].depAirp,
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
 					depDateTime: this.segmentsByLeg[i][0].depDateTime,
@@ -101,12 +108,14 @@ define(
 					timeEnRoute: this.timeEnRouteByLeg[this.timeEnRouteByLeg.length - 1],
 					timeTransfers: this.$$controller.getModel('Common/Duration', transferTimeForLeg),
 					transfersCount: this.transfers[i].length,
+					transfers: this.transfers[i],
+					segments: this.segmentsByLeg[i],
 					classes: tmpClasses[i],
 					availSeats: this.price.availableSeats[i],
 					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
 					stopoversCount: stopoversForLeg,
 					isCharter: this.segmentsByLeg[i][0].isCharter
-				});
+				}));
 			}
 
 			if (this.totalStopovers > 0) {

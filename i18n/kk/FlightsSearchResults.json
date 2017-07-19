@@ -165,5 +165,14 @@
     "bookingCheck__priceChanged__button_continue": "Брондау",
     "matrix__list__dateSelected__priceFrom": "-дан, -ден, -тан, -тен, -нан, -нен",
     "matrix__list__dateOption__priceFrom": "-дан, -ден, -тан, -тен, -нан, -нен",
-    "matrix__list__selectableDate__priceFrom": "-дан, -ден, -тан, -тен, -нан, -нен"
+    "matrix__list__selectableDate__priceFrom": "-дан, -ден, -тан, -тен, -нан, -нен",
+    "nemo__fareRules__header": "Тарифтерді қолдану шарттары",
+    "nemo__fareRules__code": "Код тарифа",
+    "nemo__fareRules__passtype_ADT": "ересек",
+    "nemo__fareRules__passtype_INF": "сәби",
+    "nemo__fareRules__passtype_INS": "Сәби орынымен",
+    "nemo__fareRules__passtype_CNN": "бала",
+    "nemo__fareRules__passtype_CLD": "бала",
+    "nemo__fareRules__passtype_SRC": "зейнеткер",
+    "nemo__fareRules__passtype_YTH": "студент"
 }

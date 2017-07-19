@@ -2,6 +2,17 @@
 define(
 	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
 	function (ko, helpers, BaseModel) {
+		
+		/**
+		 * @param initialData
+		 * @param controller
+		 * 
+		 * @property {Array} segmentInfo
+		 * @property {Object} $$controller
+		 * @property {Object} pricingDebug
+		 * 
+		 * @constructor
+		 */
 		function FlightsSearchResultsFlightPrice (initialData, controller) {
 			BaseModel.apply(this, arguments);
 
@@ -18,60 +29,91 @@ define(
 			}
 
 			this.ticketTimeLimit = this.$$controller.getModel('Common/Date', this.ticketTimeLimit);
-			this.availableSeats = [];
-			this.baggageRules = [];
 
-			// Computing available seats and baggage rules by leg
-			for (var i = 0; i < this.segmentInfo.length; i++) {
-				var leg = this.segmentInfo[i].routeNumber,
-					segment = this.segmentInfo[i].segNum;
+			/**
+			 * @type {Array}
+			 */
+			this.availableSeats = [];
+			
+			/**
+			 * Baggage grouped by legs and segments.
+			 * 
+			 * [ legIndex: [ segmentIndex: [baggages] ] ]
+			 * 
+			 * @type {Array}
+			 */
+			this.baggageRules = [];
+			
+			/**
+			 * Min. baggage grouped by legs and segments.
+			 * 
+			 * [ legIndex: [ segmentIndex: minBaggage ] ]
+			 * 
+			 * @type {Array}
+			 */
+			this.minBaggages = [];
+			
+			var baggageRules = [];
+
+			this.segmentInfo.map(function (segment) {
+				var leg = segment.routeNumber,
+					segmentId = segment.segNum;
 
 				// Available seats
-				if (typeof this.availableSeats[leg] == 'undefined') {
+				if (typeof this.availableSeats[leg] === 'undefined') {
 					this.availableSeats[leg] = null;
 				}
 
 				if (
-					this.availableSeats[leg] == null ||
-					this.availableSeats[leg] > this.segmentInfo[i].avlSeats
+					this.availableSeats[leg] === null ||
+					this.availableSeats[leg] > segment.avlSeats
 				) {
-					this.availableSeats[leg] = this.segmentInfo[i].avlSeats;
+					this.availableSeats[leg] = segment.avlSeats;
 				}
 
 				// Baggage rules
-				if (typeof this.baggageRules[leg] == 'undefined') {
-					this.baggageRules[leg] = [];
+				if (typeof baggageRules[leg] === 'undefined') {
+					baggageRules[leg] = [];
 				}
 
-				if (typeof this.baggageRules[leg][segment] == 'undefined') {
-					this.baggageRules[leg][segment] = [];
+				if (typeof baggageRules[leg][segmentId] === 'undefined') {
+					baggageRules[leg][segmentId] = [];
 				}
 
-				if (this.segmentInfo[i].freeBaggage instanceof Array) {
-					for (var j = 0; j < this.segmentInfo[i].freeBaggage.length; j++) {
-						if (this.segmentInfo[i].freeBaggage[j]) {
-							this.segmentInfo[i].freeBaggage[j].value = parseInt(this.segmentInfo[i].freeBaggage[j].value);
-							this.baggageRules[leg][segment].push(this.segmentInfo[i].freeBaggage[j]);
+				if (segment.freeBaggage instanceof Array) {
+					segment.freeBaggage.map(function (baggage) {
+						if (baggage) {
+							baggage.value = parseInt(baggage.value);
+							baggageRules[leg][segmentId].push(baggage);
 						}
-					}
+					}, this);
 				}
-			}
 
+				// Baggage rules
+				if (typeof this.minBaggages[leg] === 'undefined') {
+					this.minBaggages[leg] = [];
+				}
+
+				this.minBaggages[leg][segmentId] = segment.minBaggage;
+			}, this);
+			
 			// Cleaning baggage rules arrays
-			for (var i = 0; i < this.baggageRules.length; i++) {
+			this.baggageRules = baggageRules.map(function (segmentBaggage) {
 				var tmp = [];
-				if (typeof this.baggageRules[i] != 'undefined') {
-					this.baggageRules[i].map(function (currentVal) {
-						if (typeof currentVal != 'undefined') {
-							this.push(currentVal);
+				
+				if (typeof segmentBaggage !== 'undefined') {
+					segmentBaggage.map(function (baggage) {
+						if (typeof baggage !== 'undefined') {
+							tmp.push(baggage);
 						}
-					}, tmp);
+					});
 				}
-				this.baggageRules[i] = tmp;
-			}
+				
+				return tmp;
+			}, this);
 
 			// Pricing debug
-			if (typeof this.pricingDebug != 'undefined' && this.pricingDebug.link.indexOf('//') < 0 && this.pricingDebug.link[0] != '/') {
+			if (typeof this.pricingDebug !== 'undefined' && this.pricingDebug.link.indexOf('//') < 0 && this.pricingDebug.link[0] !== '/') {
 				this.pricingDebug.link = '/' + this.pricingDebug.link;
 			}
 		}

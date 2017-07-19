@@ -116,5 +116,6 @@
     "hotels__bookingCheck__error__error_serverError": "Ошибка на сервере:",
     "hotels__bookingCheck__error__error_unavailable": "В выбранном отеле нет свободных номеров",
     "bookingCheck__link_to_searchResults": "Вернуться к результатам поиска",
-    "bookingCheck__link_to_mainPage": "Новый поиск"
+    "bookingCheck__link_to_mainPage": "Новый поиск",
+    "hotels__hotelsChain": "Сеть отелей"
 }

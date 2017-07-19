@@ -329,7 +329,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			}
 		};
 		ko.bindingHandlers.hotelsFormGuestsSelector = {
-			init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var closeSelector = function (e) {
 						var $target = $(e.target);
 
@@ -341,7 +341,39 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 					$document     = $(document);
 
 				$(element).on('click', function () {
-					viewModel.openRoomsSelector();
+					if (viewModel.maxAdultsFromFS > 0) {
+						var $popupTarget = $(document).find('.js-nemoApp__popupBlock[data-block=passengersFullSelect]');
+
+						viewModel.roomsFastSelectorOpen(false);
+
+						if ($popupTarget.length > 1) {
+							$popupTarget = $popupTarget.first();
+						}
+
+						if ($popupTarget.data('ui-popup')) {
+							$popupTarget.popup('open');
+						}
+						else {
+							$popupTarget.popup({
+								title: bindingContext.$root.i18n('HotelsSearchForm','rooms__fullSelect__title'),
+								width: 'auto',
+								height: 'auto',
+								dialogClass: 'no-overflow',
+								buttons: [
+									{
+										text: bindingContext.$root.i18n('HotelsSearchForm','passengers__fullSelect__button__done'),
+										click: function () {
+											$popupTarget.popup('close');
+										}
+									}
+								]
+							});
+						}
+					}
+					else {
+						viewModel.openRoomsSelector();
+					}
+
 				});
 
 				$document.on('click', closeSelector);
@@ -359,6 +391,16 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				$(element).spinner(options);
 
 				var context = bindingContext;
+
+				ko.utils.registerEventHandler(element, 'spin', function (event, ui) {
+					var maxAdultsCount     = context.$parent.maxAdultsFromFS,  // сколько всего может быть взрослых из Fast Search
+						currentAdultsCount = context.$parent.guestsSummaryByType().adults, // сколько уже есть во всех комнатах
+						delta              = ui.value - context.$parent.rooms()[$(element).attr('room')].adults();
+
+					if (maxAdultsCount && delta + currentAdultsCount > maxAdultsCount) {
+						return false; // отменить увеличение спина
+					}
+				});
 
 				//handle the field changing
 				ko.utils.registerEventHandler(element, 'spinstop', function () {
@@ -394,6 +436,20 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 
 				var context = bindingContext;
 
+				ko.utils.registerEventHandler(element, 'spin', function (event, ui) {
+					var maxInfantsCount     = context.$parent.maxInfantsFromFS,  // сколько всего может быть детей из Fast Search
+						currentInfantsCount = context.$parent.guestsSummaryByType().infants, // сколько уже есть во всех комнатах
+						delta               = ui.value - context.$parent.rooms()[$(element).attr('room')].infants().length;
+
+					if (maxInfantsCount && delta + currentInfantsCount > maxInfantsCount) {
+						return false; // отменить увеличение спина
+					}
+
+					if (delta < 0) { // спин был уменьшен
+						context.$parent.rooms()[$(element).attr('room')].infants.splice(-1, 1);
+					}
+				});
+
 				//handle the field changing
 				ko.utils.registerEventHandler(
 					element,
@@ -411,9 +467,6 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						else {
 							if (context.$parent.rooms()[$(element).attr('room')].infants().length < countInfants) {
 								context.$parent.rooms()[$(element).attr('room')].infants.push(0);
-							}
-							else if (countInfants < context.$parent.maxInfants) {
-								context.$parent.rooms()[$(element).attr('room')].infants.splice(-1, 1);
 							}
 						}
 					}
