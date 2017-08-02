@@ -34,5 +34,11 @@
     "leg__stopover": "aterizare tehnica",
     "leg__stopover__passengerLanding": "Asteptare cu iesire din avion",
     "leg__stopover__terminal": "Terminal",
-    "leg__stopover__timeArrival": "Din"
+    "leg__stopover__timeArrival": "Din",
+    "leg__segment__baggage__noBaggage": "Fara Bagaj",
+    "leg__segment__baggage__metric_bag_1": "Geanta",
+    "leg__segment__baggage__metric_bag_2": "Genți",
+    "leg__segment__baggage__metric_bag_3": "Genți",
+    "fareInformation": "Reguli tarifare",
+    "leg__segment__baggage__withBaggage": "Cu bagaj"
 }

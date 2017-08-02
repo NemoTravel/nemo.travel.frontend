@@ -251,5 +251,6 @@
     "travelPolicies__incorrect_price": "價格不符合旅遊政策",
     "travelPolicies__checkTariffs": "關稅不符合旅遊政策",
     "travelPolicies__incorrect_dep_or_arr_airport": "出發或到達機場不符合旅行政策",
-    "travelPolicies__checkZone": "飛行區不符合旅行政策"
+    "travelPolicies__checkZone": "飛行區不符合旅行政策",
+    "flightsGroup__selector__showMoreFlights": "下一页"
 }

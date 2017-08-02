@@ -19,6 +19,50 @@ $c_ui_popup_wrapprer_bg = rgba(#636467, 0.5);
 		background: $c_ui_popup_wrapprer_bg;
 	}
 
+	&_medium {
+		@media (max-width: 750px) {
+			width: 100% !important;
+			max-width: 100% !important;
+			height: 100% !important;
+			border-radius: 0 !important;
+			padding: 0;
+
+			.ui-dialog-titlebar {
+				border-radius: 0;
+			}
+			.ui-dialog-content {
+				overflow: auto !important;
+				height: 100% !important;
+				padding-bottom: 30px !important;
+			}
+
+			.ui-dialog-buttonpane {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+			}
+		}
+	}
+
+	&_large {
+		@media (max-width: 750px) {
+			width: 100% !important;
+			max-width: 100% !important;
+			height: 100% !important;
+			border-radius: 0 !important;
+
+			.ui-dialog-titlebar {
+				border-radius: 0;
+			}
+
+			.ui-dialog-content {
+				overflow: auto !important;
+				height: 100% !important;
+				padding-bottom: 30px !important;
+			}
+		}
+	}
+
 	&__open {
 		overflow: hidden;
 	}

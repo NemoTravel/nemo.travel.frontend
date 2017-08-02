@@ -6,5 +6,15 @@
     "exare_return_compelled_file_type_medical": "醫病證明",
     "nemoApp__globalError__uncaughtError__title": "處理數據時發生錯誤",
     "nemoApp__globalError__uncaughtError__message": "請稍後再試。",
-    "nemoApp__globalError__uncaughtError__errorCode": "錯誤代碼"
+    "nemoApp__globalError__uncaughtError__errorCode": "錯誤代碼",
+    "checkout-titles-accessCode": "登机密码",
+    "checkout-titles-agree": "同意",
+    "checkout-titles-agreed": "同意",
+    "checkout-steps-three-title": "请您选支付方式",
+    "new-passinfo-buttons__continue": "继续",
+    "new-passInfo__status_complete_withHotelConfirmed": "支付成功，预订得到确认！",
+    "new-passInfo__status_paidNotComplete_hotels": "支付成功，预订还没得到确认",
+    "checkout-steps-two-title": "输入联系方式",
+    "checkout-titles-locator": "您订购号",
+    "checkout-steps-one-title": "输入旅客信息"
 }

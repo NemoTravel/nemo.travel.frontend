@@ -69,5 +69,18 @@
     "fareGroup__option__luggage_2_mix": "行李20公斤",
     "fareGroup__option__luggage_3_mix": "行李20公斤",
     "fareGroup__option__luggage_4_mix": "行李20公斤",
-    "fareGroup__option__refundableBeforeFlight_2_description": "起飞前退票必须交加费"
+    "fareGroup__option__refundableBeforeFlight_2_description": "起飞前退票必须交加费",
+    "fareGroup__option__luggage_description_1_mix": "不超过 5公斤手提物品",
+    "fareGroup__option__luggage_description_2_mix": "不超过 5公斤手提物品",
+    "fareGroup__option__luggage_description_3_mix": "不超过 5公斤手提物品",
+    "fareGroup__option__luggage_description_4_mix": "不超过 5公斤手提物品",
+    "fareGroup__option__luggage_1_DMELEJ": "行李箱１０公斤",
+    "fareGroup__option__luggage_1_URT14D": "行李箱２０公斤",
+    "fareGroup__option__luggage_1_DMERIX": "行李箱２０公斤",
+    "fareGroup__option__luggage_1_LEDGDZ": "行李箱２０公斤",
+    "fareGroup__option__refundableAfter24Hours": "起飞24小时以下退票",
+    "fareGroup__option__luggage_description_1_DMELEJ": "行李免费额：一件行李10公斤以下，尺寸为２０３厘米以下",
+    "fareGroup__option__luggage_description_1_URT14D": "行李免费额：一件行李２０公斤以下或两件行李10公斤以下（每个），尺寸为２０３厘米以下",
+    "fareGroup__option__luggage_description_1_DMERIX": "行李免费额：一件行李２０公斤以下或两件行李10公斤以下（每个），尺寸为２０３厘米以下",
+    "fareGroup__option__luggage_description_1_LEDGDZ": "行李免费额：一件行李２０公斤以下或两件行李10公斤以下（每个），尺寸为２０３厘米以下"
 }

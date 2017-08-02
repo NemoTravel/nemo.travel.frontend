@@ -16,5 +16,8 @@
     "restr_title_restr_fast_search_combinations_admin_hint": "JSON字符串為[{“label”：“idealFamily”，“set”：{“ADT”：2，“CLD”：1}}]",
     "expirtationPopup_body_basic": "您應該在%% TIMER %%期間完成您的預訂",
     "show_fare_variations": "結果：顯示車費變化塊",
-    "transfersMin": "腿上的最小轉移次數"
+    "transfersMin": "腿上的最小轉移次數",
+    "showFareVariationsB2B": "只Ｂ２Ｂ交易",
+    "showFareVariationsAlways": "总显示",
+    "showFareVariationsNever": "藏"
 }
