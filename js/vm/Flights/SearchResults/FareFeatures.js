@@ -198,6 +198,82 @@ define(
 			this.hasFeaturesForSegment = function (segmentId) {
 				return self.bySegments.hasOwnProperty(segmentId) && self.bySegments[segmentId].hasFeatures;
 			};
+
+			/**
+			 * @param {String} featureName
+			 */
+			this.isFeatureAvailable = function (featureName) {
+				var isAvailable = false,
+					isVisible = true,
+					hasFreeFeatures = false,
+					allFeaturesAreDisabled = true,
+					allFeaturesAreUnknown = true,
+					featuresArray = [],
+					fullDescription = '',
+					family = this.getFirstFamily();
+
+				if (family && family.hasOwnProperty('segmentId')) {
+					switch (featureName) {
+						case 'baggage':
+							featuresArray = family.list.baggage;
+							break;
+							
+						case 'exchangeable':
+						case 'refundable':
+							featuresArray = family.list.refunds;
+							break;
+							
+						case 'vip_service':
+							featuresArray = family.list.misc;
+							break;
+					}
+					
+					if (featuresArray && featuresArray instanceof Array) {
+						featuresArray.map(function (feature) {
+							if (feature.code === featureName) {
+								if (feature.description.full) {
+									fullDescription += '<div>' + feature.description.full + '</div>';
+								}
+								else {
+									fullDescription += '<div>' + feature.description.short + '</div>';
+								}
+
+								hasFreeFeatures = hasFreeFeatures || (feature.needToPay === 'Free');
+								allFeaturesAreDisabled = allFeaturesAreDisabled && (feature.needToPay === 'NotAvailable');
+								allFeaturesAreUnknown = allFeaturesAreUnknown && (feature.needToPay === 'Unknown');
+							}
+						});
+
+						switch (featureName) {
+							// Если есть хотя бы один бесплатный багаж - то отображаем иконку.
+							// Иначе отображаем её перечеркнутой.
+							case 'baggage':
+								isAvailable = hasFreeFeatures;
+								isVisible = !allFeaturesAreUnknown;
+								break;
+
+							// Если есть хотя бы один бесплатный вариант обмена\возврата, то отображаем иконку.
+							// Если обмен\возврат не доступен вообще (ни платно, ни бесплатно) - отображаем иконку перечеркнутой.
+							// Если есть только платные - то не отображаем иконку.
+							case 'exchangeable':
+							case 'refundable':
+								isAvailable = hasFreeFeatures;
+								isVisible = hasFreeFeatures || allFeaturesAreDisabled;
+								break;
+
+							// Если есть хотя бы одна бесплатная вип-услуга, то отображаем иконку.
+							// Иначе прячем иконку.
+							case 'vip_service':
+								isAvailable = hasFreeFeatures;
+								isVisible = hasFreeFeatures;
+								break;
+						}
+					}
+				}
+
+				return { isAvailable: isAvailable, description: fullDescription, isVisible: isVisible };
+			};
+
 		}
 
 		helpers.extendModel(FlightsSearchResultsFareFeatures, [BaseControllerModel]);

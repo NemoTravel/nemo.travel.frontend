@@ -790,12 +790,26 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		margin: 0 -10px;
 		display: none;
 
+		@media (max-width: 750px) {
+			text-align: center;
+			padding-bottom: 70px;
+		}
+
 		&__item {
 			display: inline-block;
 			vertical-align: top;
 			margin: 0 10px;
 			font-size: 13px;
 			white-space: normal;
+
+			@media (max-width: 750px) {
+				text-align: left;
+				padding-bottom: 20px;
+			}
+
+			@media (max-width: 450px) {
+				width: 90%;
+			}
 
 			&__header {
 				font-size: 14px;

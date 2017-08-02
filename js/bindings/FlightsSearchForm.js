@@ -22,29 +22,33 @@ define(
 
 		ko.bindingHandlers.flightsFormSelect = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var options = $.extend(
-					{
-						width: '100%',
-						display_selected_options: false,
-						display_disabled_options: false,
-						placeholder_text_multiple: '',
-						no_results_text: '',
-						max_selected_options: 5
-					},
-					valueAccessor()
-				);
+				if ($(element).chosen) {
+					var options = $.extend(
+						{
+							width: '100%',
+							display_selected_options: false,
+							display_disabled_options: false,
+							placeholder_text_multiple: '',
+							no_results_text: '',
+							max_selected_options: 5
+						},
+						valueAccessor()
+					);
 
-				$(element).chosen(options);
-				//preventing strange glitch with "no results" <li> and focus
-				var closeChosen = function(){
-					console.log(element);
-					$(element).trigger('chosen:close')
-				};
-				$(document).on('click', '.no-results', closeChosen);
-				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$(document).off('click', '.no-results', closeChosen);
-				});
-
+					$(element).chosen(options);
+					
+					//preventing strange glitch with "no results" <li> and focus
+					var closeChosen = function () {
+						console.log(element);
+						$(element).trigger('chosen:close')
+					};
+					
+					$(document).on('click', '.no-results', closeChosen);
+					
+					ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+						$(document).off('click', '.no-results', closeChosen);
+					});
+				}
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
@@ -115,6 +119,11 @@ define(
 				
 				$element.on('focus', function (e) {
 					$element.val('');
+
+					if ($(window).width() <= 450) {
+						$('html,body').animate({scrollTop: $element.offset().top}, 800);
+					}
+
 					if(onFocusAutocomplete){
 						$element.FlightsFormGeoAC({minLength: 0});
 					}
@@ -470,6 +479,12 @@ define(
 					$(this).val('');
 				});
 
+				$element.on('focus', function () {
+					if ($(window).width() <= 450) {
+						$('html,body').animate({scrollTop: $element.offset().top}, 800);
+					}
+				});
+
 				// Do not forget to add destroy callbacks
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					$element.pickmeup('destroy');
@@ -509,6 +524,11 @@ define(
 					$document = $(document);
 
 				$(element).on('click', function () {
+
+					if ($(window).width() <= 450) {
+						$('html,body').animate({scrollTop: $(element).offset().top}, 800);
+					}
+
 					viewModel.openPassengersSelector();
 				});
 

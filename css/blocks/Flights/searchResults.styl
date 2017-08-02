@@ -628,4 +628,29 @@
 			align-self: auto;
 		}
 	}
+
+	&__flightInfoPopup {
+		@media (max-width: 750px) {
+			width: 100% !important;
+			max-width: 100% !important;
+			height: 100% !important;
+			border-radius: 0 !important;
+			padding: 0 !important;
+
+			.ui-dialog-titlebar {
+				width: 100%;
+				border-radius: 0;
+			}
+
+			.ui-dialog-content {
+				height: 100% !important;
+				padding-bottom: 50px;
+			}
+
+			.nemo-flights-flightInfo {
+				width: 100% !important;
+				height:100% !important;
+			}
+		}
+	}
 }

@@ -892,6 +892,8 @@
 </div>				<!-- ko if: (!$parent.selectedFlight().fareFeatures || !$parent.selectedFlight().fareFeatures.getFirstFamily()) && $parent.selectedFlight().legs[$index()] -->
 	<section class="nemo-flights-results__flightsListGroup__segment__additionalDetails__fareInfo" data-bind="with: $parent.selectedFlight().legs[$index()]">
 		<span class="nemo-flights-results__flightsListGroup__segment__additionalDetails__fareInfo__baggage">
+			<i class="fa fa-suitcase nemo-flights-results__flightsListGroup__segment__additionalDetails__fareInfo__baggage__icon"></i>
+			
 			<span data-bind="
 				text: baseBaggageText, 
 				css: { 'nemo-ui-pseudoLink': baseBaggage instanceof Array },
@@ -1066,7 +1068,7 @@
 </div></script>
 
 		<script id="nemo-koTemplate-Flights-FlightInfo" type="text/html"><div class="nemo-flights-flightInfo" data-bind="foreach: legs">
-	<!-- ko template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: {flight: $parent, leg: $index(), header: $index() == 0}} --><!-- /ko -->
+	<!-- ko template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: {flight: $parent, leg: $index(), header: $index() == 0, resultsController: $parents[1].resultsController}} --><!-- /ko -->
 </div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__oneLeg" type="text/html"><div class="nemo-flights-flightInfo" data-bind="template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: $data}"></div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__cleanLeg" type="text/html"><div class="nemo-flights-flightInfo__leg" data-bind="with: flight">
@@ -1192,7 +1194,8 @@
 			params: {
 				fullMode: true,
 				flight: $parent,
-				segmentId: id
+				segmentId: id,
+				resultsController: $parents[1].resultsController
 			}
 		} --><!-- /ko -->
 	</div>

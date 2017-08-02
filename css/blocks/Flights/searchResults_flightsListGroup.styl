@@ -13,23 +13,6 @@
 		flex-direction: column;
 	}
 
-	.nemo-flights-results__fareFamilies {
-		margin: 0;
-		border: 0;
-		border-top: 1px solid rgba(230, 230, 230, .75);
-		background-color: #f7f7f7;
-		padding: 10px 20px;
-		border-radius: 0;
-
-		&__features {
-			display: flex;
-		}
-
-		&__features__baggage, &__features__refunds, &__features__misc {
-			padding-right: 0;
-		}
-	}
-
 	&__fareVariations {
 		margin: 0;
 		border: 0;
@@ -246,23 +229,31 @@
 				&__baggage {
 					font-size: 11px;
 					position: relative;
-					padding-left: 20px;
 					text-transform: lowercase;
 					white-space: nowrap;
+					display: flex;
+					align-items: center;
+					color: #666;
+					
+					&__icon {
+						font-size: 14px !important;
+						margin-right: 7px;
+						color: @color;
+					}
 					
 					&:not(.nemo-ui-pseudoLink) {
 						color: rgba(100, 100, 100, .75);
 					}
 					
-					&:before {
-						content: '';
-						position: absolute;
-						top: 1px;
-						left: 0;
-						background: url(images/sprite_alt_tariffs.png) center 0;
-						width: 14px;
-						height: 13px;
-					}
+					//&:before {
+					//	content: '';
+					//	position: absolute;
+					//	top: 1px;
+					//	left: 0;
+					//	background: url(images/sprite_alt_tariffs.png) center 0;
+					//	width: 14px;
+					//	height: 13px;
+					//}
 				}
 				
 				&__rules {
