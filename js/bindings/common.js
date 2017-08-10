@@ -300,6 +300,30 @@ define(
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
 		};
 
+		ko.bindingHandlers.carrierSelectedFlightsScroller = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				function keepSelectedVisible (e) {
+					var $this = $(this);
+
+					setTimeout(function () {
+						var pageScrollTop = $(document).scrollTop(),
+							offsetTop = $this.offset().top,
+							height = $this.outerHeight();
+
+						if (pageScrollTop > offsetTop) {
+							$('html,body').animate({scrollTop: offsetTop + 'px'}, 1);
+						}
+					}, 10);
+				}
+
+				$(document).on('click', '.js-flights-carrierResults__leg__fareSelector', keepSelectedVisible);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(document).off('click', keepSelectedVisible);
+				});
+			}
+		};
+
 		ko.bindingHandlers.moneyInit = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				$(document).currencyConverter({

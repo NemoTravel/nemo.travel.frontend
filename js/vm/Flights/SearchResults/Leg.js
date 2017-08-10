@@ -85,7 +85,12 @@ define(
 				baseBaggageText = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__baggage__withBaggage');
 			}
 			else {
-				var baggageValue = baggage.value;
+				if (typeof baggage.value === 'undefined') {
+					var baggageValue = null;
+				}
+				else {
+					var baggageValue = parseFloat(baggage.value);
+				}
 
 				if (baggageValue) {
 					var suffix = '';

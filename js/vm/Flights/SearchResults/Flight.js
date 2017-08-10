@@ -138,6 +138,16 @@ define(
 			this.fareFeatures = this.$$controller.getModel('Flights/SearchResults/FareFeatures', this.price.passengerFares);
 			
 			this.buildRatingItems();
+
+			this.expectedNumberOfTicketsText = '';
+
+			if (this.expectedNumberOfTickets !== false) {
+				var one = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_1'),
+					twoToFour = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_2'),
+					fourPlus = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_0');
+				
+				this.expectedNumberOfTicketsText = this.expectedNumberOfTickets + ' ' + helpers.getNumeral(this.expectedNumberOfTickets, one, twoToFour, fourPlus);
+			}
 		}
 
 		// Extending from dictionaryModel

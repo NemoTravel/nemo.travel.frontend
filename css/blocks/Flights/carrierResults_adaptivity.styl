@@ -1,0 +1,781 @@
+@media (max-width: 1179px) {
+	.flights-carrierResults__leg__dates {
+		padding: 0px;
+
+		&__arrow {
+			width: 4.5%;
+			border-radius: 0px;
+		}
+
+		&__date {
+			width: 12%;
+			margin: 0px 0.5%;
+		}
+	}
+}
+
+@media (max-width: 1030px) {
+	.flights-carrierResults__leg__table__flightsHeader {
+		width: 280px;
+	}
+}
+
+@media (max-width: 970px) {
+	.flights-carrierResults__leg {
+		&__dates__date {
+			padding: 10px 10px 0px;
+		}
+
+		&__table {
+			display: block;
+			width: 100%;
+
+			&__row {
+				display: -webkit-flex;
+				display: flex;
+				flex-flow: row wrap;
+
+				&_header {
+					display: none;
+				}
+			}
+
+			&__row_flight_0 &__flightInfo {
+				border-top-left-radius: 4px;
+				border-top-right-radius: 4px;
+			}
+
+			&__row:last-child &__fareForFlight_0 {
+				border-bottom-left-radius: 4px;
+			}
+
+			&__flightInfo {
+				display: block;
+				flex: 0 0 100%;
+			}
+
+			&__fareForFlight {
+			//display: none;
+				flex-grow: 1;
+				flex-shrink: 0;
+				flex-basis: 25%;
+
+				&__noSeats {
+					height: 25px;
+					padding: 0px 20px;
+					line-height: 20px;
+					font-size: 20px;
+
+					&-adaptiveFareName {
+						display: block;
+					}
+				}
+
+				&__short {
+					height: 50px;
+					padding-top: 0;
+					padding-bottom: 0;
+
+					&__adaptiveFareName {
+						display: block;
+					}
+
+					&__price {
+						line-height: 20px;
+						font-size: 14px;
+						font-weight: normal;
+					}
+
+					&__seats {
+						display: none;
+					}
+				}
+
+				&__compare__item {
+					font-size: 11px;
+					line-height: 15px;
+				}
+			}
+		}
+
+		&__flightRoute {
+			display: none;
+
+			&_adaptive {
+				display: block;
+				flex-basis: 100%;
+			}
+
+			&__header {
+				&__logo, &__aircraft, &__flight {
+					max-width: 95px;
+				}
+			}
+		}
+
+		&__table__row_flightSelected &__flightRoute {
+			background: lighten(#f0f0f0, 50%);
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	.flights-carrierResults {
+		&__leg__dates__date {
+			&__date {
+				font-size: 24px;
+				line-height: 30px;
+			}
+
+			&__month {
+				font-size: 13px;
+			}
+
+			&__price {
+				font-size: 11px;
+			}
+		}
+
+		&__selected, &__payInfo {
+			display: block;
+			width: auto;
+			padding: 0;
+		}
+	}
+
+}
+@media (max-width: 750px) {
+	.nemo-flights-resultsBody {
+		&:before {
+			display: none;
+		}
+
+		.nemo-common-pageWrapper {
+			background-color: transparent;
+		}
+	}
+
+	.flights-carrierResults {
+		padding: 0px;
+
+		&__selected, &__payInfo {
+			&__header {
+				text-align: center;
+				padding: 0 20px;
+				line-height: 35px;
+			}
+		}
+
+		&__selected {
+			&__flights {
+				border-radius: 0;
+				background-color: transparent;
+
+				&__leg {
+					margin-top: 15px;
+					border: none;
+
+					&:first-child {
+						margin-top: -10px;
+					}
+
+					&__header {
+						padding-top: 0;
+						padding-bottom: 0;
+						text-align: center;
+						line-height: 25px;
+						font-size: 12px;
+						font-weight: normal;
+						color: #fff;
+
+						&__text {
+							display: none
+						}
+
+						&__DOW {
+							display: inline;
+						}
+
+						&__localTime {
+							color: #fff;
+							padding-bottom: 5px;
+						}
+						&__departure,&__arrival {
+							white-space: nowrap;
+						}
+					}
+
+					&__wrap {
+						background: #fff;
+						box-shadow: 0 1px 2px rgba(#000, .1);
+					}
+
+					&__passengers {
+						display: none;
+					}
+
+					&__fare {
+						padding: 0 10px;
+
+						&__header {
+							font-size: 11px;
+							padding: 7px 0;
+
+							&__caption {
+								display: none;
+							}
+						}
+					}
+
+					&__route {
+						padding: 5px 5px 0 175px;
+						color: #A0A0A0;
+						font-size: 11px;
+						text-align: left;
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: flex-start;
+						align-content: center;
+						width: 100%;
+						min-width: 1px;
+						border: none;
+						min-height: 60px;
+
+						&:before {
+							content: '';
+							position: absolute;
+							left: 170px;
+							top: 0;
+							bottom: 0;
+							border-right: 1px solid lighten(#DCDCDC, 50%);
+						}
+
+						&:after {
+							right: 10px;
+						}
+
+						&__passengers {
+							display: inline-block;
+							line-height: 14px;
+							padding-right: 5px;
+						}
+
+						&__timeEnRoute {
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							flex-grow: 0;
+							flex-shrink: 1;
+							text-align: left;
+							position: static;
+							margin: 0;
+							padding: 0;
+							line-height: 14px;
+							display: inline-block;
+							width: auto;
+						}
+
+						&__transfers {
+							display: none;
+						}
+
+						&__price {
+							display: inline-block;
+							font-size: 12px;
+							padding-right: 5px;
+							line-height: 14px;
+						}
+
+						&__distance {
+							display: none;
+						}
+
+						&__departure, &__arrival {
+							width: 80px;
+
+							&__time {
+								font-size: 22px;
+							}
+
+							&__IATA {
+								font-size: 14px;
+							}
+						}
+
+						&__departure {
+							left: 10px;
+
+							&:before {
+								content: '';
+								position: absolute;
+								right: 0;
+								top: 50%;
+								margin-top: -33px;
+								width: 11px;
+								height: 60px;
+								background: url("img/flightselect-rarr.svg") center center no-repeat;
+								background-size: 100% 100%;
+							}
+						}
+
+						&__arrival {
+							left: 100px;
+						}
+
+						&__fullTransfers {
+							line-height: 14px;
+							width: 100%;
+
+							&__caption {
+								margin-right: 3px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&__mailList {
+			display: none;
+		}
+
+		&__payInfo {
+			&__details {
+				border-radius: 0;
+				box-shadow: 0 1px 2px rgba(#000, .1);
+				margin-bottom: 10px;
+
+				&__priceParts {
+					padding-left: 10px;
+					padding-right: 10px;
+				}
+			}
+
+			&__insurance {
+				margin-left: 10px;
+				margin-right: 10px;
+				padding-left: 10px;
+			}
+
+			&__total {
+				padding-left: 10px;
+				padding-right: 10px;
+
+				&:after {
+					left: 10px;
+					right: 10px;
+				}
+			}
+
+			&__promo {
+				padding-left: 10px;
+			}
+		}
+
+		&__buyButton {
+			margin-left: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		&__returnToSearch {
+			display: none;
+		}
+
+		&__leg {
+			&__flightRoute {
+				background: #fff!important;
+
+				&__header, &__subHeader__item, &__segment__departure, &__segment__arrival, &__footer {
+					padding-left: 10px;
+				}
+
+				&__segment:after {
+					margin-left: -10px;
+				}
+			}
+
+			&__header {
+				font-weight: bold;
+				font-size: 16px;
+				padding: 7px 0;
+
+				&__caption, &__date {
+					display: none;
+				}
+
+				&__adaptiveCaption {
+					display: block;
+				}
+
+				&__tip {
+					padding: 3px 5px;
+					font-size: 14px;
+					position: static;
+					margin: 5px auto 0px;
+					font-weight: normal;
+				}
+			}
+
+			&__dates {
+				box-shadow: 0 1px 2px rgba(#000, .1);
+				padding: 0px;
+				display: -webkit-flex;
+				display: flex;
+				flex-wrap: nowrap;
+
+				&__arrow {
+					height: inherit;
+					vertical-align: bottom;
+					position: inherit;
+					display: inline-block;
+					width: 4.5%;
+					margin-top: 0px;
+				}
+
+				&__date {
+					margin: 0;
+					width: 13%;
+					padding: 5px 5px 0px;
+					border-radius: 0!important;
+					border-left: 1px solid #eee;
+
+					&_0, &_active {
+						border: none;
+					}
+
+					&__date {
+						line-height: 35px;
+						margin-right: 10px;
+						letter-spacing: -0.2ch;
+					}
+
+					&__price {
+						line-height: 23px;
+					}
+				}
+			}
+
+			&__table {
+				border: none;
+				background-color: transparent;
+
+				&__row {
+					margin-top: 10px;
+					background: #fff;
+					box-shadow: 0 1px 2px rgba(#000, .1);
+				//display: block;
+				//
+				//&_header {
+				//	display: none;
+				//}
+				}
+
+				&__flightInfo, &__fareForFlight {
+					border-radius: 0!important;
+				//	background-color: transparent !important;
+				}
+
+				&__fareForFlight {
+					border-top: 1px solid lighten(#DCDCDC, 50%);
+					flex-basis: 50%;
+					display: none;
+				}
+
+				&__row_detailsOpen &__fareForFlight {
+					display: block;
+				}
+
+				&__flightInfo {
+					display: block;
+					width: 100%;
+
+					&__shortInfo {
+						padding: 0 40px 0 180px;
+						color: #A0A0A0;
+						font-size: 11px;
+						text-align: left;
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: flex-start;
+						align-content: center;
+						width: 100%;
+						min-width: 1px;
+
+						&:before {
+							content: '';
+							position: absolute;
+							left: 170px;
+							top: 0;
+							bottom: 0;
+							border-right: 1px solid lighten(#DCDCDC, 50%);
+						}
+
+						&:after {
+							right: 10px;
+						}
+
+						&__minPrice {
+							display: block;
+							font-size: 12px;
+							line-height: 20px;
+
+							&__price {
+								font-weight: bold;
+								font-size: 16px;
+								color: #505050;
+								padding-left: 4px;
+
+								currency {
+									font-weight: normal;
+									font-size: 10px;
+								}
+							}
+						}
+
+						&__transfers, &__timeEnRoute {
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							flex-basis: 100%;
+							flex-grow: 0;
+							flex-shrink: 1;
+							line-height: 15px;
+						//width: 100%
+						//min-width: 1px;
+						//max-width: 100%;
+						}
+
+						&__transfers {
+							order: 10;
+						}
+
+						&__departure, &__arrival {
+							width: 80px;
+
+							&__time {
+								font-size: 22px;
+							}
+
+							&__IATA {
+								font-size: 14px;
+							}
+						}
+
+						&__departure {
+							left: 10px;
+
+							&:before {
+								content: '';
+								position: absolute;
+								right: 0;
+								top: 50%;
+								margin-top: -30px;
+								width: 11px;
+								height: 60px;
+								background: url("img/flightselect-rarr.svg") center center no-repeat;
+								background-size: 100% 100%;
+							}
+						}
+
+						&__arrival {
+							left: 100px;
+						}
+
+						&__transfers {
+							border: none;
+
+							&:after {
+								content: none;
+							}
+						}
+					}
+
+					&_flightSelected &__shortInfo__minPrice {
+						&, &__price {
+							color: #ff1724;
+						}
+					}
+				}
+			}
+		}
+		&__buyBlock{
+			margin-top:0;
+			margin-bottom:10px;
+		}
+	}
+}
+
+@media (max-width: 570px) {
+	.flights-carrierResults {
+		&__buyBlock {
+			margin: 0px auto;
+		}
+
+		&__selected, &__payInfo {
+			margin-top: 0px;
+
+			&__header {
+				line-height: 18px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+		}
+
+		&__selected__header {
+			padding-bottom: 8px;
+		}
+
+		&__selected__flights__leg {
+			&__header {
+				line-height: 14px;
+
+				&__departure:after {
+					content: "";
+					display: block;
+				}
+
+				&__localTime {
+					padding-top: 10px;
+					padding-bottom: 12px;
+				}
+			}
+
+			&:first-child {
+				margin-top: 0px;
+			}
+		}
+
+		&__leg {
+			margin-top: 0px;
+
+			&__table {
+				border-radius: 0px;
+				border-top: 0px;
+			}
+
+			&__dates {
+				display: -webkit-flex;
+				display: flex;
+				flex-wrap: wrap;
+
+				&__arrow {
+					height: inherit;
+					vertical-align: bottom;
+					position: inherit;
+					display: inline-block;
+					width: 19%;
+					margin-top: 0px;
+
+					&_disabled {
+						display: inline-block;
+					}
+				}
+
+				&__date {
+					width: 27%;
+
+					&__date {
+						line-height: 28px;
+					}
+
+					&_active {
+						width: 100%;
+						text-align: center;
+						padding: 0px;
+					}
+
+					&_active &__date {
+						display: inline-block;
+						float: none;
+						line-height: 40px;
+					}
+
+					&_active &__month, &_active &__DOW {
+						display: inline-block;
+						line-height: 35px;
+						vertical-align: bottom;
+						font-size: 16px;
+						margin-right: 5px;
+						font-weight: 400;
+					}
+
+					&_active &__price {
+						display: inline-block;
+						line-height: 35px;
+						vertical-align: bottom;
+						font-size: 18px;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+
+	.nemo-flights-results__error {
+		max-width: 100%;
+		padding: 0px;
+		margin-top: 10px;
+
+		&__header {
+			display: none;
+		}
+
+		&__content {
+			border-radius: 0px;
+			padding: 10px;
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.nemo-common-breadCrumbs {
+		display: block;
+
+		&__inner {
+			padding: 0px 10px;
+		}
+
+		&__crumbs {
+			padding: 5px 0px;
+
+			&__crumb {
+				&:after {
+					margin: 0px 2px 0px 0px;
+				}
+
+				&__title {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 600px) and (min-width: 400px) {
+	.nemo-common{
+		&-pageWrapper{
+			padding-bottom: 60px;
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.flights-carrierResults {
+		&__payInfo__promo {
+			padding-right: 10px;
+			padding-bottom: 75px;
+
+			&__submit {
+				width: auto;
+				left: 10px;
+				right: 60px;
+			}
+		}
+
+		&__selected__flights__leg__fare__features__item {
+			padding: 0 5px 5px 15px;
+			line-height: 14px;
+		}
+	}
+}

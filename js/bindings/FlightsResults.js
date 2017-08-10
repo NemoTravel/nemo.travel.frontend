@@ -472,9 +472,7 @@ define(
 						Cookie.set('nemo-showcaseFlight-' + flightIds[0], true, 30);
 					}
 
-					if (data.controller.options.needCheckAvail) {
-						$element.data('nemo-flights-results__bookingCheckInProgress',true);
-					}
+					$element.data('nemo-flights-results__bookingCheckInProgress',true);
 
 					flightIds = data.controller.handleFlightIdsBeforeBooking(flightIds);
 					
