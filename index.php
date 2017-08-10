@@ -60,6 +60,7 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 <![endif]-->
 <link href="/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
 <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
 
