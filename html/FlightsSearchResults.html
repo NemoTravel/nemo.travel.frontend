@@ -750,9 +750,9 @@
 		<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
 	<!-- /ko -->
 	
-	<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTickets !== false -->
+	<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
 		<div class="nemo-flights-results__flightsGroup__footer__disclaimer">
-			<span data-bind="text: selectedFlight().expectedNumberOfTickets"></span> билет
+			<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
 		</div>
 	<!-- /ko -->
 </div>	</div>
@@ -976,7 +976,7 @@
 				name: 'Flights/SearchResults/FareRules/Controller',
 				params: { 
 					flight: $parents[1].selectedFlight(),
-					linkText: $root.i18n('FlightsFlightInfo', 'fareInformation'),
+					linkText: $root.i18n('FlightsFlightInfo', 'fareInformation_short'),
 					initSegment: $data.classes[0].segNum
 				}
 			}"></div>
@@ -1129,6 +1129,12 @@
 			
 			<!-- ko if: isRefundable() === true -->
 				<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
+			<!-- /ko -->
+
+			<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
+				<div class="nemo-flights-results__flightsGroup__footer__disclaimer">
+					<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
+				</div>
 			<!-- /ko -->
 			
 			<div class="nemo-flights-results__flightsListGroup__gds-comission-block">

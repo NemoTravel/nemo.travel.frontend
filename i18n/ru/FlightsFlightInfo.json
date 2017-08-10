@@ -6,6 +6,7 @@
     "serviceClass_First": "Первый",
     "serviceClass_All": "Любой",
     "fareInformation": "О тарифе",
+    "fareInformation_short": "О тарифе",
     "fareInformationHeader": "Бесплатный багаж",
     "leg__transfer": "Пересадка",
     "leg__terminalChange": "Смена терминала",

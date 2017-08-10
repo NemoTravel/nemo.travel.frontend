@@ -5,6 +5,7 @@
     "serviceClass_First": "First",
     "serviceClass_All": "All",
     "fareInformation": "Fare rules",
+    "fareInformation_short": "Fare rules",
     "fareInformationHeader": "Free baggage",
     "leg__transfer": "Transfer",
     "leg__terminalChange": "Terminal change",

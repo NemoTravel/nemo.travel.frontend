@@ -909,7 +909,7 @@
 				name: 'Flights/SearchResults/FareRules/Controller',
 				params: { 
 					flight: $parents[1].selectedFlight(),
-					linkText: $root.i18n('FlightsFlightInfo', 'fareInformation'),
+					linkText: $root.i18n('FlightsFlightInfo', 'fareInformation_short'),
 					initSegment: $data.classes[0].segNum
 				}
 			}"></div>
@@ -1050,6 +1050,12 @@
 
 			<!-- ko if: isRefundable() === false -->
 			<div class="nemo-flights-results__flightsListGroup__nonRefundable" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_nonRefundable')"></div>
+			<!-- /ko -->
+
+			<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
+				<div class="nemo-flights-results__flightsGroup__footer__disclaimer">
+					<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
+				</div>
 			<!-- /ko -->
 
 			<!-- ko if: typeof selectedFlight().price.pricingDebug != 'undefined' -->

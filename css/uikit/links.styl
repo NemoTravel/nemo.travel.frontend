@@ -57,11 +57,16 @@ a {
 		cursor: pointer;
 		color: $c_ui_link_text;
 		text-decoration: none;
+		outline: none;
 
 		border-bottom: $i_ui_link_bBorder;
 
         transition: border-color $nemo-transition-main ease-in;
 
+		&:link, &:visited {
+			color: @color;
+		}
+		
 		&:hover {
 			color: $c_ui_link_hover_text;
 			border-bottom: $i_ui_link_bBorder_hover;

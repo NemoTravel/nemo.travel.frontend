@@ -59,6 +59,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 			&_lastSearches {
 				text-align: right;
+
+				&_noRoutes {
+					width: 100%;
+				}
 			}
 		}
 
@@ -237,6 +241,12 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		white-space: nowrap;
 		width: 1%;
 		text-align: right;
+
+		&_noRoutes {
+			@media (max-width: 970px) {
+				padding-bottom: 20px;
+			}
+		}
 	}
 
 	&__searchBlockedError {

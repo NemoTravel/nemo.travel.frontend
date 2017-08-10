@@ -699,8 +699,6 @@ define(
 						else {
 							var url;
 
-							self.bookingCheckInProgress(false);
-
 							// FIXME
 							if (self.$$controller.options.dataURL.indexOf('http://') === 0 || self.$$controller.options.dataURL.indexOf('https://') === 0) {
 								url = self.$$controller.options.dataURL.split('/').slice(0, 3).join('/') + data.flights.search.flightInfo.createOrderLink;
@@ -711,6 +709,7 @@ define(
 
 							if (data.flights.search.flightInfo.priceStatus.changed && !data.flights.search.flightInfo.hasAltFlights) {
 								self.resultsLoaded(true);
+								self.bookingCheckInProgress(false);
 								self.bookingCheckPriceChangeData({
 									url: url,
 									oldPrice: self.$$controller.getModel('Common/Money', data.flights.search.flightInfo.priceStatus.oldValue),
