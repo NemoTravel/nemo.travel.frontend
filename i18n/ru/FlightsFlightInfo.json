@@ -25,6 +25,7 @@
     "leg__stopover__terminal": "Терминал",
     "leg__stopover__timeArrival": "С",
     "leg__stopover__timeDeparture": "до",
+    "leg__stopover__noDate": "Информация о времени техпосадки недоступна",
     "leg__stopover__passengerLanding": "Ожидание с выходом из самолета",
     "leg__segment__baggage__passType_ADT": "Взрослые",
     "leg__segment__baggage__passType_CLD": "Дети",

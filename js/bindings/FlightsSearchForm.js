@@ -458,6 +458,7 @@ define(
 					min: viewModel.form.options.dateOptions.minDate,
 					max: viewModel.form.options.dateOptions.maxDate,
 					format: 'd.m.Y',
+					monthHeaderFormat: bindingContext.$root.controller.options.i18nLanguage === "zh" ? 'Y B' : 'B, Y',
 					hideOnSelect: true,
 					defaultDate: date,
 					render: function (dateObj, month) {

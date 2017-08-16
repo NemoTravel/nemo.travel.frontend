@@ -252,5 +252,8 @@
     "travelPolicies__checkZone": "Zona de zbor nu corespunde politicii de călătorie",
     "travelPolicies__checkTariffs": "Tariful nu corespunde politicii de călătorie",
     "travelPolicies__checkPrice": "Prețul nu se potrivește cu politica de călătorie",
-    "PF__name_travelPolicies": "Politica de călătorie"
+    "PF__name_travelPolicies": "Politica de călătorie",
+    "flightsGroup__footer__passengersDisclaimer_tickets_0": "bilete",
+    "flightsGroup__footer__passengersDisclaimer_tickets_1": "bilet",
+    "flightsGroup__footer__passengersDisclaimer_tickets_2": "bilete"
 }

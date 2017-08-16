@@ -157,6 +157,42 @@ define(
 			}
 		};
 
+		/**
+		 * Dynamically adds currency-icon class to an element.
+		 */
+		ko.bindingHandlers.currencyIcon = {
+			_icons: {
+				RUB: 'fa-rub',
+				USD: 'fa-usd',
+				EUR: 'fa-eur',
+				GBP: 'fa-gbp',
+				JPY: 'fa-jpy',
+				ILS: 'fa-ils',
+				KRW: 'fa-krw',
+				TRY: 'fa-try'
+			},
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					param = ko.unwrap(valueAccessor()),
+					defaultCurrency = param && param in ko.bindingHandlers.currencyIcon._icons ? param : 'RUB';
+				
+				$element.removeClass();
+				$element.addClass('fa ' + ko.bindingHandlers.currencyIcon._icons[defaultCurrency]);
+				
+				// Subscribe on currency changing event.
+				$(document).on('cc:changeCurrency', function (e, data) {
+					var currency = defaultCurrency;
+					
+					if (data && data.currency && data.currency in ko.bindingHandlers.currencyIcon._icons) {
+						currency = data.currency;
+					}
+					
+					$element.removeClass();
+					$element.addClass('fa ' + ko.bindingHandlers.currencyIcon._icons[currency]);
+				});
+			}
+		};
+
 		ko.bindingHandlers.automaticPopup = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {

@@ -177,28 +177,6 @@ $fareFamiliesMainPadding = 20px;
 						max-width: 300px;
 					}
 				}
-
-				&__icon {
-					background-position: left center;
-					background-repeat: no-repeat;
-					width: 15px;
-					height: 12px;
-					display: inline;
-					position: absolute;
-					margin-left: -18px;
-
-					&_free {
-						background-image: url('images/fare-feature-free-1.png');
-					}
-
-					&_charge {
-						background-image: url('images/fare-feature-charged-1.png');
-					}
-
-					&_notavailable {
-						background-image: url('images/fare-feature-unavailable-1.png');
-					}
-				}
 			}
 		}
 		
@@ -218,17 +196,24 @@ $fareFamiliesMainPadding = 20px;
 			&__icon {
 				position: absolute;
 				
-				& .fa-check {
+				.fa-check {
 					color: #88c43d;
 					font-size: 12px;
 				}
 
-				& .fa-times {
+				.fa-times {
 					color: #ff6767;
 					font-size: 12px;
 				}
-
-				& .fa-rub {
+				
+				.fa-rub,
+				.fa-usd,
+				.fa-eur,
+				.fa-gbp,
+				.fa-jpy,
+				.fa-ils,
+				.fa-krw,
+				.fa-try {
 					color: #64b5f6;
 					font-size: 12px;
 				}
@@ -348,7 +333,7 @@ $fareFamiliesMainPadding = 20px;
 		}
 
 		&__header {
-			margin: 15px 0;
+			margin-bottom: 15px;
 			font-size: 1.1em;
 
 			@media (max-width: 450px) {
@@ -453,7 +438,6 @@ $fareFamiliesMainPadding = 20px;
 						}
 
 						&__feature {
-							padding-left: 18px;
 							margin-bottom: 12px;
 							color: #626467;
 							cursor: default;
@@ -472,25 +456,33 @@ $fareFamiliesMainPadding = 20px;
 							}
 
 							&__icon {
-								background-position: left center;
-								background-repeat: no-repeat;
-								width: 15px;
-								height: 15px;
-								display: inline;
 								position: absolute;
-								margin-left: -18px;
 
-								&_free {
-									background-image: url('images/fare-feature-free-1.png');
+								.fa-check {
+									color: #88c43d;
+									font-size: 13px;
 								}
 
-								&_charge {
-									background-image: url('images/fare-feature-charged-1.png');
+								.fa-times {
+									color: #ff6767;
+									font-size: 13px;
 								}
 
-								&_notavailable {
-									background-image: url('images/fare-feature-unavailable-1.png');
+								.fa-rub,
+								.fa-usd,
+								.fa-eur,
+								.fa-gbp,
+								.fa-jpy,
+								.fa-ils,
+								.fa-krw,
+								.fa-try {
+									color: #64b5f6;
+									font-size: 13px;
 								}
+							}
+							
+							&__text {
+								padding-left: 20px;
 							}
 
 							money {
@@ -672,5 +664,18 @@ $fareFamiliesMainPadding = 20px;
 	&_listMode {
 		border-bottom-left-radius: 4px;
 		overflow: visible;
+		flex-basis: 100%;
+		height: 50px;
+
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	
+	&_listMode&_opened {
+		height: auto;
+		position: static;
+		margin-bottom: -50px;
 	}
 }

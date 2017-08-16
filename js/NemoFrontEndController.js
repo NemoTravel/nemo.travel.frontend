@@ -788,23 +788,29 @@ define (
 		/**
 		 * A factory that returns a ViewModel by provided name and initialized with provided data object.
 		 *
-		 * It is responsible for ViewModels extensions
+		 * It is responsible for ViewModels extensions.
 		 *
 		 * @param name
 		 * @param initialData
+		 * @param constructor If model is not loaded yet, provide the constructor function to generate model
 		 * @throws {String} when model is not found in storage
-		 * @returns {}
+		 * 
+		 * @returns {Object}
 		 */
-		NemoFrontEndController.prototype.getModel = function (name, initialData) {
+		NemoFrontEndController.prototype.getModel = function (name, initialData, constructor) {
 			var model;
+			
+			if (constructor) {
+				this.processLoadedModel(name, constructor);
+			}
 
-			if (typeof this.modelsPool[name] != 'undefined') {
+			if (typeof this.modelsPool[name] !== 'undefined') {
 				this.log('Creating new', name, 'initializing with', initialData);
 
 				model = new this.modelsPool[name](initialData, this);
 
 				// Extending if needed
-				if (typeof this.extensions[name] != 'undefined') {
+				if (typeof this.extensions[name] !== 'undefined') {
 					this.log('Extending', name, 'with', this.extensions[name]);
 
 					for (var i = 0; i < this.extensions[name].length; i++) {
@@ -817,7 +823,7 @@ define (
 			else {
 				throw "Unknown model name " + name;
 			}
-		}
+		};
 
 		/**
 		 * Stores model into internal storage
@@ -826,7 +832,7 @@ define (
 		 * @param model
 		 */
 		NemoFrontEndController.prototype.processLoadedModel = function (name, model) {
-			if (typeof this.modelsPool[name] == 'undefined') {
+			if (typeof this.modelsPool[name] === 'undefined') {
 				this.log('Loaded new model:', name, model);
 				this.modelsPool[name] = model;
 			}

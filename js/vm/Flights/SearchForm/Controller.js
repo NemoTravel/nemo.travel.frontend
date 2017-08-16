@@ -609,7 +609,7 @@ define(
 
 			// Analyzing parameters
 			// Preinitted by formData
-			if (this.$$componentParameters.formData || this.$$componentParameters.additional.formData) {
+			if (this.formDataIsValidForInit()) {
 				this.useCookies = false;
 				this.$$rawdata = helpers.cloneObject(this.$$componentParameters.formData || this.$$componentParameters.additional.formData);
 			}
@@ -717,38 +717,35 @@ define(
 		/**
 		 * @returns {boolean}
 		 */
-		// FlightsSearchFormController.prototype.formDataIsValidForInit = function () {
-		// 	var result = false;
-		//	
-		// 	if (this.$$componentParameters.formData) {
-		// 		result = true;
-		// 	}
-		// 	else if (this.$$componentParameters.additional.formData) {
-		// 		var formData = this.$$componentParameters.additional.formData;
-		//		
-		// 		if (
-		// 			'flights' in formData &&
-		// 			'search' in formData.flights &&
-		// 			'request' in formData.flights.search &&
-		// 			'segments' in formData.flights.search.request &&
-		// 			formData.flights.search.request.segments instanceof Array &&
-		// 			formData.flights.search.request.segments.length
-		// 		) {
-		// 			if (formData.flights.search.request.segments.length > 1) {
-		// 				result = true;
-		// 			}
-		// 			else {
-		// 				var segment = formData.flights.search.request.segments[0];
-		//				
-		// 				if ('departureDate' in segment) {
-		// 					result = true;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		//	
-		// 	return result;
-		// };
+		FlightsSearchFormController.prototype.formDataIsValidForInit = function () {
+		 	var result = false;
+
+		 	if (this.$$componentParameters.formData && this.$$componentParameters.additional.formData) {
+		 		var formData = this.$$componentParameters.additional.formData;
+
+				if (
+					'flights' in formData &&
+		 			'search' in formData.flights &&
+		 			'request' in formData.flights.search &&
+		 			'segments' in formData.flights.search.request &&
+		 			formData.flights.search.request.segments instanceof Array &&
+		 			formData.flights.search.request.segments.length
+		 		) {
+		 			if (formData.flights.search.request.segments.length > 1) {
+		 				result = true;
+		 			}
+		 			else {
+		 				var segment = formData.flights.search.request.segments[0];
+
+		 				if ('departureDate' in segment) {
+		 					result = true;
+		 				}
+		 			}
+		 		}
+		 	}
+
+		 	return result;
+		};
 
 		FlightsSearchFormController.prototype.recalcDateRestrictions = function () {
 			var segments = this.segments(),

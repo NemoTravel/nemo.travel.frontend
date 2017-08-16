@@ -39,9 +39,7 @@
 									<div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__staying__segment__item__error" data-bind="text: $root.i18n('HotelsSearchForm','error_hotels_arrivalDate_'+items.arrivalDate.error())"></div>
 								<!-- /ko -->
 								
-								<div class="nemo-hotels-form__staying__segment__item__date__indicator">
-									31
-								</div>
+								<div class="nemo-hotels-form__staying__segment__item__date__indicator" data-bind="text: items.arrivalDate.value() ? items.arrivalDate.value().getDate() : 31"></div>
 								
 								<div class="nemo-hotels-form__staying__segment__item__inputContainer">
 									<input
@@ -82,9 +80,7 @@
 									<div class="nemo-ui-hint nemo-ui-hint_warn nemo-hotels-form__staying__segment__item__error" data-bind="text: $root.i18n('HotelsSearchForm','error_hotels_departureDate_'+items.departureDate.error())"></div>
 								<!-- /ko -->
 								
-								<div class="nemo-hotels-form__staying__segment__item__date__indicator">
-									31
-								</div>
+								<div class="nemo-hotels-form__staying__segment__item__date__indicator" data-bind="text: items.departureDate.value() ? items.departureDate.value().getDate() : 31"></div>
 								
 								<div class="nemo-hotels-form__staying__segment__item__inputContainer">
 									<input

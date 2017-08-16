@@ -260,6 +260,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						max: bindingContext.$parent.options.dateOptions.maxDate,
 						format: 'd.m.Y',
 						hideOnSelect: true,
+						monthHeaderFormat: bindingContext.$root.controller.options.i18nLanguage === "zh" ? 'Y B' : 'B, Y',
 						defaultDate: valueAccessor()() ?
 							valueAccessor()().dateObject() :
 							viewModel.form.segments()[0].items && viewModel.form.segments()[0].items.arrivalDate.value() ?
