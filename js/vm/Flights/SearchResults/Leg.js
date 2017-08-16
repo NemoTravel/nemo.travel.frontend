@@ -85,14 +85,9 @@ define(
 				baseBaggageText = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__baggage__withBaggage');
 			}
 			else {
-				if (typeof baggage.value === 'undefined') {
-					var baggageValue = null;
-				}
-				else {
-					var baggageValue = parseFloat(baggage.value);
-				}
-
-				if (baggageValue) {
+				var baggageValue = parseFloat(baggage.value);
+				
+				if (baggageValue && baggageValue !== '0') {
 					var suffix = '';
 
 					if (baggage.measurement === 'pc') {

@@ -83,7 +83,14 @@ define(
 				if (segment.freeBaggage instanceof Array) {
 					segment.freeBaggage.map(function (baggage) {
 						if (baggage) {
-							baggage.value = parseInt(baggage.value);
+							// В baggage.value может лежать null, undefined, 0, '0' и кто знает что еще...
+							if (!baggage.value && baggage.value !== 0 && baggage.value !== '0') {
+								baggage.value = null;
+							}
+							else {
+								baggage.value = parseInt(baggage.value);
+							}
+							
 							baggageRules[leg][segmentId].push(baggage);
 						}
 					}, this);

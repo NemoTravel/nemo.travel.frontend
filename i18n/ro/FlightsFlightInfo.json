@@ -40,5 +40,6 @@
     "leg__segment__baggage__metric_bag_2": "Genți",
     "leg__segment__baggage__metric_bag_3": "Genți",
     "fareInformation": "Reguli tarifare",
-    "leg__segment__baggage__withBaggage": "Cu bagaj"
+    "leg__segment__baggage__withBaggage": "Cu bagaj",
+    "fareInformation_short": "Reguli tarifare"
 }

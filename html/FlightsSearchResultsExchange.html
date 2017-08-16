@@ -1178,6 +1178,7 @@
 				      data-bind="text: '(' + $root.i18n('FlightsFlightInfo','leg__stopover__terminal') + ' ' + terminal + ')'"></span>
 				<!-- /ko -->
 			</span>
+			<!-- ko if: depDateTime.getTime() != arrDateTime.getTime() -->
 			<span class="nemo-flights-flightInfo__leg__stopover__time">
 				<!-- ko text: $root.i18n('FlightsFlightInfo','leg__stopover__timeArrival') --><!-- /ko -->
 				<span class="nemo-flights-flightInfo__leg__stopover__time__start"
@@ -1188,6 +1189,10 @@
 				<span class="nemo-flights-flightInfo__leg__stopover__time__duration"
 				      data-bind="text: '(' + duration.readableString() + ')'"></span>
 			</span>
+			<!-- /ko -->
+			<!-- ko if: depDateTime.getTime() == arrDateTime.getTime() -->
+				<!-- ko text: $root.i18n('FlightsFlightInfo','leg__stopover__noDate') --><!-- /ko -->
+			<!-- /ko -->
 			<!-- ko if: passengersLanding -->
 			<span class="nemo-flights-flightInfo__leg__stopover__passLanding"
 			      data-bind="text: $root.i18n('FlightsFlightInfo','leg__stopover__passengerLanding')"></span>

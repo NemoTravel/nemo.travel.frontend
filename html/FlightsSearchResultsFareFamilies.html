@@ -51,15 +51,26 @@
 												content: description.full,
 												cssClass: 'nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__hint'
 											}">
-												<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__icon"
-													  data-bind="css: 'nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__icon_' + needToPay.toLowerCase()"></span>
-				
+												<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__icon">
+													<!-- ko if: needToPay === 'Free' -->
+														<i class="fa fa-check"></i>
+													<!-- /ko -->
+								
+													<!-- ko if: needToPay === 'Charge' || needToPay === 'Unknown' -->
+														<i data-bind="currencyIcon: $root.controller.viewModel.agency.priceCurrency()"></i>
+													<!-- /ko -->
+								
+													<!-- ko if: needToPay === 'NotAvailable' -->
+														<i class="fa fa-times"></i>
+													<!-- /ko -->
+												</span>
+												
 												<!-- ko if: showTitle -->
-													<span data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
+													<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__text" data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
 												<!-- /ko -->
 				
 												<!-- ko ifnot: showTitle -->
-													<span data-bind="text: description.short"></span>
+													<span class="nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list__feature__text" data-bind="text: description.short"></span>
 												<!-- /ko -->
 											</li>
 										<!-- /ko -->

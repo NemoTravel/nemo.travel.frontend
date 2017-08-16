@@ -3,7 +3,8 @@
 		'nemo-flights-results__fareFamilies_full': isFullMode,
 		'nemo-flights-results__fareFamilies_listMode': isListMode,
 		'nemo-flights-results__fareFamilies_slim': !isListMode && !isFullMode,
-		'nemo-flights-results__fareFamilies_togglable': !isFullMode
+		'nemo-flights-results__fareFamilies_togglable': !isFullMode,
+		'nemo-flights-results__fareFamilies_opened': featuresAreVisible()
 	}">
 		<!-- ko if: isFullMode -->
 			<div class="nemo-flights-results__fareFamilies__header">
@@ -126,7 +127,7 @@
 					<!-- /ko -->
 					
 					<!-- ko if: needToPay === 'Charge' || needToPay === 'Unknown' -->
-						<i class="fa fa-rub"></i>
+						<i data-bind="currencyIcon: $root.controller.viewModel.agency.priceCurrency()"></i>
 					<!-- /ko -->
 					
 					<!-- ko if: needToPay === 'NotAvailable' -->

@@ -200,6 +200,39 @@ define(
 			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
 
+		Flight.prototype.getFreeBaggageInfo = function () {
+			var family = this.fareFeatures.getFirstFamily(),
+				baggage = this.price.segmentInfo[0].freeBaggage[0],
+				noBaggage = false;
+	
+			if (family && family.hasOwnProperty('list') && family.list.hasOwnProperty('baggage')) {
+				family.list.baggage.map(function (item) {
+					if (item.code === 'baggage') {
+						if (noBaggage) {
+							// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,
+							// берём её в качестве основной.
+							baggage.value = 0;
+						}
+						else if (item.needToPay === 'Free') {
+							// С бесплатным багажом.
+							baggage.value = 1;
+						}
+						else if (item.needToPay === 'Unknown') {
+							// Багаж неизвестен.
+							baggage.value = null;
+						}
+						else {
+							// Только платный багаж.
+							baggage.value = 0;
+							noBaggage = true;
+						}
+					}
+				});
+			}
+
+			return baggage;
+		};
+
 		return Flight;
 	}
 );

@@ -1,292 +1,34 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'js/vm/Analytics'],
-	function (ko, helpers, BaseControllerModel, Cookie, Analytics) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'jsCookie', 'js/vm/Analytics', 'js/vm/Common/PostFilter/Config'],
+	function (ko, helpers, BaseControllerModel, Cookie, Analytics, PostFilterConfig) {
 		function FlightsSearchResultsController(componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			var self = this,
-				/**
-				 * Checks minimal value
-				 * @param current value
-				 * @param candidate object from whick a new or old value should be returned
-				 * @returns {*}
-				 */
-				stringPFMinPrice = function (current, candidate) {
-					if (!current || candidate.getTotalPrice().amount() < current.amount()) {
-						return candidate.getTotalPrice();
-					}
-
-					return current;
-				};
+			var self = this;
 
 			this.name = 'FlightsSearchResultsController';
 
 			this.postfiltersData = {
-				configs: {
-					transfersCount: {
-						name: 'transfersCount',
-						type: 'String',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (obj) {
-							var tmp = Math.max.apply(Math, obj.legs.map(function (item, i) {
-								return item.transfersCount;
-							}));
-
-							return [[tmp, tmp]];
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								return a.value - b.value;
-							},
-							additionalValueChooser: stringPFMinPrice
-						}
-					},
-					price: {
-						name: 'price',
-						type: 'Number',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (obj) {
-							// We are forced to use Math.ceil here due to a bug in jQueryUI.slider
-							// which is used for Number postFilters' view
-							return Math.ceil(obj.getTotalPrice().amount());
-						},
-						options: {
-							/* Filter-specific options here */
-							onInit: function (initParams) {
-								var currency = '',
-									keys = Object.keys(initParams.items);
-
-								if (keys.length) {
-									currency = initParams.items[keys[0]].getTotalPrice().currency();
-								}
-
-								this.displayValues.min = this.$$controller.getModel('Common/Money', {
-									amount: 0,
-									currency: currency
-								});
-								this.displayValues.max = this.$$controller.getModel('Common/Money', {
-									amount: 0,
-									currency: currency
-								});
-							},
-							onValuesUpdate: function (newValue) {
-								this.displayValues.min.amount(newValue.min);
-								this.displayValues.max.amount(newValue.max);
-							}
-						}
-					},
-					carrier: {
-						name: 'carrier',
-						type: 'String',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (item) {
-							var ret = [];
-
-							ret.push([
-								item.getFirstSegmentMarketingCompany().IATA,
-								item.getFirstSegmentMarketingCompany()
-							]);
-
-							return ret;
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								return a.value.name.localeCompare(b.value.name);
-							},
-							additionalValueChooser: stringPFMinPrice,
-							type: 'multiChoice'
-						}
-					},
-					transfersDuration: {
-						name: 'transfersDuration',
-						type: 'Number',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (obj) {
-							if (obj.totalTimeTransfers > 0) {
-								return obj.totalTimeTransfers;
-							}
-						},
-						options: {
-							/* Filter-specific options here */
-							onInit: function (initParams) {
-								this.displayValues.min = this.$$controller.getModel('Common/Duration', {length: 0});
-								this.displayValues.max = this.$$controller.getModel('Common/Duration', {length: 0});
-							},
-							onValuesUpdate: function (newValue) {
-								this.displayValues.min.length(newValue.min);
-								this.displayValues.max.length(newValue.max);
-							}
-						}
-					},
-//					departureTime: {
-//						name: 'departureTime',
-//						type: 'Number',
-//						isLegged: true,
-//						legNumber: 0,
-//						getter: function (obj) {
-//							return obj.legs[this.legNumber].depDateTime.getTimestamp();
-//						},
-//						options: {/* Filter-specific options here */}
-//					},
-//					arrivalTime: {
-//						name: 'arrivalTime',
-//						type: 'Number',
-//						isLegged: true,
-//						legNumber: 0,
-//						getter: function (obj) {
-//							return obj.legs[this.legNumber].arrDateTime.getTimestamp();
-//						},
-//						options: {/* Filter-specific options here */}
-//					},
-					departureTime: {
-						name: 'departureTime',
-						type: 'String',
-						isLegged: true,
-						legNumber: 0,
-						getter: function (obj) {
-							var d = obj.legs[this.legNumber].depDateTime.dateObject(),
-								timeType = self.getTimeType(d);
-
-							return [[timeType, timeType]];
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								var sort = {
-									n: 0,
-									m: 1,
-									d: 2,
-									e: 3
-								};
-
-								return sort[a.key] - sort[b.key];
-							},
-							additionalValueChooser: stringPFMinPrice
-						}
-					},
-					arrivalTime: {
-						name: 'arrivalTime',
-						type: 'String',
-						isLegged: true,
-						legNumber: 0,
-						getter: function (obj) {
-							var d = obj.legs[this.legNumber].arrDateTime.dateObject(),
-								timeType = self.getTimeType(d);
-
-							return [[timeType, timeType]];
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								var sort = {
-									n: 0,
-									m: 1,
-									d: 2,
-									e: 3
-								};
-
-								return sort[a.key] - sort[b.key];
-							},
-							additionalValueChooser: stringPFMinPrice
-						}
-					},
-					departureAirport: {
-						name: 'departureAirport',
-						type: 'String',
-						isLegged: true,
-						legNumber: 0,
-						getter: function (obj) {
-							return [[obj.legs[this.legNumber].depAirp.IATA, obj.legs[this.legNumber].depAirp]];
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								return a.value.name.localeCompare(b.value.name);
-							},
-							additionalValueChooser: stringPFMinPrice
-						}
-					},
-					arrivalAirport: {
-						name: 'arrivalAirport',
-						type: 'String',
-						isLegged: true,
-						legNumber: 0,
-						getter: function (obj) {
-							return [[obj.legs[this.legNumber].arrAirp.IATA, obj.legs[this.legNumber].arrAirp]];
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								return a.value.name.localeCompare(b.value.name);
-							},
-							additionalValueChooser: stringPFMinPrice
-						}
-					},
-					timeEnRoute: {
-						name: 'timeEnRoute',
-						type: 'Number',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (obj) {
-							return obj.totalTimeEnRoute.length();
-						},
-						options: {
-							/* Filter-specific options here */
-							onInit: function (initParams) {
-								this.displayValues.min = this.$$controller.getModel('Common/Duration', {length: 0});
-								this.displayValues.max = this.$$controller.getModel('Common/Duration', {length: 0});
-							},
-							onValuesUpdate: function (newValue) {
-								this.displayValues.min.length(newValue.min);
-								this.displayValues.max.length(newValue.max);
-							}
-						}
-					},
-					travelPolicies: {
-						name: 'travelPolicies',
-						type: 'String',
-						isLegged: false,
-						legNumber: 0,
-						getter: function (obj) {
-							var ret = [];
-
-							for (var i = 0; i < obj.travelPolicies.length; i++) {
-								if(obj.travelPolicies[i].value) {
-									ret.push([
-										obj.travelPolicies[i].id,
-										obj.travelPolicies[i]
-									]);
-								}
-							}
-
-							return ret;
-						},
-						options: {
-							// Filter-specific options here
-							valuesSorter: function (a, b) {
-								return a.value.name.localeCompare(b.value.name) && a.value.value === b.value.value;
-							},
-							additionalValueChooser: stringPFMinPrice,
-							type: 'multiChoice'
-						}
-					}
-				},
-				order: ['travelPolicies', 'price', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute'],
+				configs: {},
+				order: ['travelPolicies', 'price', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute','freeBaggage'],
 				grouppable: ['departureTime', 'arrivalTime'],
 				preInitValues: {
 					carrier: null,
 					price: null,
 					timeEnRoute: null,
-					transfersDuration: null
+					transfersDuration: null,
+					freeBaggage: null
 				}
 			};
+
+			this.postfiltersData.order.map(function (filterName) {
+				// На данный момент, модели из $$usedModels еще не прогрузились и конструктор для js/vm/Common/PostFilter/Config еще не инициализирован, 
+				// т.к. эта операция запускается после инициализации конструктора текущего контроллера.
+				// Но нам нужно заполнить этот объект ДО того как на него накрутятся extensions, поэтому,
+				// мы в this.$$controller.getModel передаём третий параметр - конструктор нужной нам модели.
+				this.postfiltersData.configs[filterName] = this.$$controller.getModel('Common/PostFilter/Config', { name: filterName }, PostFilterConfig);
+			}, this);
 
 			this.PFHintCookie = 'flightsResults__PFHintRemoved';
 			this.resultsTypeCookie = 'flightsResults__resultsType';
@@ -630,30 +372,6 @@ define(
 			}
 		};
 
-		// Own prototype stuff
-		FlightsSearchResultsController.prototype.PFTimeTypes = [
-			{
-				type: 'n',
-				seconds: 18000
-			},
-			{
-				type: 'm',
-				seconds: 43200
-			},
-			{
-				type: 'd',
-				seconds: 64800
-			},
-			{
-				type: 'e',
-				seconds: 79200
-			},
-			{
-				type: 'n',
-				seconds: 86400
-			}
-		];
-
 		FlightsSearchResultsController.prototype.bookFlight = function (flids, data) {
 			var self = this;
 
@@ -734,24 +452,6 @@ define(
 					}
 				);
 			}
-		};
-
-		FlightsSearchResultsController.prototype.getTimeType = function (d) {
-			var dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0),
-				timeFromDayStart = 0,
-				timeType = 'n';
-
-			// Defining time type
-			timeFromDayStart = Math.floor((d.getTime() - dayStart.getTime()) / 1000);
-
-			for (var i = 0; i < this.PFTimeTypes.length; i++) {
-				if (timeFromDayStart < this.PFTimeTypes[i].seconds) {
-					timeType = this.PFTimeTypes[i].type;
-					break;
-				}
-			}
-
-			return timeType;
 		};
 
 		FlightsSearchResultsController.prototype.processSearchInfo = function () {
@@ -1387,19 +1087,56 @@ define(
 
 			// Creating
 			for (var i = 0; i < pfsOrder.length; i++) {
-				if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
-					var pfConfig,
-						pfGroup = [];
+				if (this.postfiltersData.configs[pfsOrder[i]]) {
+					if (this.postfiltersData.configs[pfsOrder[i]].isLegged) {
+						var pfConfig,
+							pfGroup = [];
 
-					for (var j = 0; j < this.searchInfo().segments.length; j++) {
-						pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
+						for (var j = 0; j < this.searchInfo().segments.length; j++) {
+							pfConfig = helpers.cloneObject(this.postfiltersData.configs[pfsOrder[i]]);
 
-						pfConfig.legNumber = j;
+							pfConfig.legNumber = j;
 
+							tmp = this.$$controller.getModel(
+								'Common/PostFilter/' + pfConfig.type,
+								{
+									config: pfConfig,
+									items: this.flights,
+									onChange: function () {
+										self.PFChanged.apply(self, arguments);
+									}
+								}
+							);
+
+							this.postFilters.push(tmp);
+
+							if (tmp.isActive()) {
+								if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
+									pfGroup.push(tmp);
+								}
+								else {
+									this.visiblePostFilters.push(tmp);
+								}
+							}
+						}
+
+						if (pfGroup.length) {
+							this.visiblePostFilters.push(
+								this.$$controller.getModel(
+									'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
+									{
+										filters: pfGroup,
+										resultsController: this
+									}
+								)
+							);
+						}
+					}
+					else {
 						tmp = this.$$controller.getModel(
-							'Common/PostFilter/' + pfConfig.type,
+							'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
 							{
-								config: pfConfig,
+								config: this.postfiltersData.configs[pfsOrder[i]],
 								items: this.flights,
 								onChange: function () {
 									self.PFChanged.apply(self, arguments);
@@ -1407,80 +1144,45 @@ define(
 							}
 						);
 
-						this.postFilters.push(tmp);
-
 						if (tmp.isActive()) {
-							if (this.postfiltersData.grouppable.indexOf(pfConfig.name) >= 0 && this.searchInfo().tripType == 'RT') {
-								pfGroup.push(tmp);
-							}
-							else {
-								this.visiblePostFilters.push(tmp);
-							}
-						}
-					}
+							var tmp2;
 
-					if (pfGroup.length) {
-						this.visiblePostFilters.push(
-							this.$$controller.getModel(
-								'Flights/SearchResults/' + this.postfiltersData.configs[pfsOrder[i]].type + 'PFGroup',
-								{
-									filters: pfGroup,
-									resultsController: this
-								}
-							)
-						);
-					}
-				}
-				else {
-					tmp = this.$$controller.getModel(
-						'Common/PostFilter/' + this.postfiltersData.configs[pfsOrder[i]].type,
-						{
-							config: this.postfiltersData.configs[pfsOrder[i]],
-							items: this.flights,
-							onChange: function () {
-								self.PFChanged.apply(self, arguments);
-							}
-						}
-					);
+							this.postFilters.push(tmp);
+							this.visiblePostFilters.push(tmp);
 
-					if (tmp.isActive()) {
-						var tmp2;
+							// Setting preInittedValue
+							if (this.postfiltersData.preInitValues[tmp.config.name]) {
+								switch (tmp.config.name) {
+									case 'price':
+									case 'transfersDuration':
+									case 'timeEnRoute':
+										tmp2 = tmp.value();
 
-						this.postFilters.push(tmp);
-						this.visiblePostFilters.push(tmp);
+										tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
 
-						// Setting preInittedValue
-						if (this.postfiltersData.preInitValues[tmp.config.name]) {
-							switch (tmp.config.name) {
-								case 'price':
-								case 'transfersDuration':
-								case 'timeEnRoute':
-									tmp2 = tmp.value();
+										tmp.value(tmp2);
+										break;
+									case 'carrier':
+										tmp2 = tmp.value() || [];
 
-									tmp2.max = Math.min(tmp2.max, Math.max(tmp2.min, this.postfiltersData.preInitValues[tmp.config.name]));
+										for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
+											if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
+												tmp.addValue(
+													this.postfiltersData.preInitValues[tmp.config.name][j],
+													this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
+													true
+												);
 
-									tmp.value(tmp2);
-									break;
-								case 'carrier':
-									tmp2 = tmp.value() || [];
-
-									for (var j = 0; j < this.postfiltersData.preInitValues[tmp.config.name].length; j++) {
-										if (this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]]) {
-											tmp.addValue(
-												this.postfiltersData.preInitValues[tmp.config.name][j],
-												this.airlines[this.postfiltersData.preInitValues[tmp.config.name][j]],
-												true
-											);
-
-											tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
+												tmp2.push(this.postfiltersData.preInitValues[tmp.config.name][j]);
+											}
 										}
-									}
 
-									tmp.setValues(tmp2);
+										tmp.setValues(tmp2);
 
-									tmp.sort();
+										tmp.sort();
 
-									break;
+										break;
+								}
 							}
 						}
 					}
@@ -2027,6 +1729,7 @@ define(
 			'Common/Duration',
 			'Common/Money',
 			'Common/PostFilter/Abstract',
+			'Common/PostFilter/Config',
 			'Common/PostFilter/String',
 			'Common/PostFilter/Number',
 			'Flights/Common/Geo'

@@ -72,6 +72,7 @@
 		view: 'days',
 		calendars: 1,
 		format: 'd-m-Y',
+		monthHeaderFormat: 'B, Y',
 		position: 'bottom',
 		triggerEvent: 'click focus',
 		className: '',
@@ -209,7 +210,7 @@
 				header = localDate.getFullYear();
 			} else if (pickmeup.hasClass('js-nemo-pmu-viewDays')) {
 				localDate.addMonths(i - currentCal);
-				header = formatDate(localDate, 'B, Y', options.locale);
+				header = formatDate(localDate, options.monthHeaderFormat, options.locale);
 			}
 			if (!shownDateTo) {
 				if (maxDate) {
