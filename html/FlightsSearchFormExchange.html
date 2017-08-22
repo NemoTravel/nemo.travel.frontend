@@ -55,14 +55,6 @@
 				</div>
 			</div>
 		</div><!--
-			ko if: tripType() != 'CR' && options.dateOptions.aroundDatesValues.length > 0
-		--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_multiDate">
-			<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">
-				<input class="nemo-ui-checkbox__input" type="checkbox" data-bind="checked: vicinityDates">
-							<span class="nemo-ui-checkbox__caption nemo-flights-form__routeOptions__item__checkbox__caption"
-							      data-bind="html: $root.i18n('FlightsSearchForm','routeOptions__vicinityDates__caption').replace('[%-dates-%]', options.dateOptions.aroundDatesValues.length)"></span>
-			</label>
-		</div><!-- /ko --><!--
 			ko ifnot: options.hideDirectOnlyCheckbox
 		--><div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_direct">
 			<label class="nemo-ui-checkbox nemo-flights-form__routeOptions__item__checkbox">

@@ -130,9 +130,14 @@ define(['js/vm/Models/SliderViewModel', 'js/vm/Models/HotelsBaseModel', 'js/vm/h
 				}
 
 				helpers.iterateObject(selectedFilters, function (filter) {
-					checkedFilters++;
-					if(hotel.hasOwnProperty(filter.id) && hotel[filter.id] === true)
-						matchFilters++;
+					if (filter.checked()) {
+						checkedFilters++;
+
+						if (hotel.hasOwnProperty(filter.id) && hotel[filter.id] === true) {
+							matchFilters++;
+							return true;
+						}
+					}
 				});
 
 				return checkedFilters === matchFilters;
