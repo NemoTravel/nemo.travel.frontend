@@ -4,7 +4,10 @@
 }">
 	<div class="nemo-hotelRoom__tariff__features">
 		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__name" data-bind="text: tariffName"></span>
-		<span class="nemo-hotelRoom__tariff__feature" data-bind="visible: !!tariff.meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + tariff.meal.code)"></span>
+		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__corporateFare" data-bind="visible: tariff.rate.discountId, text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates')"></span>
+		<!-- ko if: tariff.meal -->
+			<span class="nemo-hotelRoom__tariff__feature" data-bind="visible: !!tariff.meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + tariff.meal.code)"></span>
+		<!-- /ko -->
 
 		<!-- ko if: tariff.rate.paymentType -->
 			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-paymentType__' + tariff.rate.paymentType)"></span>

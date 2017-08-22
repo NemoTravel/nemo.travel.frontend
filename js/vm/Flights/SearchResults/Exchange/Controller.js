@@ -24,7 +24,7 @@ define(
 			
 			this.resultsLoaded.subscribe(function (newVal) {
 				if (newVal && !that.$$loading()) {
-					parent.postMessage(JSON.stringify({ action: 'resultsController' }), that.postMessageHost);
+					parent.postMessage(JSON.stringify({ action: 'resultsController', id: that.searchParameters.parameters.exchangeBookingId }), that.postMessageHost);
 				}
 			});
 			
@@ -89,7 +89,7 @@ define(
 							}
 							else {
 								// parent.location.reload();
-								parent.postMessage(JSON.stringify({ action: 'flightIsSelected' }), that.postMessageHost);
+								parent.postMessage(JSON.stringify({ action: 'flightIsSelected', id: self.searchParameters.parameters.exchangeBookingId }), that.postMessageHost);
 							}
 						},
 						function (request) {

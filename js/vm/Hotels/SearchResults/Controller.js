@@ -46,6 +46,7 @@ define(
 
 			this.searchId = ko.observable(null);
 			this.errorCode = ko.observable(false);
+			this.errorMessageAsIs = ko.observable(null);
 			this.$$loading = ko.observable(false);
 			this.PFActive = ko.observable(false);
 			this.currentCity = ko.observable('');

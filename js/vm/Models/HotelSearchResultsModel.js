@@ -123,6 +123,10 @@ define(
 						responseErrorCode = response.hotels.search.results.info.errorCode;
 					}
 
+					if (response.hotels.search.results.info.errors) {
+						self.errorMessageAsIs(response.hotels.search.results.info.errors[0]);
+					}
+
 					if (responseErrorCode) {
 						searchError(responseErrorCode, error);
 						return;
@@ -184,6 +188,15 @@ define(
 		HotelSearchResultsModel.prototype.isSpecialOfferExist = function (hotel) {
 			for (var item in hotel.rooms[0]) {
 				if (hotel.rooms[0].hasOwnProperty(item) && hotel.rooms[0][item].rate.isSpecialOffer) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		HotelSearchResultsModel.prototype.isСorporateRatesExist = function (hotel) {
+			for (var item in hotel.rooms[0]) {
+				if (hotel.rooms[0].hasOwnProperty(item) && hotel.rooms[0][item].rate.discountId) {
 					return true;
 				}
 			}
@@ -472,6 +485,7 @@ define(
 				hotel.hotelPriceOriginal = firstRoomPrice.amount;
 				hotel.hotelPrice = Math.round(hotel.hotelPriceOriginal);
 				hotel.isSpecialOffer = self.isSpecialOfferExist(hotel);
+				hotel.isCorporateRates = self.isСorporateRatesExist(hotel);
 				hotel.hotelChainName = hotel.staticDataInfo.hotelChainName;
 				hotel.priceObservable = self.$$controller.getModel('Common/Money', {
 					amount: firstRoomPrice.amount,
@@ -756,16 +770,29 @@ define(
 
 			this.specialConditionsCount = ko.pureComputed(function() {
 				var self = this,
-					specialConditions= {specialOffer : 0},
-					hotels = self.getHotelsExceptFeatureFilter();
+					specialConditions = {specialOffer : 0, corporateRates: 0},
+					hotels = self.getHotelsExceptFeatureFilter(),
+					resultSpecialValues = {};
 					
 					hotels.forEach(function (hotel) {
 						if(self.isSpecialOfferExist(hotel)) {
 							specialConditions.specialOffer++;
+							isFilterVisible = true;
+						}
+						if(self.isСorporateRatesExist(hotel)) {
+							specialConditions.corporateRates++;
 						}
 					});
+
+					if (specialConditions.specialOffer > 0) {
+						resultSpecialValues['SpecialOffer'] = {id: 'isSpecialOffer', name: this.$$controller.i18n('HotelsSearchResults','header-flag__special-offer'), count: specialConditions.specialOffer};
+					}
+
+					if (specialConditions.corporateRates > 0) {
+						resultSpecialValues['CorporateRates'] = {id: 'isCorporateRates', name: this.$$controller.i18n('HotelsSearchResults','header-flag__corporate-rates'), count: specialConditions.corporateRates};
+					}
 					
-					this.filters.specialFilter.setFilterValues({SpecialOffer: {id: 'isSpecialOffer', name: this.$$controller.i18n('HotelsSearchResults','header-flag__special-offer'), count: specialConditions.specialOffer}});
+					this.filters.specialFilter.setFilterValues(resultSpecialValues);
 			}, this);
 
 			this.initialMinStarPrices = this.minStarPrices();

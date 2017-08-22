@@ -1016,7 +1016,7 @@
 					block: 'flightExchangePriceInfo_' + flights[0].id, 
 					title: $root.i18n('FlightsSearchResults', 'flightsGroup__buyButton__exchange__pricingDetails'), 
 					onlyFirstBlock: true, 
-					parentClass: 'nemo-flights-results__flightsGroup__footer__buyButtonContainer' 
+					parentClass: 'nemo-flights-results__flightsListGroup__buyButtonCnt__inner'
 				}">
 					<!-- ko if: flights[0].price.exchangePrice.amount() < 0 -->
 						<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__buyButton__exchange__toRefund')"></span>

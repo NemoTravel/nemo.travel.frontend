@@ -531,7 +531,11 @@ define(
 					$dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
 					options = $.extend({}, {
 						reposition: true,
-						adjustWidth: true
+						adjustWidth: true,
+						
+						// т.к. в этом биндинге не реализован метод update, а нам как-то нужно отслеживать
+						// изменения извне, приходится извращаться.
+						isDisabled: ko.observable(false)
 					}, valueAccessor() || {}),
 					close = true;
 
@@ -559,9 +563,13 @@ define(
 				}
 
 				$this.on('click', function (e) {
-					var $dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
-						vpHeight = $(window).height(),
-						vpOffset = $(document).scrollTop(), // positive
+					if (ko.unwrap(options.isDisabled)) {
+						return false;
+					}
+					
+					var $dropdown  = $root.find('.js-common-pseudoSelect__dropdown'),
+						vpHeight   = $(window).height(),
+						vpOffset   = $(document).scrollTop(), // positive
 						rootHeight = $root.outerHeight(),
 						rootOffset,// = $root.offset().top,
 						dropHeight;

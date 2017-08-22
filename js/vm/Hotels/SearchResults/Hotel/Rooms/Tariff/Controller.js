@@ -18,7 +18,12 @@ define(
 			 * @returns {String}
 			 */
 			this.tariffName = ko.pureComputed(function () {
-				return this.tariff.type.commonName ? this.tariff.type.commonName : this.tariff.type.name;
+				if (this.tariff.type) {
+					return this.tariff.type.commonName ? this.tariff.type.commonName : this.tariff.type.name;
+				}
+				else {
+					return '';
+				}
 			}, this);
 
 			/**

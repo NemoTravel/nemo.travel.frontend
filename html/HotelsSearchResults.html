@@ -358,7 +358,7 @@
 		<!-- ko if: errorCode() -->
 			<div class="nemo-hotels-results__error">
 				<div class="nemo-hotels-results__error__header" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__error_' + errorCode() + '_header')"></div>
-				<div class="nemo-hotels-results__error__content" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__error_' + errorCode())"></div>
+				<div class="nemo-hotels-results__error__content" data-bind="text: errorMessageAsIs() ? errorMessageAsIs() : $root.i18n('HotelsSearchResults', 'hotels__error_' + errorCode())"></div>
 				<div class="nemo-hotels-results__error__footer">
 					<div class="nemo-ui-button nemo-hotels-results__error__footer__button" data-bind="
 						text: $root.i18n('HotelsSearchResults', 'hotels__error_' + errorCode() + '_buttonText'),
@@ -473,8 +473,13 @@
 									</div>
 	
 								</div>
-								<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__special-offer'), visible: $data.isSpecialOffer"></div>
-								<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice && !$data.isSpecialOffer"></div>
+								<!-- ko if: !isCorporateRates -->
+									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__special-offer'), visible: $data.isSpecialOffer"></div>
+									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice && !$data.isSpecialOffer"></div>
+								<!-- /ko -->
+								<!-- ko if: isCorporateRates -->
+									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates'), visible: $data.isCorporateRates"></div>
+								<!-- /ko -->
 							</div>
 	
 							<div class="nemo-hotels-results__hotelsGroup__content">

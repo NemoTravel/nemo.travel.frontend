@@ -697,5 +697,6 @@
     "checkout-steps-one-title": "Введите информацию о гостях",
     "checkout-steps-two-title": "Заполните контактные данные",
     "checkout-steps-three-title": "Выберите способ оплаты",
-    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты"
+    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты",
+    "title_of_bonus_program": "Власний Рахунок"
 }
