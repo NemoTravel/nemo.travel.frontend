@@ -24,6 +24,10 @@ define(
 			this.couplingTable = null;
 			this.couplingTableOpen = ko.observable(false);
 
+			this.showFullFlightsResults = ko.computed(function () {
+				return self.$$originalData.resultsController.$$rawdata.system.info.user.settings.showFullFlightsResults === 'true';
+			});
+
 			for (var i = 0; i < this.flights.length; i++) {
 				this.flightsById[this.flights[i].id] = this.flights[i];
 			}

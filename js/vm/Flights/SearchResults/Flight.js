@@ -200,22 +200,21 @@ define(
 			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
 
-		Flight.prototype.getFreeBaggageInfo = function () {
+		Flight.prototype.getBaggageForFilter = function () {
 			var family = this.fareFeatures.getFirstFamily(),
-				baggage = this.price.segmentInfo[0].freeBaggage[0],
-				noBaggage = false;
+				baggage = {};
 	
 			if (family && family.hasOwnProperty('list') && family.list.hasOwnProperty('baggage')) {
 				family.list.baggage.map(function (item) {
-					if (item.code === 'baggage') {
-						if (noBaggage) {
-							// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,
-							// берём её в качестве основной.
-							baggage.value = 0;
-						}
-						else if (item.needToPay === 'Free') {
-							// С бесплатным багажом.
-							baggage.value = 1;
+					// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,
+					// берём её в качестве основной.
+					if (item.code === 'baggage' && baggage.value !== 0) {
+						if (item.needToPay === 'Free') {
+							// Если до этого не нашли опцию с неизвестным багажом.
+							if (baggage.value !== null) {
+								// То считаем что есть бесплатный.
+								baggage.value = 1;
+							}
 						}
 						else if (item.needToPay === 'Unknown') {
 							// Багаж неизвестен.
@@ -224,7 +223,41 @@ define(
 						else {
 							// Только платный багаж.
 							baggage.value = 0;
-							noBaggage = true;
+						}
+					}
+				});
+			}
+			else {
+				this.price.segmentInfo.map(function (segmentInfo) {
+					// Если в перелёте есть хотя бы один сегмент с недоступным бесплатным багажом,
+					// берём его в качестве основны.
+					if (baggage.value !== 0) {
+						var minBaggage = segmentInfo.minBaggage;
+
+						if (minBaggage) {
+							if (minBaggage.value === null) {
+								// Багаж неизвестен.
+								baggage.value = null;
+							}
+							else {
+								var value = parseFloat(minBaggage.value);
+
+								if (value) {
+									// Если до этого не нашли сегмент с неизвестным багажом.
+									if (baggage.value !== null) {
+										// То считаем что есть бесплатный.
+										baggage.value = 1;
+									}
+								}
+								else {
+									// Только платный багаж.
+									baggage.value = 0;
+								}
+							}
+						}
+						else {
+							// Багаж неизвестен.
+							baggage.value = null;
 						}
 					}
 				});

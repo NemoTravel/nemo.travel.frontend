@@ -93,8 +93,10 @@
     "segments__date__placeholder_RT_leg_1": "Назад",
     "routeOptions__tripType__caption": "Маршрут",
     "routeOptions__serviceClass__caption": "Класс",
-    "routeOptions__vicinityDates__caption": "Искать &plusmn;[%-dates-%] дня",
+    "routeOptions__vicinityDates__caption": "Искать &plusmn;[%-dates-%] [%-dayName-%]",
     "routeOptions__direct__caption": "Только прямые",
+    "day_one": "день",
+    "day_twoToFour": "дня",
     "passengers__fullSelect__button__done": "Готово",
     "passengers__fastSelect__fullSelectOption": "Больше пассажиров",
     "passengers__fullSelect__title": "Пассажиры",
@@ -143,7 +145,5 @@
     "flightsForm-scheduleInfo__terminal": "терминал",
     "flightsForm-scheduleInfo__details": "Детали",
     "flightsForm-scheduleInfo__classes": "Класс:",
-    "flightsForm-scheduleInfo__calendar": "Календарь полётов",
-    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
-    "title_of_bonus_program": "Власний Рахунок"
+    "flightsForm-scheduleInfo__calendar": "Календарь полётов"
 }

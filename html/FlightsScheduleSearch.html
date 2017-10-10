@@ -48,7 +48,7 @@
 					</div>
 	
 					<div class="nemo-flights-flightInfo__leg__segment__departure__geoInfo">
-						<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_departure" data-bind="text: depAirp.city.name"></div>
+						<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_departure" data-bind="text: depAirp.city.name + ' (' + depAirp.country.name + ')'"></div>
 	
 						<div class="nemo-flights-flightInfo__leg__segment__airport nemo-flights-flightInfo__leg__segment__airport_departure">
 							<span class="nemo-flights-flightInfo__leg__segment__airport__title" data-bind="text: $root.i18n('FlightsFlightInfo','leg__segment__departure__caption')"></span>
@@ -68,7 +68,7 @@
 						<div class="nemo-flights-flightInfo__leg__segment__time nemo-flights-flightInfo__leg__segment__time_arrival" data-bind="text: arrTime"></div>
 					</div>
 					<div class="nemo-flights-flightInfo__leg__segment__arrival__geoInfo">
-						<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_arrival" data-bind="text: arrAirp.city.name"></div>
+						<div class="nemo-flights-flightInfo__leg__segment__city nemo-flights-flightInfo__leg__segment__city_arrival" data-bind="text: arrAirp.city.name + ' (' + arrAirp.country.name + ')'"></div>
 						<div class="nemo-flights-flightInfo__leg__segment__airport nemo-flights-flightInfo__leg__segment__airport_arrival">
 							<span class="nemo-flights-flightInfo__leg__segment__airport__title" data-bind="text: $root.i18n('FlightsFlightInfo','leg__segment__arrival__caption')"></span>
 							<span class="nemo-flights-flightInfo__leg__segment__airport__value" data-bind="text: arrAirp.properName"></span>

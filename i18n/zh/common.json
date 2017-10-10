@@ -1,7 +1,7 @@
 {
-    "nemoApp__globalError__noRoute": "未知網址",
-    "popup_closeText": "關",
-    "nemoApp__globalError__uncaughtError__title": "處理數據時發生錯誤",
-    "nemoApp__globalError__uncaughtError__message": "請稍後再試。",
-    "nemoApp__globalError__uncaughtError__errorCode": "錯誤代碼"
+    "nemoApp__globalError__noRoute": "未知的网址。",
+    "popup_closeText": "关闭",
+    "nemoApp__globalError__uncaughtError__title": "错误发生，同时处理数据",
+    "nemoApp__globalError__uncaughtError__message": "请尝试更新此页以后。",
+    "nemoApp__globalError__uncaughtError__errorCode": "错误代码"
 }

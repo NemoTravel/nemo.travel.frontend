@@ -26,6 +26,7 @@
     "leg__segment__baggage__passType_ADT": "Eten. Om te kopen",
     "leg__segment__aircraft__caption": "Voor",
     "leg__segment__baggage__passType_CNN": "voor bagage",
+    "leg__segment__baggage__passType_UNN": "voor bagage",
     "leg__segment__baggage__caption": "Voor boekingen",
     "leg__segment__baggage__passType_INS": "alleen voor de laatste 7 dagen",
     "leg__segment__timeEnRoute__caption": "Gevonden",

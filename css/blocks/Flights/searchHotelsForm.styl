@@ -481,6 +481,16 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       position: relative;
       z-index: 1;
 
+      &_loyalCard {
+        position: relative;
+        display: table-cell;
+        direction: rtl;
+
+        .nemo-ui-select__toggle {
+          box-shadow: none !important;
+        }
+      }
+
       &__title {
         margin: 0;
       }
@@ -1136,6 +1146,72 @@ $i_hotels_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint, 
       line-height: 18px;
       &_details {
         font-size: 11px;
+      }
+    }
+  }
+
+  &__loyalCard {
+    &__dropdown {
+      padding: 20px;
+      direction: ltr;
+      cursor: default;
+      min-width: 350px;
+
+      @media (max-width: 490px) {
+        min-width: 100%;
+      }
+    }
+
+    &__done {
+      height: 30px;
+      line-height: 30px;
+      font-size: 13px;
+    }
+
+    &__item {
+     margin-bottom: 10px;
+
+      &_label {
+        color: #636467;
+        margin-bottom: 5px;
+      }
+
+      &_code {
+        margin-top: 0;
+      }
+
+      &_hint {
+        cursor: help;
+      }
+    }
+
+    &__adaptive {
+      display: none;
+      float: left;
+      padding: 0 20px 0 0;
+      z-index: 11;
+      padding-top: 5px;
+
+      &_button {
+        padding-left: 10px;
+
+        &:after {
+          right: 9px;
+        }
+      }
+
+      @media (max-width: 1300px) {
+        display: block;
+      }
+
+      @media (max-width: 490px) {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px;
+        float: none;
+        white-space: normal;
+        z-index: auto;
       }
     }
   }

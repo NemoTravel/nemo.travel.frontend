@@ -25,7 +25,7 @@ $fareFamiliesMainPadding = 20px;
 
 		&__chooseTariff {
 			float: right;
-			font-size: 12px;
+			font-size: 13px;
 		}
 
 		&__rechooseTariff {
@@ -221,6 +221,10 @@ $fareFamiliesMainPadding = 20px;
 			
 			&__text {
 				padding-left: $fareFamiliesMainPadding;
+				
+				&__withBreak ~ & {
+					display: block;
+				}
 			}
 			
 			&_helpCursor {
@@ -258,8 +262,7 @@ $fareFamiliesMainPadding = 20px;
 		.nemo-flights-results__fareFamilies__features__baggage,
 		.nemo-flights-results__fareFamilies__features__refunds,
 		.nemo-flights-results__fareFamilies__features__misc {
-			/*width: 33.33%;*/
-			font-size: 12px;
+			font-size: 13px;
 			max-width: 50%;
 			
 			&:not(:last-of-type) {
@@ -554,22 +557,13 @@ $fareFamiliesMainPadding = 20px;
 		}
 	}
 
-	&_checkout&_full {
-		margin: 15px -40px;
-		border-radius: 0;
-
-		@media (max-width: 400px) {
-			margin-right: 0;
-		}
-	}
-
 	&_slim {
 	   position: relative;
 
 		.nemo-flights-results__fareFamilies__popup__tariffs__tariff__features__list {
 			margin: 10px 0 0;
 			padding-bottom: 0;
-			font-size: 12px;
+			font-size: 13px;
 
 			&__feature__icon {
 				height: 14px;
@@ -679,5 +673,36 @@ $fareFamiliesMainPadding = 20px;
 		height: auto;
 		position: static;
 		margin-bottom: -50px;
+	}
+
+	&_checkout&_togglable {
+		margin: 15px -20px 0;
+		border-bottom: 1px solid rgba(230, 230, 230, .75);
+	}
+
+	&_checkout&_togglable &__features {
+		padding: 0 20px 20px;
+	}
+
+	&_checkout&_togglable &__header {
+		border-top: 1px solid rgba(230, 230, 230, .75);
+		cursor: default;
+		
+		&:hover {
+			background-color: #f7f7f7;
+		}
+		
+		&:after {
+			display: none;
+		}
+	}
+
+	&_checkout&_full&_togglable {
+		margin: 15px -40px;
+		border-radius: 0;
+
+		@media (max-width: 400px) {
+			margin-right: 0;
+		}
 	}
 }

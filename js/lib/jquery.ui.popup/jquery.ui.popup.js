@@ -38,6 +38,7 @@ define(
 					minWidth: 'auto',
 					modal: true,
 					closeOnOverlayClick: true,
+					loaderText: '',
 					closeButton: true,
 					loaderClass: '',
 					dialogClass: '',
@@ -92,7 +93,7 @@ define(
 						this.options.url = this.options.url || this.originalElement.attr('href');
 
 						// element that will indicate loading of content
-						this.loaderElement = $('<div class="ui-dialog__loader">Loading...</div>');
+						this.loaderElement = $('<div class="ui-dialog__loader">'+ (this.options.loaderText != '' ? this.options.loaderText : 'Loading...') +'</div>');
 
 						//add custom class to loader
 						if (this.options.loaderClass) {

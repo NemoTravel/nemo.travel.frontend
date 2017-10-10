@@ -74,7 +74,7 @@
     "flightsGroup__fareFamilies__param__carry_on": "Ручная кладь",
     "flightsGroup__fareFamilies__param__baggage": "Багаж",
     "flightsGroup__fareFamilies__param__seats_registration": "Выбор места",
-    "flightsGroup__fareFamilies__param__vip_service": "Бизнес зал",
+    "flightsGroup__fareFamilies__param__vip_service": "Привилегии",
     "flightsGroup__fareFamilies__param__miles": "Зачисление миль",
     "flightsGroup__fareFamilies__param__meal": "Питание на борту",
     "flightsGroup__fareFamilies__param__refundable": "Возврат билета",
@@ -326,7 +326,5 @@
     "carrierResults__pass_INF": "Младенцев без места:",
     "carrierResults__pass_INS": "Младенцев c местом:",
     "carrierResults__pass_YTH": "Студентов:",
-    "carrierResults__pass_SRC": "Пожилых:",
-    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
-    "title_of_bonus_program": "Власний Рахунок"
+    "carrierResults__pass_SRC": "Пожилых:"
 }

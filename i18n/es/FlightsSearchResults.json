@@ -209,7 +209,7 @@
     "warning_204_button_continue": "Elegir",
     "warning_204_button_return": "A la búsqueda",
     "error_requestFailed_header": "La búsqueda se ha fallado. Póngase en contacto con el desarrollador (Solicitud se ha fallado)",
-    "flightsGroup__fareFamilies__param__vip_service": "Sala business",
+    "flightsGroup__fareFamilies__param__vip_service": "Privilegios",
     "flightsGroup__footer__subagentProfit": "Beneficio de subagente:",
     "error_brokenJSON_header": "La búsqueda se ha fallado",
     "warning_204_header": "Los vuelos iniciales no se encontraron",

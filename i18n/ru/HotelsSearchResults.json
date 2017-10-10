@@ -118,7 +118,5 @@
     "hotels__bookingCheck__error__error_unavailable": "В выбранном отеле нет свободных номеров",
     "bookingCheck__link_to_searchResults": "Вернуться к результатам поиска",
     "bookingCheck__link_to_mainPage": "Новый поиск",
-    "hotels__hotelsChain": "Сеть отелей",
-    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
-    "title_of_bonus_program": "Власний Рахунок"
+    "hotels__hotelsChain": "Сеть отелей"
 }

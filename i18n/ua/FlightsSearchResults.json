@@ -175,7 +175,7 @@
     "flightsGroup__fareFamilies__title__chooseTariff_popup": "Вибір тарифу",
     "flightsGroup__footer__passengersDisclaimer_refundable": " Є можливість повернення",
     "flightsGroup__footer__passengersDisclaimer_nonRefundable": "Квиток не пiдлягає поверненню",
-    "flightsGroup__fareFamilies__param__vip_service": "Бізнес зал",
+    "flightsGroup__fareFamilies__param__vip_service": "Привілеї",
     "flightsGroup__fareFamilies__title__error": "На жаль, для цього перельоту не було знайдено інших тарифів.",
     "flightsFareRules__misc__agencyRules__title": "Агентські правила для тарифів",
     "flightsGroup__flightWarningsHeader": "Додаткові обмеження",

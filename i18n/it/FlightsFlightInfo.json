@@ -24,10 +24,12 @@
     "leg__segment__baggage__passType_ADT": "Adulti",
     "leg__segment__baggage__passType_CLD": "Bambini",
     "leg__segment__baggage__passType_CNN": "Bambini",
+    "leg__segment__baggage__passType_UNN": "Bambini",
     "leg__segment__baggage__passType_INF": "Neonati",
     "leg__segment__baggage__passType_INS": "Neonati (con sedile)",
     "leg__segment__baggage__passType_YTH": "Giovani",
     "leg__segment__baggage__passType_SRC": "Anziani",
     "leg__segment__baggage__carryOn_only": "Solo bagaglio a mano",
+    "leg__segment__baggage__carryOn_only_INF": "Senza bagagli",
     "leg__segment__baggage__carryOn": "Bagaglio a mano + "
 }

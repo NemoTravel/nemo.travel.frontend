@@ -8,7 +8,7 @@
 		right: 0;
 		bottom: 0;
 
-		background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+		background: rgba($nemo-color-LightPoint, 0.5) url(images/loader.svg) center center no-repeat;
 	}
 
 	&__field {
@@ -20,23 +20,30 @@
 		}
 
 		.nemo-ui-hint {
-			margin-left: 22%;
-			white-space: normal;
+		//	white-space: normal;
 			min-width: 160px;
 		}
 
 		&__caption {
 			display: inline-block;
 			vertical-align: middle;
-			width: 45%;
+			width: 100%;
+			margin-bottom: 5px;
 		}
 
 		&__input {
 			display: inline-block;
 			vertical-align: middle;
-			width: 50%;
+			width: 100%;
 			margin: 0;
 			height: 40px;
+		}
+
+		&__password_hint {
+			text-align: center;
+			font-size: 0.9em;
+			padding: 10px;
+			color: #a4a4a4;
 		}
 
 		&__captcha, &__captchaRefresh, &__captchaField {
@@ -44,31 +51,159 @@
 			vertical-align: middle;
 			position: relative;
 		}
+
+		&__captchaRefresh {
+			height: 60px;
+			width: 23px;
+			text-align: center;
+			transition: 0.5s;
+			outline: none !important;
+
+			& i {
+				line-height: 60px;
+			}
+		}
+	}
+
+	&__footer {
+		min-height: 20px;
+		border-top: 1px solid #e6e6e6;
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-top: 5px;
+		padding-left: 20px;
+		margin-top: 20px;
+
+		&_item {
+			padding-top: 10px;
+		}
 	}
 
 	&__linkToLegalEntity {
 		display: inline-block;
 		margin-top: 10px;
 	}
+
+	& .nemo-common-errorField, .pro-validation_error_field{
+		background: rgba(255, 255, 0, 0.25) !important;
+		border: 1px solid #e6e6e6;
+	}
+
+	&__sectionHeader {
+		font-size: 15px;
+	}
+
+	&_separatePage {
+		&_container {
+			max-width: 400px;
+			margin: 0 auto;
+			margin-top: 5%;
+			box-shadow: 0 1px 8px rgba(10,10,15,.15)
+		}
+
+		&__header {
+			position: relative;
+			background: #eee;
+			border: none;
+			color: #0a0a0f;
+			padding: 10px 60px 10px 20px;
+			line-height: 30px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			border-radius: 4px 4px 0 0;
+			margin-right: -20px;
+			margin-left: -20px;
+			margin-top: -20px;
+			margin-bottom: 20px;
+		}
+
+		.nemo-registration__field__input_capture {
+			width: 50%;
+
+			@media (max-width: 400px) {
+				margin-top: 10px;
+				width: 100%;
+			}
+		}
+
+		.nemo-registration__field__captchaField {
+			width: 100%;
+
+			@media (max-width: 400px) {
+				text-align: center;
+			}
+		}
+
+		&_success {
+			&_label {
+				margin-bottom: 10px;
+			}
+		}
+
+		.pro-validation_error_field {
+			background: rgba(255, 255, 0, 0.25) !important;
+			border: 1px solid #e6e6e6;
+		}
+
+		.pro-auth__form__stub {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+		}
+
+		.pro-registration-box__link:hover {
+			color: #349ef3 !important;
+		}
+	}
+
+	.pro-registration-box__link:hover {
+		color: #349ef3 !important;
+	}
 }
 
 .nemo-registrationPopup {
 	width: 90vw;
-	max-width: 400px;
-	padding-top: 10px;
-	padding-bottom: 20px!important;
+	width: 400px !important;
+	padding-top: 20px !important;
+	padding-bottom: 20px !important;
 	overflow: visible;
+
+	@media (max-width: 450px) {
+		width: 100% !important;
+		max-width: 100%;
+		height: 100% !important;
+		padding-bottom: 70px !important;
+		overflow: auto;
+	}
 
 	.nemo-registration__field__caption_capture {
 		display: block;
 		width: auto;
 	}
 
+	.nemo-ui-hilight {
+		margin-bottom: 10px;
+		margin-top: 0;
+	}
+
 	.nemo-registration__field__captchaField {
 		display: block;
+
+		@media (max-width: 450px) {
+			text-align: center;
+		}
 	}
 
 	.nemo-registration__field__input_capture {
-		width: 100%;
+		width: 50%;
+
+		@media (max-width: 450px) {
+			width: 100%;
+			margin-top: 10px;
+		}
 	}
 }

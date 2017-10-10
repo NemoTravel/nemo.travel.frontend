@@ -76,18 +76,22 @@ define(
 		 * @returns {string}
 		 */
 		Leg.prototype.buildBaggageText = function (baggage) {
-			var baseBaggageText = '';
+			var baseBaggageText;
 			
 			if (!baggage) {
-				baseBaggageText = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__baggage__noBaggage');
+				// baseBaggageText = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__baggage__noBaggage');
+				baseBaggageText = ''; // We don't have any information about free baggage.
 			}
 			else if (baggage instanceof Array) {
 				baseBaggageText = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__baggage__withBaggage');
 			}
+			else if (baggage.value === null) {
+				baseBaggageText = ''; // We don't have any information about free baggage.
+			}
 			else {
 				var baggageValue = parseFloat(baggage.value);
 				
-				if (baggageValue && baggageValue !== '0') {
+				if (baggageValue) {
 					var suffix = '';
 
 					if (baggage.measurement === 'pc') {

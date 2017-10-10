@@ -146,7 +146,7 @@ define(
 				else if (params.name === 'freeBaggage') {
 					config.getter = function (item) {
 						var ret = [];
-						var tmp = item.getFreeBaggageInfo();
+						var tmp = item.getBaggageForFilter();
 
 						if (tmp.value > 0) {
 							tmp.name = 'exist';

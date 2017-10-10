@@ -287,6 +287,35 @@ $i_ui_button_sec_outershadow = 0 1px 2px rgba(0,0,0,.5);
 			animation: shakes .75s 1;
 		}
 	}
+	
+	// Bootstrap-like outlined button
+	&_outline {
+		background: transparent;
+		color: #88c43d;
+		border: 1px solid @color;
+		font-size: $f_ui_button_medium_size;
+		height: $d_ui_button_medium_height;
+		line-height: @height - 2;
+		
+		&:hover {
+			background: #f4faed;
+		}
+		
+		&_filled {
+			background: @color !important;
+			position: relative;
+			color: #fff;
+		}
+		
+		&_warning {
+			color: rgba(255, 2, 83, 0.6);
+			border-color: @color;
+			
+			&:hover {
+				background: rgba(255, 2, 83, 0.1);
+			}
+		}
+	}
 
 	// Modifiers
 	&_small {

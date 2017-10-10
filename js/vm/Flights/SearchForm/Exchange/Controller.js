@@ -19,7 +19,7 @@ define(
 			this.buildInitialSegments = function () {
 				oldBuildInitialSegments();
 
-				if (this.mode == 'preinitted') {
+				if (this.mode == 'preinitted' && this.preinittedData.exchangeBookingId) {
 					this.exchangeBookingId(this.preinittedData.exchangeBookingId);
 				}
 			};

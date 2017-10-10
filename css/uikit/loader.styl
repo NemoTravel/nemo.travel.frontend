@@ -1,4 +1,5 @@
-$fullLoaderSize = 50px;
+$loaderSize = 50px;
+$bigLoaderSize = 70px;
 $smallLoaderSize = 34px;
 
 .nemo-ui-loader {
@@ -13,17 +14,16 @@ $smallLoaderSize = 34px;
 
 	&:after {
 		content: '';
-		width: $fullLoaderSize;
-		height: $fullLoaderSize;
+		width: $loaderSize;
+		height: $loaderSize;
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		margin-left: -($fullLoaderSize / 2);
-		margin-top: -($fullLoaderSize / 2);
+		margin-left: -($loaderSize / 2);
+		margin-top: -($loaderSize / 2);
 		background-image: url('images/loader.svg');
-		background-size: $fullLoaderSize;
+		background-size: $loaderSize;
 	}
-
 	&_small {
 		&:after {
 			width: $smallLoaderSize;
@@ -33,8 +33,24 @@ $smallLoaderSize = 34px;
 			background-size: $smallLoaderSize;
 		}
 	}
+
+	&_big {
+		&:after {
+			width: $bigLoaderSize;
+			height: $bigLoaderSize;
+			margin-left: -($bigLoaderSize / 2);
+			margin-top: -($bigLoaderSize / 2);
+			background-size: $bigLoaderSize;
+		}
+	}
 	
 	&_fixed {
 		position: fixed;
+	}
+	
+	&_planes {
+		&:after {
+			background-image: url('images/loader_planes.svg');
+		}
 	}
 }

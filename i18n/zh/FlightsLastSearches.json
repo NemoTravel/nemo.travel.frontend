@@ -1,5 +1,5 @@
 {
-    "select__title": "上一個搜索結果",
-    "RT__leg_0": "離開",
-    "RT__leg_1": "返回"
+    "select__title": "以前的搜索",
+    "RT__leg_0": "去程",
+    "RT__leg_1": "返程"
 }

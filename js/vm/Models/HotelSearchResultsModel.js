@@ -83,7 +83,11 @@ define(
 				checkInDate: checkInDate.getISODateTime(),
 				checkOutDate: checkOutDate.getISODateTime(),
 				isDelayed: false,
-				rooms: rooms
+				rooms: rooms,
+				loyaltyCard: {
+					number: localStorageFormData.loyaltyCard.cardNumber,
+					hotelsChain: localStorageFormData.loyaltyCard.hotelsChain
+				}
 			});
 
 			return requestData;

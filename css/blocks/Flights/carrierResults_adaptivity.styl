@@ -3,12 +3,12 @@
 		padding: 0px;
 
 		&__arrow {
-			width: 4.5%;
+			max-width: 4.5%;
 			border-radius: 0px;
 		}
 
 		&__date {
-			width: 12%;
+			max-width: 12%;
 			margin: 0px 0.5%;
 		}
 	}
@@ -196,6 +196,10 @@
 							display: inline;
 						}
 
+						&__date:after {
+							display: none;
+						}
+
 						&__localTime {
 							color: #fff;
 							padding-bottom: 5px;
@@ -236,6 +240,7 @@
 						flex-flow: row wrap;
 						justify-content: flex-start;
 						align-content: center;
+						align-items: center;
 						width: 100%;
 						min-width: 1px;
 						border: none;
@@ -283,7 +288,7 @@
 							display: inline-block;
 							font-size: 12px;
 							padding-right: 5px;
-							line-height: 14px;
+							line-height: inherit;
 						}
 
 						&__distance {
@@ -429,13 +434,13 @@
 					vertical-align: bottom;
 					position: inherit;
 					display: inline-block;
-					width: 4.5%;
+					max-width: 4.5%;
 					margin-top: 0px;
 				}
 
 				&__date {
 					margin: 0;
-					width: 13%;
+					max-width: 13%;
 					padding: 5px 5px 0px;
 					border-radius: 0!important;
 					border-left: 1px solid #eee;
@@ -664,7 +669,7 @@
 					vertical-align: bottom;
 					position: inherit;
 					display: inline-block;
-					width: 19%;
+					max-width: 19%;
 					margin-top: 0px;
 
 					&_disabled {
@@ -673,7 +678,7 @@
 				}
 
 				&__date {
-					width: 27%;
+					max-width: 27%;
 
 					&__date {
 						line-height: 28px;
@@ -681,6 +686,7 @@
 
 					&_active {
 						width: 100%;
+						max-width: 100%;
 						text-align: center;
 						padding: 0px;
 					}

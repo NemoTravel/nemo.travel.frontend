@@ -27,11 +27,13 @@
     "leg__segment__baggage__passType_ADT": "Yetişkinler",
     "leg__segment__baggage__passType_CLD": "Çocuklar",
     "leg__segment__baggage__passType_CNN": "Çocuklar",
+    "leg__segment__baggage__passType_UNN": "Çocuklar",
     "leg__segment__baggage__passType_INF": "Bebekler",
     "leg__segment__baggage__passType_INS": "Bebekler koltuklu",
     "leg__segment__baggage__passType_YTH": "Öğrenciler",
     "leg__segment__baggage__passType_SRC": "Emekliler",
     "leg__segment__baggage__carryOn_only": "Sadece el bagajı",
+    "leg__segment__baggage__carryOn_only_INF": "Bagajsız",
     "leg__segment__baggage__carryOn": "El bagajı  +",
     "leg__segment__baggage__metric_kg": "Kg",
     "leg__stopover__passengerLanding": "Uçaktan çıkmayı bekleme"

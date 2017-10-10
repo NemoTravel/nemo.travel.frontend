@@ -84,21 +84,24 @@
 		}
 
 		&__dates {
-			padding: 0 70px;
+		//	padding: 0 70px;
 			position: relative;
 		//max-width: 1120px;
 			max-width: 1400px;
 			margin: 0 auto;
 			text-align: center;
+			display: flex;
+			justify-content: center;
 
 			&__arrow {
-				position: absolute;
-				width: 70px;
+				position: relative;
+				flex-basis: 100%;
+				align-self: center;
+				max-width: 70px;
 				height: 70px;
 				border-radius: 35px;
 				cursor: pointer;
 				top: 50%;
-				margin-top: -35px;
 				left: 0;
 				background-color: rgba(#fff, 0.2);
 
@@ -140,7 +143,8 @@
 			&__date {
 				display: inline-block;
 				vertical-align: bottom;
-				width: 120px;
+				max-width: 120px;
+				flex-basis: 100%;
 				border-radius: 4px 4px 0 0;
 				margin: 0 10px;
 				background: #fff;
@@ -288,11 +292,7 @@
 					font-size: 18px;
 					line-height: 22px;
 					color: #505050;
-				//border-bottom: 1px dashed #64b5f6;
 					max-width: 100%;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
 					font-weight: bold;
 				}
 
@@ -412,7 +412,7 @@
 			//	background: lighten(#7bb236, 90%);
 			//}
 
-				&_fareSelected {
+				&_flightSelected&_fareSelected {
 					background: #f1f1f1;
 				}
 
@@ -492,7 +492,7 @@
 					}
 				}
 
-				&_fareSelected &__short {
+				&_flightSelected&_fareSelected &__short {
 					background: $nemo-color-main !important;
 
 					&:after {
@@ -515,9 +515,7 @@
 						padding: 0 10px 5px 35px;
 						margin-top: 5px;
 						font-size: 11px;
-
 						position: relative;
-						cursor: pointer;
 
 						&:first-child {
 							margin-top: 0;
@@ -552,6 +550,11 @@
 							height: 9px;
 							top: 7px;
 							margin-left: -5px;
+						}
+						
+						&.nemo-flights-results__fareFamilies__features__feature {
+							padding-left: 15px;
+							margin-bottom: 0;
 						}
 					}
 				}
@@ -734,6 +737,10 @@
 						content: " \2012";
 					}
 
+					&__date:after {
+						content: " ";
+					}
+
 					&__DOW {
 						display: none;
 					}
@@ -907,6 +914,10 @@
 
 							&:before {
 								left: 5px;
+							}
+							
+							&.nemo-flights-results__fareFamilies__features__feature {
+								padding-left: 0;
 							}
 						}
 					}
@@ -1157,4 +1168,28 @@
 	width: 90vw!important;
 	height: 80vh!important;
 	max-width: 700px;
+	max-height: 600px !important;
 }
+	
+@media (max-width: 750px) {
+	.flights-carrierResults__guideIframePopup_aircraft {
+		padding: 0!important;
+		width: 100%!important;
+		max-width: 100%!important;
+		height: 100%!important;
+		border-radius: 0!important;
+
+		.ui-dialog-content, .ui-dialog__iframe {
+			padding: 0 !important;
+			margin: 0 !important;
+			width: 100% !important;
+			max-width: none;
+			height: 100% !important;
+			max-height: none !important;
+		}
+		
+		.ui-dialog-titlebar {
+			border-radius: 0 !important;
+		}
+	}
+}	

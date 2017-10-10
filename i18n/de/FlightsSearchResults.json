@@ -176,7 +176,7 @@
     "flightsGroup__fareFamilies__param__carry_on": "Handgepäck",
     "flightsGroup__fareFamilies__title__baggage": "Gepäck",
     "flightsGroup__fareFamilies__param__baggage": "Gepäck",
-    "flightsGroup__fareFamilies__param__vip_service": "Business Lounges",
+    "flightsGroup__fareFamilies__param__vip_service": "Privilegien",
     "flightsGroup__fareFamilies__title__chooseTariff": "Wählen Sie einen anderen Tarif",
     "matrix__table__impossibleText": "ungültig",
     "matrix__table__emptyText": "leer",
@@ -260,5 +260,12 @@
     "nemo__fareRules__passtype_CLD": "Kinder",
     "nemo__fareRules__passtype_SRC": "Ältere",
     "nemo__fareRules__passtype_YTH": "Jugendliche",
-    "nemo__fareRules__passtype_undefined": "Unbekannt"
+    "nemo__fareRules__passtype_undefined": "Unbekannt",
+    "PF__name_freeBaggage": "Freigepäck",
+    "PF__value_freeBaggage_exist": "mit Freigepäck",
+    "PF__value_freeBaggage_no-exist": "kein Freigepäck",
+    "PF__value_freeBaggage_no-info": "Einzelheiten in Tarifbeschreibung",
+    "flightsGroup__footer__passengersDisclaimer_tickets_1": "Ticket",
+    "flightsGroup__footer__passengersDisclaimer_tickets_0": "Tickets",
+    "flightsGroup__footer__passengersDisclaimer_tickets_2": "Tickets"
 }
