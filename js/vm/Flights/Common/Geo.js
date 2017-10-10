@@ -10,6 +10,7 @@ define(
 			// Processing guide
 			this.processGuide(initialData.guide);
 
+			this.IATA = this.IATA ? this.IATA : '';
 			this.city = this.pool.cities[this.cityId] ? this.pool.cities[this.cityId] : null;
 			this.airport = this.pool.airports[this.IATA] ? this.pool.airports[this.IATA] : null;
 

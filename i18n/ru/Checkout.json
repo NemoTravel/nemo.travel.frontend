@@ -65,6 +65,7 @@
     "new-flightRoute__info__baggage_INF": "На каждого младенца",
     "new-flightRoute__info__baggage_INS": "На каждого младенца с местом",
     "new-flightRoute__info__baggage_unknown": "Только ручная кладь",
+    "new-flightRoute__info__baggage_unknown_INF": "Без багажа",
     "new-flightRoute__info__hand_luggage": "Ручная кладь",
     "new-flightRoute__info__registered_baggage": "зарегистрированного багажа на пассажира",
     "new-flightRoute__info__baggage_bags_many": "сумок",
@@ -222,6 +223,7 @@
     "new-passInfo__info__dates__complete": "Дата выписки",
     "new-passInfo__info__dates__update": "Дата обновления заказа",
     "new-passInfo__info__users__user": "Автор",
+    "new-passInfo__info__users__currentUser": "Текущий пользователь",
     "new-passInfo__info__users__user_gst": "Гость",
     "new-passInfo__info__users__user_gsts": "Гости",
     "new-passInfo__info__users__user_usr": "Пользователь",
@@ -435,7 +437,7 @@
     "new-passinfo-checkpopup__passengers__tbl__gender_f": "Ж",
     "new-passinfo-payMethodsPopup__title": "Выберите метод оплаты",
     "new-passinfo-payMethodsPopup__button_ok": "Выбрать",
-    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
+    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"/booking__policy\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"/booking__policypd\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
     "new-passinfo-footer__agreementText_new": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
     "new-passinfo-footer__agreementError": "Вы должны дать свое согласие",
     "new-passinfo-footer__additionalButtons__header": "Дополнительные действия с заказом",
@@ -697,6 +699,5 @@
     "checkout-steps-one-title": "Введите информацию о гостях",
     "checkout-steps-two-title": "Заполните контактные данные",
     "checkout-steps-three-title": "Выберите способ оплаты",
-    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты",
-    "title_of_bonus_program": "Власний Рахунок"
+    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты"
 }

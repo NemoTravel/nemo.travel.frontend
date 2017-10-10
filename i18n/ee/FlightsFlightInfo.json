@@ -24,6 +24,7 @@
     "leg__timeEnRoute__caption": "Lennuaeg:",
     "leg__segment__baggage__carryOn": "Käsipagas +",
     "leg__segment__baggage__passType_CNN": "Lapsed",
+    "leg__segment__baggage__passType_UNN": "Lapsed",
     "leg__segment__baggage__passType_INS": "Imikud istekohaga",
     "leg__segment__baggage__passType_INF": "Imikud",
     "leg__segment__aircraft__caption": "Lennuk",
@@ -34,5 +35,6 @@
     "leg__stopover__terminal": "Terminal",
     "leg__segment__serviceClass__caption": "Klass",
     "leg__segment__baggage__carryOn_only": "Ainult käsipagas",
+    "leg__segment__baggage__carryOn_only_INF": "Ilma pagasi",
     "serviceClass_PremiumEconomy": "Premium economy"
 }

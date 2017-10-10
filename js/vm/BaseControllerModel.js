@@ -33,7 +33,11 @@ define(
 					]
 				],
 				'rooms': [],
-				"datesUnknown": false
+				"datesUnknown": false,
+				"loyaltyCard": {
+					hotelsChain: requestFormData.loyaltyCard ? requestFormData.loyaltyCard.hotelsChain : null,
+					cardNumber: requestFormData.loyaltyCard ? requestFormData.loyaltyCard.number : null
+				}
 			};
 
 			requestFormData.rooms.forEach(function (room) {

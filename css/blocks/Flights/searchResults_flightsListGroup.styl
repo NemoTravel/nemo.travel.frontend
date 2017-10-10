@@ -52,7 +52,7 @@
 		align-self: stretch;
 		
 		@media (min-width: 672px) {
-			flex: 1;
+			flex: auto;
 		}
 
 		&:first-child {
@@ -296,6 +296,7 @@
 			text-overflow: ellipsis;
 			line-height: 15px;
 			margin-bottom: 5px;
+			max-width: 125px;
 		}
 
 		&__details {
@@ -323,6 +324,7 @@
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				max-width: 125px;
 			}
 
 			&__time, &__places {
@@ -382,11 +384,20 @@
 				margin-top: 10px;
 				text-align: right;
 			}
+
+			&__warning {
+				color: #ff3939;
+				padding-bottom: 10px;
+			}
 		}
 		
 		.nemo-flights-results__flightsGroup__footer__disclaimer {
 			text-align: center;
 		}
+	}
+
+	&__footer__couplingButtonContainer {
+		padding: 10px 0;
 	}
 
 	&__buyButton {
@@ -444,6 +455,257 @@
 
 		.nemo-flights-results__fareVariations {
 			text-align: center;
+		}
+	}
+
+	&__full {
+		&__segments {
+			flex-flow: row nowrap;
+			width: 100%;
+		}
+
+		.nemo-flights-results__flightsGroup__leg__info {
+			display: block !important;
+		}
+
+		&__IATA {
+			background: #64b5f6;
+			color: #fff;
+			width: 40px;
+			text-align: center;
+			display: inline-block;
+			margin-top: 5px;
+		}
+
+		&__segment {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			padding-right: 0;
+			border-top: 0;
+
+			&:not(:last-child){
+				border-right: 1px dashed #ececec;
+
+				@media (max-width: 525px) {
+					border-right: 0;
+				}
+			}
+
+			&__carrier{
+				max-height: 40px;
+				flex-basis: 40px;
+				justify-content: space-between;
+				width: 100%;
+				border-bottom: 1px solid #ececec;
+				border-right: none;
+
+				&__logo{
+					max-height: 30px;
+				}
+			}
+
+			&__selector{
+				border: 0;
+				flex-basis: auto;
+				height: 100%;
+				flex-shrink: 1;
+			}
+
+			&__direction {
+				color: #8e8e8e;
+			}
+
+			&__dropdown {
+
+				&__option {
+					display: block;
+					cursor: pointer;
+					position: relative;
+
+					&:only-child {
+						height: 100%;
+						border-bottom: 0 !important;
+					}
+
+					&:last-child {
+						border-bottom: 1px solid #e6e6e6;
+						margin-bottom: -1px;
+
+						@media (max-width: 525px) {
+							border-bottom: 0;
+							margin-bottom: 0;
+						}
+					}
+
+					&__radio {
+						position: absolute;
+						left: -9999999px;
+
+						&__caption {
+							cursor: pointer;
+
+							&:before{
+								content: '';
+								position: absolute;
+								left: 15px;
+								//top: 0;
+								width: $d_ui_pseudoInput_width;
+								height: $d_ui_pseudoInput_height;
+								border-radius: $d_ui_pseudoInput_borderRadius;
+								background-image: url($i_ui_radio);
+								background-position: bottom;
+							}
+						}
+					}
+
+					&_selected > &__radio__caption:before {
+						background-position: top;
+					}
+
+					&__availSeats {
+						display: none;
+					}
+
+					&__dateWrapper {
+						display: inline-block;
+						/*white-space: nowrap;*/
+						margin-bottom: 5px;
+					}
+
+					&__data {
+						padding: 10px 45px;
+						position: relative;
+					}
+					&__arrival {
+						font-size: 16px;
+
+						&_nextday {
+							color: #ff9731;
+						}
+						&__date {
+							font-size: 13px;
+							font-weight: 400;
+						}
+
+						&__nextDayDate {
+							line-height: 0;
+						}
+					}
+					&__departure {
+						font-size: 16px;
+
+						&__date {
+							font-size: 13px;
+							font-weight: 400;
+						}
+					}
+
+					&_selected {
+						background: rgba(100, 181, 246, 0.2);
+
+						&:hover {
+							background: rgba(100, 181, 246, 0.3);
+						}
+					}
+
+					&__timeEnRoute {
+						padding-left: 35px;
+					}
+
+					&_uncombinable &__data{
+						opacity: .2;
+					}
+
+					&_uncombinable&_selected {
+						background: rgba(205, 205, 205, 0.2);
+
+						&:hover {
+							background: rgba(205, 205, 205, 0.3);
+						}
+					}
+
+					&__uncombinableWarn {
+						//margin-left: 43px;
+						position: absolute;
+						text-align: center;
+						width: 100%;
+						padding-top: 30px;
+					}
+					&__airport {
+						display: inline-block;
+						height: 18px;
+						width: 35px;
+						margin-right: 5px;
+						text-align: center;
+						line-height: 18px;
+						font-size: 12px;
+						font-weight: 400;
+						position: relative;
+						bottom: 1px;
+					}
+
+					&__transfers {
+						min-width: 16px;
+						margin: 0 10px;
+
+						&:before {
+							border-width: 2px;
+						}
+
+						&:after {
+							border-width: 2px;
+						}
+
+					}
+				}
+			}
+
+			&__option__additionalDetails {
+				&__timeEnRoute {
+					&__label {
+						display: inline-block;
+						width: 90px;
+
+						@media (max-width: 300px) {
+							width: auto;
+						}
+					}
+
+					&__value {
+						color: #8e8e8e;
+					}
+				}
+
+				&__transfers {
+					&__count {
+						display: inline-block;
+						width: 90px;
+						vertical-align: top;
+
+						@media (max-width: 300px) {
+							width: auto;
+						}
+					}
+
+					&__points {
+						display: inline-block;
+						color: #8e8e8e;
+					}
+				}
+			}
+		}
+
+		@media (max-width: 740px) {
+			.nemo-flights-results__flightsGroup__leg__info__route__departure,
+			.nemo-flights-results__flightsGroup__leg__info__route__arrival {
+				display: block;
+			}
+		}
+
+		.nemo-flights-results__flightsGroup__leg__info__route__arrival,
+		.nemo-flights-results__flightsGroup__leg__info__route__departure {
+			white-space: normal;
 		}
 	}
 }

@@ -115,6 +115,15 @@ define(
 			this.dateObject.valueHasMutated();
 		};
 
+		// возвращает разницу между датами в днях
+		CommonDate.prototype.dateDiffInDays = function (date) {
+			var offsetDate  = date.getTimestamp(),
+				currentDate = this.getTimestamp(),
+				diff        = (offsetDate - currentDate);
+
+			return Math.round(diff / (60*60*24));
+		};
+
 		return CommonDate;
 	}
 );

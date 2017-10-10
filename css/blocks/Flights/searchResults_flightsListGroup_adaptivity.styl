@@ -63,10 +63,33 @@
 				flex-shrink: 1;
 				max-width: 130px;
 				width: 130px;
+				
+				&__details {
+					max-width: 130px;
+				}
 			}
 
 			&__timeEnRoute {
 				width: 185px;
+				max-width: 185px;
+			}
+		}
+	}
+
+	.nemo-flights-results__flightsListGroup__full {
+		&__segment {
+			display: flex;
+			padding-right: 0;
+			padding-left: 0;
+
+			&__carrier {
+				position: static;
+
+			}
+
+			&__selector {
+				display: block;
+				border: none;
 			}
 		}
 	}
@@ -116,6 +139,27 @@
 		//	}
 		//}
 	}
+	.nemo-flights-results__flightsListGroup__full {
+		display: flex;
+		flex-wrap: wrap;
+		//flex-direction: column;
+		align-items: center;
+		padding: 0;
+		position: relative;
+
+		&__pricedebug{
+			margin: 0;
+			flex-basis: 100%;
+			&__item{
+
+			}
+		}
+		
+		.nemo-flights-results__flightsListGroup__buyButtonCnt {
+			flex-basis: 100%;
+			max-width: 100%;
+		}
+	}
 }
 
 @media (max-width: 670px) {
@@ -145,11 +189,37 @@
 			}
 		}
 	}
+
+	.nemo-flights-results__flightsListGroup__full {
+		&__segment {
+			padding-left: 0;
+
+			&__carrier {
+				display: flex;
+
+				&__logo {
+					max-height: 30px;
+				}
+			}
+		}
+	}
 }
 
 
 @media (max-width: 525px) {
 	.nemo-flights-results__flightsListGroup {
+		&__full {
+			&__segments {
+				flex-direction: column;
+				display: block;
+			}
+			&__segment {
+				&:not(:first-child) {
+					border-top: 1px solid rgba(230, 230, 230, .75);
+				}
+			}
+		}
+
 		&__segment {
 			&__selected {
 				padding-right: 25px;

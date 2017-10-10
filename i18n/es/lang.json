@@ -3,15 +3,15 @@
 <tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined variable: lang in /var/www/nemo/frontendStatic/index.php on line <i>79</i></th></tr>
 <tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 <tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0015</td><td bgcolor='#eeeeec' align='right'>271264</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/var/www/nemo/frontendStatic/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0001</td><td bgcolor='#eeeeec' align='right'>227352</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/var/www/nemo/frontendStatic/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
 </table></font>
 <br />
 <font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
 <tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: array_merge(): Argument #1 is not an array in /var/www/nemo/frontendStatic/index.php on line <i>79</i></th></tr>
 <tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 <tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0015</td><td bgcolor='#eeeeec' align='right'>271264</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/var/www/nemo/frontendStatic/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.1452</td><td bgcolor='#eeeeec' align='right'>3142464</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.array-merge' target='_new'>array_merge</a>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0001</td><td bgcolor='#eeeeec' align='right'>227352</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/var/www/nemo/frontendStatic/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.2948</td><td bgcolor='#eeeeec' align='right'>2097488</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.array-merge' target='_new'>array_merge</a>
 (  )</td><td title='/var/www/nemo/frontendStatic/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>79</td></tr>
 </table></font>
 []

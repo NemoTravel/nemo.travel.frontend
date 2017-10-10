@@ -434,6 +434,18 @@ define(
 				return urlAdder;
 			}, this);
 
+			this.vicinityDatesLabel = ko.pureComputed (function () {
+				return this.$$controller.i18n('FlightsSearchForm', 'routeOptions__vicinityDates__caption').replace(
+					'[%-dates-%]', this.options.dateOptions.aroundDatesValues.length
+				).replace(
+					'[%-dayName-%]', helpers.getNumeral(this.options.dateOptions.aroundDatesValues.length,
+						this.$$controller.i18n('FlightsSearchForm', 'day_one'),
+						this.$$controller.i18n('FlightsSearchForm', 'day_twoToFour'),
+						this.$$controller.i18n('FlightsSearchForm', 'day_twoToFour')
+					)
+				);
+			}, this);
+
 			this.initAnalytics();
 		}
 
@@ -720,8 +732,8 @@ define(
 		FlightsSearchFormController.prototype.formDataIsValidForInit = function () {
 		 	var result = false;
 
-		 	if (this.$$componentParameters.formData && this.$$componentParameters.additional.formData) {
-		 		var formData = this.$$componentParameters.additional.formData;
+		 	if (this.$$componentParameters.formData || this.$$componentParameters.additional.formData) {
+		 		var formData = this.$$componentParameters.additional.formData ? this.$$componentParameters.additional.formData : this.$$componentParameters.formData;
 
 				if (
 					'flights' in formData &&

@@ -364,7 +364,7 @@ define(
 								this.postfiltersData.preInitValues.transfersDuration = parseInt(tmp[i][1]) * 3600 || null;
 								break;
 							case 'PCarriers':
-								this.postfiltersData.preInitValues.carrier = (tmp[i][1] || '').match(/.{2}/g) || null;
+								this.searchParameters.parameters.airlines = (tmp[i][1] || '').match(/.{2}/g) || null;
 								break;
 						}
 					}
@@ -861,6 +861,7 @@ define(
 									{
 										id: source.flights[j].id,
 										nemo2id: source.flights[j].nemo2id,
+										service: source.flights[j].service,
 										expectedNumberOfTickets: source.flights[j].expectedNumberOfTickets,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
@@ -1560,6 +1561,7 @@ define(
 
 				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
 					self.requestError(self.$$controller.i18n('FlightsSearchForm', 'searchError_' + message));
+					self.error(message);
 				}
 
 				self.requestActive(false);

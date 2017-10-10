@@ -118,5 +118,12 @@
     "rooms_room_add": "Add room",
     "error_hotels_arrival_noInput": "Enter city",
     "error_hotels_arrivalDate_noInput": "Enter check-in date",
-    "error_hotels_departureDate_noInput": "Enter check-out date"
+    "error_hotels_departureDate_noInput": "Enter check-out date",
+    "hotels__loyaltyCard_i_have_card": "I have a hotel discount",
+    "hotels__loyaltyCard_header": "Enter number of the card",
+    "hotels__loyaltyCard_hotelsChain": "Hotels chain",
+    "hotels__loyaltyCard_cardNumber": "Card number",
+    "hotels__loyaltyCard_hotelsChain_placeholder": "Hotels chain name",
+    "hotels__loyaltyCard_cardNumber_placeholder": "Enter card number",
+    "hotels__loyaltyCard__done": "Done"
 }

@@ -69,6 +69,18 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 		&__headerRight {
 			margin-left: auto;
 			display: flex;
+			align-items: center;
+
+			&__componentsLinks {
+				& a, & span {
+					line-height: 31px;
+					margin-left: 20px;
+				}
+
+				&_active {
+					color: #1e1e2e;
+				}
+			}
 		}
 	}
 	&__headerMenuControlls {
@@ -111,6 +123,62 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 		}
 	}
 
+	&__myOffice {
+		margin-right: -20px;
+		margin-left: 20px;
+		border-bottom-right-radius: 0 !important;
+		border-top-right-radius: 0 !important;
+		border-right: 1px solid #dedede;
+
+		&:focus {
+			z-index: 2;
+		}
+
+		@media (max-width: 760px) {
+			display: none;
+		}
+	}
+
+	&__auth {
+		margin-right: 0 !important;
+
+		&__borderRight {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+		}
+
+		&:focus {
+			z-index: 2;
+		}
+
+		@media (max-width: 1090px) {
+			display: none;
+		}
+	}
+
+	&__checkBook {
+		margin-right: 20px;
+
+		@media (max-width: 600px) {
+			display: none;
+		}
+	}
+
+	&__registration {
+		margin-right: 0 !important;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		border-left: 1px solid #dedede;
+
+		&:focus {
+			z-index: 2;
+		}
+
+		@media (max-width: 1090px) {
+			display: none;
+		}
+	}
+
 	&__dropMenu{
 		position: relative;
 		margin-left: 20px;
@@ -119,6 +187,68 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 			//sorry.
 			padding: 1px !important;
 			width: 50px;
+		}
+
+		&_currency {
+			margin-left: 0px;
+			border-left: 1px solid #dedede;
+
+			& button {
+				border-bottom-left-radius: 0 !important;
+				border-top-left-radius: 0 !important;
+			}
+
+			&.nemo-ui-dropMenu_open {
+				z-index: 2;
+			}
+		}
+
+		&_language {
+			&_borderRight button {
+				border-bottom-right-radius: 0 !important;
+				border-top-right-radius: 0 !important;
+			}
+
+			&.nemo-ui-dropMenu_open {
+				z-index: 2;
+			}
+		}
+
+		&_user {
+			& ul {
+				padding: 0;
+			}
+
+			& li {
+				list-style: none;
+				padding: 0;
+
+				& a {
+					display: block;
+					width: 100%;
+					height: 100%;
+					text-decoration: none;
+					color: inherit;
+					margin: 0;
+					padding: 10px;
+				}
+			}
+
+			&_label {
+				max-width: 200px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				border-radius: 4px;
+
+				&_borderLeft {
+					border-bottom-left-radius: 0;
+					border-top-left-radius: 0;
+				}
+			}
+
+			@media (max-width: 760px) {
+				display: none;
+			}
 		}
 
 		&_currency .nemo-common-pageHeader__droplist__option__icon {
@@ -347,7 +477,13 @@ $d_headerLinks_tablet_padding = 0 0 0 10px;
 	}
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1300px) {
+	.nemo-common-pageHeader__inner__headerLinks {
+		padding: 0;
+	}
+}
+
+@media (max-width: 1090px) {
 	.nemo-common-pageHeader {
 		&__inner {
 			padding-left: 60px;

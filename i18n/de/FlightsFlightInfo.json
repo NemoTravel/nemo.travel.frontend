@@ -19,6 +19,7 @@
     "serviceClass_PremiumEconomy": "Premium-Economy",
     "leg__segment__baggage__caption": "Gepäck",
     "leg__segment__baggage__carryOn_only": "Nur Handgepäck",
+    "leg__segment__baggage__carryOn_only_INF": "kein Freigepäck",
     "leg__segment__baggage__carryOn": "Handgepäck +",
     "leg__segment__baggage__metric_pc": "Freigepäckstück(-e)",
     "leg__segment__baggage__metric_kg": "Kg",
@@ -26,6 +27,7 @@
     "leg__segment__baggage__passType_ADT": "Erwachsene",
     "leg__segment__baggage__passType_CLD": "Kinder",
     "leg__segment__baggage__passType_CNN": "Kinder",
+    "leg__segment__baggage__passType_UNN": "Kinder",
     "leg__segment__baggage__passType_INF": "Säuglinge",
     "leg__segment__baggage__passType_INS": "Säuglinge (mit Sitz)",
     "leg__segment__baggage__passType_YTH": "Jugendliche",
@@ -34,5 +36,12 @@
     "leg__stopover__terminal": "Terminal",
     "leg__stopover__timeArrival": "Von",
     "leg__stopover__passengerLanding": "Warten, um das Flugzeug zu verlassen",
-    "leg__stopover__timeDeparture": "nach"
+    "leg__stopover__timeDeparture": "nach",
+    "fareInformation": "Tarifbedingungen",
+    "fareInformation_short": "Tarifbedingungen",
+    "fareInformationHeader": "Freigepäck ",
+    "leg__segment__baggage__noBaggage": "kein Freigepäck",
+    "leg__segment__baggage__metric_bag_1": "Gepäckstücke",
+    "leg__segment__baggage__metric_bag_3": "Gepäckstücken",
+    "leg__segment__baggage__metric_bag_2": "Gepäckstücken"
 }

@@ -529,6 +529,7 @@ define(
 				var $this = $(element),
 					$root = $this.parents('.js-common-pseudoSelect'),
 					$dropdown = $root.find('.js-common-pseudoSelect__dropdown'),
+					$close = $root.find('.js-common-pseudoSelect__close'),
 					options = $.extend({}, {
 						reposition: true,
 						adjustWidth: true,
@@ -550,6 +551,10 @@ define(
 
 					close = true;
 				}
+
+				$close.on('click', function (e) {
+					hideDropdown(e);
+				});
 
 				// Adjusting width
 				if (options.adjustWidth) {

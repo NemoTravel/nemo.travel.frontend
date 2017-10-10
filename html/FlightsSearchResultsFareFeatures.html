@@ -8,17 +8,16 @@
 	}">
 		<!-- ko if: isFullMode -->
 			<div class="nemo-flights-results__fareFamilies__header">
-				<span class="nemo-flights-results__fareFamilies__header__title">
-					<span data-bind="component: {
-						name: 'Flights/SearchResults/FareRules/Controller',
-						params: {
-							flight: flight,
-							linkText: fareRulesLinkText
-						}
-					}"></span>
-				</span>
-			</div>
-		<!-- /ko -->
+	<span class="nemo-flights-results__fareFamilies__header__title">
+		<span data-bind="component: {
+			name: 'Flights/SearchResults/FareRules/Controller',
+			params: {
+				flight: flight,
+				linkText: fareRulesLinkText
+			}
+		}"></span>
+	</span>
+</div>		<!-- /ko -->
 
 		<!-- ko if: !isFullMode -->
 			<div class="nemo-flights-results__fareFamilies__header nemo-flights-results__fareFamilies__header_togglable" data-bind="

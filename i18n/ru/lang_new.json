@@ -6,6 +6,7 @@
     "carrier_results_mode": "Выводить тарифы и окружные даты одной авиакомпании на странице результатов поиска",
     "carrier_results_mode_admin_hint": "Вместо обычной страницы с результатами, будет показываться форма с окружными датами и семейством тарифов авикомпании. Требует специальной настройки реквизитов",
     "title_autocomplete_mode_airline": "Укажите авиакомпанию для подгрузки маршрутной сетки",
+    "show_full_flights": "Развернутая выдача вариантов перелета на странице результатов поиска при отображении списком",
     "extended_passengers_select": "Включить расширенный выбор пассажиров(работает только для стандартного способа выбора пассажиров)",
     "use_show_case": "Отображать витрину при выдаче результатов",
     "show_best_offers": "Отображать блок с предложениями от лучших авиакомпаний",
@@ -38,7 +39,5 @@
     "transfersSum": "Сумма пересадок",
     "transfersMin": "Минимальное количество пересадок на плече",
     "transfersMax": "Максимальное количество пересадок на плече",
-    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": "",
-    "new-passinfo-footer__agreementText": "Я ознакомлен и согласен с <a href=\"[%-booking-policy-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Правила бронирования'}\">правилами бронирования</a>, правилами предоставления дополнительных услуг, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Условия применения тарифов'}\">условиями применения тарифов</a> и <a href=\"[%-booking-policy-pd-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Права субъекта персональных данных'}\">правами субъекта персональных данных</a>. Я согласен и подтверждаю согласие третьих лиц, указанных мной в бронировании, на обработку персональных данных, в том числе на их передачу третьим лицам, обеспечивающим или обслуживающим перевозку, а также на трансграничную передачу персональных данных.",
-    "title_of_bonus_program": "Власний Рахунок"
+    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": ""
 }

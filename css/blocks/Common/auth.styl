@@ -2,15 +2,46 @@
 	//position: relative;
 
 	&_popup {
-		width: 90vw;
+		width: 90vw !important;
 		max-width: 400px;
-		padding: 10px 20px;
+		padding: 20px !important;
+		overflow: visible;
+
+		@media (max-width: 450px) {
+			width: 100% !important;
+			max-width: 100%;
+			height: 100% !important;
+			padding-bottom: 70px;
+			overflow: auto;
+		}
+	}
+
+	&__dialog {
+		@media (max-width: 450px) {
+			left: 0 !important;
+			top: 0 !important;
+			padding: 0;
+			width: 100% !important;
+			height: 100% !important;
+			background: #fff;
+
+			&.ui-widget-header {
+				boder-radius: 0 !important;
+			}
+		}
 	}
 
 	&_passRecoveryPopup {
-		max-width: 340px;
+		width: 90vw !important;
 		overflow: visible;
-		padding: 20px;
+		padding: 20px !important;
+		padding-bottom: 5px;
+
+		@media (max-width: 450px) {
+			width: 100% !important;
+			height: 100% !important;
+			padding-bottom: 70px;
+		}
 	}
 
 	&__stub {
@@ -19,15 +50,14 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+		background: rgba($nemo-color-LightPoint, 0.5) url(images/loader.svg) center center no-repeat;
+		background-size: 40px;
 	}
 
 	&__field {
-		min-width: 200px;
-		max-width: 260px;
+		width: 100%;
 		position: relative;
-
-		margin-top: 10px;
+		margin-bottom: 10px;
 
 		&:first-child {
 			margin-top: 0;
@@ -36,10 +66,6 @@
 		&_passrestore {
 			width: 100%;
 			max-width: 100%;
-		}
-
-		.nemo-ui-hint {
-			margin-left: 15%;
 		}
 
 		&__label {
@@ -58,14 +84,110 @@
 				display: inline-block;
 				vertical-align: middle;
 				margin: 0;
-				width: 70%;
+				width: 100%;
 				height: 40px;
 			}
 		}
 	}
 
+	&__mainButtons {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		
+		&__links {
+			a {
+				margin-right: 15px;
+			}
+		}
+		
+		&_noMargin {
+			margin-bottom: 0;
+		}
+
+		& .nemo-ui-button_main {
+			font-size: 15px;
+		}
+	}
+
+	&__social {
+		min-height: 20px;
+		border-top: 1px solid #e6e6e6;
+		margin-left: -20px;
+		margin-right: -20px;
+		padding: 20px;
+		padding-bottom: 15px;
+
+		&__label {
+			text-align: center;
+			color: $c_common_textColor;
+		}
+
+		&__items {
+			margin-top: 20px;
+
+			&_item {
+				padding: 10px;
+				background: #f3f3f3;
+				width: 170px;
+				border-radius: 4px;
+				margin-bottom: 10px;
+				display: inline-block;
+				transition: 0.8s;
+				cursor: pointer;
+
+				@media (max-width: 450px) {
+					width: 100%;
+					display: block;
+				}
+
+				&:nth-child(2n+1) {
+					margin-right: 10px;
+				}
+
+				&_label {
+					padding-left: 10px;
+					color: #565656;
+					width: 80%;
+					float: right;
+					line-height: 21px;
+				}
+
+				& .fa {
+					font-size: 20px;
+				}
+
+				& .fa-facebook {
+					color: #006999;
+				}
+
+				& .fa-google {
+					color: #0097ef;
+				}
+
+				& .fa-twitter {
+					color: #00b4e0;
+				}
+
+				& .fa-vk {
+					color: #507299;
+				}
+
+				&:hover {
+					background: rgb(232, 232, 232);
+				}
+
+				&:focus {
+					background: #efefef;
+				}
+			}
+		}
+	}
+
 	&__error, &__info {
-		margin: 10px 0 0;
+		margin: 10px 0 10px 0;
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
@@ -91,15 +213,34 @@
 			&__field {
 				display: inline-block;
 				vertical-align: middle;
-				margin: 0;
+				margin-top: 10px;
+				margin-bottom: 0;
 				margin-right: 20px;
-				max-width: 100%;
+				width: 100%;
+
+				&:first-child {
+					margin: 0;
+				}
+
+				@media (max-width: 600px) {
+					width: 100%;
+				}
 
 				&__label {
 					white-space: nowrap;
 
 					&__caption, &__input {
-						width: auto;
+						width: 100%;
+					}
+
+					@media (max-width: 600px) {
+						&__caption {
+							width: 100px;
+						}
+
+						&__input {
+							width: 100%;
+						}
 					}
 				}
 
@@ -108,25 +249,57 @@
 				//	width: auto;
 				//}
 			}
-		}
-	}
-}
 
-.nemo-authPopup {
-	max-width: 400px;
-	overflow: visible;
-	padding: 0 !important;
-	
-	&+ .ui-dialog-buttonpane{
-
-	}
-}
-@media (max-device-width: 480px){
-	.nemo-authPopup{
-		&+ .ui-dialog-buttonpane{
-			button:nth-child(2){
-				display: none;
+			&__submitButton {
+				margin-top: 10px;
 			}
 		}
+
+		&_container {
+			max-width: 400px;
+			margin: 0 auto;
+			margin-top: 5%;
+			box-shadow: 0 1px 8px rgba(10,10,15,.15)
+		}
+
+		&__header {
+			position: relative;
+			background: #eee;
+			border: none;
+			color: #0a0a0f;
+			padding: 10px 60px 10px 20px;
+			line-height: 30px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			border-radius: 4px 4px 0 0;
+			margin-right: -20px;
+			margin-left: -20px;
+			margin-top: -20px;
+			margin-bottom: 10px;
+		}
+
+		.pro-auth__form__stub {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba($nemo-color-LightPoint, 0.5) url(images/ui/ui-loader-planes.svg) center center no-repeat;
+		}
+
+		.nemo-auth__registrationLink {
+			margin-left: 0 !important;
+		}
+
+		.nemo-ui-hilight {
+			margin-bottom: 10px;
+			margin-top: 20px;
+		}
+	}
+
+	& .nemo-common-errorField, .pro-validation_error_field {
+		background: rgba(255, 255, 0, 0.25) !important;
+		border: 1px solid #e6e6e6;
 	}
 }

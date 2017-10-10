@@ -151,17 +151,18 @@ define(
 
 			date.setHours(0,0,0);
 
-			if (data.segments.length > leg) {
+			if (data.segments.length > 1) {
+				// вычисляем разницу в днях между предыдущими датами
+				var days = data.segments[leg].departureDate.dateDiffInDays(data.segments[ leg === 0 ? 1 : 0 ].departureDate);
 				data.segments[leg].departureDate = date;
-				if(leg === 0){
-					this.shiftedDateDepartSelected(date.getTimestamp());
-				}
-				else{
-					this.shiftedDateReturnSelected(date.getTimestamp());
-				}
-			}
+				// сохраняем кол-во дней между прилетом и вылетом для нового маршрута
+				data.segments[ leg === 0 ? 1 : 0 ].departureDate = date.offsetDate(days);
 
-			if(this.shiftedDateDepartSelected() && this.shiftedDateReturnSelected()){canRedirect = true;}
+				canRedirect = true;
+			}
+			else {
+				data.segments[0].departureDate = date;
+			}
 
 			if(canRedirect){
 				// REDIRECTING

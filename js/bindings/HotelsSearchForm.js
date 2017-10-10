@@ -46,6 +46,39 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			}
 		});
 
+		ko.bindingHandlers.flightsFormSelect = {
+			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				if ($(element).chosen) {
+					var options = $.extend(
+						{
+							width: '100%',
+							display_selected_options: false,
+							display_disabled_options: false,
+							placeholder_text_multiple: '',
+							no_results_text: '',
+							max_selected_options: 5
+						},
+						valueAccessor()
+					);
+
+					$(element).chosen(options);
+
+					//preventing strange glitch with "no results" <li> and focus
+					var closeChosen = function () {
+						console.log(element);
+						$(element).trigger('chosen:close')
+					};
+
+					$(document).on('click', '.no-results', closeChosen);
+
+					ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+						$(document).off('click', '.no-results', closeChosen);
+					});
+				}
+			},
+			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {}
+		};
+
 		ko.bindingHandlers.hotelsFormGeoAC = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 				var $element = $(element);

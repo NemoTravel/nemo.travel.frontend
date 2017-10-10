@@ -44,7 +44,11 @@ define([
 			this.preinittedData = {
 				dateUnknown: true,
 				segments: [],
-				rooms: []
+				rooms: [],
+				loyaltyCard: {
+					cardNumber: null,
+					hotelsChain: null
+				}
 			};
 			// Set cookies is not an observable for when it changes it won't trigger cookie setting via
 			this.setCookies = false;
@@ -63,6 +67,8 @@ define([
 			}, this);
 			
 			this.processInitParams();
+			this.loyaltyCardNumber = ko.observable();
+			this.loyaltyCardChain = ko.observable();
 
 			this.segments.subscribe(function () {
 				this.recalcDateRestrictions();
@@ -150,7 +156,11 @@ define([
 				var res = {
 						segments: [],
 						rooms: [],
-						datesUnknown: this.datesUnknown()
+						datesUnknown: this.datesUnknown(),
+						loyaltyCard: {
+							hotelsChain: this.loyaltyCardChain(),
+							cardNumber: this.loyaltyCardNumber()
+						}
 					},
 					segments = this.segments(),
 					rooms = this.rooms();
@@ -491,6 +501,9 @@ define([
 			}
 
 			self.datesUnknown(self.preinittedData.datesUnknown);
+			self.loyaltyCardNumber(self.preinittedData.loyaltyCard.cardNumber);
+			self.loyaltyCardChain(self.preinittedData.loyaltyCard.hotelsChain);
+			$('.chosen-container').chosen('update');
 		}
 
 		HotelsSearchFormController.prototype.buildModels = function () {
