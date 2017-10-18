@@ -316,6 +316,7 @@ define(
 						segments: [],
 						passengers: {},
 						serviceClass: this.serviceClass(),
+						direct: this.directFlights(),
 						vicinityDates: this.vicinityDates()
 					},
 					segments = this.segments(),
@@ -1088,18 +1089,6 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.buildModels = function () {
-			if (!this.$$rawdata && this.$$componentParameters.additional) {
-				this.$$rawdata = {
-					flights: this.$$componentParameters.additional.formData.flights,
-					system: this.$$componentParameters.additional.formData.system,
-					guide: {
-						airports: null,
-						cities: null,
-						countries: null
-					}
-				}
-			}
-
 			// Checking for errors
 			if (this.$$rawdata.system && this.$$rawdata.system.error) {
 				this.$$error(this.$$rawdata.system.error.message);
@@ -1167,7 +1156,7 @@ define(
 
 		FlightsSearchFormController.prototype.buildInitialSegments = function () {
 			// Checking whether we can build a route (API has all needed guide entries)
-		/*	if (this.mode == 'preinitted') {
+			if (this.mode == 'preinitted') {
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
 					if (
 						typeof this.$$rawdata.guide.airports[this.preinittedData.segments[i][0]] == 'undefined' ||
@@ -1177,7 +1166,7 @@ define(
 						break;
 					}
 				}
-			}*/
+			}
 
 			// Processing segments
 			if (this.mode == 'preinitted') {
@@ -1284,6 +1273,7 @@ define(
 				}
 
 				// Processing other options
+				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
 				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
 				
 				if (this.$$rawdata.flights.search.request.parameters.useCookies === true) {
@@ -1480,10 +1470,6 @@ define(
 			this.segments()[index].items.departure.value( this.segments()[index].items.arrival.value() );
 			this.segments()[index].items.arrival.value( tmp );
 		};
-
-		// Don't need load additional data to plugin correct work
-		// It must be static in controller options
-		FlightsSearchFormController.prototype.loadInitialData = function () {};
 
 		FlightsSearchFormController.prototype.pageTitle = 'FlightsSearch';
 
