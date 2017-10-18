@@ -260,5 +260,9 @@
     "nemo__fareRules__passtype_CLD": "çocuk",
     "nemo__fareRules__passtype_CNN": "çocuk",
     "nemo__fareRules__passtype_SRC": "Yaşlı",
-    "nemo__fareRules__passtype_YTH": "genç"
+    "nemo__fareRules__passtype_YTH": "genç",
+    "PF__name_freeBaggage": "Ücretsiz bagaj",
+    "PF__value_freeBaggage_exist": "Bagajlı",
+    "PF__value_freeBaggage_no-exist": "Bagajsız",
+    "PF__value_freeBaggage_no-info": "Bilgi yok"
 }
