@@ -1,17 +1,18 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel', 'js/vm/Models/LocalStorage'],
-	function (ko, helpers, BaseModel, LocalStorage) {
+	['knockout', 'js/vm/helpers', 'js/vm/BaseStaticModel'],
+	function (ko, helpers, BaseModel) {
 		function FlightsSearchFormGeo (initialData, controller) {
 			// Processing initialData: a pair of guide data and an object telling us what to take
 			// Processing data
 			BaseModel.apply(this, [initialData.data, controller]);
+
 			// Processing guide
 			this.processGuide(initialData.guide);
 
 			this.IATA = this.IATA ? this.IATA : '';
-			this.city = this.getData('cities', this.cityId || this.IATA);
-			this.airport = this.getData('airports', this.IATA);
+			this.city = this.pool.cities[this.cityId] ? this.pool.cities[this.cityId] : null;
+			this.airport = this.pool.airports[this.IATA] ? this.pool.airports[this.IATA] : null;
 
 			// Fixing data inconsistencies
 			if (this.isCity && !this.city && this.IATA) {
@@ -30,7 +31,7 @@ define(
 				}
 			}
 			else if (!this.isCity && !this.city && this.airport) {
-				this.city = this.getData('cities', this.airport.cityId);
+				this.city = this.pool.cities[this.airport.cityId] ? this.pool.cities[this.airport.cityId] : null;
 			}
 
 			this.countryCode = '';
@@ -41,7 +42,7 @@ define(
 				this.countryCode = this.airport.countryCode;
 			}
 
-			this.country = this.getData('countries', this.countryCode);
+			this.country = this.pool.countries[this.countryCode] ? this.pool.countries[this.countryCode] : null;
 
 			this.name = '';
 			this.properName = '';
@@ -83,39 +84,18 @@ define(
 			airports: {}
 		};
 
-		FlightsSearchFormGeo.prototype.getData = function (type, id) {
-			if (!this.pool[type][id]) {
-				var fromLocalStorage =  LocalStorage.get(type+'_'+id+'_'+this.$$controller.options.i18nLanguage, null);
-
-				if (fromLocalStorage) {
-					this.pool[type][id] = fromLocalStorage;
-				}
-
-				return fromLocalStorage;
-			}
-
-			return this.pool[type][id];
-		};
-
 		FlightsSearchFormGeo.prototype.processGuide = function (guide) {
 			if (typeof guide == 'object') {
-				for (var type in guide) { // type => { airports, cities, countries, ... }
-					if (guide.hasOwnProperty(type) && this.pool.hasOwnProperty(type)) {
-						for (var id in guide[type]) {
-							if (guide[type].hasOwnProperty(id) && !this.pool[type][id]) {
-								this.pool[type][id] = this.$$controller.getModel('BaseStaticModel', guide[type][id]);
-								this.putToLocalStorage(id, type, guide[type][id]);
+				for (var i in guide) {
+					if (guide.hasOwnProperty(i) && this.pool.hasOwnProperty(i)) {
+						for (var j in guide[i]) {
+							if (guide[i].hasOwnProperty(j) && !this.pool[i][j]) {
+								this.pool[i][j] = this.$$controller.getModel('BaseStaticModel', guide[i][j]);
 							}
 						}
 					}
 				}
 			}
-		};
-
-		FlightsSearchFormGeo.prototype.putToLocalStorage = function (id, type, object) {
-			var code = object.IATA ? object.IATA : id;
-
-			LocalStorage.set(type+'_'+code+'_'+this.$$controller.options.i18nLanguage, object);
 		};
 
 		return FlightsSearchFormGeo;
