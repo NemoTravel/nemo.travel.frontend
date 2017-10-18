@@ -1088,7 +1088,7 @@ define(
 		};
 
 		FlightsSearchFormController.prototype.buildModels = function () {
-			if (!this.$$rawdata && this.$$componentParameters.additional) {
+			if (!this.$$rawdata && this.$$componentParameters.additional && this.$$componentParameters.additional.formData) {
 				this.$$rawdata = {
 					flights: this.$$componentParameters.additional.formData.flights,
 					system: this.$$componentParameters.additional.formData.system,
@@ -1481,9 +1481,14 @@ define(
 			this.segments()[index].items.arrival.value( tmp );
 		};
 
-		// Don't need load additional data to plugin correct work
-		// It must be static in controller options
-		FlightsSearchFormController.prototype.loadInitialData = function () {};
+		/**
+		 * Do not perform `formData` request, if we do have `formData` object passed into initialization config.
+		 */
+		FlightsSearchFormController.prototype.loadInitialData = function () {
+			if (!this.$$componentParameters.additional || !this.$$componentParameters.additional.formData) {
+				BaseControllerModel.prototype.loadInitialData.apply(this);
+			}
+		};
 
 		FlightsSearchFormController.prototype.pageTitle = 'FlightsSearch';
 
