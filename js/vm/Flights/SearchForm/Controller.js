@@ -316,7 +316,6 @@ define(
 						segments: [],
 						passengers: {},
 						serviceClass: this.serviceClass(),
-						direct: this.directFlights(),
 						vicinityDates: this.vicinityDates()
 					},
 					segments = this.segments(),
@@ -1168,7 +1167,7 @@ define(
 
 		FlightsSearchFormController.prototype.buildInitialSegments = function () {
 			// Checking whether we can build a route (API has all needed guide entries)
-			if (this.mode == 'preinitted') {
+		/*	if (this.mode == 'preinitted') {
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
 					if (
 						typeof this.$$rawdata.guide.airports[this.preinittedData.segments[i][0]] == 'undefined' ||
@@ -1178,7 +1177,7 @@ define(
 						break;
 					}
 				}
-			}
+			}*/
 
 			// Processing segments
 			if (this.mode == 'preinitted') {
@@ -1285,7 +1284,6 @@ define(
 				}
 
 				// Processing other options
-				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
 				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
 				
 				if (this.$$rawdata.flights.search.request.parameters.useCookies === true) {

@@ -431,6 +431,24 @@ define(
 						for (var i = 0; i < carrierData.fareGroups.length; i++) {
 							this.fares[carrierData.fareGroups[i].id] = this.$$controller.getModel('BaseStaticModel', carrierData.fareGroups[i]);
 
+							// сортируем опции. сначала бесплатные, потом платные и недоступные
+							this.fares[carrierData.fareGroups[i].id].options.sort(function (a, b) {
+								if (a.payment === true && b.payment === false) {
+									return 1;
+								}
+								if (a.payment === false && (b.payment === true || b.payment == null)) {
+									return -1;
+								}
+								if (a.payment == null && b.payment != null) {
+									return 1;
+								}
+								if (a.payment != null && b.payment == null) {
+									return -1;
+								}
+
+								return 0;
+							});
+
 							fareArray.push(this.fares[carrierData.fareGroups[i].id]);
 						}
 
