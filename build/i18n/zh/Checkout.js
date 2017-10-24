@@ -1,0 +1,20 @@
+define([],function () {return {
+    "exare_return_compelled_file_type_other": "其他",
+    "exare_return_compelled_file_type_flight_problems": "航班延误/撤回 /改期证明",
+    "exare_return_compelled_file_type_visa": "正式拒签",
+    "exare_return_compelled_file_type_death": "乘客亲属死亡证明",
+    "exare_return_compelled_file_type_medical": "乘客疾病医疗证书",
+    "nemoApp__globalError__uncaughtError__title": "错误发生，同时处理数据",
+    "nemoApp__globalError__uncaughtError__message": "请尝试更新此页以后。",
+    "nemoApp__globalError__uncaughtError__errorCode": "错误代码",
+    "checkout-titles-accessCode": "登机密码",
+    "checkout-titles-agree": "同意",
+    "checkout-titles-agreed": "同意",
+    "checkout-steps-three-title": "请您选支付方式",
+    "new-passinfo-buttons__continue": "继续",
+    "new-passInfo__status_complete_withHotelConfirmed": "支付成功，预订得到确认！",
+    "new-passInfo__status_paidNotComplete_hotels": "支付成功，预订还没得到确认",
+    "checkout-steps-two-title": "输入联系方式",
+    "checkout-titles-locator": "您订购号",
+    "checkout-steps-one-title": "输入旅客信息"
+}});

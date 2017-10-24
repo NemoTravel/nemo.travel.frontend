@@ -1,0 +1,5 @@
+define([],function () {return {
+    "select__title": "Əvvəlki axtarışlar",
+    "RT__leg_0": "Gediş",
+    "RT__leg_1": "Dönüş"
+}});

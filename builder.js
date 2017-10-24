@@ -2,33 +2,28 @@ const
 	fs = require('fs'),
 	requirejs = require('requirejs'),
 	config = require('./config'),
-	Promise = require('promise'),
 	dirForBuild = 'build/';
 
 module.exports = class NemoFrontEndMaker {
 	constructor () {
+		this.defaultLanguage = config.defaultLanguage ? config.defaultLanguage : config.languages[0];
+
 		this.build();
 	}
 
 	build() {
-		var promises = [],
-			self = this;
 
 		if (!fs.existsSync(dirForBuild)){
 			fs.mkdirSync(dirForBuild);
 		}
 
-		if (config.templates) {
-			promises.push(this.templates(config.templates));
-		}
+		this.templates(config.templates);
 
-		if (config.languages) {
-			promises.push(this.languages(config.languages));
-		}
+		this.languages([this.defaultLanguage]);
 
-		Promise.all(promises).then(function () {
-			self.optimizerStart();
-		});
+		this.languages(config.languages);
+
+		this.optimizerStart();
 	}
 
 	templates(paths) {
@@ -38,25 +33,13 @@ module.exports = class NemoFrontEndMaker {
 			fs.mkdirSync(dirForBuild + 'html/');
 		}
 
-		var promise = Promise.all(
-			paths.map(function (template) {
 
-				return new Promise(function (resolve) {
-					fs.readFile(alias[template] + '.html', 'utf-8', function (err, content) {
-						var newContent = 'define([],function () {return \'' + content.replace(/[']/gm, "\\'").replace(/(\n)|(\r\n)/gm, "") + '\';});';
+		paths.map(function (template) {
+			var content = fs.readFileSync(alias[template] + '.html', 'utf-8'),
+				newContent = 'define([],function () {return \'' + content.replace(/[']/gm, "\\'").replace(/(\n)|(\r\n)/gm, "") + '\';});';
 
-						fs.writeFile(dirForBuild + alias[template] + '.js', newContent, function (err) {
-							if (!err) {
-								resolve('template' + template + 'done');
-							}
-						});
-					});
-				});
-		})).then(
-			function (results) { console.log("Templates pack created") }
-		);
-
-		return promise;
+			fs.writeFileSync(dirForBuild + alias[template] + '.js', newContent);
+		});
 	}
 
 	languages(langs) {
@@ -64,31 +47,22 @@ module.exports = class NemoFrontEndMaker {
 			fs.mkdirSync(dirForBuild + 'i18n/');
 		}
 
-		return Promise.all(
-			langs.map(function (lang) {
-				if (!fs.existsSync(dirForBuild + 'i18n/' + lang)){
-					fs.mkdirSync(dirForBuild + 'i18n/' + lang);
-				}
+		langs.map(function (lang) {
+			if (!fs.existsSync(dirForBuild + 'i18n/' + lang)){
+				fs.mkdirSync(dirForBuild + 'i18n/' + lang);
+			}
 
-				return Promise.all(
-					fs.readdirSync('i18n/' + lang).map(function (file) {
-						return new Promise(function (resolve) {
-							fs.readFile('i18n/' + lang + '/' + file, function (err, content) {
-								fs.writeFileSync('build/i18n/' + lang + '/' + file.replace('json', 'js'), 'define([],function () {return ' + content + '});');
-								resolve('lang/' + file + 'done');
-							})
-						});
-					})
-				);
+			fs.readdirSync('i18n/' + lang).map(function (file) {
+				var content = fs.readFileSync('i18n/' + lang + '/' + file);
 
+				fs.writeFileSync('build/i18n/' + lang + '/' + file.replace('json', 'js'), 'define([],function () {return ' + content + '});');
 			})
-		).then(
-			function (result) { console.log("Language pack created") }
-		);
+		})
 	}
 
 	optimizerStart() {
-		var configAsString = JSON.stringify(config);
+		var configAsString = JSON.stringify(config),
+			self = this;
 
 		console.log('Requirejs optimizer starting...');
 
@@ -96,9 +70,41 @@ module.exports = class NemoFrontEndMaker {
 			var configAsJson = JSON.parse(configAsString.replace(/\[%-lang-%\]/gm, lang));
 
 			console.log('Starting ' + lang);
-			requirejs.optimize(configAsJson, function () {
-				console.log('Package for ' + lang + ' was successfully built');
-			});
+			if (!self.checkDependencies(lang)) {
+				requirejs.optimize(configAsJson, function () {
+					console.log('Package for ' + lang + ' was successfully built');
+				});
+			}
+			else {
+				console.error("Skipped " + lang);
+			}
 		});
 	}
+
+	checkDependencies(lang) {
+		var dependencies = config.paths,
+			errors = false;
+
+		for (var path in dependencies) {
+			if (dependencies.hasOwnProperty(path)) {
+				var file = dependencies[path].replace('[%-lang-%]', lang);
+
+				if (!fs.existsSync(file + '.js')) {
+					if (file.indexOf('/i18n/') >= 0) {
+						var contentFromDefault = fs.readFileSync(dependencies[path].replace('[%-lang-%]', this.defaultLanguage) + '.js', 'utf-8');
+
+						fs.writeFileSync(file + '.js', contentFromDefault);
+						console.warn(lang + " language dont exist `" + file + "` file. Copied from " + this.defaultLanguage);
+					}
+					else {
+						console.warn(lang + " language dont exist `" + file + "` file");
+						errors = true;
+					}
+				}
+			}
+		}
+
+		return errors;
+	}
 };
+

@@ -1,0 +1,21 @@
+define([],function () {return {
+    "default_show_variants": "Ergebnisse: Anzahl der Möglichkeiten, welche als Standard angezeigt werden",
+    "default_sort": "Ergebnisse: Standard-Sortierung",
+    "expirtationPopup_body_basic": "Sie sollten Ihre Buchung in %%TIMER%% fertigstellen",
+    "extended_passengers_select": "Suchformular:Aktivierung erweiterter Passagier-Wahl",
+    "incorrect_dates_block": "Suchformular: Blocken falscher Daten",
+    "show_best_offers": "Ergebnisse: bestbewerteten Block anzeigen",
+    "show_hotel_offer": "Ergebnisse: Hotel Block anzeigen",
+    "sortByCarrierRating": "Sortieren nach Bewertung der Fluggesellschaft",
+    "sortByDurationOnLeg": "Sortieren nach Flugzeit",
+    "sortByPrice": "Sortieren nach Preis",
+    "sortByRating": "Sortieren nach Bewertung",
+    "use_flight_compare_table": "Ergebnisse: Vergleichstabellen-Postfilter anzeigen",
+    "use_hint_overlay": "Ergebnisse: Überschneidungshinweise anzeigen",
+    "use_show_case": "Ergebnisse: Schaukasten anzeigen - Angebotsblock",
+    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": "",
+    "restr_title_restr_fast_search_combinations_admin_hint": "JSON-String als  [{\"label\": \"idealFamily\", \"set\": {\"ADT\":2, \"CLD\":1}}]",
+    "restr_title_restr_fast_search_combinations": "Suchformular: voreingestellte Passagierkombinationen zur schnellen Auswahl",
+    "show_fare_variations": "Ergebnisse: Anzeige Tarifvariationen Block",
+    "transfersMin": "Mindestanzahl der Transfers"
+}});
