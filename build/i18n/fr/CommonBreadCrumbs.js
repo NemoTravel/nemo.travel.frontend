@@ -1,0 +1,5 @@
+define([],function () {return {
+    "flights-step_checkout": "Acheter",
+    "flights-step_results": "Choisir",
+    "flights-step_search": "Chercher"
+}});

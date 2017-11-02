@@ -1,0 +1,8 @@
+define([],function () {return {
+    "FlightsSearch": "Поиск авиабилетов",
+    "FlightsResults": "Результаты поиска",
+    "FlightsScheduleSearch": "Поиск по расписанию",
+    "HotelsSearch": "Поиск отелей",
+    "HotelsResults": "Результаты поиска",
+    "HotelCard": "Оформление заказа"
+}});

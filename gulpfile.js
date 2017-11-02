@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-    cache = require('./gulp-cache');
+    cache = require('./gulp-cache'),
+	builder = require("./builder");
 
 gulp.task('default', ['cache']);
 
@@ -26,4 +27,9 @@ gulp.task('cache:empty', function () {
 
 gulp.task('watch', function () {
     gulp.watch(options.readFiles, ['cache']);
+});
+
+
+gulp.task('build', function () {
+	return new builder();
 });

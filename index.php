@@ -63,7 +63,7 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
-
+<script src="/dist/nemo-search-en.js"></script>
 <script>
 	var nemoSourceHost = '<?php echo $host; ?>';
 	require.config({
