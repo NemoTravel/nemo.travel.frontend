@@ -264,5 +264,17 @@
     "PF__name_freeBaggage": "Ücretsiz bagaj",
     "PF__value_freeBaggage_exist": "Bagajlı",
     "PF__value_freeBaggage_no-exist": "Bagajsız",
-    "PF__value_freeBaggage_no-info": "Bilgi yok"
+    "PF__value_freeBaggage_no-info": "Bilgi yok",
+    "flightsGroup__priceDetails__info__caption": "Fiyat Ayrıntıları",
+    "flightsGroup__priceDetails__info__title": "Fiyat Ayrıntıları",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Ücretler: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Toplam: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Yetişkin: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Çocuk: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Çocuk: ",
+    "flightsGroup__priceDetails__passengerType_INF": "2 yaşın altındaki çocuklar: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Bebek koltuğu: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Öğrenci: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Emekli: "
 }

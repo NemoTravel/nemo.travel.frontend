@@ -250,5 +250,17 @@
     "travelPolicies__checkZone": "Zona de vuelo no corresponde a política de viajes",
     "travelPolicies__checkMarketingVendor": "Portador no corresponde a política de viajes",
     "travelPolicies__checkDepartureAndArrival": "Aeropuerto de salida o de llegada no corresponde a política de viajes",
-    "travelPolicies__incorrect_dep_or_arr_airport": "Aeropuerto de salida o de llegada no corresponde a política de viajes"
+    "travelPolicies__incorrect_dep_or_arr_airport": "Aeropuerto de salida o de llegada no corresponde a política de viajes",
+    "flightsGroup__priceDetails__info__caption": "Detalles del precio",
+    "flightsGroup__priceDetails__info__title": "Detalles del precio",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Cuotas: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Total: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Adulto: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Child: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Child: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Bebé menor de 2: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Bebé con asiento: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Estudiante: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Retirado: "
 }

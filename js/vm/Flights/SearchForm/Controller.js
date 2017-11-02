@@ -19,6 +19,7 @@ define(
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
+			this.tripTypeDisplayFormat = 'select';
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -1089,13 +1090,15 @@ define(
 
 		FlightsSearchFormController.prototype.buildModels = function () {
 			if (!this.$$rawdata && this.$$componentParameters.additional && this.$$componentParameters.additional.formData) {
+				var guide = this.$$componentParameters.additional.formData.guide;
+
 				this.$$rawdata = {
 					flights: this.$$componentParameters.additional.formData.flights,
 					system: this.$$componentParameters.additional.formData.system,
 					guide: {
-						airports: null,
-						cities: null,
-						countries: null
+						airports: guide && guide.airports ? guide.airports : null,
+						cities: guide && guide.cities ? guide.cities : null,
+						countries: guide && guide.countries ? guide.countries : null
 					}
 				}
 			}
@@ -1143,6 +1146,8 @@ define(
 			// Processing fast and full passengers selection
 			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
 			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
+
+			this.tripTypeDisplayFormat = this.$$rawdata.flights.search.formData.passengersSelect.tripType;
 
 			this.passengersAltSelect = this.$$rawdata.flights.search.formData.passengersSelect.passengersSelectAlt;
 

@@ -327,5 +327,17 @@
     "carrierResults__pass_INF": "Infants without a seat:",
     "carrierResults__pass_INS": "Infants with a seat:",
     "carrierResults__pass_YTH": "Youth:",
-    "carrierResults__pass_SRC": "Seniors:"
+    "carrierResults__pass_SRC": "Seniors:",
+    "flightsGroup__priceDetails__info__caption": "Price Details",
+    "flightsGroup__priceDetails__info__title": "Price Details",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Dues: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Total: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Adult: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Child: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Child: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Infant up to 2 years: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Baby with seat: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Student: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Retired: "
 }

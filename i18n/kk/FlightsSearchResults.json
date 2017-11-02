@@ -174,5 +174,17 @@
     "nemo__fareRules__passtype_CNN": "бала",
     "nemo__fareRules__passtype_CLD": "бала",
     "nemo__fareRules__passtype_SRC": "зейнеткер",
-    "nemo__fareRules__passtype_YTH": "студент"
+    "nemo__fareRules__passtype_YTH": "студент",
+    "flightsGroup__priceDetails__info__caption": "Баға туралы мәліметтер",
+    "flightsGroup__priceDetails__info__title": "Баға туралы мәліметтер",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Берулер: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Барлығы: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Ересектер: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Бала: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Бала: ",
+    "flightsGroup__priceDetails__passengerType_INF": "2 жасқа дейінгі нәресте: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Орындықтағы нәресте: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Студент: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Зейнеткер: "
 }

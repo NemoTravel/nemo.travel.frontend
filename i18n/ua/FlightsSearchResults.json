@@ -217,5 +217,17 @@
     "nemo__fareRules__passtype_CLD": "дитина",
     "nemo__fareRules__passtype_SRC": "літній",
     "nemo__fareRules__passtype_YTH": "молодий",
-    "nemo__fareRules__passtype_undefined": "не визначено"
+    "nemo__fareRules__passtype_undefined": "не визначено",
+    "flightsGroup__priceDetails__info__caption": "Деталі ціни",
+    "flightsGroup__priceDetails__info__title": "Деталі ціни",
+    "flightsGroup__priceDetails__taxes__title": "Такси",
+    "flightsGroup__priceDetails__charges__caption": "Збори: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Разом: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Дорослий: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Дитячий: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Дитячий: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Немовля до 2 років: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Немовля з місцем: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Студентський: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Пенсіонери: "
 }

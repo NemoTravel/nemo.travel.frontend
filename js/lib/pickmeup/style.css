@@ -115,10 +115,14 @@
 	width: 13em
 }
 
-.pickmeup .pmu-instance:first-child:last-child .pmu-month {
+.pickmeup .pmu-instance:first-child:last-child .pmu-month_container {
 	width: 12em
 }
 
 .pickmeup:not(.pmu-view-days) .pmu-days, .pickmeup:not(.pmu-view-days) .pmu-day-of-week, .pickmeup:not(.pmu-view-months) .pmu-months, .pickmeup:not(.pmu-view-years) .pmu-years {
 	display: none
+}
+
+.pickmeup .pmu-instance .pmu-month_label {
+	border-bottom: 1px dashed;
 }

@@ -123,6 +123,24 @@ define(
 			if (typeof this.pricingDebug !== 'undefined' && this.pricingDebug.link.indexOf('//') < 0 && this.pricingDebug.link[0] !== '/') {
 				this.pricingDebug.link = '/' + this.pricingDebug.link;
 			}
+			
+			this.passengerFaresBase = [];
+			this.passengerFaresTaxes = [];
+			this.passengerFaresTotal = [];
+			this.passengerFaresTotalSum = [];
+			for (var i = 0; i < this.passengerFares.length; i++) {
+				this.passengerFaresBase.push(this.$$controller.getModel('Common/Money', this.passengerFares[i].baseFare));
+				this.passengerFaresTotal.push(this.$$controller.getModel('Common/Money', this.passengerFares[i].totalFare));
+				this.passengerFaresTotalSum.push(this.$$controller.getModel('Common/Money', 
+				{amount: this.passengerFares[i].totalFare.amount * this.passengerFares[i].count, currency: this.passengerFares[i].totalFare.currency}));
+				var taxesArr = [];
+				for (var j = 0; j < this.passengerFares[i].taxes.length; j++) {
+					for (var key in this.passengerFares[i].taxes[j]) {
+						taxesArr.push([key, this.$$controller.getModel('Common/Money', this.passengerFares[i].taxes[j][key])]);
+					}
+				}
+				this.passengerFaresTaxes.push(taxesArr);
+			}
 		}
 
 		// Extending from dictionaryModel
