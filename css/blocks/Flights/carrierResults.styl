@@ -119,7 +119,13 @@
 				}
 
 				&_disabled {
-					display: none;
+					//display: none;
+					background: none;
+					cursor: default;
+
+					&:hover {
+						background: none !important;
+					}
 
 					&:before {
 						background: none;
@@ -153,6 +159,7 @@
 				font-size: 12px;
 				text-align: left;
 				color: #6b6b6b;
+				min-height: 70px;
 
 				&_disabled {
 					background: #f0f0f0;

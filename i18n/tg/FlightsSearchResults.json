@@ -166,5 +166,17 @@
     "bookingCheck__priceChanged__oldPriceMessage": "Мутаассифона, мо чиптаи мазкурро бо нархи зерин брон карда натавонистем",
     "bookingCheck__priceChanged__newPriceMessage": "Шумо ин парвозро бо нархи нав брон карда метавонед:",
     "bookingCheck__priceChanged__button_return": "Ба натиҷаҳо",
-    "bookingCheck__priceChanged__button_continue": "Брон кардан"
+    "bookingCheck__priceChanged__button_continue": "Брон кардан",
+    "flightsGroup__priceDetails__info__caption": "Тафсилоти нархҳо",
+    "flightsGroup__priceDetails__info__title": "Тафсилоти нархҳо",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Ҳисоботҳо: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Ҳамагӣ: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Занҳо: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Кӯдак: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Кӯдак: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Аввалан то 2 сол: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Бе мубоҳиса: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Донишҷӯ: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Хориҷ: "
 }

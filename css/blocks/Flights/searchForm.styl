@@ -542,6 +542,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		&_CR &__item {
 			&_routeType, &_class {
 				width: 39.4%;
+
+				&_buttons {
+					width: auto;
+				}
 			}
 		}
 
@@ -555,6 +559,10 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 			&_routeType, &_class {
 				width: 80% * .379;
+
+				&_buttons {
+					width: auto;
+				}
 			}
 
 			&_direct, &_multiDate {
@@ -586,6 +594,19 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 
 					&:after {
 						right: 9px;
+					}
+
+					&__trip {
+						padding: 0px 10px;
+						display: inline-block;
+						max-width: 30vw !important;
+						min-width: 1px !important;
+						margin-right: 10px;
+
+						&_active, &_active:hover {
+							background: #88c43d;
+							color: #fff;
+						}
 					}
 
 					//.select2-selection__arrow {

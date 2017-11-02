@@ -184,13 +184,18 @@ adapt_flights_results_list_condensedSegmentInfo();
 }
 
 @media (max-width: 1440px) {
-	.nemo-flights-results__content__results__controls {
-		flex-wrap: wrap;
+	.nemo-flights-results {
+		&__content__results__controls {
+			flex-wrap: wrap;
 
-		&__item_displayType {
-			margin: 10px 0 0 0;
-			flex-basis: 100%;
-			text-align: right;
+			&__item_displayType {
+				margin: 10px 0 0 0;
+				flex-basis: 100%;
+				text-align: right;
+			}
+		}
+		&__flightsListGroup__buyButtonCnt &__flightsGroup__footer__disclaimer_priceForAll {
+			font-size: 13px;
 		}
 	}
 }
@@ -286,6 +291,10 @@ adapt_flights_results_list_condensedSegmentInfo();
 			&__postfilters_forced {
 				display: block;
 			}
+		}
+
+		&__flightsListGroup__footer__couplingButtonContainer {
+			display: none;
 		}
 	}
 

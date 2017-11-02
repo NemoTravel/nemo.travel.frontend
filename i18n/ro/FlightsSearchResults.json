@@ -255,5 +255,17 @@
     "PF__name_travelPolicies": "Politica de călătorie",
     "flightsGroup__footer__passengersDisclaimer_tickets_0": "bilete",
     "flightsGroup__footer__passengersDisclaimer_tickets_1": "bilet",
-    "flightsGroup__footer__passengersDisclaimer_tickets_2": "bilete"
+    "flightsGroup__footer__passengersDisclaimer_tickets_2": "bilete",
+    "flightsGroup__priceDetails__info__caption": "Detalii despre preț",
+    "flightsGroup__priceDetails__info__title": "Detalii despre preț",
+    "zboruriGroup__priceDetails__taxes__title": "Dachshunds",
+    "zboruriGroup__priceDetails__charges__caption": "Dues: ",
+    "zboruriGroup__priceDetails__totalPrice__caption": "Total: ",
+    "zboruriGroup__priceDetails__passengerType_ADT": "Adult: ",
+    "zboruriGroup__priceDetails__passengerType_CLD": "Copil: ",
+    "zboruriGroup__priceDetails__passengerType_CNN": "Copil: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Copil sub 2 ani: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Copil cu scaun: ",
+    "zboruriGroup__priceDetails__passengerType_YTH": "Student: ",
+    "zboruriGroup__priceDetails__passengerType_SRC": "Pensionar: "
 }

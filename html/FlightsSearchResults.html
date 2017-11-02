@@ -739,24 +739,41 @@
 
 		<div class="nemo-flights-results__flightsGroup__footer__disclaimers" data-bind="visible: disclaimerIsVisible">
 	<!-- ko if: resultsController.searchInfo().totalPassengers > 1 -->
-		<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_priceForAll" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 	<!-- /ko -->
-	
+
 	<!-- ko if: isRefundable() === false -->
-		<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_nonRefundable')"></div>
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_nonRefundable" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_nonRefundable')"></div>
 	<!-- /ko -->
-	
+
 	<!-- ko if: isRefundable() === true -->
-		<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_refundable" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
 	<!-- /ko -->
-	
+
 	<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
-		<div class="nemo-flights-results__flightsGroup__footer__disclaimer">
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_expectedNumberOfTickets">
 			<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
 		</div>
 	<!-- /ko -->
-</div>	</div>
-
+</div>		
+		<!-- ko if: $root.controller.viewModel.user.isB2B() -->
+		<div class="nemo-flights-results__flightsGroup__footer__priceDetails js-nemo-flights-results__priceDetails">
+			<span class="nemo-ui-pseudoLink" data-bind="
+				text: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__info__caption'),
+				popup: {
+					title: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__info__title'),
+					contentClass: 'nemo-flights-results__priceDetails',
+					dialogClass: 'nemo-flights-results__priceDetailsPopup',
+					parentClass: 'js-nemo-flights-results__priceDetails',
+					block: 'priceDetailsPopup'
+				}
+			"></span>
+			<div class="js-nemoApp__popupBlock" style="display: none;"
+				 data-bind="attr: {'data-block' : 'priceDetailsPopup'}, template: { name: 'nemo-koTemplate-Flights-FlightInfo__priceDetails', data: selectedFlight().price }"></div>
+		</div>
+		<!-- /ko -->
+	</div>
+	
 	<div class="nemo-flights-results__flightsGroup__managerInfoBlock">
 	<!-- ko if: getSubagentProfit() && getSubagentProfit().amount() > 0 -->
 		<div class="nemo-flights-results__flightsGroup__managerInfoBlock__item nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_profit">
@@ -959,18 +976,40 @@
 			<!-- /ko -->
 			<!-- /ko -->
 
-			<!-- ko if: isRefundable() === false -->
-				<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_nonRefundable')"></div>
-			<!-- /ko -->
-			
-			<!-- ko if: isRefundable() === true -->
-				<div class="nemo-flights-results__flightsGroup__footer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
-			<!-- /ko -->
+			<div class="nemo-flights-results__flightsGroup__footer__disclaimers" data-bind="visible: disclaimerIsVisible">
+	<!-- ko if: resultsController.searchInfo().totalPassengers > 1 -->
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_priceForAll" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
+	<!-- /ko -->
 
-			<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
-				<div class="nemo-flights-results__flightsGroup__footer__disclaimer">
-					<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
-				</div>
+	<!-- ko if: isRefundable() === false -->
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_nonRefundable" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_nonRefundable')"></div>
+	<!-- /ko -->
+
+	<!-- ko if: isRefundable() === true -->
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_refundable" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer_refundable')"></div>
+	<!-- /ko -->
+
+	<!-- ko if: $root.controller.viewModel.user.isB2B() && selectedFlight().expectedNumberOfTicketsText -->
+		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_expectedNumberOfTickets">
+			<span data-bind="text: selectedFlight().expectedNumberOfTicketsText"></span>
+		</div>
+	<!-- /ko -->
+</div>			
+			<!-- ko if: $root.controller.viewModel.user.isB2B() -->
+			<div class="nemo-flights-results__flightsListGroup__footer__priceDetails js-nemo-flights-results__priceDetails">
+				<span class="nemo-ui-pseudoLink" data-bind="
+					text: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__info__caption'),
+					popup: {
+						title: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__info__title'),
+						contentClass: 'nemo-flights-results__priceDetails',
+						dialogClass: 'nemo-flights-results__priceDetailsPopup',
+						parentClass: 'js-nemo-flights-results__priceDetails',
+						block: 'priceDetailsPopup'
+					}
+				"></span>
+				<div class="js-nemoApp__popupBlock" style="display: none;"
+					 data-bind="attr: {'data-block' : 'priceDetailsPopup'}, template: { name: 'nemo-koTemplate-Flights-FlightInfo__priceDetails', data: selectedFlight().price }"></div>
+			</div>
 			<!-- /ko -->
 
 			<div class="nemo-flights-results__flightsListGroup__footer__couplingButtonContainer" data-bind="if: couplingTable && couplingTable.isActive">
@@ -1538,7 +1577,46 @@
 		</div>
 	</div>
 </div></script>
-	<script id="nemo-koTemplate-Flights-FlightInfo__priceDetails" type="text/html"></script>
+	<script id="nemo-koTemplate-Flights-FlightInfo__priceDetails" type="text/html"><div class="nemo-flights-flightInfo__priceDetails">
+	<div class="nemo-flights-flightInfo__priceDetails__taxesTitle" data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__taxes__title')"></div>
+	<div class="nemo-flights-flightInfo__priceDetails__taxes" data-bind="foreach: $data.passengerFares">
+		<div class="nemo-flights-flightInfo__priceDetails__taxes__item">
+			<span class="nemo-flights-flightInfo__priceDetails__taxes__item__type"
+				  data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__priceDetails__passengerType_'+type)"></span>
+			<span class="nemo-flights-flightInfo__priceDetails__taxes__item__count"
+				  data-bind="text: count + ' × '"></span>
+			<!-- ko if: $parent.passengerFaresTotal[$index()] -->
+				<money format="0,0 $" data-bind="money: $parent.passengerFaresTotal[$index()]"></money>
+			<!-- /ko -->
+			<!-- ko if: $parent.passengerFaresBase[$index()] && $parent.passengerFaresTotalSum[$index()] -->
+			<span class="nemo-flights-flightInfo__priceDetails__taxes__item__details">
+				( <money class="nemo-flights-flightInfo__priceDetails__taxes__item__details__base"
+						 format="0,0 $" data-bind="money: $parent.passengerFaresBase[$index()]"></money> 
+				<!-- ko if: $parent.passengerFaresTaxes[$index()].length -->+<!-- /ko --> 
+				<!-- ko foreach: $parent.passengerFaresTaxes[$index()] -->
+					<!-- ko if: $index() !== 0 -->+<!-- /ko -->
+					<money class="nemo-flights-flightInfo__priceDetails__taxes__item__details__tax"
+						   format="0,0 $" data-bind="money: $data[1]"></money> (<!-- ko text: $data[0] --><!-- /ko -->)
+				<!-- /ko -->
+				) = <money class="nemo-flights-flightInfo__priceDetails__taxes__item__details__totalSum"
+						   format="0,0 $" data-bind="money: $parent.passengerFaresTotalSum[$index()]"></money>
+			</span>
+			<!-- /ko -->
+		</div>
+	</div>
+	<div class="nemo-flights-flightInfo__priceDetails__agencyCharges">
+		<span class="nemo-flights-flightInfo__priceDetails__agencyCharges__caption" 
+			  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__charges__caption')"></span>
+		<money class="nemo-flights-flightInfo__priceDetails__agencyCharges__money"
+			   format="0,0 $" data-bind="money: agencyCharge"></money>
+	</div>
+	<div class="nemo-flights-flightInfo__priceDetails__totalPrice">
+		<span class="nemo-flights-flightInfo__priceDetails__totalPrice__caption"
+			  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__priceDetails__totalPrice__caption')"></span>
+		<money class="nemo-flights-flightInfo__priceDetails__totalPrice__money"
+			   format="0,0 $" data-bind="money: totalPrice"></money>
+	</div>
+</div></script>
 
 		<script id="nemo-koTemplate-FlightsResults-CouplingTable" type="text/html"><div class="nemo-flights-results__couplingTable">
 	<img class="nemo-flights-results__couplingTable__carrierLogo" data-bind="attr: {src: $root.controller.options.staticInfoURL + flights[0].getFirstSegmentMarketingCompany().monochromeLogo.image}">

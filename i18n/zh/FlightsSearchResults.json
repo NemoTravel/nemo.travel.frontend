@@ -252,5 +252,17 @@
     "travelPolicies__checkTariffs": "的速度不相匹配的旅行政策",
     "travelPolicies__incorrect_dep_or_arr_airport": "机场的离境或到达时没有对应的旅行政策",
     "travelPolicies__checkZone": "区的航班不符合旅游政策",
-    "flightsGroup__selector__showMoreFlights": "下一页"
+    "flightsGroup__selector__showMoreFlights": "下一页",
+    "flightsGroup__priceDetails__info__caption": "價格詳情",
+    "flightsGroup__priceDetails__info__title": "價格詳情",
+    "flightsGroup__priceDetails__taxes__title": "臘腸犬",
+    "flightsGroup__priceDetails__charges__caption": "費：",
+    "flightsGroup__priceDetails__totalPrice__caption": "總計：",
+    "flightsGroup__priceDetails__passengerType_ADT": "成人：",
+    "flightsGroup__priceDetails__passengerType_CLD": "寶寶：",
+    "flightsGroup__priceDetails__passengerType_CNN": "寶寶：",
+    "flightsGroup__priceDetails__passengerType_INF": "嬰兒長達2年：",
+    "flightsGroup__priceDetails__passengerType_INS": "帶座位的寶貝：",
+    "flightsGroup__priceDetails__passengerType_YTH": "學生：",
+    "flightsGroup__priceDetails__passengerType_SRC": "退休："
 }

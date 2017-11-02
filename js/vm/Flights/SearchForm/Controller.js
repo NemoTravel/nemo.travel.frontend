@@ -19,6 +19,7 @@ define(
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
 			this.passengersFastSelectOptions = [];
+			this.tripTypeDisplayFormat = 'select';
 
 			this.options = {};
 			this.carriersLoaded = ko.observable(this.carriers !== null);
@@ -316,7 +317,6 @@ define(
 						segments: [],
 						passengers: {},
 						serviceClass: this.serviceClass(),
-						direct: this.directFlights(),
 						vicinityDates: this.vicinityDates()
 					},
 					segments = this.segments(),
@@ -1090,13 +1090,15 @@ define(
 
 		FlightsSearchFormController.prototype.buildModels = function () {
 			if (!this.$$rawdata && this.$$componentParameters.additional && this.$$componentParameters.additional.formData) {
+				var guide = this.$$componentParameters.additional.formData.guide;
+
 				this.$$rawdata = {
 					flights: this.$$componentParameters.additional.formData.flights,
 					system: this.$$componentParameters.additional.formData.system,
 					guide: {
-						airports: null,
-						cities: null,
-						countries: null
+						airports: guide && guide.airports ? guide.airports : null,
+						cities: guide && guide.cities ? guide.cities : null,
+						countries: guide && guide.countries ? guide.countries : null
 					}
 				}
 			}
@@ -1145,6 +1147,8 @@ define(
 			this.passengersUseExtendedSelect = this.$$rawdata.flights.search.formData.passengersSelect.extendedPassengersSelect;
 			this.passengersFastSelectOptions = this.$$rawdata.flights.search.formData.passengersSelect.fastPassengersSelect;
 
+			this.tripTypeDisplayFormat = this.$$rawdata.flights.search.formData.passengersSelect.tripType;
+
 			this.passengersAltSelect = this.$$rawdata.flights.search.formData.passengersSelect.passengersSelectAlt;
 
 			// Date options
@@ -1168,7 +1172,7 @@ define(
 
 		FlightsSearchFormController.prototype.buildInitialSegments = function () {
 			// Checking whether we can build a route (API has all needed guide entries)
-			if (this.mode == 'preinitted') {
+		/*	if (this.mode == 'preinitted') {
 				for (var i = 0; i < this.preinittedData.segments.length; i++) {
 					if (
 						typeof this.$$rawdata.guide.airports[this.preinittedData.segments[i][0]] == 'undefined' ||
@@ -1178,7 +1182,7 @@ define(
 						break;
 					}
 				}
-			}
+			}*/
 
 			// Processing segments
 			if (this.mode == 'preinitted') {
@@ -1285,7 +1289,6 @@ define(
 				}
 
 				// Processing other options
-				this.directFlights(this.$$rawdata.flights.search.request.parameters.direct);
 				this.vicinityDates(this.$$rawdata.flights.search.request.parameters.aroundDates != 0);
 				
 				if (this.$$rawdata.flights.search.request.parameters.useCookies === true) {
