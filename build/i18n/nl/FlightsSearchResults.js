@@ -251,5 +251,17 @@ define([],function () {return {
     "travelPolicies__allAvailable": "Aangepast",
     "travelPolicies__checkBookingClass": "Aangepast",
     "travelPolicies__incorrect_flight_zone": "Maa",
-    "travelPolicies__checkMarketingVendor": "maand"
+    "travelPolicies__checkMarketingVendor": "maand",
+    "flightsGroup__priceDetails__info__caption": "Prijsdetails",
+    "flightsGroup__priceDetails__info__title": "Prijsdetails",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Dues: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Totaal: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Volwassene: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Kind: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Kind: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Kind jonger dan 2 jaar: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Baby met stoel: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Student: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Gepensioneerd: "
 }});

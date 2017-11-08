@@ -30,7 +30,8 @@
 		"i18n/HotelsSearchResults":	"build/i18n/[%-lang-%]/HotelsSearchResults",
 		"i18n/CommonBreadCrumbs":	"build/i18n/[%-lang-%]/CommonBreadCrumbs",
 		"i18n/FlightsLastSearches":	"build/i18n/[%-lang-%]/FlightsLastSearches",
-		"i18n/FlightsSearchForm": 	"build/i18n/[%-lang-%]/FlightsSearchForm"
+		"i18n/FlightsSearchForm": 	"build/i18n/[%-lang-%]/FlightsSearchForm",
+		"html/FlightsSearchForm": 	"build/html/FlightsSearchForm"
 	},
 	"deps": [
 		"i18n/common",

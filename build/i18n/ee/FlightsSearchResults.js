@@ -188,5 +188,17 @@ define([],function () {return {
     "error_emptyResult_buttonText": "Pealehele",
     "error_requestFailed_header": "Otsing ebaõnnestus, pöörduge arendaja poole.",
     "error_systemError_header": "Otsing ebaõnnestus",
-    "flightsGroup__footer__passengersDisclaimer_refundable": "Tagastatav"
+    "flightsGroup__footer__passengersDisclaimer_refundable": "Tagastatav",
+    "flightsGroup__priceDetails__info__caption": "Hind detailid",
+    "flightsGroup__priceDetails__info__title": "Hind detailid",
+    "flightsGroup__priceDetails__taxes__title": "Tahhised",
+    "flightsGroup__priceDetails__charges__caption": "Tasud: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Kokku: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Täiskasvanu: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Laps: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Laps: ",
+    "flightsGroup__priceDetails__passengerType_INF": "imiku alla 2: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Baby with seat: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Üliõpilane: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Pensionile: "
 }});

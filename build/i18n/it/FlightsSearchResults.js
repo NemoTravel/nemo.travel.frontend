@@ -180,5 +180,17 @@ define([],function () {return {
     "nemo__fareRules__passtype_CLD": "bambino",
     "nemo__fareRules__passtype_CNN": "bambino",
     "nemo__fareRules__passtype_SRC": "anziano",
-    "nemo__fareRules__passtype_YTH": "giovane"
+    "nemo__fareRules__passtype_YTH": "giovane",
+    "flightsGroup__priceDetails__info__caption": "Dettagli sui prezzi",
+    "flightsGroup__priceDetails__info__title": "Dettagli sui prezzi",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Dimensioni: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Totale: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Adulto: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Bambino: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Bambino: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Bambino sotto i 2 anni di età: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Bambino con sede: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Studente: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Retired: "
 }});

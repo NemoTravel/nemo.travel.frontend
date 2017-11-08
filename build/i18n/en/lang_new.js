@@ -21,5 +21,9 @@ define([],function () {return {
     "showFareVariationsAlways": "Always",
     "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": "",
     "transfersMin": "Minimum number of transfers on the leg",
-    "show_full_flights": "Results: Display expanded list a flight"
+    "show_full_flights": "Results: Display expanded list a flight",
+    "trip_type_select_format": "How to display trip type switch",
+    "trip_type_select_format_select": "Dropdown list",
+    "trip_type_select_format_buttons": "Buttons",
+    "trip_type_select_format_none": "Disable to set complex trip"
 }});
