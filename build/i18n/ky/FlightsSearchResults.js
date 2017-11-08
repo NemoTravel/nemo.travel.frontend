@@ -175,5 +175,17 @@ define([],function () {return {
     "nemo__fareRules__passtype_CNN": "Бала",
     "nemo__fareRules__passtype_CLD": "Бала",
     "nemo__fareRules__passtype_SRC": "пенсионер",
-    "nemo__fareRules__passtype_YTH": "студент"
+    "nemo__fareRules__passtype_YTH": "студент",
+    "flightsGroup__priceDetails__info__caption": "баасы жөнүндө маалыматтар",
+    "flightsGroup__priceDetails__info__title": "баасы жөнүндө маалыматтар",
+    "flightsGroup__priceDetails__taxes__title": "такса",
+    "flightsGroup__priceDetails__charges__caption": "бириктирүү",
+    "flightsGroup__priceDetails__totalPrice__caption": "Бардыгы: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "бойго жеткен ",
+    "flightsGroup__priceDetails__passengerType_CLD": "бала: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "бала: ",
+    "flightsGroup__priceDetails__passengerType_INF": "2 жашка чейинки ымыркай: ",
+    "flightsGroup__priceDetails__passengerType_INS": "космос менен бала: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Студенттер: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Пенсионер "
 }});

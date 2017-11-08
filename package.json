@@ -7,6 +7,7 @@
     "requirejs": "^2.3.5"
   },
   "devDependencies": {
+    "express": "^4.16.2",
     "gulp": "^3.9.1",
     "gulp-file": "^0.3.0",
     "jsesc": "^2.5.1",

@@ -267,5 +267,17 @@ define([],function () {return {
     "PF__value_freeBaggage_no-info": "Einzelheiten in Tarifbeschreibung",
     "flightsGroup__footer__passengersDisclaimer_tickets_1": "Ticket",
     "flightsGroup__footer__passengersDisclaimer_tickets_0": "Tickets",
-    "flightsGroup__footer__passengersDisclaimer_tickets_2": "Tickets"
+    "flightsGroup__footer__passengersDisclaimer_tickets_2": "Tickets",
+    "flightsGroup__priceDetails__info__caption": "Preisdetails",
+    "flightsGroup__priceDetails__info__title": "Preisdetails",
+    "flightsGroup__priceDetails__taxes__title": "Dachshunds",
+    "flightsGroup__priceDetails__charges__caption": "Gebühren: ",
+    "flightsGroup__priceDetails__totalPrice__caption": "Gesamt: ",
+    "flightsGroup__priceDetails__passengerType_ADT": "Erwachsener: ",
+    "flightsGroup__priceDetails__passengerType_CLD": "Kind: ",
+    "flightsGroup__priceDetails__passengerType_CNN": "Kind: ",
+    "flightsGroup__priceDetails__passengerType_INF": "Kleinkind bis 2 Jahre: ",
+    "flightsGroup__priceDetails__passengerType_INS": "Baby mit Sitzplatz: ",
+    "flightsGroup__priceDetails__passengerType_YTH": "Student: ",
+    "flightsGroup__priceDetails__passengerType_SRC": "Ruhestand: "
 }});

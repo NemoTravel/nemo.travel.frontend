@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Nemo Widget Example</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/style.css?a=1123">
+	<!--[if IE 9]>
+	<link rel="stylesheet" href="/css/ie9.css?a=1123">
+	<![endif]-->
+	<link href="/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="js-nemoApp">
+	<!-- ko if: component() -->
+		<div>
+			<div data-bind="component: {
+					name: component,
+					params: {
+						route: componentRoute(),
+						additional: componentAdditionalParams()
+					}
+				}">
+				<div class="nemo-common-appLoader"></div>
+			</div>
+		</div>
+	<!-- /ko -->
+	
+	<!-- ko if: !component() && !globalError() -->
+		<div class="nemo-common-appLoader"></div>
+	<!-- /ko -->
+	
+	<!-- ko if: globalError() -->
+		<div class="nemo-common-appError" data-bind="text: globalError"></div>
+	<!-- /ko -->
+</div>
+
+<script src="/js/lib/requirejs/v.2.1.15/require.js"></script>
+<script src="/dist/nemo-search-en.js"></script>
+<script>
+	var nemoSourceHost = 'http://localhost:5555';
+	
+	require.config({
+		// This should be deleted
+		urlArgs: "",
+
+		// Common libraries
+		paths: {
+			async:         nemoSourceHost+'/js/lib/requirejs/async',
+			domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
+			text:          nemoSourceHost+'/js/lib/requirejs/text',
+			knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
+			AppController: nemoSourceHost+'/js/NemoFrontEndController',
+			jquery:        nemoSourceHost+'/js/lib/jquery/v.2.1.3/jquery-2.1.3.min',
+			jqueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.1.11.4/jquery-ui.min',
+			jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie',
+			tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
+			numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
+			mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min',
+			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min',
+			dotdotdot:     nemoSourceHost+'/js/lib/jquery.dotdotdot-master/jquery.dotdotdot'
+		},
+		baseUrl: nemoSourceHost,
+		enforceDefine: true,
+		waitSeconds: 300,
+		config: {
+			text: {
+				useXhr: function (url, protocol, hostname, port) {
+					return true;
+				}
+			}
+		}
+	});
+
+	require (
+		['AppController'],
+		function (AppController) {
+			var options = {
+				controllerSourceURL: nemoSourceHost,
+				dataURL: 'http://demo.nemo.travel/api',
+				staticInfoURL: '//demo.nemo.travel',
+				version: 'v0',
+				hostId: document.location.host,
+				root: '/',
+				verbose: false,
+				i18nLanguage: 'en',
+				postParameters: {},
+				CORSWithCredentials: true,
+				componentsAdditionalInfo: {
+					'Flights/SearchForm/Controller': {
+						forceSelfHostNavigation: true
+					},
+					'Hotels/SearchForm/Controller': {
+						forceSelfHostNavigation: true
+					}
+				}
+			};
+
+//			options.templateSourceURL = '/html/' + options.hostId + '/' + options.version + '/' + options.i18nLanguage + '/';
+			
+			new AppController(document.getElementsByClassName('js-nemoApp')[0], options);
+		}
+	);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
+</body>
+</html>
