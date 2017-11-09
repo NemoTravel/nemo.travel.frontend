@@ -97,11 +97,11 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
             CORSWithCredentials: true,
             componentsAdditionalInfo: {
                 'Flights/SearchForm/Controller': { 
-                	forceSelfHostNavigation: true // `true` - для отображения результатов поиска авиабилетов на том же домене; `false` - для редиректа на домен связанный с Nemo.
-				},
+                    forceSelfHostNavigation: true // `true` - для отображения результатов поиска авиабилетов на том же домене; `false` - для редиректа на домен связанный с Nemo.
+                },
                 'Hotels/SearchForm/Controller': {
-                	forceSelfHostNavigation: true // `true` - для отображения результатов поиска отелей на том же домене; `false` - для редиректа на домен связанный с Nemo.
-				}
+                    forceSelfHostNavigation: true // `true` - для отображения результатов поиска отелей на том же домене; `false` - для редиректа на домен связанный с Nemo.
+                }
             }
         });
     });
