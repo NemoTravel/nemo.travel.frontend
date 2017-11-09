@@ -17,7 +17,7 @@ define (
 					re: [
 						// Form with optional data from existing search
 						/^(?:search\/(\d+)(?:\/?.*)?)?$/,
-						
+
 						// Form with initialization by URL:
 						// /IEVPEW20150718PEWMOW20150710ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
 						// /IEVPEWd1PEWMOWd10ADT3INS1CLD2-direct-vicinityDates-class=Business-GO
@@ -47,7 +47,7 @@ define (
 					re: [
 						// Search by results id
 						/^results\/(\d+)(\/.*)?$/,
-						
+
 						// Search by URL params
 						// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
 						// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
@@ -55,12 +55,12 @@ define (
 					],
 					handler: options.carrierResultsMode ? 'Flights/CarrierResults/Controller' : 'Flights/SearchResults/Controller'
 				},
-				
+
 				// Hotels Search Form
 				{
 					re: [
 						/^hotels$/,
-						
+
 						//Search by URL params
 						// /123-20170801-20170803-ADT4INF2-ADT5INF4-ADT1
 						// 123 - hotel id (optional)
@@ -68,7 +68,7 @@ define (
 						// 20170803 - departure date (optional)
 						// -ADT4INF2 - 4 adults and 2 childs (optional) - (-ADT{X}INF{Y}) {X}, {Y} <= 9
 						/^hotels\/search\/(((\d)*(-)?)?(\d{8}(-)?)?(-\d{8})?(-ADT\d(CLD\d)?)*)$/
-					],	
+					],
 					handler: 'Hotels/SearchForm/Controller'
 				},
 				// Hotels Search Results
@@ -76,29 +76,29 @@ define (
 					re: [
 						// /hotels/results/:search_id?/:hotel_id?
 						/^hotels\/results\/?(\d+)?\/?(\d+|\w+)?$/,
-						
+
 						// Fallback
 						/^hotels\/results\/(\d+)\/(\d+|\w+)(\?.*)?$/
-					], 
-					handler: 'Hotels/SearchResults/Controller', 
+					],
+					handler: 'Hotels/SearchResults/Controller',
 					params: ['search_id', 'hotel_id']
 				},
 
 				// Fallback for the search form
 				{
-					re: /^(\/?)\?(.*)?$/, 
+					re: /^(\/?)\?(.*)?$/,
 					handler: 'Flights/SearchForm/Controller'
 				},
 
 				// Fallback for the hotels search form
 				{
-					re: /^hotels(\/?)\?(.*)?$/, 
+					re: /^hotels(\/?)\?(.*)?$/,
 					handler: 'Hotels/SearchForm/Controller'
 				},
 				// ??? what is that thing
 				{re: /^order\/(\d+)$/, handler: 'Flights/Checkout/Controller'}
 			];
-			
+
 			this.i18nStorage = {};
 
 			this.componentsAdditionalParameters = {};
@@ -190,11 +190,11 @@ define (
 
 					for (var i = 0; i < self.routes.length; i++) {
 						var patterns = self.routes[i].re;
-						
+
 						if (!(patterns instanceof Array)) {
 							patterns = [patterns];
 						}
-						
+
 						for (var j = 0, max = patterns.length; j < max; j++) {
 							var match = fragment.match(patterns[j]);
 
@@ -339,7 +339,7 @@ define (
 			if (segments.indexOf('HotelsSearchResults') === -1) {
 				segments.push('HotelsSearchResults');
 			}
-			
+
 			if (segments.indexOf('CommonBreadCrumbs') === -1) {
 				segments.push('CommonBreadCrumbs');
 			}
@@ -384,7 +384,7 @@ define (
 
 		NemoFrontEndController.prototype.navigate = function (url, processRoute, titlekey) {
 			var title = this.i18n('pageTitles', titlekey, null, true);
-			
+
 			this.router.navigate(url, title ? title : titlekey);
 
 			if (typeof processRoute == 'undefined' || processRoute) {
@@ -794,12 +794,12 @@ define (
 		 * @param initialData
 		 * @param constructor If model is not loaded yet, provide the constructor function to generate model
 		 * @throws {String} when model is not found in storage
-		 * 
+		 *
 		 * @returns {Object}
 		 */
 		NemoFrontEndController.prototype.getModel = function (name, initialData, constructor) {
 			var model;
-			
+
 			if (constructor) {
 				this.processLoadedModel(name, constructor);
 			}
@@ -980,7 +980,7 @@ define (
 						searchId,
 						matchResults;
 
-					// We generate inline error page overlay intentionally, 
+					// We generate inline error page overlay intentionally,
 					// to provide bulletproof reliability.
 					document.body.style.overflow = 'hidden';
 					overlay.style.zIndex = 99999;
@@ -1056,6 +1056,7 @@ define (
 			root: '/',
 			controllerSourceURL: '',
 			templateSourceURL: '',
+			hotelsTemplateSourceURL: '',
 			createOrderLinkPrefixHotels: null,
 			dataURL: '',
 			staticInfoURL: '',

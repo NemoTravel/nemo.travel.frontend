@@ -34,7 +34,7 @@ define(
 				return { controlsDescendantBindings: true };
 			}
 		};
-		
+
 		ko.virtualElements.allowedBindings['let'] = true;
 
 		ko.bindingHandlers.console = {
@@ -80,7 +80,7 @@ define(
 					}
 					catch (e) {/* do nothing */}
 				});
-				
+
 				$(document).on('cc:changeCurrency', function () {
 					ko.bindingHandlers.tooltip.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
 				});
@@ -93,7 +93,7 @@ define(
 				if(options.content){
 					options.content = options.content || '';
 					options.trigger = options.trigger || 'hover';
-					
+
 					if (options.header) {
 						if (options.content instanceof $ && options.content.length === 1) {
 							options.content = options.content.html();
@@ -101,7 +101,7 @@ define(
 
 						options.content = '<div class="tooltipster-header">' + options.header + '</div>' + options.content;
 					}
-					
+
 					options.theme = options.cssClass || '';
 					options.arrow = options.arrow || false;
 					options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
@@ -146,7 +146,7 @@ define(
 					else {
 						moneyObject = money;
 					}
-					
+
 					$moneyElement
 						.attr('currency', moneyObject.currency())
 						.attr('amount', moneyObject.amount())
@@ -175,18 +175,18 @@ define(
 				var $element = $(element),
 					param = ko.unwrap(valueAccessor()),
 					defaultCurrency = param && param in ko.bindingHandlers.currencyIcon._icons ? param : 'RUB';
-				
+
 				$element.removeClass();
 				$element.addClass('fa ' + ko.bindingHandlers.currencyIcon._icons[defaultCurrency]);
-				
+
 				// Subscribe on currency changing event.
 				$(document).on('cc:changeCurrency', function (e, data) {
 					var currency = defaultCurrency;
-					
+
 					if (data && data.currency && data.currency in ko.bindingHandlers.currencyIcon._icons) {
 						currency = data.currency;
 					}
-					
+
 					$element.removeClass();
 					$element.addClass('fa ' + ko.bindingHandlers.currencyIcon._icons[currency]);
 				});
@@ -295,7 +295,7 @@ define(
 						}
 
 						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
-						
+
 						if (params.onlyFirstBlock === true && $target.length > 1) {
 							$target = $target.first();
 						}
@@ -533,7 +533,7 @@ define(
 					options = $.extend({}, {
 						reposition: true,
 						adjustWidth: true,
-						
+
 						// т.к. в этом биндинге не реализован метод update, а нам как-то нужно отслеживать
 						// изменения извне, приходится извращаться.
 						isDisabled: ko.observable(false)
@@ -571,7 +571,7 @@ define(
 					if (ko.unwrap(options.isDisabled)) {
 						return false;
 					}
-					
+
 					var $dropdown  = $root.find('.js-common-pseudoSelect__dropdown'),
 						vpHeight   = $(window).height(),
 						vpOffset   = $(document).scrollTop(), // positive
@@ -684,11 +684,11 @@ define(
 		};
 
 		ko.bindingHandlers.tableSorter = {
-			
+
 			/**
 			 * Init tablesort plugin on table.
 			 * setTimeout 200ms is a small hack to let knockout to complete table render.
-			 * 
+			 *
 			 * @param element
 			 * @param valueAccessor
 			 * @param allBindingsAccessor
@@ -700,8 +700,8 @@ define(
 					options = ko.utils.unwrapObservable(valueAccessor);
 
 				$element.ready(function () {
-					setTimeout(function () { 
-						$element.tablesorter(options); 
+					setTimeout(function () {
+						$element.tablesorter(options);
 					}, 200);
 				});
 			}
@@ -725,13 +725,13 @@ define(
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var cache = Cache.storage(),
 					templateId = $(element).prop('id'),
-					templateUrl = '/templates/wurst/f2.0/html/partials/' + templateId + '.html',
+					templateUrl = bindingContext.$root.controller.options.hotelsTemplateSourceURL + '/html/partials/' + templateId + '.html',
 					templateHash = md5(templateUrl);
 
 				if (cache.has(templateHash)) {
 					var html = cache.get(templateHash);
 					$(element).html(html);
-				} 
+				}
 				else {
 					$.get(templateUrl).then(function (res) {
 						$(element).html(res);
@@ -760,7 +760,7 @@ define(
 		ko.bindingHandlers.lightslider = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var photos = ko.unwrap(valueAccessor());
-				
+
 				if (photos instanceof Array && photos.length) {
 					var $inner = $('<ul></ul>');
 
@@ -773,7 +773,7 @@ define(
 							'</li>' +
 						'');
 					});
-					
+
 					$(element).append($inner);
 
 					$inner.lightSlider({
