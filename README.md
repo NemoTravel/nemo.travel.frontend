@@ -8,6 +8,8 @@ Nemo Search Widget &mdash; виджет, встраиваемый на сайт 
 
 ## Установка виджета
 
+Пример минимальной конфигурации виджета, без использования PHP: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example.html)
+
 Пример кода, который необходимо вставить на `PHP`-страницу для работы виджета:
 ```php
 <?php
@@ -94,13 +96,15 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
             i18nLanguage: 'en',
             CORSWithCredentials: true,
             componentsAdditionalInfo: {
-                'Flights/SearchForm/Controller': { forceSelfHostNavigation: true },
-                'Hotels/SearchForm/Controller': { forceSelfHostNavigation: true }
+                'Flights/SearchForm/Controller': { 
+                	forceSelfHostNavigation: true // `true` - для отображения результатов поиска авиабилетов на том же домене; `false` - для редиректа на домен связанный с Nemo.
+				},
+                'Hotels/SearchForm/Controller': {
+                	forceSelfHostNavigation: true // `true` - для отображения результатов поиска отелей на том же домене; `false` - для редиректа на домен связанный с Nemo.
+				}
             }
         });
     });
 </script>
 
 ```
-
-Пример минимальной конфигурации виджета, без использования PHP: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example.html)
