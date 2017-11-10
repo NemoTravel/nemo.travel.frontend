@@ -9,4 +9,8 @@ server.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname, './example.html'));
 });
 
+server.get('/hotels', (req, res) => {
+	res.sendFile(path.resolve(__dirname, './example.html'));
+});
+
 server.listen(port);

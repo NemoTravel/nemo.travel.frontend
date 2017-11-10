@@ -38,6 +38,7 @@
 </div>
 
 <script src="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/requirejs/v.2.1.15/require.js"></script>
+<script src="http://demo.nemo.travel/templates/wurst/dist/nemo-search-en.js"></script>
 <script>
 	var nemoSourceHost = 'http://demo.nemo.travel/templates/wurst/f2.0';
 
@@ -77,7 +78,8 @@
 			CORSWithCredentials: true,
 			componentsAdditionalInfo: {
 				'Flights/SearchForm/Controller': {
-					forceSelfHostNavigation: true
+					forceSelfHostNavigation: true,
+					formData: { "guide": { "countries": { "RU": { "code": "RU", "name": "Russia", "nameEn": "Russia" } }, "cities": { "58194": { "IATA": "RTW", "name": "Saratov", "nameEn": "Saratov", "countryCode": "RU", "id": 58194 } }, "airports": { "RTW": { "IATA": "RTW", "cityId": 58194, "isAggregation": false, "airportRating": "29053", "properNameEn": null, "properName": null, "name": "Saratov", "nameEn": "Saratov", "countryCode": "RU" } } }, "flights": { "search": { "request": { "segments": [ { "departure": { "IATA": "RTW", "isCity": false, "cityId": 58194 }, "arrival": null } ], "passengers": [ { "type": "ADT", "count": 1 } ], "parameters": { "searchType": "OW", "direct": false, "aroundDates": 0, "serviceClass": "All", "flightNumbers": [], "airlines": [], "delayed": false, "priceRefundType": null } }, "formData": { "maxLimits": { "passengerCount": { "ADT": "6", "SRC": "6", "YTH": "6", "CLD": "4", "INF": "2", "INS": "2" }, "totalPassengers": "9", "flightSegments": "5" }, "dateOptions": { "minOffset": 2, "maxOffset": 365, "incorrectDatesBlock": true, "aroundDatesValues": [ 1, 2, 3 ] }, "showCitySwapBtn": true, "scheduleSearchEnable": false, "onFocusAutocomplete": false, "forceAggregationAirports": false, "searchWithoutAdults": false, "hideDirectOnlyCheckbox": false, "passengersSelect": { "extendedPassengersSelect": false, "passengersSelectAlt": true, "tripType": "select", "fastPassengersSelect": [ { "label": "singleAdult", "set": { "ADT": 1 } }, { "label": "twoAdults", "set": { "ADT": 2 } }, { "label": "twoAdultsWithChild", "set": { "ADT": 2, "CLD": 1 } } ] } } } }, "system": { "info": { "response": { "timestamp": 1510315025.1128, "responseTime": 0.018975973129272 }, "user": { "userID": 61107, "agencyID": 61105, "status": "guest", "isB2B": false, "settings": { "currentLanguage": "en", "currentCurrency": "RUB", "agencyCurrency": "RUB", "googleMapsApiKey": "AIzaSyB-8D4iRGP1qgLShbdbqIYm-3spSP-bA_w", "googleMapsClientId": "", "showFullFlightsResults": null } } } } }
 				},
 				'Hotels/SearchForm/Controller': {
 					forceSelfHostNavigation: true
