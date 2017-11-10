@@ -16,7 +16,7 @@ Nemo Search Widget &mdash; виджет, встраиваемый на сайт 
 О том, как ускорить загрузку виджета и как редактировать его содержимое, читайте ниже.
 
 ### Без использования PHP
-Пример минимальной конфигурации, без использования PHP: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example.html)
+Пример страницы с минимальной конфигурацией виджета, без использования PHP: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example.html)
 
 ### С использованием PHP
 **Важно**: 
@@ -121,6 +121,8 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
 ```
 
 ## Ускорение загрузки виджета
+Пример страницы с конфигурацией виджета после проведения действий описанных ниже: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example-optimized.html)
+
 ### Подключаем минифицированный пакет с файлами виджета
 Один из способов увеличения скорости загрузки виджета &mdash; подключение на страницу "пакета" (минифицированный JavaScript-файл), 
 в котором в сжатом виде содержатся модули, необходимые для работы виджета (по умолчанию, они загружаются через `RequireJS`, посредством AJAX-запросов).
