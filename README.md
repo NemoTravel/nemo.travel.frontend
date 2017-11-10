@@ -11,15 +11,19 @@ Nemo Search Widget &mdash; виджет, встраиваемый на сайт 
 Пример минимальной конфигурации виджета, без использования PHP: [example.html](https://github.com/NemoTravel/nemo.travel.frontend/blob/master/example.html)
 
 Пример кода, который необходимо вставить на `PHP`-страницу для работы виджета:
+**Важно**: в коде ниже, необходимо заменить `КОД_ЯЗЫКА` на двузначный код языка, который будет использован в качестве основного языка виджета, например, `ru`;
+`ДОМЕН_ПРИВЯЗАННЫЙ_К_НЕМО` необходимо заменить доменным именем c (`http(s)://` префиксом), к которому привязано ваше агентство в Nemo, например, `http://demo.nemo.travel`.
+Обращаем ваше внимание на то, что в виджете отсутствует встроенный переключатель языка.
+
 ```php
 <?php
-$language = 'ru'; // Код языка, используемый для локализации.
+$language = 'КОД_ЯЗЫКА';
 $requestUri = $_SERVER['REQUEST_URI'];
 $urlParamPos = strpos($requestUri, 'results');
 if (!$urlParamPos) { $urlParamPos = strpos($requestUri, 'search'); }
 $urlParamStr = $urlParamPos ? substr($requestUri, $urlParamPos) : '';
 $root = str_replace($urlParamStr, '', $requestUri);
-$nemoURL = 'http://NEMO_DOMAIN_EXAMPLE'; // Домен привязанный к системе Nemo.
+$nemoURL = 'ДОМЕН_ПРИВЯЗАННЫЙ_К_НЕМО';
 $bundleURL = $nemoURL . '/templates/wurst/dist/nemo-search-' . $language . '.js';
 $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
 ?>
@@ -54,9 +58,9 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
     <!-- /ko -->
 </div>
 <script src="<?php echo $widgetPartsURL; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
-<script src="<?php echo $bundleURL; ?>"></script>
 <script src="<?php echo $widgetPartsURL; ?>/js/lib/jquery/v.2.1.3/jquery-2.1.3.min.js"></script>
 <script src="<?php echo $widgetPartsURL; ?>/js/lib/fotorama/fotorama.min.js"></script>
+<script src="<?php echo $bundleURL; ?>"></script>
 <script>
     var nemoSourceHost = '<?php echo $widgetPartsURL; ?>';
 
