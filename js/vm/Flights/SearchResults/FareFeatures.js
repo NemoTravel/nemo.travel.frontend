@@ -7,6 +7,11 @@ define(
 			
 			var self = this;
 
+			/**
+			 * Fare features grouped by `routeNumber_segmentNumber` => `features`.
+			 *
+			 * @type {Object}
+			 */
 			this.bySegments = {};
 
 			this.getBaggageInfoForSegment = function (segmentId) {
@@ -143,8 +148,10 @@ define(
 						var tariff = passengerFare.tariffs[i];
 						
 						if (tariff.features instanceof Object && tariff.features.hasFeatures) {
-							self.bySegments[tariff.segId] = {
-								segmentId: tariff.segId,
+							var segmentId = tariff.routeNumber + '_' + tariff.segNum;
+
+							self.bySegments[segmentId] = {
+								segmentId: segmentId,
 								list: tariff.features,
 								name: tariff.familyName,
 								code: tariff.code,
@@ -161,7 +168,7 @@ define(
 						}
 					}
 				}
-				
+
 				return isOneFamily;
 			};
 

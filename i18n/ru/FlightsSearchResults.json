@@ -35,6 +35,7 @@
     "flightsGroup__leg__arrival__nextDay": "следующий день",
     "flightsGroup__leg__title": "Детали перелета",
     "flightsGroup__info__title": "Детали перелета",
+    "flightsGroup__info__nightDeparture": "<strong>Обратите внимание</strong><br>Этот рейс вылетает в ночь с [%-from-%] по [%-to-%] [%-month-%]",
     "flightsGroup__header__carrierMismatch__header": "Несколько перевозчиков",
     "flightsGroup__header__carrierMismatch__content": "Перелет выполняется компанией [%-marketingCarrier-%], а также [%-operatingCarriers-%]",
     "flightsGroup__header__carrierMismatch__carriersLastJoin": " и ",

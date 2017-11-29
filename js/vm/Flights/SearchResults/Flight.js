@@ -24,6 +24,10 @@ define(
 			this.carriersMismatch = false;
 			this.carriersMismatchData = {};
 
+			if (this.price && this.price.pricingDebug) {
+				this.pricingInfoLink = this.price.pricingDebug.link + '&flight_id=' + this.id;
+			}
+
 			this.warnings = [];
 
 			// Dividing segments by leg
@@ -34,7 +38,8 @@ define(
 				this.segments[i].shortInfo += this.segments[i].arrAirp.city.name;
 				this.segments[i].shortInfo += '&nbsp;';
 				this.segments[i].shortInfo += '(' + this.segments[i].depDateTime.getDate() + '&nbsp;' + this.segments[i].depDateTime.getMonthName() + ',&nbsp;' + this.segments[i].depDateTime.getDOWName() +')';
-				
+				this.segments[i].isNightDeparture = this.isNightSegmentDeparture(i);
+
 				if (this.segments[i].routeNumber != tmp) {
 					this.segmentsByLeg.push([]);
 					tmpClasses.push([]);
@@ -99,7 +104,7 @@ define(
 				this.totalTimeEnRoute += timeForLeg;
 				this.timeEnRouteByLeg.push(this.$$controller.getModel('Common/Duration', timeForLeg));
 				this.totalStopovers += stopoversForLeg;
-				
+
 				this.legs.push(this.$$controller.getModel('Flights/SearchResults/Leg', {
 					depAirp: this.segmentsByLeg[i][0].depAirp,
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,
@@ -114,7 +119,8 @@ define(
 					availSeats: this.price.availableSeats[i],
 					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
 					stopoversCount: stopoversForLeg,
-					isCharter: this.segmentsByLeg[i][0].isCharter
+					isCharter: this.segmentsByLeg[i][0].isCharter,
+					isNightDeparture: this.segmentsByLeg[i][0].isNightDeparture
 				}));
 			}
 
@@ -136,7 +142,7 @@ define(
 			 * @type {FlightsSearchResultsFareFeatures}
 			 */
 			this.fareFeatures = this.$$controller.getModel('Flights/SearchResults/FareFeatures', this.price.passengerFares);
-			
+
 			this.buildRatingItems();
 
 			this.expectedNumberOfTicketsText = '';
@@ -145,7 +151,7 @@ define(
 				var one = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_1'),
 					twoToFour = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_2'),
 					fourPlus = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__footer__passengersDisclaimer_tickets_0');
-				
+
 				this.expectedNumberOfTicketsText = this.expectedNumberOfTickets + ' ' + helpers.getNumeral(this.expectedNumberOfTickets, one, twoToFour, fourPlus);
 			}
 		}
@@ -157,6 +163,25 @@ define(
 
 		Flight.prototype.ratingItemsCount = 5;
 		Flight.prototype.ratingMaximumValue = 10;
+
+		Flight.prototype.isNightSegmentDeparture = function (segmentIndex) {
+			if (this.segments[segmentIndex].depDateTime) {
+				var depHours = this.segments[segmentIndex].depDateTime.getHours();
+
+				if (depHours >= 0 && depHours < 4) {
+					var fromDay = this.segments[segmentIndex].depDateTime.offsetDate(-1).getDate(),
+						toDay = this.segments[segmentIndex].depDateTime.getDate(),
+						monthName = this.$$controller.i18n('dates', 'month_'+parseInt(this.segments[segmentIndex].depDateTime.getMonth())+'_f');
+
+					return this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__info__nightDeparture')
+						.replace('[%-from-%]', fromDay)
+						.replace('[%-to-%]', toDay)
+						.replace('[%-month-%]', monthName);
+				}
+			}
+
+			return false;
+		};
 
 		Flight.prototype.buildRatingItems = function () {
 			var rating = (this.recommendRating / this.ratingMaximumValue) * this.ratingItemsCount,
@@ -179,7 +204,7 @@ define(
 		Flight.prototype.getAgentProfit = function () {
 			return this.price.agentProfit !== 'undefined' ? this.price.agentProfit : false;
 		};
-		
+
 		Flight.prototype.getPackageCurrency = function () {
 			if(this.$$controller.viewModel.user.isB2B()) {
 				return this.price.originalCurrency;
@@ -195,7 +220,7 @@ define(
 			 */
 			return this.price.validatingCompany || this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
-		
+
 		Flight.prototype.getFirstSegmentMarketingCompany = function () {
 			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
 		};
@@ -203,7 +228,7 @@ define(
 		Flight.prototype.getBaggageForFilter = function () {
 			var family = this.fareFeatures.getFirstFamily(),
 				baggage = {};
-	
+
 			if (family && family.hasOwnProperty('list') && family.list.hasOwnProperty('baggage')) {
 				family.list.baggage.map(function (item) {
 					// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,

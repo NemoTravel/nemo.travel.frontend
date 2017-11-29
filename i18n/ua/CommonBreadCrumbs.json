@@ -1,5 +1,10 @@
 {
     "flights-step_search": "Пошук авіаквитків",
     "flights-step_results": "Результати пошуку",
-    "flights-step_checkout": "Оформлення замовлення"
+    "flights-step_checkout": "Оформлення замовлення",
+    "hotels-step_search": "Пошук готелів",
+    "hotels-step_results": "Результати пошуку",
+    "hotels-step_checkout": "оформлення замовлення",
+    "hotels-step_chooseHotel": "Виберіть готель",
+    "recentSearches__toggle": "Попередні пошуки"
 }

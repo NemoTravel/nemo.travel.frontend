@@ -86,9 +86,47 @@ define(
 							// В baggage.value может лежать null, undefined, 0, '0' и кто знает что еще...
 							if (!baggage.value && baggage.value !== 0 && baggage.value !== '0') {
 								baggage.value = null;
+								if (baggage.passtype && baggage.passtype == 'INF') {
+									baggage.text = this.$$controller.i18n('FlightsFlightInfo','leg__segment__baggage__carryOn_only_INF');
+								}
+								else {
+									baggage.text = this.$$controller.i18n('FlightsFlightInfo','leg__segment__baggage__carryOn_only');
+								}
 							}
 							else {
 								baggage.value = parseInt(baggage.value);
+								baggage.text = baggage.value + ' ';
+								var suffix = '';
+								if (baggage.measurement && baggage.measurement == 'pc') {
+									switch (baggage.value.toString()) {
+										case '0':
+										case '5':
+										case '6':
+										case '7':
+										case '8':
+										case '9':
+										case '10':
+										case '11':
+										case '12':
+										case '13':
+										case '14':
+										case '15':
+											suffix = 'leg__segment__baggage__metric_bag_3';
+											break;
+										case '1':
+											suffix = 'leg__segment__baggage__metric_bag_1';
+											break;
+										case '2':
+										case '3':
+										case '4':
+											suffix = 'leg__segment__baggage__metric_bag_2';
+											break;
+									}
+								}
+								else {
+									suffix = baggage.measurement ? 'leg__segment__baggage__metric_' + baggage.measurement : '';	
+								}
+								baggage.text += this.$$controller.i18n('FlightsFlightInfo',suffix);
 							}
 							
 							baggageRules[leg][segmentId].push(baggage);

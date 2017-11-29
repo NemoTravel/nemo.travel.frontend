@@ -327,12 +327,25 @@ adapt_flights_form_compact() {
 			}
 
 			&__buttonSelect__item {
+				padding: 10px;
 				&__desc{
 					width: 65px;
 				}
 
 				&__count{
 					padding: 0 10px 0 10px;
+					display: flex;
+					align-items: center;
+					width: 39%;
+					&__minus,
+					&__plus{
+						width: 20px;
+						height: 20px;
+						&:after{
+							top: 4px;
+							left: 4px;
+						}
+					}
 				}
 			}
 		}

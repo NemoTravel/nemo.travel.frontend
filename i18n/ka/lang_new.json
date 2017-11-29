@@ -20,11 +20,11 @@
     "showFareVariationsNever": "showFareVariationsNever",
     "showFareVariationsB2B": "showFareVariationsB2B",
     "showFareVariationsAlways": "showFareVariationsAlways",
-    "default_sort": "Varsayılan arama sonuçlarını sınıflandırma",
-    "sortByPrice": "Fiyata göre sınıflandırma",
-    "sortByDurationOnLeg": "Uçuş saatine göre sınıflandırma",
-    "sortByRating": "Reytinge göre sınıflandırma",
-    "sortByCarrierRating": "Taşımacı reytingine göre sınıflandırma",
+    "default_sort": "default_sort",
+    "sortByPrice": "sortByPrice",
+    "sortByDurationOnLeg": "sortByDurationOnLeg",
+    "sortByRating": "sortByRating",
+    "sortByCarrierRating": "sortByCarrierRating",
     "sortByAgentProfit": "sortByAgentProfit",
     "restr_title_restr_fast_search_combinations": "restr_title_restr_fast_search_combinations",
     "restr_title_restr_fast_search_combinations_admin_hint": "restr_title_restr_fast_search_combinations_admin_hint",
@@ -43,5 +43,5 @@
     "transfersSum": "transfersSum",
     "transfersMin": "transfersMin",
     "transfersMax": "transfersMax",
-    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": ""
+    "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels.": "Taxes returned at the FareInfo level are for informational purposes only, and may differ from those returned at the Itinerary/Passenger Type levels."
 }

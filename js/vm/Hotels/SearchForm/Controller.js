@@ -65,7 +65,7 @@ define([
 			this.searchEnabled = ko.computed(function () {
 				return (!this.validaTERROR() || this.isValid()) && this.searchAllowedByParamChange();
 			}, this);
-			
+
 			this.processInitParams();
 			this.loyaltyCardNumber = ko.observable();
 			this.loyaltyCardChain = ko.observable();
@@ -105,7 +105,7 @@ define([
 				var guest = { adults: 0, infants: 0 },
 					rooms = this.rooms();
 
-				if (!rooms.length) {
+				if (!rooms || !rooms.length) {
 					return '';
 				}
 
@@ -267,14 +267,14 @@ define([
 		HotelsSearchFormController.prototype.getSearchParams = function () {
 			return LocalStorage.get('searchFormData');
 		};
-		
+
 		HotelsSearchFormController.prototype.processInitParams = function () {
 			// Preinitted by URL
 			if (this.$$componentParameters.route.length === 9) {
-				var route = this.$$componentParameters.route[0], 
-					pointer = 0, 
+				var route = this.$$componentParameters.route[0],
+					pointer = 0,
 					childrenCount = 0,
-					childrenArray = [], 
+					childrenArray = [],
 					hotelID = null,
 					arrivalDateTemp = null,
 					departureDateTemp = null,
@@ -284,7 +284,7 @@ define([
 
 				todayTimestamp.setHours(0, 0, 0, 0);
 				todayTimestamp = todayTimestamp.getTime();
-	
+
 				route = route.split('-');
 
 				if (!helpers.stringIsDate(route[pointer])) { // hotel id ?
@@ -503,7 +503,6 @@ define([
 			self.datesUnknown(self.preinittedData.datesUnknown);
 			self.loyaltyCardNumber(self.preinittedData.loyaltyCard.cardNumber);
 			self.loyaltyCardChain(self.preinittedData.loyaltyCard.hotelsChain);
-			$('.chosen-container').chosen('update');
 		}
 
 		HotelsSearchFormController.prototype.buildModels = function () {
@@ -517,7 +516,7 @@ define([
 
 				return;
 			}
-            
+
 			// Processing options
 			// Passengers maximums
 			this.options = this.$$rawdata.hotels.search.formData.maxLimits;
@@ -547,13 +546,13 @@ define([
 			this.options.dateOptions.maxDate.setDate(
 				this.options.dateOptions.maxDate.getDate() + this.options.dateOptions.maxOffset
 			);
-            
+
 			citySuggestions = this.$$rawdata.hotels.search.formData.citySuggestions;
-            
+
 			if (citySuggestions instanceof Array) {
 				this.citySuggestions(citySuggestions);
 			}
-			
+
 			// Processing segments
 			if (this.mode === HotelsBaseModel.MODE_PREINITTED) {
 				processPreinittedMode(this);
