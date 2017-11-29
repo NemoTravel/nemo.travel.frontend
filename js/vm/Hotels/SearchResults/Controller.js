@@ -296,7 +296,9 @@ define(
 
 		HotelsSearchResultsController.prototype.bookHotel = function (url, rooms) {
 			this.bookingCheckInProgress(true);
+			this.bookingCheckError(null);
 
+			var self = this;
 			var roomsInfo = rooms.map(function (room) {
 				return room.id;
 			});
@@ -309,7 +311,39 @@ define(
 				url = prefix + '?' + getParams;
 			}
 
-			document.location.href = url + '&room_ids=' + roomsInfo.join(',');
+			url += '&roomIds=' + roomsInfo.join(',') + '&fromApi=true';
+
+			function processError(error) {
+				error = error || '';
+
+				self.bookingCheckInProgress(false);
+				self.bookingCheckError(error);
+			}
+
+			this.$$controller.loadData(url, {},
+				function (data) {
+					try {
+						data = JSON.parse(data);
+					}
+					catch (e) {
+						processError(self.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_unavailable'));
+						return;
+					}
+
+					if (data.system.error && data.system.error.message) {
+						processError(data.system.error.message);
+					}
+					else if (data.hotels.search.createOrder.orderURL) {
+						document.location.href = data.hotels.search.createOrder.orderURL;
+					}
+					else {
+						processError(self.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_unavailable'));
+					}
+				},
+				function () {
+					processError(self.$$controller.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__error_unavailable'));
+				}
+			);
 		};
 
 		/**

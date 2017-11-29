@@ -174,8 +174,8 @@ define(
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					param = ko.unwrap(valueAccessor()),
-					defaultCurrency = param && param in ko.bindingHandlers.currencyIcon._icons ? param : 'RUB';
-
+					defaultCurrency = param && param in ko.bindingHandlers.currencyIcon._icons ? param : 'USD';
+				
 				$element.removeClass();
 				$element.addClass('fa ' + ko.bindingHandlers.currencyIcon._icons[defaultCurrency]);
 

@@ -116,7 +116,8 @@
 
 			<!-- ko if: !$root.controller.options.carrierResultsMode || tripTypeDisplayFormat != 'none' -->
 				<div  data-bind="attr: {'class':'nemo-flights-form__routeOptions nemo-flights-form__routeOptions_'+tripType()}">
-	<div class="nemo-flights-form__routeOptions__inner">
+	<div class="nemo-flights-form__routeOptions__inner"
+			data-bind="css: { 'nemo-flights-form__routeOptions__inner__withDropdown': tripTypeDisplayFormat === 'select' }">
 		<!-- ko if: tripTypeDisplayFormat != 'none' -->
 			<div class="nemo-flights-form__routeOptions__item nemo-flights-form__routeOptions__item_routeType"
 					data-bind="css: { 'nemo-flights-form__routeOptions__item_routeType_buttons' : tripTypeDisplayFormat === 'buttons' } ">

@@ -40,7 +40,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 		position: relative;
 
 		&__inner {
-			display: table;
+			//display: table;
 			padding-bottom: 0;
 			//width: 1280px;
 			max-width: 1680px;
@@ -518,10 +518,11 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 	}
 
 	&__routeOptions {
-		display: table-row;
+		//display: table-row;
 
 		&__inner {
-			display: table-cell;
+			//display: table-cell;
+			display: block;
 			padding: 10px 0;
 			/*position: relative;*/
 
@@ -536,6 +537,17 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 				bottom 0;
 
 				height: 50px;
+			}
+
+
+			&__withDropdown {
+				.nemo-flights-form__routeOptions__item_class {
+					width: 20%;
+
+					@media (max-width: 450px) {
+						width: 100%;
+					}
+				}
 			}
 		}
 
@@ -558,7 +570,7 @@ $i_flights_form_segment_toRT_hover = inset 0 0 16px rgba($nemo-color-LightPoint,
 			z-index: 1;
 
 			&_routeType, &_class {
-				width: 80% * .379;
+				width: auto;
 
 				&_buttons {
 					width: auto;

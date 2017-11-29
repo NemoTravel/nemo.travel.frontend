@@ -207,6 +207,7 @@
     "new-passInfo__status_ticketed": "билеты выписаны",
     "new-passInfo__status_cancelled": "аннулирован",
     "new-passInfo__status_partiallyPaid": "оплачен не полностью",
+    "new-passInfo__status_pendingConfirmation": "ожидает подтверждения",
     "new-passInfo__status_partiallyTicketed": "содержит выписанные билеты",
     "new-passInfo__status_ticketedWithoutTickets": "выписан, билеты находятся на оформлении",
     "new-passInfo__status_paidNotComplete": "оплачен, билеты еще не выписаны",

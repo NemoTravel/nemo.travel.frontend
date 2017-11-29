@@ -60,5 +60,10 @@
     "dow_4_s": "бей",
     "dow_5_s": "жум",
     "dow_6_s": "ише",
-    "dow_7_s": "жек"
+    "dow_7_s": "жек",
+    "datetime_year": "datetime_year",
+    "monthNamesShort": "monthNamesShort",
+    "monthNames": "monthNames",
+    "daysOfWeekShort": "daysOfWeekShort",
+    "daysOfWeek": "daysOfWeek"
 }

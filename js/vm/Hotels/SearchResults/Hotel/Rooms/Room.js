@@ -51,7 +51,7 @@ define(
 					adults = 0,
 					infants = 0;
 				
-				if (!rooms.length) {
+				if (!rooms || !rooms.length) {
 					return '';
 				}
 
