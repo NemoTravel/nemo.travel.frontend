@@ -65,11 +65,57 @@
 			}
 		}
 
+		&__carriersMismatch {
+			margin-left: 15px;
+			height: 20px;
+			width: auto;
+
+			&__notice {
+				display: inline-block;
+				overflow: visible;
+				cursor: help;
+				margin-right: -20px;
+				width: 25px;
+
+				&:after {
+					content: '!';
+					position: absolute;
+					display: block;
+					background: #ffd321;
+					color: #fff;
+					font-size: 22px;
+					text-align: center;
+					font-weight: bold;
+					width: 20px;
+					height: 20px;
+					border-radius: 20px;
+					line-height: 21px;
+					transition: all .2s;
+					right: 5px;
+					bottom: 5px;
+				}
+
+				&:hover:after {
+					background: #ffdc4d;
+				}
+			}
+
+			@media (max-width: 450px) {
+				height: auto;
+				max-width: 20% !important;
+			}
+		}
+
 		&__additional {
 			flex 0 0 auto;
 			margin-right: auto;
 			padding: 0 $d_ui_subContainer_padding;
 			min-width: 1px;
+
+			&_carriersMismatch {
+				flex-basis: 100%;
+				text-align: right;
+			}
 		}
 
 		&__logo, &__info {
@@ -92,6 +138,11 @@
 			max-width: 150px;
 			padding: 0;
 			margin-top: -4px;
+
+			&__mismatch {
+				max-height: 20px;
+				margin-left: 20px;
+			}
 		}
 
 		&__info {
@@ -359,6 +410,11 @@
 				&__transfers {
 					padding-right: 10px;
 					min-width: 1px;
+
+					&__operating {
+						line-height: normal;
+						margin-top: 6px;
+					}
 
 					&__places {
 						line-height: 18px;
@@ -739,6 +795,14 @@
 
 	&__flightInfo {
 		padding: 0;
+	}
+
+	&_joined &__header__additional_carriersMismatch, &_recommended &__header__additional_carriersMismatch {
+		flex-basis: auto;
+	}
+
+	&_carriersMismatch &__header__title_showcase {
+		color: rgba(100, 100, 100, 0.75);
 	}
 
 	&__buyButton {
