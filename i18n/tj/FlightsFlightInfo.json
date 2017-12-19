@@ -1,5 +1,6 @@
 {
     "leg__header": "Перелет предоставлен компанией<br>[%-carrier-%]",
+    "leg__header__carriersMismatch": "Перелет предоставлен компаниями<br>[%-carrier-%]",
     "serviceClass_Economy": "Эконом",
     "serviceClass_PremiumEconomy": "Эконом-премиум",
     "serviceClass_Business": "Бизнес",

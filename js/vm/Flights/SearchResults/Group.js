@@ -16,6 +16,7 @@ define(
 			this.isDirectGroup = false;
 
 			this.carriersMismatch = ko.observable(false);
+			this.carriersMismatchArray = ko.observable([]);
 			this.carriersMismatchNames = ko.observable([]);
 
 			this.filteredOut = ko.observable(false);
@@ -250,7 +251,8 @@ define(
 				filteredOut = true,
 				carriersMismatch = false,
 				carriersMismatchData = {},
-				carriersMismatchDataArray = [];
+				carriersMismatchDataArray = [],
+				carriersMismatchNameArray = [];
 
 			this.recalculateSelectedFlights = false;
 
@@ -281,11 +283,13 @@ define(
 
 			for (i in carriersMismatchData) {
 				if (carriersMismatchData.hasOwnProperty(i)) {
-					carriersMismatchDataArray.push(carriersMismatchData[i].name);
+					carriersMismatchDataArray.push({name: carriersMismatchData[i].name, logo: carriersMismatchData[i].logo});
+					carriersMismatchNameArray.push(carriersMismatchData[i].name);
 				}
 			}
 
-			this.carriersMismatchNames(carriersMismatchDataArray);
+			this.carriersMismatchNames(carriersMismatchNameArray);
+			this.carriersMismatchArray(carriersMismatchDataArray);
 
 			// Calculating options disabled status
 			for (i = 0; i < this.legGroupings.length; i++) {

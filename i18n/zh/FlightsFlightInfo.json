@@ -1,5 +1,6 @@
 {
     "leg__header": "的航班，由公司提供<>[%-carrier-%]",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "经济",
     "serviceClass_PremiumEconomy": "高级经济舱",
     "serviceClass_Business": "公务舱",

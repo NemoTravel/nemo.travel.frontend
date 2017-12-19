@@ -87,7 +87,8 @@ define(
 				loyaltyCard: {
 					number: localStorageFormData.loyaltyCard.cardNumber,
 					hotelsChain: localStorageFormData.loyaltyCard.hotelsChain
-				}
+				},
+				clientNationality: localStorageFormData.clientNationality
 			});
 
 			return requestData;

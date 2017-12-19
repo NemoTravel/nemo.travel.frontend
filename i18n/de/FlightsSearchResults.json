@@ -239,6 +239,8 @@
     "warning_204": "Leider gibt es keine Flüge, die Ihre Suchkriterien erfüllen. Wir können Ihnen einige weitere Flüge anbieten oder eine neue Suche starten.",
     "warning_204_button_continue": "Fortsetzen",
     "warning_204_button_return": "Zurück zur Suche",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "Suchauftrag fehlgeschlagen. Bitte wenden Sie sich an Ihren Helpdesk.",
     "error_requestFailed": "Etwas ist schief gelaufen und wir konnten Ihre Suche nicht bearbeiten. Bitte kontaktieren Sie Ihren lokalen Hilfeschalter.",
     "error_requestFailed_buttonText": "Suchauftrag fehlgeschlagen. Bitte wenden Sie sich an Ihren Helpdesk.",

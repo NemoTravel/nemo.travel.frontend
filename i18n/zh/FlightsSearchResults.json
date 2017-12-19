@@ -239,6 +239,8 @@
     "warning_204": "不幸的是，我们无法找到航班，您搜索，但是，我们发现其他几个人。 您可以选择什么我们找到或返回程的形式。",
     "warning_204_button_continue": "选择",
     "warning_204_button_return": "来搜索",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "搜索失败，请联系开发商 (失败的请求)",
     "error_requestFailed": "搜索失败，请联系开发商 (失败的请求)",
     "error_requestFailed_buttonText": "搜索失败，请联系开发商 (失败的请求)",

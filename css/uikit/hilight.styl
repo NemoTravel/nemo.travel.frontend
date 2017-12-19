@@ -10,6 +10,7 @@ $c_ui_hilight               = $nemo-color-text-main;
 $c_ui_hilight_info_bg       = $nemo-color-notification_neutral;
 $c_ui_hilight_error_bg      = $nemo-color-notification_error;
 $c_ui_hilight_greenLight_bg = $nemo-color-notification_good;
+$c_ui_hilight_warning_bg    = $c_highlight_warning;
 
 .nemo-ui-hilight {
 	display: block;
@@ -45,5 +46,10 @@ $c_ui_hilight_greenLight_bg = $nemo-color-notification_good;
 
 	&_greenLight {
 		background: $c_ui_hilight_greenLight_bg;
+	}
+
+	&_warn {
+		background: $c_ui_hilight_warning_bg;
+		color: #0a0a0f;
 	}
 }

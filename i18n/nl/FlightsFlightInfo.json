@@ -1,5 +1,6 @@
 {
     "leg__header": "Vrij",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Zoek een bericht",
     "serviceClass_Business": "Business",

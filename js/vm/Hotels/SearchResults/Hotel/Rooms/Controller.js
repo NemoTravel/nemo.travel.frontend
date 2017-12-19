@@ -35,7 +35,8 @@ define(
 			this.hotel.rooms.forEach(function (roomTariffs, roomIndex) {
 				newRooms[roomIndex] = this.$$controller.getModel('Hotels/SearchResults/Hotel/Rooms/Room', {
 					tariffs: roomTariffs ? roomTariffs : [],
-					resultsController: this.resultsController
+					resultsController: this.resultsController,
+					roomIndex: roomIndex
 				});
 			}, this);
 

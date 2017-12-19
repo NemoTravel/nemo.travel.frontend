@@ -158,7 +158,7 @@
 					<div class="nemo-ui-dropMenu__main js-common-pseudoSelect">
 						<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__loyalCard__adaptive_button" data-bind="
 										pseudoSelect: { adjustWidth: false },
-										text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_i_have_card')
+										text: $root.i18n('HotelsSearchForm', $$controller.options.clientNationalitySelect ? 'hotels__moreOptions' : 'hotels__loyaltyCard_i_have_card')
 									"></div>
 
 						<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown nemo-hotels-form__loyalCard__dropdown" data-bind="
@@ -185,6 +185,30 @@
 									   autocorrect="off"
 									   autocomplete="off">
 							</div>
+
+							<!-- ko if: $$controller.options.clientNationalitySelect -->
+								<div class="nemo-hotels-form__clientNationality">
+									<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__clientNationality')"></div>
+									<select class="js-flights-searchForm-hiddenSelect nemo-flights-form__additional__parameters__carrierSelect"
+											data-bind="
+																options: countriesArray,
+																optionsValue: function(item) {
+																	console.log(item);
+																	return item.code;
+																},
+																optionsText: function(item) {
+																	return item.name
+																},
+																value: clientNationality,
+																flightsFormSelect: {
+																	search_in_values: true,
+																	search_contains: true,
+																	no_results_text: $root.i18n('HotelsSearchForm', 'additionalParameters__country__searchNotFound')
+																},
+
+																"></select>
+								</div>
+							<!-- /ko -->
 
 							<button class="nemo-ui-button nemo-ui-button_main nemo-hotels-form__loyalCard__done js-common-pseudoSelect__close"
 									data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard__done')">
@@ -226,7 +250,7 @@
 						<div class="nemo-ui-dropMenu__main js-common-pseudoSelect">
 							<button class="nemo-ui-select__toggle js-common-pseudoSelect__toggle  nemo-ui-button nemo-ui-button_common" data-bind="
 										pseudoSelect: { adjustWidth: false },
-										text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_i_have_card')
+										text: $root.i18n('HotelsSearchForm', $$controller.options.clientNationalitySelect ? 'hotels__moreOptions' : 'hotels__loyaltyCard_i_have_card')
 									"></button>
 							<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown nemo-hotels-form__loyalCard__dropdown" data-bind="
 											click: function (d, e) {
@@ -252,6 +276,30 @@
 										   autocorrect="off"
 										   autocomplete="off">
 								</div>
+
+								<!-- ko if: $$controller.options.clientNationalitySelect -->
+									<div class="nemo-hotels-form__clientNationality">
+										<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__clientNationality')"></div>
+										<select class="js-flights-searchForm-hiddenSelect nemo-flights-form__additional__parameters__carrierSelect"
+												data-bind="
+															options: countriesArray,
+															optionsValue: function(item) {
+																console.log(item);
+																return item.code;
+															},
+															optionsText: function(item) {
+																return item.name
+															},
+															value: clientNationality,
+															flightsFormSelect: {
+																search_in_values: true,
+																search_contains: true,
+																no_results_text: $root.i18n('HotelsSearchForm', 'additionalParameters__country__searchNotFound')
+															},
+
+															"></select>
+									</div>
+								<!-- /ko -->
 
 								<button class="nemo-ui-button nemo-ui-button_main nemo-hotels-form__loyalCard__done js-common-pseudoSelect__close"
 										data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard__done')">

@@ -62,9 +62,8 @@
 	}
 
 	&__remove {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		display: block;
+		position: relative;
 
 		flex: 0 0 20px;
 		width: 20px;
@@ -75,9 +74,18 @@
 		color: rgb(224, 224, 224);
 		background-color: #a6a6a6;
 		transition: background-color 0.2s;
+
+		cursor: pointer;
 		user-select: none;
 		font-size: 12px;
 		border-radius: 50%;
+
+		i {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+		}
 
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.54);

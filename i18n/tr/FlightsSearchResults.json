@@ -239,6 +239,8 @@
     "warning_204": "Ne yazıkki, aradığınız uçuşu bulamadık,fakat bir kaç tane alternatif bulduk. Bulduklarımızın içinden bir tercih yapabilirsiniz veya arama formuna geri dönebilirsiniz.",
     "warning_204_button_continue": "Seç",
     "warning_204_button_return": "Arama motoruna",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "Arama başarısız,tedarikçi ile iletişime geçiniz.(istek başarısız)",
     "error_requestFailed": "Bir yanlışlık oldu ve biz aramanızı işleme koyamadık. Acenteniz ile irtibata geçiniz.",
     "error_requestFailed_buttonText": "Arama başarısız,tedarikçi ile iletişime geçiniz.(istek başarısız)",

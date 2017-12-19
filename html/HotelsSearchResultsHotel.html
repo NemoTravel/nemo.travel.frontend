@@ -107,14 +107,14 @@
 							<span class="nemo-hotel__content__rooms__summary__info__paramName" data-bind="text: $root.i18n('HotelsSearchResults', 'checkIn')"></span>
 							<span data-bind="text: resultsController.searchForm.arrivalDate.getDOWName()"></span>,
 							<span data-bind="text: resultsController.searchForm.arrivalDate.getShortDate()"></span>
-							<span data-bind="text: $root.i18n('HotelsSearchResults', 'checkIn_from') + ' ' + hotel.staticDataInfo.checkInTime"></span>
+							<span data-bind="visible: hotel.staticDataInfo.checkInTime, text: $root.i18n('HotelsSearchResults', 'checkIn_from') + ' ' + hotel.staticDataInfo.checkInTime"></span>
 						</span>
 	
 						<span class="nemo-hotel__content__rooms__summary__info__to">
 							<span class="nemo-hotel__content__rooms__summary__info__paramName" data-bind="text: $root.i18n('HotelsSearchResults', 'checkOut')"></span>
 							<span data-bind="text: resultsController.searchForm.departureDate.getDOWName()"></span>,
 							<span data-bind="text: resultsController.searchForm.departureDate.getShortDate()"></span>
-							<span data-bind="text: $root.i18n('HotelsSearchResults', 'checkOut_until') + ' ' + hotel.staticDataInfo.checkOutTime"></span>
+							<span data-bind="visible: hotel.staticDataInfo.checkOutTime, text: $root.i18n('HotelsSearchResults', 'checkOut_until') + ' ' + hotel.staticDataInfo.checkOutTime"></span>
 						</span>
 	
 						<span class="nemo-hotel__content__rooms__summary__info__rooms" data-bind="text: resultsController.searchForm.guestsSummary"></span>

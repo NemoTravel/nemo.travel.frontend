@@ -239,6 +239,8 @@
     "warning_204": "warning_204",
     "warning_204_button_continue": "warning_204_button_continue",
     "warning_204_button_return": "warning_204_button_return",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "error_requestFailed_header",
     "error_requestFailed": "Qualcosa è andato storto e non possiamo elaborare la tua ricerca. Ti preghiamo di contattare il tuo helpdesk in loco.",
     "error_requestFailed_buttonText": "error_requestFailed_buttonText",

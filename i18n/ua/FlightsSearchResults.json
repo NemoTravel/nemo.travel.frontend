@@ -239,6 +239,8 @@
     "warning_204": "На жаль, ми не змогли знайти ті перельоти, які ви шукали, тим не менш, ми знайшли кілька інших. Ви можете вибрати із того, що ми знайшли або повернутися до форми.",
     "warning_204_button_continue": "Вибрати",
     "warning_204_button_return": "До пошуку",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "Пошук не вдався, зверніться до розробника. (Провалився запит)",
     "error_requestFailed": "Пошук не вдався, зверніться до розробника. (Провалився запит)",
     "error_requestFailed_buttonText": "Пошук не вдався, зверніться до розробника. (Провалився запит)",

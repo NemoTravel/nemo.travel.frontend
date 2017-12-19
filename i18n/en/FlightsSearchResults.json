@@ -239,6 +239,8 @@
     "warning_204": "Unfortunately, there are no flights meeting your search criterias. We can offer some other flights or you can start a new search.",
     "warning_204_button_continue": "Continue",
     "warning_204_button_return": "Back to search",
+    "warning_noDirectVicinity_header": "Direct flights not found",
+    "warning_noDirectVicinity": "Unfortunately, there are no direct flights meeting your search criterias. We can offer some other flights with transfers or you can start a new search.",
     "error_requestFailed_header": "Search request failed. Please, contact your helpdesk.",
     "error_requestFailed": "Something went wrong and we could not process your search. Please, contact your local helpdesk.",
     "error_requestFailed_buttonText": "Search request failed. Please, contact your helpdesk.",

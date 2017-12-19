@@ -1,5 +1,6 @@
 {
     "leg__header": "Uçuş, [%-taşımacı-%] Şirketi tarafından gerçekleştirilir",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Premium economy",
     "serviceClass_Business": "Business",

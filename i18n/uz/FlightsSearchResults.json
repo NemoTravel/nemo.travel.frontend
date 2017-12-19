@@ -239,6 +239,8 @@
     "warning_204": "Afsuski, siz qidirgan parvozlarni topa olmadik, shunga qaramay, biz bir nechta boshqa parvoz topdik. Biz topganlardan birini tanlashingiz yoki formaga qaytishingiz mumkin",
     "warning_204_button_continue": "Tanlash",
     "warning_204_button_return": "Qidiruvga o'tish",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "Qidiruv natija bermadi, ishlab chiquvchiga murojaat eting (so'rovnoma xatosi)",
     "error_requestFailed": "Qidiruv natija bermadi, ishlab chiquvchiga murojaat eting (so'rovnoma xatosi)",
     "error_requestFailed_buttonText": "Qidiruv natija bermadi, ishlab chiquvchiga murojaat eting (so'rovnoma xatosi)",
