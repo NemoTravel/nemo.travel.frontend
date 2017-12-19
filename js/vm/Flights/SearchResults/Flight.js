@@ -23,6 +23,8 @@ define(
 			this.isDirect = true;
 			this.carriersMismatch = false;
 			this.carriersMismatchData = {};
+			this.carriersMismatchArrayByLeg = [];
+			this.carriersMismatchDataByLeg = [];
 
 			if (this.price && this.price.pricingDebug) {
 				this.pricingInfoLink = this.price.pricingDebug.link + '&flight_id=' + this.id;
@@ -154,6 +156,44 @@ define(
 
 				this.expectedNumberOfTicketsText = this.expectedNumberOfTickets + ' ' + helpers.getNumeral(this.expectedNumberOfTickets, one, twoToFour, fourPlus);
 			}
+
+			for (var leg = 0; leg < this.segmentsByLeg.length; leg++) {
+				var firstCarrierIATA = this.getFirstSegmentMarketingCompanyInLeg(leg).IATA;
+				var airlines = {},
+					airArray = [],
+					labelForLeg = this.getFirstSegmentMarketingCompanyInLeg(leg).name,
+					airlineNames = [];
+
+				this.segmentsByLeg[leg].map(function (segment) {
+					if (firstCarrierIATA !== segment.operatingCompany.IATA) {
+						airlines[segment.operatingCompany.IATA] = segment.operatingCompany;
+					}
+
+					if (
+						segment.marketingCompany &&
+						segment.marketingCompany.IATA !== segment.operatingCompany.IATA &&
+						segment.marketingCompany.IATA !== firstCarrierIATA
+					) {
+						airlines[segment.marketingCompany.IATA] = segment.marketingCompany;
+					}
+				});
+
+				for (var IATA in airlines) {
+					if (airlines.hasOwnProperty(IATA)) {
+						airArray.push({name: airlines[IATA].name, logo: airlines[IATA].logo});
+						airlineNames.push(airlines[IATA].name);
+						labelForLeg += ', ' + airlines[IATA].name;
+					}
+				}
+
+				this.carriersMismatchArrayByLeg[leg] = airArray;
+				this.carriersMismatchDataByLeg[leg] = {
+					array: airArray,
+					airlineNames: airlineNames,
+					label: labelForLeg,
+					isCarriersMismatch: airArray.length
+				}
+			}
 		}
 
 		// Extending from dictionaryModel
@@ -223,6 +263,10 @@ define(
 
 		Flight.prototype.getFirstSegmentMarketingCompany = function () {
 			return this.segments[0].marketingCompany || this.segments[0].operatingCompany;
+		};
+
+		Flight.prototype.getFirstSegmentMarketingCompanyInLeg = function (leg) {
+			return this.segmentsByLeg[leg][0].marketingCompany || this.segmentsByLeg[leg][0].operatingCompany;
 		};
 
 		Flight.prototype.getBaggageForFilter = function () {

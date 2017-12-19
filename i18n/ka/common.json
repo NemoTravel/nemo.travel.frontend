@@ -1,0 +1,7 @@
+{
+    "popup_closeText": "დახურვა",
+    "nemoApp__globalError__noRoute": "უცნობი URL",
+    "nemoApp__globalError__uncaughtError__title": "მონაცემების დამუშავებისას მოხდა შეცდომა ",
+    "nemoApp__globalError__uncaughtError__message": "გთხოვთ, ამ გვერდის განახლება სცადეთ მოგვიანებით",
+    "nemoApp__globalError__uncaughtError__errorCode": "შეცდომის კოდი"
+}

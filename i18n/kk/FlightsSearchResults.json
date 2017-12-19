@@ -239,6 +239,8 @@
     "warning_204": "warning_204",
     "warning_204_button_continue": "warning_204_button_continue",
     "warning_204_button_return": "warning_204_button_return",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "error_requestFailed_header",
     "error_requestFailed": "Іздеу нәтижесіз, сайтты жасаушыға байланысыңыз (Сауал сәтсіздікке ұшырады)",
     "error_requestFailed_buttonText": "error_requestFailed_buttonText",

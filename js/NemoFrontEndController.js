@@ -1069,7 +1069,8 @@ define (
 			CORSWithCredentials: false,
 			cookiesPrefix: 'nemo-',
 			waitForDOMReady: true,
-			carrierResultsMode: false
+			carrierResultsMode: false,
+			clientNationalitySelect: false
 		};
 
 		/**

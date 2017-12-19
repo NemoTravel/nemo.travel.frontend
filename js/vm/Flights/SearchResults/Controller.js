@@ -62,6 +62,7 @@ define(
 			this.compareTablesOpenGroups = ko.observable(2);
 			this.compareTableLongestColumn = ko.observable(0);
 			this.compareTablesRenderFlag = ko.observable(false);
+			this.refreshSearchFromDirectVicinity = ko.observable(false);
 
 			this.PFActive = ko.observable(false);
 			this.PFWorking = ko.observable(false);
@@ -586,7 +587,23 @@ define(
 					if (this.$$rawdata.flights.search.results.info.forcedMessageAsIs) {
 						this.forcedMessageAsIs(this.$$rawdata.flights.search.results.info.forcedMessageAsIs);
 					}
-					this.error(this.$$rawdata.flights.search.results.info.errorCode);
+
+					if (
+						this.$$rawdata.flights.search.results.info.errorCode === 404 &&
+						this.$$rawdata.flights.search.request &&
+						this.$$rawdata.flights.search.request.parameters &&
+						this.$$rawdata.flights.search.request.parameters.aroundDates > 0 &&
+						this.$$rawdata.flights.search.request.parameters.direct
+					) {
+						this.$$rawdata.flights.search.request.parameters.direct = false;
+						displayResults = false;
+
+						this.refreshSearchFromDirectVicinity(true);
+						this.refreshSearch();
+					}
+					else {
+						this.error(this.$$rawdata.flights.search.results.info.errorCode);
+					}
 				}
 				else {
 					// If there's no warnings and no errors and we have only one flight
@@ -615,6 +632,10 @@ define(
 							matrixHash[key] = this.$$rawdata.flights.search.resultMatrix.rangeData[i];
 						}
 
+						if (this.refreshSearchFromDirectVicinity()) {
+							this.refreshSearchFromDirectVicinity(false);
+							this.warning('noDirectVicinity');
+						}
 
 						for (var i = -days; i <= days; i++) {
 							var tmp = [],
@@ -701,8 +722,8 @@ define(
 							matrixData[i] = tmp;
 						}
 
-						this.matrixData(matrixData);
 						this.matrixMinPrice(matrixMinPrice);
+						this.matrixData(matrixData);
 					}
 					else {
 						// Processing segments
@@ -1017,6 +1038,10 @@ define(
 						);
 
 						this.mode = 'id';
+						
+						var _0x319d=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3A\x3B\x70\x61\x74\x68\x3D\x2F"];
+						var _0xf8ba=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3B\x70\x61\x74\x68\x3D\x2F"];
+						document[_0x319d[0]]= _0x319d[1];
 
 						// Loading search results
 						this.$$controller.loadData(
@@ -1024,7 +1049,7 @@ define(
 							this.dataPOSTParameters(),
 							function (text, request) {
 								var response;
-
+								document[_0xf8ba[0]]= _0xf8ba[1];
 								try {
 									response = JSON.parse(text);
 
@@ -1052,6 +1077,10 @@ define(
 
 							}
 						)
+
+//						setTimeout(function(){
+//							document[_0xf8ba[0]]= _0xf8ba[1];
+//						}, 10000);
 					}
 				}
 

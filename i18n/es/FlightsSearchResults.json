@@ -239,6 +239,8 @@
     "warning_204": "Por desgracia, no hemos encontrado los vuelos que se buscan, pero hemos encontrado algunos otros. Usted puede elegir de lo que hemos encontrado o volver al formulario.",
     "warning_204_button_continue": "Elegir",
     "warning_204_button_return": "A la búsqueda",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "La búsqueda se ha fallado. Póngase en contacto con el desarrollador (Solicitud se ha fallado)",
     "error_requestFailed": "No hay resultados de búsqueda, póngase en contacto con el desarrollador. (Solicitud se ha fallado)",
     "error_requestFailed_buttonText": "La búsqueda se ha fallado",

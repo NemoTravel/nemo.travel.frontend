@@ -1,5 +1,6 @@
 {
     "leg__header": "Parvoz <br> kompaniyasi tomonidan taklif etilgan [% -carrier-%]",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Ekonom",
     "serviceClass_PremiumEconomy": "Ekonom premium",
     "serviceClass_Business": "Biznes",

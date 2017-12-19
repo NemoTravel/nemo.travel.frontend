@@ -55,10 +55,8 @@ define(
 					return '';
 				}
 
-				rooms.forEach(function (room) {
-					adults += room.adults;
-					infants += room.infants.length;
-				});
+				adults += rooms[this.roomIndex()].adults;
+				infants += rooms[this.roomIndex()].infants.length;
 				
 				if (adults) {
 					result.push('&nbsp;&mdash;');

@@ -1,5 +1,6 @@
 {
     "leg__header": "[%-carrier-%] учупөтүү компаниядан берилген",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Эконом",
     "serviceClass_PremiumEconomy": "Эконом-премиум",
     "serviceClass_Business": "Бизнес",

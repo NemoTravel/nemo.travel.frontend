@@ -78,11 +78,36 @@
 			align-items: center;
 			justify-content: center;
 			min-width: 1px;
+			position: relative;
 
 			&__logo {
 				height: auto;
 				max-height: 30px;
 				max-width: 95px;
+			}
+
+			&__operating {
+				position: relative;
+				bottom: 0;
+				padding: 10px;
+				text-align: center;
+				color: #666;
+				width: 100%;
+				font-size: 11px;
+
+				@media(max-width: 670px) {
+					position: relative;
+				}
+			}
+
+			&_operating {
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: row;
+
+				@media(max-width: 670px) {
+					flex-wrap: nowrap;
+				}
 			}
 		}
 
@@ -671,6 +696,21 @@
 
 					&__value {
 						color: #8e8e8e;
+					}
+				}
+
+				&__operatingCompany {
+					&__label {
+						width: 90px;
+						display: inline-block;
+					}
+
+					&__company {
+						color: #8e8e8e;
+
+						@media (max-width: 420px) {
+							display: block;
+						}
 					}
 				}
 

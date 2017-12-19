@@ -5,8 +5,18 @@
 	<div class="nemo-hotelRoom__tariff__features">
 		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__name" data-bind="text: tariffName"></span>
 		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__corporateFare" data-bind="visible: tariff.rate.discountId, text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates')"></span>
+
 		<!-- ko if: tariff.meal -->
-			<span class="nemo-hotelRoom__tariff__feature" data-bind="visible: !!tariff.meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + tariff.meal.code)"></span>
+			<span class="nemo-hotelRoom__tariff__feature" data-bind="visible: !!tariff.meal.code">
+				<span data-bind="
+					css: { 'nemo-ui-pseudoLink': !!tariff.meal.name },
+					text: $root.i18n('Hotels', 'hotels-room-meal__' + tariff.meal.code),
+					tooltip: {
+						cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
+						content: tariff.meal.name
+					}
+				"></span>
+			</span>
 		<!-- /ko -->
 
 		<!-- ko if: tariff.rate.paymentType -->
@@ -32,15 +42,10 @@
 		<!-- /ko -->
 
 		<!-- ko if: !tariff.rate.isNonRefundable && tariff.rate.cancellationRules && tariff.rate.cancellationRules.length && !tariff.rate.cancellationRules[0].isPast -->
-			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="foreach: tariff.rate.cancellationRules, attr: { id: cancellationTooltipId() }" style="display: none;">
+			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="attr: { id: cancellationTooltipId() }" style="display: none;">
 				<div class="tooltipster-header" data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__rules__title')"></div>
 				
-				<div>
-					<p>
-						<span data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__freeRefund__until')"></span>
-						<span data-bind="text: deadLine.getHumanFullDate()"></span>
-					</p>
-	
+				<div data-bind="foreach: tariff.rate.cancellationRules">
 					<p>
 						<span data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__freeRefund__noRefundAfter_1')"></span>
 						<span data-bind="text: deadLine.getHumanFullDate()"></span>
@@ -48,22 +53,37 @@
 						<money data-bind="money: money"></money>
 					</p>
 				</div>
+
+				<!-- ko foreach: additionalInfoArray() -->
+					<div class="tooltipster-header" data-bind="text: name"></div>
+					<div data-bind="html: value"></div>
+				<!-- /ko -->
 			</div>
-		
+
 			<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="tooltip: {
 				cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
 				content: $('#' + cancellationTooltipId()).clone().show(),
 				delay: 0
 			}">
 				<span data-bind="i18n: 'Hotels.hotels-room-cancel__freeRefund__until'"></span>
-				<nobr data-bind="text: tariff.rate.cancellationRules[0].deadLine.getShortDate()"></nobr>
+				<nobr data-bind="text: worstCancellationRule().deadLine.getShortDate()"></nobr>
 			</span>
 		<!-- /ko -->
 
 		<!-- ko if: tariff.rate.isNonRefundable || !tariff.rate.cancellationRules || !tariff.rate.cancellationRules.length || tariff.rate.cancellationRules[0].isPast -->
+			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="attr: { id: cancellationTooltipId() }" style="display: none;">
+				<div class="tooltipster-header" data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__rules__title')"></div>
+				<p data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable__tooltip'"></p>
+
+				<!-- ko foreach: additionalInfoArray() -->
+					<div class="tooltipster-header" data-bind="text: name"></div>
+					<div data-bind="html: value"></div>
+				<!-- /ko -->
+			</div>
+
 			<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable', tooltip: {
 				cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
-				content: $root.i18n('Hotels', 'hotels-room-cancel__isNonRefundable__tooltip'),
+				content: $('#' + cancellationTooltipId()).clone().show(),
 				delay: 0
 			}"></span>
 		<!-- /ko -->

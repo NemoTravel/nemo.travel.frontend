@@ -1009,7 +1009,11 @@ define(
 								// Empty results check (automatically passed if we have a delayed search)
 								if (
 									self.delayedSearch ||
-									!response.flights.search.results.info.errorCode
+									!response.flights.search.results.info.errorCode ||
+									(
+										params.parameters.aroundDates &&
+										params.parameters.direct
+									)
 								) {
 									self.goToResults(response.flights.search.request.id);
 								}
@@ -1490,7 +1494,15 @@ define(
 		 * Do not perform `formData` request, if we do have `formData` object passed into initialization config.
 		 */
 		FlightsSearchFormController.prototype.loadInitialData = function () {
-			if (!this.$$componentParameters.additional || !this.$$componentParameters.additional.formData) {
+			if (
+				!this.$$componentParameters.additional ||
+				!this.$$componentParameters.additional.formData ||
+				this.$$componentParameters.route.length === 3 ||
+				(
+					this.$$componentParameters.route.length === 1 &&
+					parseInt(this.$$componentParameters.route[0]) > 0
+				)
+			) {
 				BaseControllerModel.prototype.loadInitialData.apply(this);
 			}
 		};

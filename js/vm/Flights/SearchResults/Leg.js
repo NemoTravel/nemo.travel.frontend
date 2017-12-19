@@ -10,9 +10,42 @@ define(
 			this.transfersText = this.buildTransfersText();
 			this.transfersNumberText = this.buildTransfersNumberText();
 			this.transfersTimeText = this.timeTransfers.readableStringShort() + ', ';
+			this.operatingCompanyArray = [];
+			this.operatingCompanyInfo = this.buildOperatingCompanyInfo();
 		}
 
 		helpers.extendModel(Leg, [BaseModel]);
+
+		/**
+		 * Генерирует текст с названиями оперирующих (фактических) перевозчиков на плече,
+		 * если вдруг опрерирующий отличается от маркетингового.
+		 *
+		 * @returns {string}
+		 */
+		Leg.prototype.buildOperatingCompanyInfo = function () {
+			var operatingCompanies = [],
+				operatingCompaniesMap = {},
+				text = '';
+
+			this.segments.forEach(function (segment) {
+				if (
+					segment.marketingCompany &&
+					segment.operatingCompany &&
+					!operatingCompaniesMap.hasOwnProperty(segment.operatingCompany.IATA) &&
+					segment.marketingCompany.IATA !== segment.operatingCompany.IATA
+				) {
+					operatingCompanies.push(segment.operatingCompany.name);
+					operatingCompaniesMap[segment.operatingCompany.IATA] = true;
+				}
+			});
+
+			if (operatingCompanies.length) {
+				text = this.$$controller.i18n('FlightsFlightInfo', 'leg__segment__carrier__caption') + ': ' + operatingCompanies.join(', ');
+				this.operatingCompanyArray = operatingCompanies;
+			}
+
+			return text;
+		};
 
 		/**
 		 * Генерит текст с названиями городов пересадок "Саратов, Москва".

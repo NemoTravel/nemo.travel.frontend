@@ -239,6 +239,8 @@
     "warning_204": "Ne pare rau,nu au fost gasite zboruri care corespund cautarii dumneavoastra.Va putem oferi alte zboruri sau puteti incepe o noua cautare",
     "warning_204_button_continue": "Continua",
     "warning_204_button_return": "Inapoi la cautare",
+    "warning_noDirectVicinity_header": "warning_noDirectVicinity_header",
+    "warning_noDirectVicinity": "warning_noDirectVicinity",
     "error_requestFailed_header": "Cererea de cautare a esuat.Va rugam sa contactati helpdesk local",
     "error_requestFailed": "Exista o eroare si nu am putut procesa cautarea dumneavoastra.Va rugam sa contactati helpdesk local",
     "error_requestFailed_buttonText": "Cererea de cautare a esuat.Va rugam sa contactati helpdesk local",

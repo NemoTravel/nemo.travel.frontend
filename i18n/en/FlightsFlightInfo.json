@@ -1,5 +1,6 @@
 {
     "leg__header": "The flight is provided by [%-carrier-%] ",
+    "leg__header__carriersMismatch": "The flight is provided by [%-carrier-%] ",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Premium economy",
     "serviceClass_Business": "Business",

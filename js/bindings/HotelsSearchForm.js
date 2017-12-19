@@ -273,6 +273,8 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 
 				$element.pickmeup("destroy"); // удалить текущий календарь
 
+				var maxDate = new Date(bindingContext.$parent.options.dateOptions.maxDate.getTime());
+
 				// для случая, когда юзер выбрал дату заезда, но еще не выбрал дату выезда
 				var selectDepartureDateCalendar = false;
 				if (viewModel.form.segments()[0].items) {
@@ -280,6 +282,13 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						if (valueAccessor()() === null) {
 							// дата заезда есть, но текущий valueAccessor пустой, значит юзер выбирает дату выезда
 							selectDepartureDateCalendar = true;
+						}
+
+						if ($element.hasClass('js-autofocus-field_date_departure')) {
+							// устанавливаем максимально возможную дату выезда
+							var dateArrival = viewModel.form.segments()[0].items.arrivalDate.value().dateObject().getTime();
+							maxDate.setTime(dateArrival);
+							maxDate.setDate(maxDate.getDate() + bindingContext.$parent.options.dateOptions.maxStayDays);
 						}
 					}
 				}
@@ -290,7 +299,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						locale: PMULocale,
 						calendars: calendarsToShow,
 						min: bindingContext.$parent.options.dateOptions.minDate,
-						max: bindingContext.$parent.options.dateOptions.maxDate,
+						max: maxDate, // bindingContext.$parent.options.dateOptions.maxDate,
 						format: 'd.m.Y',
 						hideOnSelect: true,
 						monthHeaderFormat: bindingContext.$root.controller.options.i18nLanguage === "zh" ? 'Y B' : 'B, Y',

@@ -1,5 +1,6 @@
 {
     "leg__header": "Uçuş [%-carrier-%] tərəfindən təmin edilir",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Ekonom",
     "serviceClass_PremiumEconomy": "Premium-ekonom",
     "serviceClass_Business": "Biznes",

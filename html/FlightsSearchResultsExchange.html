@@ -1082,10 +1082,36 @@
 </div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__oneLeg" type="text/html"><div class="nemo-flights-flightInfo" data-bind="template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: $data}"></div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__cleanLeg" type="text/html"><div class="nemo-flights-flightInfo__leg" data-bind="with: flight">
-	
 	<div class="nemo-flights-flightInfo__leg__header">
-		<img class="nemo-flights-flightInfo__leg__header__carrierLogo" data-bind="attr: {src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image}">
-		<span class="nemo-flights-flightInfo__leg__header__text" data-bind="html: $root.i18n('FlightsFlightInfo','leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
+		<img class="nemo-flights-flightInfo__leg__header__carrierLogo"
+			 data-bind="
+			 	attr: {
+					src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image
+				},
+				css: {
+					'nemo-flights-flightInfo__leg__header__carrierLogo__mismatch': carriersMismatch
+				},
+				tooltip: {
+					content: segmentsByLeg[$parent.leg][0].marketingCompany.name
+			 	}">
+
+		<!-- ko if: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch -->
+			<!-- ko foreach: $parent.flight.carriersMismatchDataByLeg[$parent.leg].array -->
+				<img class="nemo-flights-flightInfo__leg__header__carrierLogo nemo-flights-flightInfo__leg__header__carrierLogo__mismatch"
+						data-bind="
+							attr: {
+								src: $root.controller.options.staticInfoURL + $data.logo.image
+							},
+							tooltip: {
+								content: $data.name
+					 		}"/>
+			<!-- /ko -->
+		<!-- /ko -->
+		<span class="nemo-flights-flightInfo__leg__header__text"
+			  data-bind="
+			  		html: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch ?
+			  			$root.i18n('FlightsFlightInfo','leg__header__carriersMismatch').replace('[%-carrier-%]', $parent.flight.carriersMismatchDataByLeg[$parent.leg].label) :
+			  				$root.i18n('FlightsFlightInfo','leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
 	</div>
 
 	<div class="nemo-flights-flightInfo__leg__route"><span class="nemo-flights-flightInfo__leg__route__departue" data-bind="text: legs[$parent.leg].depAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__arrival" data-bind="text: legs[$parent.leg].arrAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__date" data-bind="text: legs[$parent.leg].depDateTime.getDate() + ' ' + legs[$parent.leg].depDateTime.getMonthName()"></span></div>

@@ -451,6 +451,7 @@
     "new-passinfo-buttons__pay": "Proceed to the payment",
     "new-passinfo-buttons__payAfterBooking": "Buy",
     "new-passinfo-buttons__getTickets": "My tickets",
+    "new-passinfo-buttons__getVoucher": "new-passinfo-buttons__getVoucher",
     "new-passinfo-buttons__cancel": "Cancel",
     "new-passinfo-pageExitConfirmation": "Are you sure to leave this page now?",
     "new-passinfo-flashError__general": "Fill the entire form correctly please",
@@ -695,6 +696,12 @@
         "infant",
         "infants",
         "infants"
+    ],
+    "checkout-customers__CLD_age": [
+        "up to 1 year",
+        "year",
+        "years",
+        "years"
     ],
     "checkout-titles-locator": "Booking ID in the system",
     "checkout-titles-accessCode": "Access code",

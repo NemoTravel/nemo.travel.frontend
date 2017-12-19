@@ -69,6 +69,7 @@ define([
 			this.processInitParams();
 			this.loyaltyCardNumber = ko.observable();
 			this.loyaltyCardChain = ko.observable();
+			this.clientNationality = ko.observable('');
 
 			this.segments.subscribe(function () {
 				this.recalcDateRestrictions();
@@ -151,6 +152,19 @@ define([
 				return !isValid;
 			}, this);
 
+			this.countriesArray = ko.pureComputed(function() {
+				var countriesGuide = this.$$rawdata.guide.countries,
+					countriesArray = [];
+
+				for (var country in countriesGuide) {
+					if (countriesGuide.hasOwnProperty(country)) {
+						countriesArray.push(countriesGuide[country]);
+					}
+				}
+
+				return countriesArray;
+			}, this);
+
 			this.cookieData = ko.computed(function () {
 
 				var res = {
@@ -160,7 +174,8 @@ define([
 						loyaltyCard: {
 							hotelsChain: this.loyaltyCardChain(),
 							cardNumber: this.loyaltyCardNumber()
-						}
+						},
+						clientNationality: this.$$controller.options.clientNationalitySelect ? this.clientNationality() : ''
 					},
 					segments = this.segments(),
 					rooms = this.rooms();

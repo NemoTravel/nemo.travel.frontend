@@ -109,6 +109,45 @@ define(
 			this.cancellationTooltipId = ko.pureComputed(function () {
 				return 'cancellationTooltip_' + this.roomIndex + '_' + this.tariff.id;
 			}, this);
+
+			this.worstCancellationRule = ko.pureComputed(function () {
+				var rules = this.tariff.rate.cancellationRules,
+					worstRule = null;
+
+				if (rules instanceof Array) {
+					worstRule = rules.reduce(function (result, rule) {
+						return rule.deadLine.getTimestamp() < result.deadLine.getTimestamp() ? rule : result;
+					});
+				}
+
+				return worstRule;
+			}, this);
+
+			this.additionalInfoArray = ko.pureComputed(function () {
+				var info = this.tariff.rate.additionalInfo,
+					result = [];
+
+				if (info) {
+					for (var key in info) {
+						if (info.hasOwnProperty(key)) {
+							var value = info[key].value;
+
+							if (value instanceof Array) {
+								value = value.map(function (text) {
+									return '<p>' + text + '</p>';
+								}).join('');
+							}
+
+							result.push({
+								name: info[key].name,
+								value: value
+							});
+						}
+					}
+				}
+
+				return result;
+			}, this);
 		}
 
 		helpers.extendModel(HotelsSearchResultsHotelRoomsTariffController, [BaseControllerModel]);

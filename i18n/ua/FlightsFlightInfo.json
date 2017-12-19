@@ -1,5 +1,6 @@
 {
     "leg__header": "Переліт надано компанією <br> [%-carrier-%]",
+    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
     "serviceClass_Economy": "Економ",
     "serviceClass_PremiumEconomy": "Економ-преміум",
     "serviceClass_Business": "Бiзнес",

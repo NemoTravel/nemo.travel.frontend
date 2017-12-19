@@ -23,6 +23,11 @@ define([
     GoogleMapModel.prototype.maps = {};
 
     function makeMap(id, coords, scrollOnWheel, disableZoomAndStreetViewControl) {
+		if (!window.google) {
+			console.warn("Google Maps Library is not included to page. Check API key");
+			return;
+		}
+
         return new google.maps.Map(document.getElementById(id), {
             center: {lat: coords[0], lng: coords[1]},
             zoom: GoogleMapModel.DEFAULT_ZOOM,
@@ -50,6 +55,11 @@ define([
      * @param {String} options.iconColor
      */
     GoogleMapModel.prototype.makeMarker = function (map, options) {
+
+		if (!window.google) {
+			console.warn("Google Maps Library is not included to page. Check API key");
+			return;
+		}
 
         var addClickListener = typeof options.addClickListener === 'undefined' ? false : options.addClickListener,
             hotel = options.hotel,
@@ -186,6 +196,11 @@ define([
             hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [],
             inputSearchBox = document.createElement("input"),
             searchBox;
+
+        if (!window.google) {
+			console.warn("Google Maps Library is not included to page. Check API key");
+        	return;
+		}
 
         // Init map and show center
         this.maps['map'] = makeMap('map', [GoogleMapModel.DEFAULT_COORDINATE_LAT, GoogleMapModel.DEFAULT_COORDINATE_LNG], true, false);
