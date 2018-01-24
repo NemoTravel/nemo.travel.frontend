@@ -61,6 +61,7 @@ define([],function () {return {
     "dow_5_s": "Fri",
     "dow_6_s": "Sat",
     "dow_7_s": "Sun",
+    "datetime_year": "",
     "monthNamesShort": {
         "1": "Jan",
         "2": "Feb",

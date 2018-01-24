@@ -207,6 +207,7 @@ define([],function () {return {
     "new-passInfo__status_ticketed": "билеты выписаны",
     "new-passInfo__status_cancelled": "аннулирован",
     "new-passInfo__status_partiallyPaid": "оплачен не полностью",
+    "new-passInfo__status_pendingConfirmation": "ожидает подтверждения",
     "new-passInfo__status_partiallyTicketed": "содержит выписанные билеты",
     "new-passInfo__status_ticketedWithoutTickets": "выписан, билеты находятся на оформлении",
     "new-passInfo__status_paidNotComplete": "оплачен, билеты еще не выписаны",
@@ -450,6 +451,7 @@ define([],function () {return {
     "new-passinfo-buttons__pay": "Перейти к оплате",
     "new-passinfo-buttons__payAfterBooking": "Забронировать и оплатить позднее",
     "new-passinfo-buttons__getTickets": "Мои билеты",
+    "new-passinfo-buttons__getVoucher": "Загрузить ваучер",
     "new-passinfo-buttons__cancel": "Аннулировать",
     "new-passinfo-pageExitConfirmation": "Вы хотите покинуть страницу?",
     "new-passinfo-flashError__general": "Заполните форму правильно",
@@ -694,6 +696,12 @@ define([],function () {return {
         "младенец",
         "младенцев",
         "младенца"
+    ],
+    "checkout-customers__CLD_age": [
+        "до 1 года",
+        "год",
+        "года",
+        "лет"
     ],
     "checkout-titles-locator": "Номер заказа в системе",
     "checkout-titles-accessCode": "Код доступа",

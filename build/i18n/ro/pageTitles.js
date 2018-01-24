@@ -1,5 +1,8 @@
 define([],function () {return {
-    "FlightsScheduleSearch": "Cautarea dupa orarul zborului",
     "FlightsSearch": "Cautarea zborului",
-    "FlightsResults": "Rezultatele cautarii"
+    "FlightsResults": "Rezultatele cautarii",
+    "FlightsScheduleSearch": "Cautarea dupa orarul zborului",
+    "HotelsSearch": "HotelsSearch",
+    "HotelsResults": "HotelsResults",
+    "HotelCard": "HotelCard"
 }});

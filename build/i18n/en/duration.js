@@ -1,4 +1,10 @@
 define([],function () {return {
+    "second_one": "second",
+    "second_twoToFour": "seconds",
+    "second_fourPlus": "seconds",
+    "minute_one": "minute",
+    "minute_twoToFour": "minutes",
+    "minute_fourPlus": "minutes",
     "hour_one": "hour",
     "hour_twoToFour": "hours",
     "hour_fourPlus": "hours",
@@ -20,11 +26,5 @@ define([],function () {return {
     "day_short": "day(s)",
     "week_short": "week(s)",
     "month_short": "month(s)",
-    "year_short": "year(s)",
-    "second_one": "second",
-    "second_twoToFour": "seconds",
-    "second_fourPlus": "seconds",
-    "minute_one": "minute",
-    "minute_twoToFour": "minutes",
-    "minute_fourPlus": "minutes"
+    "year_short": "year(s)"
 }});

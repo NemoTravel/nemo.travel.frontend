@@ -1,5 +1,8 @@
 define([],function () {return {
-    "FlightsResults": "Flugergebnisse",
     "FlightsSearch": "Flugsuche",
-    "FlightsScheduleSearch": "Flugplan-Suche"
+    "FlightsResults": "Flugergebnisse",
+    "FlightsScheduleSearch": "Flugplan-Suche",
+    "HotelsSearch": "HotelsSearch",
+    "HotelsResults": "HotelsResults",
+    "HotelCard": "HotelCard"
 }});
