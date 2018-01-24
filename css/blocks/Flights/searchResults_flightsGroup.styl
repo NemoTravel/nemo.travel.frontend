@@ -69,6 +69,7 @@
 			margin-left: 15px;
 			height: 20px;
 			width: auto;
+			max-width: 100px;
 
 			&__notice {
 				display: inline-block;
@@ -83,7 +84,7 @@
 					display: block;
 					background: #ffd321;
 					color: #fff;
-					font-size: 22px;
+					font-size: 17px;
 					text-align: center;
 					font-weight: bold;
 					width: 20px;
@@ -92,12 +93,16 @@
 					line-height: 21px;
 					transition: all .2s;
 					right: 5px;
-					bottom: 5px;
+					bottom: 50%;
 				}
 
 				&:hover:after {
 					background: #ffdc4d;
 				}
+			}
+
+			&__tooltip {
+				margin-top: -20px;
 			}
 
 			@media (max-width: 450px) {
@@ -414,8 +419,8 @@
 					&__operating {
 						line-height: normal;
 						margin-top: 6px;
-						font-weight: 700;
-						//color: #ff9737;
+						//font-weight: 700;
+						color: #ff9731;
 					}
 
 					&__places {

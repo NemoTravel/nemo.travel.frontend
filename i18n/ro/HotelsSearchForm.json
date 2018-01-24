@@ -108,8 +108,6 @@
     "additionalParameters__carrier__searchNotFound": "Nu a fost gasit",
     "additionalParameters__country__searchNotFound": "additionalParameters__country__searchNotFound",
     "additionalParameters__carrier__loading": "Incarcare…",
-    "additionalParameters__maxPrice__title": "Pret",
-    "additionalParameters__maxPrice__placeholder": "spre",
     "additionalParameters__timeEnRoute__title": "Timpul in zbor",
     "additionalParameters__timeEnRoute__subTitle": "Pina la",
     "additionalParameters__timeEnRoute__option_none": "Orice durata",

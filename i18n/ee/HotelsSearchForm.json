@@ -108,8 +108,6 @@
     "additionalParameters__carrier__searchNotFound": "Pole leitud",
     "additionalParameters__country__searchNotFound": "additionalParameters__country__searchNotFound",
     "additionalParameters__carrier__loading": "Laadimine...",
-    "additionalParameters__maxPrice__title": "Piletite hind",
-    "additionalParameters__maxPrice__placeholder": "kuni",
     "additionalParameters__timeEnRoute__title": "Lennuaeg",
     "additionalParameters__timeEnRoute__subTitle": "Mitte rohkem",
     "additionalParameters__timeEnRoute__option_none": "Pole tähtis",

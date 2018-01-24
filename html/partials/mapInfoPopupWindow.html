@@ -16,11 +16,14 @@
         <div class="content">
             <div class="mainInfo">
                 <div class="photoWrap" data-bind="style: {'backgroundImage': $parent.getHotelMainImage($data, 2) }, click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }"></div>
-                <div class="rating">
-                    <span class="number" data-bind="text: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.value : 0"></span>
-                    <span class="text" data-bind="html: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.description : $root.i18n('Hotels', 'hotels-info-noReviews')"></span>
-                    <!--<a href="#" class="link" data-bind="text: $data.staticDataInfo.usersOpinionInfo.opinionsCount + ' ' + $root.i18n('HotelsSearchResults', 'PH__reviews_link_title_more_than_five'), click: function (data, e) { e.preventDefault() }"></a>-->
-                </div>
+                
+                <!-- ko if: $data.staticDataInfo.averageCustomerRating -->
+                    <div class="rating">
+                        <span class="number" data-bind="text: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.value : 0"></span>
+                        <span class="text" data-bind="html: $data.staticDataInfo.averageCustomerRating ? $data.staticDataInfo.averageCustomerRating.description : $root.i18n('Hotels', 'hotels-info-noReviews')"></span>
+                    </div>
+                <!-- /ko -->
+                
                 <div class="infoBlock">
                     <div class="addressWrap">
                         <div data-bind="text: $parent.currentCity() + ', ' + $data.staticDataInfo.addresses[0]"></div>
@@ -53,15 +56,12 @@
             </div>
             
             <div class="nemo-hotels-results__hotelsGroup__footer">
-                <div class="nemo-hotels-results__hotelsGroup__footer__text">
-                    В отеле не осталось свободных мест, <br>но вы можете проверить их наличие на другие даты
-                </div>
-
                 <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn" data-bind="click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }">
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">от
-                            <span class="nemo-hotels-results__hotelsGroup__footer__price" data-bind="money: $data.hotelPrice, currency: $root.agency.userCurrency()"></span>
-                            <span class="nemo-hotels-results__hotelsGroup__footer__price__currency" data-bind="userCurrency"></span>
+                        <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
+                            <span class="nemo-hotels-results__hotelsGroup__footer__price">
+                                <money data-bind="money: $data.priceObservable"></money>
+                            </span>
                         </span>
                         
                         <span class="nemo-hotels-results__hotelsGroup__footer__period">

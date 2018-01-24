@@ -112,31 +112,20 @@
             </ul>
 
             <div class="nemo-hotels-results__hotelsGroup__footer nemo-hotels-results__content__sidebar__offer__footer">
-
-                <div class="nemo-ui-button
-                                                nemo-ui-button_main
-                                                nemo-hotels-results__hotelsGroup__footer__orderBtn
-                                                nemo-hotels-results__content__sidebar__offer__footer__orderBtn"
-                     data-bind="click: function(hotel){ $parent.showCardHotel(hotel) }">
+                <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn nemo-hotels-results__content__sidebar__offer__footer__orderBtn"
+                     data-bind="click: function(hotel) { $parent.showCardHotel(hotel) }">
 
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                        <span class="nemo-hotels-results__hotelsGroup__footer__price">
+                            <money data-bind="money: priceObservable"></money>
+                        </span>
 
-                                            <span class="nemo-hotels-results__hotelsGroup__footer__price">
-                                                <span data-bind="money: hotelPrice, currency: $root.agency.userCurrency()"></span>
-                                                <span class="nemo-hotels-results__hotelsGroup__footer__price__currency"
-                                                      data-bind="userCurrency"></span>
-                                            </span>
-
-                                    <span class="nemo-hotels-results__hotelsGroup__footer__period"
-                                          data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
+                        <span class="nemo-hotels-results__hotelsGroup__footer__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
                     </div>
 
                     <div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
-
                 </div>
             </div>
-
         </div>
     </li>
-
 </ul>
