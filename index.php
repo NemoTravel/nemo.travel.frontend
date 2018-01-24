@@ -113,7 +113,7 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 					staticInfoURL: '//demo.nemo.travel',
 					version: 'v0',
 					hostId: document.location.host,
-					root: '<?php echo $newRoot ?>',
+					root: '/',
 					verbose: false,
 					i18nLanguage: LocalStorage.get('language', null) || 'en',
 					postParameters: {},

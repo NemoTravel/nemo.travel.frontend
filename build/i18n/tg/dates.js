@@ -60,5 +60,10 @@ define([],function () {return {
     "dow_4_s": "пш",
     "dow_5_s": "ҷм",
     "dow_6_s": "шб",
-    "dow_7_s": "яш"
+    "dow_7_s": "яш",
+    "datetime_year": "datetime_year",
+    "monthNamesShort": "monthNamesShort",
+    "monthNames": "monthNames",
+    "daysOfWeekShort": "daysOfWeekShort",
+    "daysOfWeek": "daysOfWeek"
 }});

@@ -1,20 +1,21 @@
 <div class="nemo-ui-slider__info">
-            <span class="nemo-ui-slider__info__block
-                         nemo-ui-slider__info__block_min">
-                <span data-bind="money: displayRangeMin(), currency: $root.agency.userCurrency()"></span>&nbsp
-                <span data-bind="userCurrency"></span>
-            </span>
-            <span class="nemo-ui-slider__info__block
-                         nemo-ui-slider__info__block_divider">
-                —
-            </span>
-            <span class="nemo-ui-slider__info__block
-                         nemo-ui-slider__info__block_max">
-                <span data-bind="money: displayRangeMax(), currency: $root.agency.userCurrency()"></span>&nbsp
-                <span data-bind="userCurrency"></span>
-            </span>
+    <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_min">
+        <span>
+			<money data-bind="money: { amount: displayRangeMin(), currency: $root.agency.userCurrency() }"></money>
+		</span>&nbsp;
+    </span>
+
+	<span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">
+        —
+    </span>
+
+	<span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_max">
+        <span>
+			<money data-bind="money: { amount: displayRangeMax(), currency: $root.agency.userCurrency() }"></money>
+		</span>&nbsp;
+    </span>
 </div>
 
 <div class="nemo-ui-slider__wrapper">
-    <div class="nemo-ui-slider" data-bind="slider: value"></div>
+	<div class="nemo-ui-slider" data-bind="slider: value"></div>
 </div>

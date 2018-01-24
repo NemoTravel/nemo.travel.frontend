@@ -23,8 +23,8 @@ define([],function () {return {
     "second_short": "сек",
     "minute_short": "мүн",
     "hour_short": "с",
-    "year_short": "жыл",
-    "month_short": "ай",
+    "day_short": "күн",
     "week_short": "жума",
-    "day_short": "күн"
+    "month_short": "ай",
+    "year_short": "жыл"
 }});

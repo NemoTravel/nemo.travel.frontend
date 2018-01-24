@@ -29,6 +29,9 @@ define([],function () {return {
     "hotels-info-from": "from",
     "hotels-room-meal__BB": "Breakfast included",
     "hotels-room-meal__RO": "Room only",
+    "hotels-room-meal__HB": "Half board",
+    "hotels-room-meal__FB": "Full board",
+    "hotels-room-meal__AI": "All inclusive",
     "hotels-room-cancel__rules__title": "Cancellation rules",
     "hotels-room-cancel__isNonRefundable": "Non-refundable",
     "hotels-room-cancel__isNonRefundable__tooltip": "If cancelled the total price of the reservation will be charged.",
@@ -40,5 +43,8 @@ define([],function () {return {
     "hotels-room-paymentType__Credit": "Credit card confirmation required",
     "hotels-room-paymentType__Prepayment": "Prepayment needed",
     "hotels-room-paymentType__Cash": "Pay at the property",
-    "hotels-room-paymentType__Other": "Prepayment needed"
+    "hotels-room-paymentType__Other": "Prepayment needed",
+    "description": "About hotel",
+    "location": "Location",
+    "hotelServicesCaption": "Services and facilities"
 }});

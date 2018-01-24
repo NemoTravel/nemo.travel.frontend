@@ -1,4 +1,8 @@
 define([],function () {return {
+    "FlightsSearch": "Ricerca volo",
     "FlightsResults": "Risultati del volo",
-    "FlightsSearch": "Ricerca volo"
+    "FlightsScheduleSearch": "FlightsScheduleSearch",
+    "HotelsSearch": "HotelsSearch",
+    "HotelsResults": "HotelsResults",
+    "HotelCard": "HotelCard"
 }});

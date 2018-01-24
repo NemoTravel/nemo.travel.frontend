@@ -1,5 +1,8 @@
 define([],function () {return {
-    "FlightsResults": "Otsingu tulemused",
     "FlightsSearch": "Lennupiletite otsing",
-    "FlightsScheduleSearch": "Otsing lennuplaani järgi"
+    "FlightsResults": "Otsingu tulemused",
+    "FlightsScheduleSearch": "Otsing lennuplaani järgi",
+    "HotelsSearch": "HotelsSearch",
+    "HotelsResults": "HotelsResults",
+    "HotelCard": "HotelCard"
 }});

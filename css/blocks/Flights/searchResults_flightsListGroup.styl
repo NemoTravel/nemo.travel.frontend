@@ -67,6 +67,8 @@
 			padding-top: 23px;
 			padding-bottom: 23px;
 			height: 100%;
+			flex-direction: column;
+			justify-content: center;
 		}
 
 		&__carrier {
@@ -130,8 +132,15 @@
 			background: transparent;
 			color: $nemo-color-text-main;
 			display: flex;
+			flex-wrap: wrap;
 			align-items: center;
 			height: 100%;
+
+			&__info {
+				width: 100%;
+				display: flex;
+				white-space: nowrap;
+			}
 
 			&:hover, &:active {
 				background: rgba($nemo-color-main, .1);
@@ -152,6 +161,14 @@
 			&__departure, &__arrival {
 				display: inline-block;
 				vertical-align: top;
+			}
+
+			&__operating {
+				font-size: 12px;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				color: #ff9731;
 			}
 
 			&__arrival {

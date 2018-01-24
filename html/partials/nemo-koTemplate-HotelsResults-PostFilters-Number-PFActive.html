@@ -1,31 +1,19 @@
-<div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value
-                                        nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
-    <div class="nemo-ui-slider__info">
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_min">
-                                            <span data-bind="money: displayRangeMin(), currency: $root.agency.userCurrency()"></span>&nbsp;
-                                            <span data-bind="userCurrency"></span>
-                                        </span>
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_divider">
-                                            —
-                                        </span>
-                                        <span class="nemo-ui-slider__info__block
-                                                     nemo-ui-slider__info__block_max">
-                                            <span data-bind="money: displayRangeMax(), currency: $root.agency.userCurrency()"></span>&nbsp;
-                                            <span data-bind="userCurrency"></span>
-                                        </span>
-    </div>
+<div class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noFlex">
+	<div class="nemo-ui-slider__info">
+        <span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_min">
+            <span data-bind="money: { amount: displayRangeMin(), currency: $root.agency.userCurrency() }"></span>&nbsp;
+        </span>
 
-    <div class="nemo-ui-slider__wrapper">
-        <div class="nemo-ui-slider
-                              nemo-ui-slider_range
-                              ui-slider
-                              ui-slider-horizontal
-                              ui-widget
-                              ui-widget-content
-                              ui-corner-all"
-             data-bind="slider: value">
-        </div>
-    </div>
+		<span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_divider">
+            —
+        </span>
+
+		<span class="nemo-ui-slider__info__block nemo-ui-slider__info__block_max">
+            <span data-bind="money: { amount: displayRangeMax(), currency: $root.agency.userCurrency() }"></span>&nbsp;
+        </span>
+	</div>
+
+	<div class="nemo-ui-slider__wrapper">
+		<div class="nemo-ui-slider nemo-ui-slider_range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-bind="slider: value"></div>
+	</div>
 </div>

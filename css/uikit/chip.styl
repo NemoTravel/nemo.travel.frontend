@@ -13,6 +13,7 @@
 	cursor: default;
 	text-decoration: none;
 	outline: none;
+	white-space: nowrap;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 	&_clickable {
@@ -55,7 +56,6 @@
 		font-weight: 500;
 		user-select: none;
 
-		flex: 1;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -80,6 +80,21 @@
 		font-size: 12px;
 		border-radius: 50%;
 
+		&:after {
+			content: '';
+			width: 20px;
+			height: 20px;
+
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			background-image: url(../img/material/close.svg);
+			background-position: center;
+			background-size: 16px;
+			background-repeat: no-repeat;
+		}
+
 		i {
 			position: absolute;
 			top: 50%;
@@ -89,6 +104,21 @@
 
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.54);
+		}
+
+		&:after {
+			content: '';
+			width: 20px;
+			height: 20px;
+
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			background-image: url(../img/material/close.svg);
+			background-position: center;
+			background-size: 16px;
+			background-repeat: no-repeat;
 		}
 	}
 }
