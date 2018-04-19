@@ -108,8 +108,6 @@ define([],function () {return {
     "additionalParameters__carrier__searchNotFound": "Немає авіакомпанії",
     "additionalParameters__country__searchNotFound": "additionalParameters__country__searchNotFound",
     "additionalParameters__carrier__loading": "Завантажуємо ...",
-    "additionalParameters__maxPrice__title": "Ціна квитків",
-    "additionalParameters__maxPrice__placeholder": "до",
     "additionalParameters__timeEnRoute__title": "Час у польоті",
     "additionalParameters__timeEnRoute__subTitle": "Не більше",
     "additionalParameters__timeEnRoute__option_none": "Не важливо",

@@ -5,16 +5,8 @@ define([],function () {return {
     "hotels-breadcrumbs-search": "Поиск отелей",
     "hotels-breadcrumbs-searchResults": "Результаты поиска",
     "hotels-breadcrumbs-booking": "Бронирование",
-    "hotels-info-rooms_nominative": [
-        "номер",
-        "номеров",
-        "номера"
-    ],
-    "hotels-info-guests_accusative": [
-        "гостя",
-        "гостей",
-        "гостей"
-    ],
+    "hotels-info-rooms_nominative": "номер|номеров|номера",
+    "hotels-info-guests_accusative": "гостя|гостей|гостей",
     "hotels-info-forGuests": "для",
     "hotels-info-forPeriod": "На период",
     "hotels-info-forNights": "За",
