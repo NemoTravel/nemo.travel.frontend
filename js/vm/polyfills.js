@@ -1,6 +1,6 @@
 'use strict';
 define(
-	[],
+	['js/lib/polyfills/fetch.min', 'js/lib/polyfills/promise.min'],
 	function () {
 		return (function () {
 			if (!Array.prototype.find) {

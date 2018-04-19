@@ -191,7 +191,7 @@ define(
 				this.isRefundable() === true ||
 				(this.$$controller.viewModel.user.isB2B() && this.selectedFlight().expectedNumberOfTickets !== false);
 
-			this.fareVariationsVisible = this.resultsController.options.showBlocks.showFareVariations && 
+			this.fareVariationsVisible = !this.selectedFlight().canProcessFareFamilies && this.resultsController.options.showBlocks.showFareVariations &&
 				!this.selectedFlight().fareFeatures.getFirstFamily() &&
 				this.selectedFlight().price.service === 'SIRENA2000';
 		}

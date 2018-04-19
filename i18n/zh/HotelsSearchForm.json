@@ -108,8 +108,6 @@
     "additionalParameters__carrier__searchNotFound": "没有航空公司",
     "additionalParameters__country__searchNotFound": "additionalParameters__country__searchNotFound",
     "additionalParameters__carrier__loading": "下载...",
-    "additionalParameters__maxPrice__title": "机票价格",
-    "additionalParameters__maxPrice__placeholder": "要",
     "additionalParameters__timeEnRoute__title": "旅行的时间",
     "additionalParameters__timeEnRoute__subTitle": "没有更多的",
     "additionalParameters__timeEnRoute__option_none": "不管",

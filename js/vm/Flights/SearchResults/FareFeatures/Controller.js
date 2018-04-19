@@ -9,6 +9,9 @@ define(
 			this.resultsController = componentParameters.resultsController;
 			this.isFullMode = componentParameters.fullMode === true;
 			this.isListMode = componentParameters.listMode === true;
+			this.features = componentParameters.features;
+			this.featuresBySegments = [];
+			this.isMultipleFares = false;
 			this.leftColumn = [];
 			this.rightColumn = [];
 			this.miscColumn = [];
@@ -36,13 +39,38 @@ define(
 				}, this);
 			}, this);
 
-			if ('segmentId' in componentParameters && this.flight.fareFeatures.bySegments.hasOwnProperty(componentParameters.segmentId)) {
-				this.features = this.flight.fareFeatures.bySegments[componentParameters.segmentId];
+			this.fareFeaturesArray = [];
+
+			if (this.features && this.features.hasFeatures) {
+				this.fareFeaturesArray.push(this.features);
 			}
 			else {
 				this.features = this.flight.fareFeatures.getFirstFamily();
+
+				var featuresInAllSegments = this.flight.fareFeatures.bySegments,
+					fareFeaturesName = []; // тут будут названия
+
+				for (var segment in featuresInAllSegments) {
+					if (featuresInAllSegments.hasOwnProperty(segment)) {
+						var fareSegment = featuresInAllSegments[segment];
+
+						if (fareFeaturesName.indexOf(fareSegment.name) === -1) {
+							this.fareFeaturesArray.push(fareSegment);
+
+							fareFeaturesName.push(fareSegment.name);
+						}
+					}
+				}
 			}
-			
+
+			if (this.fareFeaturesArray.length > 1) {
+				this.isMultipleFares = true;
+				this.fareRulesLinkText = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__multipleTariff');
+			}
+			else if (this.fareFeaturesArray.length === 1) {
+				this.fareRulesLinkText = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__tariff') + ' &laquo;' + this.fareFeaturesArray[0].name + '&raquo;';
+			}
+
 			this.groupFeaturesByColumns();
 		}
 
@@ -62,27 +90,29 @@ define(
 		 * - всё остальное
 		 */
 		FlightsSearchResultsFareFeaturesController.prototype.groupFeaturesByColumns = function () {
-			if (this.features && this.features.hasFeatures) {
-				if (this.features.list.hasOwnProperty('baggage')) {
-					this.leftColumn = this.features.list.baggage;
+			for (var segment = 0; segment < this.fareFeaturesArray.length; segment++) {
+				var features = this.fareFeaturesArray[segment];
+
+				if (features.list.hasOwnProperty('baggage')) {
+					this.leftColumn[segment] = features.list.baggage;
 				}
 
-				if (this.features.list.hasOwnProperty('refunds')) {
-					this.rightColumn = this.features.list.refunds;
+				if (features.list.hasOwnProperty('refunds')) {
+					this.rightColumn[segment] = features.list.refunds;
 				}
 
-				if (this.features.list.hasOwnProperty('misc')) {
-					this.miscColumn = this.features.list.misc;
+				if (features.list.hasOwnProperty('misc')) {
+					this.miscColumn[segment] = features.list.misc;
 				}
 
 				if (!this.isFullMode) {
 					var newLeftColumn = [],
 						newRightColumn = [];
 
-					newLeftColumn = newLeftColumn.concat(this.leftColumn);
-					newRightColumn = newRightColumn.concat(this.rightColumn);
+					newLeftColumn = newLeftColumn.concat(this.leftColumn[segment]);
+					newRightColumn = newRightColumn.concat(this.rightColumn[segment]);
 
-					this.miscColumn.map(function (feature) {
+					this.miscColumn[segment].map(function (feature) {
 						if (feature.code === 'seats_registration') {
 							newRightColumn.push(feature);
 						}
@@ -91,11 +121,19 @@ define(
 						}
 					});
 
-					this.leftColumn = newLeftColumn;
-					this.rightColumn = newRightColumn;
+					this.leftColumn[segment] = newLeftColumn;
+					this.rightColumn[segment] = newRightColumn;
 				}
 
-				this.fareRulesLinkText = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__tariff') + ' &laquo;' + this.features.name + '&raquo;';
+				this.featuresBySegments.push({
+					miscColumn: this.miscColumn[segment],
+					leftColumn: this.leftColumn[segment],
+					rightColumn: this.rightColumn[segment],
+					depAirp: this.flight.segments[segment].depAirp,
+					arrAirp: this.flight.segments[segment].arrAirp,
+					tariffName: this.fareFeaturesArray[segment].name,
+					marketingCompany: this.flight.segments[segment].marketingCompany
+				});
 			}
 		};
 

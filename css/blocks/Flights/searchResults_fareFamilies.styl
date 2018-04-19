@@ -150,6 +150,57 @@ $fareFamiliesMainPadding = 20px;
 		color: rgba(100, 100, 100, .75);
 		display: flex;
 
+		&__segment {
+			border-bottom: 1px solid #eaeaea;
+
+			&:only-child {
+				border-bottom: 0;
+			}
+
+			&_multipleFares {
+				padding-bottom: 10px;
+			}
+
+			&__route {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-left: 20px;
+				padding-right: 20px;
+				margin-top: 15px;
+
+				&__tariffName {
+					color: #666;
+					font-size: 13px;
+					font-weight: 600;
+					padding-right: 5px;
+				}
+
+				&__main {
+					display: flex;
+					flex-basis: 100%;
+					justify-content: space-between;
+					align-items: baseline;
+					flex-wrap: wrap;
+				}
+
+				&__value {
+					font-size: 11px;
+					color: #666;
+
+					&__company {
+						padding-right: 5px;
+						font-weight: 600;
+					}
+				}
+
+				&__about {
+					white-space: nowrap;
+					padding-left: 10px;
+				}
+			}
+		}
+
 		&__baggage, &__refunds, &__misc {
 			&:not(:last-of-type) {
 				margin-right: $fareFamiliesMainPadding;
@@ -187,6 +238,19 @@ $fareFamiliesMainPadding = 20px;
 			
 			&_listMode {
 				border-top: 1px solid rgba(230, 230, 230, .75);
+
+				.nemo-flights-results__fareFamilies__features__segment {
+					&:not(:only-child):last-child {
+						border-bottom: 0;
+						padding-bottom: 5px;
+					}
+				}
+			}
+
+			&_multipleFares {
+				.nemo-flights-results__fareFamilies__features__segment {
+					padding-bottom: 10px;
+				}
 			}
 		}
 		
@@ -437,8 +501,11 @@ $fareFamiliesMainPadding = 20px;
 						}
 
 						&__title {
+							display: none;
 							color: #999;
+
 							font-size: 11px;
+							margin-bottom: 10px;
 						}
 
 						&__feature {

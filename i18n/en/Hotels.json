@@ -5,16 +5,8 @@
     "hotels-breadcrumbs-search": "Search hotels",
     "hotels-breadcrumbs-searchResults": "Search results",
     "hotels-breadcrumbs-booking": "Booking",
-    "hotels-info-rooms_nominative": [
-        "room",
-        "rooms",
-        "rooms"
-    ],
-    "hotels-info-guests_accusative": [
-        "guest",
-        "guests",
-        "guests"
-    ],
+    "hotels-info-rooms_nominative": "room|rooms|rooms",
+    "hotels-info-guests_accusative": "guest|guests|guests",
     "hotels-info-forGuests": "for",
     "hotels-info-forPeriod": "For period",
     "hotels-info-forNights": "For",

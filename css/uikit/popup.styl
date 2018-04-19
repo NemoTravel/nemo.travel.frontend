@@ -104,10 +104,22 @@ $c_ui_popup_wrapprer_bg = rgba(#636467, 0.5);
 			cursor: pointer;
 			z-index: 2;
 
+			outline: none;
+			box-shadow: none;
 			transition: all .2s;
 
 			&:hover {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
 				background-color: rgba(#000, 0.05);
+			}
+
+			&:focus {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+				box-shadow: none;
+			}
+			&:focus:hover {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+				box-shadow: none;
 			}
 		}
 
@@ -141,7 +153,7 @@ $c_ui_popup_wrapprer_bg = rgba(#636467, 0.5);
 	& &-content,
 	&-content {
 		&_iframe,
-		&:not(.nemo-flights-results__fareFamilies__popup__contents):not(.nemo-authPopup):not(.nemo-registrationPopup):not(.nemo-authPopup_restorepass):not(.new-flightRoute__legPopupWrapper):not(.nemo-flights-results__flightsGroup__flightInfo) {
+		&:not(.nemo-flights-results__fareFamilies__popup__contents):not(.nemo-authPopup):not(.nemo-registrationPopup):not(.nemo-authPopup_restorepass):not(.new-flightRoute__legPopupWrapper):not(.nemo-flights-results__flightsGroup__flightInfo):not(.new-bookStatus-dialog__content) {
 			overflow: auto !important;
 			-webkit-overflow-scrolling: touch;
 			//overflow-scrolling: touch;

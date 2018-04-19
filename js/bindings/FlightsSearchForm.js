@@ -93,7 +93,9 @@ define(
 				var that = this;
 
 				$.each(items, function(index, item) {
-					that._renderItemData(ul, item);
+					if (item.name || item.label) {
+						that._renderItemData(ul, item);
+					}
 				});
 
 				$(ul).addClass('nemo-ui-autocomplete nemo-flights-form__geoAC');
@@ -472,12 +474,79 @@ define(
 					}
 				};
 			},
+			_checkPartialDateByFormat: function (date, format) {
+				var separator = new RegExp('[^0-9a-zA-Z]+'),
+					dateParts = date.split(separator),
+					formatParts = format.split(separator),
+					numeralRE = /^\d+$/,
+					result = [],
+					tmp;
+
+				function parseNumber (str) {
+					var ret = null;
+
+					if (str == '') {
+						return 0;
+					}
+
+					if (str.match(numeralRE)) {
+						ret = parseInt(str, 10);
+					}
+
+					return ret;
+				}
+
+				if (dateParts.length <= formatParts.length) {
+					// console.log(dateParts);
+					for (var i = 0; i < dateParts.length; i++) {
+						switch (formatParts[i]) {
+							case 'd':
+								tmp = parseNumber(dateParts[i]);
+								tmp = tmp && tmp > 31 ? null : tmp;
+								break;
+							case 'm':
+								tmp = parseNumber(dateParts[i]);
+								tmp = tmp && tmp > 12 ? null : tmp;
+								break;
+							case 'Y':
+								tmp = parseNumber(dateParts[i]);
+								break;
+						}
+
+						result.push(tmp);
+					}
+				}
+
+				for (var i = 0; i < result.length; i++) {
+					if (result[i] === null || (result[i] === 0 && i < result.length - 1)) {
+						return false;
+					}
+				}
+
+				return true;
+			},
 			// Methods needed by knockout
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var $element = $(element);
+				var $element = $(element),
+					format = 'd.m.Y',
+					dataKey = '_KO_flightsFormDatepicker_prevValue';
 
 				$element.on('blur', function () {
-					$(this).val('');
+					$element.val('');
+					$element.data(dataKey, '');
+				});
+
+				$element.on('keyup', function (e) {
+					var prevValue = $element.data(dataKey) || '',
+						value = $element.val();
+
+					// var ret = ko.bindingHandlers.flightsFormDatepicker._checkPartialDateByFormat($element.val(), format);
+					if (!ko.bindingHandlers.flightsFormDatepicker._checkPartialDateByFormat(value, format)) {
+						$element.val(prevValue);
+					}
+					else {
+						$element.data(dataKey, value);
+					}
 				});
 
 				$element.on('focus', function () {
@@ -490,6 +559,7 @@ define(
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					$element.pickmeup('destroy');
 					$element.off('blur');
+					$element.off('keyup');
 				});
 
 				if(mobileDetect().deviceType != 'desktop'){

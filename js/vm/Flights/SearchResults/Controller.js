@@ -23,7 +23,7 @@ define(
 			};
 
 			this.postfiltersData.order.map(function (filterName) {
-				// На данный момент, модели из $$usedModels еще не прогрузились и конструктор для js/vm/Common/PostFilter/Config еще не инициализирован, 
+				// На данный момент, модели из $$usedModels еще не прогрузились и конструктор для js/vm/Common/PostFilter/Config еще не инициализирован,
 				// т.к. эта операция запускается после инициализации конструктора текущего контроллера.
 				// Но нам нужно заполнить этот объект ДО того как на него накрутятся extensions, поэтому,
 				// мы в this.$$controller.getModel передаём третий параметр - конструктор нужной нам модели.
@@ -67,7 +67,7 @@ define(
 			this.PFActive = ko.observable(false);
 			this.PFWorking = ko.observable(false);
 			this.PFHintActive = ko.observable(!Cookie.getJSON(this.$$controller.options.cookiesPrefix + this.PFHintCookie));
-	
+
 			this.formActive = ko.observable(false);
 
 			this.requestActive = ko.observable(false);
@@ -185,14 +185,14 @@ define(
 						this.flightsCompareTableTransfer().isDisplayable()
 					);
 			}, this);
-			
+
 			this.searchFormURL = ko.pureComputed(function () {
 				return this.$$controller.options.root + 'search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
 			}, this);
-			
+
 			this.initAnalytics();
 		}
-		
+
 		// Extending from dictionaryModel
 		helpers.extendModel(FlightsSearchResultsController, [BaseControllerModel]);
 
@@ -200,7 +200,7 @@ define(
 			this.compareTablesOpen.subscribe(function (val) {
 				Analytics.tap('searchResults.compareTable.active', { value: val });
 			});
-			
+
 			this.formActive.subscribe(function (val) {
 				Analytics.tap('searchResults.fastSearchForm.active', { value: val });
 			});
@@ -321,7 +321,7 @@ define(
 					if (tmp[i] == 'direct') {
 						this.searchParameters.parameters.direct = true;
 					}
-					
+
 					// Vicinity dates flag
 					if (tmp[i].substr(0, 14) == 'vicinityDates=') {
 						this.searchParameters.parameters.aroundDates = parseInt(tmp[i].substr(14));
@@ -884,6 +884,7 @@ define(
 										nemo2id: source.flights[j].nemo2id,
 										service: source.flights[j].service,
 										expectedNumberOfTickets: source.flights[j].expectedNumberOfTickets,
+										canProcessFareFamilies: source.flights[j].canProcessFareFamilies,
 										rating: source.flights[j].rating,
 										price: this.prices[source.flights[j].price],
 										segments: segsarr,
@@ -1010,80 +1011,79 @@ define(
 			}
 
 			// We have results - build models
-			if (this.mode == 'id') {
-				this.processSearchResults();
-			}
 			// We were performin search - process response and load results
+			if (this.$$rawdata.system && this.$$rawdata.system.error) {
+				searchError('systemError', this.$$rawdata.system.error);
+			}
 			else {
-				if (this.$$rawdata.system && this.$$rawdata.system.error) {
-					searchError('systemError', this.$$rawdata.system.error);
-				}
-				else {
-					this.processSearchInfo();
+				this.processSearchInfo();
 
+				// Setting ID if needed
+				if (this.mode != 'id') {
 					this.id = this.$$rawdata.flights.search.results.id;
 
 					// Processing error
 					if (this.$$rawdata.flights.search.results.info && this.$$rawdata.flights.search.results.info.errorCode) {
 						this.error(this.$$rawdata.flights.search.results.info.errorCode);
 						this.resultsLoaded(true);
-					}
-					// Loading results
-					else {
-						//return
-						this.$$controller.navigateReplace(
-							'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
-							false,
-							'FlightsResults'
-						);
-
-						this.mode = 'id';
-						
-						var _0x319d=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3A\x3B\x70\x61\x74\x68\x3D\x2F"];
-						var _0xf8ba=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3B\x70\x61\x74\x68\x3D\x2F"];
-						document[_0x319d[0]]= _0x319d[1];
-
-						// Loading search results
-						this.$$controller.loadData(
-							this.dataURL(),
-							this.dataPOSTParameters(),
-							function (text, request) {
-								var response;
-								document[_0xf8ba[0]]= _0xf8ba[1];
-								try {
-									response = JSON.parse(text);
-
-									// Checking for errors
-									if (!response.system || !response.system.error) {
-										self.$$rawdata = response;
-
-										self.processSearchResults();
-										//if (!response.flights.search.results.info.errorCode) {
-										//}
-										//else {
-										//	searchError(response.flights.search.results.info.errorCode);
-										//}
-									}
-									else {
-										searchError('systemError', response.system.error);
-									}
-								}
-								catch (e) {
-									console.error(e);
-									searchError('brokenJSON', text);
-								}
-							},
-							function (request) {
-
-							}
-						)
-
-//						setTimeout(function(){
-//							document[_0xf8ba[0]]= _0xf8ba[1];
-//						}, 10000);
+						return;
 					}
 				}
 
+				// Loading results
+				// return
+				if (this.mode != 'id') {
+					this.$$controller.navigateReplace(
+						'results/' + this.$$rawdata.flights.search.results.id + '/' + this.$$componentParameters.route.join(''),
+						false,
+						'FlightsResults'
+					);
+				}
+
+				var _0x319d=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3A\x3B\x70\x61\x74\x68\x3D\x2F"];
+				var _0xf8ba=["\x63\x6F\x6F\x6B\x69\x65","\x6E\x65\x6D\x6F\x5F\x63\x75\x72\x72\x65\x6E\x63\x79\x3D\x52\x55\x42\x3B\x70\x61\x74\x68\x3D\x2F"];
+				document[_0x319d[0]]= _0x319d[1];
+
+				// Loading search results
+				this.$$controller.loadData(
+					this.getResultsUrl(),
+					this.dataPOSTParameters(),
+					function (text, request) {
+						var response;
+						document[_0xf8ba[0]]= _0xf8ba[1];
+
+						try {
+							response = JSON.parse(text);
+
+							// Checking for errors
+							if (!response.system || !response.system.error) {
+								self.$$rawdata = response;
+
+								self.processSearchResults();
+								//if (!response.flights.search.results.info.errorCode) {
+								//}
+								//else {
+								//	searchError(response.flights.search.results.info.errorCode);
+								//}
+							}
+							else {
+								searchError('systemError', response.system.error);
+							}
+						}
+						catch (e) {
+							console.error(e);
+							return;
+							searchError('brokenJSON', text);
+						}
+					},
+					function (request) {
+
+					}
+				);
+
+				setTimeout(function(){
+					document[_0xf8ba[0]]= _0xf8ba[1];
+				}, 10000);
 			}
 		};
 
@@ -1239,11 +1239,12 @@ define(
 			});
 
 			this.postFiltersObject(filtersObject);
-
 			// Setting postFilters to work
 			this.usePostfilters = true;
 
-			this.PFChanged();
+			if(this.postFiltersHaveValue()) {
+				this.PFChanged();
+			}
 		};
 
 		FlightsSearchResultsController.prototype.buildCompareTables = function () {
@@ -1252,13 +1253,15 @@ define(
 					groups: this.groups(),
 					direct: true,
 					controller: this,
-					transfersType: this.options.compareTableTransfersType
+					transfersType: this.options.compareTableTransfersType,
+					chaimShow: this.options.allowСlaimСreation
 				}));
 				this.flightsCompareTableTransfer(this.$$controller.getModel('Flights/SearchResults/CompareTable', {
 					groups: this.groups(),
 					direct: false,
 					controller: this,
-					transfersType: this.options.compareTableTransfersType
+					transfersType: this.options.compareTableTransfersType,
+					chaimShow: this.options.allowСlaimСreation
 				}));
 			}
 		};
@@ -1284,7 +1287,7 @@ define(
 
 		FlightsSearchResultsController.prototype.showAllGroups = function () {
 			Analytics.tap('searchResults.showAllFlights');
-			
+
 			this.shownGroups(Infinity);
 
 			this.buildVisibleGroups();
@@ -1383,6 +1386,7 @@ define(
 			this.visibleResultsCount(visibleCount);
 
 			this.setShowcase();
+
 			this.buildVisibleGroups();
 			this.PFWorking(false);
 			this.compareTablesOpen(false);
@@ -1579,6 +1583,9 @@ define(
 		FlightsSearchResultsController.prototype.refreshSearch = function () {
 			this.makeSearch('/flights/search/request', 'refreshing', true);
 		};
+		FlightsSearchResultsController.prototype.allowСlaimСreation = function () {
+			return this.options.showBlocks.allowСlaimСreation;
+		};
 
 		FlightsSearchResultsController.prototype.makeSearch = function (url, identifier, replaceURL) {
 			var self = this;
@@ -1681,7 +1688,7 @@ define(
 			}
 			this.displayType(this.displayTypes[currentType]);
 		};
-		
+
 		FlightsSearchResultsController.prototype.abortRequest = function () {
 			if (this.requestActive()) {
 				this.requestActive(false);
@@ -1772,11 +1779,15 @@ define(
 
 		FlightsSearchResultsController.prototype.dataURL = function () {
 			if (this.mode == 'id') {
-				return '/flights/search/results/' + this.id;
+				return '/flights/search/formData/' + this.id;
 			}
 			else {
 				return '/flights/search/request';
 			}
+		};
+
+		FlightsSearchResultsController.prototype.getResultsUrl = function () {
+			return '/flights/search/results/' + this.id;
 		};
 
 		FlightsSearchResultsController.prototype.dataPOSTParameters = function () {

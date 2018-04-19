@@ -25,10 +25,7 @@ define(
 			this.carriersLoaded = ko.observable(this.carriers !== null);
 			this.additionalParameters = {
 				carriers: ko.observableArray([]),
-				maxPrice: ko.observable(),
-				maxTransfersLength: ko.observable(false),
-				maxTimeEnRoute: ko.observable(null),
-				maxTimeEnRouteOptions: [null, 6, 12, 24]
+				maxTransfersLength: ko.observable(false)
 			};
 
 			this.tripType = ko.observable('OW');
@@ -89,21 +86,6 @@ define(
 			}, this);
 
 			this.processInitParams();
-
-			this.additionalParameters.maxPrice.subscribe(function (newValue) {
-				var tmp = parseInt(newValue);
-
-				if (isNaN(tmp)) {
-					tmp = '';
-				}
-				else {
-					tmp = Math.min(Math.abs(tmp), 999999);
-				}
-
-				if (tmp != newValue) {
-					this.additionalParameters.maxPrice(tmp);
-				}
-			}, this);
 
 			this.segments.subscribe(function (newValue) {
 				this.recalcDateRestrictions();
@@ -406,15 +388,6 @@ define(
 					urlAdder += '-vicinityDates='+this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1];
 				}
 
-				// Additional parameters
-				if (this.additionalParameters.maxPrice()) {
-					urlAdder += '-PMaxPrice=' + this.additionalParameters.maxPrice() + this.$$controller.viewModel.agency.currency();
-				}
-
-				if (this.additionalParameters.maxTimeEnRoute()) {
-					urlAdder += '-PMaxTimeEnRoute=' + this.additionalParameters.maxTimeEnRoute();
-				}
-
 				if (!this.directFlights() && this.additionalParameters.maxTransfersLength()) {
 					urlAdder += '-PMaxTransfersLength=2';
 				}
@@ -477,14 +450,6 @@ define(
 
 			this.additionalParameters.maxTransfersLength.subscribe(function (val) {
 				Analytics.tap('searchForm.additionalParameters.fastFlights.active', { value: val });
-			});
-
-			this.additionalParameters.maxTimeEnRoute.subscribe(function (val) {
-				Analytics.tap('searchForm.additionalParameters.maxRouteTime.value', { value: val });
-			});
-
-			this.additionalParameters.maxPrice.subscribe(function (val) {
-				Analytics.tap('searchForm.additionalParameters.maxPrice.value', { value: val });
 			});
 
 			this.additionalParameters.carriers.subscribe(function (val) {
@@ -1498,6 +1463,7 @@ define(
 				!this.$$componentParameters.additional ||
 				!this.$$componentParameters.additional.formData ||
 				this.$$componentParameters.route.length === 3 ||
+				this.geoPresets ||
 				(
 					this.$$componentParameters.route.length === 1 &&
 					parseInt(this.$$componentParameters.route[0]) > 0

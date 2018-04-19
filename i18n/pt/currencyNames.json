@@ -1,0 +1,14 @@
+{
+    "currency_EUR_n": "Euro",
+    "currency_EUR_s": "€",
+    "currency_EUR_c": "currency_EUR_c",
+    "currency_USD_n": "Dólar Americano",
+    "currency_USD_s": "$",
+    "currency_USD_c": "currency_USD_c",
+    "currency_UAH_n": "currency_UAH_n",
+    "currency_UAH_s": "currency_UAH_s",
+    "currency_UAH_c": "currency_UAH_c",
+    "currency_RUB_n": "Rublo russo",
+    "currency_RUB_s": "currency_RUB_s",
+    "currency_RUB_c": "currency_RUB_c"
+}

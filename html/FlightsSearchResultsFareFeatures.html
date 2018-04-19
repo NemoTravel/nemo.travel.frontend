@@ -1,4 +1,4 @@
-<!-- ko if: features -->
+<!-- ko if: fareFeaturesArray && fareFeaturesArray.length -->
 	<div class="nemo-flights-results__fareFamilies" data-bind="css: {
 		'nemo-flights-results__fareFamilies_full': isFullMode,
 		'nemo-flights-results__fareFamilies_listMode': isListMode,
@@ -27,7 +27,8 @@
 					'nemo-flights-results__fareFamilies__header_togglable_listMode': isListMode 
 				}
 			">
-				<span class="nemo-flights-results__fareFamilies__header__title nemo-flights-results__fareFamilies__header__title_togglable" data-bind="text: '&laquo;' + features.name + '&raquo;'"></span>
+				<span class="nemo-flights-results__fareFamilies__header__title nemo-flights-results__fareFamilies__header__title_togglable"
+					  data-bind="text: !isMultipleFares ? '&laquo;' + fareFeaturesArray[0].name + '&raquo;' : $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__multipleTariff')"></span>
 
 				<div class="nemo-flights-results__fareFamilies__header__icons" data-bind="foreach: icons">
 					<!-- ko if: isVisible -->
@@ -50,59 +51,99 @@
 		<!-- /ko -->
 
 		<div class="nemo-flights-results__fareFamilies__features__wrapper" data-bind="
-			doubleFade: isFullMode ? true : featuresAreVisible(), 
+			doubleFade: isFullMode ? true : featuresAreVisible(),
 			css: { 
 				'nemo-flights-results__fareFamilies__features__wrapper_togglable': !isFullMode,
-				'nemo-flights-results__fareFamilies__features__wrapper_listMode': isListMode
+				'nemo-flights-results__fareFamilies__features__wrapper_listMode': isListMode,
+				'nemo-flights-results__fareFamilies__features__wrapper_multipleFares': isMultipleFares
 			}
 		">
-			<div class="nemo-flights-results__fareFamilies__features" data-bind="css: { 
-				'nemo-flights-results__fareFamilies__features_togglable': !isFullMode,
-				'nemo-flights-results__fareFamilies__features_listMode': isListMode
-			}">
-				<div class="nemo-flights-results__fareFamilies__features__baggage" data-bind="visible: leftColumn.length, template: {
-					name: 'fareFamilies-features__list_short',
-					data: {
-						array: leftColumn,
-						showTitles: isFullMode,
-						title: 'baggage'
-					}
-				}"></div>
+			<div class="nemo-flights-results__fareFamilies__features__segments">
+				<!-- ko foreach: featuresBySegments -->
+					<div class="nemo-flights-results__fareFamilies__features__segment">
+						<!-- ko if: $parent.featuresBySegments.length > 1 -->
+							<div class="nemo-flights-results__fareFamilies__features__segment__route">
+								<div class="nemo-flights-results__fareFamilies__features__segment__route__main">
+									<span class="nemo-flights-results__fareFamilies__features__segment__route__tariffName">
+										<!-- ko if: $parent.flight.carriersMismatch -->
+											<span data-bind="text: marketingCompany.name + ' / '"></span>
+										<!-- /ko -->
+										<span data-bind="text: '&laquo;' + tariffName + '&raquo;'"></span>
+									</span>
+									<span class="nemo-flights-results__fareFamilies__features__segment__route__value">
+										<span data-bind="text: depAirp.city.name + ' &mdash; ' + arrAirp.city.name"></span>
+									</span>
+								</div>
 
-				<div class="nemo-flights-results__fareFamilies__features__refunds" data-bind="visible: rightColumn.length, template: {
-					name: 'fareFamilies-features__list_short',
-					data: {
-						array: rightColumn,
-						showTitles: isFullMode,
-						title: 'refunds'
-					}
-				}"></div>
+								<span class="nemo-flights-results__fareFamilies__features__segment__route__about nemo-flights-results__fareFamilies__header__chooseTariff_about" data-bind="component: {
+									name: 'Flights/SearchResults/FareRules/Controller',
+									params: {
+										flight: $parent.flight,
+										linkText: $root.i18n('FlightsFlightInfo', 'fareInformation'),
+										initSegment: $index() }
+								}"></span>
+							</div>
+						<!-- /ko -->
 
-				<!-- ko if: isFullMode && miscColumn.length -->
-					<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
-						name: 'fareFamilies-features__list_short',
-						data: {
-							array: miscColumn,
-							showTitles: isFullMode,
-							title: 'misc'
-						}
-					}"></div>
+						<div class="nemo-flights-results__fareFamilies__features" data-bind="css: {
+							'nemo-flights-results__fareFamilies__features_togglable': !$parent.isFullMode,
+							'nemo-flights-results__fareFamilies__features_listMode': $parent.isListMode
+						}">
+							<div class="nemo-flights-results__fareFamilies__features__baggage" data-bind="visible: leftColumn.length, template: {
+								name: 'fareFamilies-features__list_short',
+								data: {
+									array: leftColumn,
+									showTitles: $parent.isFullMode,
+									title: 'baggage'
+								}
+							}"></div>
+
+							<div class="nemo-flights-results__fareFamilies__features__refunds" data-bind="visible: rightColumn.length, template: {
+								name: 'fareFamilies-features__list_short',
+								data: {
+									array: rightColumn,
+									showTitles: $parent.isFullMode,
+									title: 'refunds'
+								}
+							}"></div>
+
+							<!-- ko if: $parent.isFullMode && miscColumn.length -->
+								<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+									name: 'fareFamilies-features__list_short',
+									data: {
+										array: miscColumn,
+										showTitles: $parent.isFullMode,
+										title: 'misc'
+									}
+								}"></div>
+							<!-- /ko -->
+						</div>
+					</div>
 				<!-- /ko -->
 			</div>
-			
-			<!-- ko if: resultsController && !isFullMode -->
+
+			<!-- ko if: resultsController && !isFullMode && featuresBySegments.length <= 1 || isListMode -->
 				<span class="nemo-flights-results__fareFamilies__actions js-flights-results__fareFamilies" data-bind="css: {
-					'nemo-flights-results__fareFamilies__actions_listMode': isListMode
-				}">
-					<span class="nemo-flights-results__fareFamilies__action nemo-flights-results__fareFamilies__header__chooseTariff_about" data-bind="component: {
-						name: 'Flights/SearchResults/FareRules/Controller',
-						params: { flight: flight, linkText: $root.i18n('FlightsFlightInfo', 'fareInformation') }
-					}"></span>
-					
-					<span class="nemo-flights-results__fareFamilies__action" data-bind="component: {
-						name: 'Flights/SearchResults/FareFamilies/Controller',
-						params: { flight: flight, resultsController: resultsController }
-					}"></span>
+							'nemo-flights-results__fareFamilies__actions_listMode': isListMode
+						}">
+					<!-- ko if: featuresBySegments.length <= 1 -->
+						<span class="nemo-flights-results__fareFamilies__action nemo-flights-results__fareFamilies__header__chooseTariff_about"
+							  data-bind="component: {
+									name: 'Flights/SearchResults/FareRules/Controller',
+									params: { flight: flight, linkText: $root.i18n('FlightsFlightInfo', 'fareInformation') }
+								}"></span>
+					<!-- /ko -->
+
+					<!-- ko if: isListMode && flight.canProcessFareFamilies -->
+						<span data-bind="
+						attr: {
+							class: 'nemo-flights-results__fareFamilies__action nemo-flights-results__fareFamilies__action_select-tariff nemo-flights-results__fareFamilies__action_select-tariff_' + (flight && flight.segmentsByLeg && flight.segmentsByLeg[$index()] && flight.segmentsByLeg[$index()][0] && flight.segmentsByLeg[$index()][0].marketingCompany && flight.segmentsByLeg[$index()][0].marketingCompany.IATA ? flight.segmentsByLeg[$index()][0].marketingCompany.IATA : '')
+						},
+						component: {
+							name: 'Flights/SearchResults/FareFamilies/Controller',
+							params: { flight: flight, resultsController: resultsController }
+						}"></span>
+					<!-- /ko -->
 				</span>
 			<!-- /ko -->
 		</div>

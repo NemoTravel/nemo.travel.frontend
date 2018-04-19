@@ -5,8 +5,6 @@ define(
 		function FlightsSearchResultsFareFamiliesController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);
 
-			var self = this;
-			
 			this.parentFlight = componentParameters.flight;
 			this.resultsController = componentParameters.resultsController;
 			this.flights = [];

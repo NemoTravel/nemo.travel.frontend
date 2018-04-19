@@ -1,7 +1,7 @@
 <!-- ko if: !$$loading() -->
 <div data-bind="
 	component: {
-		name: 'Common/BreadCrumbs/Controller', 
+		name: 'Common/BreadCrumbs/Controller',
 		params: {
 			component: $data,
 			includeComponent: {
@@ -105,7 +105,7 @@
 		<div class="nemo-flights-results__error__header" data-bind="text: $root.i18n('FlightsSearchResults', 'error_' + error() + '_header')"></div>
 		<div class="nemo-flights-results__error__content" data-bind="text: $root.i18n('FlightsSearchResults', 'error_' + error())"></div>
 		<div class="nemo-flights-results__error__footer">
-			<div class="nemo-ui-button nemo-flights-results__error__footer__button" data-bind="
+			<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__error__footer__button" data-bind="
 					text: $root.i18n('FlightsSearchResults', 'error_' + error() + '_buttonText'),
 					click: function () { $$controller.navigate('/exchangeSearch/' + this.originalRequestUrl()) }"></div>
 		</div>
@@ -381,7 +381,7 @@
 						<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-flights-results__commonSelect"
 						     data-bind="pseudoSelect: null, text: $root.i18n('FlightsSearchResults','sortType_' + sort())"></div>
 						<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: possibleSorts">
-							<div class="nemo-ui-select__dropdown__item" data-bind="click: function () {$parent.sort($data)}, text: $root.i18n('FlightsSearchResults','sortType_' + $data)"></div>
+							<div data-bind="attr: { class: 'nemo-ui-select__dropdown__item nemo-ui-select__dropdown__item_' + $data }, click: function () {$parent.sort($data)}, text: $root.i18n('FlightsSearchResults','sortType_' + $data)"></div>
 						</div>
 					</div>
 					<!-- /ko -->
@@ -750,7 +750,7 @@
 		<div class="nemo-flights-results__flightsGroup__subHeader__additional"><div class="nemo-flights-results__flightsGroup__rating nemo-flights-results__flightsGroup__rating_inSubHeader" data-bind="foreach: (new Array(5))"><div class="nemo-flights-results__flightsGroup__rating__item nemo-flights-results__flightsGroup__rating__item_stub"></div></div></div>
 	</div>
 
-	<div data-bind="foreach: segments, attr: {'class': 'nemo-flights-results__flightsGroup__legs nemo-flights-results__flightsGroup__legs_count_' + segments.length}"><div class="nemo-flights-results__flightsGroup__leg"><div class="nemo-flights-results__flightsGroup__leg__info nemo-flights-results__flightsGroup__leg__info_direct"><div class="nemo-flights-results__flightsGroup__leg__info__date"><span class="nemo-flights-results__flightsGroup__leg__info__date__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__info__date__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWName()"></span></div><div class="nemo-flights-results__flightsGroup__leg__info__route"><div class="nemo-flights-results__flightsGroup__leg__info__route__departure" data-bind="text: departure.city.name || departure.name"></div><div class="nemo-flights-results__flightsGroup__leg__info__route__arrival" data-bind="text: arrival.city.name || arrival.name"></div></div></div><div class="nemo-flights-results__flightsGroup__leg__selector"><div class="nemo-flights-results__flightsGroup__leg__selector__header"><div class="nemo-flights-results__flightsGroup__leg__selector__header__title"><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__text nemo-flights-results__flightsGroup__leg__selector__header__title__text_short"data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__selector__title');"></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__text nemo-flights-results__flightsGroup__leg__selector__header__title__text_dates"><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWName()"></span></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__date"><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWNameShort()"></span></div></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable">∎∎∎∎∎∎∎∎∎∎∎∎</div></div><div class="nemo-flights-results__flightsGroup__leg__selector__selectContainer"><div class="nemo-flights-results__flightsGroup__leg__selector__selected nemo-flights-results__flightsGroup__leg__selector__selected_unopenable"><div class="nemo-flights-results__flightsGroup__leg__selector__selected__time">∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎</div><div class="nemo-flights-results__flightsGroup__leg__selector__selected__timeEnRoute">∎∎∎∎∎∎∎∎∎∎∎∎</div></div></div><div class="nemo-flights-results__flightsGroup__leg__selector__footer"><div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers"><div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers__notransfers">∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎</div></div><div class="nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink"><span class="nemo-ui-pseudoLink">∎∎∎∎∎∎∎∎</span></div></div></div></div></div>
+	<div data-bind="foreach: segments, attr: {'class': 'nemo-flights-results__flightsGroup__legs nemo-flights-results__flightsGroup__legs_count_' + segments.length}"><div class="nemo-flights-results__flightsGroup__leg"><div class="nemo-flights-results__flightsGroup__leg__info nemo-flights-results__flightsGroup__leg__info_direct"><div class="nemo-flights-results__flightsGroup__leg__info__date"><span class="nemo-flights-results__flightsGroup__leg__info__date__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__info__date__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWName()"></span></div><div class="nemo-flights-results__flightsGroup__leg__info__route"><div class="nemo-flights-results__flightsGroup__leg__info__route__departure" data-bind="text: departure.city.name || departure.name"></div><div class="nemo-flights-results__flightsGroup__leg__info__route__arrival" data-bind="text: arrival.city.name || arrival.name"></div></div></div><div class="nemo-flights-results__flightsGroup__leg__selector"><div class="nemo-flights-results__flightsGroup__leg__selector__header"><div class="nemo-flights-results__flightsGroup__leg__selector__header__title"><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__text nemo-flights-results__flightsGroup__leg__selector__header__title__text_short"data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__selector__title');"></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__text nemo-flights-results__flightsGroup__leg__selector__header__title__text_dates"><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__text__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWName()"></span></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__title__date"><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__day" data-bind="text: departureDate.getDate() + ' ' + departureDate.getMonthName()"></span><span class="nemo-flights-results__flightsGroup__leg__selector__header__title__date__dayOfWeek" data-bind="text: ', ' + departureDate.getDOWNameShort()"></span></div></div><div class="nemo-flights-results__flightsGroup__leg__selector__header__seatsAvailable">∎∎∎∎∎∎∎∎∎∎∎∎</div></div><div class="nemo-flights-results__flightsGroup__leg__selector__selectContainer"><div class="nemo-flights-results__flightsGroup__leg__selector__selected nemo-flights-results__flightsGroup__leg__selector__selected_unopenable"><div class="nemo-flights-results__flightsGroup__leg__selector__selected__time nemo-flights-results__flightsGroup__leg__selector__selected__time_dummy">∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎</div><div class="nemo-flights-results__flightsGroup__leg__selector__selected__timeEnRoute">∎∎∎∎∎∎∎∎∎∎∎∎</div></div></div><div class="nemo-flights-results__flightsGroup__leg__selector__footer"><div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers"><div class="nemo-flights-results__flightsGroup__leg__selector__footer__transfers__notransfers">∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎</div></div><div class="nemo-flights-results__flightsGroup__leg__selector__footer__detailsLink"><span class="nemo-ui-pseudoLink">∎∎∎∎∎∎∎∎</span></div></div></div></div></div>
 
 	<div class="nemo-flights-results__flightsGroup__footer">
 		<div class="nemo-flights-results__flightsGroup__footer__controls">
@@ -767,6 +767,7 @@
 				<!-- ko if: totalPassengers > 1 -->
 				<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer__disclaimer" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
 				<!-- /ko -->
+
 				<div class="nemo-ui-button nemo-ui-button_main nemo-ui-button_disabled nemo-flights-results__flightsGroup__buyButton">
 					∎∎∎∎∎∎∎∎∎
 				</div>
@@ -1257,16 +1258,18 @@
 			<!-- /ko -->
 		</div>
 		<!-- /ko -->
-		
-		<!-- ko component: {
-			name: 'Flights/SearchResults/FareFeatures/Controller',
-			params: {
-				fullMode: true,
-				flight: $parent,
-				segmentId: routeNumber + '_' + number,
-				resultsController: $parents[1].resultsController
-			}
-		} --><!-- /ko -->
+
+		<!-- ko if: $parent.fareFeatures.hasFeaturesForSegment(routeNumber + '_' + number) -->
+			<!-- ko component: {
+				name: 'Flights/SearchResults/FareFeatures/Controller',
+				params: {
+					fullMode: true,
+					flight: $parent,
+					features: $parent.fareFeatures.bySegments[routeNumber + '_' + number],
+					resultsController: $parents[1].resultsController
+				}
+			} --><!-- /ko -->
+		<!-- /ko -->
 	</div>
 
 	<div class="nemo-flights-flightInfo__leg__footer">

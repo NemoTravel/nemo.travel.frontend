@@ -271,14 +271,16 @@ define(
 						parentClass: 'js-nemoApp__component',
 						onlyFirstBlock: false,
 						beforeOpen: null,
+						checkPopupInParentExist: false,
 						close: function () {}
 					},
 					params = ko.utils.unwrapObservable(valueAccessor()),
-					$element = $(element);
+					$element = $(element),
+					block = '';
 
 				if (
-					typeof params == 'object' &&
-					typeof params.block != "undefined"
+					typeof params === 'object' &&
+					typeof params.block !== 'undefined'
 				) {
 					$element.on('click', function (e) {
 						e.preventDefault();
@@ -286,12 +288,23 @@ define(
 						var popupParams = $.extend({},defaults,params),
 							$target = $element.parents('.' + popupParams.parentClass);
 
-						if (typeof popupParams.beforeOpen == 'function') {
+						if (typeof popupParams.beforeOpen === 'function') {
 							popupParams.beforeOpen();
 						}
 
-						if ($target.length == 0) {
+						if ($target.length === 0) {
 							return;
+						}
+
+						// проверяем, не был ли создан попап в рамках родительского класса parentClass
+						// если был создан, то открываем его
+						if (popupParams.checkPopupInParentExist) {
+							var temp = $target.find('.js-popup-'+popupParams.block);
+
+							if (temp.length && temp.data('ui-popup')) {
+								temp.popup('open');
+								return;
+							}
 						}
 
 						$target = $target.find('.js-nemoApp__popupBlock[data-block="'+popupParams.block+'"]');
@@ -304,6 +317,8 @@ define(
 							$target = $target.first();
 						}
 
+						block = popupParams.block;
+
 						delete popupParams.block;
 						delete popupParams.beforeOpen;
 
@@ -312,6 +327,10 @@ define(
 								popupParams.contentData = $target.show();
 
 								$element.popup(popupParams);
+
+								if (popupParams.checkPopupInParentExist) {
+									$element.addClass('js-popup-' + block);
+								}
 							}
 							else if (viewModel && viewModel.$$controller) {
 								viewModel.$$controller.error('Error on displaying popup. Collection length = '+$target.length+' (.js-nemoApp__popupBlock[data-block="'+params.block+'"])', popupParams);

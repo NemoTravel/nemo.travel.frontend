@@ -30,7 +30,7 @@
 	</g>
 </g>
 <g id="Checkbox_on_2">
-	<polyline fill="none" stroke="#FF1724" stroke-miterlimit="10" points="40,1 50,11 60,1 	"/>
+	<polyline fill="none" stroke="#64B5F6" stroke-width="1.5" stroke-miterlimit="10" points="40,1 50,11 60,1 	"/>
 	<path fill="#688ACF" d="M72.5,27.5c2.243,0,3.75-1.507,3.75-3.75S74.743,20,72.5,20h-1.25v6.25H70v1.25h1.25v1.25H70V30h1.25v1.25
 		h1.25V30h3.75v-1.25H72.5V27.5z M72.5,21.25c1.566,0,2.5,0.934,2.5,2.5s-0.934,2.5-2.5,2.5V21.25z"/>
 	<path fill="#7BB236" d="M70,4.5l3.821,3.821l6-6L77.5,0l-4,4L72,2.5C72,2.5,70,5,70,4.5z"/>

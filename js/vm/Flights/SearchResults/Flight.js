@@ -126,6 +126,8 @@ define(
 				}));
 			}
 
+			// Adding warnings
+			// Stopovers
 			if (this.totalStopovers > 0) {
 				this.warnings.push({
 					type: 'stopovers',
@@ -134,6 +136,19 @@ define(
 					}
 				});
 			}
+
+			// Price warnings
+			if (this.price.warnings && !(this.price.warnings instanceof Array)) {
+				for (var i in this.price.warnings) {
+					if (this.price.warnings.hasOwnProperty(i)) {
+						this.warnings.push({
+							type: i,
+							data: {}
+						});
+					}
+				}
+			}
+
 
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
 			this.recommendRating = !isNaN(this.rating) ? this.rating : 0;
