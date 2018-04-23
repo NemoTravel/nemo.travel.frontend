@@ -140,7 +140,7 @@
 							class: 'nemo-flights-results__fareFamilies__action nemo-flights-results__fareFamilies__action_select-tariff nemo-flights-results__fareFamilies__action_select-tariff_' + (flight && flight.segmentsByLeg && flight.segmentsByLeg[$index()] && flight.segmentsByLeg[$index()][0] && flight.segmentsByLeg[$index()][0].marketingCompany && flight.segmentsByLeg[$index()][0].marketingCompany.IATA ? flight.segmentsByLeg[$index()][0].marketingCompany.IATA : '')
 						},
 						component: {
-							name: 'Flights/SearchResults/FareFamilies/Controller',
+							name: 'Flights/SearchResults/FareFamiliesBySegment/Controller',
 							params: { flight: flight, resultsController: resultsController }
 						}"></span>
 					<!-- /ko -->

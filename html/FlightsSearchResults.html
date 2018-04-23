@@ -919,7 +919,7 @@
 
 		<!-- ko if: selectedFlight().canProcessFareFamilies && !selectedFlight().fareFeatures.getFirstFamily() -->
 			<span class="nemo-flights-results__flightsListGroup__fareVariations" data-bind="component: {
-				name: 'Flights/SearchResults/FareFamilies/Controller',
+				name: 'Flights/SearchResults/FareFamiliesBySegment/Controller',
 				params: { flight: selectedFlight(), resultsController: resultsController }
 			}"></span>
 		<!-- /ko -->
