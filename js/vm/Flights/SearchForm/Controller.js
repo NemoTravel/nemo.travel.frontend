@@ -15,6 +15,8 @@ define(
 			this.segments = ko.observableArray([]);
 			this.dateRestrictions = [];
 
+			this.datesAvailable = ko.observable({});
+
 			this.passengers = ko.observable({});
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
@@ -789,6 +791,52 @@ define(
 
 				targetSeg.items[geo == 'arrival' ? 'departure' : 'arrival'].value(segment.items[geo].value());
 			}
+
+			this.getScheduleDates(segment.index);
+		};
+
+		FlightsSearchFormController.prototype.getScheduleDates = function (segmentIndex) {
+			var self = this,
+				arrival = this.segments()[segmentIndex].items['arrival'].value(),
+				departure = this.segments()[segmentIndex].items['departure'].value();
+
+			if (
+				arrival &&
+				departure &&
+				this.highlightDates &&
+				departure.IATA !== arrival.IATA
+			) {
+				fetch(
+					'/api/flights/availability/schedule/'
+					+ departure.IATA + '/'
+					+ arrival.IATA,
+					{ credentials: "same-origin" }
+				)
+				.then(function(response) {
+					return response.json();
+				}).then(function(response) {
+					var data = response,
+						datesMap = {};
+
+					if (data.flights) {
+						var dates = data.flights.availability.dates;
+
+						dates.map(function(date) {
+							var dateParsed = new Date(date.date);
+
+							datesMap[dateParsed.getTime()] = {
+								marketingIATA: date.marketingIATA,
+								operatingIATA: date.operatingIATA
+							};
+						});
+					}
+
+					var datesAvailable = self.datesAvailable();
+						datesAvailable[segmentIndex] = datesMap;
+
+					self.datesAvailable(datesAvailable);
+				});
+			}
 		};
 
 		FlightsSearchFormController.prototype.segmentDateChanged = function (segment) {
@@ -1135,6 +1183,7 @@ define(
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
 			this.forceAggregationAirports = !!this.$$rawdata.flights.search.formData.forceAggregationAirports;
+			this.highlightDates = !!this.$$rawdata.flights.search.formData.highlightDates;
 
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};
@@ -1386,6 +1435,8 @@ define(
 					}
 				)
 			);
+
+			this.getScheduleDates(this.segments().length - 1);
 		};
 
 		FlightsSearchFormController.prototype.continueCR = function () {

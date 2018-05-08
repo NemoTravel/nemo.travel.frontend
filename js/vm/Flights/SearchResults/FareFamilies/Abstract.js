@@ -13,6 +13,8 @@ function abstractFareFamiliesControllerCreator(ko) {
 		this.combinationsPrices = {};
 		// Валидные комбинации.
 		this.validCombinations = {};
+		// Предупреждение о возможном неправильном багаже при кодшере.
+		this.fareFamilyNotice = ko.observable('');
 		// Всякие состояния.
 		this.state = ko.observable({});
 		this.state().fareFamiliesAreLoading = ko.observable(false);
@@ -67,9 +69,11 @@ function abstractFareFamiliesControllerCreator(ko) {
 		if (data.fareFamiliesBySegments) {
 			var initialCombination = ko.unwrap(data.initialCombination),
 				initialCombinationsArray = initialCombination.split('_'),
+				baggageReplacement = ko.unwrap(data.baggageReplacement),
 				fareFamiliesBySegments = ko.unwrap(data.fareFamiliesBySegments),
 				segmentIndex = 0;
 
+			this.fareFamilyNotice(ko.unwrap(data.fareFamilyNotice));
 			this.validCombinations = ko.unwrap(data.validCombinations);
 			this.combinationsPrices = ko.unwrap(data.combinationsPrices);
 
@@ -111,6 +115,14 @@ function abstractFareFamiliesControllerCreator(ko) {
 								currency: ko.unwrap(this.combinationsPrices[initialCombination]).currency,
 								amount: 0
 							}));
+
+							if (baggageReplacement.hasOwnProperty(familyId)) {
+								var replacement = ko.unwrap(baggageReplacement[familyId]);
+
+								if (replacement.hasOwnProperty(segmentIndex)) {
+									this.replaceBaggageInFamily(family, ko.unwrap(replacement[segmentIndex]));
+								}
+							}
 
 							segment.familiesArray.push(family);
 							segment.families[familyId] = family;

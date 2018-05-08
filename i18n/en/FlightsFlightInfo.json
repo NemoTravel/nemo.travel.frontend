@@ -1,50 +1,27 @@
-{
-    "leg__header": "The flight is provided by [%-carrier-%] ",
-    "leg__header__carriersMismatch": "The flight is provided by [%-carrier-%] ",
-    "serviceClass_Economy": "Economy",
-    "serviceClass_PremiumEconomy": "Premium economy",
-    "serviceClass_Business": "Business",
-    "serviceClass_First": "First",
-    "serviceClass_All": "All",
-    "fareInformation": "Fare rules",
-    "fareInformation_short": "Fare rules",
-    "fareInformationHeader": "Free baggage",
-    "leg__transfer": "Transfer",
-    "leg__terminalChange": "Terminal change",
-    "leg__segment__departure__caption": "Airport",
-    "leg__segment__departure__terminal__caption": "Terminal",
-    "leg__segment__arrival__caption": "Airport",
-    "leg__segment__arrival__terminal__caption": "Terminal",
-    "leg__segment__carrier__caption": "Operated by",
-    "leg__segment__flightNumber__caption": "Flight",
-    "leg__segment__serviceClass__caption": "Class",
-    "leg__segment__aircraft__caption": "Aircraft",
-    "leg__segment__baggage__caption": "Luggage",
-    "leg__segment__timeEnRoute__caption": "Time en route:",
-    "leg__timeEnRoute__caption": "Time en route:",
-    "leg__stopover": "Technical stop",
-    "leg__stopover__terminal": "Terminal",
-    "leg__stopover__timeArrival": "From",
-    "leg__stopover__timeDeparture": "to",
-    "leg__stopover__noDate": "leg__stopover__noDate",
-    "leg__stopover__passengerLanding": "Holding aircraft",
-    "leg__segment__baggage__passType_ADT": "Adults",
-    "leg__segment__baggage__passType_CLD": "Children",
-    "leg__segment__baggage__passType_CNN": "Children",
-    "leg__segment__baggage__passType_UNN": "Children",
-    "leg__segment__baggage__passType_INF": "Infants",
-    "leg__segment__baggage__passType_INS": "Infants with a seat",
-    "leg__segment__baggage__passType_YTH": "Students",
-    "leg__segment__baggage__passType_SRC": "Seniors",
-    "leg__segment__baggage__carryOn_only": "Only carry-on luggage",
-    "leg__segment__baggage__carryOn_only_INF": "No baggage",
-    "leg__segment__baggage__noBaggage": "No baggage",
-    "leg__segment__baggage__withBaggage": "With baggage",
-    "leg__segment__baggage__carryOn": "Carry-on luggage +",
-    "leg__segment__baggage__metric_pc": "PC",
-    "leg__segment__baggage__metric_kg": "kg",
-    "leg__segment__baggage__metric_lb": "lb",
-    "leg__segment__baggage__metric_bag_1": "bag",
-    "leg__segment__baggage__metric_bag_2": "bags",
-    "leg__segment__baggage__metric_bag_3": "bags"
-}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Maintenance</title>
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700&subset=latin,cyrillic-ext">
+	<link rel="stylesheet" href="/templates/wurst/css/style.css"/>
+</head>
+<body style="overflow:scroll;">
+	<div style="z-index: 99999; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; padding-top: 150px; padding-left: 20px; padding-right: 20px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">
+		<pre style="text-align: left; margin-top:100px;" >Необработанное исключение 0d18b1f7 (сообщение видит только саппорт)
+SQLSTATE[08004] [1040] Too many connections
+#0 /var/www/nemo/libs/Zend/Db/Adapter/Pdo/Mysql.php(96): Zend_Db_Adapter_Pdo_Abstract->_connect()
+#1 /var/www/nemo/libs/Zend/Db/Adapter/Abstract.php(968): Zend_Db_Adapter_Pdo_Mysql->_connect()
+#2 /var/www/nemo/libs/Zend/Db/Adapter/Abstract.php(1038): Zend_Db_Adapter_Abstract->quote(3452, NULL)
+#3 /var/www/nemo/libs/Zend/Db/Select.php(930): Zend_Db_Adapter_Abstract->quoteInto('group_manager =...', 3452, NULL)
+#4 /var/www/nemo/libs/Zend/Db/Select.php(463): Zend_Db_Select->_where('group_manager =...', 3452, NULL, true)
+#5 /var/www/nemo/libs/WS/DB/Users.php(1182): Zend_Db_Select->where('group_manager =...', 3452)
+#6 /var/www/nemo/libs/WS/Auth.php(127): WS_DB_Users->get_group_for_new(3452, true)
+#7 /var/www/nemo/libs/WS/Auth.php(166): WS_Auth->getIdentity()
+#8 /var/www/nemo/core/core.php(142): WS_Auth->iniIdentity()
+#9 /var/www/nemo/core/bootstrap.php(338): Core->identification()
+#10 /var/www/nemo/frontendStatic/index.php(64): require('/var/www/nemo/c...')
+#11 {main}</pre>		
+	</div>
+</body>
+</html>

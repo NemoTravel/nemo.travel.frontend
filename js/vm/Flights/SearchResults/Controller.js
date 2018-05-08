@@ -743,7 +743,8 @@ define(
 								this.segments[i].flightTime = this.$$controller.getModel('Common/Duration', this.segments[i].flightTime);
 
 								// Aircraft
-								this.segments[i].aircraftType = this.aircrafts[this.segments[i].aircraftType];
+
+								this.segments[i].aircraftType = this.segments[i].aircraftType === 'BUS' || this.segments[i].aircraftType === 'TRAIN' ? this.segments[i].aircraftType : this.aircrafts[this.segments[i].aircraftType];
 
 								// Companies
 								this.segments[i].marketingCompany = this.airlines[this.segments[i].marketingCompany || this.segments[i].operatingCompany];

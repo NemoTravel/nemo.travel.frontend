@@ -432,6 +432,10 @@ define(
 
 				ret.className += ret.period ? ' nemo-pmu-date_period' : '';
 
+				if (ret.className === '' && viewModel.form.datesAvailable()[viewModel.index] && viewModel.form.datesAvailable()[viewModel.index][dateObj.getTime()]) {
+					ret.className = 'nemo-pmu-date_availables';
+				}
+
 				delete ret.segments;
 				delete ret.period;
 
@@ -565,6 +569,22 @@ define(
 				if(mobileDetect().deviceType != 'desktop'){
 					$element.attr('readonly', 'true');
 				}
+
+				viewModel.form.datesAvailable.subscribe(function() {
+					var needToShow = false;
+
+					// если календарь был открыт...
+					if ($element.data('pickmeup-options') && $element.pickmeup().isDisplaying) {
+						needToShow = true;
+					}
+
+					ko.bindingHandlers.flightsFormDatepicker.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
+
+					// ... то, после обновления с новыми доступными датами, показываем его снова
+					if (needToShow) {
+						$element.pickmeup('show');
+					}
+				}, this);
 			},
 			update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				$(element).pickmeup(ko.bindingHandlers.flightsFormDatepicker._getPMUOptions(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext));
