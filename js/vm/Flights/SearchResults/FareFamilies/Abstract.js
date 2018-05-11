@@ -15,6 +15,8 @@ function abstractFareFamiliesControllerCreator(ko) {
 		this.validCombinations = {};
 		// Предупреждение о возможном неправильном багаже при кодшере.
 		this.fareFamilyNotice = ko.observable('');
+		// Всякая инфа о перелетах.
+		this.flightsById = {};
 		// Всякие состояния.
 		this.state = ko.observable({});
 		this.state().fareFamiliesAreLoading = ko.observable(false);
@@ -76,6 +78,7 @@ function abstractFareFamiliesControllerCreator(ko) {
 			this.fareFamilyNotice(ko.unwrap(data.fareFamilyNotice));
 			this.validCombinations = ko.unwrap(data.validCombinations);
 			this.combinationsPrices = ko.unwrap(data.combinationsPrices);
+			this.flightsById = ko.unwrap(data.flightsInfo);
 
 			ko.unwrap(data.segmentsByLegs).forEach(function (segments) {
 				segments.forEach(function (segmentItem) {
