@@ -105,7 +105,6 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
             i18nLanguage: '<?php echo $language; ?>',
             version: 'v0',
             root: '<?php echo $root ?>',
-            i18nLanguage: 'en',
             CORSWithCredentials: true,
             componentsAdditionalInfo: {
                 'Flights/SearchForm/Controller': { 
