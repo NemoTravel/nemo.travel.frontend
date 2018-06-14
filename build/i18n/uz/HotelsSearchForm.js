@@ -108,8 +108,6 @@ define([],function () {return {
     "additionalParameters__carrier__searchNotFound": "Aviakompaniya yo'q",
     "additionalParameters__country__searchNotFound": "additionalParameters__country__searchNotFound",
     "additionalParameters__carrier__loading": "Yuklanmoqda",
-    "additionalParameters__maxPrice__title": "Chiptalar narxi",
-    "additionalParameters__maxPrice__placeholder": "gacha",
     "additionalParameters__timeEnRoute__title": "Parvoz vaqti",
     "additionalParameters__timeEnRoute__subTitle": "Ko'pi bilan",
     "additionalParameters__timeEnRoute__option_none": "Farqi yo'q",

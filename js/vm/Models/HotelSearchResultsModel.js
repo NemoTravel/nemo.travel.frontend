@@ -85,8 +85,8 @@ define(
 				isDelayed: false,
 				rooms: rooms,
 				loyaltyCard: {
-					number: localStorageFormData.loyaltyCard.cardNumber,
-					hotelsChain: localStorageFormData.loyaltyCard.hotelsChain
+					number: localStorageFormData.loyaltyCard ? localStorageFormData.loyaltyCard.cardNumber : null,
+					hotelsChain: localStorageFormData.loyaltyCard ? localStorageFormData.loyaltyCard.hotelsChain : null
 				},
 				clientNationality: localStorageFormData.clientNationality
 			});

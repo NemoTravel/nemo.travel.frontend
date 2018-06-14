@@ -15,6 +15,8 @@ define(
 			this.segments = ko.observableArray([]);
 			this.dateRestrictions = [];
 
+			this.datesAvailable = ko.observable({});
+
 			this.passengers = ko.observable({});
 			this.passengersError = ko.observable(false);
 			this.passengersUseExtendedSelect = true;
@@ -25,10 +27,7 @@ define(
 			this.carriersLoaded = ko.observable(this.carriers !== null);
 			this.additionalParameters = {
 				carriers: ko.observableArray([]),
-				maxPrice: ko.observable(),
-				maxTransfersLength: ko.observable(false),
-				maxTimeEnRoute: ko.observable(null),
-				maxTimeEnRouteOptions: [null, 6, 12, 24]
+				maxTransfersLength: ko.observable(false)
 			};
 
 			this.tripType = ko.observable('OW');
@@ -89,21 +88,6 @@ define(
 			}, this);
 
 			this.processInitParams();
-
-			this.additionalParameters.maxPrice.subscribe(function (newValue) {
-				var tmp = parseInt(newValue);
-
-				if (isNaN(tmp)) {
-					tmp = '';
-				}
-				else {
-					tmp = Math.min(Math.abs(tmp), 999999);
-				}
-
-				if (tmp != newValue) {
-					this.additionalParameters.maxPrice(tmp);
-				}
-			}, this);
 
 			this.segments.subscribe(function (newValue) {
 				this.recalcDateRestrictions();
@@ -406,15 +390,6 @@ define(
 					urlAdder += '-vicinityDates='+this.options.dateOptions.aroundDatesValues[this.options.dateOptions.aroundDatesValues.length - 1];
 				}
 
-				// Additional parameters
-				if (this.additionalParameters.maxPrice()) {
-					urlAdder += '-PMaxPrice=' + this.additionalParameters.maxPrice() + this.$$controller.viewModel.agency.currency();
-				}
-
-				if (this.additionalParameters.maxTimeEnRoute()) {
-					urlAdder += '-PMaxTimeEnRoute=' + this.additionalParameters.maxTimeEnRoute();
-				}
-
 				if (!this.directFlights() && this.additionalParameters.maxTransfersLength()) {
 					urlAdder += '-PMaxTransfersLength=2';
 				}
@@ -477,14 +452,6 @@ define(
 
 			this.additionalParameters.maxTransfersLength.subscribe(function (val) {
 				Analytics.tap('searchForm.additionalParameters.fastFlights.active', { value: val });
-			});
-
-			this.additionalParameters.maxTimeEnRoute.subscribe(function (val) {
-				Analytics.tap('searchForm.additionalParameters.maxRouteTime.value', { value: val });
-			});
-
-			this.additionalParameters.maxPrice.subscribe(function (val) {
-				Analytics.tap('searchForm.additionalParameters.maxPrice.value', { value: val });
 			});
 
 			this.additionalParameters.carriers.subscribe(function (val) {
@@ -823,6 +790,52 @@ define(
 				var targetSeg = this.segments()[1];
 
 				targetSeg.items[geo == 'arrival' ? 'departure' : 'arrival'].value(segment.items[geo].value());
+			}
+
+			this.getScheduleDates(segment.index);
+		};
+
+		FlightsSearchFormController.prototype.getScheduleDates = function (segmentIndex) {
+			var self = this,
+				arrival = this.segments()[segmentIndex].items['arrival'].value(),
+				departure = this.segments()[segmentIndex].items['departure'].value();
+
+			if (
+				arrival &&
+				departure &&
+				this.highlightDates &&
+				departure.IATA !== arrival.IATA
+			) {
+				fetch(
+					'/api/flights/availability/schedule/'
+					+ departure.IATA + '/'
+					+ arrival.IATA,
+					{ credentials: "same-origin" }
+				)
+				.then(function(response) {
+					return response.json();
+				}).then(function(response) {
+					var data = response,
+						datesMap = {};
+
+					if (data.flights) {
+						var dates = data.flights.availability.dates;
+
+						dates.map(function(date) {
+							var dateParsed = new Date(date.date);
+
+							datesMap[dateParsed.getTime()] = {
+								marketingIATA: date.marketingIATA,
+								operatingIATA: date.operatingIATA
+							};
+						});
+					}
+
+					var datesAvailable = self.datesAvailable();
+						datesAvailable[segmentIndex] = datesMap;
+
+					self.datesAvailable(datesAvailable);
+				});
 			}
 		};
 
@@ -1170,6 +1183,7 @@ define(
 			this.showCitySwapBtn = this.$$rawdata.flights.search.formData.showCitySwapBtn;
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
 			this.forceAggregationAirports = !!this.$$rawdata.flights.search.formData.forceAggregationAirports;
+			this.highlightDates = !!this.$$rawdata.flights.search.formData.highlightDates;
 
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};
@@ -1421,6 +1435,8 @@ define(
 					}
 				)
 			);
+
+			this.getScheduleDates(this.segments().length - 1);
 		};
 
 		FlightsSearchFormController.prototype.continueCR = function () {
@@ -1498,6 +1514,7 @@ define(
 				!this.$$componentParameters.additional ||
 				!this.$$componentParameters.additional.formData ||
 				this.$$componentParameters.route.length === 3 ||
+				this.geoPresets ||
 				(
 					this.$$componentParameters.route.length === 1 &&
 					parseInt(this.$$componentParameters.route[0]) > 0

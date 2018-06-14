@@ -1,0 +1,91 @@
+.nemo-flights-results__fareFamiliesBySegment {
+	&__popup {
+		position: fixed;
+		top: 0 !important;
+		bottom: 0 !important;
+
+		.ui-dialog-titlebar {
+			border-radius: 0;
+		}
+
+		.ui-dialog-content.ui-widget-content {
+			padding: 0 !important;
+			max-height: 100% !important;
+			height: 100% !important;
+		}
+
+		&__total {
+			margin-right: 0;
+		}
+
+		@media (max-width: 960px) {
+			position: fixed;
+			top: 0 !important;
+			left: 0 !important;
+			bottom: 0 !important;
+			right: 0 !important;
+			width: auto !important;
+			max-width: none !important;
+			padding: 0;
+
+			.ui-dialog-titlebar {
+				border-radius: 0;
+			}
+
+			.ui-dialog-content.ui-widget-content {
+				padding: 0px !important;
+				max-height: 100% !important;
+				height: 100% !important;
+			}
+
+			&__segments {
+			//	padding-bottom: 120px;
+			}
+
+			&__total {
+				margin-right: 0;
+			}
+		}
+
+		@media (max-width: 650px) {
+			&__segment {
+				&__shortInfo {
+					flex-wrap: wrap;
+
+					&__main {
+						width: 100%;
+					}
+				}
+
+				&__full {
+					flex-wrap: wrap;
+				}
+
+				&__flightRoute {
+					min-width: 100%;
+					max-width: 100%;
+
+					&__subHeader, &__segment {
+						display: none;
+					}
+				}
+
+				&__families {
+					border-top: 1px solid #eee;
+				}
+			}
+
+			&__families {
+				&__list {
+					width: 100%;
+					border-top: 0;
+					flex-direction: column;
+				}
+
+				&__family {
+					border-top: 1px solid #eee;
+				}
+			}
+		}
+	}
+}

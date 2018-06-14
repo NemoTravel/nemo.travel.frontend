@@ -108,8 +108,6 @@
     "additionalParameters__carrier__searchNotFound": "Нет авиакомпании",
     "additionalParameters__country__searchNotFound": "Страна недоступна для выбора",
     "additionalParameters__carrier__loading": "Загружаем...",
-    "additionalParameters__maxPrice__title": "Цена билетов",
-    "additionalParameters__maxPrice__placeholder": "до",
     "additionalParameters__timeEnRoute__title": "Время в пути",
     "additionalParameters__timeEnRoute__subTitle": "Не более",
     "additionalParameters__timeEnRoute__option_none": "Не важно",

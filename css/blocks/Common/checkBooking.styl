@@ -11,6 +11,46 @@
 		display: block;
 	}
 
+	&__dialog {
+		.nemo-ui-button_main {
+			background: #88c43d;
+			font-size: 15px;
+			padding: 0 15px;
+
+			height: 40px;
+			line-height: 40px;
+
+			&:hover,
+			&:focus {
+				background: #94ca51;
+			}
+
+			&:focus {
+				box-shadow: 0 0 8px #edbe00;
+			}
+		}
+
+		.ui-dialog-titlebar-close {
+			height: 30px;
+			background transparent url(images/ui/popup-close.svg) center center no-repeat;
+
+			&:hover {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+				background-color: rgba(#000, 0.05);
+			}
+
+			&:focus {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+				box-shadow: none;
+			}
+			&:focus:hover {
+				background: transparent url(images/ui/popup-close.svg) center center no-repeat;
+				box-shadow: none;
+			}
+		}
+
+	}
+
 	&__field {
 		position: relative;
 		margin-bottom: 10px;

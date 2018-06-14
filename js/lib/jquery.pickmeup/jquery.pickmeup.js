@@ -78,6 +78,7 @@
 		className: '',
 		separator: ' - ',
 		hideOnSelect: true,
+		isDisplaying: false,
 		min: null,
 		max: null,
 		lastState:null,
@@ -981,6 +982,8 @@
 					options.binded.forced_show
 				);
 			}
+
+			options.isDisplaying = true;
 		}
 	}
 
@@ -1018,6 +1021,8 @@
 					}
 				}
 			}
+
+			options.isDisplaying = false;
 		}
 	}
 

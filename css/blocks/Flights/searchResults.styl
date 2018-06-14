@@ -5,16 +5,16 @@
 	&__bookingCheck {
 		display: none;
 		max-width: 700px;
-		
+
 		&__errorMessage {
 			margin: 10px 0;
 		}
-		
+
 		&__buttons {
 			.nemo-ui-button:first-child {
 				margin-right: 20px;
 			}
-			
+
 			display: flex;
 			justify-content: space-between;
 			margin-top: 20px;
@@ -35,10 +35,16 @@
 			border-radius: 0;
 		}
 
+		&__link {
+			padding: 0 20px 20px 20px;
+			background #fff;
+		}
+
 		&__footer {
 			@extend .ui-dialog-buttonpane;
 
 			&__button {
+				font-size: 15px;
 			}
 		}
 	}
@@ -67,7 +73,7 @@
 		position: relative;
 		padding-left: 100px;
 		font-size: 13px;
- 
+
 		&:before {
 			content: '';
 			position: absolute;
@@ -620,10 +626,10 @@
 			}
 		}
 	}
-		
+
 	&-EAR &__content {
 		min-height: auto;
-		
+
 		&__results {
 			align-self: auto;
 		}

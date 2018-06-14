@@ -283,6 +283,25 @@
 	&__leg {
 		border-bottom: $i_ui_subContainer_divider_border;
 
+		&__features {
+
+			.nemo-flights-results__fareFamilies:first-of-type {
+				border-top: 1px solid rgba(230, 230, 230, .75);
+			}
+
+			.nemo-flights-results__fareFamilies:last-of-type {
+				&:not(.nemo-flights-results__fareFamilies_opened) {
+					.nemo-flights-results__fareFamilies__header {
+						border-bottom: none;
+					}
+				}
+
+				.nemo-flights-results__fareFamilies__actions {
+					border-bottom: none;
+				}
+			}
+		}
+
 		&__info {
 			padding: 10px 20px 10px 20px;
 			position: relative;
@@ -369,6 +388,7 @@
 						&__charter {
 							border-left: 1px solid $nemo-color-notification_error_text;
 							padding-left: 5px;
+							color: #ff9731 !important;
 						}
 					}
 
@@ -410,6 +430,11 @@
 				&__detailsLink {
 					min-width: 1px;
 					margin-left: auto;
+
+					.nemo-ui-pseudoLink {
+						color: #666;
+						border-color: #666;
+					}
 				}
 
 				&__transfers {
@@ -427,31 +452,38 @@
 						line-height: 18px;
 						padding: 6px 0;
 					}
+
+					&__notransfers {
+						color: #b5b5b7;
+					}
 				}
 			}
 
 			&__selectContainer {
 				//position: relative;
 				display: block;
+
+				.nemo-ui-select__toggle_open {
+
+					.nemo-flights-results__flightsGroup__leg__selector__selected__showMoreFligths {
+						display: none;
+					}
+				}
 			}
 
 			&__selected {
-				padding: 10px 40px 10px 20px;
+				padding: 13px 40px 13px 20px;
 				min-height: 60px;
 				height: auto;
 				line-height: normal;
 				position: relative;
-				font-size: 16px;
+				font-size: 13px;
+				border-radius: 4px;
 
 				&__block {
-					display: flex !important; 
-					justify-content: space-between; 
+					display: flex !important;
+					justify-content: space-between;
 					align-items: center;
-				}
-
-				&:active {
-					padding-top: 10px;
-					padding-bottom: 10px;
 				}
 
 				&:before {
@@ -469,23 +501,17 @@
 
 				&_unopenable {
 					cursor: auto;
-					background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
+					background: #f7f7f7;
+					padding-right: 15px;
 
 					&:after {
 						display: none;
 					}
 
 					&:hover {
-						background: linear-gradient(to bottom, #fCfCfC, #fAfAfA);
+						background: #f7f7f7;
 					}
 				}
-
-				//&.nemo-ui-select__toggle_open {
-				//
-				//	&, &:hover, &:active {
-				//		background: #fff;
-				//	}
-				//}
 
 				&_inDropDown {
 					&:after {
@@ -504,21 +530,22 @@
 				&__timeAndTimeEnRoute {
 					display: block;
 				}
-				
+
 				&__showMoreFligths {
-					font-size: 13px; 
+					font-size: 13px;
 					color: rgba(100, 100, 100, 0.5);
-					z-index: 100;
 				}
 
 				&__time {
-					font-size: 100%;
-					height: 23px;
 					display: inline-block;
 					vertical-align: baseline;
 
+					&:not(&_dummy) {
+						color: #636467;
+					}
+
 					&__arrival {
-						font-size: 80%;
+						font-size: 13px;
 
 						&_nextDay {
 							color: #B23E13;
@@ -526,15 +553,13 @@
 					}
 
 					&__departure {
+						font-size: 17px;
 						font-weight: 600;
 					}
 				}
 
 				&__timeEnRoute {
-					font-size: 80%;
 					color: $nemo-color-text-secondary;
-					//opacity: 0.75;
-					//height: 17px;
 
 					&__addText {
 						color: $nemo-color-text-secondary;
@@ -579,6 +604,16 @@
 
 					&__arrival_nextday {
 						color: $nemo-color-notification_error_text;
+					}
+
+					&__moreFlights {
+						text-align: center;
+						padding: 0;
+
+						&__inner {
+							text-align: center;
+							padding: 10px;
+						}
 					}
 
 					&__transfers {
@@ -643,7 +678,7 @@
 					}
 				}
 			}
-			
+
 			&__fareInfo {
 				display: flex;
 				justify-content: space-between;
@@ -655,7 +690,7 @@
 				border-top: 1px solid rgba(230,230,230,.75);
 				background: #f7f7f7;
 				height: 50px;
-				
+
 				&__baggage {
 					font-size: 11px;
 					position: relative;
@@ -663,12 +698,12 @@
 					color: #666;
 					display: flex;
 					align-items: center;
-					
+
 					&__icon {
 						font-size: 14px !important;
 						margin-right: 7px;
 					}
-					
+
 					//&:before {
 					//	content: '';
 					//	position: absolute;
@@ -678,7 +713,7 @@
 					//	width: 14px;
 					//	height: 13px;
 					//}
-					
+
 					&__tooltip {
 						.tooltipster-content {
 							padding: 10px 15px;
@@ -688,7 +723,7 @@
 
 								li {
 									list-style-type: none;
-									
+
 									&:not(:last-of-type) {
 										margin-bottom: 5px;
 									}
@@ -718,6 +753,35 @@
 		&__controls {
 			display: flex;
 			justify-content: space-between;
+
+			&__actions {
+				width: 100%;
+				min-width: 0;
+
+				display: flex;
+				flex-wrap: wrap;
+
+				&__selectFare {
+					overflow: hidden;
+					margin-right: 10px;
+					padding: 0 !important;
+
+					&_secret {
+						padding: 9px 15px !important;
+					}
+
+					.nemo-flights-results__fareFamilies__action {
+						display: flex;
+
+						.nemo-ui-pseudoLink {
+							overflow: hidden;
+							text-overflow: ellipsis;
+							padding: 9px 15px;
+							white-space: nowrap;
+						}
+					}
+				}
+			}
 		}
 
 		//&__couplingButtonContainer, &__buyButtonContainer {
@@ -728,7 +792,7 @@
 
 		&__buyButtonContainer {
 			text-align: right;
-			
+
 			&__exchange {
 				margin-top: 10px;
 			}
@@ -752,7 +816,7 @@
 				text-align: right;
 			}
 		}
-		
+
 		//&__disclaimers {
 		//	margin: 15px -20px 0;
 		//	padding: 10px 20px 5px;
@@ -784,11 +848,13 @@
 		height: 40px;
 		font-size: 13px;
 		line-height: 20px;
-		padding: 9px 20px;
+		border-radius: 5px;
+		padding: 9px 15px;
+
 		border: 1px solid alpha($nemo-color-main, 0.15);
 		transition: all $nemo-transition-main ease-in;
 		background: none;
-		border-radius: 5px;
+		color: #64b5f6;
 
 		&:hover {
 			background: none;
@@ -797,6 +863,14 @@
 
 		&:active {
 			padding-top: 8px;
+		}
+
+		a.nemo-ui-pseudoLink {
+			border-bottom: none !important;
+
+			&:hover {
+				color: #64b5f6;
+			}
 		}
 	}
 
@@ -915,7 +989,7 @@
 		padding: 0;
 		overflow: visible;
 	}
-	
+
 	&__managerInfoBlock {
 		padding: 0 20px;
 		display: flex;
@@ -931,6 +1005,13 @@
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			min-width: 0;
+
+			& a, span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 
 			&:not(:last-child) {
 				border-right: 1px solid rgba(230, 230, 230, .75);
@@ -948,7 +1029,7 @@
 
 	&_bestCompanies {
 		margin-bottom: 20px;
-		
+
 		.nemo-flights-results__fareFamilies__header__title_togglable {
 			font-size: 13px;
 			white-space: nowrap;
@@ -957,7 +1038,7 @@
 			text-overflow: ellipsis;
 			padding-right: 10px;
 		}
-		
+
 		.nemo-flights-results__fareFamilies__actions {
 			display: flex;
 		}

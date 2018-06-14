@@ -304,10 +304,10 @@ define(
 							$visibleSelectable = $selectable.filter(':visible'),
 							firstGroupOffset,
 							tmp;
-						
+
 						if ($groupsList.find('.js-flights-couplingTable__group').eq(1).position()) {
 							firstGroupOffset = $groupsList.find('.js-flights-couplingTable__group').eq(1).position().left;
-							
+
 							$groupsList.find('.js-flights-couplingTable__connector').remove();
 
 							tmp = defineMinMaxTopOffset($visibleSelectable);
@@ -466,7 +466,7 @@ define(
 				// We need to call valueAcessor from inside click handler for it to return latest data passed to binding as a parameter
 				var data = valueAccessor(),
 					flightIds = data.ids;
-				
+
 				if (flightIds.length) {
 					if ($element.parents('.js-flights-results__showcase').length > 0 ){
 						Cookie.set('nemo-showcaseFlight-' + flightIds[0], true, 30);
@@ -475,7 +475,7 @@ define(
 					$element.data('nemo-flights-results__bookingCheckInProgress',true);
 
 					flightIds = data.controller.handleFlightIdsBeforeBooking(flightIds);
-					
+
 					data.controller.bookFlight(flightIds);
 				}
 			},
@@ -498,6 +498,11 @@ define(
 									)
 								);
 								ret += '</p>';
+								break;
+							case 'insBookingNotAllowedBySupplier':
+								ret += '<p class="nemo-flights-results__flightsWarnings__item">' +
+										i18n('FlightsSearchResults','flightsGroup__flightWarnings__insBookingNotAllowedBySupplier') +
+										'</p>';
 								break;
 							default:
 								ret += '<p class="nemo-flights-results__flightsWarnings__item">' + i18n('FlightsSearchResults','') + '</p>';
@@ -604,7 +609,7 @@ define(
 			update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var data = valueAccessor(),
 					$element = $(element);
-				
+
 				// Setting tooltip (for desktops)
 				if (data.ids.length && data.controller.flights[data.ids[0]].warnings.length) {
 					var tooltipContent = ko.bindingHandlers.flightsResultsBuyButtonFlightCheck._hintContent(

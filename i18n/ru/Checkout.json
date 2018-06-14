@@ -672,37 +672,12 @@
     "exare_return_compelled_file_type_flight_problems": "Справка о задержке/отмене/переносе рейса авиакомпанией",
     "exare_return_compelled_file_type_other": "Другое",
     "close_thickbox_title": "Закрыть",
-    "checkout-customers__ADT": [
-        "взрослый",
-        "взрослых",
-        "взрослых"
-    ],
-    "checkout-customers__YTH": [
-        "молодой",
-        "молодых",
-        "молодых"
-    ],
-    "checkout-customers__SRC": [
-        "пожилой",
-        "пожилых",
-        "пожилых"
-    ],
-    "checkout-customers__CLD": [
-        "ребенок",
-        "детей",
-        "ребенка"
-    ],
-    "checkout-customers__INF": [
-        "младенец",
-        "младенцев",
-        "младенца"
-    ],
-    "checkout-customers__CLD_age": [
-        "до 1 года",
-        "год",
-        "года",
-        "лет"
-    ],
+    "checkout-customers__ADT": "взрослый|взрослых|взрослых",
+    "checkout-customers__YTH": "молодой|молодых|молодых",
+    "checkout-customers__SRC": "пожилой|пожилых|пожилых",
+    "checkout-customers__CLD": "ребенок|детей|ребенка",
+    "checkout-customers__INF": "младенец|младенцев|младенца",
+    "checkout-customers__CLD_age": "до 1 года|год|года|лет",
     "checkout-titles-locator": "Номер заказа в системе",
     "checkout-titles-accessCode": "Код доступа",
     "checkout-titles-agree": "Согласен",
@@ -710,5 +685,18 @@
     "checkout-steps-one-title": "Введите информацию о гостях",
     "checkout-steps-two-title": "Заполните контактные данные",
     "checkout-steps-three-title": "Выберите способ оплаты",
-    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты"
+    "checkout-misc__paymentTypeAdditionalInfo": "Информация о способе оплаты",
+    "checkout-office": "Офис",
+    "checkout-office_fax": "Факс",
+    "checkout-office_holiday": "Выходные дни",
+    "checkout-office_info": "Информация об офисах агентства",
+    "checkout-office_info_disable": "Информация об офисах отсутствует",
+    "checkout-office_lat": "Широта",
+    "checkout-office_lng": "Долгота",
+    "checkout-office_name": "Название офиса",
+    "checkout-office_phone": "Телефон",
+    "checkout-office_timeperiod_holiday": "Время работы в выходные",
+    "checkout-office_timeperiod_recess": "Перерыв на обед",
+    "checkout-office_timeperiod_dutyday": "Время работы в дежурные дни",
+    "checkout-office_timeperiod_work": "Время работы"
 }

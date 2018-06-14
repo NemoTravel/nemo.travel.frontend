@@ -256,7 +256,7 @@ define(
 	
 								setTimeout(function () {
 									self.initHotelCardMap(hotel, 'cardHotelMap');
-								}, 300);
+								}, 500);
 	
 								helpers.scroll(0);
 							}

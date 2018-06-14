@@ -1,0 +1,41 @@
+.nemo-cookies {
+	position: relative;
+	z-index: 15;
+
+	padding: 10px 0;
+	font-size: 14px;
+
+	box-shadow: 0 1px 6px 0 rgba(99, 100, 103, 0.25);
+	background: #f5ebd9;
+	color: #1e1e2e;
+
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: nowrap;
+
+		max-width: 1600px;
+		padding: 0 20px;
+		margin: 0 auto;
+	}
+
+	&-text {
+		padding-right: 20px;
+	}
+
+	&-actions {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+
+		.ui-dialog-titlebar-close&__close {
+			position: static;
+			outline: none;
+
+			&:active {
+				background-color: rgba(0, 0, 0, .1);
+			}
+		}
+	}
+}

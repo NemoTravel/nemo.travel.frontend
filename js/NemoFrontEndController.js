@@ -409,7 +409,6 @@ define (
 				return this.i18nExtensions[segment][key];
 			}
 			else if (this.i18nStorage[segment] && this.i18nStorage[segment][key]) {
-
 				var template = this.i18nStorage[segment][key];
 
 				if (typeof values === 'object') {

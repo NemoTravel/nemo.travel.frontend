@@ -57,7 +57,7 @@
 </div>
 
 <template id="ko-HotelsSearchResultsHotel-tab-rooms">
-	<div class="nemo-hotel__content__rooms">
+	<div class="nemo-hotel__content__rooms" data-bind="if: hotel && hotel.staticDataInfo">
 		<div class="nemo-hotel__content__rooms__mobileHeader">
 			<span class="nemo-hotel__content__rooms__mobileHeader__title" data-bind="text: hotel.name"></span>
 
@@ -136,7 +136,7 @@
 </template>
 
 <template id="ko-HotelsSearchResultsHotel-tab-about">
-	<div class="nemo-hotel__content__about">
+	<div class="nemo-hotel__content__about" data-bind="if: hotel && hotel.staticDataInfo">
 		<div class="nemo-hotel__content__about__description" data-bind="visible: hotel.staticDataInfo.description">
 			<h3 class="nemo-hotel__content__about__title" data-bind="i18n: 'HotelsSearchResults.description'"></h3>
 			<div class="nemo-hotel__content__about__description__text" data-bind="html: hotel.staticDataInfo.description"></div>
@@ -158,7 +158,7 @@
 </template>
 
 <template id="ko-HotelsSearchResultsHotel-tab-conveniences">
-	<div class="nemo-hotel__content__about">
+	<div class="nemo-hotel__content__about" data-bind="if: hotel && hotel.staticDataInfo">
 		<div class="nemo-hotel__content__about__services">
 			<h3 class="nemo-hotel__content__about__title" data-bind="i18n: 'HotelsSearchResults.hotelServicesCaption'"></h3>
 
@@ -173,7 +173,7 @@
 </template>
 
 <template id="ko-HotelsSearchResultsHotel-tab-rules">
-	<div class="nemo-hotel__content__about">
+	<div class="nemo-hotel__content__about" data-bind="if: hotel && hotel.staticDataInfo">
 		<div class="nemo-hotel__content__about__rules">
 			<h3 class="nemo-hotel__content__about__title" data-bind="i18n: 'HotelsSearchResults.hotelRulesCaption'"></h3>
 

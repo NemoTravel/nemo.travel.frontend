@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Nemo Widget Example</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="http://demo.nemo.travel/templates/wurst/f2.0/css/style.css?a=1123">
+	<!--[if IE 9]>
+	<link rel="stylesheet" href="http://demo.nemo.travel/templates/wurst/f2.0/css/ie9.css?a=1123">
+	<![endif]-->
+	<link href="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
+	<link href="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="js-nemoApp">
+	<!-- ko if: component() -->
+		<div data-bind="component: {
+			name: component,
+			params: {
+				route: componentRoute(),
+				additional: componentAdditionalParams()
+			}
+		}">
+			<div class="nemo-common-appLoader"></div>
+		</div>
+	<!-- /ko -->
+
+	<!-- ko if: !component() && !globalError() -->
+		<div class="nemo-common-appLoader"></div>
+	<!-- /ko -->
+
+	<!-- ko if: globalError() -->
+		<div class="nemo-common-appError" data-bind="text: globalError"></div>
+	<!-- /ko -->
+</div>
+
+<script src="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/requirejs/v.2.1.15/require.js"></script>
+<script src="http://demo.nemo.travel/templates/wurst/dist/nemo-search-en.js"></script>
+<script>
+	var nemoSourceHost = 'http://demo.nemo.travel/templates/wurst/f2.0';
+
+	require.config({
+		urlArgs: '',
+		paths: {
+			async:         nemoSourceHost+'/js/lib/requirejs/async',
+			domReady:      nemoSourceHost+'/js/lib/requirejs/domReady',
+			text:          nemoSourceHost+'/js/lib/requirejs/text',
+			knockout:      nemoSourceHost+'/js/lib/knockout/v.3.2.0/knockout-3.2.0',
+			AppController: nemoSourceHost+'/js/NemoFrontEndController',
+			jquery:        nemoSourceHost+'/js/lib/jquery/v.2.1.3/jquery-2.1.3.min',
+			jqueryUI:      nemoSourceHost+'/js/lib/jqueryUI/v.1.11.4/jquery-ui.min',
+			jsCookie:      nemoSourceHost+'/js/lib/js.cookie/v.2.0.0/js.cookie',
+			tooltipster:   nemoSourceHost+'/js/lib/tooltipster/jquery.tooltipster.min',
+			numeralJS:     nemoSourceHost+'/js/lib/numeral.js/v.1.5.3/numeral.min',
+			mousewheel:    nemoSourceHost+'/js/lib/jquery.mousewheel/jquery.mousewheel.min',
+			touchpunch:    nemoSourceHost+'/js/lib/jquery.ui.touch-punch/v.0.2.3/jquery.ui.touch-punch.min',
+			dotdotdot:     nemoSourceHost+'/js/lib/jquery.dotdotdot-master/jquery.dotdotdot'
+		},
+		baseUrl: nemoSourceHost,
+		enforceDefine: true,
+		waitSeconds: 300,
+		config: { text: { useXhr: function () { return true; } } }
+	});
+
+	require(['AppController'], function (AppController) {
+		var controller = new AppController(document.getElementById('js-nemoApp'), {
+			controllerSourceURL: nemoSourceHost,
+			dataURL: 'http://demo.nemo.travel/api',
+			staticInfoURL: '//demo.nemo.travel',
+			templateSourceURL: 'http://demo.nemo.travel/frontendStatic/html/wurst/v0/en/',
+			i18nURL: 'http://demo.nemo.travel/frontendStatic/i18n/wurst/v0',
+			version: 'v0',
+			root: '/',
+			i18nLanguage: 'en',
+			CORSWithCredentials: true,
+			componentsAdditionalInfo: {
+				'Flights/SearchForm/Controller': {
+					forceSelfHostNavigation: true,
+					formData: { "guide": { "countries": { "RU": { "code": "RU", "name": "Russia", "nameEn": "Russia" } }, "cities": { "58194": { "IATA": "RTW", "name": "Saratov", "nameEn": "Saratov", "countryCode": "RU", "id": 58194 } }, "airports": { "RTW": { "IATA": "RTW", "cityId": 58194, "isAggregation": false, "airportRating": "29053", "properNameEn": null, "properName": null, "name": "Saratov", "nameEn": "Saratov", "countryCode": "RU" } } }, "flights": { "search": { "request": { "segments": [ { "departure": { "IATA": "RTW", "isCity": false, "cityId": 58194 }, "arrival": null } ], "passengers": [ { "type": "ADT", "count": 1 } ], "parameters": { "searchType": "OW", "direct": false, "aroundDates": 0, "serviceClass": "All", "flightNumbers": [], "airlines": [], "delayed": false, "priceRefundType": null } }, "formData": { "maxLimits": { "passengerCount": { "ADT": "6", "SRC": "6", "YTH": "6", "CLD": "4", "INF": "2", "INS": "2" }, "totalPassengers": "9", "flightSegments": "5" }, "dateOptions": { "minOffset": 2, "maxOffset": 365, "incorrectDatesBlock": true, "aroundDatesValues": [ 1, 2, 3 ] }, "showCitySwapBtn": true, "scheduleSearchEnable": false, "onFocusAutocomplete": false, "forceAggregationAirports": false, "searchWithoutAdults": false, "hideDirectOnlyCheckbox": false, "passengersSelect": { "extendedPassengersSelect": false, "passengersSelectAlt": true, "tripType": "select", "fastPassengersSelect": [ { "label": "singleAdult", "set": { "ADT": 1 } }, { "label": "twoAdults", "set": { "ADT": 2 } }, { "label": "twoAdultsWithChild", "set": { "ADT": 2, "CLD": 1 } } ] } } } }, "system": { "info": { "response": { "timestamp": 1510315025.1128, "responseTime": 0.018975973129272 }, "user": { "userID": 61107, "agencyID": 61105, "status": "guest", "isB2B": false, "settings": { "currentLanguage": "en", "currentCurrency": "RUB", "agencyCurrency": "RUB", "googleMapsApiKey": "AIzaSyB-8D4iRGP1qgLShbdbqIYm-3spSP-bA_w", "googleMapsClientId": "", "showFullFlightsResults": null } } } } }
+				},
+				'Hotels/SearchForm/Controller': {
+					forceSelfHostNavigation: true
+				}
+			}
+		});
+	});
+</script>
+<script src="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/jquery/v.2.1.3/jquery-2.1.3.min.js"></script>
+<script src="http://demo.nemo.travel/templates/wurst/f2.0/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
+</body>
+</html>

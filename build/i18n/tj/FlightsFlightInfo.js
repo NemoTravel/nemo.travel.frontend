@@ -39,7 +39,7 @@ define([],function () {return {
     "leg__segment__baggage__carryOn_only": "Только ручная кладь",
     "leg__segment__baggage__carryOn_only_INF": "Без багажа",
     "leg__segment__baggage__noBaggage": "Без багажа",
-    "leg__segment__baggage__withBaggage": "С багажом",
+    "leg__segment__baggage__withBaggage": "Информация о багаже",
     "leg__segment__baggage__carryOn": "Ручная кладь +",
     "leg__segment__baggage__metric_pc": "шт",
     "leg__segment__baggage__metric_kg": "кг",

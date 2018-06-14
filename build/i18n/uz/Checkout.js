@@ -685,5 +685,18 @@ define([],function () {return {
     "checkout-steps-one-title": "checkout-steps-one-title",
     "checkout-steps-two-title": "checkout-steps-two-title",
     "checkout-steps-three-title": "checkout-steps-three-title",
-    "checkout-misc__paymentTypeAdditionalInfo": "checkout-misc__paymentTypeAdditionalInfo"
+    "checkout-misc__paymentTypeAdditionalInfo": "checkout-misc__paymentTypeAdditionalInfo",
+    "checkout-office": "checkout-office",
+    "checkout-office_fax": "checkout-office_fax",
+    "checkout-office_holiday": "checkout-office_holiday",
+    "checkout-office_info": "checkout-office_info",
+    "checkout-office_info_disable": "checkout-office_info_disable",
+    "checkout-office_lat": "checkout-office_lat",
+    "checkout-office_lng": "checkout-office_lng",
+    "checkout-office_name": "checkout-office_name",
+    "checkout-office_phone": "checkout-office_phone",
+    "checkout-office_timeperiod_holiday": "checkout-office_timeperiod_holiday",
+    "checkout-office_timeperiod_recess": "checkout-office_timeperiod_recess",
+    "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
+    "checkout-office_timeperiod_work": "checkout-office_timeperiod_work"
 }});

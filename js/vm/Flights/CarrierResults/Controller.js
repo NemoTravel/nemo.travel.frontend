@@ -260,10 +260,6 @@ define(
 				tmp.otherDates(tmpDates);
 
 				if (routeLegs.length > i + 1) {
-					for (var j = 0, dates = routeLegs[i].otherDates(); j < dates.length; j++) {
-						dates[j].active(dates[j].active() && dates[j].date.getTimestamp() <= routeLegs[i + 1].date.getTimestamp());
-					}
-
 					// Checking next date
 					if (routeLegs[i].nextDate.getTimestamp() >= routeLegs[i + 1].date.getTimestamp()) {
 						routeLegs[i].nextDate = routeLegs[i + 1].date;
@@ -463,7 +459,26 @@ define(
 								selectedPrice: ko.observable(),
 								minPrice: null,
 								prevDate: null,
-								nextDate: null
+								nextDate: null,
+								checkGroupIsAvailable: function (group, searchResultsController, flights) {
+									var result;
+
+									// Для а\к R3 скрываем колонку с тарифом "Промо", если на плече на этом тарифе нет мест.
+									if (group.name !== 'Промо' && group.name !== 'Promo') {
+										result = true;
+									}
+									else {
+										result = flights.reduce(function (result, flight) {
+											if (result) {
+												return true;
+											}
+
+											return flight.segments[0].marketingCompany.IATA !== 'R3' || searchResultsController.prices[flight.id + group.id] && searchResultsController.prices[flight.id + group.id].avlSeats > 0;
+										}, false);
+									}
+
+									return result;
+								}
 							};
 
 							for (var j = 0; j < carrierData.flightLegs[i].flights.length; j++) {
@@ -559,7 +574,9 @@ define(
 							var segsarr = [];
 
 							for (var j = 0; j < this.$$rawdata.flights.search.results.flightGroups[i].segments.length; j++) {
-								segsarr.push(this.segments[this.$$rawdata.flights.search.results.flightGroups[i].segments[j]]);
+								if (this.segments[this.$$rawdata.flights.search.results.flightGroups[i].segments[j]]) {
+									segsarr.push(this.segments[this.$$rawdata.flights.search.results.flightGroups[i].segments[j]]);
+								}
 							}
 
 							for (var j = 0; j < this.$$rawdata.flights.search.results.flightGroups[i].flights.length; j++) {

@@ -12,6 +12,8 @@ define(
 			this.ratingItems = [];
 
 			this.filteredOut = ko.observable(false);
+			this.overlandTrip = false;
+			this.overlandTripType = '';
 			this.segmentsByLeg = [];
 			this.legs = [];
 			this.totalTimeEnRoute = null;
@@ -40,6 +42,13 @@ define(
 				this.segments[i].shortInfo += this.segments[i].arrAirp.city.name;
 				this.segments[i].shortInfo += '&nbsp;';
 				this.segments[i].shortInfo += '(' + this.segments[i].depDateTime.getDate() + '&nbsp;' + this.segments[i].depDateTime.getMonthName() + ',&nbsp;' + this.segments[i].depDateTime.getDOWName() +')';
+				this.segments[i].overlandTrip = false;
+
+				if (this.segments[i].aircraftType === 'BUS' || this.segments[i].aircraftType === 'TRAIN') {
+					this.overlandTrip = this.segments[i].aircraftType;
+					this.segments[i].overlandTrip = true;
+				}
+
 				this.segments[i].isNightDeparture = this.isNightSegmentDeparture(i);
 
 				if (this.segments[i].routeNumber != tmp) {
@@ -122,10 +131,13 @@ define(
 					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
 					stopoversCount: stopoversForLeg,
 					isCharter: this.segmentsByLeg[i][0].isCharter,
-					isNightDeparture: this.segmentsByLeg[i][0].isNightDeparture
+					isNightDeparture: this.segmentsByLeg[i][0].isNightDeparture,
+					overlandTrip: this.overlandTrip
 				}));
 			}
 
+			// Adding warnings
+			// Stopovers
 			if (this.totalStopovers > 0) {
 				this.warnings.push({
 					type: 'stopovers',
@@ -134,6 +146,19 @@ define(
 					}
 				});
 			}
+
+			// Price warnings
+			if (this.price.warnings && !(this.price.warnings instanceof Array)) {
+				for (var i in this.price.warnings) {
+					if (this.price.warnings.hasOwnProperty(i)) {
+						this.warnings.push({
+							type: i,
+							data: {}
+						});
+					}
+				}
+			}
+
 
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
 			this.recommendRating = !isNaN(this.rating) ? this.rating : 0;
@@ -211,9 +236,10 @@ define(
 				if (depHours >= 0 && depHours < 4) {
 					var fromDay = this.segments[segmentIndex].depDateTime.offsetDate(-1).getDate(),
 						toDay = this.segments[segmentIndex].depDateTime.getDate(),
-						monthName = this.$$controller.i18n('dates', 'month_'+parseInt(this.segments[segmentIndex].depDateTime.getMonth())+'_f');
+						monthName = this.$$controller.i18n('dates', 'month_'+parseInt(this.segments[segmentIndex].depDateTime.getMonth())+'_f'),
+						overland = this.segments[segmentIndex].overlandTrip;
 
-					return this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__info__nightDeparture')
+					return this.$$controller.i18n('FlightsSearchResults', overland ? 'flightsGroup__info__nightDeparture_overland' : 'flightsGroup__info__nightDeparture')
 						.replace('[%-from-%]', fromDay)
 						.replace('[%-to-%]', toDay)
 						.replace('[%-month-%]', monthName);

@@ -411,9 +411,9 @@ define([],function () {return {
     "new-passinfo-checkpopup__button_book": "Continue",
     "new-passinfo-checkpopup__button_cancel": "Back and edit",
     "new-passinfo-checkpopup__bookingDone": "Hooray, your tickets have been successfully booked!",
-    "new-passinfo-checkpopup__cancelError": "Ops, something went wrong and we could not process your cancellation automatically. Please try again later or contact to an operator. Sorry for the inconvenience caused.",
-    "new-passinfo-bookingError__title": "Ops, something went wrong and we have got a booking error",
-    "new-passinfo-bookingError__message": "Ops, something went wrong and we could not process your booking automatically. Please try again later or contact to an operator.",
+    "new-passinfo-checkpopup__cancelError": "Oops, something went wrong and we could not process your cancellation automatically. Please try again later or contact to an operator. Sorry for the inconvenience caused.",
+    "new-passinfo-bookingError__title": "Oops, something went wrong and we have got a booking error",
+    "new-passinfo-bookingError__message": "Oops, something went wrong and we could not process your booking automatically. Please try again later or contact to an operator.",
     "new-passinfo-bookingError__toResults": "Search for another flight",
     "new-passinfo-bookingError__close": "Back to order",
     "new-passinfo-bookingError__sameNames": "Your booking request contains several passengers with same names and surnames and thus can not be processed automatically. Please feature middle name field or make different booking for each particular passenger. Sorry for the inconvenience caused.",
@@ -672,37 +672,12 @@ define([],function () {return {
     "exare_return_compelled_file_type_flight_problems": "Flight delay/cancellation reference",
     "exare_return_compelled_file_type_other": "Other",
     "close_thickbox_title": "Close",
-    "checkout-customers__ADT": [
-        "adult",
-        "adults",
-        "adults"
-    ],
-    "checkout-customers__YTH": [
-        "student",
-        "students",
-        "students"
-    ],
-    "checkout-customers__SRC": [
-        "elderly",
-        "elderlies",
-        "elderlies"
-    ],
-    "checkout-customers__CLD": [
-        "child",
-        "children",
-        "children"
-    ],
-    "checkout-customers__INF": [
-        "infant",
-        "infants",
-        "infants"
-    ],
-    "checkout-customers__CLD_age": [
-        "up to 1 year",
-        "year",
-        "years",
-        "years"
-    ],
+    "checkout-customers__ADT": "adult|adults|adults",
+    "checkout-customers__YTH": "student|students|students",
+    "checkout-customers__SRC": "elderly|elderlies|elderlies",
+    "checkout-customers__CLD": "child|children|children",
+    "checkout-customers__INF": "infant|infants|infants",
+    "checkout-customers__CLD_age": "up to 1 year|year|years|years",
     "checkout-titles-locator": "Booking ID in the system",
     "checkout-titles-accessCode": "Access code",
     "checkout-titles-agree": "I agree",
@@ -710,5 +685,18 @@ define([],function () {return {
     "checkout-steps-one-title": "Fill in information about the guests",
     "checkout-steps-two-title": "Fill in your contacts",
     "checkout-steps-three-title": "Choose the payment method",
-    "checkout-misc__paymentTypeAdditionalInfo": "Payment type additional informationg"
+    "checkout-misc__paymentTypeAdditionalInfo": "Payment type additional informationg",
+    "checkout-office": "Office",
+    "checkout-office_fax": "Fax",
+    "checkout-office_holiday": "Closed",
+    "checkout-office_info": "Agency offices information",
+    "checkout-office_info_disable": "No information about agency offices",
+    "checkout-office_lat": "Latitude",
+    "checkout-office_lng": "Longitude",
+    "checkout-office_name": "Office title",
+    "checkout-office_phone": "Phone",
+    "checkout-office_timeperiod_holiday": "Weekend working hours",
+    "checkout-office_timeperiod_recess": "Lunch time",
+    "checkout-office_timeperiod_dutyday": "Duty days working hours",
+    "checkout-office_timeperiod_work": "Working hours"
 }});
