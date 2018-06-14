@@ -116,6 +116,10 @@ define(
 				this.timeEnRouteByLeg.push(this.$$controller.getModel('Common/Duration', timeForLeg));
 				this.totalStopovers += stopoversForLeg;
 
+				if (this.segmentsByLeg[i][0].isCharter) {
+					this.isCharter = true;
+				}
+
 				this.legs.push(this.$$controller.getModel('Flights/SearchResults/Leg', {
 					depAirp: this.segmentsByLeg[i][0].depAirp,
 					arrAirp: this.segmentsByLeg[i][this.segmentsByLeg[i].length - 1].arrAirp,

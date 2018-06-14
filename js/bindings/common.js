@@ -105,8 +105,9 @@ define(
 					options.theme = options.cssClass || '';
 					options.arrow = options.arrow || false;
 					options.contentAsHTML = typeof options.contentAsHTML != 'undefined' ? options.contentAsHTML : true;
-					options.offsetX = 0;
-					options.offsetY = 0;
+					options.offsetX = options.offsetX || 0;
+					options.offsetY = options.offsetY || 0;
+					options.position = options.position || 'top';
 					options.functionBefore = function(origin, continueTooltip) {
 						if (
 							!options.detectOverflow ||

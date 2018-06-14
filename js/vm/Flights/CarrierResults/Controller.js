@@ -221,11 +221,16 @@ define(
 		FlightsCarrierResultsController.prototype.processBuiltLegs = function (routeLegs) {
 			for (var i = 0; i < routeLegs.length; i++) {
 				var prevdate = i ? new Date(routeLegs[i - 1].date.dateObject()) : new Date(),
+					nextdate = i + 1 < routeLegs.length ? new Date(routeLegs[i + 1].date.dateObject()) : null,
 					tmpDates = [],
 					tmp = routeLegs[i];
 
 				prevdate.setHours(0, 0, 0, 0);
 				prevdate = this.$$controller.getModel('Common/Date', prevdate);
+
+				if (nextdate) {
+					nextdate = this.$$controller.getModel('Common/Date', nextdate);
+				}
 
 				tmp.date.setHours(0,0,0);
 
@@ -252,7 +257,7 @@ define(
 
 					tmpDates.push({
 						date: newdate,
-						active: ko.observable(newdate.getTimestamp() >= prevdate.getTimestamp()),
+						active: ko.observable(newdate.getTimestamp() >= prevdate.getTimestamp() && (!nextdate || newdate.getTimestamp() <= nextdate.getTimestamp())),
 						minPrice: ko.observable(false)
 					});
 				}

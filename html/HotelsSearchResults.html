@@ -584,6 +584,10 @@
 								<!-- /ko -->
 	
 								<div class="nemo-hotels-results__hotelsGroup__footer">
+									<!-- ko if: $root.controller.viewModel.user.isB2B() -->
+										<div class="nemo-hotels-results__hotelsGroup__footer__supplier" data-bind="text: supplier"></div>
+									<!-- /ko -->
+
 									<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn"
 										 data-bind="click: $parent.showCardHotel">
 										<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">

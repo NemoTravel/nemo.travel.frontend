@@ -59,34 +59,43 @@ define(
 				// If item has label - it's something other than geo point that should be in AC
 				var text;
 
-				if (typeof item.label == 'undefined') {
-					text = item.name
-							.replace(
-								new RegExp(
-									'(' + (this.term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '')) + ')',
-									''
-								),
-								'<span class="nemo-ui-autocomplete__match">$1</span>'
-							) +
-						(item.country ? '<span class="nemo-flights-form__geoAC__item__country">, ' + item.country.name + '</span>' : '');
+				if (typeof item.label === 'undefined') {
+					var itemName = item.name.replace(new RegExp(
+						'(' + (this.term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '')) + ')', 'i'),
+						'<span class="nemo-ui-autocomplete__match">$1</span>'
+					);
+
+					var itemCode = item.IATA ? '<span class="nemo-flights-form__geoAC__item__code">' + item.IATA + '</span>' : '';
+					var countryName = item.country && !item.insideAggregation ? '<span class="nemo-flights-form__geoAC__item__country">' + item.country.name + '</span>' : '';
+
+					text = itemName + countryName + itemCode;
 				}
 				else {
 					text = item.label;
 				}
-				
+
 				var liClass = 'nemo-flights-form__geoAC__item';
 				
-				if('noRoute' in item && item.noRoute){ 
+				if ('noRoute' in item && item.noRoute) {
 					liClass += ' nemo-flights-form__geoAC__item_noRoute';
 				}
-				if('directFlight' in item && item.directFlight){ 
+
+				if ('directFlight' in item && item.directFlight) {
 					liClass += ' nemo-flights-form__geoAC__item_directFlight';
+				}
+
+				if ('aggregationRoot' in item && item.aggregationRoot === true) {
+					liClass += ' nemo-flights-form__geoAC__item_aggregationRoot';
+				}
+
+				if ('insideAggregation' in item && item.insideAggregation === true) {
+					liClass += ' nemo-flights-form__geoAC__item_insideAggregation';
 				}
 
 				return $("<li>")
 					.addClass(liClass)
 					.append(text)
-					.attr('data-value', typeof item.label == 'undefined')
+					.attr('data-value', typeof item.label === 'undefined')
 					.appendTo(ul);
 			},
 			_renderMenu: function( ul, items ) {
@@ -107,6 +116,23 @@ define(
 				}
 			}
 		});
+
+		/**
+		 * @param autocompleteItem
+		 * @param guide
+		 * @returns {Array}
+		 */
+		function getInnerAirports(autocompleteItem, guide) {
+			if (
+				autocompleteItem.isCity &&
+				guide.cities.hasOwnProperty(autocompleteItem.cityId) &&
+				guide.cities[autocompleteItem.cityId].airports instanceof Array
+			) {
+				return guide.cities[autocompleteItem.cityId].airports;
+			}
+
+			return [];
+		}
 
 		ko.bindingHandlers.flightsFormGeoAC = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -134,22 +160,25 @@ define(
 
 				$element.FlightsFormGeoAC({
 					minLength: 2,
-					source:function(request, callback){
+					source: function(request, callback){
 						var requestUrl = viewModel.$$controller.options.dataURL + '/guide/autocomplete/iata/' + encodeURIComponent(request.term);
-						if(isDepartureInput && viewModel.items.arrival.value() && viewModel.items.arrival.value().IATA){
+
+						if (isDepartureInput && viewModel.items.arrival.value() && viewModel.items.arrival.value().IATA) {
 							requestUrl += '/arr/' + encodeURIComponent(viewModel.items.arrival.value().IATA);
 						}
-						if(!isDepartureInput && viewModel.items.departure.value() && viewModel.items.departure.value().IATA){
+
+						if (!isDepartureInput && viewModel.items.departure.value() && viewModel.items.departure.value().IATA) {
 							requestUrl += '/dep/' + encodeURIComponent(viewModel.items.departure.value().IATA);
 						}
+
 						requestUrl += '?apilang=' + viewModel.$$controller.options.i18nLanguage;
+
 						viewModel.$$controller.makeRequest(
 							requestUrl,
 							'',
 							function (data) {
 								data = JSON.parse(data);
-								var result = [],
-									tmp;
+								var result = [];
 
 								if (data.system && data.system.error) {
 									callback(noResultsResults);
@@ -157,26 +186,51 @@ define(
 								}
 
 								// Converting autocomplete data into an array of possibilities
-								for (var i = 0; i < data.guide.autocomplete.iata.length; i++) {
-									result.push(
-										viewModel.$$controller.getModel('Flights/Common/Geo', {data: data.guide.autocomplete.iata[i], guide: data.guide})
-									);
-								}
+								data.guide.autocomplete.iata.map(function (autocompleteItem) {
+									// Root airport model.
+									var airportModel = viewModel.$$controller.getModel('Flights/Common/Geo', {
+										data: autocompleteItem,
+										guide: data.guide
+									});
 
-								if (result.length == 0) {
+									// Get airports related to the root airport city.
+									var innerAirports = getInnerAirports(autocompleteItem, data.guide);
+
+									// If there are some, mark current top-level airport as an aggregation root.
+									if (innerAirports.length) {
+										airportModel.aggregationRoot = true;
+									}
+
+									// Push it to the results list.
+									result.push(airportModel);
+
+									// Push all inner airports next to it.
+									innerAirports.map(function (responseAirport) {
+										var innerAirportModel = viewModel.$$controller.getModel('Flights/Common/Geo', {
+											data: responseAirport,
+											guide: data.guide
+										});
+
+										innerAirportModel.insideAggregation = true;
+
+										result.push(innerAirportModel);
+									});
+								});
+
+								if (result.length === 0) {
 									result = noResultsResults;
 								}
 
 								callback(result);
 							},
-							function(){
+							function () {
 								callback(noResultsResults);
-							})
+							});
 					},
-					open: function (event, ui) {
+					open: function (event) {
 						var $children = $(this).data('nemo-FlightsFormGeoAC').menu.element.children('[data-value="true"]');
 
-						if ($children.length == 1 && $(this).data('nemo-FlightsFormGeoAC').term.length > 2) {
+						if ($children.length === 1 && $(this).data('nemo-FlightsFormGeoAC').term.length > 2) {
 							if(!onFocusAutocomplete){
 								//когда автокомплит с маршрутами - пользователь должен подтвердить недопустимую комбинацию
 								$children.eq(0).mouseenter().click();
@@ -189,12 +243,11 @@ define(
 					response: function (event, ui) {
 						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
 					},
-					select: function( event, ui ) {
+					select: function(event, ui) {
 						$element.blur();
 						if(typeof ui.item.noRoute  !== 'undefined' && ui.item.noRoute){
 
 							// тут происходит сброс недопустимых маршрутов
-							
 							valueAccessor()(ui.item);
 
 							var $row = $element.parents('.js-autofocus-segment');
@@ -345,6 +398,8 @@ define(
 		ko.bindingHandlers.flightsFormDatepicker = {
 			// Auxiliary stuff/extension points
 			_PMULocale: null,
+			_PHONE_MAX_WIDTH: 768,
+			_CURRENT_MONTHS_COUNT: ko.observable(2),
 			_getPMULocale: function (bindingContext) {
 				if (!ko.bindingHandlers.flightsFormDatepicker._PMULocale) {
 					ko.bindingHandlers.flightsFormDatepicker._PMULocale = {
@@ -460,7 +515,7 @@ define(
 				return {
 					className: 'nemo-flights-form__datePicker',
 					locale: ko.bindingHandlers.flightsFormDatepicker._getPMULocale(bindingContext),
-					calendars: mobileDetect().deviceType != 'desktop' ? 1 : 2,
+					calendars: ko.bindingHandlers.flightsFormDatepicker._CURRENT_MONTHS_COUNT(),
 					min: viewModel.form.options.dateOptions.minDate,
 					max: viewModel.form.options.dateOptions.maxDate,
 					format: 'd.m.Y',
@@ -533,7 +588,8 @@ define(
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var $element = $(element),
 					format = 'd.m.Y',
-					dataKey = '_KO_flightsFormDatepicker_prevValue';
+					dataKey = '_KO_flightsFormDatepicker_prevValue',
+					$window = $(window);
 
 				$element.on('blur', function () {
 					$element.val('');
@@ -566,7 +622,16 @@ define(
 					$element.off('keyup');
 				});
 
-				if(mobileDetect().deviceType != 'desktop'){
+				$window.resize(function() {
+					ko.bindingHandlers.flightsFormDatepicker._CURRENT_MONTHS_COUNT($window.width() < ko.bindingHandlers.flightsFormDatepicker._PHONE_MAX_WIDTH ? 1 : 2);
+				});
+
+				ko.bindingHandlers.flightsFormDatepicker._CURRENT_MONTHS_COUNT.subscribe(function() {
+					ko.bindingHandlers.flightsFormDatepicker.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
+				}, this);
+
+				if ($window.width() < ko.bindingHandlers.flightsFormDatepicker._PHONE_MAX_WIDTH) {
+					ko.bindingHandlers.flightsFormDatepicker._CURRENT_MONTHS_COUNT(1);
 					$element.attr('readonly', 'true');
 				}
 

@@ -1057,4 +1057,115 @@
 			}
 		}
 	}
+
+	&__couplingTableDialog {
+		.ui-dialog-buttonpane {
+			display: none;
+		}
+
+		@media (max-width: 900px) {
+			width: 100% !important;
+
+			.nemo-flights-results__couplingTable__groups {
+				width: auto;
+
+				&__connector {
+					display: none;
+				}
+
+				&__group {
+					&__item {
+						&:after,
+						&:before {
+							display: none;
+						}
+					}
+				}
+
+				&__infoGroup {
+					&__item {
+						margin-bottom: 20px;
+						padding-top: 10px;
+					}
+				}
+			}
+		}
+
+		@media (max-width: 620px) {
+			position: fixed;
+			top: 0!important;
+			left: 0!important;
+			bottom: 0!important;
+			right: 0!important;
+			width: auto!important;
+			max-width: none!important;
+			padding: 0;
+
+			.ui-dialog-content,
+			.ui-dialog-titlebar {
+				border-radius: 0;
+			}
+
+			.nemo-flights-results__couplingTable {
+				position: relative;
+				height: 100%;
+
+				&__groups {
+					margin-bottom: 150px;
+
+					&__group__item {
+						&__timeEnRoute,
+						&__transfers {
+							display: none;
+						}
+					}
+
+					&__buyGroup {
+						display: none;
+					}
+				}
+
+				&__showAll {
+					position: absolute;
+					bottom: 120px;
+					left: 50%;
+					transform: translateX(-50%);
+
+					&__button {
+						white-space: nowrap;
+					}
+				}
+			}
+
+			.ui-dialog-buttonpane {
+				display: block;
+				position: fixed;
+				width: 100%;
+				bottom: 0;
+			}
+
+			.nemo-flights-results__flightsGroup__couplingTablePopup {
+				height: 100% !important;
+				max-height: 100% !important;
+				position: relative;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.nemo-flights-results__couplingTable {
+				&__groups {
+					&__infoGroup {
+						display: none;
+					}
+				}
+
+				&__header {
+					&__title {
+						display: none;
+					}
+				}
+			}
+		}
+
+	}
 }
