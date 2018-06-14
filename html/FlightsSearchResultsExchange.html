@@ -399,7 +399,7 @@
 			<!-- /ko -->
 
 			<!-- ko if: resultsLoaded() && visibleResultsCount() > showcase.mainFlightsCount() -->
-			<div data-bind="foreach: visibleGroups, attr:{'class':'nemo-flights-results__groupList nemo-flights-results__groupList_' + displayType()}">
+			<div data-bind="foreach: visibleGroups, attr:{'class':'nemo-flights-results__groupList nemo-flights-results__groupList_' + displayType()}, searchResultDataLayer">
 				<div class="nemo-flights-results__groupList__item" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group_' + $parent.displayType(), data: $data}"></div>
 			</div>
 			<!-- /ko -->
@@ -657,7 +657,8 @@
 							ids: selectedFlightsIds(),
 							controller: resultsController,
 							addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
-						}
+						},
+						click: function (self, event) { resultsController.selectFlightDataLayer(selectedFlight()) }
 					">
 					<money format="0,0 $" data-bind="money: getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
 					<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
@@ -983,7 +984,8 @@
 						ids: selectedFlightsIds(),
 						controller: resultsController,
 						addClass: 'nemo-flights-results__flightsListGroup__buyButton_bookingCheck'
-					}"
+					},
+					click: function (self, event) { resultsController.selectFlightDataLayer(selectedFlight()) }"
 				 class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsListGroup__buyButton">
 				<money class="nemo-flights-results__flightsListGroup__buyButton__text" data-bind="money: getTotalPrice()" format="0,0 $"></money>
 				<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"
@@ -1377,12 +1379,12 @@
 								cssClass: 'nemo-flights-results__couplingTable__groups__group__item__arrTime__tooltip'
 							}
 					"></span>
-					<span class="nemo-flights-results__couplingTable__groups__group__item__timeEnRoute" 
+					<span class="nemo-flights-results__couplingTable__groups__group__item__timeEnRoute"
 						  data-bind="
-						  		text: $root.i18n('FlightsFlightInfo','leg__segment__timeEnRoute__caption') + ': ' + timeEnRoute.readableStringShort() + (transfersCount > 0 ? ', ' : ''), 
+						  		text: $root.i18n('FlightsFlightInfo','leg__segment__timeEnRoute__caption') + ': ' + timeEnRoute.readableStringShort() + (transfersCount > 0 ? ', ' : ''),
 								tooltip: {
 									content: $root.i18n('FlightsSearchForm', 'additionalParameters__totalTimeEnRoute__title'),
-									cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'																							
+									cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
 								}
 					"></span>
 
@@ -1398,7 +1400,7 @@
 								)
 					"></span>
 					<!-- /ko -->
-					
+
 					<div class="nemo-flights-results__couplingTable__groups__group__item__route">
 						<span class="nemo-flights-results__couplingTable__groups__group__item__route__departure"
 							data-bind="
@@ -1452,12 +1454,12 @@
 						flightsResultsCouplingTableDetails: {table: $parents[2], index: $parentContext.$parentContext.$index(), group: $parent},
 						text: $root.i18n('FlightsSearchResults', 'couplingTable__group__item__detailsText')
 					"></span>
-					
+
 					<span class="nemo-flights-results__couplingTable__groups__group__item__fareVariations">
 						<!-- ko if: $parents[2].group.fareVariationsVisible -->
 							<div data-bind="component: {
 								name: 'Flights/SearchResults/FareVariations/Controller',
-								params: { 
+								params: {
 									flight: $parent.referenceFlight,
 									resultsController: $parents[2].group.resultsController
 								}
@@ -1530,6 +1532,24 @@
 			"></div>
 	</div>
 	<!-- /ko -->
+
+	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+
+		<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
+				<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton"
+					 data-bind="
+						flightsResultsBuyButtonFlightCheck: {
+							ids: cheapestSelected().id,
+							controller: group.resultsController,
+							addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
+						}
+					">
+					<money format="0,0 $" data-bind="money: cheapestSelected().getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
+					<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
+				</div>
+		</div>
+
+	</div>
 
 	<!-- ko if: detailsPopupOpen -->
 	<div data-bind="
@@ -1663,7 +1683,8 @@
 										ids: selectedFlightsIds(),
 										controller: resultsController,
 										addClass: 'nemo-flights-results__compareTable__groupsItem__buyButton_bookingCheck'
-									}">
+									},
+									click: function (self, event) { resultsController.selectFlightDataLayer(selectedFlight()) }">
 							<span class="nemo-flights-results__compareTable__groupsItem__buyButton__text" data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__buy')"></span>
 							<span class="nemo-flights-results__compareTable__groupsItem__buyButton__checkText" data-bind="text:$root.i18n('FlightsSearchResults', 'flightsCompareTable__checking')"></span>
 						</button>

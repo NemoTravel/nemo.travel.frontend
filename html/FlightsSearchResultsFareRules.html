@@ -17,44 +17,44 @@
 				<div id="new-flights-farerules__ruleText__rules">
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>При заказе чартерных билетов выписывается Сертификат, подтверждающий право на получение маршрутной квитанции электронного авиабилета. Сертификат не является билетом и недействителен для перелета, т.к. не содержит номера.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_1')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>Накануне даты вылета вместо Сертификата выписывается Электронный авиабилет. Пассажир допускается к полету только при наличии маршрут-квитанции электронного билета и паспорта.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_2')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>У чартерных рейсов возможна замена времени вылета (в пределах обозначенной даты), могут быть изменены аэропорты, номера рейсов, авиаперевозчик. Информацию об изменениях по перелету Вы получите на указанный Вами при заказе E-Mail.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_3')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>Перед вылетом пассажир обязан самостоятельно уточнить информацию о возможных изменениях в расписании.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_4')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>За сутки до вылета обратного рейса пассажир должен проверить информацию об обратном рейсе.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_5')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>При отказе пассажира от перевозки по любой причине возврат стоимости чартерной перевозки не производится, изменение условий чартерной перевозки по инициативе пассажира (обмен сертификата/маршрутной квитанции) не производится.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_6')">
 						</div>
 					</div>
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text">
-							<pre>В случае неявки пассажира на первый рейс авиакомпания аннулирует билет на обратный рейс, и пассажир не сможет воспользоваться обратным перелетом.</pre>
+						<div class="new-flights-farerules__rules__rule__text"
+							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_7')">
 						</div>
 					</div>
 				</div>
@@ -72,7 +72,7 @@
 				</div>
 			<!-- /ko -->
 			
-			<!-- ko if: canBeTranslated() -->
+			<!-- ko if: canBeTranslated() && showYandexTranslator() -->
 				<div class="nemo-flights-farerules__content__translators">
 					<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadOriginal, css: { 'nemo-ui-pseudoLink': translated() }">
 						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__translator__original') --><!-- /ko -->
@@ -126,7 +126,7 @@
 						<div class="nemo-flights-farerules__content__rules__list__body">
 							<div class="nemo-flights-farerules__content__rules__list__body__category" data-bind="foreach: $data">
 								<div class="nemo-flights-farerules__content__rules__list__body__category__name" data-bind="text: code + ' ' + name"></div>
-								<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="text: text"></pre>
+								<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="html: text"></pre>
 							</div>
 						</div>
 					</div>
@@ -151,7 +151,7 @@
 		<!-- /ko -->
 	</div>
 
-	<!-- ko if: canBeTranslated() -->
+	<!-- ko if: canBeTranslated() && showYandexTranslator() -->
 		<div class="nemo-flights-farerules__disclaimer">
 			<sup class="nemo-flights-farerules__disclaimer__star">*</sup><span data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__disclaimer')"></span>
 		</div>

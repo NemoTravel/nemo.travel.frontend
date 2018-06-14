@@ -41,8 +41,15 @@ define(
 				
 				return result;
 			}, this);
+			this.showYandexTranslator = function () {
+				if(this.visibleRules()[0]) {
+					return !this.visibleRules()[0].some(function(el) {
+						return el.isURL === true;
+					})
+				}
+				return true;
+			};
 		}
-
 		helpers.extendModel(FlightsSearchResultsFareRulesController, [BaseControllerModel]);
 
 		/**

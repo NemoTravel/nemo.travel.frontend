@@ -682,5 +682,7 @@ define(
 				return luma
 			}
 		};
+		
+		ko.bindingHandlers.searchResultDataLayer = {};
 	}
 );

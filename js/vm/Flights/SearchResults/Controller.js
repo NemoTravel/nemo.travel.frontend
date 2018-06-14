@@ -1828,6 +1828,8 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.pageTitle = 'FlightsResults';
+		
+		FlightsSearchResultsController.prototype.selectFlightDataLayer = function () {};
 
 		return FlightsSearchResultsController;
 	}

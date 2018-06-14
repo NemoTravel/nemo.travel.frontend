@@ -806,36 +806,33 @@ define(
 				this.highlightDates &&
 				departure.IATA !== arrival.IATA
 			) {
-				fetch(
-					'/api/flights/availability/schedule/'
-					+ departure.IATA + '/'
-					+ arrival.IATA,
-					{ credentials: "same-origin" }
-				)
-				.then(function(response) {
-					return response.json();
-				}).then(function(response) {
-					var data = response,
-						datesMap = {};
+				var requestURL = this.$$controller.options.dataURL + '/flights/availability/schedule/' + departure.IATA + '/' + arrival.IATA;
 
-					if (data.flights) {
-						var dates = data.flights.availability.dates;
+				fetch(requestURL, { credentials: 'same-origin' } )
+					.then(function(response) { return response.json(); })
+					.then(function(response) {
+						var data = response,
+							datesMap = {};
 
-						dates.map(function(date) {
-							var dateParsed = new Date(date.date);
+						if (data.flights) {
+							var dates = data.flights.availability.dates;
 
-							datesMap[dateParsed.getTime()] = {
-								marketingIATA: date.marketingIATA,
-								operatingIATA: date.operatingIATA
-							};
-						});
-					}
+							dates.map(function(date) {
+								var dateParsed = new Date(date.date);
 
-					var datesAvailable = self.datesAvailable();
+								datesMap[dateParsed.getTime()] = {
+									marketingIATA: date.marketingIATA,
+									operatingIATA: date.operatingIATA
+								};
+							});
+						}
+
+						var datesAvailable = self.datesAvailable();
+
 						datesAvailable[segmentIndex] = datesMap;
 
-					self.datesAvailable(datesAvailable);
-				});
+						self.datesAvailable(datesAvailable);
+					});
 			}
 		};
 
