@@ -151,17 +151,7 @@ define(
 			var data = this.searchInfo();
 
 			date.setHours(0,0,0);
-
-			if (data.segments.length === 2 && !this.error()) {
-				// вычисляем разницу в днях между предыдущими датами
-				var days = data.segments[leg].departureDate.dateDiffInDays(data.segments[ leg === 0 ? 1 : 0 ].departureDate);
-				data.segments[leg].departureDate = date;
-				// сохраняем кол-во дней между прилетом и вылетом для нового маршрута
-				data.segments[ leg === 0 ? 1 : 0 ].departureDate = date.offsetDate(days);
-			}
-			else {
-				data.segments[leg].departureDate = date;
-			}
+			data.segments[leg].departureDate = date;
 
 			this.$$controller.navigate(
 				'results/' + helpers.getFlightsRouteURLAdder('results', this.searchInfo()),

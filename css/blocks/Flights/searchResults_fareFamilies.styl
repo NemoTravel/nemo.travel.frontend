@@ -247,6 +247,23 @@ $fareFamiliesMainPadding = 20px;
 			}
 		}
 		
+		&__notice {
+			font-size: 9px;
+			margin-right: 10px;
+			margin-left: 10px;
+			margin-bottom: 10px;
+			color: #999;
+			border-top: 1px solid rgba(230,230,230,.75);
+			padding-top: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:before {
+				content: '*';
+				padding-right: 5px;
+			}
+		}
+
 		&__wrapper {
 			&_togglable {
 				display: none;
@@ -337,6 +354,12 @@ $fareFamiliesMainPadding = 20px;
 
 		.nemo-flights-results__fareFamilies__features {
 			display: flex;
+		}
+
+		.nemo-flights-results__fareFamilies__features__notice {
+			margin: 0;
+			padding-left: 0;
+			padding-right: 0;
 		}
 
 		.nemo-flights-results__fareFamilies__features__baggage,

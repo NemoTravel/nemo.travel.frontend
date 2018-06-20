@@ -422,11 +422,15 @@ define([
 				segments: [],
 				period: true
 			};
-			var segments = ret.segments = this.segments();
+
+			var segments = ret.segments = this.segments(),
+				   today = new Date();
+
+			today.setHours(0, 0, 0, 0);
+			dateObj.setHours(0, 0, 0, 0);
+
 			for (var i = 0; i < segments.length; i++) {
 				if (segments[i].items.departureDate.value() && segments[i].items.arrivalDate.value()) {
-					var today = new Date();
-
 					if (isArrival && dateObj.getTime() >= today.getTime()) {
 						ret.disabled = false;
 					}
