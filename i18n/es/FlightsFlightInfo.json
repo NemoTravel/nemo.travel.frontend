@@ -52,5 +52,6 @@
     "leg__segment__baggage__metric_lb": "libras",
     "leg__segment__baggage__metric_bag_1": "leg__segment__baggage__metric_bag_1",
     "leg__segment__baggage__metric_bag_2": "leg__segment__baggage__metric_bag_2",
-    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3"
+    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3",
+    "S7_ff_notice": "Transportando en los vuelos code-shere, donde aerolínea S7 es el socio de marketing, en unos casos pueden implementarse  las reglas de transporte de equipaje del operador. La información correcta de equipaje es desponible durante el los cálculos de tarifra."
 }

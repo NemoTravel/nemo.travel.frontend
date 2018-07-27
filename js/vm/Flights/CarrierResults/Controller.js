@@ -285,6 +285,11 @@ define(
 			) {
 				this.$$error(this.$$rawdata.system.error.message);
 			}
+			else if (this.$$rawdata.flights.search.results.info.errorCode === 410) {
+				this.formActive(true);
+				this.isResultsOutdated(true);
+				this.error(410);
+			}
 			else {
 				var data = this.$$rawdata.flights.search.airlinesResults;
 

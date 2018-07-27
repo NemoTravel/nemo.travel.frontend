@@ -52,5 +52,6 @@
     "leg__segment__baggage__metric_lb": "lb",
     "leg__segment__baggage__metric_bag_1": "bag",
     "leg__segment__baggage__metric_bag_2": "bags",
-    "leg__segment__baggage__metric_bag_3": "bags"
+    "leg__segment__baggage__metric_bag_3": "bags",
+    "S7_ff_notice": "Note: In some cases, for codeshare flights where S7 is a marketing carrier, operating carrier's baggage provisions may apply. Applicable baggage provisions will be available after itinerary pricing."
 }

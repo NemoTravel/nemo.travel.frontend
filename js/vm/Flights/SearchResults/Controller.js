@@ -118,6 +118,7 @@ define(
 			this.error = ko.observable(false);
 			this.warning = ko.observable(false);
 			this.forcedMessageAsIs = ko.observable(null);
+			this.isResultsOutdated = ko.observable(false);
 
 			this.resultsLoaded = ko.observable(false);
 			this.showMaps = ko.observable(false);
