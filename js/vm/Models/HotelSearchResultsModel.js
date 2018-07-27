@@ -413,17 +413,24 @@ define(
 			});
 
 			if (staticData && 'hotels' in staticData && staticData.hotels) {
-				// adding `staticDataInfo` to hotel with identical id
+				var hotelsStatic = {};
+
 				staticData.hotels.forEach(function (hotel) {
-					if (searchData.results.hotels[hotel.id]) {
-						if (searchData.results.hotels[hotel.id].staticDataInfo) {
-							_.merge(searchData.results.hotels[hotel.id].staticDataInfo, hotel);
+					hotelsStatic[hotel.id] = hotel;
+				});
+
+				for (var id in searchData.results.hotels) {
+					if (searchData.results.hotels.hasOwnProperty(id) && hotelsStatic.hasOwnProperty(searchData.results.hotels[id].id)) {
+						var hotelStaticData = hotelsStatic[searchData.results.hotels[id].id];
+
+						if (searchData.results.hotels[id].staticDataInfo) {
+							_.merge(searchData.results.hotels[id].staticDataInfo, hotelStaticData);
 						}
 						else {
-							searchData.results.hotels[hotel.id].staticDataInfo = hotel;
+							searchData.results.hotels[id].staticDataInfo = hotelStaticData;
 						}
 					}
-				});
+				}
 			}
 			
 			// find hotel with cheapest price

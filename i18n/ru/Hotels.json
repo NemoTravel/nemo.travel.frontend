@@ -33,9 +33,9 @@
     "hotels-room-paymentType__Deposit": "Требуется внесение депозита",
     "hotels-room-paymentType__Guarantee": "Требуется подтверждение кредитной картой",
     "hotels-room-paymentType__Credit": "Требуется подтверждение кредитной картой",
-    "hotels-room-paymentType__Prepayment": "Оплата сейчас",
+    "hotels-room-paymentType__Prepayment": "Предоплата",
     "hotels-room-paymentType__Cash": "Оплата на месте",
-    "hotels-room-paymentType__Other": "Оплата сейчас",
+    "hotels-room-paymentType__Other": "Предоплата",
     "description": "Об отеле",
     "location": "Расположение",
     "hotelServicesCaption": "Услуги и удобства в отеле"

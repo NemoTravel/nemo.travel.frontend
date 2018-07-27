@@ -118,6 +118,10 @@
 								}"></div>
 							<!-- /ko -->
 						</div>
+
+						<!-- ko if: marketingCompany.IATA === 'S7' && $root.i18n('FlightsFlightInfo', 'S7_ff_notice', '', true) -->
+							<div class="nemo-flights-results__fareFamilies__features__notice" data-bind="text: $root.i18n('FlightsFlightInfo', 'S7_ff_notice')"></div>
+						<!-- /ko -->
 					</div>
 				<!-- /ko -->
 			</div>

@@ -61,12 +61,12 @@ define(
 				if (adults) {
 					result.push('&nbsp;&mdash;');
 					result.push(adults);
-					result.push(this.$$controller.i18n('HotelsSearchForm', 'passSummary_numeral_ADT_' + helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus')));
+					result.push(this.$$controller.i18n('HotelsSearchForm', 'hotels__passSummary_numeral_ADT_' + helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus')));
 					
 					if (infants) {
-						result.push(this.$$controller.i18n('HotelsSearchForm', 'passSummary_and'));
+						result.push(this.$$controller.i18n('HotelsSearchForm', 'hotels__passSummary_and'));
 						result.push(infants);
-						result.push(this.$$controller.i18n('HotelsSearchForm', 'passSummary_numeral_CLD_' + helpers.getNumeral(infants, 'one', 'twoToFour', 'fourPlus')));
+						result.push(this.$$controller.i18n('HotelsSearchForm', 'hotels__passSummary_numeral_CLD_' + helpers.getNumeral(infants, 'one', 'twoToFour', 'fourPlus')));
 					}
 				}
 				

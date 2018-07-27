@@ -74,7 +74,7 @@
     "searchingInfo__title": "Йде пошук",
     "searchingInfo__header": "Будь ласка, зачекайте",
     "searchingInfo__info": "не визначено",
-    "searchingInfo__info_reopen": "searchingInfo__info_reopen",
+    "searchingInfo__info_reopen": "Завантажуємо результати [%-class-%] по маршруту",
     "searchingInfo__class_All": "всіх класів",
     "searchingInfo__class_Economy": "економ - клас",
     "searchingInfo__class_Business": "бізнес - клас",

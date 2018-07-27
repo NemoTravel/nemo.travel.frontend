@@ -76,7 +76,7 @@ define([
 			}, this);
 
 			function infantsToi18n(value) {
-				var key = 'passSummary_numeral_CLD_' + helpers.getNumeral(value, 'one', 'twoToFour', 'fourPlus');
+				var key = 'hotels__passSummary_numeral_CLD_' + helpers.getNumeral(value, 'one', 'twoToFour', 'fourPlus');
 				return self.$$controller.i18n('HotelsSearchForm', key);
 			}
 
@@ -84,7 +84,7 @@ define([
 			function getSummaryGuests(rooms, guest) {
 
 				var result = guest.adults + ' ' +
-					self.$$controller.i18n('HotelsSearchForm', 'passSummary_numeral_ADT_' +
+					self.$$controller.i18n('HotelsSearchForm', 'hotels__passSummary_numeral_ADT_' +
 						helpers.getNumeral(guest.adults, 'one', 'twoToFour', 'fourPlus'));
 
 				if (guest.infants === 0 && guest.adults === 1) {
@@ -228,7 +228,7 @@ define([
 			var rooms = this.roomsFastSelectOptions[index].rooms,
 				adults = this.roomsFastSelectOptions[index].adults;
 
-			var result = adults + ' ' + this.$$controller.i18n('HotelsSearchForm', 'passSummary_numeral_ADT_' +
+			var result = adults + ' ' + this.$$controller.i18n('HotelsSearchForm', 'hotels__passSummary_numeral_ADT_' +
 					helpers.getNumeral(adults, 'one', 'twoToFour', 'fourPlus'));
 
 			if (rooms && adults > 1) {
@@ -361,7 +361,6 @@ define([
 				this.preinittedData.segments.push([null, hotelID, arrivalDateTemp, departureDateTemp]);
 				this.preinittedData.dateUnknown = false;
 				this.mode = HotelsBaseModel.MODE_PREINITTED;
-				console.log(this.preinittedData);
 			}
 			// Preinitted by Cookie
 			else {
@@ -375,7 +374,13 @@ define([
 					// Checking cookie validity and fixing that
 					if (hasSegments && hasRooms) {
 						this.$$controller.log('Initted by cookie', cookie);
-						this.preinittedData = cookie;
+
+						for (var field in this.preinittedData) {
+							if (this.preinittedData.hasOwnProperty(field) && cookie.hasOwnProperty(field)) {
+								this.preinittedData[field] = cookie[field];
+							}
+						}
+
 						this.mode = HotelsBaseModel.MODE_PREINITTED;
 					}
 				}

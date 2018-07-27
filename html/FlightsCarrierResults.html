@@ -24,7 +24,7 @@
 					}
 				},
 				visible: $parent.formActive,
-				flightsResultsSearchFormHider: $parent.formActive
+				flightsResultsSearchFormHider: !$parent.isResultsOutdated() ? $parent.formActive : function() { }
 			"></section>
 		<!-- /ko -->
 

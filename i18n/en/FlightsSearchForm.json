@@ -66,7 +66,7 @@
     "error_passengers_noPassengers": "No passengers",
     "error_passengers_noAdults": "Choose at least one adult",
     "error_searchBlocked": "Change something",
-    "searchError_requestFailed": "The search request has failed. Please, contact your helpdesk.",
+    "searchError_requestFailed": "The search request failed. Please, contact your helpdesk.",
     "searchError_brokenJSON": "The search request has failed. Please, contact your helpdesk.",
     "searchError_systemError": "The search request has failed. Please, contact your helpdesk.",
     "searchError_emptyResult": "No results found",

@@ -52,5 +52,6 @@
     "leg__segment__baggage__metric_lb": "lb",
     "leg__segment__baggage__metric_bag_1": "Geanta",
     "leg__segment__baggage__metric_bag_2": "Genți",
-    "leg__segment__baggage__metric_bag_3": "Genți"
+    "leg__segment__baggage__metric_bag_3": "Genți",
+    "S7_ff_notice": "Pentru zborurile unde compania aeriană S7 este partener de marketing, în unele cazuri se alpică regulile de transportare a bagajelor ale operatorului. Informațiile corecte privind bagajele sunt disponibile la calcularea tarifului."
 }

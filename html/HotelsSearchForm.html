@@ -138,17 +138,17 @@
 							<div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item" data-bind="
 								popup: {
 									block: 'passengersFullSelect',
-									title: $root.i18n('HotelsSearchForm','rooms__fullSelect__title'),
+									title: $root.i18n('HotelsSearchForm','hotels__rooms__fullSelect__title'),
 									dialogClass: 'no-overflow',
 									buttons: [
 										{
-											text: $root.i18n('HotelsSearchForm','passengers__fullSelect__button__done'),
+											text: $root.i18n('HotelsSearchForm','hotels__passengers__fullSelect__button__done'),
 											click: function () { $(this).data('ui-popup__close')() }
 										}
 									],
 								},
 								click: function () { roomsFastSelectorOpen(false); },
-								text: $root.i18n('HotelsSearchForm','rooms__fastSelect__fullSelectOption')
+								text: $root.i18n('HotelsSearchForm','hotels__rooms__fastSelect__fullSelectOption')
 							"></div>
 						<!-- /ko -->
 					</div>
@@ -202,7 +202,7 @@
 																flightsFormSelect: {
 																	search_in_values: true,
 																	search_contains: true,
-																	no_results_text: $root.i18n('HotelsSearchForm', 'additionalParameters__country__searchNotFound')
+																	no_results_text: $root.i18n('HotelsSearchForm', 'hotels__additionalParameters__country__searchNotFound')
 																},
 
 																"></select>
@@ -222,20 +222,20 @@
 						css: {
 							'nemo-ui-button_disabled': !searchEnabled(),
 						},
-						text: $root.i18n('HotelsSearchForm','searchButton__text')"></button>
+						text: $root.i18n('HotelsSearchForm','hotels__searchButton__text')"></button>
 				</div>
 	
 				<div class='nemo-hotels-form__stayingOptions nemo-hotels-form__stayingOptions_OW'>
 					<div class="nemo-hotels-form__stayingOptions__inner">
 						<div class="nemo-hotels-form__stayingOptions__item nemo-hotels-form__stayingOptions__item_example">
-							<span class="nemo-hotels-form__stayingOptions__item__title" data-bind="text: $root.i18n('HotelsSearchForm', 'segments__date__example__title')"></span>
+							<span class="nemo-hotels-form__stayingOptions__item__title" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__segments__date__example__title')"></span>
 							
 							<!-- ko foreach: citySuggestions -->
 								<span class="nemo-hotels-form__stayingOptions__item__town" data-bind="
 									text: $data + (($index() !== ($parent.citySuggestions().length - 1)) ? ',' : ''),
 									click: function () {
 										var $field = $('.nemo-hotels-form__staying__segment__input_autocomplete');
-										
+
 										if ($field.length) {
 											$field.HotelsFormGeoAC('search', $data);
 										}
@@ -292,7 +292,7 @@
 															flightsFormSelect: {
 																search_in_values: true,
 																search_contains: true,
-																no_results_text: $root.i18n('HotelsSearchForm', 'additionalParameters__country__searchNotFound')
+																no_results_text: $root.i18n('HotelsSearchForm', 'hotels__additionalParameters__country__searchNotFound')
 															},
 
 															"></select>
@@ -334,30 +334,30 @@
 			<!-- ko foreach: rooms -->
 				<div class="nemo-hotels-form__RoomsPopup__room" data-bind="css: { 'nemo-hotels-form__RoomsPopup__room_more': $index() > 0 }">
 					<button class="nemo-hotels-form__RoomsPopup__room__delete" data-bind="
-						text: $root.i18n('HotelsSearchForm','rooms_delete'),
+						text: $root.i18n('HotelsSearchForm','hotels__rooms_delete'),
 						visible: $index() > 0,
 						click: function () { $parent.roomRemove($index()); }
 					"></button>
 					
-					<div class="nemo-hotels-form__RoomsPopup__room__title" data-bind="text: $root.i18n('HotelsSearchForm','rooms_room') + ' ' + ($index() + 1)"></div>
+					<div class="nemo-hotels-form__RoomsPopup__room__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_room') + ' ' + ($index() + 1)"></div>
 					
 					<div class="nemo-hotels-form__RoomsPopup__room__guests">
 						<div class="nemo-hotels-form__RoomsPopup__room__guests__adults">
-							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','rooms_adults')"></div>
+							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_adults')"></div>
 							<div class="nemo-hotels-form__spinner">
 								<input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, max: 9, numberFormat: 'n' }, attr:{ room: $index() }" readonly>
 							</div>
 						</div>
 						
 						<div class="nemo-hotels-form__RoomsPopup__room__guests__children">
-							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','rooms_infants')"></div>
+							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_infants')"></div>
 							<div class="nemo-hotels-form__spinner">
 								<input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, max: 4, numberFormat: 'n' }, attr:{ room: $index() }" maxlength="1" readonly>
 							</div>
 						</div>
 					</div>
 					<div class="nemo-hotels-form__RoomsPopup__room__ages">
-						<div class="nemo-hotels-form__RoomsPopup__room__ages__title" data-bind="text: infants().length > 0 ? $root.i18n('HotelsSearchForm','rooms_infants_ages') : ''"></div>
+						<div class="nemo-hotels-form__RoomsPopup__room__ages__title" data-bind="text: infants().length > 0 ? $root.i18n('HotelsSearchForm','hotels__rooms_infants_ages') : ''"></div>
 						<!-- ko foreach: infants -->
 							<div class="nemo-hotels-form__spinner">
 								<input data-bind="snipperAge: $parentContext.$data.infants()[$index()], spinnerOptions: { min: 0, max: 17, numberFormat: 'n' }, attr:{ room: $parentContext.$index(), infant: $index() }" maxlength="1" readonly>
@@ -369,7 +369,7 @@
 			
 			<button class="nemo-hotels-form__RoomsPopup_addRoomButton" data-bind="
 				visible: rooms().length < 4 && (maxAdultsFromFS === null || guestsSummaryByType().adults < maxAdultsFromFS),
-				text: $root.i18n('HotelsSearchForm','rooms_room_add'),
+				text: $root.i18n('HotelsSearchForm','hotels__rooms_room_add'),
 				click: function () { roomAdd(); }
 				"></button>
 		</div>
