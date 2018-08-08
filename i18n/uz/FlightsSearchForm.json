@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Aviakompaniya nomi ",
     "additionalParameters__carrier__searchNotFound": "Aviakompaniya yo'q",
     "additionalParameters__carrier__loading": "Yuklanmoqda",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "To'xtashlar",
     "additionalParameters__transfers__noTransfers__caption": "To'g'ridan-to'g'ri qatnov",

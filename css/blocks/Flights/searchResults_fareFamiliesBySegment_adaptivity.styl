@@ -1,11 +1,24 @@
 .nemo-flights-results__fareFamiliesBySegment {
 	&__popup {
-		position: fixed;
-		top: 0 !important;
-		bottom: 0 !important;
+		&_fullScreen {
+			width: 1200px !important;
+			position: fixed;
+			top: 0 !important;
+			bottom: 0 !important;
+			height: 100%;
 
-		.ui-dialog-titlebar {
-			border-radius: 0;
+			&.ui-dialog {
+				border-radius: 0;
+			}
+
+			.ui-dialog-titlebar {
+				border-radius: 0;
+			}
+
+			.nemo-flights-results__fareFamiliesBySegment__popup__total {
+				margin-bottom: 50px;
+				border-top: 1px solid #eee;
+			}
 		}
 
 		.ui-dialog-content.ui-widget-content {

@@ -114,6 +114,8 @@
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "flightsGroup__flightWarnings__stopovers__stop_twoToFour",
     "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "flightsGroup__flightWarnings__stopovers__stop_fourPlus",
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
     "flightsGroup__priceDetails__info__caption": "Баға туралы мәліметтер",
     "flightsGroup__priceDetails__info__title": "Баға туралы мәліметтер",
     "flightsGroup__priceDetails__taxes__title": "Dachshunds",

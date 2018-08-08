@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Назва авіакомпанії",
     "additionalParameters__carrier__searchNotFound": "Немає авіакомпанії",
     "additionalParameters__carrier__loading": "Завантажуємо ...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "Час у польоті",
     "additionalParameters__transfers__title": "Пересадки",
     "additionalParameters__transfers__noTransfers__caption": "Без пересадок",

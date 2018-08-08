@@ -158,34 +158,36 @@
 		   data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__' + title), visible: showTitles"></p>
 		
 		<ul data-bind="foreach: array">
-			<li class="nemo-flights-results__fareFamilies__features__feature" data-bind="
-				tooltip: {
-					content: description.full,
-					cssClass: 'nemo-flights-results__fareFamilies__features__baggage__feature__hint'
-				},
-				css: { 'nemo-flights-results__fareFamilies__features__feature_helpCursor': description.full }
-			">
-				<span class="nemo-flights-results__fareFamilies__features__feature__icon">
-					<!-- ko if: needToPay === 'Free' -->
-						<i class="fa fa-check"></i>
+			<li class="nemo-flights-results__fareFamilies__features__feature">
+				<span class="nemo-flights-results__fareFamilies__features__feature__wrapper" data-bind="
+					tooltip: {
+						content: description.full,
+						cssClass: 'nemo-flights-results__fareFamilies__features__baggage__feature__hint'
+					},
+					css: { 'nemo-flights-results__fareFamilies__features__feature_helpCursor': description.full }
+				">
+					<span class="nemo-flights-results__fareFamilies__features__feature__icon">
+						<!-- ko if: needToPay === 'Free' -->
+							<i class="fa fa-check"></i>
+						<!-- /ko -->
+
+						<!-- ko if: needToPay === 'Charge' || needToPay === 'Unknown' -->
+							<i data-bind="currencyIcon: $root.controller.viewModel.agency.priceCurrency()"></i>
+						<!-- /ko -->
+
+						<!-- ko if: needToPay === 'NotAvailable' -->
+							<i class="fa fa-times"></i>
+						<!-- /ko -->
+					</span>
+
+					<!-- ko if: showTitle -->
+						<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
 					<!-- /ko -->
-					
-					<!-- ko if: needToPay === 'Charge' || needToPay === 'Unknown' -->
-						<i data-bind="currencyIcon: $root.controller.viewModel.agency.priceCurrency()"></i>
-					<!-- /ko -->
-					
-					<!-- ko if: needToPay === 'NotAvailable' -->
-						<i class="fa fa-times"></i>
+
+					<!-- ko if: !showTitle -->
+						<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="text: description.short"></span>
 					<!-- /ko -->
 				</span>
-
-				<!-- ko if: showTitle -->
-					<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
-				<!-- /ko -->
-
-				<!-- ko if: !showTitle -->
-					<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="text: description.short"></span>
-				<!-- /ko -->
 			</li>
 		</ul>
 	</script>

@@ -114,6 +114,8 @@
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "vahemaandumised",
     "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "vahemaandumised",
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
     "flightsGroup__priceDetails__info__caption": "Hind detailid",
     "flightsGroup__priceDetails__info__title": "Hind detailid",
     "flightsGroup__priceDetails__taxes__title": "Tahhised",

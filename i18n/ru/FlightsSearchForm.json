@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Название авиакомпании",
     "additionalParameters__carrier__searchNotFound": "Нет авиакомпании",
     "additionalParameters__carrier__loading": "Загружаем...",
+    "additionalParameters__newDesign": "Новый дизайн",
     "additionalParameters__totalTimeEnRoute__title": "Общее время в пути",
     "additionalParameters__transfers__title": "Пересадки",
     "additionalParameters__transfers__noTransfers__caption": "Без пересадок",

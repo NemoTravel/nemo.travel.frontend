@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "additionalParameters__carrier__placeholder",
     "additionalParameters__carrier__searchNotFound": "additionalParameters__carrier__searchNotFound",
     "additionalParameters__carrier__loading": "additionalParameters__carrier__loading",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "additionalParameters__transfers__title",
     "additionalParameters__transfers__noTransfers__caption": "additionalParameters__transfers__noTransfers__caption",

@@ -27,6 +27,7 @@ define(
 			this.carriersMismatchData = {};
 			this.carriersMismatchArrayByLeg = [];
 			this.carriersMismatchDataByLeg = [];
+			this.economyClassSegments = [];
 
 			if (this.price && this.price.pricingDebug) {
 				this.pricingInfoLink = this.price.pricingDebug.link + '&flight_id=' + this.id;
@@ -62,6 +63,13 @@ define(
 				if (this.getFirstSegmentMarketingCompany().IATA != this.segments[i].operatingCompany.IATA) {
 					this.carriersMismatch = true;
 					this.carriersMismatchData[this.segments[i].operatingCompany.IATA] = this.segments[i].operatingCompany;
+				}
+
+				if (this.price.segmentInfo[i].serviceClass === 'Economy' && this.searchInfo.serviceClass !== 'Economy') {
+					this.economyClassSegments.push({
+						departure: this.segments[i].depAirp.city.name,
+						arrival: this.segments[i].arrAirp.city.name
+					});
 				}
 
 				tmpClasses[this.segmentsByLeg.length - 1].push(this.price.segmentInfo[i]);
@@ -163,6 +171,19 @@ define(
 				}
 			}
 
+			if (this.economyClassSegments.length) {
+				var segmentsWithEconomy = this.economyClassSegments.map(function (segment) {
+					return segment.departure + ' - ' + segment.arrival;
+				});
+
+				this.warnings.push({
+					type: 'economyClassInBusinessFlight',
+					data: {
+						label: segmentsWithEconomy.join(', '),
+						count: this.economyClassSegments.length
+					}
+				});
+			}
 
 			this.totalTimeEnRoute = this.$$controller.getModel('Common/Duration', this.totalTimeEnRoute);
 			this.recommendRating = !isNaN(this.rating) ? this.rating : 0;

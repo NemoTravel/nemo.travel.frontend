@@ -3,7 +3,18 @@
 	'nemo-hotelRoom__tariff_disabled': !isSelectable()
 }">
 	<div class="nemo-hotelRoom__tariff__features">
-		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__name" data-bind="text: tariffName"></span>
+		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__name">
+			<span data-bind="text: tariffName"></span>
+
+			<!-- ko if: tariff.rate.bookingRemarks -->
+				<i class="fa fa-info-circle"
+					data-bind="tooltip: {
+						content: tariff.rate.bookingRemarks,
+						cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip'
+					}"></i>
+			<!-- /ko -->
+		</span>
+
 		<span class="nemo-hotelRoom__tariff__feature nemo-hotelRoom__tariff__feature__corporateFare" data-bind="visible: tariff.rate.discountId, text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates')"></span>
 
 		<!-- ko if: tariff.meal -->
@@ -26,6 +37,7 @@
 
 	<div class="nemo-hotelRoom__tariff__price">
 		<span class="nemo-hotelRoom__tariff__price__allNights">
+			<span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
 			<span class="nemo-hotelRoom__tariff__price__allNights__value">
 				<money data-bind="money: tariff.rate.price" round="up" format="0,0 $"></money>
 			</span>

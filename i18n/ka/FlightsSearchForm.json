@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "ავიაკომპანიის დასახელება",
     "additionalParameters__carrier__searchNotFound": "არ არის ავიაკომპანიები",
     "additionalParameters__carrier__loading": "იტვირთება",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "მგზავრობის ხანგრძლივობა",
     "additionalParameters__transfers__title": "გადაჯდომები",
     "additionalParameters__transfers__noTransfers__caption": "გადაჯდომების გარეშე",

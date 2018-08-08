@@ -893,6 +893,7 @@ define(
 										createOrderLink: source.flights[j].createOrderLink,
 										travelPolicies: travelPoliciesArr[j],
 										travelPoliciesAvailable: allAvailableArr[j],
+										searchInfo: this.searchInfo()
 									}
 								);
 

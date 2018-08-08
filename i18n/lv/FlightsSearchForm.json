@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Aviokompānijas nosaukums",
     "additionalParameters__carrier__searchNotFound": "Nav aviokompānijas",
     "additionalParameters__carrier__loading": "Ielādējas",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Pārsēšanās",
     "additionalParameters__transfers__noTransfers__caption": "Bez pārsēšanās",

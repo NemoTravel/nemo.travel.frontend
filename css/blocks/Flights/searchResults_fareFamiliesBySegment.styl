@@ -1,15 +1,10 @@
 .nemo-flights-results__fareFamiliesBySegment {
 	&__popup {
-		width: 1200px !important;
-		height: 100% !important;
+		width: 1028px !important;
 		padding: 0 !important;
 
 		.nemo-common-postFilters__notification {
 			margin: 15px;
-		}
-
-		&.ui-dialog {
-			border-radius: 0;
 		}
 
 		.ui-dialog-titlebar-close {
@@ -44,6 +39,11 @@
 			display: flex;
 			flex-direction: column;
 			height: 100%;
+
+			&_withError {
+				align-items: center;
+				justify-content: center;
+			}
 
 			nemo-checkout-fare-families-popup {
 				display: flex;
@@ -115,6 +115,25 @@
 				}
 			}
 
+			&_groupedSegments {
+				.nemo-flights-results__fareFamiliesBySegment__popup__segment {
+					&__shortInfo {
+						background: none;
+						cursor: default;
+
+						&:hover {
+							background: none;
+						}
+					}
+
+					&__families {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
+
 			&_readOnly {
 				.nemo-flights-results__fareFamiliesBySegment__popup {
 					&__segment {
@@ -136,6 +155,12 @@
 								background: #f7f7f7;
 							}
 						}
+					}
+				}
+
+				&:hover {
+					.nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__transfers__timeEnRoute span {
+						background: #f7f7f7 !important;
 					}
 				}
 			}
@@ -581,7 +606,6 @@
 		&__total {
 			display: flex;
 			flex: 0 0 auto;
-			margin-bottom: 50px;
 			margin-top: 1px;
 			justify-content: flex-end;
 			bottom: 0;
@@ -589,7 +613,6 @@
 			padding: 10px 20px;
 			background: #f7f7f7;
 			width: 100%;
-			border-top: 1px solid #eee;
 
 			.nemo-flights-results__flightsGroup__buyButton__innerText {
 				font-size: 15px;

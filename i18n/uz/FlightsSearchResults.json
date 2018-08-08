@@ -114,6 +114,8 @@
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "Texnikaviy qo'nish",
     "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "Texnikaviy qo'nishlar",
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
     "flightsGroup__priceDetails__info__caption": "Narxlar tafsilotlari",
     "flightsGroup__priceDetails__info__title": "Narxlar tafsilotlari",
     "flightsGroup__priceDetails__taxes__title": "Dachshunds",
