@@ -22,6 +22,30 @@ function abstractFareFamiliesControllerCreator(ko) {
 		this.state().fareFamiliesAreLoading = ko.observable(false);
 		this.state().fareFamiliesAreLoaded = ko.observable(false);
 		this.state().choosingFlight = ko.observable(false);
+		this.state().fullScreen = ko.observable(false);
+
+		this.state().fullScreen.subscribe(function () {
+			if (this.state().fullScreen()) {
+				var $popupBlock = $('.js-nemoApp__popupBlock[data-block=' + this.hash + ']');
+
+				// Делаем попап на всю высоту и увеличиваем ширину...
+				$popupBlock.parents('.nemo-flights-results__fareFamiliesBySegment__popup')
+					.addClass('nemo-flights-results__fareFamiliesBySegment__popup_fullScreen');
+
+				// ... и вызываем событие resize, чтобы плагин попапа выровнял его на странице.
+				$popupBlock.trigger('resize');
+			}
+		}, this);
+
+		this.state().fareFamiliesAreLoading.subscribe(function () {
+			if (!this.state().fareFamiliesAreLoading()) {
+				var hash = this.hash;
+
+				setTimeout(function () {
+					$('.js-nemoApp__popupBlock[data-block=' + hash + ']').trigger('resize');
+				});
+			}
+		}, this);
 	}
 
 	/**
@@ -73,7 +97,8 @@ function abstractFareFamiliesControllerCreator(ko) {
 				initialCombinationsArray = initialCombination.split('_'),
 				baggageReplacement = ko.unwrap(data.baggageReplacement),
 				fareFamiliesBySegments = ko.unwrap(data.fareFamiliesBySegments),
-				segmentIndex = 0;
+				segmentIndex = 0,
+				linkedSegmentsCount = 0;
 
 			this.fareFamilyNotice(ko.unwrap(data.fareFamilyNotice));
 			this.validCombinations = ko.unwrap(data.validCombinations);
@@ -90,8 +115,15 @@ function abstractFareFamiliesControllerCreator(ko) {
 							selectedFamily: ko.observable(initialCombinationsArray[segmentIndex]),
 							isOpened: ko.observable(true),
 							isDisabled: true,
-							routeName: ''
+							routeName: '',
+							isSameAsPrevious: this.isSameAsPreviousSegment(segmentIndex),
+							hasLinkedSegments: ko.observable(false)
 						};
+
+					if (segment.isSameAsPrevious) {
+						linkedSegmentsCount++;
+						this.setLinkedSegment(segmentIndex);
+					}
 
 					if (fareFamiliesInSegment) {
 						fareFamiliesInSegment.forEach(function (familyData) {
@@ -127,6 +159,10 @@ function abstractFareFamiliesControllerCreator(ko) {
 								}
 							}
 
+							if (segment.isSameAsPrevious) {
+								segment.isOpened(false);
+							}
+
 							segment.familiesArray.push(family);
 							segment.families[familyId] = family;
 						}, this);
@@ -149,6 +185,10 @@ function abstractFareFamiliesControllerCreator(ko) {
 					this.segments.push(segment);
 					segmentIndex++;
 				}, this);
+
+				if (linkedSegmentsCount < this.segments().length - 1) {
+					this.state().fullScreen(true);
+				}
 			}, this);
 		}
 
@@ -159,12 +199,54 @@ function abstractFareFamiliesControllerCreator(ko) {
 	};
 
 	/**
+	 * Если на сегменте нельзя выбрать отличный от предыдущего сегмента тариф, то считаем их связными.
+	 * На форме, будем отображать только один блок с одинаковыми тарифами.
+	 *
+	 * @param segmentIndex
+	 */
+	AbstractFareFamiliesController.prototype.setLinkedSegment = function (segmentIndex) {
+		var segments = this.segments();
+
+		for (var index = segmentIndex - 1; index >= 0; index--) {
+			segments[index].hasLinkedSegments(true);
+
+			if (!segments[index].isSameAsPrevious) {
+				break;
+			}
+		}
+	};
+
+	/**
+	 * Можно ли на данном сегменте выбрать хотя бы один тариф, отличный от выбранного тарифа на предыдущем сегменте.
+	 *
+	 * @param segmentIndex
+	 * @return {boolean}
+	 */
+	AbstractFareFamiliesController.prototype.isSameAsPreviousSegment = function (segmentIndex) {
+		if (segmentIndex === 0) {
+			return false;
+		}
+
+		for (var combination in this.combinationsPrices) {
+			if (this.combinationsPrices.hasOwnProperty(combination)) {
+				var fares = combination.split('_');
+
+				if (fares[segmentIndex] !== fares[segmentIndex - 1]) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	};
+
+	/**
 	 * Скрывает\показывает блок с семействамин на сегменте.
 	 *
 	 * @param segment
 	 */
 	AbstractFareFamiliesController.prototype.toggleVisible = function (segment) {
-		if (!segment.isDisabled) {
+		if (!segment.isDisabled && !segment.hasLinkedSegments()) {
 			segment.isOpened(!segment.isOpened());
 		}
 	};

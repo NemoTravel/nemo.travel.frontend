@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Aviakompanijos pavadinimas",
     "additionalParameters__carrier__searchNotFound": "Nėra aviakompanijos",
     "additionalParameters__carrier__loading": "Kraunasi ...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Persėdimai",
     "additionalParameters__transfers__noTransfers__caption": "Be persėdimų",

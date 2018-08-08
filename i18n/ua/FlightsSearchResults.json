@@ -114,6 +114,8 @@
     "flightsGroup__flightWarnings__stopovers__stop_twoToFour": "технічні посадки",
     "flightsGroup__flightWarnings__stopovers__stop_fourPlus": "технічних посадок",
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "Бронювання окремого сидячого місця для немовлят не дозволяється перевізником.",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
+    "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
     "flightsGroup__priceDetails__info__caption": "Деталі ціни",
     "flightsGroup__priceDetails__info__title": "Деталі ціни",
     "flightsGroup__priceDetails__taxes__title": "Такси",

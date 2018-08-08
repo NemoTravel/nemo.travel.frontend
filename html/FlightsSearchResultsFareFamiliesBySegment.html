@@ -8,7 +8,11 @@
 	text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__chooseTariff')
 "></a>
 
-<div class="js-nemoApp__popupBlock nemo-flights-results__fareFamilies__popup__wrapper nemo-flights-results__fareFamiliesBySegment__popup__wrapper" style="display: none" data-bind="attr: { 'data-block': hash }">
+<div class="js-nemoApp__popupBlock nemo-flights-results__fareFamilies__popup__wrapper nemo-flights-results__fareFamiliesBySegment__popup__wrapper" style="display: none"
+	 data-bind="
+	 	attr: { 'data-block': hash },
+	 	css: { 'nemo-flights-results__fareFamiliesBySegment__popup__wrapper_withError': !state().fareFamiliesAreLoading() && !state().fareFamiliesAreLoaded() }
+	 ">
 	<!-- ko if: state().fareFamiliesAreLoading() -->
 		<div class="nemo-flights-results__fareFamilies__popup__coverage">
 			<div class="nemo-flights-results__fareFamilies__popup__coverage__loader"></div>
@@ -17,7 +21,7 @@
 
 	<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
 		<!-- ko if: fareFamilyNotice() -->
-			<div class="nemo-common-postFilters__notification">
+			<div class="nemo-common-postFilters__notification nemo-flights-results__fareFamilies__popup-notice">
 				<!-- ko text: fareFamilyNotice() --><!-- /ko -->
 			</div>
 		<!-- /ko -->
@@ -26,227 +30,234 @@
 	<!-- ko if: !state().fareFamiliesAreLoading() && state().fareFamiliesAreLoaded() -->
 		<div class="nemo-flights-results__fareFamiliesBySegment__popup__segments">
 			<!-- ko foreach: segments -->
-				<p class="nemo-flights-results__fareFamiliesBySegment__popup__segments__routeName" data-bind="text: routeName"></p>
-				<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment"
-						 data-bind="css: {
-						 	'nemo-flights-results__fareFamiliesBySegment__popup__segment_opened': isOpened,
-						 	'nemo-flights-results__fareFamiliesBySegment__popup__segment_readOnly': isDisabled || selectedFamily() === '#'}">
-					<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo"
-							data-bind="click: $parent.toggleVisible">
-						<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main"
-							 data-bind="with: $parent.parentFlight.segments[$index()]">
-							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__arrival">
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__time">
-									<!-- ko text: depDateTime.getTime() --><!-- /ko -->
-								</div>
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__code">
-									<!-- ko text: depAirp.IATA --><!-- /ko -->
-								</div>
-							</div>
-
-							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow">
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__line"></div>
-
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__transfers">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__transfers__timeEnRoute">
-										<span data-bind="text: flightTime.readableStringShortNoSeconds()"></span>
-									</div>
-								</div>
-							</div>
-
-							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__departure">
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__time">
-									<!-- ko text: arrDateTime.getTime() --><!-- /ko -->
-								</div>
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__code">
-									<!-- ko text: arrAirp.IATA --><!-- /ko -->
-								</div>
-							</div>
-						</div>
-
-						<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families">
-							<!-- ko if: !isDisabled && selectedFamily() !== '#' -->
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__selected">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__header">
-										<!-- ko text: $parent.parentFlight.segments[$index()].marketingCompany.name + ' / ' --><!-- /ko -->
-										<!-- ko text: families[selectedFamily()].familyName --><!-- /ko -->
-									</div>
-								</div>
-							<!-- /ko -->
-							<!-- ko if: isDisabled || selectedFamily() === '#' -->
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__selected">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__header">
-										<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__readOnly') --><!-- /ko -->
-									</div>
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__aboutLink">
-										<span data-bind="component: {
-											name: 'Flights/SearchResults/FareRules/Controller',
-											params: { flight: $parent.parentFlight, linkText: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__about') }
-										}"></span>
-									</div>
-								</div>
-							<!-- /ko -->
-						</div>
-					</div>
-
-					<!-- ko if: isOpened() && !isDisabled && selectedFamily() !== '#'  -->
-						<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__full">
-							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute"
-									 data-bind="with: $parent.parentFlight.segments[$index()], visible: false">
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__logo">
-										<img class="flights-carrierResults__leg__flightRoute__header__logo__image"
-											 data-bind="
-												attr: { 'src': marketingCompany.logo.image },
-												tooltip: { content: marketingCompany.name }
-											">
-									</div>
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight">
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight__title">
-											<!-- ko text: $root.i18n('FlightsFlightInfo', 'leg__segment__flightNumber__caption')--><!-- /ko -->
-										</div>
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight__value">
-											<!-- ko text: marketingCompany.IATA + '-' + flightNumber --><!-- /ko -->
-										</div>
-									</div>
-
-									<!-- ko if: aircraftType -->
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft js-carrierResults__leg__flightRoute__aircraft">
-											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft__title">
-												<!-- ko text: $root.i18n('FlightsFlightInfo', 'leg__segment__aircraft__caption')--><!-- /ko -->
-											</div>
-											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft__value">
-												<!-- ko text: aircraftType.name --><!-- /ko -->
-											</div>
-										</div>
-									<!-- /ko -->
-								</div>
-
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader__item">
-										<!-- ko text: $root.i18n('FlightsSearchForm', 'flightsForm-scheduleHeader_departure')--><!-- /ko -->
-									</div>
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader__item">
-										<!-- ko text: $root.i18n('FlightsSearchForm', 'flightsForm-scheduleHeader_arrival')--><!-- /ko -->
-									</div>
-								</div>
-
-								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment">
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure">
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure__time">
+				<!-- ko if: !isSameAsPrevious -->
+					<!-- ko if: !hasLinkedSegments() && $parent.state().fullScreen() -->
+						<p class="nemo-flights-results__fareFamiliesBySegment__popup__segments__routeName" data-bind="text: routeName"></p>
+					<!-- /ko -->
+					<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment"
+							 data-bind="css: {
+								'nemo-flights-results__fareFamiliesBySegment__popup__segment_opened': isOpened,
+								'nemo-flights-results__fareFamiliesBySegment__popup__segment_groupedSegments': !$parent.state().fullScreen(),
+								'nemo-flights-results__fareFamiliesBySegment__popup__segment_readOnly': isDisabled || selectedFamily() === '#' }">
+						<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo"
+								data-bind="click: $parent.state().fullScreen() ? $parent.toggleVisible : null">
+							<!-- ko if: $parent.state().fullScreen() -->
+								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main"
+									 data-bind="with: $parent.parentFlight.segments[$index()]">
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__arrival">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__time">
 											<!-- ko text: depDateTime.getTime() --><!-- /ko -->
 										</div>
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure__place">
-											<!-- ko text: depAirp.city.name --><!-- /ko -->
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__code">
+											<!-- ko text: depAirp.IATA --><!-- /ko -->
 										</div>
 									</div>
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival">
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival__time">
+
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__line"></div>
+
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__transfers">
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__arrow__transfers__timeEnRoute">
+												<span data-bind="text: flightTime.readableStringShortNoSeconds()"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__departure">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__time">
 											<!-- ko text: arrDateTime.getTime() --><!-- /ko -->
 										</div>
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival__place">
-											<!-- ko text: arrAirp.city.name --><!-- /ko -->
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__shortInfo__main__code">
+											<!-- ko text: arrAirp.IATA --><!-- /ko -->
 										</div>
 									</div>
 								</div>
-							</div>
+							<!-- /ko -->
 
-							<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__list">
-								<!-- ko foreach: familiesArray -->
-									<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family" data-bind="
-										css: {
-											'nemo-flights-results__fareFamiliesBySegment__popup__families__family_selected': $parent.selectedFamily() === familyCode,
-											'nemo-flights-results__fareFamiliesBySegment__popup__families__family_disabled': !canBeChosen()
-										},
-										click: function () {
-											if (canBeChosen()) {
-												$parents[1].selectFamily(familyCode, $parentContext.$index());
-											}
-										}
-									">
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__header" data-bind="text: familyName"></div>
-										<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features">
-											<!-- ko if: !canBeChosen() -->
-												<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features__overlay"
-														data-bind="
-															tooltip: {
-																header: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_title'),
-																content: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_hint'),
-																cssClass: 'nemo-flights-results__fareFamilies__header__icon__tooltip'
-															}
-														"></div>
-											<!-- /ko -->
-
-											<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features__priceDiff">
-												<!-- ko if: $parent.selectedFamily() === familyCode -->
-													<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__priceDiff_selected')"></span>
-												<!-- /ko -->
-												<!-- ko if: canBeChosen() && $parent.selectedFamily() !== familyCode -->
-													<!-- ko if: priceDiff().amount() >= 0 -->
-														<span>+</span>
-														<money format="0,0 $" data-bind="money: priceDiff()"></money>
-													<!-- /ko -->
-													<!-- ko if: priceDiff().amount() < 0 -->
-														<span>&#8722;</span>
-														<money format="0,0 $" data-bind="money: priceDiff().getAbs()"></money>
-													<!-- /ko -->
-												<!-- /ko -->
-
-												<!-- ko if: !canBeChosen() -->
-													<!-- ko if: cannotBeChosenCause() -->
-														<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_withCause').replace('[%-cause-%]', cannotBeChosenCause())"></span>
-													<!-- /ko -->
-													<!-- ko if: !cannotBeChosenCause() -->
-														<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed')"></span>
-													<!-- /ko -->
-												<!-- /ko -->
-											</div>
-
-											<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
-												name: 'fareFamilies-features__list_short',
-												data: {
-													array: features.baggage,
-													showTitles: false,
-													title: 'baggage'
-												}
-											}"></div>
-
-											<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
-												name: 'fareFamilies-features__list_short',
-												data: {
-													array: features.refunds,
-													showTitles: false,
-													title: 'refunds'
-												}
-											}"></div>
-
-											<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA === 'SU' -->
-												<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
-													name: 'fareFamilies-features__list_short',
-													data: {
-														array: [features.misc[0]],
-														showTitles: false,
-														title: 'misc'
-													}
-												}"></div>
-											<!-- /ko -->
-											<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA !== 'SU' -->
-												<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
-														name: 'fareFamilies-features__list_short',
-														data: {
-															array: features.misc,
-															showTitles: false,
-															title: 'misc'
-														}
-													}"></div>
-											<!-- /ko -->
+							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families">
+								<!-- ko if: !isDisabled && selectedFamily() !== '#' -->
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__selected">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__header">
+											<!-- ko text: $parent.parentFlight.segments[$index()].marketingCompany.name + ' / ' --><!-- /ko -->
+											<!-- ko text: families[selectedFamily()].familyName --><!-- /ko -->
+										</div>
+									</div>
+								<!-- /ko -->
+								<!-- ko if: isDisabled || selectedFamily() === '#' -->
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__selected">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__header">
+											<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__readOnly') --><!-- /ko -->
+										</div>
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__families__aboutLink">
+											<span data-bind="component: {
+												name: 'Flights/SearchResults/FareRules/Controller',
+												params: { flight: $parent.parentFlight, linkText: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__about') }
+											}"></span>
 										</div>
 									</div>
 								<!-- /ko -->
 							</div>
 						</div>
-					<!-- /ko -->
-				</div>
+
+						<!-- ko if: isOpened() && !isDisabled && selectedFamily() !== '#' -->
+							<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__full">
+								<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute"
+										 data-bind="with: $parent.parentFlight.segments[$index()], visible: false">
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__logo">
+											<img class="flights-carrierResults__leg__flightRoute__header__logo__image"
+												 data-bind="
+													attr: { 'src': marketingCompany.logo.image },
+													tooltip: { content: marketingCompany.name }
+												">
+										</div>
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight">
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight__title">
+												<!-- ko text: $root.i18n('FlightsFlightInfo', 'leg__segment__flightNumber__caption')--><!-- /ko -->
+											</div>
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__flight__value">
+												<!-- ko text: marketingCompany.IATA + '-' + flightNumber --><!-- /ko -->
+											</div>
+										</div>
+
+										<!-- ko if: aircraftType -->
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft js-carrierResults__leg__flightRoute__aircraft">
+												<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft__title">
+													<!-- ko text: $root.i18n('FlightsFlightInfo', 'leg__segment__aircraft__caption')--><!-- /ko -->
+												</div>
+												<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__header__aircraft__value">
+													<!-- ko text: aircraftType.name --><!-- /ko -->
+												</div>
+											</div>
+										<!-- /ko -->
+									</div>
+
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader__item">
+											<!-- ko text: $root.i18n('FlightsSearchForm', 'flightsForm-scheduleHeader_departure')--><!-- /ko -->
+										</div>
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__subHeader__item">
+											<!-- ko text: $root.i18n('FlightsSearchForm', 'flightsForm-scheduleHeader_arrival')--><!-- /ko -->
+										</div>
+									</div>
+
+									<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment">
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure">
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure__time">
+												<!-- ko text: depDateTime.getTime() --><!-- /ko -->
+											</div>
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__departure__place">
+												<!-- ko text: depAirp.city.name --><!-- /ko -->
+											</div>
+										</div>
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival">
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival__time">
+												<!-- ko text: arrDateTime.getTime() --><!-- /ko -->
+											</div>
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__segment__flightRoute__segment__arrival__place">
+												<!-- ko text: arrAirp.city.name --><!-- /ko -->
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__list">
+									<!-- ko foreach: familiesArray -->
+										<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family" data-bind="
+											css: {
+												'nemo-flights-results__fareFamiliesBySegment__popup__families__family_selected': $parent.selectedFamily() === familyCode,
+												'nemo-flights-results__fareFamiliesBySegment__popup__families__family_disabled': !canBeChosen()
+											},
+											click: function () {
+												if (canBeChosen()) {
+													$parents[1].selectFamily(familyCode, $parentContext.$index());
+												}
+											}
+										">
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__header" data-bind="text: familyName"></div>
+											<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features">
+												<!-- ko if: !canBeChosen() -->
+													<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features__overlay"
+															data-bind="
+																tooltip: {
+																	header: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_title'),
+																	content: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_hint'),
+																	cssClass: 'nemo-flights-results__fareFamilies__header__icon__tooltip'
+																}
+															"></div>
+												<!-- /ko -->
+
+												<div class="nemo-flights-results__fareFamiliesBySegment__popup__families__family__features__priceDiff">
+													<!-- ko if: $parent.selectedFamily() === familyCode -->
+														<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__priceDiff_selected')"></span>
+													<!-- /ko -->
+													<!-- ko if: canBeChosen() && $parent.selectedFamily() !== familyCode -->
+														<!-- ko if: priceDiff().amount() >= 0 -->
+															<span>+</span>
+															<money format="0,0 $" data-bind="money: priceDiff()"></money>
+														<!-- /ko -->
+														<!-- ko if: priceDiff().amount() < 0 -->
+															<span>&#8722;</span>
+															<money format="0,0 $" data-bind="money: priceDiff().getAbs()"></money>
+														<!-- /ko -->
+													<!-- /ko -->
+
+													<!-- ko if: !canBeChosen() -->
+														<!-- ko if: cannotBeChosenCause() -->
+															<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed_withCause').replace('[%-cause-%]', cannotBeChosenCause())"></span>
+														<!-- /ko -->
+														<!-- ko if: !cannotBeChosenCause() -->
+															<span data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__bySegments__fare__notAllowed')"></span>
+														<!-- /ko -->
+													<!-- /ko -->
+												</div>
+
+												<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+													name: 'fareFamilies-features__list_short',
+													data: {
+														array: features.baggage,
+														showTitles: false,
+														title: 'baggage'
+													}
+												}"></div>
+
+												<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+													name: 'fareFamilies-features__list_short',
+													data: {
+														array: features.refunds,
+														showTitles: false,
+														title: 'refunds'
+													}
+												}"></div>
+
+												<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA === 'SU' -->
+													<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+														name: 'fareFamilies-features__list_short',
+														data: {
+															array: [features.misc[0]],
+															showTitles: false,
+															title: 'misc'
+														}
+													}"></div>
+												<!-- /ko -->
+												<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA !== 'SU' -->
+													<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+															name: 'fareFamilies-features__list_short',
+															data: {
+																array: features.misc,
+																showTitles: false,
+																title: 'misc'
+															}
+														}"></div>
+												<!-- /ko -->
+											</div>
+										</div>
+									<!-- /ko -->
+								</div>
+							</div>
+						<!-- /ko -->
+					</div>
+				<!-- /ko -->
 			<!-- /ko -->
 		</div>
 

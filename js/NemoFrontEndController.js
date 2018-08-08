@@ -1069,6 +1069,7 @@ define (
 			cookiesPrefix: 'nemo-',
 			waitForDOMReady: true,
 			carrierResultsMode: false,
+			showNewDesignButton: false,
 			clientNationalitySelect: false
 		};
 

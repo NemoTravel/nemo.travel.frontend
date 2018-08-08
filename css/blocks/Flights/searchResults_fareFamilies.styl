@@ -93,6 +93,10 @@ $fareFamiliesMainPadding = 20px;
 			
 			&_helpCursor {
 				cursor: help;
+
+				@media (max-width: 650px) {
+					pointer-events: none;
+				}
 			}
 		}
 		
@@ -326,6 +330,10 @@ $fareFamiliesMainPadding = 20px;
 			
 			&_helpCursor {
 				cursor: help;
+
+				@media (max-width: 650px) {
+					pointer-events: none;
+				}
 			}
 		}
 		
@@ -394,6 +402,12 @@ $fareFamiliesMainPadding = 20px;
 		top: 70px !important;
 		padding: 0 !important;
 		font-family: $nemo-font-main;
+
+		&-notice {
+			@media (max-width: 650px) {
+				display: none;
+			}
+		}
 		
 		&__contents {
 			@media (max-width: 800px) {

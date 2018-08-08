@@ -1525,6 +1525,14 @@ define(
 
 		FlightsSearchFormController.prototype.carriers = null;
 
+		FlightsSearchFormController.prototype.onNewDesignButtonClick = function () {
+			Cookie.remove('forceOldDesign');
+			Cookie.set('forceNewDesign', true, { expires: 365 });
+
+			this.$$controller.navigate('', false, '');
+			window.location.reload();
+		};
+
 		return FlightsSearchFormController;
 	}
 );

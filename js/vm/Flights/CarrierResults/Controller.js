@@ -491,6 +491,7 @@ define(
 								flight.leg = null;
 
 								flight.minPrice = null;
+								flight.searchInfo = this.searchInfo();
 
 								flight = this.$$controller.getModel('Flights/CarrierResults/Flight', flight);
 
@@ -587,7 +588,8 @@ define(
 										rating: this.$$rawdata.flights.search.results.flightGroups[i].flights[j].rating,
 										price: this.prices[this.$$rawdata.flights.search.results.flightGroups[i].flights[j].price],
 										segments: segsarr,
-										createOrderLink: this.$$rawdata.flights.search.results.flightGroups[i].flights[j].createOrderLink
+										createOrderLink: this.$$rawdata.flights.search.results.flightGroups[i].flights[j].createOrderLink,
+										searchInfo: this.searchInfo()
 									}
 								);
 							}

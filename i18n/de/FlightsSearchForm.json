@@ -108,6 +108,7 @@
     "additionalParameters__carrier__placeholder": "Name der Fluggesellschaft",
     "additionalParameters__carrier__searchNotFound": "Nicht gefunden",
     "additionalParameters__carrier__loading": "Lädt…",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "Reisezeit",
     "additionalParameters__transfers__title": "Stopps",
     "additionalParameters__transfers__noTransfers__caption": "Nonstop",

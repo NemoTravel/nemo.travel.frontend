@@ -485,6 +485,11 @@ define(
 				if (flight) {
 					for (var i = 0; i < flight.warnings.length; i++) {
 						switch (flight.warnings[i].type) {
+							case 'economyClassInBusinessFlight':
+								ret += '<p class="nemo-flights-results__flightsWarnings__item">' +
+									i18n('FlightsSearchResults','flightsGroup__flightWarnings__economyClassInBusinessFlight' + (flight.warnings[i].data.count > 1 ? '_severalSegments' : ''))
+									.replace('[%-segment-%]', flight.warnings[i].data.label) + '</p>';
+								break;
 							case 'stopovers':
 								ret += '<p class="nemo-flights-results__flightsWarnings__item">';
 								ret += i18n('FlightsSearchResults','flightsGroup__flightWarnings__stopovers')
