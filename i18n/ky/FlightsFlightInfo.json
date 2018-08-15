@@ -1,3 +1,5 @@
+<br />
+<b>Warning</b>:  mkdir(): File exists in <b>/var/www/stable.mlsd.ru/frontendStatic/index.php</b> on line <b>93</b><br />
 {
     "leg__header": "[%-carrier-%] учупөтүү компаниядан берилген",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",

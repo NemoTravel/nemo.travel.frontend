@@ -38,5 +38,8 @@
     "hotels-room-paymentType__Other": "hotels-room-paymentType__Other",
     "description": "description",
     "location": "location",
-    "hotelServicesCaption": "hotelServicesCaption"
+    "hotelServicesCaption": "hotelServicesCaption",
+    "hotels-room-remarks__header": "hotels-room-remarks__header",
+    "hotels-room-remarks__toggle_opened": "hotels-room-remarks__toggle_opened",
+    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed"
 }

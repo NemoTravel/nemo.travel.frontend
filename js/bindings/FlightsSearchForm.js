@@ -244,22 +244,29 @@ define(
 						$(event.target).data('nemo-FlightsFormGeoAC').menu.activeMenu.removeClass('nemo-ui-autocomplete_open');
 					},
 					select: function(event, ui) {
-						$element.blur();
-						if(typeof ui.item.noRoute  !== 'undefined' && ui.item.noRoute){
+						var itemHasBeenSet = false;
 
+						$element.blur();
+
+						if (typeof ui.item.noRoute !== 'undefined' && ui.item.noRoute) {
 							// тут происходит сброс недопустимых маршрутов
 							valueAccessor()(ui.item);
 
+							itemHasBeenSet = true;
+
 							var $row = $element.parents('.js-autofocus-segment');
-							if(isDepartureInput){
+
+							if (isDepartureInput) {
 								viewModel.items.arrival.value(null);
-								setTimeout(function(){
+
+								setTimeout(function () {
 									$row.find('.js-autofocus-field_arrival').focus();
 								}, 100);
 							}
-							else{
+							else {
 								viewModel.items.departure.value(null);
-								setTimeout(function(){
+
+								setTimeout(function () {
 									$row.find('.js-autofocus-field_departure').focus();
 								}, 100);
 							}
@@ -281,31 +288,34 @@ define(
 								});
 
 								valueAccessor()(aggregationItem);
+								itemHasBeenSet = true;
 							}
 						}
+
 						// If item has label - it's something other than geo point that should be in AC
 						// So we set corresponding stuff only if it's valid
-						else if (typeof ui.item.label == 'undefined') {
+						if (!itemHasBeenSet && typeof ui.item.label === 'undefined') {
 							valueAccessor()(ui.item);
 
-							if(onFocusAutocomplete){
-								//автофокус тут тупит, переписал на более хардкодный вариант
+							if (onFocusAutocomplete) {
+								// Автофокус тут тупит, переписал на более хардкодный вариант.
 								var $row = $element.parents('.js-autofocus-segment');
-								if(isDepartureInput){
-									if(viewModel.items.arrival.value()){
+
+								if (isDepartureInput) {
+									if (viewModel.items.arrival.value()) {
 										$row.find('.js-autofocus-field_date').focus();
 									}
-									else{
-										setTimeout(function(){
+									else {
+										setTimeout(function () {
 											$row.find('.js-autofocus-field_arrival').focus();
 										}, 100);
 									}
 								}
-								else{
+								else {
 									$row.find('.js-autofocus-field_date').focus();
 								}
 							}
-							else{
+							else {
 								// Autofocus stuff
 								$element.trigger('nemo.fsf.segmentPropChanged');
 							}

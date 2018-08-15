@@ -45,9 +45,24 @@ define(
 				this.segments[i].shortInfo += '(' + this.segments[i].depDateTime.getDate() + '&nbsp;' + this.segments[i].depDateTime.getMonthName() + ',&nbsp;' + this.segments[i].depDateTime.getDOWName() +')';
 				this.segments[i].overlandTrip = false;
 
+				this.segments[i].specialMark = {
+					name: '',
+					label: '',
+					desc: ''
+				};
+
 				if (this.segments[i].aircraftType === 'BUS' || this.segments[i].aircraftType === 'TRAIN') {
 					this.overlandTrip = this.segments[i].aircraftType;
 					this.segments[i].overlandTrip = true;
+				}
+
+				if (this.segments[i].isLowCost || this.segments[i].isCharter) {
+					this.segments[i].specialMark.name = this.segments[i].isLowCost ? 'Lowcost' : 'Charter';
+
+					var description = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__selector__is' + this.segments[i].specialMark.name + '__desc');
+
+					this.segments[i].specialMark.label = this.$$controller.i18n('FlightsSearchResults', 'flightsGroup__selector__is' + this.segments[i].specialMark.name);
+					this.segments[i].specialMark.desc = description !== '{i18n:FlightsSearchResults:flightsGroup__selector__is' + this.segments[i].specialMark.name + '__desc}' ? description : '';
 				}
 
 				this.segments[i].isNightDeparture = this.isNightSegmentDeparture(i);
@@ -142,9 +157,10 @@ define(
 					availSeats: this.price.availableSeats[i],
 					timeStopovers: this.$$controller.getModel('Common/Duration', stopoversForLegDuration),
 					stopoversCount: stopoversForLeg,
+					specialMark: this.segmentsByLeg[i][0].specialMark,
 					isCharter: this.segmentsByLeg[i][0].isCharter,
 					isNightDeparture: this.segmentsByLeg[i][0].isNightDeparture,
-					overlandTrip: this.overlandTrip
+					overlandTrip: this.overlandTrip,
 				}));
 			}
 

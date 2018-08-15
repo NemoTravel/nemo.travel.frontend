@@ -50,6 +50,8 @@
     "More Flights": "More Flights",
     "flightsGroup__selector__isCharter": "flightsGroup__selector__isCharter",
     "flightsGroup__selector__isCharter__desc": "flightsGroup__selector__isCharter__desc",
+    "flightsGroup__selector__isLowcost": "flightsGroup__selector__isLowcost",
+    "flightsGroup__selector__isLowcost__desc": "flightsGroup__selector__isLowcost__desc",
     "flightsGroup__overland__BUS": "flightsGroup__overland__BUS",
     "flightsGroup__overland__TRAIN": "flightsGroup__overland__TRAIN",
     "flightsGroup__availSeats_one": "орун",

@@ -38,5 +38,8 @@
     "hotels-room-paymentType__Other": "Оплата зараз",
     "description": "Опис",
     "location": "Район",
-    "hotelServicesCaption": "Послуги і зручності в готелі"
+    "hotelServicesCaption": "Послуги і зручності в готелі",
+    "hotels-room-remarks__header": "hotels-room-remarks__header",
+    "hotels-room-remarks__toggle_opened": "hotels-room-remarks__toggle_opened",
+    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed"
 }

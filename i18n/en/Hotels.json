@@ -38,5 +38,8 @@
     "hotels-room-paymentType__Other": "Prepayment needed",
     "description": "About hotel",
     "location": "Location",
-    "hotelServicesCaption": "Services and facilities"
+    "hotelServicesCaption": "Services and facilities",
+    "hotels-room-remarks__header": "Remarks for room",
+    "hotels-room-remarks__toggle_opened": "Close",
+    "hotels-room-remarks__toggle_closed": "Show all"
 }

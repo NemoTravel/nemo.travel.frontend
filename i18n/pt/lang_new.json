@@ -1,3 +1,5 @@
+<br />
+<b>Warning</b>:  mkdir(): File exists in <b>/var/www/stable.mlsd.ru/frontendStatic/index.php</b> on line <b>93</b><br />
 {
     "incorrect_dates_block": "incorrect_dates_block",
     "autocomplete_mode": "autocomplete_mode",
