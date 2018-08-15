@@ -38,5 +38,8 @@
     "hotels-room-paymentType__Other": "Предоплата",
     "description": "Об отеле",
     "location": "Расположение",
-    "hotelServicesCaption": "Услуги и удобства в отеле"
+    "hotelServicesCaption": "Услуги и удобства в отеле",
+    "hotels-room-remarks__header": "Примечания к номеру",
+    "hotels-room-remarks__toggle_opened": "Свернуть",
+    "hotels-room-remarks__toggle_closed": "Показать все"
 }

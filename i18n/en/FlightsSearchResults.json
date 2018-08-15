@@ -50,6 +50,8 @@
     "More Flights": "More flights",
     "flightsGroup__selector__isCharter": "Charter flight",
     "flightsGroup__selector__isCharter__desc": "<b>Charter</b> is the business of renting an entire aircraft as opposed to individual aircraft seats. Please notice exchange and refund rules",
+    "flightsGroup__selector__isLowcost": "Lowcost",
+    "flightsGroup__selector__isLowcost__desc": "",
     "flightsGroup__overland__BUS": "<i class=\"fa fa-bus\"></i> Bus ride",
     "flightsGroup__overland__TRAIN": "<i class=\"fa fa-train\"></i> Train ride",
     "flightsGroup__availSeats_one": "seat",

@@ -352,6 +352,7 @@
     "new-passinfo-price__product_hotel_booking": "Hotel",
     "new-passinfo-price__product_aeroexpress": "Aeroexpress",
     "new-passinfo-price__product_insurance": "Insurance",
+    "new-passinfo-price__product_sirena_insurance": "Sirena insurance",
     "new-passinfo-price__product_servicepack": "Service package",
     "new-passinfo-price__comission_subagent": "Subagent commission",
     "new-passinfo-price__product_toFullPayment": "Extra charge",
@@ -698,5 +699,8 @@
     "checkout-office_timeperiod_holiday": "Weekend working hours",
     "checkout-office_timeperiod_recess": "Lunch time",
     "checkout-office_timeperiod_dutyday": "Duty days working hours",
-    "checkout-office_timeperiod_work": "Working hours"
+    "checkout-office_timeperiod_work": "Working hours",
+    "new-passinfo-extServices-sirenaInsurance-coverage": "Amount of insurance coverage",
+    "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "Amount of insurance coverage for luggage",
+    "new-passinfo-extServices-sirenaInsurance-rules": "Rules of the insurance policy"
 }

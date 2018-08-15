@@ -50,6 +50,8 @@
     "More Flights": "Ще рейси",
     "flightsGroup__selector__isCharter": "Чартерний рейс",
     "flightsGroup__selector__isCharter__desc": "<b>Чартерний рейс</b> — спеціальний рейс, котрий туроператор замовляє у авіакомпанії для перевезення своїх клієнтів. <br> Не відрізняється по якості обслуговування від звичайних рейсів, проте слід звернути увагу на умови обміну та повернення",
+    "flightsGroup__selector__isLowcost": "flightsGroup__selector__isLowcost",
+    "flightsGroup__selector__isLowcost__desc": "flightsGroup__selector__isLowcost__desc",
     "flightsGroup__overland__BUS": "<i class=\"fa fa-bus\"></i> Поїздка на автобусі",
     "flightsGroup__overland__TRAIN": "<i class=\"fa fa-train\"></i> Поїздка на потязі",
     "flightsGroup__availSeats_one": "місце",

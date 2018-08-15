@@ -352,6 +352,7 @@
     "new-passinfo-price__product_hotel_booking": "new-passinfo-price__product_hotel_booking",
     "new-passinfo-price__product_aeroexpress": "Aeroekspres",
     "new-passinfo-price__product_insurance": "Sug'urta",
+    "new-passinfo-price__product_sirena_insurance": "new-passinfo-price__product_sirena_insurance",
     "new-passinfo-price__product_servicepack": "Xizmatlar paketi",
     "new-passinfo-price__comission_subagent": "Subagent komissiyasi",
     "new-passinfo-price__product_toFullPayment": "Qo'shimcha haq",
@@ -698,5 +699,8 @@
     "checkout-office_timeperiod_holiday": "checkout-office_timeperiod_holiday",
     "checkout-office_timeperiod_recess": "checkout-office_timeperiod_recess",
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
-    "checkout-office_timeperiod_work": "checkout-office_timeperiod_work"
+    "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
+    "new-passinfo-extServices-sirenaInsurance-coverage": "new-passinfo-extServices-sirenaInsurance-coverage",
+    "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "new-passinfo-extServices-sirenaInsurance-lugagge-coverage",
+    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules"
 }

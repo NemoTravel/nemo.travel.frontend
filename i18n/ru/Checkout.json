@@ -352,6 +352,7 @@
     "new-passinfo-price__product_hotel_booking": "Отель",
     "new-passinfo-price__product_aeroexpress": "Аэроэкспресс",
     "new-passinfo-price__product_insurance": "Страховка",
+    "new-passinfo-price__product_sirena_insurance": "Сирена страхование",
     "new-passinfo-price__product_servicepack": "Пакет услуг",
     "new-passinfo-price__comission_subagent": "Комиссия субагенту",
     "new-passinfo-price__product_toFullPayment": "Доплата",
@@ -698,5 +699,8 @@
     "checkout-office_timeperiod_holiday": "Время работы в выходные",
     "checkout-office_timeperiod_recess": "Перерыв на обед",
     "checkout-office_timeperiod_dutyday": "Время работы в дежурные дни",
-    "checkout-office_timeperiod_work": "Время работы"
+    "checkout-office_timeperiod_work": "Время работы",
+    "new-passinfo-extServices-sirenaInsurance-coverage": "Сумма страхового покрытия",
+    "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "Сумма страхового покрытия за багаж",
+    "new-passinfo-extServices-sirenaInsurance-rules": "Правила полиса страхования"
 }

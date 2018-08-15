@@ -352,6 +352,7 @@
     "new-passinfo-price__product_hotel_booking": "Готель",
     "new-passinfo-price__product_aeroexpress": "Аероекспрес",
     "new-passinfo-price__product_insurance": "Страховий поліс",
+    "new-passinfo-price__product_sirena_insurance": "new-passinfo-price__product_sirena_insurance",
     "new-passinfo-price__product_servicepack": "Пакет послуг",
     "new-passinfo-price__comission_subagent": "Комісія субагенту",
     "new-passinfo-price__product_toFullPayment": "Доплата",
@@ -698,5 +699,8 @@
     "checkout-office_timeperiod_holiday": "Час роботи в вихідні",
     "checkout-office_timeperiod_recess": "Обідня перерва",
     "checkout-office_timeperiod_dutyday": "Час роботи в чергові дні",
-    "checkout-office_timeperiod_work": "Графік роботи"
+    "checkout-office_timeperiod_work": "Графік роботи",
+    "new-passinfo-extServices-sirenaInsurance-coverage": "new-passinfo-extServices-sirenaInsurance-coverage",
+    "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "new-passinfo-extServices-sirenaInsurance-lugagge-coverage",
+    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules"
 }
