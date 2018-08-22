@@ -236,6 +236,20 @@
 			min-width: 1px;
 		}
 
+		&__passengers {
+			&_passengers {
+				&:not(:only-child) {
+					&:after {
+						content: ',';
+					}
+				}
+			}
+
+			&_serviceClass {
+				text-transform: lowercase;
+			}
+		}
+
 		&__route {
 			flex-grow: 0;
 			white-space: nowrap;

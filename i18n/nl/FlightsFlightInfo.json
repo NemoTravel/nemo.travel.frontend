@@ -13,6 +13,7 @@
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Van",
     "leg__terminalChange": "Vlucht",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Vlucht details",
     "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Vlucht details",

@@ -403,7 +403,7 @@
     "service_class_economy": "Эконом",
     "new-passinfo-checkpopup__title": "Пожалуйста, проверьте введенные данные",
     "new-passinfo-checkpopup__passengers__header": "Пассажиры",
-    "new-passinfo-checkpopup__passengers__tbl__name": "Имя и фамилия",
+    "new-passinfo-checkpopup__passengers__tbl__name": "ФИО",
     "new-passinfo-checkpopup__passengers__tbl__gender": "Пол",
     "new-passinfo-checkpopup__passengers__tbl__dob": "Дата рождения",
     "new-passinfo-checkpopup__passengers__tbl__nationality": "Гражданство",
