@@ -1,5 +1,3 @@
-<br />
-<b>Warning</b>:  mkdir(): File exists in <b>/var/www/stable.mlsd.ru/frontendStatic/index.php</b> on line <b>93</b><br />
 {
     "leg__header": "[%-carrier-%] учупөтүү компаниядан берилген",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
@@ -15,6 +13,7 @@
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Башка учакка которулуу",
     "leg__terminalChange": "терминал ыйгаштыруу",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Аэропорт",
     "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Терминал",

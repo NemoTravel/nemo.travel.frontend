@@ -1,5 +1,3 @@
-<br />
-<b>Warning</b>:  mkdir(): File exists in <b>/var/www/stable.mlsd.ru/frontendStatic/index.php</b> on line <b>93</b><br />
 {
     "popup_closeText": "Uždaryti",
     "nemoApp__globalError__noRoute": "Nežinomas URL",

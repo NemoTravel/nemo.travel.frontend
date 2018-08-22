@@ -13,6 +13,7 @@
     "fareInformationHeader": "Free baggage",
     "leg__transfer": "Transfer",
     "leg__terminalChange": "Terminal change",
+    "leg__airportChange": "Airport change",
     "leg__segment__departure__caption": "Airport",
     "leg__segment__departure__caption_overland": "Station",
     "leg__segment__departure__terminal__caption": "Terminal",

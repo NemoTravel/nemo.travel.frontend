@@ -80,9 +80,9 @@
     "hotels__rooms__fullSelect__title": "Rooms and guests",
     "hotels__searchButton__text": "Search",
     "hotels__segments__date__example__title": "For example:",
-    "hotels__segments__date__example__town1": "hotels__segments__date__example__town1",
-    "hotels__segments__date__example__town2": "hotels__segments__date__example__town2",
-    "hotels__segments__date__example__town3": "hotels__segments__date__example__town3",
+    "hotels__segments__date__example__town1": "\t Moscow",
+    "hotels__segments__date__example__town2": "Berlin",
+    "hotels__segments__date__example__town3": "Paris",
     "hotels__rooms__fastSelect__fullSelectOption": "More rooms or travelling with children",
     "hotels__recentSearches__toggle": "Recent searches",
     "hotels_in_room_one": "room",
@@ -97,5 +97,5 @@
     "error_hotels_arrival_noInput": "Enter city",
     "error_hotels_arrivalDate_noInput": "Enter check-in date",
     "error_hotels_departureDate_noInput": "Enter check-out date",
-    "hotels__additionalParameters__country__searchNotFound": "hotels__additionalParameters__country__searchNotFound"
+    "hotels__additionalParameters__country__searchNotFound": "Country not available for selection"
 }

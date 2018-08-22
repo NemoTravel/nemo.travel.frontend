@@ -1,5 +1,3 @@
-<br />
-<b>Warning</b>:  mkdir(): File exists in <b>/var/www/stable.mlsd.ru/frontendStatic/index.php</b> on line <b>93</b><br />
 {
     "leg__header": "的航班，由公司提供<>[%-carrier-%]",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
@@ -15,6 +13,7 @@
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "转机",
     "leg__terminalChange": "航站楼更换",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "机场",
     "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "航站楼",

@@ -13,6 +13,7 @@
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Persėdimas",
     "leg__terminalChange": "Terminalo pakeitimas",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Oro uostas",
     "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Terminalas",
