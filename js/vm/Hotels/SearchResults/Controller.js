@@ -245,7 +245,7 @@ define(
 									hotel = _.cloneDeep(self.hotelsPool[hotel.id]);
 								}
 	
-								self.$$controller.navigate('/hotels/results/' + getSearchId() + '/' + hotel.id, false, hotel.name);
+								self.$$controller.navigate('/hotels/results/' + getSearchId() + '/' + hotel.hotelIdFromSearch, false, hotel.name);
 								self.isCardHotelView(true);
 								RecentHotelsModel.add(hotel);
 	
@@ -269,7 +269,7 @@ define(
 			};
 
 			this.makeHotelLink = function (hotel) {
-				return '/hotels/results/' + getSearchId() + '/' + hotel.id;
+				return '/hotels/results/' + getSearchId() + '/' + hotel.resultsHotelId;
 			};
 
 			this.getHotelMainImage = function (hotel, defaultImage) {
@@ -354,6 +354,18 @@ define(
 			this.bookingCheckError(null);
 			this.bookingCheckPriceChangeData(null);
 
+			function replaceHotelKeysWithIdFromSearchResults(hotels) {
+				var newHotelsObject = {};
+
+				for (var hotelId in hotels) {
+					if (hotels.hasOwnProperty(hotelId)) {
+						newHotelsObject[hotels[hotelId].hotelIdFromSearch] = hotels[hotelId];
+					}
+				}
+
+				return newHotelsObject;
+			}
+
 			if (!this.bookingCheckInProgress()) {
 				this.bookingCheckInProgress(true);
 
@@ -383,6 +395,7 @@ define(
 							}
 							else {
 								try {
+									data.hotels.search.results.hotels = replaceHotelKeysWithIdFromSearchResults(data.hotels.search.results.hotels);
 									this.processSearchResults(data);
 								}
 								catch (e) {

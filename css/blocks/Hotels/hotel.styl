@@ -1260,6 +1260,25 @@
 				background: $nemo-color-LightPoint;
 				user-select: none;
 
+				&_withWarning {
+					position: relative;
+
+					&:after {
+						content: '!';
+						position: absolute;
+						right: -10px;
+						border-radius: 50%;
+						width: 20px;
+						height: 20px;
+						line-height: 20px;
+						top: 8px;
+						font-weight: 600;
+						background: #fff;
+						border: 1px solid #ff9731;
+						color: #ff9731;
+					}
+				}
+
 				&:hover {
 					background: lighten($c_ui_button, 45);
 				}
@@ -1295,6 +1314,13 @@
 						left: 0;
 						top: 50%;
 						margin-top: -5px;
+					}
+
+					&_withWarning {
+						&:after {
+							background: #ff9731;
+							color: #fff;
+						}
 					}
 				}
 			}
