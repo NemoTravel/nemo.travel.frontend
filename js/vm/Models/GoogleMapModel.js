@@ -33,6 +33,7 @@ define([
             zoom: GoogleMapModel.DEFAULT_ZOOM,
             scrollwheel: typeof scrollOnWheel === 'undefined' ? true : scrollOnWheel,
             zoomControl: !disableZoomAndStreetViewControl,
+			fullscreenControl: false,
             streetViewControl: !disableZoomAndStreetViewControl
         });
     }
@@ -118,13 +119,13 @@ define([
 					iwOuter.find('.stars').css({marginRight: '15px'});
 					
 					// Disable zoom
-					map.setOptions({ scrollwheel:false, scaleControl: false, zoomControl: false });
+					map.setOptions({ scrollwheel:false, scaleControl: false, zoomControl: false, fullscreenControl: false });
 				
 				});
 				
 				// Enable zoom when infoWindow closed
 				google.maps.event.addListener(self.infoPopup, 'closeclick', function() {
-					map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true });
+					map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true, fullscreenControl: false });
 					var iwOuter = $('.gm-style-iw');
 					var iwBackground = iwOuter.prev();
 					iwBackground.children(':nth-child(1)').attr('style', "");
@@ -232,7 +233,7 @@ define([
                 // close popup
                 if (self.infoPopup) {
                     self.infoPopup.close();
-                    map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true });
+                    map.setOptions({ scrollwheel:true, scaleControl: true, zoomControl: true, fullscreenControl: false });
                 }
                 
                 if (place.geometry.viewport) {

@@ -191,6 +191,11 @@ define(
 				return this.$$controller.options.root + 'search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
 			}, this);
 
+			// Use this instead of `visibleGroups`.
+			this.groupsForDisplay = ko.computed(function () {
+				return this.groups().slice(0, this.shownGroups());
+			}, this);
+
 			this.initAnalytics();
 		}
 
