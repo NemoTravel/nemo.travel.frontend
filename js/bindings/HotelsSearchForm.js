@@ -379,47 +379,27 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						if (!$target.is('.js-hotels-searchForm-passSelect') &&
 							!$target.parents().is('.js-hotels-searchForm-passSelect')) {
 							viewModel.roomsFastSelectorOpen(false);
+
+							if (fullScreen) {
+								$('body').css('overflow', 'auto');
+							}
 						}
 					},
-					$document     = $(document);
+					$document     = $(document),
+					$close        = $('.js-common-pseudoSelect__close'),
+					fullScreen    = valueAccessor() ? valueAccessor().fullScreen : false;
 
 				$(element).on('click', function () {
-					if (viewModel.maxAdultsFromFS > 0) {
-						var $popupTarget = $(document).find('.js-nemoApp__popupBlock[data-block=passengersFullSelect]');
-
-						viewModel.roomsFastSelectorOpen(false);
-
-						if ($popupTarget.length > 1) {
-							$popupTarget = $popupTarget.first();
-						}
-
-						if ($popupTarget.data('ui-popup')) {
-							$popupTarget.popup('open');
-						}
-						else {
-							$popupTarget.popup({
-								title: bindingContext.$root.i18n('HotelsSearchForm','rooms__fullSelect__title'),
-								width: 'auto',
-								height: 'auto',
-								dialogClass: 'no-overflow',
-								buttons: [
-									{
-										text: bindingContext.$root.i18n('HotelsSearchForm','passengers__fullSelect__button__done'),
-										click: function () {
-											$popupTarget.popup('close');
-										}
-									}
-								]
-							});
-						}
-					}
-					else {
-						viewModel.openRoomsSelector();
+					if (fullScreen) {
+						$('body').css('overflow', 'hidden');
 					}
 
+					viewModel.openRoomsSelector();
 				});
 
 				$document.on('click', closeSelector);
+
+				$close.on('click', closeSelector);
 
 				ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
 					$document.off('click', closeSelector);
@@ -427,11 +407,33 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 			}
 		};
 		ko.bindingHandlers.spinnerAdults = {
+			watch: function ($element, $wrapper, initialValue) {
+				var min = $element.spinner('option', 'min'),
+					max = $element.spinner('option', 'max'),
+					value = initialValue ? initialValue : $element.spinner('value');
+
+				if (value <= min) {
+					$wrapper.addClass('nemo-hotels-form__spinner_disabledDown');
+				}
+				else {
+					$wrapper.removeClass('nemo-hotels-form__spinner_disabledDown');
+
+					if (value >= max) {
+						$wrapper.addClass('nemo-hotels-form__spinner_disabledUp');
+					}
+					else {
+						$wrapper.removeClass('nemo-hotels-form__spinner_disabledUp');
+					}
+				}
+			},
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				//initialize datepicker with some optional options
-				var options = allBindingsAccessor().spinnerOptions || {};
+				var options = allBindingsAccessor().spinnerOptions || {},
+					$wrapper = $(element).parent('.nemo-hotels-form__spinner');
 
 				$(element).spinner(options);
+
+				ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper, valueAccessor()());
 
 				var context = bindingContext;
 
@@ -448,6 +450,8 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 				//handle the field changing
 				ko.utils.registerEventHandler(element, 'spinstop', function () {
 					context.$parent.rooms()[$(element).attr('room')].adults($(element).spinner('value'));
+
+					ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper);
 				});
 
 				//handle disposal (if KO removes by the template binding)
@@ -473,9 +477,12 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 		ko.bindingHandlers.spinnerInfants = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				//initialize datepicker with some optional options
-				var options = allBindingsAccessor().spinnerOptions || {};
+				var options = allBindingsAccessor().spinnerOptions || {},
+					$wrapper = $(element).parent('.nemo-hotels-form__spinner');
 
 				$(element).spinner(options);
+
+				ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper, valueAccessor());
 
 				var context = bindingContext;
 
@@ -512,6 +519,8 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 								context.$parent.rooms()[$(element).attr('room')].infants.push(0);
 							}
 						}
+
+						ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper);
 					}
 				);
 
@@ -538,9 +547,12 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 		ko.bindingHandlers.snipperAge = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				// initialize datepicker with some optional options
-				var options = allBindingsAccessor().spinnerOptions || {};
+				var options = allBindingsAccessor().spinnerOptions || {},
+					$wrapper = $(element).parent('.nemo-hotels-form__spinner');
 
 				$(element).spinner(options);
+
+				ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper, valueAccessor());
 
 				// handle the field changing
 				ko.utils.registerEventHandler(
@@ -557,6 +569,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 							age = $(element).spinner('value');
 
 						bindingContext.$parentContext.$parent.selectInfantAge(room, infant, age);
+						ko.bindingHandlers.spinnerAdults.watch($(element), $wrapper);
 					}
 				);
 

@@ -6,7 +6,8 @@ define([], function () {
 
     HotelsBaseModel.SORT_TYPES = {
         BY_POPULAR: 1,
-        BY_PRICE: 2
+        BY_PRICE: 2,
+        BY_STARS: 3
     };
 
     HotelsBaseModel.MODE_ID = 'id';

@@ -48,7 +48,7 @@ define(
 
 			this.groups = ko.observableArray([]);
 			this.visibleGroups = ko.observableArray([]);
-
+			this.visibleGroupsIds = ko.observable({});
 			this.shownGroups = ko.observable(this.baseShownGroups);
 			this.totalVisibleGroups = ko.observable(0);
 
@@ -189,11 +189,6 @@ define(
 
 			this.searchFormURL = ko.pureComputed(function () {
 				return this.$$controller.options.root + 'search/' + this.id + '/' + helpers.getFlightsRouteURLAdder('search', this.searchInfo());
-			}, this);
-
-			// Use this instead of `visibleGroups`.
-			this.groupsForDisplay = ko.computed(function () {
-				return this.groups().slice(0, this.shownGroups());
 			}, this);
 
 			this.initAnalytics();
@@ -1277,18 +1272,21 @@ define(
 		FlightsSearchResultsController.prototype.buildVisibleGroups = function () {
 			var groups = this.groups(),
 				newGroupList = [],
+				visibleIds = {},
 				c = 0;
 
 			for (var i = 0; i < groups.length; i++) {
 				if (!groups[i].filteredOut()) {
 					if (c < this.shownGroups()) {
 						newGroupList.push(groups[i]);
+						visibleIds[groups[i].id] = true;
 					}
 
 					c++;
 				}
 			}
 
+			this.visibleGroupsIds(visibleIds);
 			this.visibleGroups(newGroupList);
 			this.totalVisibleGroups(c);
 		};

@@ -7,6 +7,27 @@ $fareFamiliesMainPadding = 20px;
 	padding: 10px;
 	margin: 15px $fareFamiliesMainPadding 5px;
 
+	&__wrapper {
+		.nemo-flights-results__fareFamilies__dummy {
+			&:only-child {
+				min-height:  50px;
+				background: #f7f7f7;
+				position: relative;
+
+				&:before {
+					content: '';
+					display: block;
+					width: 200px;
+					height: 20px;
+					position: absolute;
+					background: #e8e8e8;
+					top: 15px;
+					left: 20px;
+				}
+			}
+		}
+	}
+
 	&__header {
 		margin-bottom: 15px;
 

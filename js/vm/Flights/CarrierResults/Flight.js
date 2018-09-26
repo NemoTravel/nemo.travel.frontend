@@ -30,6 +30,7 @@ define(
 			this.specialRules = [];
 
 			this.detailsOpen = ko.observable(false);
+			this.isHidden = ko.observable(false);
 
 			time = 0;
 			totalTime = 0;

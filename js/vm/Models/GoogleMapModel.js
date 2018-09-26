@@ -177,10 +177,9 @@ define([
 
     // Check center of map
     var checkGeocoderLocation = function (currentCity, fnOk, fnFail) {
-
         var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({address: currentCity}, function (results, status) {
+        geocoder.geocode({ address: currentCity.name }, function (results, status) {
             // If we know location it'll be center
             if (status === google.maps.GeocoderStatus.OK) {
                 fnOk({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
@@ -192,7 +191,6 @@ define([
 
     // map with more then one hotel
     GoogleMapModel.prototype.initMap = function () {
-
         var self = this,
             hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [],
             inputSearchBox = document.createElement("input"),

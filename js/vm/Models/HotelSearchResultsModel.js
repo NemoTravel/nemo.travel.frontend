@@ -518,8 +518,21 @@ define(
 				hotelsPool[hotel.resultsHotelId] = hotel;
 			});
 
-			if (staticData && 'cities' in staticData) {
-				this.currentCity(staticData.cities[0].name);
+			// Get city info from the search info object (new way).
+			if (this.searchInfo && this.searchInfo() && this.searchInfo().segments.length) {
+				var cityId = this.searchInfo().segments[0][1];
+
+				if (cityId && this.$$rawdata.guide.cities && this.$$rawdata.guide.cities.hasOwnProperty(cityId)) {
+					this.currentCity(this.$$rawdata.guide.cities[cityId]);
+				}
+			}
+
+			// Get city info from the supplier (old way).
+			if (!this.currentCity() && staticData && 'cities' in staticData) {
+				this.currentCity({
+					id: staticData.cities[0].id,
+					name: staticData.cities[0].name
+				});
 			}
 
 			this.hotels = ko.observableArray(hotels);
@@ -541,7 +554,7 @@ define(
 			
 			this.averageCustomerRatingComputed = ko.pureComputed(function () {
 				if (self.maxAverageCustomerRating() === 0) {
-					self.filters.sortTypes = [HotelsBaseModel.SORT_TYPES.BY_PRICE];
+					self.filters.sortTypes = [HotelsBaseModel.SORT_TYPES.BY_PRICE, HotelsBaseModel.SORT_TYPES.BY_STARS];
 					self.filters.sortType(HotelsBaseModel.SORT_TYPES.BY_PRICE);
 				}
 			});
@@ -584,12 +597,20 @@ define(
 					return currentElement.hotelPrice > nextElement.hotelPrice ? 1 : -1;
 				};
 
+				var sortHotelsByStars = function (currentElement, nextElement) {
+					return currentElement.staticDataInfo.starRating.length < nextElement.staticDataInfo.starRating.length ? 1 : -1;
+				};
+
 				if (self.filters.sortType() === HotelsBaseModel.SORT_TYPES.BY_PRICE) {
 					return self.hotels().sort(sortHotelsByPrice);
 				}
 
 				if (self.filters.sortType() === HotelsBaseModel.SORT_TYPES.BY_POPULAR) {
 					return self.hotels().sort(sortHotelsByPopular);
+				}
+
+				if (self.filters.sortType() === HotelsBaseModel.SORT_TYPES.BY_STARS) {
+					return self.hotels().sort(sortHotelsByStars);
 				}
 
 				return self.hotels();
