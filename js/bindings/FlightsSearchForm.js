@@ -501,6 +501,10 @@ define(
 					ret.className = 'nemo-pmu-date_availables';
 				}
 
+				if (viewModel.form.disableUnavailableDate && (!viewModel.form.datesAvailable()[viewModel.index] || !viewModel.form.datesAvailable()[viewModel.index][dateObj.getTime()])) {
+					ret.disabled = true;
+				}
+
 				delete ret.segments;
 				delete ret.period;
 

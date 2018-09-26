@@ -17,6 +17,10 @@
 @media (max-width: 1030px) {
 	.flights-carrierResults__leg__table__flightsHeader {
 		width: 280px;
+
+		&__sort__select {
+			width: 240px;
+		}
 	}
 }
 
@@ -397,6 +401,14 @@
 
 				&__segment:after {
 					margin-left: -10px;
+				}
+			}
+
+			&__filters {
+				padding: 10px 0 0;
+
+				&__sort__select .nemo-ui-select__toggle {
+					border-radius: 4px;
 				}
 			}
 

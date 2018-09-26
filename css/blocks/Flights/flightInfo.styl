@@ -111,6 +111,27 @@
 				min-width: 1px;
 			}
 
+			&__sunInfo {
+				color: #ff9731;
+				display: flex;
+				margin: 15px 0;
+				margin-left: 15px;
+				align-items: center;
+
+				&_noMargin {
+					margin: 0;
+				}
+
+				&:before {
+					background: url('images/sun.svg') no-repeat;
+					height: 20px;
+					width: 20px;
+					content: '';
+					display: inline-block;
+					padding-right: 10px;
+				}
+			}
+
 			&__additional {
 				flex: 0 0 35%;
 				padding-top: 15px;

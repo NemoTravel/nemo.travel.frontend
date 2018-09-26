@@ -49,7 +49,7 @@ define(
 			this.errorMessageAsIs = ko.observable(null);
 			this.$$loading = ko.observable(false);
 			this.PFActive = ko.observable(false);
-			this.currentCity = ko.observable('');
+			this.currentCity = ko.observable(null);
 			this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
 			this.bookingCheckInProgress = ko.observable(false);
 			this.bookingCheckError = ko.observable(null);

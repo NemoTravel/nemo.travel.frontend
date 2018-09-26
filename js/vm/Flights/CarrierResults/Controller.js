@@ -16,6 +16,11 @@ define(
 
 			this.shiftedDateDepartSelected = ko.observable(false);
 			this.shiftedDateReturnSelected = ko.observable(false);
+			
+			this.carrierPossibleSorts = ['depTime', 'arrTime', 'durationOnLeg', 'price', 'transfersDurationOnLeg'];
+			this.sortByLeg = ko.observable([]);
+			this.filteredDirectOnlyByLeg = ko.observable([]);
+			this.directOnlyFilterEnableByLeg = ko.observable([]);
 
 			this.realFlightSelected = ko.computed(function () {
 				var legs = this.routeLegs(),
@@ -594,9 +599,9 @@ define(
 								);
 							}
 						}
-
+						
 						this.routeLegs(globalLegs);
-
+						
 						this.getOtherDatesPrices();
 					}
 					catch (e) {
@@ -607,8 +612,99 @@ define(
 					}
 				}
 			}
+			
+			var firstSort = this.carrierPossibleSorts.indexOf(this.options.carrierDefaultSort) >= 0 ? this.options.carrierDefaultSort : this.carrierPossibleSorts[0];
+			for (var i = 0; i < this.routeLegs().length; i++) {
+				this.directOnlyFilterEnableByLeg()[i] = this.isFlightsWithTransfersOnLeg(i);
+				this.carrierSort(firstSort, i);
+				this.filteredDirectOnlyByLeg()[i] = false;
+			}
+			this.directOnlyFilterEnableByLeg(this.directOnlyFilterEnableByLeg());
+			this.filteredDirectOnlyByLeg(this.filteredDirectOnlyByLeg());
 
 			this.resultsLoaded(true);
+		};
+		
+		FlightsCarrierResultsController.prototype.carrierSort = function (type, leg) {
+			var routeLegs = this.routeLegs();
+			switch (type) {
+				case 'depTime':
+					routeLegs[leg].flights.sort(function(a, b){
+						var dif = a.depDateTime.getTimestamp() - b.depDateTime.getTimestamp();
+						if (dif !== 0) {
+							return dif;
+						} else {
+							return a.minPrice.normalizedAmount() - b.minPrice.normalizedAmount(); 
+						}
+					});
+					break;
+					
+				case 'arrTime':
+					routeLegs[leg].flights.sort(function(a, b){
+						var dif = a.arrDateTime.getTimestamp() - b.arrDateTime.getTimestamp();
+						if (dif !== 0) {
+							return dif;
+						} else {
+							return a.minPrice.normalizedAmount() - b.minPrice.normalizedAmount(); 
+						}
+					});
+					break;
+					
+				case 'durationOnLeg':
+					routeLegs[leg].flights.sort(function(a, b){
+						var dif = a.totalTimeEnRoute.length() - b.totalTimeEnRoute.length();
+						if (dif !== 0) {
+							return dif;
+						} else {
+							return a.minPrice.normalizedAmount() - b.minPrice.normalizedAmount(); 
+						}
+					});
+					break;
+					
+				case 'price':
+					routeLegs[leg].flights.sort(function(a, b){
+						return a.minPrice.normalizedAmount() - b.minPrice.normalizedAmount();
+					});
+					break;
+					
+				case 'transfersDurationOnLeg':
+					routeLegs[leg].flights.sort(function(a, b){
+						var dif = (a.totalTimeEnRoute.length() - a.timeEnRoute.length()) - (b.totalTimeEnRoute.length() - b.timeEnRoute.length());
+						if (dif !== 0) {
+							return dif;
+						} else {
+							return a.minPrice.normalizedAmount() - b.minPrice.normalizedAmount(); 
+						}
+					});
+					break;
+			}
+			this.routeLegs([]);
+			this.routeLegs(routeLegs);
+			this.sortByLeg()[leg] = type;
+			this.sortByLeg(this.sortByLeg());
+		};
+		
+		FlightsCarrierResultsController.prototype.filterDirectOnly = function (newValue, leg) {
+			var routeLegs = this.routeLegs();
+			this.filteredDirectOnlyByLeg()[leg] = newValue;
+			this.filteredDirectOnlyByLeg(this.filteredDirectOnlyByLeg());
+			for (var i = 0; i < routeLegs[leg].flights.length; i++) {
+				if (routeLegs[leg].flights[i].totalTimeEnRoute.length() > routeLegs[leg].flights[i].timeEnRoute.length()) {
+					routeLegs[leg].flights[i].isHidden(newValue);
+				}
+			}
+			this.routeLegs([]);
+			this.routeLegs(routeLegs);
+		};
+		
+		FlightsCarrierResultsController.prototype.isFlightsWithTransfersOnLeg = function (leg) {
+			var routeLegs = this.routeLegs();
+			for (var i = 0; i < routeLegs[leg].flights.length; i++) {
+				if (routeLegs[leg].flights[i].totalTimeEnRoute.length() > routeLegs[leg].flights[i].timeEnRoute.length()) {
+					return true;
+				}
+			}
+			return false;
 		};
 
 		return FlightsCarrierResultsController;
