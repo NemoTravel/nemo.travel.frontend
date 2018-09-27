@@ -80,7 +80,13 @@
 			</div>
 		</div>
 
-		<div class="nemo-flights-results__summary__passengers" data-bind="text: passengersSummary()"></div>
+		<div class="nemo-flights-results__summary__passengers">
+			<span class="nemo-flights-results__summary__passengers_passengers" data-bind="text: passengersSummary()"></span>
+
+			<!-- ko if: searchInfo().serviceClass !== 'All' -->
+				<span class="nemo-flights-results__summary__passengers_serviceClass" data-bind="text: $root.i18n('FlightsSearchForm', 'serviceClass_' + searchInfo().serviceClass)"></span>
+			<!-- /ko -->
+		</div>
 
 		<div class="nemo-ui-button nemo-flights-results__summary__switch"
 		     data-bind="text: $root.i18n('FlightsSearchResults', 'formDummy__switch')"></div>
@@ -399,9 +405,17 @@
 			<!-- /ko -->
 
 			<!-- ko if: resultsLoaded() && visibleResultsCount() > showcase.mainFlightsCount() -->
-			<div data-bind="foreach: visibleGroups, attr:{'class':'nemo-flights-results__groupList nemo-flights-results__groupList_' + displayType()}, searchResultDataLayer">
-				<div class="nemo-flights-results__groupList__item" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group_' + $parent.displayType(), data: $data}"></div>
-			</div>
+				<div data-bind="visible: displayType() === 'list', foreach: groups(), attr: { 'class': 'nemo-flights-results__groupList nemo-flights-results__groupList_list' }, searchResultDataLayer">
+					<!-- ko if: $parent.visibleGroupsIds()[$data.id] -->
+						<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group_list', data: $data }"></div>
+					<!-- /ko -->
+				</div>
+
+				<div data-bind="visible: displayType() === 'tile', foreach: groups(), attr: { 'class': 'nemo-flights-results__groupList nemo-flights-results__groupList_tile' }, searchResultDataLayer">
+					<!-- ko if: $parent.visibleGroupsIds()[$data.id] -->
+						<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group_tile', data: $data }"></div>
+					<!-- /ko -->
+				</div>
 			<!-- /ko -->
 
 			<!-- ko if: resultsLoaded() && totalVisibleGroups() > shownGroups() -->
@@ -1086,35 +1100,49 @@
 	<script id="nemo-koTemplate-Flights-FlightInfo__oneLeg" type="text/html"><div class="nemo-flights-flightInfo" data-bind="template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: $data}"></div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__cleanLeg" type="text/html"><div class="nemo-flights-flightInfo__leg" data-bind="with: flight">
 	<div class="nemo-flights-flightInfo__leg__header">
-		<img class="nemo-flights-flightInfo__leg__header__carrierLogo"
-			 data-bind="
-			 	attr: {
-					src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image
-				},
-				css: {
-					'nemo-flights-flightInfo__leg__header__carrierLogo__mismatch': carriersMismatch
-				},
-				tooltip: {
-					content: segmentsByLeg[$parent.leg][0].marketingCompany.name
-			 	}">
+		<div class="nemo-flights-flightInfo__leg__logo">
+			<img class="nemo-flights-flightInfo__leg__header__carrierLogo"
+				 data-bind="
+					attr: {
+						src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image
+					},
+					css: {
+						'nemo-flights-flightInfo__leg__header__carrierLogo__mismatch': carriersMismatch
+					},
+					tooltip: {
+						content: segmentsByLeg[$parent.leg][0].marketingCompany.name
+					}">
 
-		<!-- ko if: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch -->
-			<!-- ko foreach: $parent.flight.carriersMismatchDataByLeg[$parent.leg].array -->
-				<img class="nemo-flights-flightInfo__leg__header__carrierLogo nemo-flights-flightInfo__leg__header__carrierLogo__mismatch"
-						data-bind="
-							attr: {
-								src: $root.controller.options.staticInfoURL + $data.logo.image
-							},
-							tooltip: {
-								content: $data.name
-					 		}"/>
+			<!-- ko if: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch -->
+				<!-- ko foreach: $parent.flight.carriersMismatchDataByLeg[$parent.leg].array -->
+					<img class="nemo-flights-flightInfo__leg__header__carrierLogo nemo-flights-flightInfo__leg__header__carrierLogo__mismatch"
+							data-bind="
+								attr: {
+									src: $root.controller.options.staticInfoURL + $data.logo.image
+								},
+								tooltip: {
+									content: $data.name
+								}"/>
+				<!-- /ko -->
 			<!-- /ko -->
-		<!-- /ko -->
-		<span class="nemo-flights-flightInfo__leg__header__text"
-			  data-bind="
-			  		html: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch ?
-			  			$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header__carriersMismatch' : 'leg__header__carriersMismatch').replace('[%-carrier-%]', $parent.flight.carriersMismatchDataByLeg[$parent.leg].label) :
-			  				$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header' : 'leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
+		</div>
+		<div class="nemo-flights-flightInfo__leg__text">
+			<span class="nemo-flights-flightInfo__leg__header__text"
+				  data-bind="
+						html: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch ?
+							$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header__carriersMismatch' : 'leg__header__carriersMismatch').replace('[%-carrier-%]', $parent.flight.carriersMismatchDataByLeg[$parent.leg].label) :
+								$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header' : 'leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
+
+			<!-- ko if: legs[$parent.leg].isCharter -->
+				<div class="nemo-flights-flightInfo__leg__charter"
+					  data-bind="
+							text: $root.i18n('FlightsSearchResults','flightsGroup__selector__isCharter'),
+							tooltip: {
+								content: $root.i18n('FlightsSearchResults', 'flightsGroup__selector__isCharter__desc')
+							}
+				"></div>
+			<!-- /ko -->
+		</div>
 	</div>
 
 	<div class="nemo-flights-flightInfo__leg__route"><span class="nemo-flights-flightInfo__leg__route__departue" data-bind="text: legs[$parent.leg].depAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__arrival" data-bind="text: legs[$parent.leg].arrAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__date" data-bind="text: legs[$parent.leg].depDateTime.getDate() + ' ' + legs[$parent.leg].depDateTime.getMonthName()"></span></div>
@@ -1125,7 +1153,11 @@
 			<!-- ko text: $root.i18n('FlightsFlightInfo','leg__transfer') --><!-- /ko -->
 			<span class="nemo-flights-flightInfo__leg__transfer__duration" data-bind="text: duration.readableString()"></span>
 
-			<!-- ko if: arrTerminal != depTerminal -->
+			<!-- ko if: arrAirp.IATA !== depAirp.IATA -->
+				<span class="nemo-flights-flightInfo__leg__transfer__terminalChange nemo-flights-flightInfo__leg__transfer__terminalChange_airport" data-bind="text: $root.i18n('FlightsFlightInfo','leg__airportChange')"></span>
+			<!-- /ko -->
+
+			<!-- ko if: arrTerminal !== depTerminal && arrAirp.IATA === depAirp.IATA -->
 				<span class="nemo-flights-flightInfo__leg__transfer__terminalChange" data-bind="text: $root.i18n('FlightsFlightInfo','leg__terminalChange')"></span>
 			<!-- /ko -->
 		</div>
@@ -1265,6 +1297,14 @@
 		</div>
 		<!-- /ko -->
 
+		<!-- ko if: $parent.segmentsByLeg[$parents[1].leg].length > 1 -->
+			<!-- ko if: $data.sunInfo && sunInfo.text -->
+				<div class="nemo-flights-flightInfo__leg__segment__sunInfo">
+					<div data-bind="html: sunInfo.text"></div>
+				</div>
+			<!-- /ko -->
+		<!-- /ko -->
+
 		<!-- ko if: $parent.fareFeatures.hasFeaturesForSegment(routeNumber + '_' + number) -->
 			<!-- ko component: {
 				name: 'Flights/SearchResults/FareFeatures/Controller',
@@ -1283,6 +1323,16 @@
 			<span class="nemo-flights-flightInfo__leg__footer__item__title" data-bind="text: $root.i18n('FlightsFlightInfo','leg__timeEnRoute__caption')"></span>
 			<span class="nemo-flights-flightInfo__leg__footer__item__value" data-bind="text: legs[$parent.leg].timeEnRoute.readableString()"></span>
 		</div>
+
+		<!-- ko if: segmentsByLeg[$parent.leg].length === 1 -->
+			<div class="nemo-flights-flightInfo__leg__footer__item" data-bind="with: segmentsByLeg[$parent.leg][0]">
+				<!-- ko if: $data.sunInfo && sunInfo.text -->
+					<div class="nemo-flights-flightInfo__leg__segment__sunInfo nemo-flights-flightInfo__leg__segment__sunInfo_noMargin">
+						<div data-bind="html: sunInfo.text"></div>
+					</div>
+				<!-- /ko -->
+			</div>
+		<!-- /ko -->
 	</div>
 </div></script>
 

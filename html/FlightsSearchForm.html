@@ -241,14 +241,14 @@
 	<!-- /ko -->
 
 	<!-- ko if: searchError -->
-		<div data-bind="automaticPopup: {title: $root.i18n('FlightsSearchForm','searchingError__title'), close: function () {searchError(false);}}">
+		<div data-bind="automaticPopup: { title: $root.i18n('FlightsSearchForm','searchingError__title'), close: function () { searchError(false); } }">
 			<div data-bind="text: searchError" style="display: none;"></div>
 		</div>
 	<!-- /ko -->
 <!-- /ko -->
 
 <!-- ko if: $$error() -->
-<div data-bind="text: $$error()"></div>
+	<div data-bind="text: $$error()"></div>
 <!-- /ko -->
 
 <!-- ko if: $$loading() -->
