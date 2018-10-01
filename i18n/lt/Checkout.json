@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "Maskvos laiku",
     "tz_Europe/Kiev": "Kijevo laikas",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Lėktuvas",
     "new-passinfo-stimulus__hint": "Užsakymo galiojimo laikas",
     "new-passinfo-stimulus__warning_nonrefundable": "Bilieto tarifas gali būti su apribojimais ar negrąžinamas.",

@@ -6,6 +6,9 @@
     "sortType_rating": "Best",
     "sortType_carrierRating": "By the airline rating",
     "sortType_agentProfit": "By the agent profit",
+    "sortType_depTime": "By departure time",
+    "sortType_arrTime": "By arrival time",
+    "sortType_transfersDurationOnLeg": "By duration of transfers",
     "displayType__caption": "Show as",
     "displayType_tile": "Tiles",
     "displayType_list": "List",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "Infants without a seat:",
     "carrierResults__pass_INS": "Infants with a seat:",
     "carrierResults__pass_YTH": "Youth:",
-    "carrierResults__pass_SRC": "Seniors:"
+    "carrierResults__pass_SRC": "Seniors:",
+    "carrierResults__familyWarning__title": "Special fare rules applied",
+    "carrierResults__familyWarning__UUD-ICN": "",
+    "carrierResults__familyWarning__ICN-UUD": ""
 }

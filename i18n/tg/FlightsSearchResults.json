@@ -6,6 +6,9 @@
     "sortType_rating": "Аввал беҳтаринҳо",
     "sortType_carrierRating": "Аз рӯи рутбаи ширкатҳои ҳавоӣ",
     "sortType_agentProfit": "sortType_agentProfit",
+    "sortType_depTime": "Бо гузашти вақт",
+    "sortType_arrTime": "Вақти ворид шудан",
+    "sortType_transfersDurationOnLeg": "Бо давомнокии трансплантҳо",
     "displayType__caption": "Нишон додан",
     "displayType_tile": "Бо табақа",
     "displayType_list": "Бо рӯйхат",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "carrierResults__pass_INF",
     "carrierResults__pass_INS": "carrierResults__pass_INS",
     "carrierResults__pass_YTH": "carrierResults__pass_YTH",
-    "carrierResults__pass_SRC": "carrierResults__pass_SRC"
+    "carrierResults__pass_SRC": "carrierResults__pass_SRC",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

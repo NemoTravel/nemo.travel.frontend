@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "Maskavas laiks",
     "tz_Europe/Kiev": "Kijevas laiks",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Lidmašīna",
     "new-passinfo-stimulus__hint": "Rezervēšanas termiņš (time limit)",
     "new-passinfo-stimulus__warning_nonrefundable": "Pievērsiet uzmanību, ka biļetēm ir ierobežojumi",

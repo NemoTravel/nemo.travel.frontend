@@ -6,6 +6,9 @@
     "sortType_rating": "Ən yaxşı",
     "sortType_carrierRating": "Aviaşirkət reytinqinə görə",
     "sortType_agentProfit": "sortType_agentProfit",
+    "sortType_depTime": "Gediş zamanı",
+    "sortType_arrTime": "Varış saatı ilə",
+    "sortType_transfersDurationOnLeg": "Nəql müddəti ilə",
     "displayType__caption": "kimi göstər",
     "displayType_tile": "Plitə ilə",
     "displayType_list": "Siyahı ilə",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "carrierResults__pass_INF",
     "carrierResults__pass_INS": "carrierResults__pass_INS",
     "carrierResults__pass_YTH": "carrierResults__pass_YTH",
-    "carrierResults__pass_SRC": "carrierResults__pass_SRC"
+    "carrierResults__pass_SRC": "carrierResults__pass_SRC",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

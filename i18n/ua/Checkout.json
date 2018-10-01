@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "Московський час",
     "tz_Europe/Kiev": "Київський час",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Повітряне судно",
     "new-passinfo-stimulus__hint": "Термін дії бронювання",
     "new-passinfo-stimulus__warning_nonrefundable": "Квитки можуть мати обмеження по",

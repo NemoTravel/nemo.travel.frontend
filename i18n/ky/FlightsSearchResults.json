@@ -6,6 +6,9 @@
     "sortType_rating": "Мурда жакшыларын",
     "sortType_carrierRating": "Авиакомпаниянын рейтинги боюнча",
     "sortType_agentProfit": "sortType_agentProfit",
+    "sortType_depTime": "Бошонор убактым боюнча",
+    "sortType_arrTime": "Убактысы боюнча",
+    "sortType_transfersDurationOnLeg": "Көчүрүү узактыгы үчүн",
     "displayType__caption": "Көрөтүү",
     "displayType_tile": "Плитка менен",
     "displayType_list": "Тизме менен",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "carrierResults__pass_INF",
     "carrierResults__pass_INS": "carrierResults__pass_INS",
     "carrierResults__pass_YTH": "carrierResults__pass_YTH",
-    "carrierResults__pass_SRC": "carrierResults__pass_SRC"
+    "carrierResults__pass_SRC": "carrierResults__pass_SRC",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

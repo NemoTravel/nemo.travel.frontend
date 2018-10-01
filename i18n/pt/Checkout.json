@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "tz_Europe/Moscow",
     "tz_Europe/Kiev": "tz_Europe/Kiev",
+    "tz_Europe/London": "tz_Europe/London",
     "aircraft": "A aeronave",
     "new-passinfo-stimulus__hint": "new-passinfo-stimulus__hint",
     "new-passinfo-stimulus__warning_nonrefundable": "new-passinfo-stimulus__warning_nonrefundable",

@@ -6,6 +6,9 @@
     "sortType_rating": "თავდაპირველად  ოპტიმალურები",
     "sortType_carrierRating": "ავიკომპანიის რეიტინგით",
     "sortType_agentProfit": "სუბაგენტის მოგების  მიხედვით",
+    "sortType_depTime": "გამგზავრების დროით",
+    "sortType_arrTime": "ჩამოსვლის დროით",
+    "sortType_transfersDurationOnLeg": "ტრანსპლანტების ხანგრძლივობით",
     "displayType__caption": "ჩვენება",
     "displayType_tile": "ფილით",
     "displayType_list": "სიით",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "ჩვილებისთვის ადგილის გარეშე:",
     "carrierResults__pass_INS": "ადგილებიანი ჩვილები:",
     "carrierResults__pass_YTH": "სტუდენტები:",
-    "carrierResults__pass_SRC": "ასაკოვანები:"
+    "carrierResults__pass_SRC": "ასაკოვანები:",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "МСК",
     "tz_Europe/Kiev": "(Киев уақыты)",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Әуе кемесі",
     "new-passinfo-stimulus__hint": "Бронның жарамдылық мерзімі",
     "new-passinfo-stimulus__warning_nonrefundable": "Билеттерінің бар екеніне көңіл бұрыңыз",

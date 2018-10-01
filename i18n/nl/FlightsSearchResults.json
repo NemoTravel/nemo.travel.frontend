@@ -6,6 +6,9 @@
     "sortType_rating": "op de route",
     "sortType_carrierRating": "Boeking_status_selecteer_fout",
     "sortType_agentProfit": "Exporteer opnieuw",
+    "sortType_depTime": "In de tijd van vertrek",
+    "sortType_arrTime": "Op aankomsttijd",
+    "sortType_transfersDurationOnLeg": "Op duur van transplantaties",
     "displayType__caption": "leeg",
     "displayType_tile": "Verwijder alle filters",
     "displayType_list": "Emailadress",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "carrierResults__pass_INF",
     "carrierResults__pass_INS": "carrierResults__pass_INS",
     "carrierResults__pass_YTH": "carrierResults__pass_YTH",
-    "carrierResults__pass_SRC": "carrierResults__pass_SRC"
+    "carrierResults__pass_SRC": "carrierResults__pass_SRC",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }
