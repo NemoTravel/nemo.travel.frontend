@@ -6,6 +6,9 @@
     "sortType_rating": "第一，最优的",
     "sortType_carrierRating": "通过评价航空公司",
     "sortType_agentProfit": "根据代理利润",
+    "sortType_depTime": "到出發時間",
+    "sortType_arrTime": "到達時間",
+    "sortType_transfersDurationOnLeg": "按移植時間",
     "displayType__caption": "显示",
     "displayType_tile": "瓷砖",
     "displayType_list": "列表",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "carrierResults__pass_INF",
     "carrierResults__pass_INS": "carrierResults__pass_INS",
     "carrierResults__pass_YTH": "carrierResults__pass_YTH",
-    "carrierResults__pass_SRC": "carrierResults__pass_SRC"
+    "carrierResults__pass_SRC": "carrierResults__pass_SRC",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

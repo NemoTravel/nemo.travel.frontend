@@ -6,6 +6,9 @@
     "sortType_rating": "Сначала оптимальные",
     "sortType_carrierRating": "По рейтингу авиакомпании",
     "sortType_agentProfit": "По прибыли агента",
+    "sortType_depTime": "По времени вылета",
+    "sortType_arrTime": "По времени прилета",
+    "sortType_transfersDurationOnLeg": "По длительности пересадок",
     "displayType__caption": "Показать",
     "displayType_tile": "Плиткой",
     "displayType_list": "Списком",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "Младенцев без места:",
     "carrierResults__pass_INS": "Младенцев c местом:",
     "carrierResults__pass_YTH": "Студентов:",
-    "carrierResults__pass_SRC": "Пожилых:"
+    "carrierResults__pass_SRC": "Пожилых:",
+    "carrierResults__familyWarning__title": "Действуют особые тарифные правила",
+    "carrierResults__familyWarning__UUD-ICN": "",
+    "carrierResults__familyWarning__ICN-UUD": ""
 }

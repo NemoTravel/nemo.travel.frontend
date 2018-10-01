@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "მოსკოვის დრო",
     "tz_Europe/Kiev": "კიევის დრო",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "საჰაერო ხომალდი",
     "new-passinfo-stimulus__hint": "ჯავშნის მოქმედების ვადა ",
     "new-passinfo-stimulus__warning_nonrefundable": "გაითვალისწინეთ, ბილეთებს აქვს შეზღუდვა",

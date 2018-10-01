@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "莫斯科时间",
     "tz_Europe/Kiev": "基辅时间",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "飞机",
     "new-passinfo-stimulus__hint": "预订有效期",
     "new-passinfo-stimulus__warning_nonrefundable": "请注意，该机票有效期为",

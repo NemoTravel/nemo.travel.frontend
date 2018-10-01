@@ -2,10 +2,13 @@
     "controls__count_all": "Всі квитки ([%-count-%])",
     "controls__count_filtered": "Вибрано [%-count-%] з [%-total-%]",
     "sortType_price": "Спочатку дешеві",
-    "sortType_durationOnLeg": "За часом на плече",
+    "sortType_durationOnLeg": "За часом на плечі",
     "sortType_rating": "Спочатку кращі",
     "sortType_carrierRating": "За рейтингом авіакомпанії",
     "sortType_agentProfit": "За прибутком агента",
+    "sortType_depTime": "За часом вильоту",
+    "sortType_arrTime": "За час прильоту",
+    "sortType_transfersDurationOnLeg": "За тривалістю пересадок",
     "displayType__caption": "Показати",
     "displayType_tile": "Плиткою",
     "displayType_list": "Списком",
@@ -375,5 +378,8 @@
     "carrierResults__pass_INF": "Немовлят без місця:",
     "carrierResults__pass_INS": "Немовлят з місцем:",
     "carrierResults__pass_YTH": "Студентів:",
-    "carrierResults__pass_SRC": "Літніх:"
+    "carrierResults__pass_SRC": "Літніх:",
+    "carrierResults__familyWarning__title": "carrierResults__familyWarning__title",
+    "carrierResults__familyWarning__UUD-ICN": "carrierResults__familyWarning__UUD-ICN",
+    "carrierResults__familyWarning__ICN-UUD": "carrierResults__familyWarning__ICN-UUD"
 }

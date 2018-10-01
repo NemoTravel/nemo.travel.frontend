@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "Moscow time",
     "tz_Europe/Kiev": "Kiev time",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Aircraft",
     "new-passinfo-stimulus__hint": "Reservation time limit",
     "new-passinfo-stimulus__warning_nonrefundable": "The fare can be restricted or nonrefundable.",

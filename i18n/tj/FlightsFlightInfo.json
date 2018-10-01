@@ -13,6 +13,7 @@
     "fareInformationHeader": "Бесплатный багаж",
     "leg__transfer": "Пересадка",
     "leg__terminalChange": "Смена терминала",
+    "leg__airportChange": "Смена аэропорта",
     "leg__segment__departure__caption": "Аэропорт",
     "leg__segment__departure__caption_overland": "Станция",
     "leg__segment__departure__terminal__caption": "Терминал",

@@ -1,6 +1,7 @@
 {
     "tz_Europe/Moscow": "Ora Moscovei",
     "tz_Europe/Kiev": "Ora din Kiev",
+    "tz_Europe/London": "UTC+0",
     "aircraft": "Aeronava",
     "new-passinfo-stimulus__hint": "Valabilitatea rezervării",
     "new-passinfo-stimulus__warning_nonrefundable": "Rețineți că biletele au restricții",
@@ -87,7 +88,7 @@
     "new-passinfo-payDetails__price_brutto": "Costul comenzii",
     "new-passinfo-payDetails__price_total": "Total pentru plată",
     "new-passinfo-payDetails__fare__popup__title": "Condiții de aplicare a tarifelor",
-    "new-passinfo-payDetails__header__hotel_room": "new-passinfo-payDetails__header__hotel_room",
+    "new-passinfo-payDetails__header__hotel_room": "Cameră",
     "new-passinfo-addToCalendarLink__title": "Adăugați în Google Calendar",
     "new-passinfo-info__timelimit__calAPI__title": "Plătiți pentru comanda de pe site [%-host-%]",
     "new-passinfo-info__timelimit__calAPI__description": "Vă rugăm să achitați comanda ([%-url-%])",
