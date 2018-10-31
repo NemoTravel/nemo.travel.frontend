@@ -1181,7 +1181,7 @@ define(
 			this.onFocusAutocomplete = !!this.$$rawdata.flights.search.formData.onFocusAutocomplete;
 			this.forceAggregationAirports = !!this.$$rawdata.flights.search.formData.forceAggregationAirports;
 			this.highlightDates = !!this.$$rawdata.flights.search.formData.highlightDates;
-			this.disableUnavailableDate = !!this.$$rawdata.flights.search.formData.disableUnavailableDate
+			this.disableUnavailableDate = !!this.$$rawdata.flights.search.formData.disableUnavailableDate;
 
 			this.searchWithoutAdults = this.$$rawdata.flights.search.formData.searchWithoutAdults;
 		};

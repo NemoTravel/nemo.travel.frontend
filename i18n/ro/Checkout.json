@@ -443,6 +443,7 @@
     "new-passinfo-payMethodsPopup__button_ok": "Selectează",
     "new-passinfo-footer__agreementText": "Am citit și sunt de acord cu regulile de rezervare, regulile de furnizare a serviciilor suplimentare, condițiile de aplicare a tarifelor și drepturile asupra datelor cu caracter personal. Sunt de acord și confirm acordul unor terțe persoane indicate de mine în rezervare, pentru prelucrarea datelor cu caracter personal, inclusiv transferul lor către terți care furnizează sau deservesc transportul, precum și transferul transfrontalier al datelor cu caracter personal.",
     "new-passinfo-footer__agreementText_new": "Am citit și sunt de acord cu regulile de rezervare, regulile de furnizare a serviciilor suplimentare, condițiile de aplicare a tarifelor și drepturile asupra datelor cu caracter personal. Sunt de acord și confirm acordul persoanelor terțe indicate de mine în rezervare, pentru prelucrarea datelor cu caracter personal, inclusiv transferul acestora către terți care furnizează sau deservesc transportul, precum și transferul transfrontalier de date cu caracter personal",
+    "hotels-footer__agreementText": "hotels-footer__agreementText",
     "new-passinfo-footer__agreementError": "Trebuie să dați acordul dvs.",
     "new-passinfo-footer__additionalButtons__header": "Acțiuni suplimentare cu comanda",
     "new-passinfo-footer__additionalButtons__cancel": "Anulează",

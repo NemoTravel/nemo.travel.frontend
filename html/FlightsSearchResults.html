@@ -1068,6 +1068,7 @@
                         title: $root.i18n('FlightsSearchResults', 'couplingTable__title') + ' '+ getFirstSegmentMarketingCompany().name,
                         parentClass: 'js-flights-results__group',
                         contentClass: 'nemo-flights-results__flightsGroup__couplingTablePopup',
+                        dialogClass: 'nemo-flights-results__flightsGroup__couplingTableDialog',
                         headerClass: 'nemo-flights-results__flightsGroup__couplingTablePopupHeader',
                         beforeOpen: function () {couplingTableOpen(true);},
                         open: function (a, b) {
@@ -2025,21 +2026,19 @@
 	<!-- /ko -->
 
 	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-
 		<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
-				<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-					 data-bind="
-						flightsResultsBuyButtonFlightCheck: {
-							ids: cheapestSelected().id,
-							controller: group.resultsController,
-							addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
-						}
-					">
-					<money format="0,0 $" data-bind="money: cheapestSelected().getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
-					<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
-				</div>
+			<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton"
+				 data-bind="
+					flightsResultsBuyButtonFlightCheck: {
+						ids: [cheapestSelected().id],
+						controller: group.resultsController,
+						addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
+					}
+				">
+				<money format="0,0 $" data-bind="money: cheapestSelected().getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
+				<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
+			</div>
 		</div>
-
 	</div>
 
 	<!-- ko if: detailsPopupOpen -->

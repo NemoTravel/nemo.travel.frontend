@@ -205,13 +205,17 @@ define(
 									result.push(airportModel);
 
 									// Push all inner airports next to it.
-									innerAirports.map(function (responseAirport) {
+									innerAirports.forEach(function (responseAirport) {
 										var innerAirportModel = viewModel.$$controller.getModel('Flights/Common/Geo', {
 											data: responseAirport,
 											guide: data.guide
 										});
 
+										// If airport belongs to some city.
 										innerAirportModel.insideAggregation = true;
+
+										// @FIXME: http://helpdesk.nemo.travel/issues/37869
+										innerAirportModel.replacement = forceAggregationAirports && autocompleteItem.isCity ? airportModel : null;
 
 										result.push(innerAirportModel);
 									});
@@ -271,23 +275,46 @@ define(
 								}, 100);
 							}
 						}
-						// If a wanted airport has an aggregation airport (example: MOW owns DME) 
-						// and the corresponding setting is set, replace wanted airport with aggregation one.
-						else if (forceAggregationAirports && ui.item.aggregationIATA) {
-							var aggregationIATA = ui.item.aggregationIATA;
+						else if (forceAggregationAirports) {
+							var replacement = null;
 
-							if (
-								ui.item.pool.airports &&
-								ui.item.pool.airports[aggregationIATA] &&
-								ui.item.pool.airports[aggregationIATA].isAggregation === true
-							) {
-								// Aggregation exists, create corresponding search form model.
-								var aggregationItem = viewModel.$$controller.getModel('Flights/Common/Geo', {
-									data: ui.item.pool.airports[aggregationIATA],
-									guide: ui.item.pool
-								});
+							// Force replacement of the selected airport.
+							if (ui.item.replacement) {
+								replacement = ui.item.replacement;
+							}
+							// If a wanted airport has an aggregation airport (example: MOW owns DME)
+							// and the corresponding setting is set, replace wanted airport with the aggregation one.
+							else if (ui.item.aggregationIATA) {
+								var aggregationIATA = ui.item.aggregationIATA;
 
-								valueAccessor()(aggregationItem);
+								if (
+									ui.item.pool.cities &&
+									ui.item.pool.cities[ui.item.cityId] &&
+									ui.item.pool.cities[ui.item.cityId].IATA
+								) {
+									replacement = viewModel.$$controller.getModel('Flights/Common/Geo', {
+										data: {
+											IATA: ui.item.pool.cities[ui.item.cityId].IATA,
+											cityId: ui.item.cityId,
+											isCity: true
+										},
+										guide: ui.item.pool
+									});
+								}
+								else if (
+									ui.item.pool.airports &&
+									ui.item.pool.airports[aggregationIATA] &&
+									ui.item.pool.airports[aggregationIATA].isAggregation === true
+								) {
+									replacement = viewModel.$$controller.getModel('Flights/Common/Geo', {
+										data: ui.item.pool.airports[aggregationIATA],
+										guide: ui.item.pool
+									});
+								}
+							}
+
+							if (replacement) {
+								valueAccessor()(replacement);
 								itemHasBeenSet = true;
 							}
 						}

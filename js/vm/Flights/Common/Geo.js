@@ -98,7 +98,7 @@ define(
 		};
 
 		FlightsSearchFormGeo.prototype.processGuide = function (guide) {
-			if (typeof guide == 'object') {
+			if (typeof guide === 'object') {
 				for (var type in guide) { // type => { airports, cities, countries, ... }
 					if (guide.hasOwnProperty(type) && this.pool.hasOwnProperty(type)) {
 						for (var id in guide[type]) {

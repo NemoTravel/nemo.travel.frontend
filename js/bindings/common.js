@@ -802,7 +802,8 @@ define(
 						controls: false,
 						loop: false,
 						slideMargin: 0,
-						thumbItem: 12
+						thumbItem: 12,
+						adaptiveHeight: true
 					});
 				}
 			}

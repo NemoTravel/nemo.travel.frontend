@@ -33,43 +33,45 @@
 	</li>
 </ul>
 
-<div class="nemo-hotel__content__rooms__footer">
-	<div class="nemo-hotel__content__rooms__footer__dummy" data-bind="visible: !canProceed()">
-		<span class="nemo-hotel__content__rooms__footer__dummy__text" data-bind="html: $root.i18n('HotelsSearchResults', 'selectFromBeforeCheckoutRoom')"></span>
+<div class="nemo-hotel__content__rooms__footer__wrapper">
+	<div class="nemo-hotel__content__rooms__footer" data-bind="stickyBlock: null">
+		<div class="nemo-hotel__content__rooms__footer__dummy" data-bind="visible: !canProceed()">
+			<span class="nemo-hotel__content__rooms__footer__dummy__text" data-bind="html: $root.i18n('HotelsSearchResults', 'selectFromBeforeCheckoutRoom')"></span>
 
-		<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__orderBtn nemo-hotels-results__content__results__loadingDummy__item__orderBtn nemo-hotel__content__rooms__footer__dummy__button">
-			<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-				<span class="nemo-hotels-results__hotelsGroup__footer__price nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price nemo-hotels-results__content__results__loadingDummy__textItem"></span>
-				<span class="nemo-hotels-results__hotelsGroup__footer__period nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+			<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__orderBtn nemo-hotels-results__content__results__loadingDummy__item__orderBtn nemo-hotel__content__rooms__footer__dummy__button">
+				<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+					<span class="nemo-hotels-results__hotelsGroup__footer__price nemo-hotels-results__content__results__loadingDummy__item__orderBtn__price nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+					<span class="nemo-hotels-results__hotelsGroup__footer__period nemo-hotels-results__content__results__loadingDummy__item__orderBtn__period nemo-hotels-results__content__results__loadingDummy__textItem"></span>
+				</div>
+
+				<div class="nemo-hotels-results__hotelsGroup__footer__arrow nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
 			</div>
-
-			<div class="nemo-hotels-results__hotelsGroup__footer__arrow nemo-hotels-results__content__results__loadingDummy__item__orderBtn__arrow"></div>
 		</div>
+
+		<!-- ko if: canProceed() -->
+			<div class="nemo-ui-button nemo-ui-button_main nemo-hotel__content__rooms__footer__button" data-bind="hotelsResultsBuyButton: {
+				controller: resultsController,
+				rooms: selectedRoomsTariffs(),
+				hotel: hotel
+			}">
+				<div class="nemo-hotel__content__rooms__footer__button__price">
+					<span class="nemo-hotel__content__rooms__footer__button__price__allNights">
+						<span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
+						<span class="nemo-hotel__content__rooms__footer__button__price__allNights__value">
+							<money data-bind="money: totalRoomsPrice()" round="up" format="0,0 $"></money>
+						</span>
+						<span class="nemo-hotel__content__rooms__footer__button__price__allNights__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + resultsController.countOfNights() + ' ' + resultsController.labelAfterNights()"></span>
+					</span>
+
+					<span class="nemo-hotel__content__rooms__footer__button__price__perNight">
+						<span class="nemo-hotel__content__rooms__footer__button__price__perNight__value">
+							<money data-bind="money: totalRoomsPricePerNight()" round="up" format="0,0 $"></money>
+						</span>
+						<span class="nemo-hotel__content__rooms__footer__button__price__perNight__period" data-bind="i18n: 'HotelsSearchResults.perNight'"></span>
+					</span>
+				</div>
+				<div class="nemo-hotel__content__rooms__footer__button__icon"></div>
+			</div>
+		<!--/ko-->
 	</div>
-
-	<!-- ko if: canProceed() -->
-		<div class="nemo-ui-button nemo-ui-button_main nemo-hotel__content__rooms__footer__button" data-bind="hotelsResultsBuyButton: {
-			controller: resultsController,
-			rooms: selectedRoomsTariffs(),
-			hotel: hotel
-		}">
-			<div class="nemo-hotel__content__rooms__footer__button__price">
-				<span class="nemo-hotel__content__rooms__footer__button__price__allNights">
-					<span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
-					<span class="nemo-hotel__content__rooms__footer__button__price__allNights__value">
-						<money data-bind="money: totalRoomsPrice()" round="up" format="0,0 $"></money>
-					</span>
-					<span class="nemo-hotel__content__rooms__footer__button__price__allNights__period" data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + resultsController.countOfNights() + ' ' + resultsController.labelAfterNights()"></span>
-				</span>
-	
-				<span class="nemo-hotel__content__rooms__footer__button__price__perNight">
-					<span class="nemo-hotel__content__rooms__footer__button__price__perNight__value">
-						<money data-bind="money: totalRoomsPricePerNight()" round="up" format="0,0 $"></money>
-					</span>
-					<span class="nemo-hotel__content__rooms__footer__button__price__perNight__period" data-bind="i18n: 'HotelsSearchResults.perNight'"></span>
-				</span>
-			</div>
-			<div class="nemo-hotel__content__rooms__footer__button__icon"></div>
-		</div>
-	<!--/ko-->
 </div>

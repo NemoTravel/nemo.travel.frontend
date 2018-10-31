@@ -443,6 +443,7 @@
     "new-passinfo-payMethodsPopup__button_ok": "选择",
     "new-passinfo-footer__agreementText": "我已经阅读并同意<a href=\"/预订__政策\"class=\"new-ui-pseudoLink js thickbox__框架__href\"数据popup=\"{标题：'预订'}\">预订的规则一, 规定给予的额外服务<a href=\"#\"class=\"new-ui-pseudoLink js-尼莫弹出__fareRules\">的使用条件的税费</>和<a href=\"/预订__policypd\"class=\"new-ui-pseudoLink js thickbox__框架__href\"数据popup=\"{标题：'权的数据问题'}\">权利的个人数据的主题。 我同意并承认第三方提到我的预订，以处理个人数据，包括其转让给第三方，提供或支持运输和越境转移的个人数据。",
     "new-passinfo-footer__agreementText_new": "我已阅读和同意<a href=\"[%订政策%]\"class=\"new-ui-pseudoLink js thickbox__框架__href\"数据popup=\"{标题：'预订'}\">预订的规则一、规则的给予额外的服务<a href=\"[%-faresurl-%]\"class=\"new-ui-pseudoLink js thickbox__框架__href\"数据popup=\"{标题：'费'}\">的价</>和<a href=\"[%订政策-pd%]\"class=\"new-ui-pseudoLink js thickbox__框架__href\"数据popup=\"{标题：'权的数据问题'}\">权利的主体的个人数据。 我同意并承认第三方提到我的预订，以处理个人数据，包括其转让给第三方，提供或支持运输和越境转移的个人数据。",
+    "hotels-footer__agreementText": "hotels-footer__agreementText",
     "new-passinfo-footer__agreementError": "您必须同意",
     "new-passinfo-footer__additionalButtons__header": "继续订票",
     "new-passinfo-footer__additionalButtons__cancel": "撤回",

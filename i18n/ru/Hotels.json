@@ -1,7 +1,7 @@
 {
     "hotels-misc-roomAdditionalWishes_title": "Дополнительные пожелания к номеру",
     "hotels-misc-roomAdditionalWishes_hint": "Дополнительные кровати, номера для некурящих, трансфер до аэропорта.",
-    "hotels-buyer-title": "Введите свои данные",
+    "hotels-buyer-title": "Покупатель",
     "hotels-breadcrumbs-search": "Поиск отелей",
     "hotels-breadcrumbs-searchResults": "Результаты поиска",
     "hotels-breadcrumbs-booking": "Бронирование",
@@ -24,6 +24,8 @@
     "hotels-room-meal__HB": "Двухразовое питание",
     "hotels-room-meal__FB": "Трёхразовое питание",
     "hotels-room-meal__AI": "Всё включено",
+    "hotels-room-meal__LU": "Обед включен",
+    "hotels-room-meal__DN": "Ужин включен",
     "hotels-room-cancel__rules__title": "Правила отмены бронирования",
     "hotels-room-cancel__isNonRefundable": "Стоимость не возвращается",
     "hotels-room-cancel__isNonRefundable__tooltip": "При отмене стоимость не возвращается.",
