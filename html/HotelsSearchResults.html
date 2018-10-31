@@ -518,17 +518,19 @@
 																  data-bind="text: $parent.getDistances($data)[1] ? $root.i18n('HotelsSearchResults', 'targetFromAirport') : ''">
 															</span>
 														</span>
-	
-													<a href="#" class="nemo-ui-pseudoLink
-																		   nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
-													   data-bind="click: function(hotel){ $parent.showBigMap(hotel) }, css: { 'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1] }">
+
+													<!-- ko if: staticDataInfo.posLatitude && staticDataInfo.posLongitude -->
+														<a href="#" class="nemo-ui-pseudoLink
+																			   nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
+														   data-bind="click: function(hotel){ $parent.showBigMap(hotel) }, css: { 'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1] }">
 															<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
 																  data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
 															</span>
 															<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile"
 																  data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')">
 															</span>
-													</a>
+														</a>
+													<!-- /ko -->
 												</div>
 											</div>
 										</div>

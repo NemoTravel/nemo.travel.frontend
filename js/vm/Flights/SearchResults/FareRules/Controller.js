@@ -146,15 +146,6 @@ define(
 		};
 
 		/**
-		 * @returns {String}
-		 */
-		FlightsSearchResultsFareRulesController.prototype.currentLangLabel = function () {
-			var lang = Cookie.get('nemo_lang') || 'ru';
-			
-			return this.$$controller.i18n('FlightsSearchResults', 'flightsFareRules__translator__' + lang.toLowerCase());
-		};
-
-		/**
 		 * @param {Number} segmentId
 		 */
 		FlightsSearchResultsFareRulesController.prototype.selectSegment = function (segmentId) {

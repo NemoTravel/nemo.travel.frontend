@@ -1,7 +1,7 @@
 {
     "hotels-misc-roomAdditionalWishes_title": "Cerințe speciale",
     "hotels-misc-roomAdditionalWishes_hint": "Paturi suplimentare, camere pentru nefumători, transfer de autobuz de la aeroport.",
-    "hotels-buyer-title": "Introduceți detaliile",
+    "hotels-buyer-title": "Shopper",
     "hotels-breadcrumbs-search": "Căutați hoteluri",
     "hotels-breadcrumbs-searchResults": "Rezultatele căutării",
     "hotels-breadcrumbs-booking": "Rezervare",
@@ -24,6 +24,8 @@
     "hotels-room-meal__HB": "Demipensiune",
     "hotels-room-meal__FB": "Pensiune completă",
     "hotels-room-meal__AI": "Totul inclus",
+    "hotels-room-meal__LU": "hotels-room-meal__LU",
+    "hotels-room-meal__DN": "hotels-room-meal__DN",
     "hotels-room-cancel__rules__title": "Reguli de anulare",
     "hotels-room-cancel__isNonRefundable": "Nerambursabilă",
     "hotels-room-cancel__isNonRefundable__tooltip": "În cazul anulării rezervării, se aplică o penalizare de 100% / Dacă rezervarea este anulată sau modificată mai târziu, va fi încasat prețul pentru prima noapte.",

@@ -443,6 +443,7 @@
     "new-passinfo-payMethodsPopup__button_ok": "auswählen",
     "new-passinfo-footer__agreementText": "Ich habe die <a href=\"/booking__policy\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Buchungsbestimmungen', dialogClass: 'ui-dialog_medium'}\">Buchungsbestimmungen</a>, Bedingungen der Zusatzleistungen, <a href=\"[%-faresurl-%]\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Tariffbestimmungen'}\">Tariffbestimmungen</a> und <a href=\"/booking__policypd\" class=\"new-ui-pseudoLink js-thickbox__frame__href\" data-popup=\"{title:'Datenschutzerklärung', dialogClass: 'ui-dialog_medium'}\">Datenschutzerklärung</a> gelesen und stimme diesen zu. Ich bestätige und erkläre mich einverstanden mit der Vereinbarung von Drittpersonen, welche ich in der Reservierung und dem persönlichen Daten Prozess genannt habe. Dies beinhaltet, dass die Daten an Personen weitergeleitet werden, die für den Transport zuständig sind oder diesen verwalten und auch grenzübergreifender Transfer persönlicher Daten.",
     "new-passinfo-footer__agreementText_new": "new-passinfo-footer__agreementText_new",
+    "hotels-footer__agreementText": "hotels-footer__agreementText",
     "new-passinfo-footer__agreementError": "Sie müssen zustimmen",
     "new-passinfo-footer__additionalButtons__header": "Mögliche Aktionen mit Ihrer Buchung",
     "new-passinfo-footer__additionalButtons__cancel": "Abbrechen",

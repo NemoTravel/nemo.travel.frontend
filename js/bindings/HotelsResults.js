@@ -342,5 +342,26 @@ define(
 				});
 			}
 		};
+
+		ko.bindingHandlers.stickyBlock = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				var $element = $(element),
+					$parentBlock = $element.parent(),
+					$window = $(window);
+
+				function scrollHandler(event) {
+					var windowHeight = $window.height();
+
+					if($parentBlock.offset().top <= windowHeight + $window.scrollTop()) {
+					    $element.removeClass('sticked');
+                    }
+                    else if ($parentBlock.offset().top >= windowHeight + $window.scrollTop())  {
+					    $element.addClass('sticked');
+                    }
+				}
+
+				$(document).scroll(scrollHandler);
+			}
+		};
     }
 );

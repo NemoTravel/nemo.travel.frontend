@@ -1,7 +1,7 @@
 {
     "hotels-misc-roomAdditionalWishes_title": "Додаткові побажання до номера",
     "hotels-misc-roomAdditionalWishes_hint": "Додаткові ліжка, номера для некурящих, трансфер до аеропорту.",
-    "hotels-buyer-title": "Введіть свої дані",
+    "hotels-buyer-title": "Покупець",
     "hotels-breadcrumbs-search": "Пошук готелів",
     "hotels-breadcrumbs-searchResults": "Результати пошуку",
     "hotels-breadcrumbs-booking": "Бронювання",
@@ -24,6 +24,8 @@
     "hotels-room-meal__HB": "Дворазове харчування",
     "hotels-room-meal__FB": "Триразове харчування",
     "hotels-room-meal__AI": "Все включено",
+    "hotels-room-meal__LU": "hotels-room-meal__LU",
+    "hotels-room-meal__DN": "hotels-room-meal__DN",
     "hotels-room-cancel__rules__title": "Правила скасування бронювання",
     "hotels-room-cancel__isNonRefundable": "Вартість не повертається",
     "hotels-room-cancel__isNonRefundable__tooltip": "При скасуванні вартість не повертається.",

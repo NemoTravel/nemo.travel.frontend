@@ -597,6 +597,10 @@ define([
 			// All changes from now on will go to cookie
 			this.setCookies = true;
 			this.parametersChanged(false);
+
+			var clientNationalityByDefault = this.$$rawdata.system.info.user.settings.agencyCountry;
+
+			this.clientNationality(clientNationalityByDefault);
 		};
 
 		HotelsSearchFormController.prototype.addSegment = function (arrival, arrivalDate, departureDate) {

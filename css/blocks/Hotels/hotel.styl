@@ -732,6 +732,60 @@
 				justify-content: flex-end;
 				align-items: center;
 
+				&.sticked {
+					position: fixed;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					max-width: 1700px;
+					min-width: 0;
+					margin: 0 auto;
+					height: 80px;
+					background: #fff;
+					padding: 0;
+					padding-right: 40px;
+					padding-left: 40px;
+					z-index: 10;
+
+					&:before {
+						content: '';
+						background: #fff;
+						position: fixed;
+						width: 100%;
+						height: inherit;
+						right: 0;
+						left: 0;
+						z-index: -1;
+						border-top: 1px solid #e6e6e6;
+					}
+
+					@media (max-width: 1199px) {
+						padding-left: 20px;
+						padding-right: 20px;
+					}
+
+					@media (max-width: 635px) {
+						.nemo-hotel__content__rooms__footer__dummy {
+							&__text {
+								display: none;
+							}
+
+							&__button {
+								width: 195px;
+								margin-top: 10px;
+							}
+						}
+					}
+				}
+
+				&__wrapper {
+					min-height: 80px;
+
+					@media (max-width: 500px) {
+						min-height: 100px;
+					}
+				}
+
 				&__dummy {
 					display: flex;
 					justify-content: flex-end;
