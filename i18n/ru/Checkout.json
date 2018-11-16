@@ -203,6 +203,7 @@
     "new-passinfo-requestPopup__timeoutMessage": "Пожалуйста, подождите еще немного",
     "new-passinfo-requestPopup__cancel__confirm": "Вы действительно хотите аннулировать заказ?",
     "new-passinfo-requestPopup__errorMessage": "Произошла ошибка",
+    "new-passInfo__status_pendingHotels": "Внимание, предложение доступно в течение 20 минут после поиска, пожалуйста, не откладывайте бронирование",
     "new-passInfo__status_order": "Заказ",
     "new-passInfo__status_booked": "успешно забронирован",
     "new-passInfo__status_ticketed": "билеты выписаны",
@@ -702,7 +703,15 @@
     "checkout-office_timeperiod_recess": "Перерыв на обед",
     "checkout-office_timeperiod_dutyday": "Время работы в дежурные дни",
     "checkout-office_timeperiod_work": "Время работы",
+    "checkout-info__paybefore_today": "Бронь нужно оплатить",
+    "checkout-info__paybefore_be4": "до",
+    "checkout-info__timelimit__today": "сегодня",
+    "checkout-info__timelimit__tomorrow": "завтра",
+    "checkout-info__timelimit__payBefore": "до",
     "new-passinfo-extServices-sirenaInsurance-coverage": "Сумма страхового покрытия",
     "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "Сумма страхового покрытия за багаж",
-    "new-passinfo-extServices-sirenaInsurance-rules": "Правила полиса страхования"
+    "new-passinfo-extServices-sirenaInsurance-rules": "Правила полиса страхования",
+    "nemo-checkout-order-details__infoTooltip__copied": "Скопировано в буфер обмена",
+    "nemo-checkout-order-details__accessCodeTooltip__copied": "Код доступа был скопирован в буфер обмена",
+    "nemo-checkout-order-details__locator__copied": "Номер заказа у поставщика был скопирован в буфер обмена"
 }

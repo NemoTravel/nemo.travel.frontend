@@ -62,7 +62,7 @@ define(
 					url = '/flights/utils/rules/' + self.flight.id,
 					params = {
 						translated: translate,
-						translateTo: 'ru'
+						translateTo: Cookie.get('nemo_lang') || 'ru'
 					},
 					parsedRules;
 

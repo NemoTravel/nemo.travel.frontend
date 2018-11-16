@@ -203,6 +203,7 @@
     "new-passinfo-requestPopup__timeoutMessage": "请稍等",
     "new-passinfo-requestPopup__cancel__confirm": "您想撤回订单？",
     "new-passinfo-requestPopup__errorMessage": "发生错误",
+    "new-passInfo__status_pendingHotels": "new-passInfo__status_pendingHotels",
     "new-passInfo__status_order": "订单",
     "new-passInfo__status_booked": "预订成功",
     "new-passInfo__status_ticketed": "已出票",
@@ -702,7 +703,15 @@
     "checkout-office_timeperiod_recess": "checkout-office_timeperiod_recess",
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
+    "checkout-info__paybefore_today": "订单需支付",
+    "checkout-info__paybefore_be4": "之前",
+    "checkout-info__timelimit__today": "今天",
+    "checkout-info__timelimit__tomorrow": "明天",
+    "checkout-info__timelimit__payBefore": "之前",
     "new-passinfo-extServices-sirenaInsurance-coverage": "new-passinfo-extServices-sirenaInsurance-coverage",
     "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "new-passinfo-extServices-sirenaInsurance-lugagge-coverage",
-    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules"
+    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
+    "nemo-checkout-order-details__infoTooltip__copied": "nemo-checkout-order-details__infoTooltip__copied",
+    "nemo-checkout-order-details__accessCodeTooltip__copied": "nemo-checkout-order-details__accessCodeTooltip__copied",
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
 }

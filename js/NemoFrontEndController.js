@@ -61,13 +61,14 @@ define (
 					re: [
 						/^hotels$/,
 
-						//Search by URL params
+						// Search by URL params
 						// /123-20170801-20170803-ADT4INF2-ADT5INF4-ADT1
 						// 123 - hotel id (optional)
 						// 20170801 - arrival date (optional) (yyyymmdd)
 						// 20170803 - departure date (optional)
 						// -ADT4INF2 - 4 adults and 2 childs (optional) - (-ADT{X}INF{Y}) {X}, {Y} <= 9
-						/^hotels\/search\/(((\d)*(-)?)?(\d{8}(-)?)?(-\d{8})?(-ADT\d(CLD\d)?)*)$/
+						// GO - immediate search flag
+						/^hotels\/search\/(((\d)*(-)?)?(\d{8}(-)?)?(-\d{8})?(-ADT\d(CLD\d)?)*(-GO)?)$/
 					],
 					handler: 'Hotels/SearchForm/Controller'
 				},

@@ -18,6 +18,8 @@
   },
   "scripts": {
     "start": "node server.js",
+    "cache": "gulp cache",
+    "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

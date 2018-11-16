@@ -69,6 +69,7 @@
     "hotels__loyaltyCard_cardNumber": "hotels__loyaltyCard_cardNumber",
     "hotels__clientNationality": "hotels__clientNationality",
     "hotels__loyaltyCard_hotelsChain_placeholder": "hotels__loyaltyCard_hotelsChain_placeholder",
+    "hotels__loyaltyCard_hotelsChain_tip": "hotels__loyaltyCard_hotelsChain_tip",
     "hotels__loyaltyCard_cardNumber_placeholder": "hotels__loyaltyCard_cardNumber_placeholder",
     "hotels__loyaltyCard__done": "hotels__loyaltyCard__done",
     "hotels__passengersSelector__done": "hotels__passengersSelector__done",

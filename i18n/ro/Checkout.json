@@ -203,6 +203,7 @@
     "new-passinfo-requestPopup__timeoutMessage": "Vă rugăm să așteptați puțin",
     "new-passinfo-requestPopup__cancel__confirm": "Sigur doriți să anulați rezervarea?",
     "new-passinfo-requestPopup__errorMessage": "A apărut o eroare",
+    "new-passInfo__status_pendingHotels": "new-passInfo__status_pendingHotels",
     "new-passInfo__status_order": "Comandă",
     "new-passInfo__status_booked": "rezervat cu succes",
     "new-passInfo__status_ticketed": "biletele au fost emise",
@@ -702,7 +703,15 @@
     "checkout-office_timeperiod_recess": "checkout-office_timeperiod_recess",
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
+    "checkout-info__paybefore_today": "Comanda trebuie achitată",
+    "checkout-info__paybefore_be4": "înainte",
+    "checkout-info__timelimit__today": "astăzi",
+    "checkout-info__timelimit__tomorrow": "mâine",
+    "checkout-info__timelimit__payBefore": "până la",
     "new-passinfo-extServices-sirenaInsurance-coverage": "new-passinfo-extServices-sirenaInsurance-coverage",
     "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "new-passinfo-extServices-sirenaInsurance-lugagge-coverage",
-    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules"
+    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
+    "nemo-checkout-order-details__infoTooltip__copied": "nemo-checkout-order-details__infoTooltip__copied",
+    "nemo-checkout-order-details__accessCodeTooltip__copied": "Access code has been copied to the clipboard",
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
 }

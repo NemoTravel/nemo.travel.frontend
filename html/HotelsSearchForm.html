@@ -230,12 +230,17 @@
 								<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
 								<div class="nemo-hotels-form__loyalCard__item">
 									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-										   data-bind="textInput: loyaltyCardChain, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') }"
+									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+										   data-bind="
+										   		textInput: loyaltyCardChain,
+										   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+										   		css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
 										   type="text"
 										   spellcheck="false"
 										   autocorrect="off"
 										   autocomplete="off">
+									<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
+
 								</div>
 								<div class="nemo-hotels-form__loyalCard__item">
 									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
@@ -321,12 +326,19 @@
 									<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
 									<div class="nemo-hotels-form__loyalCard__item">
 										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-											   data-bind="textInput: loyaltyCardChain, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') }"
+										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+											   data-bind="
+											   		textInput: loyaltyCardChain,
+											   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+													css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
 											   type="text"
+											   minlength="2"
+											   maxlength="2"
 											   spellcheck="false"
 											   autocorrect="off"
 											   autocomplete="off">
+										<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
+
 																			</div>
 									<div class="nemo-hotels-form__loyalCard__item">
 										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>

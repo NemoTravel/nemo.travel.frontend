@@ -203,6 +203,7 @@
     "new-passinfo-requestPopup__timeoutMessage": "Prašome dar šiek tiek palaukti...",
     "new-passinfo-requestPopup__cancel__confirm": "Ar tikrai norite atšaukti užsakymą?",
     "new-passinfo-requestPopup__errorMessage": "Įvyko klaida",
+    "new-passInfo__status_pendingHotels": "new-passInfo__status_pendingHotels",
     "new-passInfo__status_order": "Užsakymas",
     "new-passInfo__status_booked": "sėkmingai užsakytas",
     "new-passInfo__status_ticketed": "bilietai išrašyti",
@@ -702,7 +703,15 @@
     "checkout-office_timeperiod_recess": "checkout-office_timeperiod_recess",
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
+    "checkout-info__paybefore_today": "checkout-info__paybefore_today",
+    "checkout-info__paybefore_be4": "checkout-info__paybefore_be4",
+    "checkout-info__timelimit__today": "checkout-info__timelimit__today",
+    "checkout-info__timelimit__tomorrow": "checkout-info__timelimit__tomorrow",
+    "checkout-info__timelimit__payBefore": "checkout-info__timelimit__payBefore",
     "new-passinfo-extServices-sirenaInsurance-coverage": "new-passinfo-extServices-sirenaInsurance-coverage",
     "new-passinfo-extServices-sirenaInsurance-lugagge-coverage": "new-passinfo-extServices-sirenaInsurance-lugagge-coverage",
-    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules"
+    "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
+    "nemo-checkout-order-details__infoTooltip__copied": "nemo-checkout-order-details__infoTooltip__copied",
+    "nemo-checkout-order-details__accessCodeTooltip__copied": "nemo-checkout-order-details__accessCodeTooltip__copied",
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
 }

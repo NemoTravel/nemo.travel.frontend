@@ -69,6 +69,7 @@
     "hotels__loyaltyCard_cardNumber": "Numărul cardului",
     "hotels__clientNationality": "Cetățenia",
     "hotels__loyaltyCard_hotelsChain_placeholder": "Introduceți numele lanțului hotelier",
+    "hotels__loyaltyCard_hotelsChain_tip": "hotels__loyaltyCard_hotelsChain_tip",
     "hotels__loyaltyCard_cardNumber_placeholder": "Introduceți numărul cardului de loialitate",
     "hotels__loyaltyCard__done": "Terminat",
     "hotels__passengersSelector__done": "hotels__passengersSelector__done",

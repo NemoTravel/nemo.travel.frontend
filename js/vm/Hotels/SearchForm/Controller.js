@@ -43,6 +43,7 @@ define([
 			this.recentSearches = ko.observableArray(helpers.toArray(RecentSearchModel.getLast()));
 			this.preinittedData = {
 				dateUnknown: true,
+				immediateSearch: false,
 				segments: [],
 				rooms: [],
 				loyaltyCard: {
@@ -68,8 +69,20 @@ define([
 
 			this.processInitParams();
 			this.loyaltyCardNumber = ko.observable();
-			this.loyaltyCardChain = ko.observable();
+			this.loyaltyCardChain = ko.observable('');
 			this.clientNationality = ko.observable('');
+			this.loyaltyCardChainValid = ko.observable(true);
+
+			this.loyaltyCardChain.subscribe(function () {
+				var value = self.loyaltyCardChain().toUpperCase();
+
+				if (value.length <= 2 && /^([A-Z])+$/.test(value)) {
+					self.loyaltyCardChainValid(true);
+				}
+				else if (value.length > 0) {
+					self.loyaltyCardChainValid(false);
+				}
+			});
 
 			this.segments.subscribe(function () {
 				this.recalcDateRestrictions();
@@ -172,8 +185,8 @@ define([
 						rooms: [],
 						datesUnknown: this.datesUnknown(),
 						loyaltyCard: {
-							hotelsChain: this.loyaltyCardChain(),
-							cardNumber: this.loyaltyCardNumber()
+							hotelsChain: this.loyaltyCardChainValid() ? this.loyaltyCardChain().toUpperCase() : '',
+							cardNumber: this.loyaltyCardChainValid() ? this.loyaltyCardNumber() : ''
 						},
 						clientNationality: this.$$controller.options.clientNationalitySelect ? this.clientNationality() : ''
 					},
@@ -285,7 +298,7 @@ define([
 
 		HotelsSearchFormController.prototype.processInitParams = function () {
 			// Preinitted by URL
-			if (this.$$componentParameters.route.length === 9) {
+			if (this.$$componentParameters.route.length === 10) {
 				var route = this.$$componentParameters.route[0],
 					pointer = 0,
 					childrenCount = 0,
@@ -301,6 +314,8 @@ define([
 				todayTimestamp = todayTimestamp.getTime();
 
 				route = route.split('-');
+
+				var numOfParams = route.length;
 
 				if (!helpers.stringIsDate(route[pointer])) { // hotel id ?
 					// hotel ID
@@ -340,6 +355,22 @@ define([
 				this.maxAdultsFromFS = 0;
 				this.maxInfantsFromFS = 0;
 
+				if (numOfParams !== pointer) {
+					if (route[numOfParams - 1] === 'GO') {
+						this.preinittedData.immediateSearch = true;
+						route.pop();
+					}
+				}
+				else {
+					this.preinittedData.rooms.push({
+						adults: 1,
+						infants: []
+					});
+
+					this.maxAdultsFromFS = null;
+					this.maxInfantsFromFS = null;
+				}
+
 				// get guests
 				// for each room
 				for (pointer; pointer < route.length; pointer += 1) {
@@ -358,6 +389,7 @@ define([
 
 					this.preinittedData.rooms.push({adults: adultCount, infants: childrenArray});
 				}
+
 				this.preinittedData.segments.push([null, hotelID, arrivalDateTemp, departureDateTemp]);
 				this.preinittedData.dateUnknown = false;
 				this.mode = HotelsBaseModel.MODE_PREINITTED;
@@ -526,7 +558,7 @@ define([
 
 			self.datesUnknown(self.preinittedData.datesUnknown);
 			self.loyaltyCardNumber(self.preinittedData.loyaltyCard.cardNumber);
-			self.loyaltyCardChain(self.preinittedData.loyaltyCard.hotelsChain);
+			self.loyaltyCardChain(self.preinittedData.loyaltyCard.hotelsChain ? self.preinittedData.loyaltyCard.hotelsChain : '');
 		}
 
 		HotelsSearchFormController.prototype.buildModels = function () {
@@ -601,6 +633,10 @@ define([
 			var clientNationalityByDefault = this.$$rawdata.system.info.user.settings.agencyCountry;
 
 			this.clientNationality(clientNationalityByDefault);
+
+			if (this.preinittedData.immediateSearch) {
+				this.startSearch();
+			}
 		};
 
 		HotelsSearchFormController.prototype.addSegment = function (arrival, arrivalDate, departureDate) {

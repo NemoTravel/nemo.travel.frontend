@@ -15,7 +15,7 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 							.replace(
 								new RegExp(
 									'(' + (this.term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '')) + ')',
-									''
+									'i'
 								),
 								'<span class="nemo-ui-autocomplete__match">$1</span>'
 							) +
@@ -143,11 +143,11 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 								$(this).val(ui.item.name);
 							}
 							else {
-								$(this).val(' ');
+								$(this).val('');
 							}
 						},
 						close: function () {
-							$(this).val(' ');
+							$(this).val('');
 						}
 					}
 				);

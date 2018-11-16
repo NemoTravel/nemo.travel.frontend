@@ -69,6 +69,7 @@
     "hotels__loyaltyCard_cardNumber": "Karta raqami",
     "hotels__clientNationality": "Mehmonlarning fuqarosi",
     "hotels__loyaltyCard_hotelsChain_placeholder": "Mehmonxona tarmog'ining nomini kiriting",
+    "hotels__loyaltyCard_hotelsChain_tip": "hotels__loyaltyCard_hotelsChain_tip",
     "hotels__loyaltyCard_cardNumber_placeholder": "Sadoqatlik karta raqamini kiriting",
     "hotels__loyaltyCard__done": "Bajarildi",
     "hotels__passengersSelector__done": "Tayyor",
