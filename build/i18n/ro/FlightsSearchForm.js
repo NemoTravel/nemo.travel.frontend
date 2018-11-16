@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Numele companiei aeriene",
     "additionalParameters__carrier__searchNotFound": "Nu a fost gasit",
     "additionalParameters__carrier__loading": "Incarcare…",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "Ora totală al traseului",
     "additionalParameters__transfers__title": "Opriri",
     "additionalParameters__transfers__noTransfers__caption": "Non-stop",

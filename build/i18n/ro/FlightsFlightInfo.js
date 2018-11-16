@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Zborul este executat de [%-carrier-%]  ",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Premium economy",
     "serviceClass_Business": "Business",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Conexiune",
     "leg__terminalChange": "Schimbare de terminal",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Aeroport",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Terminal",
     "leg__segment__arrival__caption": "Aeroport",
     "leg__segment__arrival__terminal__caption": "Terminal",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Zbor",
     "leg__segment__serviceClass__caption": "Clasa",
     "leg__segment__aircraft__caption": "Aeronava",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "Bagaj",
     "leg__segment__timeEnRoute__caption": "Timpul in calatorie:",
     "leg__timeEnRoute__caption": "Timpul in calatorie:",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "lb",
     "leg__segment__baggage__metric_bag_1": "Geanta",
     "leg__segment__baggage__metric_bag_2": "Genți",
-    "leg__segment__baggage__metric_bag_3": "Genți"
+    "leg__segment__baggage__metric_bag_3": "Genți",
+    "S7_ff_notice": "Pentru zborurile unde compania aeriană S7 este partener de marketing, în unele cazuri se alpică regulile de transportare a bagajelor ale operatorului. Informațiile corecte privind bagajele sunt disponibile la calcularea tarifului."
 }});

@@ -54,7 +54,7 @@ define([],function () {return {
     "dow_5_f": "Cuma",
     "dow_6_f": "Cumartesi",
     "dow_7_f": "Paz",
-    "dow_1_s": "Cum",
+    "dow_1_s": "Pzt",
     "dow_2_s": "Salı",
     "dow_3_s": "Çar",
     "dow_4_s": "Per",

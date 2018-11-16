@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Naam luchtvaartmaatschappij",
     "additionalParameters__carrier__searchNotFound": "Niet gevonden",
     "additionalParameters__carrier__loading": "Laden…",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "stops",
     "additionalParameters__transfers__noTransfers__caption": "non-stop",

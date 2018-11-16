@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Унвони ширкати ҳавоӣ",
     "additionalParameters__carrier__searchNotFound": "Шаркатҳои ҳавоӣ нестанд",
     "additionalParameters__carrier__loading": "Боргирӣ мекунем…",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Бурофуроҳо",
     "additionalParameters__transfers__noTransfers__caption": "Бе бурофуро",

@@ -2,9 +2,9 @@ define([],function () {return {
     "flights-step_search": "Aviachiptalar qidirish",
     "flights-step_results": "Qidiruv natijalari ",
     "flights-step_checkout": "Buyurtmani rasmiylashtirish",
-    "hotels-step_search": "hotels-step_search",
-    "hotels-step_results": "hotels-step_results",
-    "hotels-step_checkout": "hotels-step_checkout",
-    "hotels-step_chooseHotel": "hotels-step_chooseHotel",
-    "recentSearches__toggle": "recentSearches__toggle"
+    "hotels-step_search": "Mehmonxonani qidirish",
+    "hotels-step_results": "Qidiruv natijalari",
+    "hotels-step_checkout": "Buyurtmani rasmiylashtirish",
+    "hotels-step_chooseHotel": "Mehmonxona tanlang",
+    "recentSearches__toggle": "Oldingi qidiruvlar"
 }});

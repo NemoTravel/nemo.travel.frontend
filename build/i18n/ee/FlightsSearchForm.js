@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Lennukompanii nimi",
     "additionalParameters__carrier__searchNotFound": "Pole leitud",
     "additionalParameters__carrier__loading": "Laadimine...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Ümberistumised",
     "additionalParameters__transfers__noTransfers__caption": "Non-stop",

@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Aviaşirkət adı",
     "additionalParameters__carrier__searchNotFound": "Tapılmadı",
     "additionalParameters__carrier__loading": "Yüklənilir...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Dayanacaq",
     "additionalParameters__transfers__noTransfers__caption": "Birbaşa",

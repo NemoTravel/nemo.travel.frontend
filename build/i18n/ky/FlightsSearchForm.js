@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Авикомпаниянын аты",
     "additionalParameters__carrier__searchNotFound": "Авиакомпаниялар жок",
     "additionalParameters__carrier__loading": "Жуктөп атабыз",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Которулуптүшүүлөр",
     "additionalParameters__transfers__noTransfers__caption": "Которулуптүшүүсүз",

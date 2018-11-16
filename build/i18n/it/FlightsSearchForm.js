@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Nome della compagnia aerea",
     "additionalParameters__carrier__searchNotFound": "Non trovato",
     "additionalParameters__carrier__loading": "In caricamento…",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "fermate",
     "additionalParameters__transfers__noTransfers__caption": "Senza fermate",

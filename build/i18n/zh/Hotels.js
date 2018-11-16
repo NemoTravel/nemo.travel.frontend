@@ -1,7 +1,7 @@
 define([],function () {return {
     "hotels-misc-roomAdditionalWishes_title": "其他",
     "hotels-misc-roomAdditionalWishes_hint": "加床，不吸烟房，接送服务",
-    "hotels-buyer-title": "请您输入您数据",
+    "hotels-buyer-title": "购物者",
     "hotels-breadcrumbs-search": "酒店搜索",
     "hotels-breadcrumbs-searchResults": "搜索结果",
     "hotels-breadcrumbs-booking": "预订",
@@ -24,6 +24,8 @@ define([],function () {return {
     "hotels-room-meal__HB": "hotels-room-meal__HB",
     "hotels-room-meal__FB": "hotels-room-meal__FB",
     "hotels-room-meal__AI": "hotels-room-meal__AI",
+    "hotels-room-meal__LU": "hotels-room-meal__LU",
+    "hotels-room-meal__DN": "hotels-room-meal__DN",
     "hotels-room-cancel__rules__title": "取消条件",
     "hotels-room-cancel__isNonRefundable": "不可退钱",
     "hotels-room-cancel__isNonRefundable__tooltip": "如取消不可退钱",
@@ -38,5 +40,8 @@ define([],function () {return {
     "hotels-room-paymentType__Other": "hotels-room-paymentType__Other",
     "description": "description",
     "location": "地点",
-    "hotelServicesCaption": "酒店服务"
+    "hotelServicesCaption": "酒店服务",
+    "hotels-room-remarks__header": "hotels-room-remarks__header",
+    "hotels-room-remarks__toggle_opened": "hotels-room-remarks__toggle_opened",
+    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed"
 }});

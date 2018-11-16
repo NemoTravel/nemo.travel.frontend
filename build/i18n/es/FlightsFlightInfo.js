@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "El vuelo otorgado por [%-carrier-%]",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Ecónomo",
     "serviceClass_PremiumEconomy": "Ecónomo Premium ",
     "serviceClass_Business": "Business",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Escala",
     "leg__terminalChange": "Cambio de terminal",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Aeropuerto",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Terminal",
     "leg__segment__arrival__caption": "Aeropuerto",
     "leg__segment__arrival__terminal__caption": "Terminal",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Vuelo",
     "leg__segment__serviceClass__caption": "Clase",
     "leg__segment__aircraft__caption": "Avión",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "Equipaje:",
     "leg__segment__timeEnRoute__caption": "En camino",
     "leg__timeEnRoute__caption": "En camino",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "libras",
     "leg__segment__baggage__metric_bag_1": "leg__segment__baggage__metric_bag_1",
     "leg__segment__baggage__metric_bag_2": "leg__segment__baggage__metric_bag_2",
-    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3"
+    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3",
+    "S7_ff_notice": "Transportando en los vuelos code-shere, donde aerolínea S7 es el socio de marketing, en unos casos pueden implementarse  las reglas de transporte de equipaje del operador. La información correcta de equipaje es desponible durante el los cálculos de tarifra."
 }});

@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Der Flug wird angeboten von [%-carrier-%]",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Premium-Economy",
     "serviceClass_Business": "Business",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "Freigepäck ",
     "leg__transfer": "Zwischenstopp",
     "leg__terminalChange": "Terminalwechsel",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Flughafen",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Terminal",
     "leg__segment__arrival__caption": "Flughafen",
     "leg__segment__arrival__terminal__caption": "Terminal",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Flug",
     "leg__segment__serviceClass__caption": "Beförderungsklasse",
     "leg__segment__aircraft__caption": "Flugzeug",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "Gepäck",
     "leg__segment__timeEnRoute__caption": "Reisezeit:",
     "leg__timeEnRoute__caption": "Reisezeit:",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "Lb",
     "leg__segment__baggage__metric_bag_1": "Gepäckstücke",
     "leg__segment__baggage__metric_bag_2": "Gepäckstücken",
-    "leg__segment__baggage__metric_bag_3": "Gepäckstücken"
+    "leg__segment__baggage__metric_bag_3": "Gepäckstücken",
+    "S7_ff_notice": "S7_ff_notice"
 }});

@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Havaalanı adı",
     "additionalParameters__carrier__searchNotFound": "Bulunamadı",
     "additionalParameters__carrier__loading": "Yükleniyor...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Aktarmalar",
     "additionalParameters__transfers__noTransfers__caption": "Aktarmasız",

@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Әуе компаниясының атауы ",
     "additionalParameters__carrier__searchNotFound": "Әуе компаниялары жоқ",
     "additionalParameters__carrier__loading": "Жүктейміз..",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Ауысып отыру",
     "additionalParameters__transfers__noTransfers__caption": "Ауысып отырмай",

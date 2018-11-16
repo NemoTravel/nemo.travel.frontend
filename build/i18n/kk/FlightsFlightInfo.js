@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Ұшуды қамсыздаған компания",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Эконом",
     "serviceClass_PremiumEconomy": "Эконом-премиум",
     "serviceClass_Business": "Бизнес",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Ауысып міну",
     "leg__terminalChange": "Терминалдың ауысымы",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Әуежай",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Терминал",
     "leg__segment__arrival__caption": "Әуежай",
     "leg__segment__arrival__terminal__caption": "Терминал",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Сапар",
     "leg__segment__serviceClass__caption": "Дәреже",
     "leg__segment__aircraft__caption": "Ұшақ",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "leg__segment__baggage__caption",
     "leg__segment__timeEnRoute__caption": "Жолда",
     "leg__timeEnRoute__caption": "Жолда",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "leg__segment__baggage__metric_lb",
     "leg__segment__baggage__metric_bag_1": "leg__segment__baggage__metric_bag_1",
     "leg__segment__baggage__metric_bag_2": "leg__segment__baggage__metric_bag_2",
-    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3"
+    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3",
+    "S7_ff_notice": "S7_ff_notice"
 }});

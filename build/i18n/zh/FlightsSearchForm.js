@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "航空公司的名字",
     "additionalParameters__carrier__searchNotFound": "没有航空公司",
     "additionalParameters__carrier__loading": "下载...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "总的旅程时间",
     "additionalParameters__transfers__title": "转机",
     "additionalParameters__transfers__noTransfers__caption": "转机",

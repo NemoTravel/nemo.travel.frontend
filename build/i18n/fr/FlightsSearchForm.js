@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Nom de la compagnie",
     "additionalParameters__carrier__searchNotFound": "Pas trouvé",
     "additionalParameters__carrier__loading": "Chargement...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "additionalParameters__totalTimeEnRoute__title",
     "additionalParameters__transfers__title": "Escales",
     "additionalParameters__transfers__noTransfers__caption": "Non-stop",

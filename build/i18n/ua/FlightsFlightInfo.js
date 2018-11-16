@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Переліт надано компанією <br> [%-carrier-%]",
-    "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__header__carriersMismatch": "Переліт надано компаніями<br>[%-carrier-%]",
+    "leg__overlandTrip__header": "Подорож надана компанією<br>[%-carrier-%]",
+    "leg__overlandTrip__header__carriersMismatch": "Подорож надана компаніями<br>[%-carrier-%]",
     "serviceClass_Economy": "Економ",
     "serviceClass_PremiumEconomy": "Економ-преміум",
     "serviceClass_Business": "Бiзнес",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "Безкоштовний багаж",
     "leg__transfer": "Пересадка",
     "leg__terminalChange": "Зміна терміналу",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Аеропорт",
+    "leg__segment__departure__caption_overland": "Станція",
     "leg__segment__departure__terminal__caption": "Термінал",
     "leg__segment__arrival__caption": "Аеропорт",
     "leg__segment__arrival__terminal__caption": "Термінал",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Рейс",
     "leg__segment__serviceClass__caption": "Клас",
     "leg__segment__aircraft__caption": "Літак",
+    "leg__segment__overlandTrip__by": "Потяг",
+    "leg__segment__overlandTrip__by_BUS": "<i class=\"fa fa-bus\"></i> Автобусом",
+    "leg__segment__overlandTrip__by_TRAIN": "<i class=\"fa fa-train\"></i> Потягом",
     "leg__segment__baggage__caption": "Багаж",
     "leg__segment__timeEnRoute__caption": "В дорозі",
     "leg__timeEnRoute__caption": "в дорозі",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "фунтів",
     "leg__segment__baggage__metric_bag_1": "сумка",
     "leg__segment__baggage__metric_bag_2": "сумки",
-    "leg__segment__baggage__metric_bag_3": "сумок"
+    "leg__segment__baggage__metric_bag_3": "сумок",
+    "S7_ff_notice": "При перевезенні рейсами код-шер, де авіакомпанія S7 - маркетинговий партнер, в деяких випадках можуть застосовуватися правила перевезення багажу оператора. Коректна багажна інформація доступна при розрахунку тарифу."
 }});

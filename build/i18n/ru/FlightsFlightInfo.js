@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Перелет предоставлен компанией<br>[%-carrier-%]",
     "leg__header__carriersMismatch": "Перелет предоставлен компаниями<br>[%-carrier-%]",
+    "leg__overlandTrip__header": "Поездка предоставлена компанией<br>[%-carrier-%]",
+    "leg__overlandTrip__header__carriersMismatch": "Поездка предоставлена компаниями<br>[%-carrier-%]",
     "serviceClass_Economy": "Эконом",
     "serviceClass_PremiumEconomy": "Эконом-премиум",
     "serviceClass_Business": "Бизнес",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "Бесплатный багаж",
     "leg__transfer": "Пересадка",
     "leg__terminalChange": "Смена терминала",
+    "leg__airportChange": "Смена аэропорта",
     "leg__segment__departure__caption": "Аэропорт",
+    "leg__segment__departure__caption_overland": "Станция",
     "leg__segment__departure__terminal__caption": "Терминал",
     "leg__segment__arrival__caption": "Аэропорт",
     "leg__segment__arrival__terminal__caption": "Терминал",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Рейс",
     "leg__segment__serviceClass__caption": "Класс",
     "leg__segment__aircraft__caption": "Самолет",
+    "leg__segment__overlandTrip__by": "Проезд",
+    "leg__segment__overlandTrip__by_BUS": "<i class=\"fa fa-bus\"></i> Автобусом",
+    "leg__segment__overlandTrip__by_TRAIN": "<i class=\"fa fa-train\"></i> Поездом",
     "leg__segment__baggage__caption": "Багаж",
     "leg__segment__timeEnRoute__caption": "В пути",
     "leg__timeEnRoute__caption": "В пути",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "фунтов",
     "leg__segment__baggage__metric_bag_1": "сумка",
     "leg__segment__baggage__metric_bag_2": "сумки",
-    "leg__segment__baggage__metric_bag_3": "сумок"
+    "leg__segment__baggage__metric_bag_3": "сумок",
+    "S7_ff_notice": "При перевозке рейсами код-шер, где авиакомпания S7 - маркетинговый партнер, в некоторых случаях могут применяться правила перевозки багажа оператора. Корректная багажная информация доступна при расчете тарифа."
 }});

@@ -1,7 +1,7 @@
 define([],function () {return {
     "hotels-misc-roomAdditionalWishes_title": "Special Requests",
     "hotels-misc-roomAdditionalWishes_hint": "Additional beds, bus transfer from airport.",
-    "hotels-buyer-title": "Enter your details",
+    "hotels-buyer-title": "Buyer",
     "hotels-breadcrumbs-search": "Search hotels",
     "hotels-breadcrumbs-searchResults": "Search results",
     "hotels-breadcrumbs-booking": "Booking",
@@ -24,6 +24,8 @@ define([],function () {return {
     "hotels-room-meal__HB": "Half board",
     "hotels-room-meal__FB": "Full board",
     "hotels-room-meal__AI": "All inclusive",
+    "hotels-room-meal__LU": "Lunch included",
+    "hotels-room-meal__DN": "Dinner included",
     "hotels-room-cancel__rules__title": "Cancellation rules",
     "hotels-room-cancel__isNonRefundable": "Non-refundable",
     "hotels-room-cancel__isNonRefundable__tooltip": "If cancelled the total price of the reservation will be charged.",
@@ -38,5 +40,8 @@ define([],function () {return {
     "hotels-room-paymentType__Other": "Prepayment needed",
     "description": "About hotel",
     "location": "Location",
-    "hotelServicesCaption": "Services and facilities"
+    "hotelServicesCaption": "Services and facilities",
+    "hotels-room-remarks__header": "Remarks for room",
+    "hotels-room-remarks__toggle_opened": "Close",
+    "hotels-room-remarks__toggle_closed": "Show all"
 }});

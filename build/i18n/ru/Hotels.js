@@ -1,7 +1,7 @@
 define([],function () {return {
     "hotels-misc-roomAdditionalWishes_title": "Дополнительные пожелания к номеру",
     "hotels-misc-roomAdditionalWishes_hint": "Дополнительные кровати, номера для некурящих, трансфер до аэропорта.",
-    "hotels-buyer-title": "Введите свои данные",
+    "hotels-buyer-title": "Покупатель",
     "hotels-breadcrumbs-search": "Поиск отелей",
     "hotels-breadcrumbs-searchResults": "Результаты поиска",
     "hotels-breadcrumbs-booking": "Бронирование",
@@ -24,6 +24,8 @@ define([],function () {return {
     "hotels-room-meal__HB": "Двухразовое питание",
     "hotels-room-meal__FB": "Трёхразовое питание",
     "hotels-room-meal__AI": "Всё включено",
+    "hotels-room-meal__LU": "Обед включен",
+    "hotels-room-meal__DN": "Ужин включен",
     "hotels-room-cancel__rules__title": "Правила отмены бронирования",
     "hotels-room-cancel__isNonRefundable": "Стоимость не возвращается",
     "hotels-room-cancel__isNonRefundable__tooltip": "При отмене стоимость не возвращается.",
@@ -33,10 +35,13 @@ define([],function () {return {
     "hotels-room-paymentType__Deposit": "Требуется внесение депозита",
     "hotels-room-paymentType__Guarantee": "Требуется подтверждение кредитной картой",
     "hotels-room-paymentType__Credit": "Требуется подтверждение кредитной картой",
-    "hotels-room-paymentType__Prepayment": "Оплата сейчас",
+    "hotels-room-paymentType__Prepayment": "Предоплата",
     "hotels-room-paymentType__Cash": "Оплата на месте",
-    "hotels-room-paymentType__Other": "Оплата сейчас",
+    "hotels-room-paymentType__Other": "Предоплата",
     "description": "Об отеле",
     "location": "Расположение",
-    "hotelServicesCaption": "Услуги и удобства в отеле"
+    "hotelServicesCaption": "Услуги и удобства в отеле",
+    "hotels-room-remarks__header": "Примечания к номеру",
+    "hotels-room-remarks__toggle_opened": "Свернуть",
+    "hotels-room-remarks__toggle_closed": "Показать все"
 }});

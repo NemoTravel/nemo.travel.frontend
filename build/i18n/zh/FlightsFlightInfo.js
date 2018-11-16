@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "的航班，由公司提供<>[%-carrier-%]",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "经济",
     "serviceClass_PremiumEconomy": "高级经济舱",
     "serviceClass_Business": "公务舱",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "转机",
     "leg__terminalChange": "航站楼更换",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "机场",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "航站楼",
     "leg__segment__arrival__caption": "机场",
     "leg__segment__arrival__terminal__caption": "航站楼",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "航班",
     "leg__segment__serviceClass__caption": "类",
     "leg__segment__aircraft__caption": "飞机",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "行李：",
     "leg__segment__timeEnRoute__caption": "飞行时间",
     "leg__timeEnRoute__caption": "飞行时间",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "磅",
     "leg__segment__baggage__metric_bag_1": "包",
     "leg__segment__baggage__metric_bag_2": "袋",
-    "leg__segment__baggage__metric_bag_3": "包的数量"
+    "leg__segment__baggage__metric_bag_3": "包的数量",
+    "S7_ff_notice": "当上运输的航班代码共享，其中S7营销合作伙伴，在某些情况下，规则可能适用于托运行李的运营商。 准确的行李信息可在计算率。"
 }});

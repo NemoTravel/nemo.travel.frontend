@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "The flight is provided by [%-carrier-%] ",
     "leg__header__carriersMismatch": "The flight is provided by [%-carrier-%] ",
+    "leg__overlandTrip__header": "The trip is provided by [%-carrier-%] ",
+    "leg__overlandTrip__header__carriersMismatch": "The trip is provided by [%-carrier-%] ",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Premium economy",
     "serviceClass_Business": "Business",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "Free baggage",
     "leg__transfer": "Transfer",
     "leg__terminalChange": "Terminal change",
+    "leg__airportChange": "Airport change",
     "leg__segment__departure__caption": "Airport",
+    "leg__segment__departure__caption_overland": "Station",
     "leg__segment__departure__terminal__caption": "Terminal",
     "leg__segment__arrival__caption": "Airport",
     "leg__segment__arrival__terminal__caption": "Terminal",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Flight",
     "leg__segment__serviceClass__caption": "Class",
     "leg__segment__aircraft__caption": "Aircraft",
+    "leg__segment__overlandTrip__by": "Trip by",
+    "leg__segment__overlandTrip__by_BUS": "<i class='fa fa-bus'></i> Bus",
+    "leg__segment__overlandTrip__by_TRAIN": "<i class='fa fa-train'></i> Train",
     "leg__segment__baggage__caption": "Luggage",
     "leg__segment__timeEnRoute__caption": "Time en route:",
     "leg__timeEnRoute__caption": "Time en route:",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "lb",
     "leg__segment__baggage__metric_bag_1": "bag",
     "leg__segment__baggage__metric_bag_2": "bags",
-    "leg__segment__baggage__metric_bag_3": "bags"
+    "leg__segment__baggage__metric_bag_3": "bags",
+    "S7_ff_notice": "Note: In some cases, for codeshare flights where S7 is a marketing carrier, operating carrier's baggage provisions may apply. Applicable baggage provisions will be available after itinerary pricing."
 }});

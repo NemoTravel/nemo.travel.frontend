@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Vrij",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Economy",
     "serviceClass_PremiumEconomy": "Zoek een bericht",
     "serviceClass_Business": "Business",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Van",
     "leg__terminalChange": "Vlucht",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Vlucht details",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Vlucht details",
     "leg__segment__arrival__caption": "Vlucht duur",
     "leg__segment__arrival__terminal__caption": "Vlucht is verouderd. Zoek opnieuw, a.u.b.",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Vlucht waardering",
     "leg__segment__serviceClass__caption": "Eten en drinken. Om te kopen",
     "leg__segment__aircraft__caption": "Voor",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "Voor boekingen",
     "leg__segment__timeEnRoute__caption": "Gevonden",
     "leg__timeEnRoute__caption": "Gratis wisselen",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "Vlucht wordt aangeboden door [%-marketingCarrier-%] en uitgevoerd door [%-operatingCarriers-%]",
     "leg__segment__baggage__metric_bag_1": "leg__segment__baggage__metric_bag_1",
     "leg__segment__baggage__metric_bag_2": "leg__segment__baggage__metric_bag_2",
-    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3"
+    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3",
+    "S7_ff_notice": "S7_ff_notice"
 }});

@@ -108,6 +108,7 @@ define([],function () {return {
     "additionalParameters__carrier__placeholder": "Nombre de aerolínea",
     "additionalParameters__carrier__searchNotFound": "No hay aerolínea",
     "additionalParameters__carrier__loading": "Cargamos...",
+    "additionalParameters__newDesign": "additionalParameters__newDesign",
     "additionalParameters__totalTimeEnRoute__title": "Tiempo en el camino",
     "additionalParameters__transfers__title": "Escalas",
     "additionalParameters__transfers__noTransfers__caption": "Sin escalas",

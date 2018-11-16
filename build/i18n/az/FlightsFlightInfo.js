@@ -1,6 +1,8 @@
 define([],function () {return {
     "leg__header": "Uçuş [%-carrier-%] tərəfindən təmin edilir",
     "leg__header__carriersMismatch": "leg__header__carriersMismatch",
+    "leg__overlandTrip__header": "leg__overlandTrip__header",
+    "leg__overlandTrip__header__carriersMismatch": "leg__overlandTrip__header__carriersMismatch",
     "serviceClass_Economy": "Ekonom",
     "serviceClass_PremiumEconomy": "Premium-ekonom",
     "serviceClass_Business": "Biznes",
@@ -11,7 +13,9 @@ define([],function () {return {
     "fareInformationHeader": "fareInformationHeader",
     "leg__transfer": "Transfer",
     "leg__terminalChange": "Terminal dəyişikliyi",
+    "leg__airportChange": "leg__airportChange",
     "leg__segment__departure__caption": "Aeroport",
+    "leg__segment__departure__caption_overland": "leg__segment__departure__caption_overland",
     "leg__segment__departure__terminal__caption": "Terminal",
     "leg__segment__arrival__caption": "Aeroport",
     "leg__segment__arrival__terminal__caption": "Terminal",
@@ -19,6 +23,9 @@ define([],function () {return {
     "leg__segment__flightNumber__caption": "Uçuş",
     "leg__segment__serviceClass__caption": "Sinif",
     "leg__segment__aircraft__caption": "Təyyarə",
+    "leg__segment__overlandTrip__by": "leg__segment__overlandTrip__by",
+    "leg__segment__overlandTrip__by_BUS": "leg__segment__overlandTrip__by_BUS",
+    "leg__segment__overlandTrip__by_TRAIN": "leg__segment__overlandTrip__by_TRAIN",
     "leg__segment__baggage__caption": "Baqaj",
     "leg__segment__timeEnRoute__caption": "Uçuş vaxtı",
     "leg__timeEnRoute__caption": "Uçuş vaxtı",
@@ -46,5 +53,6 @@ define([],function () {return {
     "leg__segment__baggage__metric_lb": "lb",
     "leg__segment__baggage__metric_bag_1": "leg__segment__baggage__metric_bag_1",
     "leg__segment__baggage__metric_bag_2": "leg__segment__baggage__metric_bag_2",
-    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3"
+    "leg__segment__baggage__metric_bag_3": "leg__segment__baggage__metric_bag_3",
+    "S7_ff_notice": "S7_ff_notice"
 }});
