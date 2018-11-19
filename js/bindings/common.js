@@ -777,6 +777,18 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.navigate = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				$(element).on('click', function () {
+					var URL = ko.unwrap(valueAccessor());
+
+					if (bindingContext.$root && bindingContext.$root.controller) {
+						bindingContext.$root.controller.navigate(URL);
+					}
+				});
+			}
+		};
+
 		ko.bindingHandlers.lightslider = {
 			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var photos = ko.unwrap(valueAccessor());
