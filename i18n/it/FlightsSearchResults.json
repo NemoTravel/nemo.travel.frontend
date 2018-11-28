@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Tutto",
     "PF__RTgroup__leg_0": "Partenza",
     "PF__RTgroup__leg_1": "Ritorno",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Prezzo",
     "PF__name_carrier": "Vettore",
     "PF__name_departureTime": "Partenza",

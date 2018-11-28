@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Всі",
     "PF__RTgroup__leg_0": "Туди",
     "PF__RTgroup__leg_1": "Назад",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Ціна",
     "PF__name_carrier": "Перевізник",
     "PF__name_departureTime": "Час вильоту",

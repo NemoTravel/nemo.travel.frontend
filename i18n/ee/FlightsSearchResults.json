@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Kõik",
     "PF__RTgroup__leg_0": "Sinna",
     "PF__RTgroup__leg_1": "Tagasi",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Hind",
     "PF__name_carrier": "Tarnija",
     "PF__name_departureTime": "Väljalend",

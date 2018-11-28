@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "所有",
     "PF__RTgroup__leg_0": "去程",
     "PF__RTgroup__leg_1": "返程",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "价格",
     "PF__name_carrier": "承运航空公司",
     "PF__name_departureTime": "离开",

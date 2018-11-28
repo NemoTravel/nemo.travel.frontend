@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Todos",
     "PF__RTgroup__leg_0": "De ida",
     "PF__RTgroup__leg_1": "De vuelta",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Precio",
     "PF__name_carrier": "Portador",
     "PF__name_departureTime": "Salida",

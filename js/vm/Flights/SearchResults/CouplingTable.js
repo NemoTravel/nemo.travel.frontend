@@ -64,8 +64,8 @@ define(
 					tmp[key].push(this.flights[fiter].id);
 
 					// Setting data for available sorts detecting
-					availSortIndex.timeEnRoute[availSortIndex.timeEnRoute.length - 1][this.flights[fiter].legs[siter].depDateTime.getISODateTime()] = true;
-					availSortIndex.departureTime[availSortIndex.departureTime.length - 1][this.flights[fiter].legs[siter].timeEnRoute.length()] = true;
+					availSortIndex.timeEnRoute[availSortIndex.timeEnRoute.length - 1][this.flights[fiter].legs[siter].timeEnRoute.length()] = true;
+					availSortIndex.departureTime[availSortIndex.departureTime.length - 1][this.flights[fiter].legs[siter].depDateTime.getISODateTime()] = true;
 				}
 
 				// Converting

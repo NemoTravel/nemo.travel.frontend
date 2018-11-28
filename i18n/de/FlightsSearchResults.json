@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Hin- und Rückflug",
     "PF__RTgroup__leg_0": "Hinflug",
     "PF__RTgroup__leg_1": "Rückflug",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Preis",
     "PF__name_carrier": "Fluglinie",
     "PF__name_departureTime": "Abflugszeit",

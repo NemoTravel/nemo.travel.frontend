@@ -311,7 +311,13 @@ define(
 				url = prefix + '?' + getParams;
 			}
 
-			url += '&roomIds=' + roomsInfo.join(',') + '&fromApi=true';
+			if (url.indexOf('?') !== -1){
+				url += '&';
+			}
+			else {
+				url += '?';
+			}
+			url += 'roomIds=' + roomsInfo.join(',') + '&fromApi=true';
 
 			function processError(error) {
 				error = error || '';

@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Deense Kroon",
     "PF__RTgroup__leg_0": "Tsjechische Kroon",
     "PF__RTgroup__leg_1": "Klant",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "TJS",
     "PF__name_carrier": "valuta_TJS_naam",
     "PF__name_departureTime": "valuta_KZT_naam",

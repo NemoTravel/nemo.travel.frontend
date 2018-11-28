@@ -16,6 +16,7 @@ define(
 			this.overlandTripType = '';
 			this.segmentsByLeg = [];
 			this.legs = [];
+			this.searchInfoKey = '';
 			this.totalTimeEnRoute = null;
 			this.timeEnRouteByLeg = [];
 			this.totalStopovers = 0;
@@ -44,6 +45,7 @@ define(
 				this.segments[i].shortInfo += '&nbsp;';
 				this.segments[i].shortInfo += '(' + this.segments[i].depDateTime.getDate() + '&nbsp;' + this.segments[i].depDateTime.getMonthName() + ',&nbsp;' + this.segments[i].depDateTime.getDOWName() +')';
 				this.segments[i].overlandTrip = false;
+				this.searchInfoKey += this.segments[i].marketingCompany.IATA + '-' + this.segments[i].flightNumber;
 
 				this.segments[i].specialMark = {
 					name: '',

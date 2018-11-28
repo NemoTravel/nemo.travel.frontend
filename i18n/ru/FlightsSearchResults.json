@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Все",
     "PF__RTgroup__leg_0": "Туда",
     "PF__RTgroup__leg_1": "Обратно",
+    "PF__name_flightID": "Поиск рейсов",
+    "PF__name_flightID_placeholder": "Поиск по номеру рейса",
     "PF__name_price": "Цена",
     "PF__name_carrier": "Перевозчик",
     "PF__name_departureTime": "Время вылета",

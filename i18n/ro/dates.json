@@ -62,8 +62,50 @@
     "dow_6_s": "Sb",
     "dow_7_s": "du",
     "datetime_year": "datetime_year",
-    "monthNamesShort": "monthNamesShort",
-    "monthNames": "monthNames",
-    "daysOfWeekShort": "daysOfWeekShort",
-    "daysOfWeek": "daysOfWeek"
+    "monthNamesShort": {
+        "1": "Ian",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "Mai",
+        "6": "Iun",
+        "7": "Iul",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+    },
+    "monthNames": {
+        "1": "Ianuarie",
+        "2": "Februarie",
+        "3": "Martie",
+        "4": "Aprilie",
+        "5": "Mai",
+        "6": "Iunie",
+        "7": "Iulie",
+        "8": "August",
+        "9": "Septembrie",
+        "10": "Octombrie",
+        "11": "Noiembrie",
+        "12": "Decembrie"
+    },
+    "daysOfWeekShort": {
+        "1": "Dum",
+        "2": "Lun",
+        "3": "Mar",
+        "4": "Mie",
+        "5": "Joi",
+        "6": "Vin",
+        "7": "Sâm"
+    },
+    "daysOfWeek": {
+        "1": "Duminică",
+        "2": "Luni",
+        "3": "Marţi",
+        "4": "Miercuri",
+        "5": "Joi",
+        "6": "Vineri",
+        "7": "Sâmbătă"
+    }
 }

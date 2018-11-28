@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Bütün istiqamətlər",
     "PF__RTgroup__leg_0": "Gediş",
     "PF__RTgroup__leg_1": "Dönüş",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Qiymət",
     "PF__name_carrier": "Aviadaşıyıcı",
     "PF__name_departureTime": "Uçuş vaxtı",
