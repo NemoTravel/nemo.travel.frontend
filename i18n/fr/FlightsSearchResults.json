@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Tout",
     "PF__RTgroup__leg_0": "Aller",
     "PF__RTgroup__leg_1": "Retour aux résultats",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Prix",
     "PF__name_carrier": "Transporteur",
     "PF__name_departureTime": "Départ",

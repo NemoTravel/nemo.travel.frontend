@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "ყველა",
     "PF__RTgroup__leg_0": "იქეთ",
     "PF__RTgroup__leg_1": "უკან",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "ფასი",
     "PF__name_carrier": "გადამზიდი",
     "PF__name_departureTime": "გაფრენა",

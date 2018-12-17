@@ -90,6 +90,13 @@ define(
 						additionalValueChooser: this.stringPFMinPrice
 					};
 				}
+				else if (params.name === 'flightID') {
+					config.name = 'flightID';
+					config.getter = function (obj) {
+						return obj.searchInfoKey;
+					};
+					config.type = 'Text';
+				}
 				else if (params.name === 'price') {
 					config.type = 'Number';
 					config.getter = function (obj) {

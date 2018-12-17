@@ -14,6 +14,54 @@ $t_postFilters_animationTime = .1s;
         opacity: 1;
     }
 
+    &-text {
+        padding-right: 15px !important;
+
+        &_closed {
+            background-color: #64b5f6 !important;
+            color: #fff;
+            padding: 0 !important;
+        }
+
+        &__inputWrapper {
+            display: flex;
+            width: 100%;
+
+            input {
+                width: 100%;
+                border: none;
+                flex-basis: 100%;
+                outline: none !important;
+                background: none;
+
+                &:focus {
+                    outline: none !important;
+                }
+            }
+        }
+
+        &__close {
+            color: #43b6f2;
+        }
+
+        &__overlay {
+            width: 100%;
+            text-align: center;
+            padding-right: 10px;
+            font-size: 110%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .fa {
+                font-size: 13px;
+                margin-right: 5px;
+                display: block;
+                margin-bottom: 4px;
+            }
+        }
+    }
+
     &__inner {
         max-width: 100%;
     }

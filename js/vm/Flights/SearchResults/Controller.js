@@ -11,7 +11,7 @@ define(
 
 			this.postfiltersData = {
 				configs: {},
-				order: ['travelPolicies', 'price', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute','freeBaggage'],
+				order: ['travelPolicies', 'price', 'flightID', 'transfersCount', 'carrier', 'transfersDuration', 'departureTime', 'arrivalTime', 'departureAirport', 'arrivalAirport', 'timeEnRoute','freeBaggage'],
 				grouppable: ['departureTime', 'arrivalTime'],
 				preInitValues: {
 					carrier: null,
@@ -1776,6 +1776,7 @@ define(
 			'Common/PostFilter/Config',
 			'Common/PostFilter/String',
 			'Common/PostFilter/Number',
+			'Common/PostFilter/Text',
 			'Flights/Common/Geo'
 		];
 

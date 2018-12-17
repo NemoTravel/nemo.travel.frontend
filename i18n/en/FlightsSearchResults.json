@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "All",
     "PF__RTgroup__leg_0": "Going",
     "PF__RTgroup__leg_1": "Return",
+    "PF__name_flightID": "Flight search",
+    "PF__name_flightID_placeholder": "Search by flights number",
     "PF__name_price": "Price",
     "PF__name_carrier": "Carrier",
     "PF__name_departureTime": "Departure",

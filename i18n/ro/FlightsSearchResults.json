@@ -231,6 +231,8 @@
     "PF__RTgroup__leg_all": "Toate",
     "PF__RTgroup__leg_0": "Directia",
     "PF__RTgroup__leg_1": "Inapoi",
+    "PF__name_flightID": "PF__name_flightID",
+    "PF__name_flightID_placeholder": "PF__name_flightID_placeholder",
     "PF__name_price": "Pret",
     "PF__name_carrier": "Transportator",
     "PF__name_departureTime": "Plecare",
