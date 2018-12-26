@@ -121,5 +121,7 @@
     "hotels__bookingCheck__error__error_unavailable": "В выбранном отеле нет свободных номеров",
     "bookingCheck__link_to_searchResults": "Вернуться к результатам поиска",
     "bookingCheck__link_to_mainPage": "Новый поиск",
-    "hotels__hotelsChain": "Сеть отелей"
+    "hotels__hotelsChain": "Сеть отелей",
+    "hotels__showcase__corporate__header": "Отели с корпоративными тарифами",
+    "hotels__showcase__showMore": "Показать еще"
 }

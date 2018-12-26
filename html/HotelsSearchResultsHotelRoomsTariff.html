@@ -60,7 +60,7 @@
 				<div data-bind="foreach: tariff.rate.cancellationRules">
 					<p>
 						<span data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__freeRefund__noRefundAfter_1')"></span>
-						<span data-bind="text: deadLine.getHumanFullDate()"></span>
+						<span data-bind="text: deadLineRemark"></span>
 						<span data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__freeRefund__noRefundAfter_2')"></span>
 						<money data-bind="money: money"></money>
 					</p>

@@ -402,6 +402,7 @@
     "service_class_business": "Кәсіпкерлік",
     "service_class_first": "Бірінші",
     "service_class_premium_economy": "Премиум-эконом",
+    "service_class_comfort": "service_class_comfort",
     "service_class_economy": "Эконом",
     "new-passinfo-checkpopup__title": "Мархабат, енгізілген мәліметтерді тексеріңіз",
     "new-passinfo-checkpopup__passengers__header": "Жолаушылар",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
     "checkout-info__paybefore_today": "checkout-info__paybefore_today",
+    "checkout-info__pay_immediately": "checkout-info__pay_immediately",
     "checkout-info__paybefore_be4": "checkout-info__paybefore_be4",
     "checkout-info__timelimit__today": "checkout-info__timelimit__today",
     "checkout-info__timelimit__tomorrow": "checkout-info__timelimit__tomorrow",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
     "nemo-checkout-order-details__infoTooltip__copied": "nemo-checkout-order-details__infoTooltip__copied",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "nemo-checkout-order-details__accessCodeTooltip__copied",
-    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied",
+    "nemo-checkout-order-details__bookingView": "nemo-checkout-order-details__bookingView",
+    "new-passInfo__info__bookinfo_general": "new-passInfo__info__bookinfo_general",
+    "new-passInfo__info__dates": "new-passInfo__info__dates",
+    "new-passInfo__info__dates_action": "new-passInfo__info__dates_action",
+    "new-passInfo__info__dates_date": "new-passInfo__info__dates_date",
+    "new-passInfo__info__users__title_role": "new-passInfo__info__users__title_role",
+    "new-passInfo__info__users__title_user": "new-passInfo__info__users__title_user",
+    "new-passInfo__info__users__title_id": "new-passInfo__info__users__title_id",
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

@@ -465,23 +465,19 @@ define(
 								minPrice: null,
 								prevDate: null,
 								nextDate: null,
-								checkGroupIsAvailable: function (group, searchResultsController, flights) {
-									var result;
+								checkGroupIsAvailable: function (group, searchResultsController, flights, groups) {
+									var result = true;
+									var airlineCode = flight.segments[0].marketingCompany.IATA;
+									var hideEmptyGroups = groups.length > 5 && airlineCode !== 'R3';
+									var hideR3PromoGroup = (group.name === 'Промо' || group.name === 'Promo') && airlineCode === 'R3';
 
 									// Для а\к R3 скрываем колонку с тарифом "Промо", если на плече на этом тарифе нет мест.
-									if (group.name !== 'Промо' && group.name !== 'Promo') {
-										result = true;
-									}
-									else {
+									// Также, если на плече больше 5 тарифов, то прячем те, на которых нет мест.
+									if (hideR3PromoGroup || hideEmptyGroups) {
 										result = flights.reduce(function (result, flight) {
-											if (result) {
-												return true;
-											}
-
-											return flight.segments[0].marketingCompany.IATA !== 'R3' || searchResultsController.prices[flight.id + group.id] && searchResultsController.prices[flight.id + group.id].avlSeats > 0;
+											return result || searchResultsController.prices[flight.id + group.id] && searchResultsController.prices[flight.id + group.id].avlSeats > 0;
 										}, false);
 									}
-
 									return result;
 								}
 							};

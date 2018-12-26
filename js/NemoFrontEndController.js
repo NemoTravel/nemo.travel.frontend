@@ -1040,6 +1040,7 @@ define (
 			controllerSourceURL: '',
 			templateSourceURL: '',
 			hotelsTemplateSourceURL: '',
+			corporateHotelsShowcase: false,
 			createOrderLinkPrefixHotels: null,
 			dataURL: '',
 			staticInfoURL: '',

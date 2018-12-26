@@ -402,6 +402,7 @@
     "service_class_business": "Biznes",
     "service_class_first": "Birinchi",
     "service_class_premium_economy": "Premium-ekonomi",
+    "service_class_comfort": "service_class_comfort",
     "service_class_economy": "Ekonom",
     "new-passinfo-checkpopup__title": "Iltimos, ma'lumotlaringizni tekshiring",
     "new-passinfo-checkpopup__passengers__header": "Yo'lovchilar",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "Navbat kunlaridagi ish vaqti ",
     "checkout-office_timeperiod_work": "Ish vaqti",
     "checkout-info__paybefore_today": "Buyurtma to'lanishi zarur",
+    "checkout-info__pay_immediately": "checkout-info__pay_immediately",
     "checkout-info__paybefore_be4": "gacha",
     "checkout-info__timelimit__today": "Bugun",
     "checkout-info__timelimit__tomorrow": "Ertaga",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "Sug'urta polisining qoidalari",
     "nemo-checkout-order-details__infoTooltip__copied": "Clipboardga nusxa ko'chirish",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "Kirish kodi clipboardga ko'chirildi",
-    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied",
+    "nemo-checkout-order-details__bookingView": "Buyurtmani ko'rish",
+    "new-passInfo__info__bookinfo_general": "Asosiy",
+    "new-passInfo__info__dates": "Sanalar",
+    "new-passInfo__info__dates_action": "Harakat",
+    "new-passInfo__info__dates_date": "Sana",
+    "new-passInfo__info__users__title_role": "O'rni",
+    "new-passInfo__info__users__title_user": "Foydalanuvchi",
+    "new-passInfo__info__users__title_id": "ID",
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

@@ -402,6 +402,7 @@
     "service_class_business": "公务舱",
     "service_class_first": "头等舱",
     "service_class_premium_economy": "高级经济舱",
+    "service_class_comfort": "service_class_comfort",
     "service_class_economy": "经济舱",
     "new-passinfo-checkpopup__title": "请检查您输入的信息",
     "new-passinfo-checkpopup__passengers__header": "乘客",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
     "checkout-info__paybefore_today": "订单需支付",
+    "checkout-info__pay_immediately": "checkout-info__pay_immediately",
     "checkout-info__paybefore_be4": "之前",
     "checkout-info__timelimit__today": "今天",
     "checkout-info__timelimit__tomorrow": "明天",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
     "nemo-checkout-order-details__infoTooltip__copied": "nemo-checkout-order-details__infoTooltip__copied",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "nemo-checkout-order-details__accessCodeTooltip__copied",
-    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied",
+    "nemo-checkout-order-details__bookingView": "nemo-checkout-order-details__bookingView",
+    "new-passInfo__info__bookinfo_general": "new-passInfo__info__bookinfo_general",
+    "new-passInfo__info__dates": "new-passInfo__info__dates",
+    "new-passInfo__info__dates_action": "new-passInfo__info__dates_action",
+    "new-passInfo__info__dates_date": "new-passInfo__info__dates_date",
+    "new-passInfo__info__users__title_role": "new-passInfo__info__users__title_role",
+    "new-passInfo__info__users__title_user": "new-passInfo__info__users__title_user",
+    "new-passInfo__info__users__title_id": "new-passInfo__info__users__title_id",
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

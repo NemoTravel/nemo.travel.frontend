@@ -402,6 +402,7 @@
     "service_class_business": "Business",
     "service_class_first": "First",
     "service_class_premium_economy": "Premium-Economy",
+    "service_class_comfort": "service_class_comfort",
     "service_class_economy": "Economy",
     "new-passinfo-checkpopup__title": "Bitte überprüfen Sie Ihre Daten.",
     "new-passinfo-checkpopup__passengers__header": "Passagiere",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "checkout-office_timeperiod_dutyday",
     "checkout-office_timeperiod_work": "checkout-office_timeperiod_work",
     "checkout-info__paybefore_today": "checkout-info__paybefore_today",
+    "checkout-info__pay_immediately": "checkout-info__pay_immediately",
     "checkout-info__paybefore_be4": "checkout-info__paybefore_be4",
     "checkout-info__timelimit__today": "checkout-info__timelimit__today",
     "checkout-info__timelimit__tomorrow": "checkout-info__timelimit__tomorrow",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "new-passinfo-extServices-sirenaInsurance-rules",
     "nemo-checkout-order-details__infoTooltip__copied": "Die Information wurde kopiert ",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "nemo-checkout-order-details__accessCodeTooltip__copied",
-    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied"
+    "nemo-checkout-order-details__locator__copied": "nemo-checkout-order-details__locator__copied",
+    "nemo-checkout-order-details__bookingView": "Buchung anzeigen",
+    "new-passInfo__info__bookinfo_general": "Grundlegende Information ",
+    "new-passInfo__info__dates": "Termine",
+    "new-passInfo__info__dates_action": "Verfahren ",
+    "new-passInfo__info__dates_date": "Datum",
+    "new-passInfo__info__users__title_role": "Rolle",
+    "new-passInfo__info__users__title_user": "Benutzer ",
+    "new-passInfo__info__users__title_id": "ID",
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

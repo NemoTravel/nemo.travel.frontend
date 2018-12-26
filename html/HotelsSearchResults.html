@@ -455,163 +455,25 @@
 			<!--/ko -->
 
 			<!--ko if: resultsLoaded() -->
-				<div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile" data-bind="foreach: slicedFilteredHotels()">
-					<div class="nemo-hotels-results__groupList__item" data-bind="css: { 'has-flag': $data.hotelPrice == $parent.minHotelPrice, 'has-flag-specialOffer': $data.isSpecialOffer}">
-						<div class="nemo-ui-subContainer
-										nemo-hotels-results__hotelsGroup">
-							<div class="nemo-ui-subContainer__header
-											nemo-hotels-results__hotelsGroup__header">
-								<div class="nemo-hotels-results__hotelsGroup__header__title">
-									<a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#"
-									   data-bind="text: name, click: $parent.showCardHotel, attr: { href: $parent.makeHotelLink($data) }"></a>
-	
-									<div class="nemo-hotels-results__hotelsGroup__stars"
-										 data-bind="foreach: staticDataInfo.starRating">
-										<div class="nemo-hotels-results__hotelsGroup__stars__item">
-											<div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
-										</div>
-									</div>
-	
-								</div>
-								<!-- ko if: !isCorporateRates -->
-									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__special-offer'), visible: $data.isSpecialOffer"></div>
-									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice && !$data.isSpecialOffer"></div>
-								<!-- /ko -->
-								<!-- ko if: isCorporateRates -->
-									<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates'), visible: $data.isCorporateRates"></div>
-								<!-- /ko -->
-							</div>
-	
-							<div class="nemo-hotels-results__hotelsGroup__content">
-								<div class="nemo-hotels-results__hotelsGroup__mainInfo">
-									<div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap"
-										 data-bind="click: $parent.showCardHotel, style: { 'backgroundImage': $parent.getHotelMainImage($data, 1) }">
-									</div>
-									
-									<!-- ko if:  staticDataInfo.averageCustomerRating -->
-										<div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
-											<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number" data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
-											<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text" data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
-										</div>
-									<!-- /ko -->
-									
-									<div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
-										<div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
-											<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap" data-bind="css: {'nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__alone' : !staticDataInfo.averageCustomerRating}">
-												<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address"
-													 data-bind="text: $parent.currentCity().name + ', ' + staticDataInfo.addresses[0]">
-												</div>
-												<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
-														<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
-																  data-bind="text: $parent.getDistances($data)[0]">
-															</span>
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
-																  data-bind="text: $parent.getDistances($data)[0] ? ($root.i18n('HotelsSearchResults', 'targetFromCenter') + ($parent.getDistances($data)[1] ? ',' : '')) : ''">
-															</span>
-														</span>
-														<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
-																  data-bind="text: $parent.getDistances($data)[1]">
-															</span>
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
-																  data-bind="text: $parent.getDistances($data)[1] ? $root.i18n('HotelsSearchResults', 'targetFromAirport') : ''">
-															</span>
-														</span>
+				<!-- ko if: slicedShowCaseHotels && slicedShowCaseHotels().length > 0 -->
+					<div class="nemo-hotels-results__showcase nemo-hotels-results__showcase_corporateRates">
+						<div class="nemo-hotels-results__showcase__header">
+							<div class="nemo-hotels-results__showcase__headerText"
+								data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__showcase__corporate__header')"></div>
+						</div>
 
-													<!-- ko if: staticDataInfo.posLatitude && staticDataInfo.posLongitude -->
-														<a href="#" class="nemo-ui-pseudoLink
-																			   nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
-														   data-bind="click: function(hotel){ $parent.showBigMap(hotel) }, css: { 'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1] }">
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
-																  data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
-															</span>
-															<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile"
-																  data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')">
-															</span>
-														</a>
-													<!-- /ko -->
-												</div>
-											</div>
-										</div>
-										<div class="nemo-hotels-results__hotelsGroup__mainInfo__description" data-bind="click: $parent.showCardHotel">
-											<p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot"
-											   data-bind="html: staticDataInfo.description, hotelsResultsDescriptionBindings: afterHotelDescriptionRender"></p>
-										   
-											<a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
-										</div>
-									</div>
-	
-									<ul class="nemo-hotels-results__hotelsGroup__services nemo-hotels-services" data-bind="foreach: $data.staticDataInfo.popularFeatures">
-										<li class="nemo-hotels-results__hotelsGroup__services__service nemo-hotels-services__service nemo-hotels-services__service_active">
-											<span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data, tooltip: {
-												content: $parents[1].popularHotelsFeatures[$data],
-												delay: 0
-											}"></span>
-										</li>
-									</ul>
-								</div>
-	
-								<!-- ko if: rooms.length && rooms[0] && rooms[0][0].type -->
-									<div class="nemo-hotels-results__hotelsGroup__rooms">
-										<div class="nemo-hotels-results__hotelsGroup__rooms__title" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__recommended_accommodation')"></div>
-		
-										<!--Rooms-->
-										<ul class="nemo-hotels-results__hotelsGroup__roomsList" data-bind="foreach: rooms">
-											<li class="nemo-hotels-results__hotelsGroup__room">
-												<div class="nemo-hotels-results__hotelsGroup__room__info">
-													<div class="nemo-hotels-results__hotelsGroup__room__title">
-														<div class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap" data-bind="foreach: new Array($parents[1].guestsByRooms()[$index()])">
-															<div class="nemo-hotels-results__hotelsGroup__room__title__icon"></div>
-														</div>
-														
-														<span class="nemo-ui-link nemo-hotels-results__hotelsGroup__room__title__text">
-															<span data-bind="text: $data[0].type.commonName ? $data[0].type.commonName : $data[0].type.name, click: function(hotel) { $parents[1].showCardHotel($parent) }"></span>
-														</span>
-													</div>
-													
-													<ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
-														<li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="visible: $data[0].meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + $data[0].meal.code)"></li>
-													</ul>
-												</div>
-											</li>
-										</ul>
-		
-										<span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
-											<span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
-												<span class="nemo-ui-link nemo-hotels-results__hotelsGroup__rooms__allRooms__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms'), click: $parent.showCardHotel"></span>
-											</span>
-										</span>
-									</div>
-								<!-- /ko -->
-	
-								<div class="nemo-hotels-results__hotelsGroup__footer">
-									<!-- ko if: $root.controller.viewModel.user.isB2B() -->
-										<div class="nemo-hotels-results__hotelsGroup__footer__supplier" data-bind="text: supplier"></div>
-									<!-- /ko -->
+						<div class="nemo-hotels-results__showcase__hotels" data-bind="foreach: slicedShowCaseHotels">
+							<!-- ko template: { name: 'hotelsResultsHotel' } --><!-- /ko -->
+						</div>
 
-									<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn"
-										 data-bind="click: $parent.showCardHotel">
-										<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
-											<span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
-												<span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
-
-												<span class="nemo-hotels-results__hotelsGroup__footer__price">
-													<money data-bind="money: priceObservable" round="up" format="0,0 $"></money>
-												</span>
-											</span>
-											
-											<span class="nemo-hotels-results__hotelsGroup__footer__period">
-												<span data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
-											</span>
-										</div>
-										<div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
-									</div>
-								</div>
-	
-							</div>
+						<div class="nemo-hotels-results__showMoreWrap">
+							<div class="nemo-ul-showMoreBtn" data-bind="click: showCaseNextHotels, visible: !hideShowCaseMoreButton(), text: $root.i18n('HotelsSearchResults', 'hotels__showcase__showMore')"></div>
 						</div>
 					</div>
+				<!-- /ko -->
+
+				<div class="nemo-hotels-results__groupList nemo-hotels-results__groupList_tile" data-bind="foreach: slicedFilteredHotels()">
+					<!-- ko template: { name: 'hotelsResultsHotel' } --><!-- /ko -->
 				</div>
 	
 				<div class="nemo-hotels-results__showMoreWrap">
@@ -665,3 +527,162 @@
 	</section>
 </div>
 <!--/ko -->
+
+<script type="text/html" id="hotelsResultsHotel">
+	<div class="nemo-hotels-results__groupList__item" data-bind="css: { 'has-flag': $data.hotelPrice == $parent.minHotelPrice, 'has-flag-specialOffer': $data.isSpecialOffer}">
+		<div class="nemo-ui-subContainer
+										nemo-hotels-results__hotelsGroup">
+			<div class="nemo-ui-subContainer__header
+											nemo-hotels-results__hotelsGroup__header">
+				<div class="nemo-hotels-results__hotelsGroup__header__title">
+					<a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#"
+					   data-bind="text: name, click: $parent.showCardHotel, attr: { href: $parent.makeHotelLink($data) }"></a>
+
+					<div class="nemo-hotels-results__hotelsGroup__stars"
+						 data-bind="foreach: staticDataInfo.starRating">
+						<div class="nemo-hotels-results__hotelsGroup__stars__item">
+							<div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+						</div>
+					</div>
+
+				</div>
+				<!-- ko if: !isCorporateRates -->
+				<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__special-offer'), visible: $data.isSpecialOffer"></div>
+				<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__best_price'), visible: $data.hotelPrice == $parent.minHotelPrice && !$data.isSpecialOffer"></div>
+				<!-- /ko -->
+				<!-- ko if: isCorporateRates -->
+				<div class="nemo-hotels-results__hotelsGroup__header__additional" data-bind="text: $root.i18n('HotelsSearchResults', 'header-flag__corporate-rates'), visible: $data.isCorporateRates"></div>
+				<!-- /ko -->
+			</div>
+
+			<div class="nemo-hotels-results__hotelsGroup__content">
+				<div class="nemo-hotels-results__hotelsGroup__mainInfo">
+					<div class="nemo-hotels-results__hotelsGroup__mainInfo__photoWrap"
+						 data-bind="click: $parent.showCardHotel, style: { 'backgroundImage': $parent.getHotelMainImage($data, 1) }">
+					</div>
+
+					<!-- ko if:  staticDataInfo.averageCustomerRating -->
+					<div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
+						<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number" data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
+						<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text" data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
+					</div>
+					<!-- /ko -->
+
+					<div class="nemo-hotels-results__hotelsGroup__mainInfo__infoBlock">
+						<div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
+							<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap" data-bind="css: {'nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__alone' : !staticDataInfo.averageCustomerRating}">
+								<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address"
+									 data-bind="text: $parent.currentCity().name + ', ' + staticDataInfo.addresses[0]">
+								</div>
+								<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
+														<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
+															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
+																  data-bind="text: $parent.getDistances($data)[0]">
+															</span>
+															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
+																  data-bind="text: $parent.getDistances($data)[0] ? ($root.i18n('HotelsSearchResults', 'targetFromCenter') + ($parent.getDistances($data)[1] ? ',' : '')) : ''">
+															</span>
+														</span>
+									<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
+															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__value"
+																  data-bind="text: $parent.getDistances($data)[1]">
+															</span>
+															<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance__target"
+																  data-bind="text: $parent.getDistances($data)[1] ? $root.i18n('HotelsSearchResults', 'targetFromAirport') : ''">
+															</span>
+														</span>
+
+									<!-- ko if: staticDataInfo.posLatitude && staticDataInfo.posLongitude -->
+									<a href="#" class="nemo-ui-pseudoLink
+																			   nemo-hotels-results__hotelsGroup__mainInfo__mapLink"
+									   data-bind="click: function(hotel){ $parent.showBigMap(hotel) }, css: { 'nemo-hotels-results__hotelsGroup__mainInfo__mapLink_no-margin': !$parent.getDistances($data)[0] && !$parent.getDistances($data)[1] }">
+															<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__desctop"
+																  data-bind="text: $root.i18n('HotelsSearchResults', 'PH__map_link')">
+															</span>
+										<span class="nemo-hotels-results__hotelsGroup__mainInfo__mapLink__mobile"
+											  data-bind="text: $root.i18n('HotelsSearchResults', 'map__button-show')">
+															</span>
+									</a>
+									<!-- /ko -->
+								</div>
+							</div>
+						</div>
+						<div class="nemo-hotels-results__hotelsGroup__mainInfo__description" data-bind="click: $parent.showCardHotel">
+							<p class="nemo-hotels-results__hotelsGroup__mainInfo__description__text nemo-hotels-results__hotelsGroup__mainInfo__description-jquery-dotdotdot"
+							   data-bind="html: staticDataInfo.description, hotelsResultsDescriptionBindings: afterHotelDescriptionRender"></p>
+
+							<a href="#" class="nemo-hotels-results__hotelsGroup__mainInfo__description__link"></a>
+						</div>
+					</div>
+
+					<ul class="nemo-hotels-results__hotelsGroup__services nemo-hotels-services" data-bind="foreach: $data.staticDataInfo.popularFeatures">
+						<li class="nemo-hotels-results__hotelsGroup__services__service nemo-hotels-services__service nemo-hotels-services__service_active">
+											<span class="nemo-hotels-services__service__icon" data-bind="css: 'nemo-hotels-services__service__icon_' + $data, tooltip: {
+												content: $parents[1].popularHotelsFeatures[$data],
+												delay: 0
+											}"></span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- ko if: rooms.length && rooms[0] && rooms[0][0].type -->
+				<div class="nemo-hotels-results__hotelsGroup__rooms">
+					<div class="nemo-hotels-results__hotelsGroup__rooms__title" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__recommended_accommodation')"></div>
+
+					<!--Rooms-->
+					<ul class="nemo-hotels-results__hotelsGroup__roomsList" data-bind="foreach: rooms">
+						<li class="nemo-hotels-results__hotelsGroup__room">
+							<div class="nemo-hotels-results__hotelsGroup__room__info">
+								<div class="nemo-hotels-results__hotelsGroup__room__title">
+									<div class="nemo-hotels-results__hotelsGroup__room__title__iconsWrap" data-bind="foreach: new Array($parents[1].guestsByRooms()[$index()])">
+										<div class="nemo-hotels-results__hotelsGroup__room__title__icon"></div>
+									</div>
+
+									<span class="nemo-ui-link nemo-hotels-results__hotelsGroup__room__title__text">
+															<span data-bind="text: $data[0].type.commonName ? $data[0].type.commonName : $data[0].type.name, click: function(hotel) { $parents[1].showCardHotel($parent) }"></span>
+														</span>
+								</div>
+
+								<ul class="nemo-hotels-results__hotelsGroup__room__featuresList">
+									<li class="nemo-hotels-results__hotelsGroup__room__feature" data-bind="visible: $data[0].meal.code, text: $root.i18n('Hotels', 'hotels-room-meal__' + $data[0].meal.code)"></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+
+					<span class="nemo-hotels-results__hotelsGroup__rooms__allRoomsWrap">
+											<span class="nemo-hotels-results__hotelsGroup__rooms__allRooms">
+												<span class="nemo-ui-link nemo-hotels-results__hotelsGroup__rooms__allRooms__link" data-bind="text: $root.i18n('HotelsSearchResults', 'PH__link_all_rooms'), click: $parent.showCardHotel"></span>
+											</span>
+										</span>
+				</div>
+				<!-- /ko -->
+
+				<div class="nemo-hotels-results__hotelsGroup__footer">
+					<!-- ko if: $root.controller.viewModel.user.isB2B() -->
+					<div class="nemo-hotels-results__hotelsGroup__footer__supplier" data-bind="text: supplier"></div>
+					<!-- /ko -->
+
+					<div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn"
+						 data-bind="click: $parent.showCardHotel">
+						<div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+											<span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
+												<span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
+
+												<span class="nemo-hotels-results__hotelsGroup__footer__price">
+													<money data-bind="money: priceObservable" round="up" format="0,0 $"></money>
+												</span>
+											</span>
+
+							<span class="nemo-hotels-results__hotelsGroup__footer__period">
+												<span data-bind="text: $root.i18n('HotelsSearchResults', 'for') + ' ' + $parent.countOfNights() + ' ' + $parent.labelAfterNights()"></span>
+											</span>
+						</div>
+						<div class="nemo-hotels-results__hotelsGroup__footer__arrow"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</script>

@@ -616,11 +616,7 @@ define(
 				return self.hotels();
 			});
 
-			/**
-			 * Returns array of hotels filtered by stars, features, price, and sorting
-			 * @return {Array}
-			 */
-			this.getFilteredAndSortedHotels = ko.pureComputed(function () {
+			this.preFilteredAndSortedHotels = ko.pureComputed(function() {
 				// if any of filters weren't applied will return all hotels
 				if (self.filters.isFilterEmpty()) {
 					return self.getSortedHotels();
@@ -629,6 +625,22 @@ define(
 				return ko.utils.arrayFilter(self.getSortedHotels(), function (hotel) {
 					return self.filters.isMatchWithAllFilters(hotel);
 				});
+			});
+
+			/**
+			 * Returns array of hotels filtered by stars, features, price, and sorting
+			 * @return {Array}
+			 */
+			this.getFilteredAndSortedHotels = ko.pureComputed(function () {
+				var filteredHotels = self.preFilteredAndSortedHotels();
+
+				if (self.$$controller.options.corporateHotelsShowcase) {
+					return filteredHotels.filter(function (hotel) {
+						return !hotel.isCorporateRates;
+					});
+				}
+
+				return filteredHotels;
 			});
 
 			this.exceptStarFilteredHotels = ko.pureComputed(function () {
@@ -658,6 +670,24 @@ define(
 				return self.getFilteredAndSortedHotels().slice(0, self.visibleHotelsCount());
 			});
 
+			this.showCaseHotels = ko.pureComputed(function () {
+				if (!self.$$controller.options.corporateHotelsShowcase) {
+					return [];
+				}
+
+				var filteredHotels = self.preFilteredAndSortedHotels();
+
+				return filteredHotels.filter(function (hotel) {
+					if (hotel.isCorporateRates) {
+						return hotel;
+					}
+				});
+			});
+
+			this.slicedShowCaseHotels = ko.pureComputed(function () {
+				return self.showCaseHotels().slice(0, self.showCaseVisibleItems());
+			});
+
 			this.distanceFromCenter = new SliderViewModel(
 				ko,
 				SliderViewModel.TYPE_MIN,
@@ -666,7 +696,7 @@ define(
 			);
 
 			this.isResultEmpty = ko.pureComputed(function () {
-				return !self.filters.isFilterEmpty() && self.getFilteredAndSortedHotels() && self.getFilteredAndSortedHotels().length === 0;
+				return !self.filters.isFilterEmpty() && self.preFilteredAndSortedHotels() && self.preFilteredAndSortedHotels().length === 0;
 			});
 
 			function updateMapMarkers(hotels) {
@@ -692,7 +722,7 @@ define(
 					index              = 0,
 					minPriceHotelIndex = 0;
 
-				var hotels = ko.utils.arrayFilter(self.getFilteredAndSortedHotels(), function (hotel) {
+				var hotels = ko.utils.arrayFilter(self.preFilteredAndSortedHotels(), function (hotel) {
 
 					hotel.staticDataInfo.isBestPrice = false;
 
@@ -812,7 +842,7 @@ define(
 							specialConditions.specialOffer++;
 							isFilterVisible = true;
 						}
-						if(self.isСorporateRatesExist(hotel)) {
+						if(self.isСorporateRatesExist(hotel) && !self.$$controller.options.corporateHotelsShowcase) {
 							specialConditions.corporateRates++;
 						}
 					});
@@ -850,12 +880,20 @@ define(
 				return self.lazyLoadHotelsCount() === 0;
 			});
 
+			this.hideShowCaseMoreButton = ko.pureComputed(function() {
+				return self.slicedShowCaseHotels().length >= self.showCaseHotels().length;
+			});
+
 			this.searchFormURL = ko.pureComputed(function () {
 				return self.$$controller.options.root + 'hotels';
 			});
 
 			this.showNextHotels = function () {
 				self.visibleHotelsCount(self.visibleHotelsCount() + self.lazyLoadHotelsCount());
+			};
+
+			this.showCaseNextHotels = function () {
+				self.showCaseVisibleItems(self.showCaseVisibleItems() + 4);
 			};
 
 			/**

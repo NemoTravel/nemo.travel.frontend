@@ -69,6 +69,7 @@ define(
 			this.oldMarkers = ko.observable([]);
 			this.searchInfo = ko.observable({});
 			this.resultsLoaded = ko.observable(false);
+			this.showCaseVisibleItems = ko.observable(4);
 			
 			this.guestsByRooms = ko.pureComputed(function () {
 				var searchInfo = this.searchInfo(),
@@ -401,6 +402,10 @@ define(
 							}
 							else {
 								try {
+									if (data.hotels.search.results.info.errorCode === 404) {
+										throw 'No results';
+									}
+
 									data.hotels.search.results.hotels = replaceHotelKeysWithIdFromSearchResults(data.hotels.search.results.hotels);
 									this.processSearchResults(data);
 								}

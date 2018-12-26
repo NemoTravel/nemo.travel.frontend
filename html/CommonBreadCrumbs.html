@@ -1,22 +1,47 @@
 <section class="nemo-common-breadCrumbs js-nemoApp__component">
 	<div class="nemo-common-breadCrumbs__inner">
-		<!-- ko if: !$$loading() -->
-		<div class="nemo-common-breadCrumbs__crumbs" data-bind="foreach: elements"><span class="nemo-common-breadCrumbs__crumbs__crumb">
+		<div class="nemo-common-breadCrumbs__crumbs" data-bind="foreach: elements">
+			<span class="nemo-common-breadCrumbs__crumbs__crumb">
 				<!-- ko if: active -->
-				<a href="#" class="nemo-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title"
-					data-bind="
-						text: $root.i18n('CommonBreadCrumbs', title),
-						attr: {href: link},
-						click: function (model, e) {e.preventDefault();$parent.$$controller.navigate(link, true, pageTitle);}"></a>
+					<a href="#" class="nemo-ui-pseudoLink nemo-common-breadCrumbs__crumbs__crumb__title"
+					   data-bind="
+							text: $data.i18n ? $data.i18n : $root.i18n('CommonBreadCrumbs', title),
+							attr: { href: link },
+							click: function (model, e) { 
+								e.preventDefault(); 
+								$parent.$$controller.navigate(link, true, pageTitle);
+							}">
+					</a>
 				<!-- /ko -->
+
 				<!-- ko if: !active -->
-				<span class="nemo-common-breadCrumbs__crumbs__crumb__title"
-				      data-bind="text: $root.i18n('CommonBreadCrumbs', title)"></span>
+					<span class="nemo-common-breadCrumbs__crumbs__crumb__title" data-bind="text: $data.i18n ? $data.i18n : $root.i18n('CommonBreadCrumbs', title)"></span>
 				<!-- /ko -->
-			</span></div><!--
-		ko if: additionalComponent
-		--><div class="nemo-common-breadCrumbs__additional" data-bind="component: {name: additionalComponent.name, params: additionalComponent.params}"></div>
+			</span>
+		</div>
+
+		<!-- ko if: additionalComponent -->
+			<div class="nemo-common-breadCrumbs__additional" data-bind="component: { name: additionalComponent.name, params: additionalComponent.params }"></div>
 		<!-- /ko -->
+
+		<!-- ko if: 'recentSearches' in $parent -->
+			<div class="nemo-ui-dropMenu js-nemo-header-dropmenu nemo-common-pageHeader__dropMenu nemo-common-breadCrumbs__additional"
+				 data-bind="visible: $parent.recentSearches().length">
+				<div class="nemo-ui-dropMenu__main">
+					<label class="nemo-hotels-results__content__postfilters__order">
+						<div class="nemo-ui-select js-common-pseudoSelect nemo-hotels-form__routeOptions__item__selector">
+							<div class="nemo-ui-select__toggle js-common-pseudoSelect__toggle nemo-hotels-form__routeOptions__item__selector__button"
+								 data-bind="pseudoSelect: null, i18n: 'CommonBreadCrumbs.recentSearches__toggle'"></div>
+	
+							<div class="nemo-ui-select__dropdown js-common-pseudoSelect__dropdown" data-bind="foreach: $parent.recentSearches">
+								<div class="nemo-ui-select__dropdown__item">
+									<a data-bind="attr: { href: $root.controller.options.root + 'hotels/results/' + $data.searchId }, text: $data.title"></a>
+								</div>
+							</div>
+						</div>
+					</label>
+				</div>
+			</div>
 		<!-- /ko -->
 	</div>
 </section>

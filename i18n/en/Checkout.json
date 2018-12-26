@@ -402,6 +402,7 @@
     "service_class_business": "Business",
     "service_class_first": "First",
     "service_class_premium_economy": "Premium-economy",
+    "service_class_comfort": "Comfort",
     "service_class_economy": "Economy",
     "new-passinfo-checkpopup__title": "Please check your data",
     "new-passinfo-checkpopup__passengers__header": "Passengers",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "Duty days working hours",
     "checkout-office_timeperiod_work": "Working hours",
     "checkout-info__paybefore_today": "Order must be paid",
+    "checkout-info__pay_immediately": "Order must be paid right after booking",
     "checkout-info__paybefore_be4": "before",
     "checkout-info__timelimit__today": "today",
     "checkout-info__timelimit__tomorrow": "tomorrow",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "Rules of the insurance policy",
     "nemo-checkout-order-details__infoTooltip__copied": "Data has been copied to the clipboard",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "Access code has been copied to the clipboard",
-    "nemo-checkout-order-details__locator__copied": "Supplier ID code has been copied to the clipboard"
+    "nemo-checkout-order-details__locator__copied": "Supplier ID code has been copied to the clipboard",
+    "nemo-checkout-order-details__bookingView": "Main booking",
+    "new-passInfo__info__bookinfo_general": "Main",
+    "new-passInfo__info__dates": "Dates",
+    "new-passInfo__info__dates_action": "Actions",
+    "new-passInfo__info__dates_date": "Date",
+    "new-passInfo__info__users__title_role": "Role",
+    "new-passInfo__info__users__title_user": "User",
+    "new-passInfo__info__users__title_id": "ID",
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

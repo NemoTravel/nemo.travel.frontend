@@ -19,7 +19,8 @@ define(
 			this.rules = ko.observableArray([]);
 			this.agencyRules = ko.observable(null);
 			this.canBeTranslated = ko.observable(false);
-			this.isSpecialFaresService = ko.observable(false);
+			this.isManualFareRules = ko.observable(false);
+			this.manualRulesArray = ko.observableArray([]);
 			this.isLoading = ko.observable(false);
 			this.isLoaded = ko.observable(false);
 			this.errorMessage = ko.observable('');
@@ -102,7 +103,7 @@ define(
 		 * @returns {Array}
 		 */
 		FlightsSearchResultsFareRulesController.prototype.parseRules = function (response) {
-			var result = [], rulesMap = {}, tariffRules, agencyRules;
+			var result = [], rulesMap = {}, tariffRules, agencyRules, manualRules;
 
 			if ((response.system.hasOwnProperty('error') && response.system.error)) {
 				throw new Error(response.system.error);
@@ -110,18 +111,19 @@ define(
 
 			tariffRules = response.flights.utils.rules.tariffRules;
 			agencyRules = response.flights.utils.rules.agencyRules;
-
-			this.isSpecialFaresService(response.flights.utils.rules.isSpecialFaresService);
+			manualRules = response.flights.utils.rules.manualRulesArray;
 			this.canBeTranslated(response.flights.utils.rules.canBeTranslated);
 
 			if (agencyRules) {
 				this.agencyRules(agencyRules);
 			}
-			
+			if (manualRules) {
+				this.isManualFareRules(true);
+				this.manualRulesArray(manualRules);
+			}
 			if (!tariffRules instanceof Array || tariffRules.length === 0) {
 				throw new Error('No fare rules');
 			}
-
 			// Складываем в стопку правила, группируя их по коду тарифа + типу пассажира.
 			for (var segmentNumber in tariffRules) if (tariffRules.hasOwnProperty(segmentNumber)) {
 				if (tariffRules[segmentNumber] instanceof Array) {

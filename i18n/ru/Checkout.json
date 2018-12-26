@@ -402,6 +402,7 @@
     "service_class_business": "Бизнес",
     "service_class_first": "Первый",
     "service_class_premium_economy": "Премиум-эконом",
+    "service_class_comfort": "Комфорт",
     "service_class_economy": "Эконом",
     "new-passinfo-checkpopup__title": "Пожалуйста, проверьте введенные данные",
     "new-passinfo-checkpopup__passengers__header": "Пассажиры",
@@ -704,6 +705,7 @@
     "checkout-office_timeperiod_dutyday": "Время работы в дежурные дни",
     "checkout-office_timeperiod_work": "Время работы",
     "checkout-info__paybefore_today": "Бронь нужно оплатить",
+    "checkout-info__pay_immediately": "Бронь нужно оплатить сразу",
     "checkout-info__paybefore_be4": "до",
     "checkout-info__timelimit__today": "сегодня",
     "checkout-info__timelimit__tomorrow": "завтра",
@@ -713,5 +715,14 @@
     "new-passinfo-extServices-sirenaInsurance-rules": "Правила полиса страхования",
     "nemo-checkout-order-details__infoTooltip__copied": "Скопировано в буфер обмена",
     "nemo-checkout-order-details__accessCodeTooltip__copied": "Код доступа был скопирован в буфер обмена",
-    "nemo-checkout-order-details__locator__copied": "Номер заказа у поставщика был скопирован в буфер обмена"
+    "nemo-checkout-order-details__locator__copied": "Номер заказа у поставщика был скопирован в буфер обмена",
+    "nemo-checkout-order-details__bookingView": "Просмотр заказа",
+    "new-passInfo__info__bookinfo_general": "Основное",
+    "new-passInfo__info__dates": "Даты",
+    "new-passInfo__info__dates_action": "Действие",
+    "new-passInfo__info__dates_date": "Дата",
+    "new-passInfo__info__users__title_role": "Роль",
+    "new-passInfo__info__users__title_user": "Пользователь",
+    "new-passInfo__info__users__title_id": "ID",
+    "new-passInfo__info__openLink": "Открыть"
 }

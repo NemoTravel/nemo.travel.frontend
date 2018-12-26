@@ -121,5 +121,7 @@
     "hotels__bookingCheck__error__error_unavailable": "No available rooms left",
     "bookingCheck__link_to_searchResults": "Back to search results",
     "bookingCheck__link_to_mainPage": "New search",
-    "hotels__hotelsChain": "Hotels chain"
+    "hotels__hotelsChain": "Hotels chain",
+    "hotels__showcase__corporate__header": "Hotels with corporate fares",
+    "hotels__showcase__showMore": "Show more"
 }
