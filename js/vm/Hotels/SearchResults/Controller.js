@@ -70,6 +70,7 @@ define(
 			this.searchInfo = ko.observable({});
 			this.resultsLoaded = ko.observable(false);
 			this.showCaseVisibleItems = ko.observable(4);
+			this.isOneHotelWithCorporateFareExists = ko.observable(false);
 			
 			this.guestsByRooms = ko.pureComputed(function () {
 				var searchInfo = this.searchInfo(),

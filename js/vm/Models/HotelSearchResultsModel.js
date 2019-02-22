@@ -508,6 +508,10 @@ define(
 				findMostExpensiveHotel(hotel);
 				findMaxAverageCustomerRating(hotel);
 
+				if (hotel.isCorporateRates) {
+					self.isOneHotelWithCorporateFareExists(true);
+				}
+
 				if (!hotel.averageCustomerRating) {
 					hotel.averageCustomerRating = {
 						value: 0,

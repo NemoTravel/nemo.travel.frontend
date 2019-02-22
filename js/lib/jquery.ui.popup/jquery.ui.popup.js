@@ -289,6 +289,11 @@ define(
 					}
 
 					if (this.options.modal) {
+						if(/iPhone|iPod/.test(navigator.userAgent)) {
+							$('body').attr('top-pos', $(window).scrollTop());
+							$('html')
+								.addClass('ui-dialog__open_iphone');
+						}
 						$('body')
 							.addClass('ui-dialog__open')
 							.css({'padding-right': scrollBarWidth});
@@ -303,6 +308,11 @@ define(
 						$('body')
 							.removeClass('ui-dialog__open')
 							.css({'padding-right': 0});
+						$('html')
+							.removeClass('ui-dialog__open_iphone');
+						if($('body').attr('top-pos')) {
+							$(window).scrollTop($('body').attr('top-pos'));
+						}
 					}
 
 					this.document.data('ui-dialog__open',

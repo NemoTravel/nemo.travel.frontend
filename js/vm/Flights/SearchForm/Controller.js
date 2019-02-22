@@ -529,7 +529,7 @@ define(
 		// Additional stuff
 		// RegExps for params parsing
 		FlightsSearchFormController.prototype.paramsParsers = {
-			segs: /([A-Z]{3})([A-Z]{3})(\d{8}|d\d{1,2})/g,
+			segs: /([A-ZА-Я]{3})([A-ZА-Я]{3})(\d{8}|d\d{1,2})/g,
 			passengers: /([A-Z]{3})(\d+)/g
 		};
 
