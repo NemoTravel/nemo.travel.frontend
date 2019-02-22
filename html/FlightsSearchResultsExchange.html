@@ -80,13 +80,7 @@
 			</div>
 		</div>
 
-		<div class="nemo-flights-results__summary__passengers">
-			<span class="nemo-flights-results__summary__passengers_passengers" data-bind="text: passengersSummary()"></span>
-
-			<!-- ko if: searchInfo().serviceClass !== 'All' -->
-				<span class="nemo-flights-results__summary__passengers_serviceClass" data-bind="text: $root.i18n('FlightsSearchForm', 'serviceClass_' + searchInfo().serviceClass)"></span>
-			<!-- /ko -->
-		</div>
+		<div class="nemo-flights-results__summary__passengers" data-bind="text: passengersSummary()"></div>
 
 		<div class="nemo-ui-button nemo-flights-results__summary__switch"
 		     data-bind="text: $root.i18n('FlightsSearchResults', 'formDummy__switch')"></div>
@@ -405,17 +399,9 @@
 			<!-- /ko -->
 
 			<!-- ko if: resultsLoaded() && visibleResultsCount() > showcase.mainFlightsCount() -->
-				<div data-bind="visible: displayType() === 'list', foreach: groups(), attr: { 'class': 'nemo-flights-results__groupList nemo-flights-results__groupList_list' }, searchResultDataLayer">
-					<!-- ko if: $parent.visibleGroupsIds()[$data.id] -->
-						<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group_list', data: $data }"></div>
-					<!-- /ko -->
-				</div>
-
-				<div data-bind="visible: displayType() === 'tile', foreach: groups(), attr: { 'class': 'nemo-flights-results__groupList nemo-flights-results__groupList_tile' }, searchResultDataLayer">
-					<!-- ko if: $parent.visibleGroupsIds()[$data.id] -->
-						<div class="nemo-flights-results__groupList__item" data-bind="template: { name: 'nemo-koTemplate-FlightsResults-Group_tile', data: $data }"></div>
-					<!-- /ko -->
-				</div>
+			<div data-bind="foreach: visibleGroups, attr:{'class':'nemo-flights-results__groupList nemo-flights-results__groupList_' + displayType()}, searchResultDataLayer">
+				<div class="nemo-flights-results__groupList__item" data-bind="template: {name: 'nemo-koTemplate-FlightsResults-Group_' + $parent.displayType(), data: $data}"></div>
+			</div>
 			<!-- /ko -->
 
 			<!-- ko if: resultsLoaded() && totalVisibleGroups() > shownGroups() -->
@@ -462,7 +448,7 @@
 	<!-- /ko -->
 	<!-- /ko -->
 
-			<script id="nemo-koTemplate-FlightsResults-PostFilters" type="text/html"><div class="nemo-common-postFilters__inner"><!-- ko if: PFHintActive() && visiblePostFilters().length --><div class="nemo-common-postFilters__notification"><!-- ko text: $root.i18n('FlightsSearchResults', 'PF__hint') --><!-- /ko --><div class="nemo-common-postFilters__notification__close" data-bind="click: function() {disablePFHint()}"></div></div><!-- /ko --><!-- ko if: postFiltersHaveValue() --><div class="nemo-common-postFilters__clearAll"><div data-bind="click: PFClearAll, text: $root.i18n('FlightsSearchResults', 'PF__clearAll')"class="nemo-ui-button nemo-ui-button_common nemo-common-postFilters__clearAll__button"></div></div><!-- /ko --><div class="nemo-common-postFilters__filterList" data-bind="foreach: visiblePostFilters"><!-- ko if: typeof isActive == 'function' && isActive() --><div class="nemo-common-postFilters__filterList__filter" data-bind="css: 'nemo-common-postFilters__filterList__filter_' + config.name"><div class="nemo-common-postFilters__filterList__filter__caption"><!-- ko if: config.type !== 'Text' --><h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4><!-- /ko --><!-- ko if: hasValue --><span data-bind="click: clear, text: $root.i18n('FlightsSearchResults', 'PF__clearPF')" class="nemo-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear"></span><!-- /ko --></div><!-- ko if: config.isLegged --><div class="nemo-common-postFilters__filterList__filter__caption nemo-common-postFilters__filterList__filter__caption_inner"><h5 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="with: $parent.searchInfo().segments[config.legNumber]"><!-- ko text: departure.name + ' — ' + arrival.name + ' ' + departureDate.getDate() + ' ' + departureDate.getMonthName() --><!-- /ko --></h5></div><!-- /ko --><!-- ko if: config.type == 'Number' --><div class="nemo-common-postFilters__filterList__filter__valuesBlock nemo-common-postFilters__filterList__filter__valuesBlock_slider"><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-Number', data: $data }"></div></div><!-- /ko --><!-- ko if: config.type == 'String' --><div class="nemo-common-postFilters__filterList__filter__valuesBlock"><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div></div><!-- /ko --><!-- ko if: config.type == 'Text' --><div class="nemo-common-postFilters__filterList__filter__valuesBlock"><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-Text', data: $data }"></div></div><!-- /ko --></div><!-- /ko--><!-- ko if: typeof isActive != 'function'  --><div class="nemo-common-postFilters__filterList__filter"><div class="nemo-common-postFilters__filterList__filter__caption"><h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4><!-- ko if: filters.length > 1 --><span data-bind="click: clear, visible: value(), text: $root.i18n('FlightsSearchResults', 'PF__clearPF')" class="nemo-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear"></span><!-- /ko --></div><!-- ko if: filters.length > 1 --><div class="nemo-common-postFilters__filterList__filter__partSelector"><div class="nemo-common-postFilters__filterList__filter__partSelector__part"data-bind="click: function () {activeFilter(-1);},css: {'nemo-common-postFilters__filterList__filter__partSelector__part_selected': activeFilter() == -1},text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_all')"></div><!-- ko foreach: filters --><div class="nemo-common-postFilters__filterList__filter__partSelector__part"data-bind="click: function () {$parent.activeFilter($index());},css: {'nemo-common-postFilters__filterList__filter__partSelector__part_hasChanges': hasValue(),'nemo-common-postFilters__filterList__filter__partSelector__part_selected': $index() == $parent.activeFilter()},text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_' + config.legNumber)"></div><!-- /ko--></div><!-- /ko --><div class="nemo-common-postFilters__filterList__filter__valuesBlock"><!-- ko if: filters.length > 1 --><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="visible: activeFilter() == -1, template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div><!-- /ko --><!-- ko foreach: filters --><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="visible: $index() == $parent.activeFilter(), template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div><!-- /ko--></div></div><!-- /ko--></div></div></script>
+			<script id="nemo-koTemplate-FlightsResults-PostFilters" type="text/html"><div class="nemo-common-postFilters__inner"><!-- ko if: PFHintActive() && visiblePostFilters().length --><div class="nemo-common-postFilters__notification"><!-- ko text: $root.i18n('FlightsSearchResults', 'PF__hint') --><!-- /ko --><div class="nemo-common-postFilters__notification__close" data-bind="click: function() {disablePFHint()}"></div></div><!-- /ko --><!-- ko if: postFiltersHaveValue() --><div class="nemo-common-postFilters__clearAll"><div data-bind="click: PFClearAll, text: $root.i18n('FlightsSearchResults', 'PF__clearAll')"class="nemo-ui-button nemo-ui-button_common nemo-common-postFilters__clearAll__button"></div></div><!-- /ko --><div class="nemo-common-postFilters__filterList" data-bind="foreach: visiblePostFilters"><!-- ko if: typeof isActive == 'function' && isActive() --><div class="nemo-common-postFilters__filterList__filter" data-bind="css: 'nemo-common-postFilters__filterList__filter_' + config.name"><div class="nemo-common-postFilters__filterList__filter__caption"><h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4><!-- ko if: hasValue --><span data-bind="click: clear, text: $root.i18n('FlightsSearchResults', 'PF__clearPF')" class="nemo-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear"></span><!-- /ko --></div><!-- ko if: config.isLegged --><div class="nemo-common-postFilters__filterList__filter__caption nemo-common-postFilters__filterList__filter__caption_inner"><h5 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="with: $parent.searchInfo().segments[config.legNumber]"><!-- ko text: departure.name + ' — ' + arrival.name + ' ' + departureDate.getDate() + ' ' + departureDate.getMonthName() --><!-- /ko --></h5></div><!-- /ko --><!-- ko if: config.type == 'Number' --><div class="nemo-common-postFilters__filterList__filter__valuesBlock nemo-common-postFilters__filterList__filter__valuesBlock_slider"><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-Number', data: $data }"></div></div><!-- /ko --><!-- ko if: config.type == 'String' --><div class="nemo-common-postFilters__filterList__filter__valuesBlock"><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div></div><!-- /ko --></div><!-- /ko--><!-- ko if: typeof isActive != 'function'  --><div class="nemo-common-postFilters__filterList__filter"><div class="nemo-common-postFilters__filterList__filter__caption"><h4 class="nemo-common-postFilters__filterList__filter__caption__name" data-bind="text: $root.i18n('FlightsSearchResults', 'PF__name_' + config.name)"></h4><!-- ko if: filters.length > 1 --><span data-bind="click: clear, visible: value(), text: $root.i18n('FlightsSearchResults', 'PF__clearPF')" class="nemo-ui-pseudoLink nemo-common-postFilters__filterList__filter__caption__clear"></span><!-- /ko --></div><!-- ko if: filters.length > 1 --><div class="nemo-common-postFilters__filterList__filter__partSelector"><div class="nemo-common-postFilters__filterList__filter__partSelector__part"data-bind="click: function () {activeFilter(-1);},css: {'nemo-common-postFilters__filterList__filter__partSelector__part_selected': activeFilter() == -1},text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_all')"></div><!-- ko foreach: filters --><div class="nemo-common-postFilters__filterList__filter__partSelector__part"data-bind="click: function () {$parent.activeFilter($index());},css: {'nemo-common-postFilters__filterList__filter__partSelector__part_hasChanges': hasValue(),'nemo-common-postFilters__filterList__filter__partSelector__part_selected': $index() == $parent.activeFilter()},text: $root.i18n('FlightsSearchResults', 'PF__RTgroup__leg_' + config.legNumber)"></div><!-- /ko--></div><!-- /ko --><div class="nemo-common-postFilters__filterList__filter__valuesBlock"><!-- ko if: filters.length > 1 --><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="visible: activeFilter() == -1, template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div><!-- /ko --><!-- ko foreach: filters --><div class="nemo-common-postFilters__filterList__filter__valuesBlock__values"data-bind="visible: $index() == $parent.activeFilter(), template: { name: 'nemo-koTemplate-FlightsResults-PostFilters-String', data: $data }"></div><!-- /ko--></div></div><!-- /ko--></div></div></script>
 	<script id="nemo-koTemplate-FlightsResults-PostFilters-String" type="text/html"><label class="nemo-common-postFilters__filterList__filter__valuesBlock__values__value nemo-common-postFilters__filterList__filter__valuesBlock__values__value_noMatter"
        data-bind="
 			css: { 'nemo-common-postFilters__filterList__filter__valuesBlock__values__value_checked' : (!($parent.value())) || ($parent.value() == '') },
@@ -1100,49 +1086,35 @@
 	<script id="nemo-koTemplate-Flights-FlightInfo__oneLeg" type="text/html"><div class="nemo-flights-flightInfo" data-bind="template: {name: 'nemo-koTemplate-Flights-FlightInfo__cleanLeg', data: $data}"></div></script>
 	<script id="nemo-koTemplate-Flights-FlightInfo__cleanLeg" type="text/html"><div class="nemo-flights-flightInfo__leg" data-bind="with: flight">
 	<div class="nemo-flights-flightInfo__leg__header">
-		<div class="nemo-flights-flightInfo__leg__logo">
-			<img class="nemo-flights-flightInfo__leg__header__carrierLogo"
-				 data-bind="
-					attr: {
-						src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image
-					},
-					css: {
-						'nemo-flights-flightInfo__leg__header__carrierLogo__mismatch': carriersMismatch
-					},
-					tooltip: {
-						content: segmentsByLeg[$parent.leg][0].marketingCompany.name
-					}">
+		<img class="nemo-flights-flightInfo__leg__header__carrierLogo"
+			 data-bind="
+			 	attr: {
+					src: $root.controller.options.staticInfoURL + segmentsByLeg[$parent.leg][0].marketingCompany.logo.image
+				},
+				css: {
+					'nemo-flights-flightInfo__leg__header__carrierLogo__mismatch': carriersMismatch
+				},
+				tooltip: {
+					content: segmentsByLeg[$parent.leg][0].marketingCompany.name
+			 	}">
 
-			<!-- ko if: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch -->
-				<!-- ko foreach: $parent.flight.carriersMismatchDataByLeg[$parent.leg].array -->
-					<img class="nemo-flights-flightInfo__leg__header__carrierLogo nemo-flights-flightInfo__leg__header__carrierLogo__mismatch"
-							data-bind="
-								attr: {
-									src: $root.controller.options.staticInfoURL + $data.logo.image
-								},
-								tooltip: {
-									content: $data.name
-								}"/>
-				<!-- /ko -->
-			<!-- /ko -->
-		</div>
-		<div class="nemo-flights-flightInfo__leg__text">
-			<span class="nemo-flights-flightInfo__leg__header__text"
-				  data-bind="
-						html: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch ?
-							$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header__carriersMismatch' : 'leg__header__carriersMismatch').replace('[%-carrier-%]', $parent.flight.carriersMismatchDataByLeg[$parent.leg].label) :
-								$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header' : 'leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
-
-			<!-- ko if: legs[$parent.leg].isCharter -->
-				<div class="nemo-flights-flightInfo__leg__charter"
-					  data-bind="
-							text: $root.i18n('FlightsSearchResults','flightsGroup__selector__isCharter'),
+		<!-- ko if: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch -->
+			<!-- ko foreach: $parent.flight.carriersMismatchDataByLeg[$parent.leg].array -->
+				<img class="nemo-flights-flightInfo__leg__header__carrierLogo nemo-flights-flightInfo__leg__header__carrierLogo__mismatch"
+						data-bind="
+							attr: {
+								src: $root.controller.options.staticInfoURL + $data.logo.image
+							},
 							tooltip: {
-								content: $root.i18n('FlightsSearchResults', 'flightsGroup__selector__isCharter__desc')
-							}
-				"></div>
+								content: $data.name
+					 		}"/>
 			<!-- /ko -->
-		</div>
+		<!-- /ko -->
+		<span class="nemo-flights-flightInfo__leg__header__text"
+			  data-bind="
+			  		html: $parent.flight.carriersMismatchDataByLeg[$parent.leg].isCarriersMismatch ?
+			  			$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header__carriersMismatch' : 'leg__header__carriersMismatch').replace('[%-carrier-%]', $parent.flight.carriersMismatchDataByLeg[$parent.leg].label) :
+			  				$root.i18n('FlightsFlightInfo', overlandTrip ? 'leg__overlandTrip__header' : 'leg__header').replace('[%-carrier-%]', segmentsByLeg[$parent.leg][0].marketingCompany.name)"></span>
 	</div>
 
 	<div class="nemo-flights-flightInfo__leg__route"><span class="nemo-flights-flightInfo__leg__route__departue" data-bind="text: legs[$parent.leg].depAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__arrival" data-bind="text: legs[$parent.leg].arrAirp.name"></span><span class="nemo-flights-flightInfo__leg__route__date" data-bind="text: legs[$parent.leg].depDateTime.getDate() + ' ' + legs[$parent.leg].depDateTime.getMonthName()"></span></div>
@@ -1153,11 +1125,7 @@
 			<!-- ko text: $root.i18n('FlightsFlightInfo','leg__transfer') --><!-- /ko -->
 			<span class="nemo-flights-flightInfo__leg__transfer__duration" data-bind="text: duration.readableString()"></span>
 
-			<!-- ko if: arrAirp.IATA !== depAirp.IATA -->
-				<span class="nemo-flights-flightInfo__leg__transfer__terminalChange nemo-flights-flightInfo__leg__transfer__terminalChange_airport" data-bind="text: $root.i18n('FlightsFlightInfo','leg__airportChange')"></span>
-			<!-- /ko -->
-
-			<!-- ko if: arrTerminal !== depTerminal && arrAirp.IATA === depAirp.IATA -->
+			<!-- ko if: arrTerminal != depTerminal -->
 				<span class="nemo-flights-flightInfo__leg__transfer__terminalChange" data-bind="text: $root.i18n('FlightsFlightInfo','leg__terminalChange')"></span>
 			<!-- /ko -->
 		</div>
@@ -1297,14 +1265,6 @@
 		</div>
 		<!-- /ko -->
 
-		<!-- ko if: $parent.segmentsByLeg[$parents[1].leg].length > 1 -->
-			<!-- ko if: $data.sunInfo && sunInfo.text -->
-				<div class="nemo-flights-flightInfo__leg__segment__sunInfo">
-					<div data-bind="html: sunInfo.text"></div>
-				</div>
-			<!-- /ko -->
-		<!-- /ko -->
-
 		<!-- ko if: $parent.fareFeatures.hasFeaturesForSegment(routeNumber + '_' + number) -->
 			<!-- ko component: {
 				name: 'Flights/SearchResults/FareFeatures/Controller',
@@ -1323,16 +1283,6 @@
 			<span class="nemo-flights-flightInfo__leg__footer__item__title" data-bind="text: $root.i18n('FlightsFlightInfo','leg__timeEnRoute__caption')"></span>
 			<span class="nemo-flights-flightInfo__leg__footer__item__value" data-bind="text: legs[$parent.leg].timeEnRoute.readableString()"></span>
 		</div>
-
-		<!-- ko if: segmentsByLeg[$parent.leg].length === 1 -->
-			<div class="nemo-flights-flightInfo__leg__footer__item" data-bind="with: segmentsByLeg[$parent.leg][0]">
-				<!-- ko if: $data.sunInfo && sunInfo.text -->
-					<div class="nemo-flights-flightInfo__leg__segment__sunInfo nemo-flights-flightInfo__leg__segment__sunInfo_noMargin">
-						<div data-bind="html: sunInfo.text"></div>
-					</div>
-				<!-- /ko -->
-			</div>
-		<!-- /ko -->
 	</div>
 </div></script>
 
@@ -1584,19 +1534,21 @@
 	<!-- /ko -->
 
 	<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+
 		<div class="nemo-flights-results__flightsGroup__footer__buyButtonContainer">
-			<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton"
-				 data-bind="
-					flightsResultsBuyButtonFlightCheck: {
-						ids: [cheapestSelected().id],
-						controller: group.resultsController,
-						addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
-					}
-				">
-				<money format="0,0 $" data-bind="money: cheapestSelected().getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
-				<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
-			</div>
+				<div class="nemo-ui-button nemo-ui-button_main nemo-flights-results__flightsGroup__buyButton"
+					 data-bind="
+						flightsResultsBuyButtonFlightCheck: {
+							ids: cheapestSelected().id,
+							controller: group.resultsController,
+							addClass: 'nemo-flights-results__flightsGroup__buyButton_bookingCheck'
+						}
+					">
+					<money format="0,0 $" data-bind="money: cheapestSelected().getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
+					<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
+				</div>
 		</div>
+
 	</div>
 
 	<!-- ko if: detailsPopupOpen -->
