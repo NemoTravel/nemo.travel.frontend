@@ -115,42 +115,102 @@
 					</div>
 				</div>
 	
-				<div class="nemo-ui-select nemo-hotels-form__passengers">
-					<div class="nemo-ui-select__toggle nemo-hotels-form__passengers__container js-hotels-searchForm-passSelect" data-bind="
-						hotelsFormGuestsSelector: null,
+				<div class="nemo-ui-select nemo-hotels-form__passengers js-common-pseudoSelect">
+					<div class="nemo-ui-select__toggle nemo-hotels-form__passengers__container  nemo-hotels-form__passengers__container_pseudoSelect js-hotels-searchForm-passSelect js-common-pseudoSelect__toogle"
+						 data-bind="
+							css: { 'nemo-ui-select__toggle_open': roomsFastSelectorOpen() },
+							hotelsFormGuestsSelector: null,
+							text: guestsSummary"></div>
+
+					<div class="nemo-ui-select__toggle nemo-hotels-form__passengers__container nemo-hotels-form__passengers__container_fullScreen js-hotels-searchForm-passSelect js-common-pseudoSelect__toogle"
+						 data-bind="
+							css: { 'nemo-ui-select__toggle_open': roomsFastSelectorOpen() },
+							hotelsFormGuestsSelector: { fullScreen: true },
+							text: guestsSummary"></div>
+
+					<div class="nemo-ui-select__toggle nemo-hotels-form__passengers__containerColumn js-hotels-searchForm-passSelect js-common-pseudoSelect__toogle" data-bind="
+						hotelsFormGuestsSelector: { fullScreen: true },
 						text: guestsSummary,
 						css: { 'nemo-ui-select__toggle_open': roomsFastSelectorOpen() }"></div>
 
-					<div class="nemo-ui-select__toggle nemo-hotels-form__passengers__containerColumn js-hotels-searchForm-passSelect" data-bind="
-						hotelsFormGuestsSelector: null,
-						text: guestsSummary,
-						css: { 'nemo-ui-select__toggle_open': roomsFastSelectorOpen() }"></div>
-	
-					<div class="nemo-ui-select__dropdown nemo-hotels-form__passengers__fastSelect" data-bind="visible: roomsFastSelectorOpen">
-						<!-- ko foreach: roomsFastSelectOptions -->
-							<div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item" data-bind="
-								text: $parent.roomsTextForFastSelect($index()),
-								click: function () { $parent.roomsFastSelectorOpen(false); $parent.roomsSelectFast($index()); 
-							}"></div>
-						<!-- /ko -->
-	
-						<!-- ko if: roomsUseExtendedSelect -->
-							<div class="nemo-ui-select__dropdown__item nemo-hotels-form__passengers__fastSelect__item" data-bind="
-								popup: {
-									block: 'passengersFullSelect',
-									title: $root.i18n('HotelsSearchForm','hotels__rooms__fullSelect__title'),
-									dialogClass: 'no-overflow',
-									buttons: [
-										{
-											text: $root.i18n('HotelsSearchForm','hotels__passengers__fullSelect__button__done'),
-											click: function () { $(this).data('ui-popup__close')() }
-										}
-									],
-								},
-								click: function () { roomsFastSelectorOpen(false); },
-								text: $root.i18n('HotelsSearchForm','hotels__rooms__fastSelect__fullSelectOption')
-							"></div>
-						<!-- /ko -->
+					<div class="nemo-ui-select__dropdown nemo-hotels-form__passengers__fastSelect js-common-pseudoSelect__dropdown"
+						 data-bind="
+						 	visible: roomsFastSelectorOpen,
+						 	click: function (d, e) {
+								e.stopPropagation();
+							}
+						 ">
+						<div class="nemo-hotels-form__passengers__rooms">
+							<!-- ko foreach: rooms -->
+								<div class="nemo-hotels-form__passengers__room">
+									<div class="nemo-hotels-form__passengers__room__header">
+										<span data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__passengersSelector__room')
+																	.replace('[%-roomNumber-%]', $index() + 1)"></span>
+									</div>
+
+									<div class="nemo-flights-form__passengers__buttonSelect">
+										<div class="nemo-flights-form__passengers__buttonSelect__item nemo-flights-form__passengers__buttonSelect__item_adults">
+											<div class="nemo-flights-form__passengers__buttonSelect__item__name">
+												<div class="nemo-flights-form__passengers__buttonSelect__item__header"
+														data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__passengerType_ADT_passSelectorName')"></div>
+												<div class="nemo-flights-form__passengers__buttonSelect__item__desc"
+														data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__guestType_ADT_ageInfo')"></div>
+											</div>
+											<div class="nemo-flights-form__passengers__buttonSelect__item__count">
+												<div class="nemo-hotels-form__spinner">
+													<input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, max: 9, numberFormat: 'n' }, attr:{ room: $index() }" readonly>
+												</div>
+											</div>
+										</div>
+
+										<div class="nemo-flights-form__passengers__buttonSelect__item nemo-flights-form__passengers__buttonSelect__item_infants">
+											<div class="nemo-flights-form__passengers__buttonSelect__item__name">
+												<div class="nemo-flights-form__passengers__buttonSelect__item__header"
+														data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__passengerType_CLD_passSelectorName')"></div>
+												<div class="nemo-flights-form__passengers__buttonSelect__item__desc"
+													 	data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__guestType_CLD_ageInfo')"></div>
+											</div>
+											<div class="nemo-flights-form__passengers__buttonSelect__item__count">
+												<div class="nemo-hotels-form__spinner">
+													<input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, max: 4, numberFormat: 'n' }, attr:{ room: $index() }" readonly>
+												</div>
+											</div>
+										</div>
+
+										<!-- ko foreach: infants -->
+											<div class="nemo-flights-form__passengers__buttonSelect__item nemo-flights-form__passengers__buttonSelect__item_age">
+												<div class="nemo-flights-form__passengers__buttonSelect__item__name" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__rooms_infant_ages')"></div>
+
+												<div class="nemo-flights-form__passengers__buttonSelect__item__count">
+													<div class="nemo-hotels-form__spinner">
+														<input data-bind="snipperAge: $parentContext.$data.infants()[$index()], spinnerOptions: { min: 0, max: 17, numberFormat: 'n' }, attr:{ room: $parentContext.$index(), infant: $index() }" maxlength="1" readonly>
+													</div>
+												</div>
+											</div>
+										<!-- /ko -->
+									</div>
+
+									<!-- ko with: $parent -->
+										<!-- ko if: $parentContext.$index() === 0 -->
+											<button class="nemo-ui-button nemo-hotels-form__RoomsPopup__addRoomButton" data-bind="
+													visible: rooms().length < 4 && (maxAdultsFromFS === null || guestsSummaryByType().adults < maxAdultsFromFS),
+													text: $root.i18n('HotelsSearchForm','hotels__rooms_room_add'),
+													click: function (data, event) { roomAdd(); $(event.target).blur() }
+												"></button>
+										<!-- /ko -->
+										<!-- ko if: $parentContext.$index() > 0 -->
+											<button class="nemo-ui-button nemo-ui-button_outline nemo-hotels-form__RoomsPopup__addRoomButton nemo-hotels-form__RoomsPopup__addRoomButton_delete" data-bind="
+													text: $root.i18n('HotelsSearchForm','hotels__rooms_delete'),
+													click: function () { roomRemove($parentContext.$index()); }
+												"></button>
+										<!-- /ko -->
+									<!-- /ko -->
+								</div>
+							<!-- /ko -->
+						</div>
+
+						<div class="nemo-hotels-form__passengers__close js-common-pseudoSelect__close"
+								data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__passengersSelector__done')"></div>
 					</div>
 				</div>
 
@@ -166,26 +226,32 @@
 												e.stopPropagation();
 											}
 										">
-							<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
-							<div class="nemo-hotels-form__loyalCard__item">
-								<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-								<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-									   data-bind="textInput: loyaltyCardChain, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') }"
-									   type="text"
-									   spellcheck="false"
-									   autocorrect="off"
-									   autocomplete="off">
-							</div>
-							<div class="nemo-hotels-form__loyalCard__item">
-								<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
-								<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-									   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
-									   type="text"
-									   spellcheck="false"
-									   autocorrect="off"
-									   autocomplete="off">
-							</div>
+							<div class="nemo-hotels-form__loyalCard">
+								<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
+								<div class="nemo-hotels-form__loyalCard__item">
+									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
+									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+										   data-bind="
+										   		textInput: loyaltyCardChain,
+										   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+										   		css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
+										   type="text"
+										   spellcheck="false"
+										   autocorrect="off"
+										   autocomplete="off">
+									<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
 
+								</div>
+								<div class="nemo-hotels-form__loyalCard__item">
+									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
+									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
+										   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
+										   type="text"
+										   spellcheck="false"
+										   autocorrect="off"
+										   autocomplete="off">
+								</div>
+							</div>
 							<!-- ko if: $$controller.options.clientNationalitySelect -->
 								<div class="nemo-hotels-form__clientNationality">
 									<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__clientNationality')"></div>
@@ -256,24 +322,33 @@
 												e.stopPropagation();
 											}
 										">
-								<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
-								<div class="nemo-hotels-form__loyalCard__item">
-									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-										   data-bind="textInput: loyaltyCardChain, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') }"
-										   type="text"
-										   spellcheck="false"
-										   autocorrect="off"
-										   autocomplete="off">
-																	</div>
-								<div class="nemo-hotels-form__loyalCard__item">
-									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
-									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-										   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
-										   type="text"
-										   spellcheck="false"
-										   autocorrect="off"
-										   autocomplete="off">
+								<div class="nemo-hotels-form__loyalCard">
+									<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
+									<div class="nemo-hotels-form__loyalCard__item">
+										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
+										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+											   data-bind="
+											   		textInput: loyaltyCardChain,
+											   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+													css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
+											   type="text"
+											   minlength="2"
+											   maxlength="2"
+											   spellcheck="false"
+											   autocorrect="off"
+											   autocomplete="off">
+										<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
+
+																			</div>
+									<div class="nemo-hotels-form__loyalCard__item">
+										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
+										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
+											   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
+											   type="text"
+											   spellcheck="false"
+											   autocorrect="off"
+											   autocomplete="off">
+									</div>
 								</div>
 
 								<!-- ko if: $$controller.options.clientNationalitySelect -->
@@ -329,50 +404,6 @@
 				</div>
 			</div>
 		<!-- /ko -->
-
-		<div data-block="passengersFullSelect" class="nemo-hotels-form__passengersPopUp js-nemoApp__popupBlock">
-			<!-- ko foreach: rooms -->
-				<div class="nemo-hotels-form__RoomsPopup__room" data-bind="css: { 'nemo-hotels-form__RoomsPopup__room_more': $index() > 0 }">
-					<button class="nemo-hotels-form__RoomsPopup__room__delete" data-bind="
-						text: $root.i18n('HotelsSearchForm','hotels__rooms_delete'),
-						visible: $index() > 0,
-						click: function () { $parent.roomRemove($index()); }
-					"></button>
-					
-					<div class="nemo-hotels-form__RoomsPopup__room__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_room') + ' ' + ($index() + 1)"></div>
-					
-					<div class="nemo-hotels-form__RoomsPopup__room__guests">
-						<div class="nemo-hotels-form__RoomsPopup__room__guests__adults">
-							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_adults')"></div>
-							<div class="nemo-hotels-form__spinner">
-								<input data-bind="spinnerAdults: adults, spinnerOptions: { min: 1, max: 9, numberFormat: 'n' }, attr:{ room: $index() }" readonly>
-							</div>
-						</div>
-						
-						<div class="nemo-hotels-form__RoomsPopup__room__guests__children">
-							<div class="nemo-hotels-form__RoomsPopup__room__guests__title" data-bind="text: $root.i18n('HotelsSearchForm','hotels__rooms_infants')"></div>
-							<div class="nemo-hotels-form__spinner">
-								<input data-bind="spinnerInfants: infants().length, spinnerOptions: { min: 0, max: 4, numberFormat: 'n' }, attr:{ room: $index() }" maxlength="1" readonly>
-							</div>
-						</div>
-					</div>
-					<div class="nemo-hotels-form__RoomsPopup__room__ages">
-						<div class="nemo-hotels-form__RoomsPopup__room__ages__title" data-bind="text: infants().length > 0 ? $root.i18n('HotelsSearchForm','hotels__rooms_infants_ages') : ''"></div>
-						<!-- ko foreach: infants -->
-							<div class="nemo-hotels-form__spinner">
-								<input data-bind="snipperAge: $parentContext.$data.infants()[$index()], spinnerOptions: { min: 0, max: 17, numberFormat: 'n' }, attr:{ room: $parentContext.$index(), infant: $index() }" maxlength="1" readonly>
-							</div>
-						<!-- /ko -->
-					</div>
-				</div>
-			<!-- /ko -->
-			
-			<button class="nemo-hotels-form__RoomsPopup_addRoomButton" data-bind="
-				visible: rooms().length < 4 && (maxAdultsFromFS === null || guestsSummaryByType().adults < maxAdultsFromFS),
-				text: $root.i18n('HotelsSearchForm','hotels__rooms_room_add'),
-				click: function () { roomAdd(); }
-				"></button>
-		</div>
 	<!-- /ko -->
 
 	<!-- ko if: $$error() -->
