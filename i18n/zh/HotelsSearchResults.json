@@ -8,6 +8,7 @@
     "filter__caption__results": "结果",
     "sort__type__1": "评分",
     "sort__type__2": "价格",
+    "sort__type__3": "sort__type__3",
     "hotels__PF__hint": "为了尽快找到您需要的酒店，用筛选",
     "searchBox_map": "地图上搜索",
     "hotels__PF__clearPF": "hotels__PF__clearPF",
@@ -105,6 +106,8 @@
     "for": "为",
     "select": "選擇",
     "selected": " 选的",
+    "needRequestForAvailabilityCheck_header": "needRequestForAvailabilityCheck_header",
+    "needRequestForAvailabilityCheck_desc": "needRequestForAvailabilityCheck_desc",
     "collapse": "收起",
     "change": "修改",
     "showAlsoVariants": "后一页",
@@ -118,5 +121,7 @@
     "hotels__bookingCheck__error__error_unavailable": "您选的酒店没空房",
     "bookingCheck__link_to_searchResults": "回返搜索结果",
     "bookingCheck__link_to_mainPage": "重新搜索",
-    "hotels__hotelsChain": "连酒店"
+    "hotels__hotelsChain": "连酒店",
+    "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
+    "hotels__showcase__showMore": "hotels__showcase__showMore"
 }

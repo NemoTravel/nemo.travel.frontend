@@ -12,56 +12,20 @@
 
 <div class="js-nemoApp__popupBlock" style="display: none;" data-bind="attr: { 'data-block': hash }">
 	<div class="nemo-flights-farerules__content">
-		<!-- ko if: isSpecialFaresService() -->
-			<div id="new-flights-farerules__ruleText" style="padding: 0 20px 20px;">
-				<div id="new-flights-farerules__ruleText__rules">
+		<!-- ko if: isManualFareRules() -->
+		<div id="new-flights-farerules__ruleText" style="padding: 0 20px 20px;">
+			<div id="new-flights-farerules__ruleText__rules">
+				<!-- ko foreach: manualRulesArray() -->
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_1')">
-						</div>
+						<div class="new-flights-farerules__rules__rule__text" data-bind="text: $data"></div>
 					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_2')">
-						</div>
-					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_3')">
-						</div>
-					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_4')">
-						</div>
-					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_5')">
-						</div>
-					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_6')">
-						</div>
-					</div>
-					<br/>
-					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text"
-							 data-bind="html: $root.i18n('FlightsSearchResults', 'flightsFareRules__SpecialFaresService_7')">
-						</div>
-					</div>
-				</div>
+					<!-- /ko -->
 			</div>
+		</div>
 		<!-- /ko -->
 
-		<!-- ko if: !isSpecialFaresService() -->
+		<!-- ko if: !isManualFareRules() -->
 			<!-- ko if: agencyRules() -->
 				<div class="nemo-flights-farerules__content__agencyRules">
 					<h2 class="nemo-flights-farerules__content__rules__list__body__category__name" 
@@ -79,7 +43,7 @@
 					</span>
 		
 					<span class="nemo-flights-farerules__content__translators__link" data-bind="click: loadTranslated, css: { 'nemo-ui-pseudoLink': !translated() }">
-						<!-- ko text: currentLangLabel() --><!-- /ko --> *
+						<!-- ko text: $root.i18n('FlightsSearchResults', 'flightsFareRules__translator__translated') --><!-- /ko --> *
 					</span>
 				</div>
 			<!-- /ko -->
