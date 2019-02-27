@@ -557,7 +557,7 @@
 						 data-bind="click: $parent.showCardHotel, style: { 'backgroundImage': $parent.getHotelMainImage($data, 1) }">
 					</div>
 
-					<!-- ko if:  staticDataInfo.averageCustomerRating -->
+					<!-- ko if:  staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.value > 0 -->
 					<div class="nemo-hotels-results__hotelsGroup__mainInfo__rating">
 						<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__number" data-bind="text: staticDataInfo.averageCustomerRating ? staticDataInfo.averageCustomerRating.value : 0"></span>
 						<span class="nemo-hotels-results__hotelsGroup__mainInfo__rating__text" data-bind="text: staticDataInfo.averageCustomerRating && staticDataInfo.averageCustomerRating.description ? staticDataInfo.averageCustomerRating.description : $root.i18n('HotelsSearchResults', 'PH__averageCustomerRating_description_default')"></span>
@@ -568,7 +568,7 @@
 						<div class="nemo-hotels-results__hotelsGroup__mainInfo__infoWrap">
 							<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap" data-bind="css: {'nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__alone' : !staticDataInfo.averageCustomerRating}">
 								<div class="nemo-hotels-results__hotelsGroup__mainInfo__addressWrap__address"
-									 data-bind="text: $parent.currentCity().name + ', ' + staticDataInfo.addresses[0]">
+									 data-bind="text: $parent.currentCity().name + (staticDataInfo.addresses && staticDataInfo.addresses.length ? ', ' + staticDataInfo.addresses[0] : '')">
 								</div>
 								<div class="nemo-hotels-results__hotelsGroup__mainInfo__distances">
 														<span class="nemo-hotels-results__hotelsGroup__mainInfo__distance">
