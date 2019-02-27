@@ -314,6 +314,11 @@ define([
 
     GoogleMapModel.prototype.addMarkersOnMap = function (hotels) {
 
+		if (!window.google) {
+			console.warn("Google Maps Library is not included to page. Check API key");
+			return;
+		}
+
         var self = this,
             bounds = new google.maps.LatLngBounds(),
             isBounded = false,
