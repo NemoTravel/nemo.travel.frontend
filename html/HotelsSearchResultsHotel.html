@@ -3,7 +3,10 @@
 		<aside class="nemo-hotel__additional">
 			<div class="nemo-hotel__additional__info">
 				<span class="nemo-hotel__additional__info__name" data-bind="text: name"></span>
-				<span class="nemo-hotel__additional__info__address" data-bind="text: staticDataInfo.currentCity.name + ', ' + staticDataInfo.addresses[0], attr: { title: staticDataInfo.currentCity + ', ' + staticDataInfo.addresses[0] }"></span>
+				<span class="nemo-hotel__additional__info__address" data-bind="
+					text: staticDataInfo.currentCity.name + (staticDataInfo.addresses && staticDataInfo.addresses.length ? ', ' + staticDataInfo.addresses[0] : ''),
+					attr: { title: staticDataInfo.currentCity + (staticDataInfo.addresses && staticDataInfo.addresses.length ? ', ' + staticDataInfo.addresses[0] : '') }
+				"></span>
 				<div class="nemo-hotel__additional__info__stars" data-bind="foreach: staticDataInfo.starRating">
 					<div class="nemo-hotel__additional__info__stars__item"></div>
 				</div>

@@ -316,7 +316,7 @@ define(
 					}
 
 					this.document.data('ui-dialog__open',
-						(this.document.data('ui-dialog__open') - 1));
+						(this.document.data('ui-dialog__open') > 0 ? this.document.data('ui-dialog__open') : 1) - 1);
 				},
 
 				_loadAjaxContent: function () {

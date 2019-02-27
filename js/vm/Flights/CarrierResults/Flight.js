@@ -31,6 +31,7 @@ define(
 
 			this.detailsOpen = ko.observable(false);
 			this.isHidden = ko.observable(false);
+			this.hasStopPoints = false;
 
 			time = 0;
 			totalTime = 0;
@@ -51,6 +52,10 @@ define(
 
 				if (!flightAirline) {
 					flightAirline = this.segments[i].marketingCompany.IATA;
+				}
+				
+				if (this.segments[i].stopPoints.length) {
+					this.hasStopPoints = true;
 				}
 			}
 

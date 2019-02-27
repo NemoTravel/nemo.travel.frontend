@@ -440,6 +440,23 @@
 							transform: rotate(135deg);
 						}
 					}
+
+					&__stopover {
+						    position: absolute;
+							background: #ffd321;
+							color: #fff;
+							font-size: 22px;
+							text-align: center;
+							font-weight: 700;
+							top: 50%;
+							left: -15px;
+							margin-top: -15px;
+							width: 30px;
+							height: 30px;
+							border-radius: 30px;
+							line-height: 30px;
+							transition: all .2s;
+					}
 				}
 
 				&_flightSelected {
@@ -745,14 +762,14 @@
 				}
 			}
 
-			&__transfer, &__footer {
+			&__transfer, &__footer, &__stopover {
 				border-bottom: 1px solid lighten(#dcdcdc, 50%);
 				padding: 0 20px;
 				font-size: 11px;
 
 				&__caption {
 					color: #a0a0a0;
-					padding-right: 15px;
+					padding-right: 5px;
 				}
 			}
 
