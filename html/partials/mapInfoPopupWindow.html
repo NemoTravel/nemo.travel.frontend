@@ -26,7 +26,7 @@
                 
                 <div class="infoBlock">
                     <div class="addressWrap">
-                        <div data-bind="text: $parent.currentCity() + ', ' + $data.staticDataInfo.addresses[0]"></div>
+                        <div data-bind="text: $parent.currentCity().name + ', ' + $data.staticDataInfo.addresses[0]"></div>
                         <div class="distances">
 
                             <span data-bind="visible: $parent.getDistances($data)[0]">
@@ -59,6 +59,8 @@
                 <div class="nemo-ui-button nemo-ui-button_main nemo-hotels-results__hotelsGroup__footer__orderBtn" data-bind="click: function ($data, event) { event.preventDefault(); $parent.bigMapIsVisible(false); $parent.showCardHotel($data) }">
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
                         <span class="nemo-hotels-results__hotelsGroup__footer__priceContainer">
+                            <span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
+
                             <span class="nemo-hotels-results__hotelsGroup__footer__price">
                                 <money data-bind="money: $data.priceObservable"></money>
                             </span>

@@ -1,5 +1,5 @@
 <!-- ko if: $data.bookingCheckError && $data.bookingCheckError() -->
-	<div data-bind="automaticPopup: { title: $root.i18n('HotelsSearchResults', 'bookingCheck__error__title') }">
+	<div data-bind="automaticPopup: { title: $root.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__title') }">
 		<div class="nemo-hotels-results__bookingCheck nemo-hotels-results__bookingCheck_error">
 			<div data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__bookingCheck__error__header')"></div>
 			<div class="nemo-hotels-results__bookingCheck__errorMessage" data-bind="text: $data.bookingCheckError()"></div>
@@ -7,7 +7,7 @@
 			<div class="nemo-flights-results__bookingCheck__buttons">
 				<a class="nemo-ui-button nemo-ui-button_common" data-bind="attr: { 'href': $data.searchFormURL() }, text: $root.i18n('HotelsSearchResults', 'bookingCheck__link_to_mainPage')"></a>
 				<div class="nemo-ui-button nemo-ui-button_medium" data-bind="
-					click: $data.hideHotelCheckErrorPopup, 
+					click: $data.hideHotelCheckErrorPopup,
 					text: $root.i18n('HotelsSearchResults', 'bookingCheck__link_to_searchResults')
 				"></div>
 			</div>

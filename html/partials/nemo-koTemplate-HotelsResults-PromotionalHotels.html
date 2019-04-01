@@ -116,6 +116,8 @@
                      data-bind="click: function(hotel) { $parent.showCardHotel(hotel) }">
 
                     <div class="nemo-hotels-results__hotelsGroup__footer__priceWrap">
+                        <span data-bind="text: $root.i18n('HotelsSearchResults', 'from2')"></span>
+
                         <span class="nemo-hotels-results__hotelsGroup__footer__price">
                             <money data-bind="money: priceObservable"></money>
                         </span>
