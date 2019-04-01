@@ -23,6 +23,7 @@ function abstractFareFamiliesControllerCreator(ko) {
 		this.state().fareFamiliesAreLoaded = ko.observable(false);
 		this.state().choosingFlight = ko.observable(false);
 		this.state().fullScreen = ko.observable(false);
+		this.state().errorSuffix = ko.observable('');
 
 		this.state().fullScreen.subscribe(function () {
 			if (this.state().fullScreen()) {
@@ -68,6 +69,14 @@ function abstractFareFamiliesControllerCreator(ko) {
 					if (!data || !ko.unwrap(data.initialCombination) || data.system && data.system.error) {
 						self.state().fareFamiliesAreLoading(false);
 						self.state().fareFamiliesAreLoaded(false);
+
+						if (data.system.error.message === 'Search result is obsolete, please start a new search') {
+							self.state().errorSuffix('_obsolete');
+						}
+						else {
+							self.state().errorSuffix('');
+						}
+
 						console.debug('error');
 						return false;
 					}

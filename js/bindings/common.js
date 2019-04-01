@@ -814,8 +814,34 @@ define(
 						controls: false,
 						loop: false,
 						slideMargin: 0,
-						thumbItem: 12,
-						adaptiveHeight: true
+						thumbItem: photos.length < 12 ? photos.length : 12,
+						adaptiveHeight: true,
+						responsive : [
+							{
+								breakpoint: 1000,
+								settings: {
+									thumbItem: photos.length < 9 ? photos.length : 9
+								}
+							},
+							{
+								breakpoint: 800,
+								settings: {
+									thumbItem: photos.length < 7 ? photos.length : 7
+								}
+							},
+							{
+								breakpoint: 600,
+								settings: {
+									thumbItem: photos.length < 5 ? photos.length : 5
+								}
+							},
+							{
+								breakpoint: 500,
+								settings: {
+									thumbItem: photos.length < 4 ? photos.length : 4
+								}
+							}
+						]
 					});
 				}
 			}
