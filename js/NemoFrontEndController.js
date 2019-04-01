@@ -46,7 +46,7 @@ define (
 				{
 					re: [
 						// Search by results id
-						/^results\/(\d+)(\/.*)?$/,
+						/^results\/(\d+)(\/.*|\?.*)?$/,
 
 						// Search by URL params
 						// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)

@@ -116,7 +116,7 @@ define(
 						if (feature.code === 'seats_registration') {
 							newRightColumn.push(feature);
 						}
-						else if (feature.code === 'vip_service') {
+						else if (feature.code === 'vip_service' || feature.code === 'miles') {
 							newLeftColumn.push(feature);
 						}
 					});

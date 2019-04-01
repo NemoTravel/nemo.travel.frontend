@@ -109,12 +109,12 @@ define(
 				feature = array[i];
 
 				if (feature.code === code) {
-					if (!mainCandidate || (mainCandidate.priority < feature.priority)) {
+					if (!mainCandidate || (mainCandidate.priority > feature.priority)) {
 						mainCandidate = feature;
 					}
 				}
 				else {
-					if (!secondCandidate || (secondCandidate.priority < feature.priority)) {
+					if (!secondCandidate || (secondCandidate.priority > feature.priority)) {
 						secondCandidate = feature;
 					}
 				}
