@@ -806,7 +806,7 @@ define(
 				this.highlightDates &&
 				departure.IATA !== arrival.IATA
 			) {
-				var requestURL = this.$$controller.options.dataURL + '/flights/availability/schedule/' + departure.IATA + '/' + arrival.IATA;
+				var requestURL = this.$$controller.options.dataURL + '/flights/availability/schedule/' + departure.IATA + '/' + arrival.IATA + '/withTransfers';
 
 				fetch(requestURL, { credentials: 'same-origin' } )
 					.then(function(response) { return response.json(); })
