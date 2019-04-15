@@ -724,5 +724,18 @@
     "new-passInfo__info__users__title_role": "new-passInfo__info__users__title_role",
     "new-passInfo__info__users__title_user": "new-passInfo__info__users__title_user",
     "new-passInfo__info__users__title_id": "new-passInfo__info__users__title_id",
-    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink",
+    "payments_gatewayDeposit_current_balance": "მიმდინარე დეპოზიტი",
+    "payments_gatewayDeposit_balance_after_payment": "დარჩება გადახდის შემდეგ",
+    "payments_gatewayDeposit_credit_amount": "საკრედიტო ლიმიტი",
+    "payments_gatewayDeposit_setting_payment_confirm_message": "ყურადღება! თქვენი სადეპოზიტო ანგარიშიდან ჩამოიჭრება თანხა , გავაგრძელოთ ?",
+    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay": "სამწუხაროდ თქვენ არ გაქვთ საკმარისი თანხა გადასახდელად",
+    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay_with_unlim_split": "სამწუხაროდ, გადახდის დროს შეიქმნა პრობლემა, გთხოვთ დაუკავშირდით სააგენტოს",
+    "payments_gatewayDeposit_error_you_need_to_fill_all_fields": "payments_gatewayDeposit_error_you_need_to_fill_all_fields",
+    "payments_gatewayDeposit_error_company_name_not_valid": "payments_gatewayDeposit_error_company_name_not_valid",
+    "payments_gatewayDeposit_error_payment_order_number_not_valid": "payments_gatewayDeposit_error_payment_order_number_not_valid",
+    "payments_gatewayDeposit_confirm_button_text": "გადახდა",
+    "payments_gatewayDeposit_amount_to_pay": "გადასახდელი თანხა ",
+    "Payment order number": "Payment order number",
+    "Payment order organization": "Payment order organization"
 }

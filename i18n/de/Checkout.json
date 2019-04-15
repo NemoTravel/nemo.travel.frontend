@@ -724,5 +724,18 @@
     "new-passInfo__info__users__title_role": "Rolle",
     "new-passInfo__info__users__title_user": "Benutzer ",
     "new-passInfo__info__users__title_id": "ID",
-    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink",
+    "payments_gatewayDeposit_current_balance": "Laufender Saldo",
+    "payments_gatewayDeposit_balance_after_payment": "Saldo nach der Zahlung ",
+    "payments_gatewayDeposit_credit_amount": "Mögliche Überziehung ",
+    "payments_gatewayDeposit_setting_payment_confirm_message": "payments_gatewayDeposit_setting_payment_confirm_message",
+    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay": "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay",
+    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay_with_unlim_split": "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay_with_unlim_split",
+    "payments_gatewayDeposit_error_you_need_to_fill_all_fields": "payments_gatewayDeposit_error_you_need_to_fill_all_fields",
+    "payments_gatewayDeposit_error_company_name_not_valid": "payments_gatewayDeposit_error_company_name_not_valid",
+    "payments_gatewayDeposit_error_payment_order_number_not_valid": "payments_gatewayDeposit_error_payment_order_number_not_valid",
+    "payments_gatewayDeposit_confirm_button_text": "Zahlen ",
+    "payments_gatewayDeposit_amount_to_pay": "Zu zahlen:",
+    "Payment order number": "Payment order number",
+    "Payment order organization": "Payment order organization"
 }
