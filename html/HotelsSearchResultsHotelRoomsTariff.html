@@ -93,11 +93,20 @@
 				<!-- /ko -->
 			</div>
 
-			<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable', tooltip: {
-				cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
-				content: $('#' + cancellationTooltipId()).clone().show(),
-				delay: 0
-			}"></span>
+			<!-- ko if: tariff.rate.isNonRefundable !== null && !(tariff.rate.isNonRefundable === false && (!tariff.rate.cancellationRules || !tariff.rate.cancellationRules.length)) -->
+				<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable', tooltip: {
+					cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
+					content: $('#' + cancellationTooltipId()).clone().show(),
+					delay: 0
+				}"></span>
+			<!-- /ko -->
+
+			<!-- ko if: tariff.rate.isNonRefundable === null || (tariff.rate.isNonRefundable === false && (!tariff.rate.cancellationRules || !tariff.rate.cancellationRules.length)) -->
+				<span
+					class="nemo-hotelRoom__tariff__price__cancellation nemo-hotelRoom__tariff__price__cancellation_notDefined"
+					data-bind="i18n: 'Hotels.hotels-room-cancel__notDefined'"
+				></span>
+			<!-- /ko -->
 		<!-- /ko -->
 	</div>
 

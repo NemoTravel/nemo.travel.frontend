@@ -655,7 +655,7 @@
 				<!-- /ko -->
 
 				<div class="nemo-hotels-results__hotelsGroup__footer">
-					<!-- ko if: $root.controller.viewModel.user.isB2B() -->
+					<!-- ko if: $root.controller.options.showSupplierName !== undefined ? $root.controller.options.showSupplierName : $root.controller.viewModel.user.isB2B() -->
 					<div class="nemo-hotels-results__hotelsGroup__footer__supplier" data-bind="text: supplier"></div>
 					<!-- /ko -->
 
