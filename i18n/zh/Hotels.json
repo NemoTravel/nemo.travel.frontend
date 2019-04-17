@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "hotels-room-meal__AI",
     "hotels-room-meal__LU": "hotels-room-meal__LU",
     "hotels-room-meal__DN": "hotels-room-meal__DN",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "取消条件",
     "hotels-room-cancel__isNonRefundable": "不可退钱",
     "hotels-room-cancel__isNonRefundable__tooltip": "如取消不可退钱",

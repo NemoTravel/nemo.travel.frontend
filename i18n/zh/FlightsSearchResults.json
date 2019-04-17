@@ -124,6 +124,8 @@
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
+    "flightsGroup__price__moneyWall_beforePrice": "flightsGroup__price__moneyWall_beforePrice",
+    "flightsGroup__price__moneyWall_afterPrice": "flightsGroup__price__moneyWall_afterPrice",
     "flightsGroup__priceDetails__info__caption": "價格詳情",
     "flightsGroup__priceDetails__info__title": "價格詳情",
     "flightsGroup__priceDetails__taxes__title": "臘腸犬",

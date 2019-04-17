@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "Totul inclus",
     "hotels-room-meal__LU": "hotels-room-meal__LU",
     "hotels-room-meal__DN": "hotels-room-meal__DN",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "Reguli de anulare",
     "hotels-room-cancel__isNonRefundable": "Nerambursabilă",
     "hotels-room-cancel__isNonRefundable__tooltip": "În cazul anulării rezervării, se aplică o penalizare de 100% / Dacă rezervarea este anulată sau modificată mai târziu, va fi încasat prețul pentru prima noapte.",

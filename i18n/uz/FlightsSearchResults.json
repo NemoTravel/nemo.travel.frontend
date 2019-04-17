@@ -124,6 +124,8 @@
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "Chaqaloq uchun alohida o'rindiq joyini bronlashtirishga ruxsat berilmaydi",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight": "Shuni yodda tutingki,  [%-segment-%] yo'nalishi ekonom sinfida xizmat ko'rsatadi",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "Shuni yodda tutingki,  [%-segment-%] yo'nalishi ekonom sinfida xizmat ko'rsatadi",
+    "flightsGroup__price__moneyWall_beforePrice": "flightsGroup__price__moneyWall_beforePrice",
+    "flightsGroup__price__moneyWall_afterPrice": "flightsGroup__price__moneyWall_afterPrice",
     "flightsGroup__priceDetails__info__caption": "Narxlar tafsilotlari",
     "flightsGroup__priceDetails__info__title": "Narxlar tafsilotlari",
     "flightsGroup__priceDetails__taxes__title": "Dachshunds",

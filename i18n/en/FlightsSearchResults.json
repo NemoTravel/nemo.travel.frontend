@@ -124,6 +124,8 @@
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "For infants without seat only",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight": "Please notice, [%-segment-%] flight is served in economy class",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "Please notice, [%-segment-%] flights are served in economy class",
+    "flightsGroup__price__moneyWall_beforePrice": "flightsGroup__price__moneyWall_beforePrice",
+    "flightsGroup__price__moneyWall_afterPrice": "flightsGroup__price__moneyWall_afterPrice",
     "flightsGroup__priceDetails__info__caption": "Price Details",
     "flightsGroup__priceDetails__info__title": "Price Details",
     "flightsGroup__priceDetails__taxes__title": "Dachshunds",

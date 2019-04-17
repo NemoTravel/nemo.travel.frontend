@@ -711,11 +711,6 @@ define(
 				}
 
 				var bounds = self.addMarkersOnMap(hotels);
-
-				if (bounds) {
-					self.maps['map'].fitBounds(bounds);
-					self.maps['map'].panToBounds(bounds);
-				}
 			}
 
 			// hotels shown on google map in circle
@@ -752,7 +747,7 @@ define(
 				return hotels;
 			});
 
-			this.inCircleFilteredHotels.subscribe(function (hotels) {
+			this.preFilteredAndSortedHotels.subscribe(function (hotels) {
 				updateMapMarkers(hotels);
 			});
 

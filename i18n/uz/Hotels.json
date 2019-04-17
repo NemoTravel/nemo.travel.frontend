@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "Hammasi ichida",
     "hotels-room-meal__LU": "hotels-room-meal__LU",
     "hotels-room-meal__DN": "hotels-room-meal__DN",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "Bekor qilish qoidalari",
     "hotels-room-cancel__isNonRefundable": "Narxlar qaytarilmaydi",
     "hotels-room-cancel__isNonRefundable__tooltip": "Agar bekor qilingan bo'lsa, narx qaytarilmaydi.",

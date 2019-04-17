@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "All inclusive",
     "hotels-room-meal__LU": "Lunch included",
     "hotels-room-meal__DN": "Dinner included",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "Cancellation rules",
     "hotels-room-cancel__isNonRefundable": "Non-refundable",
     "hotels-room-cancel__isNonRefundable__tooltip": "If cancelled the total price of the reservation will be charged.",
