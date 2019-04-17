@@ -5,14 +5,16 @@ define([
     'js/vm/Models/HotelsBaseModel',
     'js/vm/Models/RecentHotelsModel',
     'js/vm/Common/Cache/Cache',
-	'js/lib/md5/md5'
+	'js/lib/md5/md5',
+	'js/lib/markerclusterer/markerclusterer'
 ], function (ko,
 			 helpers,
 			 dotdotdot,
 			 HotelsBaseModel,
 			 RecentHotelsModel,
 			 Cache,
-			 md5) {
+			 md5,
+			 MarkerClusterer) {
 
     function GoogleMapModel() {
 
@@ -72,7 +74,6 @@ define([
                     hotel.staticDataInfo.posLatitude,
                     hotel.staticDataInfo.posLongitude
                 ),
-                map: map,
                 icon: this.getMarkerIcon(iconType),
                 optimized: false,
                 content: Cache.storage().get(md5('/html/partials/nemo-koTemplate-HotelsResults-MapInfoWindow.html'))
@@ -192,7 +193,7 @@ define([
     // map with more then one hotel
     GoogleMapModel.prototype.initMap = function () {
         var self = this,
-            hotels = this.inCircleFilteredHotels ? this.inCircleFilteredHotels() : [],
+            hotels = this.preFilteredAndSortedHotels ? this.preFilteredAndSortedHotels() : [],
             inputSearchBox = document.createElement("input"),
             searchBox;
 
@@ -241,7 +242,7 @@ define([
                     bounds.extend(place.geometry.location);
                 }
             });
-            map.fitBounds(bounds);
+            map.fitBounds(bounds, 0);
         });
         
         // Add circle overlay and bind to center
@@ -257,7 +258,6 @@ define([
 
             self.maps['map'].setCenter(centerLocation);
 
-            self.circle.setCenter(centerLocation);
             self.setHotelsDistancesFromCenter(self.hotels(), centerLocation);
 
             if (self.distanceFromCenter) {
@@ -283,8 +283,12 @@ define([
         var bounds = this.addMarkersOnMap(hotels);
 
         if (bounds) {
-            this.maps['map'].fitBounds(bounds);
-            this.maps['map'].panToBounds(bounds);
+        	var self = this;
+
+        	setTimeout(function () {
+				self.maps['map'].fitBounds(bounds, 0);
+				self.maps['map'].panToBounds(bounds, 0);
+			}, 1000);
         }
     };
 
@@ -324,7 +328,9 @@ define([
             isBounded = false,
             markers = [];
 
-        this.removeMarkersFromMap(this.oldMarkers());
+		if (this.markerClusterer()) {
+			this.markerClusterer().removeMarkers(this.oldMarkers());
+		}
 
         hotels.forEach(function (hotel) {
 
@@ -353,13 +359,17 @@ define([
                     iconColor: iconType
                 }));
 
-                bounds.extend(new google.maps.LatLng(lat, lon));
+             	bounds.extend(new google.maps.LatLng(lat, lon));
 
                 isBounded = true;
             }
         });
 
-        this.oldMarkers(markers);
+		var markersCluster = new MarkerClusterer(self.maps['map'], markers, { imagePath: '/templates/wurst/f2.0/js/lib/markerclusterer/images/m' });
+		markersCluster.redraw();
+
+		this.oldMarkers(markers);
+        this.markerClusterer(markersCluster);
 
         return isBounded ? bounds : null;
     };

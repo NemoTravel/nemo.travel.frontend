@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "Все включено",
     "hotels-room-meal__LU": "hotels-room-meal__LU",
     "hotels-room-meal__DN": "hotels-room-meal__DN",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "Правила скасування бронювання",
     "hotels-room-cancel__isNonRefundable": "Вартість не повертається",
     "hotels-room-cancel__isNonRefundable__tooltip": "При скасуванні вартість не повертається.",

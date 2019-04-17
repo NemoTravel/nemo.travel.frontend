@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "Всё включено",
     "hotels-room-meal__LU": "Обед включен",
     "hotels-room-meal__DN": "Ужин включен",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "Правила отмены бронирования",
     "hotels-room-cancel__isNonRefundable": "Стоимость не возвращается",
     "hotels-room-cancel__isNonRefundable__tooltip": "При отмене стоимость не возвращается.",

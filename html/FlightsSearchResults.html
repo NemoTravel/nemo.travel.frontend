@@ -820,6 +820,16 @@
 			</div>
 		</div>
 
+		<!-- ko if: selectedFlight().price.moneyWallFirstPayment -->
+			<div class="nemo-flights-results__flightsGroup__moneyWall">
+				<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__price__moneyWall_beforePrice')"></span>
+
+				<money format="0,0 $" data-bind="money: selectedFlight().price.moneyWallFirstPayment"></money>
+
+				<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__price__moneyWall_afterPrice')"></span>
+			</div>
+		<!-- /ko -->
+
 		<div class="nemo-flights-results__flightsGroup__footer__disclaimers" data-bind="visible: disclaimerIsVisible">
 	<!-- ko if: resultsController.searchInfo().totalPassengers > 1 -->
 		<div class="nemo-flights-results__flightsGroup__footer__disclaimer nemo-flights-results__flightsGroup__footer__disclaimer_priceForAll" data-bind="html: $root.i18n('FlightsSearchResults','flightsGroup__footer__passengersDisclaimer')"></div>
@@ -1060,6 +1070,16 @@
 				<!-- /ko -->
 				<!-- /ko -->
 			<!-- /ko -->
+			<!-- /ko -->
+
+			<!-- ko if: selectedFlight().price.moneyWallFirstPayment -->
+				<div class="nemo-flights-results__flightsGroup__moneyWall nemo-flights-results__flightsListGroup__moneyWall">
+					<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__price__moneyWall_beforePrice')"></span>
+
+					<money format="0,0 $" data-bind="money: selectedFlight().price.moneyWallFirstPayment"></money>
+
+					<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__price__moneyWall_afterPrice')"></span>
+				</div>
 			<!-- /ko -->
 
 			<div class="nemo-flights-results__flightsGroup__footer__disclaimers" data-bind="visible: disclaimerIsVisible">

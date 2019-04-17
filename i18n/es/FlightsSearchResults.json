@@ -124,6 +124,8 @@
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "El transportista no permite la reserva de un asiento separado para un bebé",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight": "flightsGroup__flightWarnings__economyClassInBusinessFlight",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments",
+    "flightsGroup__price__moneyWall_beforePrice": "flightsGroup__price__moneyWall_beforePrice",
+    "flightsGroup__price__moneyWall_afterPrice": "flightsGroup__price__moneyWall_afterPrice",
     "flightsGroup__priceDetails__info__caption": "Detalles del precio",
     "flightsGroup__priceDetails__info__title": "Detalles del precio",
     "flightsGroup__priceDetails__taxes__title": "Dachshunds",

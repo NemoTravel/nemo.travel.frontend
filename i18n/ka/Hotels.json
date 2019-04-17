@@ -26,6 +26,7 @@
     "hotels-room-meal__AI": "hotels-room-meal__AI",
     "hotels-room-meal__LU": "hotels-room-meal__LU",
     "hotels-room-meal__DN": "hotels-room-meal__DN",
+    "hotels-room-meal__Unknown": " ",
     "hotels-room-cancel__rules__title": "ჯავშნის გაუქმების წესები",
     "hotels-room-cancel__isNonRefundable": "თანხა არ ბრუნდება",
     "hotels-room-cancel__isNonRefundable__tooltip": "გაუქმების შემთხვევაში თანხა არ ბრუნდება",

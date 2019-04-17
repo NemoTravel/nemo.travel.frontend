@@ -67,6 +67,7 @@ define(
 			this.countOfNights = ko.observable(0);
 			this.isListView = ko.observable(true);
 			this.oldMarkers = ko.observable([]);
+			this.markerClusterer = ko.observable();
 			this.searchInfo = ko.observable({});
 			this.resultsLoaded = ko.observable(false);
 			this.showCaseVisibleItems = ko.observable(4);

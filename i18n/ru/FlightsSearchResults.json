@@ -124,6 +124,8 @@
     "flightsGroup__flightWarnings__insBookingNotAllowedBySupplier": "Бронирование отдельного сидячего места для младенца не допускается перевозчиком",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight": "Обратите внимание, направление [%-segment-%] обслуживается в эконом-классе",
     "flightsGroup__flightWarnings__economyClassInBusinessFlight_severalSegments": "Обратите внимание, направления [%-segment-%] обслуживаются в эконом-классе",
+    "flightsGroup__price__moneyWall_beforePrice": "или",
+    "flightsGroup__price__moneyWall_afterPrice": " в мес.",
     "flightsGroup__priceDetails__info__caption": "Детали цены",
     "flightsGroup__priceDetails__info__title": "Детали цены",
     "flightsGroup__priceDetails__taxes__title": "Таксы",
