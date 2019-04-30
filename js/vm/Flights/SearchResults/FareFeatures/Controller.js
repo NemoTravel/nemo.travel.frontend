@@ -15,6 +15,7 @@ define(
 			this.leftColumn = [];
 			this.rightColumn = [];
 			this.miscColumn = [];
+			this.isSameFareInLegs = [];
 
 			this.featuresAreVisible = ko.observable(false);
 			
@@ -48,11 +49,28 @@ define(
 				this.features = this.flight.fareFeatures.getFirstFamily();
 
 				var featuresInAllSegments = this.flight.fareFeatures.bySegments,
-					fareFeaturesName = []; // тут будут названия
+					fareFeaturesName = [], // тут будут названия
+					currentLegId = 0,
+					isSomeFareInLeg = false;
 
 				for (var segment in featuresInAllSegments) {
 					if (featuresInAllSegments.hasOwnProperty(segment)) {
-						var fareSegment = featuresInAllSegments[segment];
+						var fareSegment = featuresInAllSegments[segment],
+							legId = parseInt(fareSegment.segmentId.split('_')[0]);
+
+						if (currentLegId !== legId) {
+							this.isSameFareInLegs.push(isSomeFareInLeg);
+
+							isSomeFareInLeg = false;
+						}
+						else if (fareFeaturesName.length && fareFeaturesName[fareFeaturesName.length - 1] === fareSegment.name) {
+							isSomeFareInLeg = true;
+						}
+						else if (fareFeaturesName.length && fareFeaturesName[fareFeaturesName.length - 1] !== fareSegment.name) {
+							isSomeFareInLeg = false;
+						}
+
+						currentLegId = legId;
 
 						if (fareFeaturesName.indexOf(fareSegment.name) === -1) {
 							this.fareFeaturesArray.push(fareSegment);
@@ -61,6 +79,8 @@ define(
 						}
 					}
 				}
+
+				this.isSameFareInLegs.push(isSomeFareInLeg);
 			}
 
 			if (this.fareFeaturesArray.length > 1) {
@@ -91,7 +111,10 @@ define(
 		 */
 		FlightsSearchResultsFareFeaturesController.prototype.groupFeaturesByColumns = function () {
 			for (var segment = 0; segment < this.fareFeaturesArray.length; segment++) {
-				var features = this.fareFeaturesArray[segment];
+				var features = this.fareFeaturesArray[segment],
+					splittedSegmentId = features.segmentId.split('_'),
+					legId = splittedSegmentId[0],
+					segmentId = splittedSegmentId[1];
 
 				if (features.list.hasOwnProperty('baggage')) {
 					this.leftColumn[segment] = features.list.baggage;
@@ -129,10 +152,10 @@ define(
 					miscColumn: this.miscColumn[segment],
 					leftColumn: this.leftColumn[segment],
 					rightColumn: this.rightColumn[segment],
-					depAirp: this.flight.segments[segment].depAirp,
-					arrAirp: this.flight.segments[segment].arrAirp,
-					tariffName: this.fareFeaturesArray[segment].name,
-					marketingCompany: this.flight.segments[segment].marketingCompany
+					depAirp: this.flight.segments[segmentId].depAirp,
+					arrAirp: this.isSameFareInLegs.length && this.isSameFareInLegs[legId] ? this.flight.legs[legId].arrAirp : this.flight.segments[segmentId].arrAirp,
+					tariffName: features.name,
+					marketingCompany: this.flight.segments[segmentId].marketingCompany
 				});
 			}
 		};

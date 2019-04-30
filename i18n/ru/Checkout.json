@@ -399,6 +399,7 @@
     "new-passinfo-priceCalc__formula__bonuses_2": "бонуса",
     "new-passinfo-priceCalc__formula__bonuses_5": "бонусов",
     "new-passinfo-priceCalc__formula__paidWith": "Оплачено",
+    "new-passinfo-priceCalc__formula__first_payment": "Первый из 3-х платежей",
     "service_class_business": "Бизнес",
     "service_class_first": "Первый",
     "service_class_premium_economy": "Премиум-эконом",
