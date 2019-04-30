@@ -365,7 +365,8 @@ define([
             }
         });
 
-		var markersCluster = new MarkerClusterer(self.maps['map'], markers, { imagePath: '/templates/wurst/f2.0/js/lib/markerclusterer/images/m' });
+		var baseUrl = this.$$controller.options.controllerSourceURL;
+		var markersCluster = new MarkerClusterer(self.maps['map'], markers, { imagePath: baseUrl + '/js/lib/markerclusterer/images/m' });
 		markersCluster.redraw();
 
 		this.oldMarkers(markers);

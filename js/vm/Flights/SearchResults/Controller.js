@@ -523,7 +523,7 @@ define(
 		};
 
 		FlightsSearchResultsController.prototype.processSearchResults = function () {
-			if (this.$$rawdata.flights.search.resultData.partnersMode === false) {
+			if (this.$$rawdata.flights.search.resultData.partnersMode === false && !this.searchParameters.parameters.exchangeBookingId) {
 				if (window.location.href.indexOf('partnersMode') === -1) {
 					window.location.reload();
 				}

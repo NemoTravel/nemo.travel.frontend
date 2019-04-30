@@ -704,13 +704,15 @@ define(
 			});
 
 			function updateMapMarkers(hotels) {
-				var METERS_PER_ONE_KILOMETER = 1000;
+				if (self.maps['map']) {
+					var METERS_PER_ONE_KILOMETER = 1000;
 
-				if (self.circle) {
-					self.circle.setRadius(self.distanceFromCenter.rangeMin() * METERS_PER_ONE_KILOMETER); // sets radius in meters
+					if (self.circle) {
+						self.circle.setRadius(self.distanceFromCenter.rangeMin() * METERS_PER_ONE_KILOMETER); // sets radius in meters
+					}
+
+					var bounds = self.addMarkersOnMap(hotels);
 				}
-
-				var bounds = self.addMarkersOnMap(hotels);
 			}
 
 			// hotels shown on google map in circle
