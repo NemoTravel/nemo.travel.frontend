@@ -270,11 +270,16 @@ define([
             setMapCenter(centerLocation);
         }, function () {
 
-            var hotel = hotels[0];
+            for (var i = 0; i < hotels.length; i++) {
+				var hotel = hotels[i],
+					lat = parseFloat(hotel.staticDataInfo.posLatitude),
+					lon = parseFloat(hotel.staticDataInfo.posLongitude);
 
-            if (hotel) {
-                var centerLocation = {lat: hotel.staticDataInfo.posLatitude, lng: hotel.staticDataInfo.posLongitude};
-            }
+				if (!isNaN(lat) && !isNaN(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180) {
+					var centerLocation = {lat: lat, lng: lon};
+					break;
+				}
+			}
 
             setMapCenter(centerLocation);
         });
@@ -334,10 +339,10 @@ define([
 
         hotels.forEach(function (hotel) {
 
-            var lat = hotel.staticDataInfo.posLatitude,
-                lon = hotel.staticDataInfo.posLongitude;
+            var lat = parseFloat(hotel.staticDataInfo.posLatitude),
+                lon = parseFloat(hotel.staticDataInfo.posLongitude);
 
-            if (lat && lon) {
+            if (!isNaN(lat) && !isNaN(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180) {
                 var isHotelViewed = RecentHotelsModel.hotelIsViewed(hotel.id),
                     isHotelWithBestPrice = hotel.staticDataInfo.isBestPrice,
                     iconType;

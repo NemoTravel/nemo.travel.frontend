@@ -399,7 +399,6 @@
     "new-passinfo-priceCalc__formula__bonuses_2": "Bonuslar",
     "new-passinfo-priceCalc__formula__bonuses_5": "Bonuslar",
     "new-passinfo-priceCalc__formula__paidWith": "To'langan",
-    "new-passinfo-priceCalc__formula__first_payment": "new-passinfo-priceCalc__formula__first_payment",
     "service_class_business": "Biznes",
     "service_class_first": "Birinchi",
     "service_class_premium_economy": "Premium-ekonomi",
@@ -725,18 +724,5 @@
     "new-passInfo__info__users__title_role": "O'rni",
     "new-passInfo__info__users__title_user": "Foydalanuvchi",
     "new-passInfo__info__users__title_id": "ID",
-    "new-passInfo__info__openLink": "new-passInfo__info__openLink",
-    "payments_gatewayDeposit_current_balance": "Ayni paytdagi depozit",
-    "payments_gatewayDeposit_balance_after_payment": "To'lovdan so'ng qolgan pul miqdori",
-    "payments_gatewayDeposit_credit_amount": "Kredit chegarasi",
-    "payments_gatewayDeposit_setting_payment_confirm_message": "Diqqat! Sizning deposit hisob raqamingizdan hozir pul yechib olinadi. Davom etilsinmi?",
-    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay": "Afsuski, sizda yetarlicha mablag' yo'q",
-    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay_with_unlim_split": "Afsuski, to'lov bilan bog'liq muammolar mavjud. Iltimos, agentlikka murojaat qiling",
-    "payments_gatewayDeposit_error_you_need_to_fill_all_fields": "Barcha maydonlar talab qilinadi",
-    "payments_gatewayDeposit_error_company_name_not_valid": "Tashkilot: faqat harflar va raqamlar",
-    "payments_gatewayDeposit_error_payment_order_number_not_valid": "To'lov buyurtma raqami: faqat harf va raqamlar",
-    "payments_gatewayDeposit_confirm_button_text": "To'lovni amalga oshiring",
-    "payments_gatewayDeposit_amount_to_pay": "To'lanadigan pul miqdori",
-    "Payment order number": "To'lov buyurtma miqdori",
-    "Payment order organization": "Tashkilot"
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

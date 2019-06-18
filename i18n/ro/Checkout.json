@@ -399,7 +399,6 @@
     "new-passinfo-priceCalc__formula__bonuses_2": "bonusuri",
     "new-passinfo-priceCalc__formula__bonuses_5": "bonusuri",
     "new-passinfo-priceCalc__formula__paidWith": "Achitat",
-    "new-passinfo-priceCalc__formula__first_payment": "new-passinfo-priceCalc__formula__first_payment",
     "service_class_business": "Business",
     "service_class_first": "Primul",
     "service_class_premium_economy": "Premium-econom",
@@ -725,18 +724,5 @@
     "new-passInfo__info__users__title_role": "new-passInfo__info__users__title_role",
     "new-passInfo__info__users__title_user": "new-passInfo__info__users__title_user",
     "new-passInfo__info__users__title_id": "new-passInfo__info__users__title_id",
-    "new-passInfo__info__openLink": "new-passInfo__info__openLink",
-    "payments_gatewayDeposit_current_balance": "Depozitul curent",
-    "payments_gatewayDeposit_balance_after_payment": "Suma rămasă",
-    "payments_gatewayDeposit_credit_amount": "Limita de credit",
-    "payments_gatewayDeposit_setting_payment_confirm_message": "Atenţie! Contul dvs. de depozit va fi debitat acum. Doriți să continuați?",
-    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay": "Din păcate, nu aveți suficienți bani pentru a plăti",
-    "payments_gatewayDeposit_error_you_have_not_enough_money_to_pay_with_unlim_split": "К сожалению, возникли проблемы при оплате. Пожалуйста, обратитесь в агентство",
-    "payments_gatewayDeposit_error_you_need_to_fill_all_fields": "payments_gatewayDeposit_error_you_need_to_fill_all_fields",
-    "payments_gatewayDeposit_error_company_name_not_valid": "payments_gatewayDeposit_error_company_name_not_valid",
-    "payments_gatewayDeposit_error_payment_order_number_not_valid": "payments_gatewayDeposit_error_payment_order_number_not_valid",
-    "payments_gatewayDeposit_confirm_button_text": "Achitați",
-    "payments_gatewayDeposit_amount_to_pay": "Suma spre achitare",
-    "Payment order number": "Номер платежного поручения",
-    "Payment order organization": "Организация"
+    "new-passInfo__info__openLink": "new-passInfo__info__openLink"
 }

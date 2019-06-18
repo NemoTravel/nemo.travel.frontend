@@ -230,15 +230,26 @@
 													}
 												}"></div>
 
-												
-												<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+												<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA === 'SU' -->
+													<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
 														name: 'fareFamilies-features__list_short',
 														data: {
-															array: features.misc,
+															array: [features.misc[0]],
 															showTitles: false,
 															title: 'misc'
 														}
 													}"></div>
+												<!-- /ko -->
+												<!-- ko if: $parents[1].parentFlight.segments[$parentContext.$index()].marketingCompany.IATA !== 'SU' -->
+													<div class="nemo-flights-results__fareFamilies__features__misc" data-bind="template: {
+															name: 'fareFamilies-features__list_short',
+															data: {
+																array: features.misc,
+																showTitles: false,
+																title: 'misc'
+															}
+														}"></div>
+												<!-- /ko -->
 											</div>
 										</div>
 									<!-- /ko -->
@@ -280,7 +291,7 @@
 	<!-- ko if: !state().fareFamiliesAreLoading() && !state().fareFamiliesAreLoaded() -->
 		<div class="nemo-flights-results__fareFamilies__popup__tariffs__error">
 				<span class="nemo-flights-results__fareFamilies__popup__tariffs__error__text"
-					  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__error' + state().errorSuffix())"></span>
+					  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__title__error')"></span>
 		</div>
 	<!-- /ko -->
 </div>
