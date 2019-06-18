@@ -477,6 +477,10 @@
 		<!-- Show map -->
 		<!--ko if: !isListView() -->
 		<section class="nemo-hotels-results__content__results nemo-hotels-results__map">
+
+			<!-- ko if: resultsLoaded() -->
+			<div class="nemo-hotels-results__map__controlWrap" data-bind="template: { name: 'nemo-koTemplate-HotelsResults-DistanceFromCenter', data: distanceFromCenter }"></div>
+			<!-- /ko -->
 			<div class="nemo-ui-subContainer nemo-hotels-results__map__wrap" style="width:100%;" id="map"></div>
 		</section>
 		<!--/ko-->
@@ -651,7 +655,7 @@
 				<!-- /ko -->
 
 				<div class="nemo-hotels-results__hotelsGroup__footer">
-					<!-- ko if: $root.controller.options.showSupplierName !== undefined ? $root.controller.options.showSupplierName : $root.controller.viewModel.user.isB2B() -->
+					<!-- ko if: $root.controller.viewModel.user.isB2B() -->
 					<div class="nemo-hotels-results__hotelsGroup__footer__supplier" data-bind="text: supplier"></div>
 					<!-- /ko -->
 

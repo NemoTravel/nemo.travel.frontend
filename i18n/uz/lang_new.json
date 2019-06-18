@@ -5,7 +5,6 @@
     "autocomplete_mode_airline": "Aviakompaniyaning marshrut tarmog'i orqali",
     "carrier_results_mode": "Izlash natijalari sahifasida bitta aviakompaniyaning tariflari va sanasini ko'rsatish",
     "carrier_results_mode_admin_hint": "Odatiy natijalar sahifasi o'rniga, mintaqaviy sana va aviakompaniya tariflari oilasi ko'rsatiladi. Maxsus hisob sozlamalarini talab qiladi",
-    "carrier_results_show_airplane_popup": "carrier_results_show_airplane_popup",
     "title_autocomplete_mode_airline": "Marshrut panlarini o'rnatish uchun aviakompaniyani belgilang",
     "show_full_flights": "Ro'yxatda ko'rsatilgan qidiruv natijalari sahifasida parvoz variantlarini kengaytirish",
     "extended_passengers_select": "Murakkab yo'lovchi tanlashni yoqish (faqat yo'lovchilarni tanlashning standart usuli uchun ishlaydi)",

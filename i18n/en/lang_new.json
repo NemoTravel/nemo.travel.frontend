@@ -5,7 +5,6 @@
     "autocomplete_mode_airline": "autocomplete_mode_airline",
     "carrier_results_mode": "carrier_results_mode",
     "carrier_results_mode_admin_hint": "carrier_results_mode_admin_hint",
-    "carrier_results_show_airplane_popup": "Results: display dialog with information about airplane",
     "title_autocomplete_mode_airline": "title_autocomplete_mode_airline",
     "show_full_flights": "Results: Display expanded list a flight",
     "extended_passengers_select": "Search form: enable extended passenger select",

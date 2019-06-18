@@ -353,11 +353,26 @@ define(['knockout', 'js/vm/mobileDetect', 'js/vm/helpers', 'jquery', 'jqueryUI',
 						onSetDate: function () {
 							$element.blur();
 
-							if (viewModel.form.segments()[0].items.arrivalDate.value()) {
+							var isArrivalDate = $element.hasClass('js-autofocus-field_date_arrival');
+
+							var secondDate = isArrivalDate ?
+								viewModel.form.segments()[0].items.departureDate.value() :
+									viewModel.form.segments()[0].items.arrivalDate.value();
+
+							if (secondDate) {
 								var d1 = new Date(this.current);
-								var d2 = new Date(viewModel.form.segments()[0].items.arrivalDate.value().$$originalData);
+								var d2 = new Date(secondDate.dateObject());
 
 								if (d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getYear() === d2.getYear()) {
+									if (isArrivalDate) {
+										valueAccessor()(viewModel.$$controller.getModel('Common/Date', this.current));
+										viewModel.form.segments()[0].items.departureDate.value(null);
+
+										$element.trigger('nemo.fsf.segmentPropChanged');
+
+										return true;
+									}
+
 									return false;
 								}
 							}
