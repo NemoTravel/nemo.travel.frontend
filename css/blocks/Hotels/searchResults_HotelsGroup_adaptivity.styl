@@ -36,6 +36,7 @@
 		&__hotelsGroup {
 			&__header {
 				display: block;
+				height: auto;
 
 				&__title {
 					height: 50px;
@@ -47,8 +48,13 @@
 				}
 
 				&__additional {
-					bottom: 95%;
-					z-index: 8;
+					position: static;
+					padding-left: 20px;
+					border-radius: 0;
+
+					&:before, &:after {
+						display: none;
+					}
 				}
 			}
 

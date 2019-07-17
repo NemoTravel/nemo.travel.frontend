@@ -4,6 +4,7 @@
 		parentClass: 'js-nemoApp',
 		beforeOpen: loadOriginal.bind($data),
 		dialogClass: popupCSSClasses, 
+		contentClass: 'nemo-flights-farerules__dialogContent',
 		title: $root.i18n('FlightsSearchResults', 'flightsFareRules__popup__title')
 	},
 	html: linkText
@@ -18,7 +19,7 @@
 				<!-- ko foreach: manualRulesArray() -->
 					<br/>
 					<div class="new-flights-farerules__rules__rule">
-						<div class="new-flights-farerules__rules__rule__text" data-bind="text: $data"></div>
+						<div class="new-flights-farerules__rules__rule__text" data-bind="html: $data"></div>
 					</div>
 					<!-- /ko -->
 			</div>
