@@ -241,7 +241,7 @@
     "new-passInfo__info__codes__service": "Постачальник",
     "new-passInfo__info__codes__accessCode": "Код доступа",
     "new-passInfo__info__codes__ticketAirv": "Розрахунковий код авіакомпанії",
-    "new-passInfo__info__codes__nemo2id": "ID Nemo 2.0",
+    "new-passInfo__info__codes__nemo2id": "ID Nemo Connect",
     "new-passInfo__info__codes__paymentCurrency": "Валюта платежу",
     "new-passInfo__info__title_bookinfo": "Інформація про замовлення",
     "new-passInfo__info__title_errors": "Помилки",

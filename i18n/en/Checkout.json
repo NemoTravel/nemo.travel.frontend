@@ -241,7 +241,7 @@
     "new-passInfo__info__codes__service": "Vendor",
     "new-passInfo__info__codes__accessCode": "Access code",
     "new-passInfo__info__codes__ticketAirv": "Airline accounting code",
-    "new-passInfo__info__codes__nemo2id": "ID Nemo 2.0",
+    "new-passInfo__info__codes__nemo2id": "ID Nemo Connect",
     "new-passInfo__info__codes__paymentCurrency": "Payment currency",
     "new-passInfo__info__title_bookinfo": "Order info",
     "new-passInfo__info__title_errors": "Errors",
