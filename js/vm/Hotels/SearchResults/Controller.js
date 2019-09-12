@@ -297,7 +297,7 @@ define(
 		// Extending from dictionaryModel
 		helpers.extendModel(HotelsSearchResultsController, [BaseControllerModel, HotelSearchResultsModel]);
 
-		HotelsSearchResultsController.prototype.bookHotel = function (url, rooms) {
+		HotelsSearchResultsController.prototype.bookHotel = function (url, rooms, lateCheckOut, earlyCheckIn) {
 			this.bookingCheckInProgress(true);
 			this.bookingCheckError(null);
 
@@ -321,6 +321,14 @@ define(
 				url += '?';
 			}
 			url += 'roomIds=' + roomsInfo.join(',') + '&fromApi=true';
+
+			if (lateCheckOut) {
+				url += '&checkOut=' + lateCheckOut;
+			}
+
+			if (earlyCheckIn) {
+				url += '&checkIn=' + earlyCheckIn;
+			}
 
 			function processError(error) {
 				error = error || '';

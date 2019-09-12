@@ -300,7 +300,7 @@ define(
 				
 				if (data.hotel.id && data.rooms.length) {
 					$element.data('nemo-flights-results__bookingCheckInProgress', true);
-					data.controller.bookHotel(data.hotel.createOrderLinkAJAX, data.rooms);
+					data.controller.bookHotel(data.hotel.createOrderLinkAJAX, data.rooms, data.lateCheckOut, data.earlyCheckIn);
 				}
 			},
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
