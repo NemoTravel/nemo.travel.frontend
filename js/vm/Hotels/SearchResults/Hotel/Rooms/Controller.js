@@ -29,6 +29,20 @@ define(
 			 */
 			this.tariffCombinations = ko.observable({});
 
+			/**
+			 * Выбранное пользователем платное позднее время выезда.
+			 *
+			 * @returns {Object}
+			 */
+			this.lateCheckOut = ko.observable(null);
+
+			/**
+			 * Выбранное пользователем платное раннее время заезда.
+			 *
+			 * @type {Object}
+			 */
+			this.earlyCheckIn = ko.observable(null);
+
 			var newRooms = [],
 				tariffs  = {};
 
@@ -132,6 +146,54 @@ define(
 						currency: this.totalRoomsPrice().currency()
 					});
 				}
+			}, this);
+
+			this.lateCheckOutArray = ko.pureComputed(function () {
+				var tmpArray = [{
+					time: this.$$controller.i18n('HotelsSearchResults', 'hotels__lateCheckOut__time') + ' ' + this.hotel.staticDataInfo.checkOutTime
+				}];
+
+				if (this.hotel.lateCheckOutGroup) {
+					for (var group in this.hotel.lateCheckOutGroup) {
+						if (this.hotel.lateCheckOutGroup.hasOwnProperty(group)) {
+							tmpArray.push(this.hotel.lateCheckOutGroup[group]);
+						}
+					}
+				}
+
+				return tmpArray;
+			}, this);
+
+			this.earlyCheckInArray = ko.pureComputed(function () {
+				var tmpArray = [{
+					time: this.$$controller.i18n('HotelsSearchResults', 'hotels__earlyCheckIn__time') + ' ' + this.hotel.staticDataInfo.checkInTime
+				}];
+
+				if (this.hotel.earlyCheckInGroup) {
+					for (var group in this.hotel.earlyCheckInGroup) {
+						if (this.hotel.earlyCheckInGroup.hasOwnProperty(group)) {
+							tmpArray.push(this.hotel.earlyCheckInGroup[group]);
+						}
+					}
+				}
+
+				return tmpArray;
+			}, this);
+
+			this.earlyCheckInPrice = ko.pureComputed(function () {
+				return this.hotel.earlyCheckInGroup.hasOwnProperty(this.earlyCheckIn().time) ?
+					this.$$controller.getModel('Common/Money', {
+						amount: this.hotel.earlyCheckInGroup[this.earlyCheckIn().time].price.amount,
+						currency: this.hotel.earlyCheckInGroup[this.earlyCheckIn().time].price.currency
+					}) : null;
+			}, this);
+
+			this.lateCheckOutPrice = ko.pureComputed(function () {
+				return this.hotel.lateCheckOutGroup.hasOwnProperty(this.lateCheckOut().time) ?
+					this.$$controller.getModel('Common/Money', {
+						amount: this.hotel.lateCheckOutGroup[this.lateCheckOut().time].price.amount,
+						currency: this.hotel.lateCheckOutGroup[this.lateCheckOut().time].price.currency
+					}) : null;
 			}, this);
 		}
 

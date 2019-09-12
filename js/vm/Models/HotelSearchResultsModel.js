@@ -82,7 +82,7 @@ define(
 				cityId: segment[KEY_CITY_ID],
 				checkInDate: checkInDate.getISODateTime(),
 				checkOutDate: checkOutDate.getISODateTime(),
-				isDelayed: false,
+				isDelayed: true,
 				rooms: rooms,
 				loyaltyCard: {
 					number: localStorageFormData.loyaltyCard ? localStorageFormData.loyaltyCard.cardNumber : null,
@@ -95,7 +95,8 @@ define(
 		};
 
 		HotelSearchResultsModel.prototype.buildModels = function () {
-			var self = this;
+			var self = this,
+				timeout = 1000;
 
 			function searchError(code, systemData) {
 				self.fillSearchForm();
@@ -109,10 +110,9 @@ define(
 				}
 			}
 
-			var onSuccess = function (json) {
+			var onFinish = function (response) {
 				try {
-					var response          = JSON.parse(json),
-						responseErrorCode = null,
+					var responseErrorCode = null,
 						error;
 
 					self.$$rawdata = response;
@@ -150,6 +150,42 @@ define(
 					LocalStorage.set('searchFormData', self.createCookieParamsFromResponse(self.$$rawdata.hotels.search.request));
 					self.processSearchResults();
 
+				}
+				catch (e) {
+					console.error(e);
+				}
+			};
+			
+			var onSuccess = function (json) {
+				try {
+					var response          = JSON.parse(json),
+						responseErrorCode = null,
+						error,
+						resultsId;
+						
+					self.$$rawdata = response;
+					
+					if (!(response.system && response.system.error) &&
+						response.hotels.search.response && 
+						response.hotels.search.response.id
+					) {
+						resultsId = response.hotels.search.response.id;
+						setTimeout(function(){self.$$controller.loadData('/hotels/search/results/' + resultsId, {}, onSuccess)}, timeout);
+						return;
+					}
+					
+					if((response.system && response.system.error) ||
+						!response.hotels.search.results ||
+						response.hotels.search.results.isFinished === undefined || 
+						response.hotels.search.results.isFinished
+					){
+						onFinish(response);
+						return;
+					}
+
+					resultsId = response.hotels.search.results.id;
+					setTimeout(function(){self.$$controller.loadData('/hotels/search/results/' + resultsId, {}, onSuccess)}, timeout);
+					timeout += 1000;
 				}
 				catch (e) {
 					console.error(e);

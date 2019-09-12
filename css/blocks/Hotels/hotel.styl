@@ -1421,6 +1421,71 @@
 		border-right: none;
 		display: block;
 	}
+
+	&__lateCheckOut {
+		display: flex;
+		margin: 15px 0;
+		padding: 10px 15px;
+		border: 1px solid;
+		border-radius: 4px;
+		border-color: #ebebeb;
+		position: relative;
+
+		.chosen-results {
+			max-height: 120px;
+		}
+
+		&__select {
+			display: inline-block;
+			min-width: 100px;
+		}
+
+		&__main {
+			flex-grow: 1;
+		}
+
+		&__header {
+			font-size: 15px;
+			font-weight: 500;
+			margin-bottom: 5px;
+		}
+
+		&__desc {
+			line-height: 30px;
+		}
+
+		&__price {
+			flex-grow: 0;
+			align-items: center;
+			justify-content: center;
+			display: flex;
+
+			money {
+				font-size: 21px;
+				font-weight: 500;
+
+				currency {
+					font-size: 16px;
+				}
+			}
+		}
+
+		@media (max-width: 660px) {
+			&__header {
+				margin-bottom: 10px;
+			}
+
+			&__price {
+				position: absolute;
+				right: 15px;
+				top: 8px;
+
+				money {
+					font-weight: 400;
+				}
+			}
+		}
+	}
 }
 
 .fotorama {
