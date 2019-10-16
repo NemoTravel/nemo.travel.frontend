@@ -143,5 +143,25 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
 Для ускорения загрузки виджета, можно избавиться от этого запроса, "подставив" его содержимое в параметры конфигурации виджета:
 * переходим на `ДОМЕН_ПРИВЯЗАННЫЙ_К_НЕМО/api/flights/search/formData/?user_language_get_change=КОД_ЯЗЫКА` (пример: `http://demo.nemo.travel/api/flights/search/formData/?user_language_get_change=ru`)
 * копируем содержимое страницы
-* добавляем в конфиг виджета, в параметр `componentsAdditionalInfo.Flights/SearchForm/Controller` новое поле `formData`, как показано на [скриншоте](http://storage5.static.itmages.com/i/17/1110/h_1510310238_4162093_1ec00644f5.png)
-* в качестве значения нового поля `formData` подставляем скопированное ранее содержимое страницы: [скриншот](http://storage2.static.itmages.com/i/17/1110/h_1510310124_6085012_5db486a87e.png)
+* добавляем в конфиг виджета, в параметр `componentsAdditionalInfo.Flights/SearchForm/Controller` новое поле `formData`
+* в качестве значения нового поля `formData` подставляем скопированное ранее содержимое страницы: 
+```php
+...
+controllerSourceURL: nemoSourceHost,
+dataURL: '//demo.nemo.travel/api',
+staticInfoURL: '//demo.nemo.travel',
+version: 'v0',
+hostId: document.location.host,
+root: '/',
+CORSWithCredentials: true,
+postParameters: '',
+templateSourceURL: '//demo.nemo.travel/frontendStatic/html/wurst.petriktour/v0/ru/',
+i18nURL: '//demo.nemo.travel/frontendStatic/i18n/wurst.petriktour/v0',
+i18nLanguage: 'ru',
+componentsAdditionalInfo: {
+	'Flights/SearchForm/Controller': {
+		formData: { "guide": { "countries": { "RU": { "code": "RU", "name": "Россия", "nameEn": "Russia" } }, "cities": { "58194": { "IATA": "RTW", "name": "Саратов", "nameEn": "Saratov", "countryCode": "RU", "id": 58194 } }, "airports": { "RTW": { "IATA": "RTW", "cityId": 58194, "isAggregation": false, "airportRating": "29053", "baseType": "airport", "properNameEn": null, "properName": null, "name": "Саратов", "nameEn": "Saratov", "countryCode": "RU" } } }, "flights": { "search": { "request": { "segments": [ { "departure": { "IATA": "RTW", "isCity": true, "cityId": 58194 }, "arrival": null } ], "passengers": [ { "type": "ADT", "count": 1 } ], "parameters": { "searchType": "OW", "direct": false, "aroundDates": 0, "serviceClass": "All", "flightNumbers": [], "airlines": [], "delayed": false, "priceRefundType": null } }, "formData": { "maxLimits": { "passengerCount": { "ADT": "6", "SRC": "6", "YTH": "6", "CLD": "4", "INF": "2", "INS": "2" }, "totalPassengers": "9", "flightSegments": "5" }, "dateOptions": { "minOffset": 2, "maxOffset": 365, "aroundDatesValues": [ 1, 2, 3 ] }, "showCitySwapBtn": true, "scheduleSearchEnable": false, "onFocusAutocomplete": false, "forceAggregationAirports": false, "searchWithoutAdults": false, "hideDirectOnlyCheckbox": false, "highlightDates": false, "disableUnavailableDate": false, "passengersSelect": { "extendedPassengersSelect": false, "passengersSelectAlt": true, "tripType": "select", "fastPassengersSelect": [ { "label": "singleAdult", "set": { "ADT": 1 } }, { "label": "twoAdults", "set": { "ADT": 2 } }, { "label": "twoAdultsWithChild", "set": { "ADT": 2, "CLD": 1 } } ] } } } }, "system": { "info": { "response": { "timestamp": 1571225031.879, "responseTime": 0.0075910091400146 }, "user": { "userID": 61107, "agencyID": 61105, "status": "guest", "isB2B": false, "settings": { "currentLanguage": "ru", "currentCurrency": "RUB", "agencyCurrency": "RUB", "agencyCountry": "RU", "googleMapsApiKey": "AIzaSyB-8D4iRGP1qgLShbdbqIYm-3spSP-bA_w", "googleMapsClientId": "", "showFullFlightsResults": "false" } } } } }
+	}
+}
+...
+```
