@@ -39,6 +39,17 @@ define([
             streetViewControl: !disableZoomAndStreetViewControl
         });
     }
+	
+	function setHotelZoomByLatLng(lat, lng, map) {
+		var maxZoomService = new google.maps.MaxZoomService();
+		maxZoomService.getMaxZoomAtLatLng({lat: lat, lng: lng}, function(response) {
+			if (response.status !== google.maps.MaxZoomStatus.OK) {
+				console.log('Error in MaxZoomService');
+			} else {
+				map.setZoom(response.zoom - 3);
+			}
+		});
+    }
 
 	GoogleMapModel.prototype.getMarkerIcon = function (iconType) {
 		var baseUrl = this.$$controller.options.controllerSourceURL;
@@ -167,12 +178,14 @@ define([
 				lon = hotel.staticDataInfo.posLongitude || 0;
 
 			this.maps[mapId] = makeMap(mapId, [lat, lon], scrollOnWheel, disableZoomAndStreetViewControl);
-
-			this.makeMarker(this.maps[mapId], {
+			
+			marker = this.makeMarker(this.maps[mapId], {
 				hotel: hotel,
 				addClickListener: false,
 				iconColor: GoogleMapModel.ICON_TYPE_DEFAULT
 			});
+			marker.setMap(this.maps[mapId]);
+			setHotelZoomByLatLng(lat, lon, this.maps[mapId]);
 		}
     };
 
@@ -379,7 +392,7 @@ define([
 
         return isBounded ? bounds : null;
     };
-
+	
     GoogleMapModel.circleParams = {
         fillOpacity: 0,
         strokeColor: '#0D426D',
