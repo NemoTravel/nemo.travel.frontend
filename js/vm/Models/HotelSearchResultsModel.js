@@ -386,7 +386,7 @@ define(
 
 		HotelSearchResultsModel.prototype.processSearchResults = function (data) {
 			if (data) {
-				_.merge(this.$$rawdata, data);
+				this.$$rawdata = data;
 			}
 
 			var self                = this,
@@ -531,7 +531,7 @@ define(
 				// Тот, кто изначально писал этот код, подумал что будет смешно, если он ВЕЗДЕ расчеты 
 				// связанные со стоимостью чего-либо будет проводить с цифрами, а не с обычными нашими моделями...
 				hotel.hotelPriceOriginal = firstRoomPrice.amount;
-				hotel.hotelPrice = Math.round(hotel.hotelPriceOriginal);
+				hotel.hotelPrice = Math.ceil(hotel.hotelPriceOriginal);
 				hotel.isSpecialOffer = self.isSpecialOfferExist(hotel);
 				hotel.isCorporateRates = self.isСorporateRatesExist(hotel);
 				hotel.hotelChainName = hotel.staticDataInfo.hotelChainName;
@@ -555,7 +555,7 @@ define(
 					};
 				}
 
-				hotelsPool[hotel.resultsHotelId] = hotel;
+				hotelsPool[hotel.id] = hotel;
 			});
 
 			// Get city info from the search info object (new way).
