@@ -386,7 +386,7 @@ define(
 
 		HotelSearchResultsModel.prototype.processSearchResults = function (data) {
 			if (data) {
-				this.$$rawdata = data;
+				_.merge(this.$$rawdata, data);
 			}
 
 			var self                = this,
@@ -555,7 +555,7 @@ define(
 					};
 				}
 
-				hotelsPool[hotel.id] = hotel;
+				hotelsPool[hotel.resultsHotelId] = hotel;
 			});
 
 			// Get city info from the search info object (new way).
