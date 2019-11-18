@@ -943,7 +943,7 @@ define(
 			if (!this.isValid()) {
 				this.validaTERROR(true);
 				this.processValidation();
-				Analytics.tap('searchForm.search.validationError');
+				Analytics.tap('searchForm.validationError');
 			}
 			else if (this.delayedSearch && this.$$controller.navigateGetPushStateSupport()) {
 				Analytics.tap('searchForm.search');

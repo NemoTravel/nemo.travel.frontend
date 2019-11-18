@@ -181,7 +181,10 @@
 					</span>
 
 					<!-- ko if: showTitle -->
-						<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short"></span>
+						<span class="nemo-flights-results__fareFamilies__features__feature__text" data-bind="
+							html: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__' + code) + ' &mdash; ' + description.short,
+							css: { 'nemo-flights-results__fareFamilies__features__baggage__markAsImportant': markAsImportant }
+						"></span>
 					<!-- /ko -->
 
 					<!-- ko if: !showTitle -->

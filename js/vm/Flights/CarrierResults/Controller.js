@@ -476,7 +476,7 @@ define(
 									var result = true;
 									var airlineCode = flight.segments[0].marketingCompany.IATA;
 									var hideEmptyGroups = groups.length > 5 && airlineCode !== 'R3';
-									var hideR3PromoGroup = (group.name === 'Промо' || group.name === 'Promo') && airlineCode === 'R3';
+									var hideR3PromoGroup = (airlineCode === 'R3' && group.name && (group.name.indexOf('Промо') === 0 || group.name.indexOf('Promo') === 0));
 
 									// Для а\к R3 скрываем колонку с тарифом "Промо", если на плече на этом тарифе нет мест.
 									// Также, если на плече больше 5 тарифов, то прячем те, на которых нет мест.

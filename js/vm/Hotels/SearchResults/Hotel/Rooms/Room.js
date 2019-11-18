@@ -35,7 +35,18 @@ define(
 				var count = this.hiddenTarrifsCount(),
 					showMoreText = this.$$controller.i18n('HotelsSearchResults', 'showMore');
 				
-				return showMoreText + ' ' + count + ' ' + helpers.getNumeral(count, 'тариф', 'тарифа', 'тарифов');
+				return (
+					showMoreText +
+					' ' +
+					count +
+					' ' +
+					helpers.getNumeral(
+						count,
+						this.$$controller.i18n('HotelsSearchResults', 'variant_1'),
+						this.$$controller.i18n('HotelsSearchResults', 'variant_2'),
+						this.$$controller.i18n('HotelsSearchResults', 'variant_0')
+					)
+				);
 			}, this);
 
 			/**

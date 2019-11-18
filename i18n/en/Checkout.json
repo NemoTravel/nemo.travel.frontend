@@ -407,7 +407,7 @@
     "service_class_economy": "Economy",
     "new-passinfo-checkpopup__title": "Please check your data",
     "new-passinfo-checkpopup__passengers__header": "Passengers",
-    "new-passinfo-checkpopup__passengers__tbl__name": "First name and last name",
+    "new-passinfo-checkpopup__passengers__tbl__name": "Surname and name",
     "new-passinfo-checkpopup__passengers__tbl__gender": "Sex",
     "new-passinfo-checkpopup__passengers__tbl__dob": "Date of birth",
     "new-passinfo-checkpopup__passengers__tbl__nationality": "Nationality",
