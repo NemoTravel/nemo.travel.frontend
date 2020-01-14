@@ -1545,6 +1545,36 @@
 		<!-- /ko -->
 
 	</div>
+	
+	<div class="nemo-flights-results__flightsListGroup__full__segment__fareInfo">
+		<!-- ko if: (!$parent.selectedFlight().fareFeatures || !$parent.selectedFlight().fareFeatures.getFirstFamily()) && $parent.selectedFlight().legs[$index()] -->
+	<section class="nemo-flights-results__flightsGroup__leg__selector__fareInfo" data-bind="with: $parent.selectedFlight().legs[$index()]">
+		<div class="nemo-flights-results__flightsGroup__leg__selector__fareInfo__serviceClass">
+			<div data-bind="component: {
+				name: 'Flights/SearchResults/FareRules/Controller',
+				params: { 
+					flight: $parents[1].selectedFlight(),
+					linkText: $root.i18n('FlightsFlightInfo', 'fareInformation'),
+					initSegment: $data.classes[0].segNum
+				}
+			}"></div>
+		</div>
+	
+		<div class="nemo-flights-results__flightsGroup__leg__selector__fareInfo__baggage" data-bind="visible: baseBaggageText">
+			<i class="fa fa-suitcase nemo-flights-results__flightsGroup__leg__selector__fareInfo__baggage__icon"></i>
+			
+			<span data-bind="
+				text: baseBaggageText, 
+				css: { 'nemo-ui-pseudoLink': baseBaggage instanceof Array },
+				tooltip: {
+					content: baseBaggageTooltip,
+					header: $root.i18n('FlightsSearchResults', 'flightsGroup__fareFamilies__param__baggage'),
+					cssClass: 'nemo-flights-results__flightsGroup__leg__selector__fareInfo__baggage__tooltip'
+				}
+			"></span>
+		</div>
+	</section>
+<!-- /ko -->	</div>
 </div></script>
 
 		<script id="nemo-koTemplate-Flights-FlightInfo" type="text/html"><div class="nemo-flights-flightInfo" data-bind="foreach: legs">

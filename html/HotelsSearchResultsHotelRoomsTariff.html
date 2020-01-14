@@ -33,6 +33,20 @@
 		<!-- ko if: tariff.rate.paymentType -->
 			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-paymentType__' + tariff.rate.paymentType)"></span>
 		<!-- /ko -->
+		
+		<!-- ko if: additionalInfoArray() && additionalInfoArray().length -->
+			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="attr: { id: cancellationTooltipId()+ '_additionalInfoArray' }" style="display: none;">
+				<!-- ko foreach: additionalInfoArray() -->
+					<div class="tooltipster-header" data-bind="text: name"></div>
+					<div data-bind="html: value"></div>
+				<!-- /ko -->
+			</div>
+			<span class=" nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-remarks__header', tooltip: {
+						cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
+						content: $('#' + cancellationTooltipId()+ '_additionalInfoArray').clone().show(),
+						delay: 0
+					}"></span>
+		<!-- /ko -->
 	</div>
 
 	<div class="nemo-hotelRoom__tariff__price">
@@ -65,11 +79,6 @@
 						<money data-bind="money: money"></money>
 					</p>
 				</div>
-
-				<!-- ko foreach: additionalInfoArray() -->
-					<div class="tooltipster-header" data-bind="text: name"></div>
-					<div data-bind="html: value"></div>
-				<!-- /ko -->
 			</div>
 
 			<span class="nemo-hotelRoom__tariff__price__cancellation nemo-ui-pseudoLink" data-bind="tooltip: {
@@ -86,11 +95,6 @@
 			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="attr: { id: cancellationTooltipId() }" style="display: none;">
 				<div class="tooltipster-header" data-bind="text: $root.i18n('Hotels', 'hotels-room-cancel__rules__title')"></div>
 				<p data-bind="i18n: 'Hotels.hotels-room-cancel__isNonRefundable__tooltip'"></p>
-
-				<!-- ko foreach: additionalInfoArray() -->
-					<div class="tooltipster-header" data-bind="text: name"></div>
-					<div data-bind="html: value"></div>
-				<!-- /ko -->
 			</div>
 
 			<!-- ko if: tariff.rate.isNonRefundable !== null && !(tariff.rate.isNonRefundable === false && (!tariff.rate.cancellationRules || !tariff.rate.cancellationRules.length)) -->

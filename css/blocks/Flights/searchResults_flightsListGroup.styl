@@ -566,8 +566,13 @@
 				border-right: none;
 
 				&__logo{
-					max-height: 25px;
+					max-height: 30px;
+					width: 75px;
 				}
+			}
+
+			&__fareInfo {
+				padding: 0 20px;
 			}
 
 			&__direction {
@@ -786,5 +791,9 @@
 		text-align: center;
 		padding-top: 10px;
 		padding-bottom: 5px;
+
+		@media(max-width: 1500px) {
+			text-align: right;
+		}
 	}
 }

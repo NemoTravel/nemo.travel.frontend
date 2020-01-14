@@ -244,8 +244,11 @@ define(
 						})
 						.then(function (isSuccess) {
 							if (isSuccess === true) {
-								if (hotel.id in self.hotelsPool) {
-									hotel = _.cloneDeep(self.hotelsPool[hotel.id]);
+								for (var id in self.hotelsPool) {
+									if(self.hotelsPool[id].id === hotel.id){
+										hotel = _.cloneDeep(self.hotelsPool[id]);
+										break;
+									}
 								}
 	
 								self.$$controller.navigate('/hotels/results/' + getSearchId() + '/' + hotel.hotelIdFromSearch, false, hotel.name);
