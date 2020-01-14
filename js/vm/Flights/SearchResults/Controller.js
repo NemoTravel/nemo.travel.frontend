@@ -609,6 +609,11 @@ define(
 					}
 					else {
 						this.error(this.$$rawdata.flights.search.results.info.errorCode);
+						Analytics.tap('searchResults.resultsError');
+						
+						if (this.$$rawdata.flights.search.results.flightGroups && this.$$rawdata.flights.search.results.flightGroups.length == 0) {
+							Analytics.tap('searchResults.noFlights');
+						}
 					}
 				}
 				else {
@@ -1016,6 +1021,12 @@ define(
 				if (typeof systemData == 'undefined' || systemData[0] !== 0) {
 					self.error(message);
 				}
+				
+				if (message == 'emptyResult') {
+					Analytics.tap('searchResults.noFlights');
+				}
+				
+				Analytics.tap('searchResults.resultsError');
 			}
 
 			// We have results - build models
@@ -1612,6 +1623,12 @@ define(
 				}
 
 				self.requestActive(false);
+				
+				if (message == 'emptyResult') {
+					Analytics.tap('searchResults.noFlights');
+				}
+				
+				Analytics.tap('searchResults.resultsError');
 			}
 
 			self.resultsLoaded(false);

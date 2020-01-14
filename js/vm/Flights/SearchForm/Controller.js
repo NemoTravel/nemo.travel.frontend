@@ -1056,6 +1056,12 @@ define(
 			}
 
 			this.isSearching(false);
+			
+			if (message == 'emptyResult') {
+				Analytics.tap('searchResults.noFlights');
+			}
+			
+			Analytics.tap('searchResults.resultsError');
 		};
 
 		FlightsSearchFormController.prototype.abortSearch = function () {

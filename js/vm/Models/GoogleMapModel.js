@@ -69,7 +69,7 @@ define([
      * @param {String} options.iconColor
      */
     GoogleMapModel.prototype.makeMarker = function (map, options) {
-
+		
 		if (!window.google) {
 			console.warn("Google Maps Library is not included to page. Check API key");
 			return;
@@ -103,6 +103,9 @@ define([
                 self.infoPopup.open(map, marker);
                 $('#infoWindowContent .description .text').dotdotdot({watch: 'window'});
 				google.maps.event.addListener(self.infoPopup, 'domready', function() {
+					var maxMarkerWidth = $('.nemo-hotels-results__map__wrap').width() - 35;
+					$('#infoWindowContent .hotel').attr('style', 'max-width: ' + maxMarkerWidth + 'px;');
+					
 					// Reference to the DIV which receives the contents of the infowindow using jQuery
 					var iwOuter = $('.gm-style-iw');
 					

@@ -1,8 +1,7 @@
 .gm-style-iw {
-	//left: 0 !important;
-	//top: 0 !important;
-	//width: 100% !important;
-	//height: 100% !important;
+	&, &-d {
+		max-width: none !important;
+	}
 	.ltr{
 		top: 5%;
 		left: 5%;
@@ -21,15 +20,15 @@
 .mapItem {
 	width: 100%;
 	
-	:after{
-			background: #ccc;
-        	width: 50px;
-        	height: 50px;
-        	margin: 0 auto;
-        	bottom: -50px;
-        	position: absolute;
-        	z-index: 1000;
-	}
+//	:after{
+//			background: #ccc;
+//        	width: 50px;
+//        	height: 50px;
+//        	margin: 0 auto;
+//        	bottom: -50px;
+//        	position: absolute;
+//        	z-index: 1000;
+//	}
 	
 	.hotel {
 		border-radius: 4px;
@@ -42,15 +41,16 @@
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
-		padding: 0 20px 0 0;
+		padding: 5px 20px 5px 0;
 		margin: 0;
 		position: relative;
 		overflow: visible;
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
 		color: #fff;
-		line-height: 50px;
-		height: 50px;
+		//line-height: 50px;
+		//height: 50px;
+		min-height: 50px;
 		font-size: 15px;
 		background-color: #64b5f6;
 
@@ -64,19 +64,19 @@
 
 			.text {
 				display: inline-block;
-				border-bottom: 1px dashed #fff;
+				//border-bottom: 1px dashed #fff;
 				color: #fff;
 				line-height: 20px;
-				height: 20px;
+				//height: 20px;
 				text-decoration: none;
-				max-width: 310px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+				//max-width: 310px;
+				//overflow: hidden;
+				//text-overflow: ellipsis;
+				//white-space: nowrap;
 			}
 
 			.stars {
-				margin-left: 60px;
+				margin-left: 30px;
 				line-height: 20px;
 				cursor: default;
 				white-space: nowrap;
@@ -217,7 +217,7 @@
 					}
 					
 					.text {
-						height: 80px;
+						max-height: 80px;
 					}
 					.link {
 						display: flex;
@@ -364,5 +364,35 @@
 				display: inline-block;
 				padding-left: 3px;
 			}
+	}
+}
+@media (max-width: 500px) {
+	.mapItem .content .mainInfo {
+		& .infoBlock {
+			margin: 0;
+			clear: both;
+			padding: 10px 0;
+
+			& .addressWrap {
+				padding: 0;
+			}
+		}
+		
+		& .services {
+			margin: 0;
+			clear: both;
+		}
+	}
+}
+@media (max-width: 400px) {
+	.mapItem .content .mainInfo {
+		& .photoWrap {
+			width: 140px;
+			height: 140px;
+		}
+
+		& .rating {
+			width: 80px;
+		}
 	}
 }

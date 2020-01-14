@@ -386,7 +386,7 @@ define(
 
 		HotelSearchResultsModel.prototype.processSearchResults = function (data) {
 			if (data) {
-				_.merge(this.$$rawdata, data);
+				this.$$rawdata = data;
 			}
 
 			var self                = this,

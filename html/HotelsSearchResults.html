@@ -529,12 +529,14 @@
 					<a class="nemo-hotels-results__hotelsGroup__header__title__text" href="#"
 					   data-bind="text: name, click: $parent.showCardHotel, attr: { href: $parent.makeHotelLink($data) }"></a>
 
-					<div class="nemo-hotels-results__hotelsGroup__stars"
-						 data-bind="foreach: staticDataInfo.starRating">
-						<div class="nemo-hotels-results__hotelsGroup__stars__item">
-							<div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+					<!-- ko if: staticDataInfo.starRating.length > 1 -->
+						<div class="nemo-hotels-results__hotelsGroup__stars"
+							 data-bind="foreach: staticDataInfo.starRating">
+							<div class="nemo-hotels-results__hotelsGroup__stars__item">
+								<div class="nemo-hotels-results__hotelsGroup__stars__item__inner"></div>
+							</div>
 						</div>
-					</div>
+					<!-- /ko -->
 
 				</div>
 
