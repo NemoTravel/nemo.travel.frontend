@@ -291,15 +291,20 @@ define(
 		};
 
 		function compareObjects(firstArray, secondArray, propertyFirst, propertySecond) {
-			var data = secondArray.slice(0);
-
-			firstArray.forEach(function (firstArrayValue, firstArrayIndex, arrFirst) {
-				secondArray.forEach(function (secondArrayValue, secondArrayIndex) {
-					if (firstArrayValue.id === secondArrayValue[propertyFirst]) {
-						data[secondArrayIndex][propertySecond] = arrFirst[firstArrayIndex];
-					}
-				});
-			});
+			var data = secondArray.slice(0),
+				firstObject = {};
+			
+			for (var i = 0; i < firstArray.length; i++) {
+				firstObject[firstArray[i].id] = firstArray[i];
+			};
+			
+			for (var j = 0; j < secondArray.length; j++) {
+				var property = secondArray[j][propertyFirst];
+				
+				if (property in firstObject) {
+					data[j][propertySecond] = firstObject[property];
+				}
+			};
 
 			return data;
 		}
