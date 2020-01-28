@@ -1094,6 +1094,7 @@ define(
 						item = this.results_data[high[0].getAttribute("data-option-array-index")];
 						item.selected = true;
 						this.form_field.options[item.options_index].selected = true;
+						this.form_field.dispatchEvent(new Event('change'));
 						this.selected_option_count = null;
 						if (this.is_multiple) {
 							this.choice_build(item);

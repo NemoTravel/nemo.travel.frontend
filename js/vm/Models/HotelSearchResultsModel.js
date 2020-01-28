@@ -364,8 +364,12 @@ define(
 						room.roomCharges.forEach(function (charge) {
 							if (roomsDictionary[charge.roomId]) {
 								var priceCharge = self.$$controller.getModel('Common/Money', charge.price);
-								
-								roomsDictionary[charge.roomId].rate.priceCharge = priceCharge;
+
+								if (!(roomsDictionary[charge.roomId].rate.priceCharges)) {
+									roomsDictionary[charge.roomId].rate.priceCharges = [];
+								}
+
+								roomsDictionary[charge.roomId].rate.priceCharges.push(priceCharge);
 								roomsDictionary[charge.roomId].rate.price.add(priceCharge);
 							}
 						});
@@ -931,7 +935,9 @@ define(
 			});
 
 			this.showNextHotels = function () {
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 				self.visibleHotelsCount(self.visibleHotelsCount() + self.lazyLoadHotelsCount());
+				document.documentElement.scrollTop = scrollTop;
 			};
 
 			this.showCaseNextHotels = function () {
