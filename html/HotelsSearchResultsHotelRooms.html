@@ -1,5 +1,6 @@
 <ul class="nemo-hotel__content__rooms__list" data-bind="foreach: rooms">
-	<li class="nemo-hotel__content__rooms__list__item">
+	<li class="nemo-hotel__content__rooms__list__item"
+		data-bind="css: {'nemo-hotel__content__rooms__list__item_single': $parent.rooms().length == 1}">
 		<div class="nemo-hotel__content__rooms__list__item__title">
 			<span class="nemo-hotel__content__rooms__list__item__title__number" data-bind="text: $index() + 1"></span>
 			<span class="nemo-hotel__content__rooms__list__item__title__roomName" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__rooms_room') + ' ' + ($index() + 1)"></span>

@@ -243,7 +243,7 @@ define(
 			}
 			return false;
 		};
-
+		
 		/**
 		 * Get distance from center and airport
 		 * @param hotel

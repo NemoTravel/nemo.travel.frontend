@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "Plătiți la sosire/proprietate",
     "hotels-room-paymentType__Other": "Plată în avans",
     "hotels-room-paymentType__IataGuarantee": "hotels-room-paymentType__IataGuarantee",
+    "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "description",
     "location": "location",
     "hotelServicesCaption": "Servicii și facilități la hotel",

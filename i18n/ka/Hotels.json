@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "გადახდა ადგილზე ",
     "hotels-room-paymentType__Other": "გადაიხადეთ ახლა",
     "hotels-room-paymentType__IataGuarantee": "hotels-room-paymentType__IataGuarantee",
+    "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "სასტუმროს შესახებ",
     "location": "მდებარეობა",
     "hotelServicesCaption": "მომსახურება და კომფორტი სასტუმროში",

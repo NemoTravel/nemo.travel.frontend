@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "To'lov joyida",
     "hotels-room-paymentType__Other": "Oldindan to'lov",
     "hotels-room-paymentType__IataGuarantee": "hotels-room-paymentType__IataGuarantee",
+    "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "Mehmonxona haqida",
     "location": "Manzil",
     "hotelServicesCaption": "Mehmonxonadagi xizmatlar va sharoitlar",

@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "Оплата на місці",
     "hotels-room-paymentType__Other": "Оплата зараз",
     "hotels-room-paymentType__IataGuarantee": "hotels-room-paymentType__IataGuarantee",
+    "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "Опис",
     "location": "Район",
     "hotelServicesCaption": "Послуги і зручності в готелі",
