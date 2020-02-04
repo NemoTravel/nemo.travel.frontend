@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "Оплата на месте",
     "hotels-room-paymentType__Other": "Предоплата",
     "hotels-room-paymentType__IataGuarantee": "IATA-гарантия",
+    "hotels-room-freeRoomsCount": "Количество свободных номеров: ",
     "description": "Об отеле",
     "location": "Расположение",
     "hotelServicesCaption": "Услуги и удобства в отеле",

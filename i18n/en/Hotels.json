@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "Pay at the property",
     "hotels-room-paymentType__Other": "Prepayment needed",
     "hotels-room-paymentType__IataGuarantee": "IATA guarantee",
+    "hotels-room-freeRoomsCount": "Number of rooms available: ",
     "description": "About hotel",
     "location": "Location",
     "hotelServicesCaption": "Services and facilities",

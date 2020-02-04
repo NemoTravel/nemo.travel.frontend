@@ -44,6 +44,7 @@
     "hotels-room-paymentType__Cash": "hotels-room-paymentType__Cash",
     "hotels-room-paymentType__Other": "hotels-room-paymentType__Other",
     "hotels-room-paymentType__IataGuarantee": "IATA-гарантия",
+    "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "description",
     "location": "location",
     "hotelServicesCaption": "hotelServicesCaption",

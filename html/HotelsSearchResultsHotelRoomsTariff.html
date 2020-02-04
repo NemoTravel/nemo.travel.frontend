@@ -33,7 +33,11 @@
 		<!-- ko if: tariff.rate.paymentType -->
 			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-paymentType__' + tariff.rate.paymentType)"></span>
 		<!-- /ko -->
-		
+
+		<!-- ko if: tariff.rate.freeRoomsCount -->
+			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-freeRoomsCount') + tariff.rate.freeRoomsCount"></span>
+		<!-- /ko -->
+
 		<!-- ko if: additionalInfoArray() && additionalInfoArray().length -->
 			<div class="nemo-hotelRoom__tariff__price__cancellation__tooltip__content" data-bind="attr: { id: cancellationTooltipId()+ '_additionalInfoArray' }" style="display: none;">
 				<!-- ko foreach: additionalInfoArray() -->
@@ -41,11 +45,12 @@
 					<div data-bind="html: value"></div>
 				<!-- /ko -->
 			</div>
-			<span class=" nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-remarks__header', tooltip: {
-						cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
-						content: $('#' + cancellationTooltipId()+ '_additionalInfoArray').clone().show(),
-						delay: 0
-					}"></span>
+
+			<span class="nemo-ui-pseudoLink" data-bind="i18n: 'Hotels.hotels-room-remarks__header', tooltip: {
+				cssClass: 'nemo-hotelRoom__tariff__price__cancellation__tooltip',
+				content: $('#' + cancellationTooltipId()+ '_additionalInfoArray').clone().show(),
+				delay: 0
+			}"></span>
 		<!-- /ko -->
 	</div>
 
