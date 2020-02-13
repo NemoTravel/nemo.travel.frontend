@@ -78,6 +78,9 @@ define([],function () {return {
     "currencyDropDownCaption": "Валюта пошуку та оплати",
     "language": "Мова",
     "showMore": "показати ще",
+    "variant_0": "variant_0",
+    "variant_1": "variant_1",
+    "variant_2": "variant_2",
     "easyBookingCaption": "зручне бронювання",
     "recentHotelsCaption": "Також ви дивилися",
     "choiceRooms": "вибір номерів",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "В обраному готелі немає вільних номерів",
     "bookingCheck__link_to_searchResults": "Повернутися до результатів пошуку",
     "bookingCheck__link_to_mainPage": "Новий пошук",
-    "hotels__hotelsChain": "Мережа готелів"
+    "hotels__hotelsChain": "Мережа готелів",
+    "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
+    "hotels__showcase__showMore": "hotels__showcase__showMore",
+    "hotels__lateCheckOut__time": "hotels__lateCheckOut__time",
+    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc"
 }});

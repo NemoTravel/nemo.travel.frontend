@@ -78,6 +78,9 @@ define([],function () {return {
     "currencyDropDownCaption": "Валюта поиска и оплаты",
     "language": "Язык",
     "showMore": "Показать еще",
+    "variant_0": "тарифов",
+    "variant_1": "тариф",
+    "variant_2": "тарифа",
     "easyBookingCaption": "Удобное бронирование",
     "recentHotelsCaption": "Также вы смотрели",
     "choiceRooms": "Выбор номеров",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "В выбранном отеле нет свободных номеров",
     "bookingCheck__link_to_searchResults": "Вернуться к результатам поиска",
     "bookingCheck__link_to_mainPage": "Новый поиск",
-    "hotels__hotelsChain": "Сеть отелей"
+    "hotels__hotelsChain": "Сеть отелей",
+    "hotels__showcase__corporate__header": "Отели с корпоративными тарифами",
+    "hotels__showcase__showMore": "Показать еще",
+    "hotels__lateCheckOut__time": "до",
+    "hotels__earlyCheckIn__time": "после",
+    "hotels__lateCheckOut__header": "Выберите время выезда",
+    "hotels__lateCheckOut__desc": "Неудобно покидать отель до [%-checkOutTime-%]? Вы можете выбрать другое время выезда:",
+    "hotels__earlyCheckIn__header": "Выберите время заезда",
+    "hotels__earlyCheckIn__desc": "Пребываете раньше [%-checkInTime-%]? Вы можете выбрать более раннее время заезда:"
 }});

@@ -77,7 +77,10 @@ define([],function () {return {
     "roomServices": "Room services",
     "currencyDropDownCaption": "currencyDropDownCaption",
     "language": "Language",
-    "showMore": "showMore",
+    "showMore": "Show",
+    "variant_0": "more variants",
+    "variant_1": "more variant",
+    "variant_2": "more variants",
     "easyBookingCaption": "easyBookingCaption",
     "recentHotelsCaption": "recentHotelsCaption",
     "choiceRooms": "Choose rooms",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "No available rooms left",
     "bookingCheck__link_to_searchResults": "Back to search results",
     "bookingCheck__link_to_mainPage": "New search",
-    "hotels__hotelsChain": "Hotels chain"
+    "hotels__hotelsChain": "Hotels chain",
+    "hotels__showcase__corporate__header": "Hotels with corporate fares",
+    "hotels__showcase__showMore": "Show more",
+    "hotels__lateCheckOut__time": "until",
+    "hotels__earlyCheckIn__time": "after",
+    "hotels__lateCheckOut__header": "Choose your check out time",
+    "hotels__lateCheckOut__desc": "Want to leave hotel after [%-checkOutTime-%]? You can order late check out:",
+    "hotels__earlyCheckIn__header": "Choose your check in time",
+    "hotels__earlyCheckIn__desc": "Arrive before [%-checkInTime-%]? Your can order early check in:"
 }});

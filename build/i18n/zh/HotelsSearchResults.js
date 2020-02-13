@@ -78,6 +78,9 @@ define([],function () {return {
     "currencyDropDownCaption": "货币和收费",
     "language": "语言",
     "showMore": "下一页",
+    "variant_0": "variant_0",
+    "variant_1": "variant_1",
+    "variant_2": "variant_2",
     "easyBookingCaption": "方便预订",
     "recentHotelsCaption": "您以前见的",
     "choiceRooms": "房间选",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "您选的酒店没空房",
     "bookingCheck__link_to_searchResults": "回返搜索结果",
     "bookingCheck__link_to_mainPage": "重新搜索",
-    "hotels__hotelsChain": "连酒店"
+    "hotels__hotelsChain": "连酒店",
+    "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
+    "hotels__showcase__showMore": "hotels__showcase__showMore",
+    "hotels__lateCheckOut__time": "hotels__lateCheckOut__time",
+    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc"
 }});

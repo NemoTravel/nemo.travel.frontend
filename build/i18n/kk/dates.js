@@ -61,7 +61,7 @@ define([],function () {return {
     "dow_5_s": "жұма",
     "dow_6_s": "сенбі",
     "dow_7_s": "жекс.",
-    "datetime_year": "datetime_year",
+    "datetime_year": "жылы",
     "monthNamesShort": "monthNamesShort",
     "monthNames": "monthNames",
     "daysOfWeekShort": "daysOfWeekShort",

@@ -78,6 +78,9 @@ define([],function () {return {
     "currencyDropDownCaption": "Izlash va to'lovlar valyutasi",
     "language": "Til",
     "showMore": "Ko'proq ko'rsatish",
+    "variant_0": "variant_0",
+    "variant_1": "variant_1",
+    "variant_2": "variant_2",
     "easyBookingCaption": "Qulay rezervasyon",
     "recentHotelsCaption": "Siz ham qaradingiz",
     "choiceRooms": "Xonalarni tanlang",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "Tanlangan mehmonxonada xona mavjud emas",
     "bookingCheck__link_to_searchResults": "Qidiruv natijalariga qaytish",
     "bookingCheck__link_to_mainPage": "Yangi qidiruv",
-    "hotels__hotelsChain": "Mehmonxonalar tarmog'i"
+    "hotels__hotelsChain": "Mehmonxonalar tarmog'i",
+    "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
+    "hotels__showcase__showMore": "hotels__showcase__showMore",
+    "hotels__lateCheckOut__time": "hotels__lateCheckOut__time",
+    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc"
 }});

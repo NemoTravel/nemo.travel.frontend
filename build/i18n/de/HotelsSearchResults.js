@@ -78,6 +78,9 @@ define([],function () {return {
     "currencyDropDownCaption": "currencyDropDownCaption",
     "language": "language",
     "showMore": "showMore",
+    "variant_0": "variant_0",
+    "variant_1": "variant_1",
+    "variant_2": "variant_2",
     "easyBookingCaption": "easyBookingCaption",
     "recentHotelsCaption": "recentHotelsCaption",
     "choiceRooms": "choiceRooms",
@@ -121,5 +124,13 @@ define([],function () {return {
     "hotels__bookingCheck__error__error_unavailable": "hotels__bookingCheck__error__error_unavailable",
     "bookingCheck__link_to_searchResults": "bookingCheck__link_to_searchResults",
     "bookingCheck__link_to_mainPage": "bookingCheck__link_to_mainPage",
-    "hotels__hotelsChain": "hotels__hotelsChain"
+    "hotels__hotelsChain": "hotels__hotelsChain",
+    "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
+    "hotels__showcase__showMore": "hotels__showcase__showMore",
+    "hotels__lateCheckOut__time": "hotels__lateCheckOut__time",
+    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc"
 }});
