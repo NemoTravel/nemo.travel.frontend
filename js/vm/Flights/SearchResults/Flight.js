@@ -339,33 +339,39 @@ define(
 		};
 
 		Flight.prototype.getBaggageForFilter = function () {
-			var family = this.fareFeatures.getFirstFamily(),
-				baggage = {};
+			var baggage = {};
 
-			if (family && family.hasOwnProperty('list') && family.list.hasOwnProperty('baggage')) {
-				family.list.baggage.map(function (item) {
-					// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,
-					// берём её в качестве основной.
-					if (item.code === 'baggage' && baggage.value !== 0) {
-						if (item.needToPay === 'Free') {
-							// Если до этого не нашли опцию с неизвестным багажом.
-							if (baggage.value !== null) {
-								// То считаем что есть бесплатный.
-								baggage.value = 1;
-							}
-						}
-						else if (item.needToPay === 'Unknown') {
-							// Багаж неизвестен.
-							baggage.value = null;
-						}
-						else {
-							// Только платный багаж.
-							baggage.value = 0;
+			if (this.fareFeatures.bySegments) {
+				for (var i in this.fareFeatures.bySegments) {
+					if (this.fareFeatures.bySegments.hasOwnProperty(i) && this.fareFeatures.bySegments[i].hasFeatures) {
+						var family = this.fareFeatures.bySegments[i];
+						if (family.hasOwnProperty('list') && family.list.hasOwnProperty('baggage')) {
+							family.list.baggage.map(function (item) {
+								// Если в семействе есть хотя бы одна опция с недоступным бесплатным багажом,
+								// берём её в качестве основной.
+								if (item.code === 'baggage' && baggage.value !== 0) {
+									if (item.needToPay === 'Free') {
+										// Если до этого не нашли опцию с неизвестным багажом.
+										if (baggage.value !== null) {
+											// То считаем что есть бесплатный.
+											baggage.value = 1;
+										}
+									}
+									else if (item.needToPay === 'Unknown') {
+										// Багаж неизвестен.
+										baggage.value = null;
+									}
+									else {
+										// Только платный багаж.
+										baggage.value = 0;
+									}
+								}
+							});
 						}
 					}
-				});
+				}
 			}
-			else {
+			if (!baggage.value) {
 				this.price.segmentInfo.map(function (segmentInfo) {
 					// Если в перелёте есть хотя бы один сегмент с недоступным бесплатным багажом,
 					// берём его в качестве основны.

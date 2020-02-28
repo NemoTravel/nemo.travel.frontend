@@ -228,29 +228,52 @@
 										">
 							<div class="nemo-hotels-form__loyalCard">
 								<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
-								<div class="nemo-hotels-form__loyalCard__item">
-									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
-										   data-bind="
-										   		textInput: loyaltyCardChain,
-										   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
-										   		css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
-										   type="text"
-										   spellcheck="false"
-										   autocorrect="off"
-										   autocomplete="off">
-									<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
+								<!-- ko ifnot: preinitedLoyaltyCardsArray.length -->
+									<div class="nemo-hotels-form__loyalCard__item">
+										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
+										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+											   data-bind="
+													textInput: loyaltyCardChain,
+													attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+													css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
+											   type="text"
+											   spellcheck="false"
+											   autocorrect="off"
+											   autocomplete="off">
+										<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
 
-								</div>
-								<div class="nemo-hotels-form__loyalCard__item">
-									<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
-									<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-										   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
-										   type="text"
-										   spellcheck="false"
-										   autocorrect="off"
-										   autocomplete="off">
-								</div>
+									</div>
+									<div class="nemo-hotels-form__loyalCard__item">
+										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
+										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
+											   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
+											   type="text"
+											   spellcheck="false"
+											   autocorrect="off"
+											   autocomplete="off">
+									</div>
+								<!-- /ko -->
+								<!-- ko if: preinitedLoyaltyCardsArray.length -->
+									<div class="nemo-hotels-form__loyalCard__item">
+										<select class="js-flights-searchForm-hiddenSelect nemo-flights-form__additional__parameters__carrierSelect"
+											data-bind="
+														options: preinitedLoyaltyCardsArray,
+														optionsValue: function(item) {
+															return {'loyaltyCardNumber': item.loyaltyCardNumber, 'loyaltyCardChain': item.loyaltyCardChain};
+														},
+														optionsText: function(item) {
+															return item.name
+														},
+														value: loyaltyCardObject,
+														flightsFormSelect: {
+															disable_search: true,
+															search_in_values: false,
+															search_contains: false
+														},
+
+														"></select>
+									</div>
+								<!-- /ko -->
 							</div>
 							<!-- ko if: $$controller.options.clientNationalitySelect -->
 								<div class="nemo-hotels-form__clientNationality">
@@ -324,31 +347,54 @@
 										">
 								<div class="nemo-hotels-form__loyalCard">
 									<div class="nemo-ui-subSectionHeader" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_header')"></div>
-									<div class="nemo-hotels-form__loyalCard__item">
-										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
-										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
-											   data-bind="
-											   		textInput: loyaltyCardChain,
-											   		attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
-													css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
-											   type="text"
-											   minlength="2"
-											   maxlength="2"
-											   spellcheck="false"
-											   autocorrect="off"
-											   autocomplete="off">
-										<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
+									<!-- ko ifnot: preinitedLoyaltyCardsArray.length -->
+										<div class="nemo-hotels-form__loyalCard__item">
+											<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_hotelsChain')"></div>
+											<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code nemo-hotels-form__loyalCard__item_chain"
+												   data-bind="
+														textInput: loyaltyCardChain,
+														attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_placeholder') },
+														css: { 'nemo-hotels-form__loyalCard__item_notValid': !loyaltyCardChainValid() }"
+												   type="text"
+												   minlength="2"
+												   maxlength="2"
+												   spellcheck="false"
+												   autocorrect="off"
+												   autocomplete="off">
+											<div class="nemo-hotels-form__loyalCard__item__tip" data-bind="text: $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_hotelsChain_tip')"></div>
 
-																			</div>
-									<div class="nemo-hotels-form__loyalCard__item">
-										<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
-										<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
-											   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
-											   type="text"
-											   spellcheck="false"
-											   autocorrect="off"
-											   autocomplete="off">
-									</div>
+																					</div>
+										<div class="nemo-hotels-form__loyalCard__item">
+											<div class="nemo-hotels-form__loyalCard__item_label" data-bind="text: $root.i18n('HotelsSearchForm','hotels__loyaltyCard_cardNumber')"></div>
+											<input class="nemo-ui-textInput__input nemo-hotels-form__loyalCard__item_code"
+												   data-bind="textInput: loyaltyCardNumber, attr: { placeholder : $root.i18n('HotelsSearchForm', 'hotels__loyaltyCard_cardNumber_placeholder') }"
+												   type="text"
+												   spellcheck="false"
+												   autocorrect="off"
+												   autocomplete="off">
+										</div>
+									<!-- /ko -->
+									<!-- ko if: preinitedLoyaltyCardsArray.length -->
+										<div class="nemo-hotels-form__loyalCard__item">
+											<select class="js-flights-searchForm-hiddenSelect nemo-flights-form__additional__parameters__carrierSelect"
+												data-bind="
+															options: preinitedLoyaltyCardsArray,
+															optionsValue: function(item) {
+																return {'loyaltyCardNumber': item.loyaltyCardNumber, 'loyaltyCardChain': item.loyaltyCardChain};
+															},
+															optionsText: function(item) {
+																return item.name
+															},
+															value: loyaltyCardObject,
+															flightsFormSelect: {
+																disable_search: true,
+																search_in_values: false,
+																search_contains: false
+															},
+
+															"></select>
+										</div>
+									<!-- /ko -->
 								</div>
 
 								<!-- ko if: $$controller.options.clientNationalitySelect -->
