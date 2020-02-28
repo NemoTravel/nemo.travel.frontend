@@ -72,6 +72,11 @@ define([
 			this.loyaltyCardChain = ko.observable('');
 			this.clientNationality = ko.observable('');
 			this.loyaltyCardChainValid = ko.observable(true);
+			this.loyaltyCardObject = ko.observable({});
+			
+			if (this.$$controller.options.preinitedLoyaltyCardsArray) {
+				this.preinitedLoyaltyCardsArray = this.$$controller.options.preinitedLoyaltyCardsArray;
+			}
 
 			this.loyaltyCardChain.subscribe(function () {
 				var value = self.loyaltyCardChain().toUpperCase();
@@ -81,6 +86,15 @@ define([
 				}
 				else if (value.length > 0) {
 					self.loyaltyCardChainValid(false);
+				}
+			});
+			
+			this.loyaltyCardObject.subscribe(function(newValue) {
+				if (newValue.loyaltyCardNumber) {
+					self.loyaltyCardNumber(newValue.loyaltyCardNumber);
+				}
+				if (newValue.loyaltyCardChain) {
+					self.loyaltyCardChain(newValue.loyaltyCardChain);
 				}
 			});
 

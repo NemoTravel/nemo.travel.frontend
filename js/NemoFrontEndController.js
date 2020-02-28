@@ -1056,7 +1056,8 @@ define (
 			waitForDOMReady: true,
 			carrierResultsMode: false,
 			showNewDesignButton: false,
-			clientNationalitySelect: false
+			clientNationalitySelect: false,
+			preinitedLoyaltyCardsArray: []
 		};
 
 		/**
