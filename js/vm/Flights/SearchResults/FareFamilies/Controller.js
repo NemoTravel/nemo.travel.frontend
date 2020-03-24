@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'js/lib/md5/md5', 'js/vm/Analytics'],
+	['knockout', 'js/vm/helpers', 'js/vm/BaseControllerModel', 'js/lib/md5/md5', 'js/vm/EventManager'],
 	function (ko, helpers, BaseControllerModel, md5, Analytics) {
 		function FlightsSearchResultsFareFamiliesController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);

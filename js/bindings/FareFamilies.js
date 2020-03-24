@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'jquery', 'js/vm/Analytics'],
+	['knockout', 'jquery', 'js/vm/EventManager'],
 	function (ko, $, Analytics) {
 		ko.bindingHandlers.fareFamiliesChooseFlight = {
 			init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
