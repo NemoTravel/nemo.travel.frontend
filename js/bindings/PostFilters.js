@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'jquery', 'js/vm/Analytics', 'jqueryUI'],
+	['knockout', 'jquery', 'js/vm/EventManager', 'jqueryUI'],
 	function (ko, $, Analytics) {
 		// Common Knockout bindings are defined here
 		/*

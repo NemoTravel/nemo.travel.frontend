@@ -1,6 +1,6 @@
 'use strict';
 
-function initAnalytics($) {                   /* копия EventManager - для решения проблемы старого кеша, можно удалить этот файл через некоторое время */
+function initAnalytics($) {
 	function Analytics() {}
 
 	Analytics.tap = function (eventName, params) {

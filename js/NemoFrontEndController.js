@@ -176,8 +176,8 @@ define (
 						path = '/';
 					}
 
-					if (self.options.root == '/' || path.indexOf(self.options.root) === 0) {
-						fragment = self.options.root != '/' ? path.replace(self.options.root, '') : path;
+					if (self.options.root == '/' || path.indexOf(self.options.root.slice(0, -1)) === 0) {
+						fragment = self.options.root != '/' ? path.replace(self.options.root.slice(0, -1), '') : path;
 						return this.clearSlashes(fragment);
 					}
 

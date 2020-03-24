@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchForm/Controller' , 'js/vm/Analytics'],
+	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchForm/Controller' , 'js/vm/EventManager'],
 	function (ko, helpers, BaseControllerModel, Analytics) {
 		function FlightsScheduleSearchFormController (componentParameters) {
 			BaseControllerModel.apply(this, arguments);

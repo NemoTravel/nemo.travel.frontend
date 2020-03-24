@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'jquery','js/vm/helpers', 'js/vm/Common/PostFilter/Abstract', 'js/vm/Analytics'],
+	['knockout', 'jquery','js/vm/helpers', 'js/vm/Common/PostFilter/Abstract', 'js/vm/EventManager'],
 	function (ko, $, helpers, BaseModel) {
 		function PostFilterText(initialData, controller) {
 			BaseModel.apply(this, arguments);

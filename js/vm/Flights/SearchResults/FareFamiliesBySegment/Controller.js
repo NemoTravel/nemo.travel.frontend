@@ -1,6 +1,6 @@
 'use strict';
 define(
-	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchResults/FareFamilies/Controller', '../FareFamilies/Abstract', 'js/lib/md5/md5', 'js/vm/Analytics'],
+	['knockout', 'js/vm/helpers', 'js/vm/Flights/SearchResults/FareFamilies/Controller', '../FareFamilies/Abstract', 'js/lib/md5/md5', 'js/vm/EventManager'],
 	function (ko, helpers, FlightsSearchResultsFareFamiliesController, AbstractFareFamiliesController, md5, Analytics) {
 		function FlightsSearchResultsFareFamiliesBySegmentController(componentParameters) {
 			FlightsSearchResultsFareFamiliesController.apply(this, arguments);
