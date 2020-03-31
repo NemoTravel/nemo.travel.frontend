@@ -264,6 +264,8 @@ define([],function () {return {
     "error_404": "Afsuski, bu yo'nalishda siz ko'rsatgan sanalarda chiptalar yo'q. Yuqoridagi formadan foydalaning yoki bosh sahifaga qayting",
     "error_404_buttonText": "Bosh sahifaga",
     "error_404_createClaim": "Bron uchun arizani qo'yish",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Qidiruv topilmadi",
     "error_410": "Afsuski, siz murojaat qilgan qidiruvni topa olmadik. Yuqoridagi formadan foydalaning yoki bosh sahifaga qayting",
     "error_410_buttonText": "Bosh sahifaga",

@@ -264,6 +264,8 @@ define([],function () {return {
     "error_404": "Təəssüf ki, bu istiqamətdə sizin qeyd etdiyiniz vaxtlarda bilet yoxdur. Yuxarıdakı formadan istifadə edin, yaxud baş səhifəyə qayıdın.",
     "error_404_buttonText": "Yeni axtarış üçün geriyə qayıdın",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Axtarış tapılmadı",
     "error_410": "Təəssüf ki, sizin müraciət etdiyiniz axtarış tapılmadı. Yuxarıdakı formadan istifadə edin, yaxud baş səhifəyə qayıdın.",
     "error_410_buttonText": "Baş səhifəyə",

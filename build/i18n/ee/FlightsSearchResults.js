@@ -264,6 +264,8 @@ define([],function () {return {
     "error_404": "Kahjuks sellel suunal pileteid müügil pole. Kasutage üleval oleva otsingut või minge tagasi pealehele.",
     "error_404_buttonText": "Pealehele",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Pole midagi leitud",
     "error_410": "Kahjuks teie poolt valitud otsing ei ole leitav, palun kasutage uuesti üleval oleva otsingut või minge pealehele.",
     "error_410_buttonText": "Pealehele",

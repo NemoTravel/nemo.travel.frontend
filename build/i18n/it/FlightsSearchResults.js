@@ -264,6 +264,8 @@ define([],function () {return {
     "error_404": ":( Oops, sembra che non ci siano voli disponibili con i criteri di ricerca…",
     "error_404_buttonText": "Indietro per una nuova ricerca",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Nessun risultato trovato",
     "error_410": ":( Sembra che non possiamo trovare uno storico di ricerca che stavi cercando.",
     "error_410_buttonText": "Indietro per una nuova ricerca",
