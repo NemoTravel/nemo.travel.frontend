@@ -264,6 +264,8 @@
     "error_404": "სამწუხაროდ, ამ მიმართულებით ბილეთები არ მოიძებნა მითითებული თარიღების მიხედვით. გამოიყენეთ ზემოთ მოცემული ფორმა ან დაბრუნდით მთავარ გვერდზე",
     "error_404_buttonText": "მთავარზე",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "ძიება ვერ ინახა",
     "error_410": "სამწუხაროდ, ჩვენ ვერ შევძელით ვიპოვოთ ის, რაც თქვენ გსურთ. გამოიყენეთ ზემოთმოცემული ფორმა ან დაბრუნდით მთავარ გვერდზე",
     "error_410_buttonText": "მთავარზე",

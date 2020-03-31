@@ -264,6 +264,8 @@
     "error_404": ":( Ups! Es scheint, als gäbe es keine verfügbaren Flüge mit den gewünschten Kriterien.",
     "error_404_buttonText": "Zurück für eine neue Suche",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Keine Ergebnisse gefunden",
     "error_410": ":( Es scheint als konnten wir den gewünschten Suchverlauf nicht finden.",
     "error_410_buttonText": "Zurück für eine neue Suche",

@@ -264,6 +264,8 @@
     "error_404": "Bu yönde belirttiğiniz tarihte uçuş mevcut değildir. Yukarıdaki formu kullanın ya da ana sayfaya geri dönün.",
     "error_404_buttonText": "Yeni arama başlat",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Arama sonuç vermedi",
     "error_410": "Üzgünüz, kullandığınız arama uygulamasını bulamadık. Yukarıdaki formu kullanın ya da ana sayfaya geri dönün.",
     "error_410_buttonText": "Yeni bir arama için başa dön",

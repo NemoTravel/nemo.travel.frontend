@@ -264,6 +264,8 @@
     "error_404": "不幸的是，在这方面有没有火车票可用于所选择的日期。 使用的形式上或者转到主网页。",
     "error_404_buttonText": "返回主页",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "搜索没有发现",
     "error_410": "不幸的是，我们无法找到的搜索向其适用。 使用的形式上或者转到主网页。",
     "error_410_buttonText": "返回主页",

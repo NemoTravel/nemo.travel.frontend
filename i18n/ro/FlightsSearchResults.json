@@ -264,6 +264,8 @@
     "error_404": "Ne pare rau,nu exista zboruri valabile pentru criteriile dumneavoastra de cautare",
     "error_404_buttonText": "Inapoi la o noua cautare",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Nu au fost gasite rezultate",
     "error_410": "Ne pare rau,nu am putut gasi cautarea solicitata de dumneavoastra",
     "error_410_buttonText": "Inapoi la o noua cautare",
