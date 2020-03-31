@@ -264,6 +264,8 @@
     "error_404": "Кечиресиз, сиз көрсөткөн даталарга бул багытта билет жок. Жогорку форманы колдонуңуз же баштапкы баракка кайрылыңыз",
     "error_404_buttonText": "Баштапкыга",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Издөө табылган жок",
     "error_410": "Кечиресиз, биз сиз кайрылган издөөнү таба алган жокпуз. Жогорку форманы колдонуңуз же баштапкы баракка кайрылыңыз",
     "error_410_buttonText": "Баштапкыга",

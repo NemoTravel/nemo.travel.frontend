@@ -264,6 +264,8 @@
     "error_404": ":( Oops, it seems there are no flights available for the search criteria...",
     "error_404_buttonText": "Back for a new search",
     "error_404_createClaim": "Leave a reservation request",
+    "error_pCarriers": "No flights were found for the desired airline.",
+    "error_pCarriers_buttonText": "Search all airlines",
     "error_410_header": "No results found",
     "error_410": ":( It seems we could not find a search historial you were looking for. ",
     "error_410_buttonText": "Back for a new search",

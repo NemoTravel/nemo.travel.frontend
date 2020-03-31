@@ -264,6 +264,8 @@
     "error_404": "Diemžēl uz šo virzienu jūsu norādītajos datumos nav biļešu. Izmantojiet formu, kas izvietota augstāk, vai atgriezieties uz galveno lapu.",
     "error_404_buttonText": "Uz galveno lapu",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Meklēšanai nav rezultātu",
     "error_410": "Diemžēl mēs nevarējām atrast to meklēšanu, kuru jūs izmantojāt. Izmantojiet formu, kas izvietota augstāk, vai atgriezieties uz galveno lapu.",
     "error_410_buttonText": "Uz galveno",

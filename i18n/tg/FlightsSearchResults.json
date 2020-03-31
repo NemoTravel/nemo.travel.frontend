@@ -264,6 +264,8 @@
     "error_404": "Мутассифона, ба ин самт дар рӯзи таъинкардаи шумо чипта вуҷуд надорад. Аз намоиши болоӣ истифода баред ё ба саҳифаи аслӣ баргардед.",
     "error_404_buttonText": "Ба асосӣ",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Ҷустуҷӯ ёфт нашуд",
     "error_410": "Мутаассифона мо ҷустуҷӯеро, ки шумо ба он муроҷиат кардед, ёфта натавонистем. Аз намоиши болоӣ истифода баред ё ба саҳифаи аслӣ баргардед.",
     "error_410_buttonText": "Ба асосӣ",

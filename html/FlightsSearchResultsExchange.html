@@ -1493,10 +1493,10 @@
 							data-bind="
 								tooltip: {
 									content: $root.i18n('FlightsFlightInfo','leg__segment__flightNumber__caption') + ': '
-											 + $parent.referenceFlight.segments[0].marketingCompany.IATA + '-' + $parent.referenceFlight.segments[0].flightNumber
-											 + ($parent.referenceFlight.segments[0].aircraftType ? ( '. '
+											 + segments[0].marketingCompany.IATA + '-' + segments[0].flightNumber
+											 + (segments[0].aircraftType ? ( '. '
 												+ $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': '
-												+ $parent.referenceFlight.segments[0].aircraftType.name ) : '')
+												+ segments[0].aircraftType.name ) : '')
 							  }
 							">&rarr;</span>
 						<!-- ko if: transfersCount > 0 -->

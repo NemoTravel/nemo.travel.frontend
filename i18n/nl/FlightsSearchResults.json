@@ -264,6 +264,8 @@
     "error_404": "Controleer vlucht",
     "error_404_buttonText": "Controleert beschikbaarheid",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Check in",
     "error_410": "Verander de instellingen van het applicatie object",
     "error_410_buttonText": "Verander iets",

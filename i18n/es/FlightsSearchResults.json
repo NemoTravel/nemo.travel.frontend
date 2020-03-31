@@ -264,6 +264,8 @@
     "error_404": "Desafortunadamente, en este dirección no hay billetes para las fechas indicadas. Utilice el formulario de arriba o vuelva a la página principal.",
     "error_404_buttonText": "Página de inicio",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "No hay resultados de búsqueda",
     "error_410": "Lo sentimos, no hemos podido encontrar la búsqueda a que se dirigía. Utilice el formulario de arriba o vuelva a la página principal.",
     "error_410_buttonText": "Página de inicio",

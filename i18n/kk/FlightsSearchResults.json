@@ -264,6 +264,8 @@
     "error_404": "Өкінішке орай, бұл бағытқа сіз көрсеткен күнге билеттер жоқ. Жоғарыдағы форманы қолданыңыз не басты бетке қайтыңыз.",
     "error_404_buttonText": "Басты бетке",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Іздеу табылмады",
     "error_410": "Өкінішке орай, біз сізге керек іздеуді таба алмадық. Жоғарыдағы форманы қолданыңыз не басты бетке қайтыңыз.",
     "error_410_buttonText": "Басты бетке",

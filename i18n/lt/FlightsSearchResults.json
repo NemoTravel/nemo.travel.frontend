@@ -264,6 +264,8 @@
     "error_404": "Deja, šia kryptimi nėra jokių bilietų nurodytoms datoms. Naudokite aukščiau esančią formą arba grįžkite į pagrindinį puslapį.",
     "error_404_buttonText": "Į pagrindinį puslapį",
     "error_404_createClaim": "error_404_createClaim",
+    "error_pCarriers": "error_pCarriers",
+    "error_pCarriers_buttonText": "error_pCarriers_buttonText",
     "error_410_header": "Paieška nesėkminga",
     "error_410": "Deja, pagal užklausą Jūsų paieška nepavyko. Naudokite aukščiau esančią formą arba grįžkite į pagrindinį puslapį.",
     "error_410_buttonText": "Į pagrindinį puslapį",
