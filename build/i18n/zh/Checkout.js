@@ -241,7 +241,7 @@ define([],function () {return {
     "new-passInfo__info__codes__service": "供应商",
     "new-passInfo__info__codes__accessCode": "访问代码",
     "new-passInfo__info__codes__ticketAirv": "航空公司的结算代码",
-    "new-passInfo__info__codes__nemo2id": "ID Nemo2.0",
+    "new-passInfo__info__codes__nemo2id": "ID Nemo Connect",
     "new-passInfo__info__codes__paymentCurrency": "支付货币",
     "new-passInfo__info__title_bookinfo": "订单信息",
     "new-passInfo__info__title_errors": "错误",
