@@ -59,7 +59,6 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 <link rel="stylesheet" href="<?php echo $host; ?>/css/ie9.css?a=1123">
 <![endif]-->
 <link href="/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
-<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <script src="<?php echo $host; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
@@ -235,7 +234,5 @@ $host = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_
 		}
 	);*/
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
 </body>
 </html>
