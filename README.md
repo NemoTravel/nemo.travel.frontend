@@ -43,7 +43,6 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
 <link rel="stylesheet" href="<?php echo $widgetPartsURL; ?>/css/ie9.css?a=1123">
 <![endif]-->
 <link href="<?php echo $widgetPartsURL; ?>/js/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet">
-<link href="<?php echo $widgetPartsURL; ?>/js/lib/fotorama-4.6.4/fotorama.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <div id="js-nemoApp">
     <!-- ko if: component() -->
@@ -67,8 +66,6 @@ $widgetPartsURL = $nemoURL . '/templates/wurst/f2.0';
     <!-- /ko -->
 </div>
 <script src="<?php echo $widgetPartsURL; ?>/js/lib/requirejs/v.2.1.15/require.js"></script>
-<script src="<?php echo $widgetPartsURL; ?>/js/lib/jquery/v.2.1.3/jquery-2.1.3.min.js"></script>
-<script src="<?php echo $widgetPartsURL; ?>/js/lib/fotorama-4.6.4/fotorama.min.js"></script>
 <script>
     var nemoSourceHost = '<?php echo $widgetPartsURL; ?>';
 
