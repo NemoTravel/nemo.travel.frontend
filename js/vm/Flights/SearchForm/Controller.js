@@ -682,6 +682,13 @@ define(
 			}
 			// Preinitted by cookie
 			else if (this.useCookies) {
+
+				// TSE не поддерживается, но сохранился у пользователей в куках. Добавлено 10.06.20, если прошло достаточно времени - можно удалить
+				if (Cookie.get(this.getCookieName()) && Cookie.get(this.getCookieName()).indexOf('"TSE"')) {
+					this.$$controller.log('WRITING COOKIE', this.getCookieName(), Cookie.get(this.getCookieName()).replace('"TSE"', '"NQZ"'));
+					Cookie.set(this.getCookieName(), Cookie.get(this.getCookieName()).replace('"TSE"', '"NQZ"'), { expires: 365 });
+				}
+				
 				var cookie = Cookie.getJSON(this.getCookieName());
 
 				// Checking cookie validity and fixing that
