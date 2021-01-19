@@ -50,5 +50,14 @@
     "hotelServicesCaption": "Послуги і зручності в готелі",
     "hotels-room-remarks__header": "hotels-room-remarks__header",
     "hotels-room-remarks__toggle_opened": "hotels-room-remarks__toggle_opened",
-    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed"
+    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed",
+    "hotels-room-remarks__early_check-in_avail": "Доступний ранній заїзд",
+    "hotels-room-remarks__late_check-out_avail": "Доступний пізній виїзд",
+    "hotels__lateCheckOut__header": "Оберіть час виїзду",
+    "hotels__lateCheckOut__desc": "Незручно залишати готель до [%-checkOutTime-%]? Ви можете обрати інший час виїзду:",
+    "hotels__earlyCheckIn__header": "Оберіть час заїзду",
+    "hotels__earlyLate__toggle_on": "hotels__earlyLate__toggle_on",
+    "hotels__earlyLate__toggle_off": "hotels__earlyLate__toggle_off",
+    "hotels__earlyCheckIn__desc": "Прибуваєте раніше [%-checkInTime-%]? Ви можете обрати більш ранній час заїзду:",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "При оформленні даних послуг правила скасування бронювання можуть змінитися"
 }

@@ -1,0 +1,51 @@
+.nemo-ui-spinner {
+	display: inline-block;
+	border-radius: 3px;
+	overflow: hidden;
+
+	.ui-spinner-up {
+		float: right;
+		display: block;
+		width: 30px;
+		height: 40px;
+		line-height: 40px;
+		background: #EFEFEF;
+		text-align: center;
+		cursor: pointer;
+		&:after {
+			content: '+';
+			font-weight: 700;
+			font-size: 18px;
+		}
+		.ui-button-text {
+			display: none;
+		}
+
+	}
+	.ui-spinner-down {
+		float: left;
+		display: block;
+		width: 30px;
+		height: 40px;
+		line-height: 40px;
+		background: #EFEFEF;
+		text-align: center;
+		cursor: pointer;
+		&:after {
+			content: '-';
+			font-weight: 700;
+			font-size: 18px;
+		}
+		.ui-button-text {
+			display: none;
+		}
+	}
+	.ui-spinner-input {
+		height: 40px;
+		width: 40px;
+		border: 1px solid #EFEFEF;
+		text-align: center;
+		border-radius: none;
+		text-shadow: none;
+	}
+}

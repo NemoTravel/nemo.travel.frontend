@@ -50,5 +50,14 @@
     "hotelServicesCaption": "Услуги и удобства в отеле",
     "hotels-room-remarks__header": "Примечания к номеру",
     "hotels-room-remarks__toggle_opened": "Свернуть",
-    "hotels-room-remarks__toggle_closed": "Показать все"
+    "hotels-room-remarks__toggle_closed": "Показать все",
+    "hotels-room-remarks__early_check-in_avail": "Доступен ранний заезд",
+    "hotels-room-remarks__late_check-out_avail": "Доступен поздний выезд",
+    "hotels__lateCheckOut__header": "Выберите время выезда",
+    "hotels__lateCheckOut__desc": "Неудобно покидать отель до [%-checkOutTime-%]? Вы можете выбрать другое время выезда:",
+    "hotels__earlyCheckIn__header": "Выберите время заезда",
+    "hotels__earlyLate__toggle_on": "Выбрать",
+    "hotels__earlyLate__toggle_off": "Удалить",
+    "hotels__earlyCheckIn__desc": "Пребываете раньше [%-checkInTime-%]? Вы можете выбрать более раннее время заезда:",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "При оформлении данных услуг правила отмены бронирования могут измениться"
 }

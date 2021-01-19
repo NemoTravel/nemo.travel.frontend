@@ -28,7 +28,7 @@ define (
 						// vicinityDates - vicinity dates flag
 						// class=Business - class definition
 						// GO - immediate search flag
-						/^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d]+)+)?(?:\/?\?.*)?$/
+						/^search\/((?:[A-ZА-Я]{6}(?:\d{8}|d\d{1,2}))+)((?:[A-Z]{3}\d+)+)?((?:-[a-zа-яA-ZА-Я=\d]+)+)?(?:\/?\?.*)?$/
 					],
 					handler: 'Flights/SearchForm/Controller'
 				},
@@ -37,7 +37,7 @@ define (
 				{
 					re: [
 						/^scheduleSearch(?:\/(\d+)(?:\/?.*)?)?(?:\/?\?.*)?$/,
-						/^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zA-Z=\d\+]+)+)?(?:\/?\?.*)?$/
+						/^scheduleSearch\/((?:[A-ZА-Я]{6}\d{8})+)((?:[A-Z]{3}\d+)+)?((?:-[a-zа-яA-ZА-Я=\d\+]+)+)?(?:\/?\?.*)?$/
 					],
 					handler: 'Flights/ScheduleSearch/Controller'
 				},
@@ -51,7 +51,7 @@ define (
 						// Search by URL params
 						// /cLONcPAR2015081920150923ADT1SRC1YTH1CLD1INF1INS1-class=Business-direct-vicinityDates=3 - RT, note 2 dates together (16 numbers)
 						// /cIEVaPEW20150731aPEWcIEV20150829cIEVaQRV20150916ADT3CLD2INS1-class=Business-direct - CR, 3 segments
-						/^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zA-Z=\d\+]+)+)(?:\/?\?.*)?$/
+						/^results\/((?:[ac][A-ZА-Я]{3}[ac][A-ZА-Я]{3}\d{8,16})+)((?:[A-Z]{3}[1-9])+)((?:-[a-zа-яA-ZА-Я=\d\+]+)+)(?:\/?\?.*)?$/
 					],
 					handler: options.carrierResultsMode ? 'Flights/CarrierResults/Controller' : 'Flights/SearchResults/Controller'
 				},

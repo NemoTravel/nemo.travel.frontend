@@ -128,9 +128,5 @@ define([],function () {return {
     "hotels__showcase__corporate__header": "hotels__showcase__corporate__header",
     "hotels__showcase__showMore": "hotels__showcase__showMore",
     "hotels__lateCheckOut__time": "hotels__lateCheckOut__time",
-    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time",
-    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
-    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
-    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
-    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc"
+    "hotels__earlyCheckIn__time": "hotels__earlyCheckIn__time"
 }});

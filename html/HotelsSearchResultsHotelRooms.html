@@ -34,76 +34,6 @@
 	</li>
 </ul>
 
-<!-- ko if: lateCheckOutArray().length > 1 -->
-	<div class="nemo-hotelRoom__lateCheckOut">
-		<div class="nemo-hotelRoom__lateCheckOut__main">
-			<div class="nemo-hotelRoom__lateCheckOut__header" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__lateCheckOut__header')"></div>
-
-			<div>
-				<span class="nemo-hotelRoom__lateCheckOut__desc" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__lateCheckOut__desc')
-											.replace('[%-checkOutTime-%]', hotel.staticDataInfo.checkOutTime)"></span>
-
-				<div class="nemo-hotelRoom__lateCheckOut__select">
-					<select data-bind="
-						options: lateCheckOutArray,
-						optionsText: function (option) {
-							return option.time;
-						},
-						value: lateCheckOut,
-						flightsFormSelect: {
-							disable_search: true,
-							search_in_values: false,
-							search_contains: false,
-							no_results_text: $root.i18n('HotelsSearchForm', 'hotels__additionalParameters__country__searchNotFound')
-						}
-					"></select>
-				</div>
-			</div>
-		</div>
-
-		<!-- ko if: lateCheckOutPrice() !== null -->
-			<div class="nemo-hotelRoom__lateCheckOut__price">
-				<money round="up" format="0,0 $" data-bind="money: lateCheckOutPrice()"></money>
-			</div>
-		<!-- /ko -->
-	</div>
-<!-- /ko -->
-
-<!-- ko if: earlyCheckInArray().length > 1 -->
-	<div class="nemo-hotelRoom__lateCheckOut">
-		<div class="nemo-hotelRoom__lateCheckOut__main">
-			<div class="nemo-hotelRoom__lateCheckOut__header" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__earlyCheckIn__header')"></div>
-
-			<div>
-				<span class="nemo-hotelRoom__lateCheckOut__desc" data-bind="text: $root.i18n('HotelsSearchResults', 'hotels__earlyCheckIn__desc')
-											.replace('[%-checkInTime-%]', hotel.staticDataInfo.checkInTime)"></span>
-
-				<div class="nemo-hotelRoom__lateCheckOut__select">
-					<select data-bind="
-							options: earlyCheckInArray,
-							optionsText: function (option) {
-								return option.time;
-							},
-							value: earlyCheckIn,
-							flightsFormSelect: {
-								disable_search: true,
-								search_in_values: false,
-								search_contains: false,
-								no_results_text: $root.i18n('HotelsSearchForm', 'hotels__additionalParameters__country__searchNotFound')
-							}
-						"></select>
-				</div>
-			</div>
-		</div>
-
-		<!-- ko if: lateCheckOutPrice() !== null -->
-			<div class="nemo-hotelRoom__lateCheckOut__price">
-				<money round="up" format="0,0 $" data-bind="money: lateCheckOutPrice()"></money>
-			</div>
-		<!-- /ko -->
-	</div>
-<!-- /ko -->
-
 <div class="nemo-hotel__content__rooms__footer__wrapper">
 	<div class="nemo-hotel__content__rooms__footer" data-bind="stickyBlock: null">
 		<div class="nemo-hotel__content__rooms__footer__dummy" data-bind="visible: !canProceed()">
@@ -123,9 +53,7 @@
 			<div class="nemo-ui-button nemo-ui-button_main nemo-hotel__content__rooms__footer__button" data-bind="hotelsResultsBuyButton: {
 				controller: resultsController,
 				rooms: selectedRoomsTariffs(),
-				hotel: hotel,
-				lateCheckOut: lateCheckOut() && lateCheckOut().price ? lateCheckOut().time : null,
-				earlyCheckIn: earlyCheckIn() && earlyCheckIn().price ? earlyCheckIn().time : null
+				hotel: hotel
 			}">
 				<div class="nemo-hotel__content__rooms__footer__button__price">
 					<span class="nemo-hotel__content__rooms__footer__button__price__allNights">

@@ -50,5 +50,14 @@ define([],function () {return {
     "hotelServicesCaption": "Mehmonxonadagi xizmatlar va sharoitlar",
     "hotels-room-remarks__header": "Xonaga bo'lgan istaklar",
     "hotels-room-remarks__toggle_opened": "Yashirish",
-    "hotels-room-remarks__toggle_closed": "Hammasini ko'rsatish"
+    "hotels-room-remarks__toggle_closed": "Hammasini ko'rsatish",
+    "hotels-room-remarks__early_check-in_avail": "Erta ro'yxatdan o'tish mumkin",
+    "hotels-room-remarks__late_check-out_avail": "Kechikkan tekshirish mavjud",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyLate__toggle_on": "hotels__earlyLate__toggle_on",
+    "hotels__earlyLate__toggle_off": "hotels__earlyLate__toggle_off",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "Ushbu xizmatlar yordamida bekor qilish qoidalari o'zgarishi mumkin"
 }});
