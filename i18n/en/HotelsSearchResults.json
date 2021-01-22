@@ -128,9 +128,5 @@
     "hotels__showcase__corporate__header": "Hotels with corporate fares",
     "hotels__showcase__showMore": "Show more",
     "hotels__lateCheckOut__time": "until",
-    "hotels__earlyCheckIn__time": "after",
-    "hotels__lateCheckOut__header": "Choose your check out time",
-    "hotels__lateCheckOut__desc": "Want to leave hotel after [%-checkOutTime-%]? You can order late check out:",
-    "hotels__earlyCheckIn__header": "Choose your check in time",
-    "hotels__earlyCheckIn__desc": "Arrive before [%-checkInTime-%]? Your can order early check in:"
+    "hotels__earlyCheckIn__time": "after"
 }

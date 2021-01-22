@@ -34,6 +34,14 @@
 			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-paymentType__' + tariff.rate.paymentType)"></span>
 		<!-- /ko -->
 
+		<!-- ko if: tariff.rate.earlyCheckInInd -->
+			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-remarks__early_check-in_avail')"></span>
+		<!-- /ko -->
+
+		<!-- ko if: tariff.rate.lateCheckOutInd -->
+			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-remarks__late_check-out_avail')"></span>
+		<!-- /ko -->
+
 		<!-- ko if: tariff.rate.freeRoomsCount -->
 			<span class="nemo-hotelRoom__tariff__feature" data-bind="text: $root.i18n('Hotels', 'hotels-room-freeRoomsCount') + tariff.rate.freeRoomsCount"></span>
 		<!-- /ko -->

@@ -278,6 +278,35 @@ define(
 						type: 'multiChoice'
 					}
 				}
+				else if (params.name === 'subsidyInfo') {
+					config.getter = function (obj) {
+						var ret = [],
+							subsidy = {name: self.$$controller.i18n('FlightsSearchResults', 'PF__value_noSubsidy'), priority: -1};
+
+						if (obj.price.canHaveSubsidizedTariffs) {
+							subsidy.name = obj.price.subsidyInfo.shortDescription;
+							subsidy.priority = 1;
+						}
+
+						ret.push([
+							subsidy.name,
+							subsidy
+						]);
+
+						return ret;
+					},
+					config.options = {
+						valuesSorter: function (a, b) {
+							if (a.value.priority === b.value.priority) {
+								return b.value.count() > a.value.count();
+							}
+							else {
+								return b.value.priority > a.value.priority;
+							}
+						},
+						type: 'multiChoice'
+					}
+				}
 
 				return config;
 			};

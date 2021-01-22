@@ -61,7 +61,7 @@ define([],function () {return {
     "dow_5_s": "Vi",
     "dow_6_s": "Sb",
     "dow_7_s": "du",
-    "datetime_year": "datetime_year",
+    "datetime_year": "anul",
     "monthNamesShort": {
         "1": "Ian",
         "2": "Feb",

@@ -1,0 +1,197 @@
+<!-- ko if: parentFlight.price.canHaveSubsidizedTariffs -->
+	<div class="nemo-flights-results__subsidyInformation__link">
+		<a href="#" class="nemo-ui-pseudoLink" data-bind="
+			popup: {
+				block: hash,
+				beforeOpen: load.bind($data),
+				dialogClass: 'nemo-flights-results__subsidyInformation__categories nemo-flights-results__subsidyInformation__popup',
+				contentClass: 'nemo-flights-results__subsidyInformation__categories__contents',
+				title: $root.i18n('FlightsSearchResults', 'flightsGroup__subsidyInformation__title__chooseSubsidyPassengers_popup'),
+				width: 'auto'
+			},
+			text: $root.i18n('FlightsSearchResults', 'flightsGroup__subsidyInformation__title__chooseSubsidyPassengers');
+		"></a>
+	</div>
+<!-- /ko -->
+
+<div class="js-nemoApp__popupBlock nemo-flights-results__subsidyInformation__popup__wrapper" style="display: none;"
+	 data-bind="
+		attr: { 'data-block': hash },
+		css: {
+			'nemo-flights-results__subsidyInformation__popup__wrapper_error': !state().infoIsLoading() && !state().infoAreLoaded(),
+			'nemo-flights-results__fareVariations__popup__wrapper_fixed': state().infoIsLoading() || (!state().infoIsLoading() && !state().infoAreLoaded()) || state().bookInfoIsLoading()
+		}">
+	<!-- ko if: state().infoIsLoading() || state().bookInfoIsLoading() -->
+		<div class="nemo-ui-loader"></div>
+	<!-- /ko -->
+
+	<!-- ko if: !state().infoIsLoading() && state().infoAreLoaded()-->
+		<div class="nemo-flights-results__subsidyInformation__popup__tariffs">
+			<div class="nemo-ui-hilight nemo-ui-hilight_warn" data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__subsidyInformation__title__one_program_warning')"></div>
+			<div class="nemo-flights-results__subsidyInformation__popup__tariffs__items">
+			<!-- ko foreach: subsidyInformation().categories -->
+
+				<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff nemo-flights-results__subsidyInformation__popup__tariffs__item">
+					<div class="nemo-ui-subContainer__header nemo-flights-results__subsidyInformation__categories__tariffs__tariff__header">
+						<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__header__title" data-bind="text: description.title"></span>
+					</div>
+					<div class="nemo-flights-results__subsidyInformation__popup__tariffs__desc">
+						<div class="nemo-flights-results__subsidyInformation__popup__tariffs__desc_header" data-bind="text: shortDescription"></div>
+						<div class="nemo-flights-results__subsidyInformation__popup__tariffs__desc_full">
+							<!-- ko text: fullDescription --><!-- /ko -->
+						</div>
+					</div>
+
+					<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features">
+						<!-- ko with: description -->
+							<!-- ko if: descriptionForCustomer || isDisabledPerson || needMiddleName -->
+								<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__title"
+										data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__categories_desc')"></div>
+								<ul class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list">
+
+									<!-- ko if: descriptionForCustomer -->
+										<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature nemo-flights-results__subsidyInformation__popup__tariffs__item__desc">
+											<span data-bind="text: descriptionForCustomer"></span>
+										</li>
+									<!-- /ko -->
+
+									<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+										<!-- ko if: isDisabledPerson -->
+											<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+												<i class="fa fa-check" aria-hidden="true"></i>
+											</span>
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__forDisabledPerson')"></span>
+										<!-- /ko -->
+									</li>
+
+									<!-- ko if: isAccompanying -->
+										<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+											<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+												<i class="fa fa-check" aria-hidden="true"></i>
+											</span>
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__forDisabledPersonAccompanying')"></span>
+										</li>
+									<!-- /ko -->
+
+									<!-- ko if: needMiddleName -->
+										<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+											<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+												<i class="fa fa-exclamation" aria-hidden="true"></i>
+											</span>
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__needMiddleName')"></span>
+										</li>
+									<!-- /ko -->
+
+									<!-- ko if: needAccompaniment -->
+										<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+												<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+													<i class="fa fa-exclamation" aria-hidden="true"></i>
+												</span>
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__needAccompaniment')"></span>
+										</li>
+									<!-- /ko -->
+								</ul>
+							<!-- /ko -->
+
+							<!-- ko if: maxAge || (minMaleAge && minFemaleAge) -->
+								<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__title"
+									 data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__header')"></div>
+								<ul class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list">
+
+									<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+										<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+											<i class="fa fa-exclamation" aria-hidden="true"></i>
+										</span>
+										<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__forMale')"></span>:
+										<!-- ko if: maxAge && minMaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__between').replace('[%-minAge-%]', minMaleAge).replace('[%-maxAge-%]', maxAge)"></span>
+										<!-- /ko -->
+										<!-- ko if: !maxAge && minMaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__from').replace('[%-minAge-%]', minMaleAge)"></span>
+										<!-- /ko -->
+										<!-- ko if: maxAge && !minMaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__to').replace('[%-maxAge-%]', maxAge)"></span>
+										<!-- /ko -->
+									</li>
+									<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+										<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+											<i class="fa fa-exclamation" aria-hidden="true"></i>
+										</span>
+										<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__forFemale')"></span>:
+										<!-- ko if: maxAge && minFemaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__between').replace('[%-minAge-%]', minFemaleAge).replace('[%-maxAge-%]', maxAge)"></span>
+										<!-- /ko -->
+										<!-- ko if: !maxAge && minFemaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__from').replace('[%-minAge-%]', minFemaleAge)"></span>
+										<!-- /ko -->
+										<!-- ko if: maxAge && !minFemaleAge -->
+											<span data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__ageLimit__to').replace('[%-maxAge-%]', maxAge)"></span>
+										<!-- /ko -->
+									</li>
+
+								</ul>
+							<!-- /ko -->
+
+							<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__title"
+								 data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__requiredDocuments')"></div>
+							<ul class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list">
+								<!-- ko foreach: requiredDocuments -->
+									<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+										<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+											<i class="fa fa-exclamation" aria-hidden="true"></i>
+										</span>
+										<span class="" data-bind="text: $data"></span>
+									</li>
+								<!-- /ko -->
+								<!-- ko if: requiredSpecialDocuments.length > 0 -->
+									<!-- ko foreach: requiredSpecialDocuments -->
+										<li class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature">
+											<span class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__features__list__feature__icon">
+												<i class="fa fa-exclamation" aria-hidden="true"></i>
+											</span>
+											<span data-bind="text: $data"></span>
+										</li>
+									<!-- /ko -->
+								<!-- /ko -->
+							</ul>
+						<!-- /ko -->
+					</div>
+
+					<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__price">
+						<money data-bind="money: price" format="0,0 $"></money>
+					</div>
+
+					<div class="nemo-flights-results__subsidyInformation__categories__tariffs__tariff__buy">
+						<div class="nemo-ui-spinner">
+							<input data-bind="spinner: 0, spinnerOptions: { min: 0, max: 9, numberFormat: 'n' }, attr: {
+									passengerType: nemoPassType + (specialPassType ? specialPassType : nemoPassType),
+									idPass: $index()
+							}" readonly>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			</div>
+			<div class="nemo-flights-results__subsidyInformation__popup__footer">
+				<!-- ko if: passengersError() -->
+					<div class="nemo-flights-results__subsidyInformation__popup__error" data-bind="
+						text: $root.i18n('FlightsSearchResults','flightsGroup__subsidyInformation__popup__error_'+passengersError()),
+					"></div>
+				<!-- /ko -->
+
+				<div class="nemo-ui-button nemo-flights-results__flightsGroup__buyButton nemo-flights-results__subsidyInformation__popup__tariffs__totalPrice"
+						data-bind="click: function() { return bookFlight() } ">
+					<money data-bind="money: getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text " format="0,0 $"></money>
+				</div>
+			</div>
+		</div>
+	<!-- /ko -->
+
+	<!-- ko if: !state().infoIsLoading() && !state().infoAreLoaded() -->
+		<div class="nemo-flights-results__subsidyInformation__popup__tariffs__error">
+			<span class="nemo-flights-results__subsidyInformation__popup__tariffs__error__text" 
+				  data-bind="text: $root.i18n('FlightsSearchResults', 'flightsGroup__subsidyInformation__title__error')"></span>
+		</div>
+	<!-- /ko -->
+</div>
+<!--/ko-->

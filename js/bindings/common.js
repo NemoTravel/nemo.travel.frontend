@@ -12,7 +12,8 @@ define(
 		'js/lib/jquery.ui.popup/jquery.ui.popup',
 		'js/lib/jquery.tablesorter/v.2.0.5/jquery.tablesorter.min',
 		'touchpunch',
-		'js/lib/lightslider/dist/js/lightslider.min'
+		'js/lib/lightslider/dist/js/lightslider.min',
+		'jqueryUI'
 	],
 	function (ko, $, Cache, md5, Money) {
 		// Common Knockout bindings are defined here
@@ -158,6 +159,52 @@ define(
 			}
 		};
 
+		ko.bindingHandlers.spinner = {
+			init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+				// initialize datepicker with some optional options
+				var options = allBindingsAccessor().spinnerOptions || {};
+
+				$(element).spinner(options);
+
+				// handle the field changing
+				ko.utils.registerEventHandler(
+					element,
+					'spinstop',
+					function (event) {
+						if (event.keyCode !== undefined) {
+							return;
+						}
+
+						var $self = $(element),
+							room = $self.attr('room'),
+							type = $self.attr('passengerType'),
+							idPass = $self.attr('idPass'),
+							count = $(element).spinner('value');
+
+						bindingContext.$parent.setPassengersCount(type, count, idPass);
+					}
+				);
+
+				// handle disposal (if KO removes by the template binding)
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+					$(element).spinner('destroy');
+				});
+			},
+			update: function (element, valueAccessor) {
+				var value   = ko.utils.unwrapObservable(valueAccessor()),
+					current = $(element).spinner('value'),
+					msg     = 'You have entered an Invalid Quantity';
+
+				if (isNaN(parseInt(value))) {
+					alert(msg);
+				}
+
+				if (value !== current && !isNaN(parseInt(value))) {
+					$(element).spinner('value', value);
+				}
+			}
+		};
+		
 		/**
 		 * Dynamically adds currency-icon class to an element.
 		 */

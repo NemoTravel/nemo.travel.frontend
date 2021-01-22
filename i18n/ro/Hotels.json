@@ -46,9 +46,18 @@
     "hotels-room-paymentType__IataGuarantee": "hotels-room-paymentType__IataGuarantee",
     "hotels-room-freeRoomsCount": "hotels-room-freeRoomsCount",
     "description": "description",
-    "location": "location",
+    "location": "Amplasare",
     "hotelServicesCaption": "Servicii și facilități la hotel",
     "hotels-room-remarks__header": "Notează numărul",
     "hotels-room-remarks__toggle_opened": "Închide",
-    "hotels-room-remarks__toggle_closed": "Afișați toate"
+    "hotels-room-remarks__toggle_closed": "Afișați toate",
+    "hotels-room-remarks__early_check-in_avail": "Disponibilitate check-in timpuriu",
+    "hotels-room-remarks__late_check-out_avail": "Check out disponibil",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyLate__toggle_on": "hotels__earlyLate__toggle_on",
+    "hotels__earlyLate__toggle_off": "hotels__earlyLate__toggle_off",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "Politicile de anulare se pot modifica cu aceste servicii"
 }

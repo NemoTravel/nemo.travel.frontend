@@ -65,6 +65,10 @@
 
 			&_firstLeg {
 				padding-right: 15px;
+
+				@media (max-width: 400px) {
+					padding-right: 0;
+				}
 			}
 
 			&_lastLeg {
@@ -89,7 +93,6 @@
 			}
 
 			&__item {
-				height: 45px;
 				margin-bottom: 5px;
 				position: relative;
 
@@ -130,13 +133,12 @@
 				&__button {
 					display: block;
 					white-space: normal;
-					height: 45px;
+					height: auto;
 					line-height: 17px;
 					padding: 5px 10px 6px;
 					text-align: left;
 
 					@media (max-width: 920px) {
-						white-space: nowrap;
 						overflow: hidden;
 						text-overflow: ellipsis;
 					}
@@ -181,6 +183,10 @@
 					font-weight: 600;
 					display: inline-block;
 					margin-right: 5px;
+
+					@media (max-width: 390px) {
+						font-size: 12px;
+					}
 				}
 
 				&__arrTime {
@@ -203,8 +209,13 @@
 					font-size: 11px;
 					position: absolute;
 					right: 10px;
-					bottom: 4px;
+					bottom: 6px;
 					line-height: 16px;
+
+					@media (max-width: 620px) {
+						top: 6px;
+						bottom: auto;
+					}
 				}
 
 				&__fareVariations {
@@ -224,9 +235,28 @@
 
 				&__route {
 					font-size: 11px;
+					padding-top: 5px;
+					padding-right: 45px;
+					line-height: 20px;
+
+					@media (max-width: 620px) {
+						padding-right: 0;
+					}
 					
 					&__delimiter {
 						font-size: 14px;
+					}
+
+					&__departure, &__transferDeparture {
+						position: relative;
+					}
+
+					&__flightNumber {
+						font-size: 9px;
+						position: absolute;
+						top: -13px;
+						left: 0;
+						white-space: nowrap;
 					}
 				}
 
@@ -292,7 +322,8 @@
 			padding-top: 50px;
 
 			&__item {
-				height: 45px;
+				height: 56px;
+				padding-top: 5px;
 				margin-bottom: 5px;
 				position: relative;
 				white-space: nowrap;

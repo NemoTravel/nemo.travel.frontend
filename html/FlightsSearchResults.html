@@ -503,7 +503,8 @@
 	                $parent.config.name == 'carrier' ||
 	                $parent.config.name == 'departureAirport' ||
 	                $parent.config.name == 'arrivalAirport' ||
-	                $parent.config.name == 'travelPolicies'
+	                $parent.config.name == 'travelPolicies' ||
+	                $parent.config.name == 'subsidyInfo'
 	            ?
 	            value.name :
 	            $root.i18n('FlightsSearchResults', 'PF__value_' + $parent.config.name + '_' + value)
@@ -829,6 +830,14 @@
 					<money format="0,0 $" data-bind="money: getTotalPrice()" class="nemo-flights-results__flightsGroup__buyButton__text"></money>
 					<span class="nemo-flights-results__flightsGroup__buyButton__checkText" data-bind="text: $root.i18n('FlightsSearchResults','flightsGroup__buyButton__checking')"></span>
 				</div>
+
+				<!-- ko component: {
+					name: 'Flights/SearchResults/SubsidyInformation/Controller',
+					params: {
+						flight: selectedFlight(),
+						resultsController: resultsController
+					}
+				} --><!-- /ko -->
 			</div>
 		</div>
 
@@ -1168,6 +1177,15 @@
 				<!-- ko if: typeof selectedFlight().price.pricingDebug != 'undefined' -->
 					<a class="nemo-flights-results__flightsListGroup__gds-comission-block__gds__pricingDebugLink" data-bind="text: selectedFlight().price.pricingDebug.text, attr: {href: selectedFlight().pricingInfoLink}"></a>
 				<!-- /ko -->
+
+				<!-- ko component: {
+					name: 'Flights/SearchResults/SubsidyInformation/Controller',
+					params: {
+						flight: selectedFlight(),
+						resultsController: resultsController
+					}
+				} --><!-- /ko -->
+
 			</div>
 			<!-- ko if: getSubagentProfit() && getSubagentProfit().amount() > 0 -->
 				<div class="nemo-flights-results__flightsListGroup__profit">
@@ -1989,40 +2007,43 @@
 					<div class="nemo-flights-results__couplingTable__groups__group__item__route">
 						<span class="nemo-flights-results__couplingTable__groups__group__item__route__departure"
 							data-bind="
-							text: depAirp.IATA,
 							tooltip: {
 								content: depAirp.name,
 								cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
 							}
-						"></span>
+							">
+							<!-- ko text: depAirp.IATA --><!-- /ko -->
+							<span class="nemo-flights-results__couplingTable__groups__group__item__route__flightNumber">
+								<!-- ko text: segments[0].marketingCompany.IATA + '-' + segments[0].flightNumber --><!-- /ko -->
+							</span>
+						</span>
 						<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter"
 							data-bind="
 								tooltip: {
-									content: $root.i18n('FlightsFlightInfo','leg__segment__flightNumber__caption') + ': '
-											 + segments[0].marketingCompany.IATA + '-' + segments[0].flightNumber
-											 + (segments[0].aircraftType ? ( '. '
-												+ $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': '
-												+ segments[0].aircraftType.name ) : '')
+									content: (segments[0].aircraftType ? ($root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption')
+											+ ': ' + segments[0].aircraftType.name ) : '')
 							  }
 							">&rarr;</span>
 						<!-- ko if: transfersCount > 0 -->
-							<span data-bind="foreach: $parent.referenceFlight.transfers[$parentContext.$parentContext.$index()]">
-								<span data-bind="
-									text: depAirp.IATA,
+							<!-- ko foreach: $parent.referenceFlight.transfers[$parentContext.$parentContext.$index()] -->
+								<span class="nemo-flights-results__couplingTable__groups__group__item__route__transferDeparture" data-bind="
 									tooltip: {
 										content: depAirp.name + '. ' + $root.i18n('FlightsSearchResults','flightsCompareTable__transfers') + ' ' + duration.readableStringShort(),
 										cssClass: 'nemo-flights-results__couplingTable__groups__group__item__route__tooltip'
 									}
-								"></span>
+									  ">
+									<!-- ko text: depAirp.IATA --><!-- /ko -->  
+									<span class="nemo-flights-results__couplingTable__groups__group__item__route__flightNumber">
+										<!-- ko text: marketingCompany.IATA + '-' + flightNumber --><!-- /ko -->
+									</span>
+								</span>
 								<span class="nemo-flights-results__couplingTable__groups__group__item__route__delimiter"
 									data-bind="
 										  tooltip: {
-											 content: $root.i18n('FlightsFlightInfo','leg__segment__flightNumber__caption') + ': '
-													 + marketingCompany.IATA + '-' + flightNumber + '. '
-													 + (aircraftType ?  $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': ' + aircraftType.name : '')
+											 content: (aircraftType ?  $root.i18n('FlightsFlightInfo','leg__segment__aircraft__caption') + ': ' + aircraftType.name : '')
 										  }
 									">&rarr;</span>
-							</span>
+							<!-- /ko -->
 						<!-- /ko -->
 						<span class="nemo-flights-results__couplingTable__groups__group__item__route__arrival"
 							data-bind="

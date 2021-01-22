@@ -50,5 +50,14 @@
     "hotelServicesCaption": "Services and facilities",
     "hotels-room-remarks__header": "Remarks for room",
     "hotels-room-remarks__toggle_opened": "Close",
-    "hotels-room-remarks__toggle_closed": "Show all"
+    "hotels-room-remarks__toggle_closed": "Show all",
+    "hotels-room-remarks__early_check-in_avail": "Early check-in available",
+    "hotels-room-remarks__late_check-out_avail": "Late check-out available",
+    "hotels__lateCheckOut__header": "Choose your check out time",
+    "hotels__lateCheckOut__desc": "Want to leave hotel after [%-checkOutTime-%]? You can order late check out:",
+    "hotels__earlyCheckIn__header": "Choose your check in time",
+    "hotels__earlyLate__toggle_on": "hotels__earlyLate__toggle_on",
+    "hotels__earlyLate__toggle_off": "hotels__earlyLate__toggle_off",
+    "hotels__earlyCheckIn__desc": "Arrive before [%-checkInTime-%]? Your can order early check in:",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "Cancellation policies may change with these services"
 }

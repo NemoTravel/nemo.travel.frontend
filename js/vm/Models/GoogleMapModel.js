@@ -103,7 +103,7 @@ define([
                 self.infoPopup.open(map, marker);
                 $('#infoWindowContent .description .text').dotdotdot({watch: 'window'});
 				google.maps.event.addListener(self.infoPopup, 'domready', function() {
-					var maxMarkerWidth = $('.nemo-hotels-results__map__wrap').width() - 35;
+					var maxMarkerWidth = ($('.nemo-hotels-results__map__wrap').width() || $('#hotelBigMap').width()) - 35;
 					$('#infoWindowContent .hotel').attr('style', 'max-width: ' + maxMarkerWidth + 'px;');
 					
 					// Reference to the DIV which receives the contents of the infowindow using jQuery
@@ -184,7 +184,7 @@ define([
 			
 			marker = this.makeMarker(this.maps[mapId], {
 				hotel: hotel,
-				addClickListener: false,
+				addClickListener: true,
 				iconColor: GoogleMapModel.ICON_TYPE_DEFAULT
 			});
 			marker.setMap(this.maps[mapId]);

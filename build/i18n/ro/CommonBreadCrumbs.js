@@ -6,5 +6,5 @@ define([],function () {return {
     "hotels-step_results": "Rezultatele căutarii",
     "hotels-step_checkout": "Verifică",
     "hotels-step_chooseHotel": "Alegeți un hotel",
-    "recentSearches__toggle": "recentSearches__toggle"
+    "recentSearches__toggle": "Căutările anterioare"
 }});

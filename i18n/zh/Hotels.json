@@ -50,5 +50,14 @@
     "hotelServicesCaption": "酒店服务",
     "hotels-room-remarks__header": "hotels-room-remarks__header",
     "hotels-room-remarks__toggle_opened": "hotels-room-remarks__toggle_opened",
-    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed"
+    "hotels-room-remarks__toggle_closed": "hotels-room-remarks__toggle_closed",
+    "hotels-room-remarks__early_check-in_avail": "hotels-room-remarks__early_check-in_avail",
+    "hotels-room-remarks__late_check-out_avail": "hotels-room-remarks__late_check-out_avail",
+    "hotels__lateCheckOut__header": "hotels__lateCheckOut__header",
+    "hotels__lateCheckOut__desc": "hotels__lateCheckOut__desc",
+    "hotels__earlyCheckIn__header": "hotels__earlyCheckIn__header",
+    "hotels__earlyLate__toggle_on": "hotels__earlyLate__toggle_on",
+    "hotels__earlyLate__toggle_off": "hotels__earlyLate__toggle_off",
+    "hotels__earlyCheckIn__desc": "hotels__earlyCheckIn__desc",
+    "hotels-room-remarks__possible_changes_cancellation_rules": "hotels-room-remarks__possible_changes_cancellation_rules"
 }

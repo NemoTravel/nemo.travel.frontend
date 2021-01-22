@@ -91,7 +91,12 @@
 						<div class="nemo-flights-farerules__content__rules__list__body">
 							<div class="nemo-flights-farerules__content__rules__list__body__category" data-bind="foreach: $data">
 								<div class="nemo-flights-farerules__content__rules__list__body__category__name" data-bind="text: code + ' ' + name"></div>
-								<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="html: text"></pre>
+								<!-- ko if: isURL -->
+									<a class="nemo-flights-farerules__content__rules__list__body__category__text nemo-flights-farerules__content__rules__list__body__category__text_link" target="_blank" data-bind="html: text, attr: {'href': text}"></a>
+								<!-- /ko -->
+								<!-- ko ifnot: isURL -->
+									<pre class="nemo-flights-farerules__content__rules__list__body__category__text" data-bind="html: text"></pre>
+								<!-- /ko -->
 							</div>
 						</div>
 					</div>
